@@ -1,70 +1,122 @@
 \section{Project Description}
-\subsection{Introduction}
 
-\section{Background and Related Work}
+\comment{Meta comment: I think a lot of the technical content here can come from my thesis proposal. It has all of the technical projects other than the benchmarking project (which BCP should be able to write about — or maybe ask for Jessica’s help?) and it also has the background and related work. It may be useful to go to the individual papers for some deeper details, but I’d be surprised.}
 
-\section{PIs' Prior Qualifications}
+\todo{
+[MODEL AFTER THESIS INTRO / CONCLUSION]
+\begin{itemize}
+   \item High level: Advance the theory and practice of PBT, making it more valuable to a wider range of software engineers
+   \item PBT is great
+\begin{itemize}
+      \item For people who like formal methods, it’s a way to write a formal spec and check it without doing full verification
+      \item Even for people who don’t, it’s been extremely effective finding bugs in practice
+         \item Cite…
+      \item (?) And people really like it (maybe pull quotes from preliminary study)
+\end{itemize}
+   \item But there is still room for PBT to grow (maybe stats, feel free to refine this argument more)
+   \item We want to advance the theory and practice of PBT so it is more valuable to SEs
+\end{itemize}
+}
 
-\section{Technical Foundations}
+\subsection{Background and Related Work}
 
-This is a placeholder for the ``theory'' or ``known unknowns'' section.
+\subsubsection{PIs' Prior Qualifications}
 
-\section{Need-Finding}
+\subsection{Reinforcing the Foundations}
+
+\todo{
+\begin{itemize}
+   \item Story
+\begin{itemize}
+      \item The research community has identified that random generation (and in particular, the valid generation problem)[b] causes problems for testers
+      \item This shows up in prior work, and also in realistic examples (e.g., the fuzzing community really cares about this!)
+      \item We’ve already done some work to explore new abstractions for random generation (free generators) and we have more that we want to try (reflective generators)
+      \item In addition, the PBT community is missing tools to empirically evaluate generation strategies
+      \item And the PBT literature is also woefully disconnected from the fuzzing literature, where they have their own partial solutions to this problem
+\end{itemize}
+   \item Prior Work - Free generators [CHAPTER 1[c] OF THESIS PROPOSAL] (perhaps also some other prior things)
+   \item Planned Work - Reflective generators [CHAPTER 2 OF THESIS PROPOSAL]   (needs new work on evaluation; maybe rests on benchmarking infrastructure; validity-preserving mutation scheme needs to be evaluated by real implementation and measurement)
+   \item Planned Work - Empirical Evaluation Playground [JESSICA OR BENJAMIN WRITE] (can ultimately be used for Benchmarking; in the short term, it’s a playground for individual PBT efforts to see how they are doing)
+   \item Speculative Work - Add PBT incrementally to a fuzzing system [CHAPTER 3 OF THESIS PROPOSAL](follows directly from the free and reflective generators work)
+\end{itemize}
+}
+
+\subsection{What do working programmers need?}
+
+\todo{
+\begin{itemize}
+   \item Story
+\begin{itemize}
+      \item The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive
+      \item Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem
+      \item We’re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we’ve already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study
+      \item We’re not sure what we should do after that, but the preliminary study gave us some ideas
+\begin{itemize}
+         \item We can obviously keep talking to users (via surveys or observations)
+         \item We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there)
+         \item We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with
+\end{itemize}
+\end{itemize}
+   \item Prior Work - Pilot study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
+   \item Planned Work - Jane Street Study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
+\end{itemize}
+}
+
 
 \textbf{Pardon the provisional content, this section is a work in progress.}
 
 Part 1 of the ``unknown unknowns''.
 Jane Street study, preliminary study, observations, surveys.
 
-In this aim, we plan to set course for research in PBT, both broadly and for the 
-future directions of our group. We will conduct a series of formative studies, 
+In this aim, we plan to set course for research in PBT, both broadly and for the
+future directions of our group. We will conduct a series of formative studies,
 each addressing one of three main goals:
 
-\subsection{Understanding Challenges to Using PBT Tools}
+\subsubsection{Understanding Challenges to Using PBT Tools}
 
-The first step is to conduct qualitative interviews to understand the challenges 
+The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools.
 
 Here I will elaborate on the design of the Jane Street study.
 
-\subsection{Characterizing the Potential Reach for PBT Tools}
+\subsubsection{Characterizing the Potential Reach for PBT Tools}
 
-We will conduct a survey with the purpose of understanding the impact that 
-improved PBT tools could have in industry, if major usability issues were 
-addressed. We see this survey as crucial in understanding the amount of 
-resources that should be devoted to PBT research. Furthermore, this 
-questionnaire will help shed light into which of the usability challenges from 
-the interview study, if addressed, are most likely to impact a broad set of 
+We will conduct a survey with the purpose of understanding the impact that
+improved PBT tools could have in industry, if major usability issues were
+addressed. We see this survey as crucial in understanding the amount of
+resources that should be devoted to PBT research. Furthermore, this
+questionnaire will help shed light into which of the usability challenges from
+the interview study, if addressed, are most likely to impact a broad set of
 current and prospective users of PBT tools.
 
-\subsection{Understanding the Structure of PBT Tasks in Detail}
+\subsubsection{Understanding the Structure of PBT Tasks in Detail}
 
-The next step is to more deeply characterize the obstacles faced with specific 
-tools and tasks through close observation. We anticipate conducting observations 
-of participants formulating properties and creating generators, as we expect 
-that close observation of developers performing these tasks will yield yet 
-additional detail about ways that developers are supported and not supported by 
-the tools they use today to a level of depth we will not achieve with the 
+The next step is to more deeply characterize the obstacles faced with specific
+tools and tasks through close observation. We anticipate conducting observations
+of participants formulating properties and creating generators, as we expect
+that close observation of developers performing these tasks will yield yet
+additional detail about ways that developers are supported and not supported by
+the tools they use today to a level of depth we will not achieve with the
 interviews.
 
-\section{Tool Design and Development}
+\subsection{Tool Design and Development}
 
 \textbf{Pardon the provisional content, this section is a work in progress.}
 
 Part 2 of the ``unknown unknowns''.
 Speculative work.
 
-Upon the advanced technical foundation from Aim 1 and the refined understanding 
-of programmers' needs from Aim 2, our final aim (Aim 3) will focus on the 
-development of programmer-facing tools that allow them to leverage properties in 
+Upon the advanced technical foundation from Aim 1 and the refined understanding
+of programmers' needs from Aim 2, our final aim (Aim 3) will focus on the
+development of programmer-facing tools that allow them to leverage properties in
 testing their code more efficiently and effectively.
 
-While the specific focus of our tool design and research efforts will be 
-continually refined on the basis of what we learn from Aim 2, below we detail 
-several directions that we expect to lead to the design of tools that are both 
-innovative within the research community, as well as potentially impactful, 
-drawing on the lessons learned from the preliminary need-finding research we 
-have done to date as well as our own intuitions, and as critical users and 
+While the specific focus of our tool design and research efforts will be
+continually refined on the basis of what we learn from Aim 2, below we detail
+several directions that we expect to lead to the design of tools that are both
+innovative within the research community, as well as potentially impactful,
+drawing on the lessons learned from the preliminary need-finding research we
+have done to date as well as our own intuitions, and as critical users and
 engaged members of the communities for these tools.
 
 List out the directions we will pursue in tool design and development\ldots{}
@@ -73,25 +125,59 @@ List out the directions we will pursue in tool design and development\ldots{}
 
 \begin{itemize}
 
-\item Some of the tools we propose in this section may depend on a technical 
-background we do not have on this team. For instance, property generation.  
-Should we be keeping the scope of the proposed work to those where we as a team 
+\item Some of the tools we propose in this section may depend on a technical
+background we do not have on this team. For instance, property generation.
+Should we be keeping the scope of the proposed work to those where we as a team
 have expertise in the backend technologies?
 
-\item We should ask Jane Street for a letter of support indicating their 
+\item We should ask Jane Street for a letter of support indicating their
 willingness to collaborate on the need-finding activities.
 
 \end{itemize}
 
+\subsection{Giving Working programmers what they need}
 
+\todo{
+  \begin{itemize}
+   \item Speculative Work - Surveys [CHAPTER 5 OF THESIS PROPOSAL]
+   \item Speculative Work - Observation [CHAPTER 5 OF THESIS PROPOSAL]
+   \item Speculative Work - User-centered design of PBT tooling for workflow [CHAPTER 5 OF THESIS PROPOSAL]
+\begin{itemize}
+      \item Interactive specification (“spec”) mining tools
+\begin{itemize}
+         \item Motivation: Informants struggled to figure out what to test. informants had an intuitive idea of what “right” and “wrong” was. Perhaps they could have been helped with a tool that refined that expectation into something that was formal.
+         \item Plan of work: A first step in this process might be a tool that refines a wrong specification that has some counterexamples into a clean, correct specification. When a counterexample is encountered, you can fix the program if it represents a bug, or you will have to refine a property if the property was not written correctly.
+Alternatively, a greenfield specification maker might depend on a machine learning backend. We need to know more about how this works. Perhaps speak to Mayur about unit test generation. The tool design would focus on coming up with usable property specifications, and potential some user input (e.g., pointing to parts of programs that should be involved in property creation). Could specifications be provided as natural language? QuickSpec works okay for Haskell using static analysis to determine invariants. We would need someone with ML or program synthesis background to work on this project.
+         \item Example: For a serialization / deserialization pair of functions, testing that the serialized deserialized string is the same version as the original string; the refinement is to exclude Unicode strings, which do not have to be supported by serialization functions.
+\end{itemize}
+\end{itemize}
+   \item Better APIs / DSLs for generators?
+   \item Motivation: How do you design a generator DSL in an imperative language? A generator uses higher-level functions in a way that might be confusing to people who used Python.  (e.g., passing a generator of numbers to a generator of lists to get randomized lists of numbers). Is there a way of designing APIs for generators that can make the composition of these types of generators easier to reason about and express for some programmers?
+   \item (Joe says the DSLs are well-designed, but the code is hard to debug. How do you write a generator that works really well, that has a good data distribution and finds bugs? See below.)
+   \item Plan of work. Not sure. This might require some discussions with more uses of Hypothesis-like libraries.
+   \item Next steps—get examples of sloppily-expressed PBtests in Python and then think through how they would be written more clearly.
+   \item Visualizations / summary views of generated data distributions?
+   \item (this and next topic is what Joe is most excited about)
+   \item Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.
+   \item Tuning data distributions
+   \item Plan of work: indicating areas of the distribution that should not be generated.
+   \item Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
+   \item Extend APIs to integrate nicely into CI systems?
+\begin{itemize}
+      \item More usable presentation of failing counterexamples?
+      \item Speculative Work - PBT for financial systems [CHAPTER 5 OF THESIS PROPOSAL]
+\end{itemize}
+   \item And we also want to do education!
+\end{itemize}
+}
 
-\section{Education Plan}
+\subsection{Education}
 
-\subsection{Broader Impacts of the Proposed Work}
+\subsection{Broader Impacts}
 The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
 activities. Broader impacts may be accomplished through the research itself, through the activities that are
-directly related to specific research projects, or through activities that are supported by, but are complementary to 
+directly related to specific research projects, or through activities that are supported by, but are complementary to
 the project. NSF values the advancement of scientific knowledge and activities that contribute to the
 achievement of societally relevant outcomes. Such outcomes include, but are not limited to: full
 participation of women, persons with disabilities, and underrepresented minorities in science, technology, engineering, and
@@ -110,19 +196,19 @@ they need only report on the one award most closely related to the proposal. Fun
 support, but any funding awarded by NSF. The following information must be provided:\\
 
 \noindent
-\emph{\underline{Name of PI}}: NSF-Program (Award Number) ``Title of the Project'' (\$AMOUNT, PERIOD OF SUPPORT). 
+\emph{\underline{Name of PI}}: NSF-Program (Award Number) ``Title of the Project'' (\$AMOUNT, PERIOD OF SUPPORT).
 {\bf Publications:} List of publications resulting from the NSF award. A complete bibliographic citation for each
 publication must be provided either in this section or in the References Cited section of the proposal); if
-none, state: ``No publications were produced under this award.'' {\bf Research Products:} evidence of research products 
-and their availability, including, but not limited to: data, publications, samples, physical collections, software, 
+none, state: ``No publications were produced under this award.'' {\bf Research Products:} evidence of research products
+and their availability, including, but not limited to: data, publications, samples, physical collections, software,
 and models, as described in any Data Management Plan.
 
-% \subsection{Proposed Study}
+% \subsubsection{Proposed Study}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:
 % objectives for the period of the proposed work and expected significance; relation to longer-term goals of the PI's
 % project; and relation to the present state of knowledge in the field, to work in progress by the PI under other
 % support and to work in progress elsewhere.
-% 
+%
 % The Project Description should outline the general plan of work, including the broad design of activities to be
 % undertaken, and, where appropriate, provide a clear description of experimental methods and procedures.
 % Proposers should address what they want to do, why they want to do it, how they plan to do it, how they will
@@ -131,3 +217,9 @@ and models, as described in any Data Management Plan.
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
 
+\subsection{More stuff to not forget :-)}
+
+Unfunded collaborations: Any substantial collaboration with individuals not included in the budget should be described in the Facilities, Equipment and Other Resources section of the proposal (see Chapter II.C.2.i) and documented in a letter of collaboration from each collaborator. Such letters should be provided in the supplementary documentation section of FastLane or Research.gov and follow the format instructions specified in Chapter II.C.2.j. Collaborative activities that are identified in the budget should follow the instructions in Chapter II.D.3.
+
+Remember to not use any URLs in the project description!  (They are
+encouraged in the references.)
