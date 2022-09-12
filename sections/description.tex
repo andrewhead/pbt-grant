@@ -126,49 +126,63 @@ List out the directions we will pursue in tool design and development\ldots{}
 
 \begin{itemize}
 
-\item Some of the tools we propose in this section may depend on a technical
-background we do not have on this team. For instance, property generation.
-Should we be keeping the scope of the proposed work to those where we as a team
-have expertise in the backend technologies?
+% \item Some of the tools we propose in this section may depend on a technical
+% background we do not have on this team. For instance, property generation.
+% Should we be keeping the scope of the proposed work to those where we as a team
+% have expertise in the backend technologies? After discussing with BCP, we need
+% not limit ourselves to areas where we are at present the leading experts. Let's
+% draft the descriptions, see the ones we are excited about, wave away some
+% of the details that we have not yet educated ourselves, and go from there.
 
 \item We should ask Jane Street for a letter of support indicating their
 willingness to collaborate on the need-finding activities.
 
 \end{itemize}
 
-\todo{
-  \begin{itemize}
-   \item Speculative Work - Surveys [CHAPTER 5 OF THESIS PROPOSAL]
-   \item Speculative Work - Observation [CHAPTER 5 OF THESIS PROPOSAL]
-   \item Speculative Work - User-centered design of PBT tooling for workflow [CHAPTER 5 OF THESIS PROPOSAL]
-\begin{itemize}
-      \item Interactive specification (“spec”) mining tools
-\begin{itemize}
-         \item Motivation: Informants struggled to figure out what to test. informants had an intuitive idea of what “right” and “wrong” was. Perhaps they could have been helped with a tool that refined that expectation into something that was formal.
-         \item Plan of work: A first step in this process might be a tool that refines a wrong specification that has some counterexamples into a clean, correct specification. When a counterexample is encountered, you can fix the program if it represents a bug, or you will have to refine a property if the property was not written correctly.
+\subsubsectionstar{Interactive specification mining}
+
+Motivation: Informants struggled to figure out what to test. informants had an intuitive idea of what “right” and “wrong” was. Perhaps they could have been helped with a tool that refined that expectation into something that was formal.
+
+Plan of work: A first step in this process might be a tool that refines a wrong specification that has some counterexamples into a clean, correct specification. When a counterexample is encountered, you can fix the program if it represents a bug, or you will have to refine a property if the property was not written correctly.
 Alternatively, a greenfield specification maker might depend on a machine learning backend. We need to know more about how this works. Perhaps speak to Mayur about unit test generation. The tool design would focus on coming up with usable property specifications, and potential some user input (e.g., pointing to parts of programs that should be involved in property creation). Could specifications be provided as natural language? QuickSpec works okay for Haskell using static analysis to determine invariants. We would need someone with ML or program synthesis background to work on this project.
-         \item Example: For a serialization / deserialization pair of functions, testing that the serialized deserialized string is the same version as the original string; the refinement is to exclude Unicode strings, which do not have to be supported by serialization functions.
-\end{itemize}
-\end{itemize}
-   \item Better APIs / DSLs for generators?
-   \item Motivation: How do you design a generator DSL in an imperative language? A generator uses higher-level functions in a way that might be confusing to people who used Python.  (e.g., passing a generator of numbers to a generator of lists to get randomized lists of numbers). Is there a way of designing APIs for generators that can make the composition of these types of generators easier to reason about and express for some programmers?
-   \item (Joe says the DSLs are well-designed, but the code is hard to debug. How do you write a generator that works really well, that has a good data distribution and finds bugs? See below.)
-   \item Plan of work. Not sure. This might require some discussions with more uses of Hypothesis-like libraries.
-   \item Next steps—get examples of sloppily-expressed PBtests in Python and then think through how they would be written more clearly.
-   \item Visualizations / summary views of generated data distributions?
-   \item (this and next topic is what Joe is most excited about)
-   \item Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.
-   \item Tuning data distributions
-   \item Plan of work: indicating areas of the distribution that should not be generated.
-   \item Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
-   \item Extend APIs to integrate nicely into CI systems?
-\begin{itemize}
-      \item More usable presentation of failing counterexamples?
-      \item Speculative Work - PBT for financial systems [CHAPTER 5 OF THESIS PROPOSAL]
-\end{itemize}
-   \item And we also want to do education!
-\end{itemize}
-}
+
+Example: For a serialization / deserialization pair of functions, testing that the serialized deserialized string is the same version as the original string; the refinement is to exclude Unicode strings, which do not have to be supported by serialization functions.
+
+\subsubsectionstar{Visualizing and tuning data distributions}
+
+% (this topic is what Joe is most excited about)
+
+% For visualizing data distributions...
+
+Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.
+
+% For tuning data distributions...
+
+Plan of work: indicating areas of the distribution that should not be generated.
+
+Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
+
+\subsubsectionstar{Debugging support for understanding counterexamples}
+
+Once a PBT tool generates a counterexample of where a property fails, a programmer will need to understand what in an input caused the program to fail. This task can be rather challenging because generated inputs can be complex, deep data structures \todo{Do we have a reference that implies the complexity of generated counterexamples?}. Methods for making it clearer why a counterexample fails could be to generate additional inputs that are very close to the counterexample that are actually correct, to run the program up to the point where the traces of the programs begin to diverge, and then to drop a programmer into a debugging environment where they can query the state of the program and step through the remainder of the execution. PI Head has prior work designing debugging tools that help programmers understand trace divergences in an educational setting~\cite{suzuki2017tracediff}.
+
+\subsubsectionstar{Reconciling generator API design with imperative language idioms}
+
+Motivation: How do you design a generator DSL in an imperative language? A generator uses higher-level functions in a way that might be confusing to people who used Python.  (e.g., passing a generator of numbers to a generator of lists to get randomized lists of numbers). Is there a way of designing APIs for generators that can make the composition of these types of generators easier to reason about and express for some programmers?
+
+(Joe says the DSLs are well-designed, but the code is hard to debug. How do you write a generator that works really well, that has a good data distribution and finds bugs? See below.)
+
+Plan of work. Not sure. This might require some discussions with more uses of Hypothesis-like libraries.
+
+Next steps—get examples of sloppily-expressed PBtests in Python and then think through how they would be written more clearly.
+
+\subsubsectionstar{Integration with continuous integration workflows}
+
+\todo{Section 6.2 of Harry's thesis proposal.}
+
+\subsubsectionstar{Tailoring PBT for financial systems}
+
+I am not sure what should go here. I am a bit wary of focusing specifically on developing tools for financial systems if the focus of this grant proposal is to make PBT tools more broadly useful.
 
 \subsection{Education \pagebudget{1}}
 
