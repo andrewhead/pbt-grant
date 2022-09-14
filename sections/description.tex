@@ -120,9 +120,7 @@ drawing on the lessons learned from the preliminary need-finding research we
 have done to date as well as our own intuitions, and as critical users and
 engaged members of the communities for these tools.
 
-List out the directions we will pursue in tool design and development\ldots{}
-
-\textbf{To discuss:}
+\todo{To discuss:
 
 \begin{itemize}
 
@@ -138,8 +136,15 @@ List out the directions we will pursue in tool design and development\ldots{}
 willingness to collaborate on the need-finding activities.
 
 \end{itemize}
+}
 
 \subsubsectionstar{Interactive specification mining}
+
+One challenge identified by software developers we have spoken with is that it can be difficult to come up with a property to test with property-based testing tools. Perhaps tools could help programmers come up with, and express, properties that they wish to be tested. To design such tools, we will adapt techniques from the specification mining literature to generate candidate properties (e.g.,~\cite{ammons2002mining,le2018deep}) and interfaces that help programmers select from, and refine, generated properties.
+
+A first step will be to generate candidate properties. These will be generated using specification mining techniques. Specifications will need to be mapped from an abstract representation of the property to an expression of that property in the programming language, such as Hypothesis' property specification language. A major challenge is that a specification mining technique will produce many spurious properties which do not describe aspects of the program that the programmer wishes to test. Affordances will be added to the programming environment to allow a program to select subsets of code that manipulate properties of interest; and to generalize from behaviors that are implied by individual unit tests, or observations made during debugging, to greatly limit the space of generated properties.
+
+A second step will be to assist in the refinement of properties. In some cases, generated properties will be too broad; if the testing tools yield a counterexample, the counterexample may be an indicator that a property is insufficiently strict, rather than an indication that the program is incorrect. @Andrew, continue from here\ldots{}
 
 Motivation: Informants struggled to figure out what to test. informants had an intuitive idea of what “right” and “wrong” was. Perhaps they could have been helped with a tool that refined that expectation into something that was formal.
 
