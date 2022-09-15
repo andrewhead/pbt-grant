@@ -39,7 +39,8 @@
   \ \
   \titlecap{#1}}
 \newcommand{\subsubsectionstar}[1]{{%
-    \smallskip \bfseries \noindent \titlecap{#1} \smallskip \noindent \ignorespaces}}
+    \medskip\bfseries\noindent\titlecap{#1}%
+    \par\smallskip\noindent\ignorespaces}}
 %\titlespacing*{\section}{0pt}{0.5em}{0.3pt}
 %\titlespacing*{\subsection}{0pt}{0.35em}{0pt}
 %\titlespacing*{\subsubsection}{0pt}{0.25em}{0pt}

@@ -2,12 +2,80 @@
 
 \graphicspath{{figures/}}
 \newcommand{\comment}[1]{{\em #1}}
-\newcommand{\todo}[1]{{\em TODO: #1}}
+\newcommand{\todo}[1]{{\color{nord-red} TODO: #1}}
 \newcommand{\pagebudget}[1]{(#1 pages)}
+
+\usepackage{xcolor}
+\definecolor{nord-night1}{HTML}{2e3440}
+\definecolor{nord-night2}{HTML}{3b4252}
+\definecolor{nord-night3}{HTML}{434c5e}
+\definecolor{nord-night4}{HTML}{4c566a}
+\definecolor{nord-snow1}{HTML}{d8dee9}
+\definecolor{nord-snow2}{HTML}{e5e9f0}
+\definecolor{nord-snow3}{HTML}{eceff4}
+\definecolor{nord-frost1}{HTML}{8fbcbb}
+\definecolor{nord-frost2}{HTML}{88c0d0}
+\definecolor{nord-frost3}{HTML}{81a1c1}
+\definecolor{nord-frost4}{HTML}{5579a5}
+\definecolor{nord-red}{HTML}{b14853}
+\definecolor{nord-orange}{HTML}{c76d52}
+\definecolor{nord-yellow}{HTML}{ebcb8b}
+\definecolor{nord-green}{HTML}{69894d}
+\definecolor{nord-purple}{HTML}{815679}
+
+\usepackage{listings}
+\lstset{
+  keepspaces=true,
+  mathescape=true,
+  frame=none,
+  xleftmargin=10pt,
+  stepnumber=1,
+  belowcaptionskip=\bigskipamount,
+  captionpos=b,
+  % language=haskell,
+  breaklines=true,
+  tabsize=2,
+  emphstyle={\bf},
+  commentstyle=\it\color{cb-blue},
+  stringstyle=\mdseries\ttfamily,
+  showspaces=false,
+  keywordstyle=\bfseries\ttfamily,
+  deletekeywords={split},
+  columns=flexible,
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  morecomment=[l]--,
+  moredelim=**[is][\color{nord-green}]{@}{@},
+  moredelim=**[is][\color{nord-frost4}]{~}{~},
+  moredelim=**[is][\color{nord-orange}]{£}{£},
+  literate={cP}{{$\mathcal{P}$}}1
+  {cG}{{$\mathcal{G}$}}1
+  {cGhat}{{$\overline{\mathcal{G}}$}}1
+  {cC}{{$\mathcal{R}$}}1
+  {cL}{{$\mathcal{L}$}}1
+  {fmap}{{$\fmap$}}3
+  {[[}{{$\llbracket$}}1 % chktex 9
+  {]]}{{$\rrbracket$}}1 % chktex 9
+  % {->}{{$\rightarrow$}}2
+  % {return}{{$\return$}}6
+  % {pick}{{$\pick$}}4
+  % {void}{{$\void$}}4
+  % {do}{{$\textbf{do}$}}2
+  % {>>=}{{$\bind$}}2
+  % {<-}{{$\leftarrow$}}2
+  % {\\}{{$\lambda$}}1
+  % {==>}{{$\implies$}}3
+  % {=>}{{$\Rightarrow$}}2
+  % {<|>}{{$\langle | \rangle$}}2
+}
+
+\newcommand{\citet}[1]{\cite{#1}\todo{fixme}}
+\newcommand{\citeauthor}[1]{\cite{#1}\todo{fixme}}
 
 \begin{document}
 
-\title{Property-Based Testing for the Working Programmer}
+\title{The Practice of Property-Based Testing}
+% \title{Property-Based Testing for the Working Programmer}
 \newpage
 
 % A. Cover Sheet
@@ -29,10 +97,11 @@
 % E. References Cited
 \newpage\newsection{E}
 \renewcommand\refname{References Cited}
-\bibliography{references}
+\bibliography{references,harry,bcp}
 % I prefer to use the IEEE bibliography style.
 % That's  NOT required by the NSF guidelines.
 % Feel Free to use whatever style you prefer
+% \bibliographystyle{ACM-Reference-Format}
 \bibliographystyle{IEEEtran}
 
 % F. Biographical Sketch(es)
