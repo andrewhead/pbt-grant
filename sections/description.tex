@@ -82,6 +82,106 @@ that programmers face when using PBT tools.
 
 Here I will elaborate on the design of the Jane Street study.
 
+We plan to partner with Jane Street,
+LLC to gain deeper insights into the challenges facing PBT in industrial
+settings and to begin to explore potential solutions.
+
+\paragraph{Research Questions}
+The research questions for the full-scale study will again address our central
+question:
+How can the research community make PBT more valuable
+for software developers?
+
+Our preliminary study highlighted five sorts of challenges that PBT
+faces: what might be called {\em property}, {\em generator}, {\em workflow},
+{\em learning}, and {\em social} challenges. We expect that
+learning challenges are best explored in a classroom setting (see
+Section~\ref{sec:future}), and that social challenges are too intertwined with
+challenges of other sorts to study directly. Accordingly, our research
+questions for the full-scale study will focus on property, generator, and workflow
+challenges.
+\begin{itemize}
+\item[\bf RQ1.] What support do developers need to help them imagine properties?
+\item[\bf RQ2.] What kinds of generators do testers need to exercise their
+  properties effectively? Do they have specific precondition and/or distributional
+  requirements?
+\item[\bf RQ3.] What aspects of the developer workflow around PBT need improvement?
+\item[\bf RQ4.] What concrete changes could be made to modern PBT systems
+  to improve effectiveness and usability?
+\end{itemize}
+{\bf RQ1}, {\bf RQ2}, and {\bf RQ3} relate to property,
+generator, and workflow challenges, respectively.
+{\bf RQ4} more directly asks how existing systems might
+be improved. This final question will help to keep us focused,
+reminding us that participants likely have the context and knowledge not
+only to identify challenges but also to suggest
+solutions!
+
+\paragraph{Study Population}
+As in the preliminary study, our primary tool will be interviews with
+developers. We will tentatively partner with Jane Street, LLC, a large
+financial technology firm,
+interviewing around 30 Jane Street employees about their experiences using PBT.
+
+Jane Street has a number of qualities that makes it an ideal place for
+this study. To start, Jane Street developers use
+a variety of testing tools, including PBT. This gives us a place to start
+when asking questions, since participants will likely have seen PBT before,
+and it means that will be score for exploring trade-offs between PBT and
+other forms of testing.
+Additionally, Jane Street developers famously build almost all of their
+systems in OCaml, a mostly functional programming language with strong support
+for static typing and modularity. This unified ecosystem
+will allow
+us to control for a number of potentially confounding factors: all of the
+developers we talk to will have access to the same PBT tools and the same
+libraries, language-level programming abstractions, house coding rules,
+etc. (which might make testing easier or harder).
+
+Naturally, carrying out a study at a single firm has potential drawbacks as
+well. The most obvious is that our results may not generalize: We
+cannot guarantee that our findings will apply outside of the OCaml ecosystem (and
+other ecosystems like it). However, Jane Street is home to a diverse array of
+software systems, including trading systems, quantitative
+algorithms, networked systems, and hardware description code~\cite{signalsandthreads}.
+We hope that the breadth of these programming tasks will mean that the software
+developers that we talk to will come to the discussion with a wide variety of
+experiences.
+
+\paragraph{Stakeholders}
+Our initial discussions with Jane Street leadership made it clear that there are
+two distinct populations at Jane Street that we can learn from. The group we had
+initially planned to talk to was developers who have used PBT in
+their work at the firm. These can tell us about how PBT helped them,
+what challenges they faced, and what techniques they use instead of
+PBT to check that their code is correct. But we we can also learn
+a ton by talking to PBT {\em stakeholders} at Jane Street---i.e., the folks who
+build and maintain the PBT systems themselves.  Since talking with
+stakeholders may also help us to refine our developer interview script, we will
+interview them first.
+
+\paragraph{Interview Plan}
+Each interview will be allotted a one hour slot, to account for a more detailed
+interview script than the one in the preliminary study. As mentioned above, we
+will start by interviewing stakeholders. Our prompts will primarily set the
+stage for our developer interviews and establish background that will help us to
+interpret our results, but stakeholders may also be able to help us answer {\bf
+RQ4} (and to a lesser extent other research questions) directly. We will pick
+the stakeholder's brains about opportunities to support users
+of PBT, phrasing our prompts to encourage creative thinking.
+
+After talking to stakeholders, we will begin the developer interviews. The
+script for these interviews will depend on our conversations with stakeholders,
+but at a high level we will aim to answer our research questions as directly as
+possible. Much like the preliminary study, we will have our participants tell us about a
+specific experience with PBT and ask them about the properties and generators
+that they used (hopefully giving us insights about {\bf RQ1} and {\bf RQ2}).  We
+will also ask about whether or not they are using PBT on their {\em current}
+project (and if not, why not). Finally, we will ask questions addressing
+{\bf RQ3} and {\bf RQ4} directly.
+
+\paragraph{Preliminary results}
+
 \subsubsectionstar{Characterizing the Potential Reach for PBT Tools}
 
 We will conduct a survey with the purpose of understanding the impact that
