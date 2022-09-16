@@ -305,10 +305,6 @@ distributions.
 \end{itemize}
 }
 
-
-Part 1 of the ``unknown unknowns''.
-Jane Street study, preliminary study, observations, surveys.
-
 In this aim, we plan to set course for research in PBT, both broadly and for the
 future directions of our group. We will conduct a series of formative studies,
 each addressing one of three main goals:
@@ -317,14 +313,12 @@ each addressing one of three main goals:
 
 The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools.
-
-Here I will elaborate on the design of the Jane Street study.
-
 We plan to partner with Jane Street,
 LLC to gain deeper insights into the challenges facing PBT in industrial
 settings and to begin to explore potential solutions.
 
-\paragraph{Research Questions}
+\textit{Research Questions}
+
 The research questions for the full-scale study will again address our central
 question:
 How can the research community make PBT more valuable
@@ -355,7 +349,7 @@ reminding us that participants likely have the context and knowledge not
 only to identify challenges but also to suggest
 solutions!
 
-\paragraph{Study Population}
+\textit{Study Population}
 As in the preliminary study, our primary tool will be interviews with
 developers. We will tentatively partner with Jane Street, LLC, a large
 financial technology firm,
@@ -386,19 +380,19 @@ We hope that the breadth of these programming tasks will mean that the software
 developers that we talk to will come to the discussion with a wide variety of
 experiences.
 
-\paragraph{Stakeholders}
-Our initial discussions with Jane Street leadership made it clear that there are
-two distinct populations at Jane Street that we can learn from. The group we had
-initially planned to talk to was developers who have used PBT in
-their work at the firm. These can tell us about how PBT helped them,
-what challenges they faced, and what techniques they use instead of
-PBT to check that their code is correct. But we we can also learn
-a ton by talking to PBT {\em stakeholders} at Jane Street---i.e., the folks who
-build and maintain the PBT systems themselves.  Since talking with
-stakeholders may also help us to refine our developer interview script, we will
-interview them first.
+% \textit{Stakeholders}
+% Our initial discussions with Jane Street leadership made it clear that there are
+% two distinct populations at Jane Street that we can learn from. The group we had
+% initially planned to talk to was developers who have used PBT in
+% their work at the firm. These can tell us about how PBT helped them,
+% what challenges they faced, and what techniques they use instead of
+% PBT to check that their code is correct. But we we can also learn
+% a ton by talking to PBT {\em stakeholders} at Jane Street---i.e., the folks who
+% build and maintain the PBT systems themselves.  Since talking with
+% stakeholders may also help us to refine our developer interview script, we will
+% interview them first.
 
-\paragraph{Interview Plan}
+\textit{Interview Plan}
 Each interview will be allotted a one hour slot, to account for a more detailed
 interview script than the one in the preliminary study. As mentioned above, we
 will start by interviewing stakeholders. Our prompts will primarily set the
@@ -418,7 +412,19 @@ will also ask about whether or not they are using PBT on their {\em current}
 project (and if not, why not). Finally, we will ask questions addressing
 {\bf RQ3} and {\bf RQ4} directly.
 
-\paragraph{Preliminary results}
+\textit{Preliminary results}
+
+We have conducted a preliminary interview study with 7 professional developers
+who have experience using PBT tools. In this preliminary study, we have learned
+of a number of challenges that developers already face using PBT tools, including:
+
+\ldots{} Summarize challenges, include brief quotes. Aim for this to be 1 page?
+
+We expect to learn more about these challenges, as well as about other challenges,
+in depth during our interview study with Jane Street, to further refine our
+understanding of the nature and impact of these challenges in the studies
+described in subsequent sections, and to develop tooling to address
+those challenges with the research described in Section~\ref{sec:tools}.
 
 \subsubsectionstar{Characterizing the Potential Reach for PBT Tools}
 
@@ -441,9 +447,7 @@ the tools they use today to a level of depth we will not achieve with the
 interviews.
 
 \subsection{Exploiting the Foundations to Build Powerful, Interactive PBT Tools \pagebudget{3}}
-
-Part 2 of the ``unknown unknowns''.
-Speculative work.
+\label{sec:tools}
 
 Upon the advanced technical foundation from Aim 1 and the refined understanding
 of programmers' needs from Aim 2, our final aim (Aim 3) will focus on the
@@ -458,7 +462,7 @@ drawing on the lessons learned from the preliminary need-finding research we
 have done to date as well as our own intuitions, and as critical users and
 engaged members of the communities for these tools.
 
-\todo{To discuss:
+\todo{Discuss:
 
 \begin{itemize}
 
@@ -477,20 +481,20 @@ should write it for them... :-)
 \end{itemize}
 }
 
-\subsubsectionstar{Interactive specification mining}
+\subsubsectionstar{Interactive property specification}
 
-One challenge identified by software developers we have spoken with is that it can be difficult to come up with a property to test with property-based testing tools. Perhaps tools could help programmers come up with, and express, properties that they wish to be tested. To design such tools, we will adapt techniques from the specification mining literature to generate candidate properties (e.g.,~\cite{ammons2002mining,le2018deep}) and interfaces that help programmers select from, and refine, generated properties.
+As our preliminary interview study has suggested, developers sometimes have difficulty imagining which properties to test, even when they know that their software would benefit from property-based testing. One area we are interested in exploring is how programmers can work with their PBT tools to decide on a set of significant properties to test.
+Prior research demonstrates that automated tools can extract specifications of a program's behavior\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are interested in the non-trivial research problem of integrating such techniques into usable developer tools. We see the research as addressing several challenges:
 
-A first step will be to generate candidate properties. These will be generated using specification mining techniques. Specifications will need to be mapped from an abstract representation of the property to an expression of that property in the programming language, such as Hypothesis' property specification language. A major challenge is that a specification mining technique will produce many spurious properties which do not describe aspects of the program that the programmer wishes to test. Affordances will be added to the programming environment to allow a program to select subsets of code that manipulate properties of interest; and to generalize from behaviors that are implied by individual unit tests, or observations made during debugging, to greatly limit the space of generated properties.
+\textit{Generated properties should be \emph{important}}. Any non-trivial program can be characterized by an overwhelmingly large number of properties, many of which describe only incidental aspects of the program's behavior that do not need to be tested. How can tools produce those properties that developers would want to have tested? We believe that this is a problem that can be best solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties are determined by judiciously incorporating both developer input and automated techniques.
 
-A second step will be to assist in the refinement of properties. In some cases, generated properties will be too broad; if the testing tools yield a counterexample, the counterexample may be an indicator that a property is insufficiently strict, rather than an indication that the program is incorrect. @Andrew, continue from here\ldots{}
+Developer could guide a specification mining tool to extracting relevant properties through input mechanisms such as (1) identifying regions of code that are likely to lead to an adverse behavior such as an exception or a logical error; (2) providing unit test cases that test a special case of a generalized property; and (3) indicating aspects of interest on input and output data during exploration in a debugging REPL.
 
-Motivation: Informants struggled to figure out what to test. informants had an intuitive idea of what “right” and “wrong” was. Perhaps they could have been helped with a tool that refined that expectation into something that was formal.
+\textit{Generated properties should be \emph{readable}}. While prior research has shown promise for automatically generating specifications of program behavior, we expect that users of PBT systems would benefit from having properties generated in the language of their property-based testing tools. Furthermore, there are some variants about systems that may be so complex that they require significant comprehension time for users (i.e., those involving a large number of clauses). In such cases, a tool may way to generate simpler variants of properties first, and allow developers to refine them on their own.
 
-Plan of work: A first step in this process might be a tool that refines a wrong specification that has some counterexamples into a clean, correct specification. When a counterexample is encountered, you can fix the program if it represents a bug, or you will have to refine a property if the property was not written correctly.
-Alternatively, a greenfield specification maker might depend on a machine learning backend. We need to know more about how this works. Perhaps speak to Mayur about unit test generation. The tool design would focus on coming up with usable property specifications, and potential some user input (e.g., pointing to parts of programs that should be involved in property creation). Could specifications be provided as natural language? QuickSpec works okay for Haskell using static analysis to determine invariants. We would need someone with ML or program synthesis background to work on this project.
+\textit{Tools should help developers \emph{revise} properties}. If a generated property is too relaxed, the tool should request that developer provides a counterexample that should trigger a failure, and then regenerate the property. If a generated property is too strict, a tool should allow a programmer to mark a counterexample that was generated by the PBT tool as spurious, i.e., not indicating an actual failure of the program. In each of these cases, the property generator may have generate multiple properties for a developer to review, each of which may satisfy the refinements that a developer has provided.
 
-Example: For a serialization / deserialization pair of functions, testing that the serialized deserialized string is the same version as the original string; the refinement is to exclude Unicode strings, which do not have to be supported by serialization functions.
+\textit{Plan of work}: We will iteratively design and develop developer tools as an extension to the VSCode editor, a popular development environment for Haskell. In our first iterations, candidate properties will be generated using QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be designed and tested first for simple programs, and then on successively more complex programs from our benchmark set. PI Head has extensive experience designing and developing developer tools involving program analysis~\cite{head2018interactive,head2019managing} and program synthesis~\cite{head2017writing} components, and extending the VSCode environment~\cite{head2020composing}.
 
 \subsubsectionstar{Visualizing and tuning data distributions}
 
