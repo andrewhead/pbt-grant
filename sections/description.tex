@@ -325,7 +325,7 @@ more valuable for software developers?} More specifically, we seek
 answers to the following questions:
 
 \begin{itemize}[noitemsep,leftmargin=4em]
-\item[\bf RQ1.] What support do developers need to help them imagine properties?
+\item[\bf RQ1.] What support do developers need to help them imagine properties? \todo{Reword, the notion of ``imagining'' properties has not yet been introduced.}
 \item[\bf RQ2.] What kinds of generators do testers need to exercise their
   properties effectively? Do they have specific precondition and/or distributional
   requirements?
@@ -333,19 +333,18 @@ answers to the following questions:
 \item[\bf RQ4.] What concrete changes could be made to modern PBT systems
   to improve effectiveness and usability?
 \end{itemize}
+
 {\bf RQ1}, {\bf RQ2}, and {\bf RQ3} relate to property,
 generator, and workflow challenges, respectively.
 {\bf RQ4} more directly asks how existing systems might
 be improved. This final question will help to keep us focused,
 reminding us that participants likely have the context and knowledge not
 only to identify challenges but also to suggest
-solutions!
+solutions.
 
-\textit{Study Population}
-As in the preliminary study, our primary tool will be interviews with
-developers. We will tentatively partner with Jane Street, LLC, a large
+\textit{Research Setting}. We will partner with Jane Street, LLC, a large
 financial technology firm,
-interviewing around 30 Jane Street employees about their experiences using PBT.
+
 
 Jane Street has a number of qualities that makes it an ideal place for
 this study. To start, Jane Street developers use
@@ -371,6 +370,9 @@ algorithms, networked systems, and hardware description code~\cite{signalsandthr
 We hope that the breadth of these programming tasks will mean that the software
 developers that we talk to will come to the discussion with a wide variety of
 experiences.
+
+\textit{Participants}. We will interview 30 software developers employed by Jane Street across a variety of departments whom have had the chance to work with property-based testing tools.
+\amh{I think we should consider also reaching out to software developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck who we could reach over public mailing lists, to try to reveal problems that might not come up at Jane Street due to difference in level of technical proficiency or different software development practices. Or, at least, we need to be ready to defend our choice of focusing exclusively on Jane Street when software development practices can vary greatly from firm to firm, from job to job. I think it is more problematic for a grant of this size (versus a single paper, say) to rely on a single company for its need-finding.}
 
 % \textit{Stakeholders}
 % Our initial discussions with Jane Street leadership made it clear that there are
