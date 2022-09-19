@@ -73,6 +73,26 @@
 \newcommand{\citet}[1]{\cite{#1}\todo{fixme}}
 \newcommand{\citeauthor}[1]{\cite{#1}\todo{fixme}}
 
+% Macros pilfered from HATRA submission
+\definecolor{dkred}{rgb}{0.7,0,0}
+\definecolor{dkpurple}{HTML}{4e02eb}
+\definecolor{dkgreen}{HTML}{006329}
+\definecolor{teal}{HTML}{007982}
+\definecolor{string}{HTML}{02782d}
+\definecolor{Fuchsia}{HTML}{8C368C}
+\definecolor{quoteblue}{HTML}{2264b4}
+
+\newif\ifdraft\drafttrue{}
+\newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
+\newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
+\newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
+\newcommand{\hg}[1]{\comm{dkred}{HG}{#1}}
+\newcommand{\harry}[1]{\hg{#1}}
+\newcommand{\jwc}[1]{\comm{dkgreen}{JC}{#1}}
+\newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
+
+\usepackage{enumitem}
+
 \begin{document}
 
 \title{Property-Based Testing in Practice}
