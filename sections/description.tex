@@ -371,22 +371,30 @@ We hope that the breadth of these programming tasks will mean that the software
 developers that we talk to will come to the discussion with a wide variety of
 experiences.
 
-\textit{Participants}. We will interview 30 software developers employed by Jane Street across a variety of departments whom have had the chance to work with property-based testing tools.
-\amh{I think we should consider also reaching out to software developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck who we could reach over public mailing lists, to try to reveal problems that might not come up at Jane Street due to difference in level of technical proficiency or different software development practices. Or, at least, we need to be ready to defend our choice of focusing exclusively on Jane Street when software development practices can vary greatly from firm to firm, from job to job. I think it is more problematic for a grant of this size (versus a single paper, say) to rely on a single company for its need-finding.}
+\textit{Participants}.
+Our initial discussions with Jane Street leadership made it clear that there are
+two distinct populations at Jane Street that we can learn from. The group we had
+initially planned to talk to was developers who have used PBT in
+their work at the firm. These can tell us about how PBT helped them,
+what challenges they faced, and what techniques they use instead of
+PBT to check that their code is correct. For this group, we will interview 30 software developers employed by Jane Street across a variety of departments whom have had the chance to work with property-based testing tools.
+
+We also intend to speak with builders and maintainers of PBT tools. These
+tool-builders will help us reflect on the intended purposes of the tools,
+features that were implemented but have not yet seen widespread use, and
+practical considerations that might influence how future experimental features
+would have to be designed and implemented to be incorporated into tools. Since talking with
+stakeholders may also help us to refine our developer interview script, we will
+interview them first.
+
+\amh{[study design] I think we should consider also reaching out to software developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck who we could reach over public mailing lists, to try to reveal problems that might not come up at Jane Street due to difference in level of technical proficiency or different software development practices. Or, at least, we need to be ready to defend our choice of focusing exclusively on Jane Street when software development practices can vary greatly from firm to firm, from job to job. I think it is more problematic for a grant of this size (versus a single paper, say) to rely on a single company for its need-finding.}
+
+\amh{[terminology] I think we should move away from describing the maintainers and tool-builders as stakeholders in the proposal and research reports, because technically the users of the tools are stakeholders as well. I think we should consider calling the groups ``tool users'' and ``tool builders'' or some other similar distinction.}
 
 % \textit{Stakeholders}
-% Our initial discussions with Jane Street leadership made it clear that there are
-% two distinct populations at Jane Street that we can learn from. The group we had
-% initially planned to talk to was developers who have used PBT in
-% their work at the firm. These can tell us about how PBT helped them,
-% what challenges they faced, and what techniques they use instead of
-% PBT to check that their code is correct. But we we can also learn
-% a ton by talking to PBT {\em stakeholders} at Jane Street---i.e., the folks who
-% build and maintain the PBT systems themselves.  Since talking with
-% stakeholders may also help us to refine our developer interview script, we will
-% interview them first.
 
-\textit{Interview Plan}
+\textit{Interview Plan}.
+
 Each interview will be allotted a one hour slot, to account for a more detailed
 interview script than the one in the preliminary study. As mentioned above, we
 will start by interviewing stakeholders. Our prompts will primarily set the
