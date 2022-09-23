@@ -288,30 +288,15 @@ distributions.
 
 \subsection{Finding out what working programmers need \pagebudget{3}}
 
-\todo{
-\begin{itemize}
-   \item Story
-\begin{itemize}
-      \item The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive
-      \item Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem
-      \item We’re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we’ve already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study
-      \item We’re not sure what we should do after that, but the preliminary study gave us some ideas
-\begin{itemize}
-         \item We can obviously keep talking to users (via surveys or observations)
-         \item We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there)
-         \item We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with
-\end{itemize}
-\end{itemize}
-   \item Prior Work - Pilot study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
-   \item Planned Work - Jane Street Study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
-\end{itemize}
-}
+The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive. Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem. We;re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we've already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study.
 
-In this aim, we plan to set course for research in PBT, both broadly and for the
+We're not sure what we should do after that, but the preliminary study gave us some ideas. We can obviously keep talking to users (via surveys or observations). We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there). We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with.
+
+\todo{Consolidate, revise the text above.} In this aim, we plan to set course for research in PBT, both broadly and for the
 future directions of our group. We will conduct a series of formative studies,
 each addressing one of three main goals:
 
-\subsubsectionstar{Understanding Challenges to Using PBT Tools}
+\subsubsectionstar{Study 1. Understanding Challenges to Using Contemporary PBT Tools}
 
 The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools. To this end, we plan to undertake an 
@@ -584,7 +569,7 @@ understanding of the nature and impact of these challenges in the studies
 described in subsequent sections, and to develop tooling to address
 those challenges with the research described in Section~\ref{sec:tools}.
 
-\subsubsectionstar{Characterizing the Potential Reach for PBT Tools}
+\subsubsectionstar{Study 2. Characterizing the Potential for Impact in Improved PBT Tools}
 
 We will conduct a survey with the purpose of understanding the impact that
 improved PBT tools could have in industry, if major usability issues were
@@ -594,7 +579,7 @@ questionnaire will help shed light into which of the usability challenges from
 the interview study, if addressed, are most likely to impact a broad set of
 current and prospective users of PBT tools.
 
-\subsubsectionstar{Understanding the Structure of PBT Tasks in Detail}
+\subsubsectionstar{Study 3. Understanding the Structure of PBT Tasks in Detail}
 
 The next step is to more deeply characterize the obstacles faced with specific
 tools and tasks through close observation. We anticipate conducting observations
@@ -639,6 +624,20 @@ should write it for them... :-)
 \end{itemize}
 }
 
+\subsubsectionstar{Visualizing and tuning data distributions}
+
+% (this topic is what Joe is most excited about)
+
+% For visualizing data distributions...
+
+Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.  \bcp{I love this thread---understanding the distribution that you're getting from a random generator is one of the most challenging aspects of PBT---the thing that makes it an art rather than a pushbutton or even fully automatable activity.  (We should acknowledge this challenge even more clearly and prominently, at the very top.)  Jessica and I have been struggling just this week to figure out what to measure to get a better understanding of some specific distributions!  I feel like there must be a ton or two of work on this, in adjacent or distant communities.  I wonder how we'd find it...} \amh{Currently the project ideas are arranged chronologically according to when programmers would use them (i.e., first they would write properties, then generators, then understand their solutions, then integrate the tests into continuous integration, etc.). I could see also ordering by our level of enthusiasm / likelihood to work on it, which, as I understand, would put this section at the top.}
+
+% For tuning data distributions...
+
+Plan of work: indicating areas of the distribution that should not be generated.
+
+Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
+
 \subsubsectionstar{Interactive property specification}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague and high level---I feel like technical readers will want a bit more meat.  Could we spice it up with a concrete example?  (Indeed, should we be thinking about a running example for the whole proposal?)} \amh{Agreed, I think a concrete example would be \emph{great} here. Maybe there is an example we can bring in from the QuickSpec paper~\cite{claessen2010quickspec}}
@@ -655,20 +654,6 @@ Developer could guide a specification mining tool to extracting relevant propert
 \textit{Tools should help developers \emph{revise} properties}. If a generated property is too relaxed, the tool should request that developer provides a counterexample that should trigger a failure, and then regenerate the property. If a generated property is too strict, a tool should allow a programmer to mark a counterexample that was generated by the PBT tool as spurious, i.e., not indicating an actual failure of the program. In each of these cases, the property generator may have generate multiple properties for a developer to review, each of which may satisfy the refinements that a developer has provided.
 
 \textit{Plan of work}: We will iteratively design and develop developer tools as an extension to the VSCode editor, a popular development environment for Haskell. In our first iterations, candidate properties will be generated using QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be designed and tested first for simple programs, and then on successively more complex programs from our benchmark set. PI Head has extensive experience designing and developing developer tools involving program analysis~\cite{head2018interactive,head2019managing} and program synthesis~\cite{head2017writing} components, and extending the VSCode environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml tools, rather than Haskell, since this is where there might be synergy with Jane Street?  Or do both?} \amh{This is a great idea. Does anyone know of any specification generators for OCaml?}
-
-\subsubsectionstar{Visualizing and tuning data distributions}
-
-% (this topic is what Joe is most excited about)
-
-% For visualizing data distributions...
-
-Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.  \bcp{I love this thread---understanding the distribution that you're getting from a random generator is one of the most challenging aspects of PBT---the thing that makes it an art rather than a pushbutton or even fully automatable activity.  (We should acknowledge this challenge even more clearly and prominently, at the very top.)  Jessica and I have been struggling just this week to figure out what to measure to get a better understanding of some specific distributions!  I feel like there must be a ton or two of work on this, in adjacent or distant communities.  I wonder how we'd find it...} \amh{Currently the project ideas are arranged chronologically according to when programmers would use them (i.e., first they would write properties, then generators, then understand their solutions, then integrate the tests into continuous integration, etc.). I could see also ordering by our level of enthusiasm / likelihood to work on it, which, as I understand, would put this section at the top.}
-
-% For tuning data distributions...
-
-Plan of work: indicating areas of the distribution that should not be generated.
-
-Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
 
 \subsubsectionstar{Debugging support for understanding counterexamples}
 
