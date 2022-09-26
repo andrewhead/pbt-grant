@@ -290,30 +290,15 @@ distributions.
 
 \subsection{Finding out what working programmers need \pagebudget{3}}
 
-\todo{
-\begin{itemize}
-   \item Story
-\begin{itemize}
-      \item The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive
-      \item Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem
-      \item We’re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we’ve already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study
-      \item We’re not sure what we should do after that, but the preliminary study gave us some ideas
-\begin{itemize}
-         \item We can obviously keep talking to users (via surveys or observations)
-         \item We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there)
-         \item We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with
-\end{itemize}
-\end{itemize}
-   \item Prior Work - Pilot study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
-   \item Planned Work - Jane Street Study [CHAPTER 4 OF THESIS PROPOSAL / HATRA]
-\end{itemize}
-}
+The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive. Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem. We;re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we've already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study.
 
-In this aim, we plan to set course for research in PBT, both broadly and for the
+We're not sure what we should do after that, but the preliminary study gave us some ideas. We can obviously keep talking to users (via surveys or observations). We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there). We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with.
+
+\todo{Consolidate, revise the text above.} In this aim, we plan to set course for research in PBT, both broadly and for the
 future directions of our group. We will conduct a series of formative studies,
 each addressing one of three main goals:
 
-\subsubsectionstar{Understanding Challenges to Using PBT Tools}
+\subsubsectionstar{Study 1. Understanding Challenges to Using Contemporary PBT Tools}
 
 The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools. To this end, we plan to undertake an 
@@ -322,6 +307,7 @@ of support in the appendix.} to develop a deep understanding of the challenges
 programmers face using PBT in industrial settings as well as being to explore 
 potential solutions.
 
+\textbf{Research questions}.
 Our key research question will be, \emph{How can the research community make PBT 
 more valuable for software developers?} More specifically, we seek
 answers to the following questions:
@@ -344,10 +330,8 @@ reminding us that participants likely have the context and knowledge not
 only to identify challenges but also to suggest
 solutions.
 
-\textit{Research Setting}. We will partner with Jane Street, LLC, a large
-financial technology firm,
-
-
+\textbf{Research site}. We will partner with Jane Street, LLC, a large
+financial technology firm.
 Jane Street has a number of qualities that makes it an ideal place for
 this study. To start, Jane Street developers use
 a variety of testing tools, including PBT. This gives us a place to start
@@ -373,22 +357,27 @@ We hope that the breadth of these programming tasks will mean that the software
 developers that we talk to will come to the discussion with a wide variety of
 experiences.
 
-\textit{Participants}. We will interview 30 software developers employed by Jane Street across a variety of departments whom have had the chance to work with property-based testing tools.
-\amh{I think we should consider also reaching out to software developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck who we could reach over public mailing lists, to try to reveal problems that might not come up at Jane Street due to difference in level of technical proficiency or different software development practices. Or, at least, we need to be ready to defend our choice of focusing exclusively on Jane Street when software development practices can vary greatly from firm to firm, from job to job. I think it is more problematic for a grant of this size (versus a single paper, say) to rely on a single company for its need-finding.}
+\textbf{Participants}.
+Our initial discussions with Jane Street leadership made it clear that there are
+two distinct populations at Jane Street that we can learn from. The group we had
+initially planned to talk to was developers who have used PBT in
+their work at the firm. These can tell us about how PBT helped them,
+what challenges they faced, and what techniques they use instead of
+PBT to check that their code is correct. For this group, we will interview 30 software developers employed by Jane Street across a variety of departments whom have had the chance to work with property-based testing tools.
 
-% \textit{Stakeholders}
-% Our initial discussions with Jane Street leadership made it clear that there are
-% two distinct populations at Jane Street that we can learn from. The group we had
-% initially planned to talk to was developers who have used PBT in
-% their work at the firm. These can tell us about how PBT helped them,
-% what challenges they faced, and what techniques they use instead of
-% PBT to check that their code is correct. But we we can also learn
-% a ton by talking to PBT {\em stakeholders} at Jane Street---i.e., the folks who
-% build and maintain the PBT systems themselves.  Since talking with
-% stakeholders may also help us to refine our developer interview script, we will
-% interview them first.
+We also intend to speak with builders and maintainers of PBT tools. These
+tool-builders will help us reflect on the intended purposes of the tools,
+features that were implemented but have not yet seen widespread use, and
+practical considerations that might influence how future experimental features
+would have to be designed and implemented to be incorporated into tools. Since talking with
+stakeholders may also help us to refine our developer interview script, we will
+interview them first.
 
-\textit{Interview Plan}
+\amh{[study design] I think we should consider also reaching out to software developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck who we could reach over public mailing lists, to try to reveal problems that might not come up at Jane Street due to difference in level of technical proficiency or different software development practices. Or, at least, we need to be ready to defend our choice of focusing exclusively on Jane Street when software development practices can vary greatly from firm to firm, from job to job. I think it is more problematic for a grant of this size (versus a single paper, say) to rely on a single company for its need-finding.}
+
+\amh{[terminology] I think we should move away from describing the maintainers and tool-builders as stakeholders in the proposal and research reports, because technically the users of the tools are stakeholders as well. I think we should consider calling the groups ``tool users'' and ``tool builders'' or some other similar distinction.}
+
+\textbf{Interview Plan}.
 Each interview will be allotted a one hour slot, to account for a more detailed
 interview script than the one in the preliminary study. As mentioned above, we
 will start by interviewing stakeholders. Our prompts will primarily set the
@@ -408,13 +397,173 @@ will also ask about whether or not they are using PBT on their {\em current}
 project (and if not, why not). Finally, we will ask questions addressing
 {\bf RQ3} and {\bf RQ4} directly.
 
-\textit{Preliminary results}
-
+\textbf{Preliminary results}.
+\todo{Shorten to about 1 page.}
 We have conducted a preliminary interview study with 7 professional developers
-who have experience using PBT tools. In this preliminary study, we have learned
-of a number of challenges that developers already face using PBT tools, including:
+who have experience using PBT tools.
+What emerged were five categories of obstacles that developers encountered, 
+relating
+to the design of properties, the definition of generators, learning PBT,
+integrating PBT into team workflows, and achieving critical mass in the use of the tools.
+In Section~\ref{sec:future}, we describe how these challenges
+can help shape the research and design of usable PBT tools.
+Below, we detail these challenges, referring to particular participants by
+pseudonyms P1--7. Quotes from participants are lightly edited for clarity,
+removing filler words and backtracking.
+We note that, given the small scale of this preliminary study, some
+of the obstacles are reflective of singular experiences, and the set of
+obstacles may not be complete. This
+highlights the need for expanded
+studies of the sort we describe in Section~\ref{sec:full-scale} to confirm
+and deepen our understanding of the usability of PBT tools.
 
-\ldots{} Summarize challenges, include brief quotes. Aim for this to be 1 page?
+\textit{Challenges Designing Properties}.
+One common challenge for developers was to identify, design,
+and articulate properties that would meaningfully test their code.
+
+To begin with, developers seemed to have trouble identifying use-cases for PBT
+that took advantage of the unique benefits of PBT over alternative approaches. While participants
+did write properties, often times they either under-specified the
+behavior of the system (for instance, simply testing that a program does not crash),
+or over-specifying it (for instance, comparing to a behaviorally complete
+{\em model} of the program under test, which might need to be separately
+implemented) (P1, P3--5).
+These participants were not testing properties as is conceptualized
+in conventional PBT, which either undermined the power of their tests or
+led to tests that could be brittle or time-consuming to implement.
+
+In other cases, developer simply did not know how to express the notion of
+correctness of their program as a property, which we call a failure
+to ``imagine'' a property.
+P1 described this as the problem of ``formulating the right property in the first place,''
+a difficulty they had experienced despite prior successes using PBT according to
+an over-specified model-based approach. P2 described circumstances in which this
+challenge to imagine properties might arise: they were testing a complex numerical
+computation involved in financial risk modeling. While they anticipated that
+properties could help them test the validity of the computation better than their
+existing suite of unit tests, they emphasized that determining such properties
+was not at all straightforward.
+
+Once a developer can imagine a property, the next challenge is to implement it.
+Implementation challenges were of several sorts (P4--6). One
+is common to software design generally---that module boundaries must be present
+around the functionality to be tested. P6 described this as the challenge of
+finding ``compose points where you can integrate [PBT] with the system.'' Refactoring
+code to be testable can be tedious at best and prohibitively time-consuming at
+worst. P6 reported that, for them, often the costs of restructuring code outstripped the benefits,
+leading them not to use PBT where it might otherwise have been useful.
+
+\textit{Challenges Writing Random Data Generators}.
+Developers also faced obstacles writing data generators for their property-based 
+tests.
+Some developers reported that they lacked support for generating the kinds of
+distributions of input data that they felt were necessary for their tests.
+
+P7 recounted testing an application where the inputs were network access control lists (ACLs)
+with many different validity conditions, each given by
+a different hardware vendor.
+In this situation, P7 found that the {\em rejection sampling} approach to generation---generating
+arbitrary ACLs and throwing out invalid ones---was too slow to be useful.
+The standard solution would be to write a generator that enforces preconditions
+by construction. Indeed, the participant did note that ``it might be possible to
+make the generator smarter.'' However, they continued that it ``may or may not be worth it,'' due to
+the complexity of generating access control lists that are valid for \emph{all}
+of the vendors.
+
+In another expected finding, some participants described difficulties with
+controlling the distribution over test cases that their generators produce.
+As P6 recounted, poor test-case distributions can lead to long testing times and missed bugs
+as the generator repeatedly tries similar inputs and misses importantly different ones.
+\begin{quote}
+  I just relied on the built in [generators]. But\dots [there were] some tests
+  that were running for quite a long time. Sometimes they were missing some
+  useful use cases, just because the data distribution targeted use cases were
+  missed by the default generators.
+\end{quote}
+
+Besides these technical issues,
+participants encountered usability problems working with generator tools. P3 struggled to
+write a generator in Hypothesis' generator DSL. They
+explained that the (purely-functional style) abstraction did not match their expectations, given that Python is an imperative language, and they could
+not ``hold it in [their] head very easily.'' This highlights the importance of
+{\em idiomatic} generator abstractions.
+
+\textit{Challenges Integrating PBT into Programmer Workflows}.
+One unanticipated finding was that some participants struggled to incorporate
+PBT into their team's development process. One issue
+that came up was exactly where properties should be checked in the development pipeline.
+P4 explained that they generally only check their properties in their
+continuous integration (CI) system, because they are too slow to run locally.
+However, they also pointed out that, because property-based testing finds
+bugs at random, running PBT in CI is ``a bit like
+Russian roulette, because sometimes the code breaks while you're working on
+something totally unrelated.'' Indeed, P1 agreed that they preferred
+to not have properties in CI for that reason.
+% The tension created by PBT being
+% both long-running and nondeterministic suggests a number of
+% opportunities for research into improved PBT tooling and workflows \amh{[small fix] clearly spell out those opportunities here, or remove this.}.
+
+\textit{Challenges Learning PBT}.
+For some developers, the process of learning PBT proved a challenge in and of
+itself.  While developers learned about PBT concepts from presentation
+materials, library documentation, and blog posts, they sometimes found these
+sources inaccessible or otherwise insufficient for learning how to apply PBT in practice.
+For example, P4 described finding it challenging to understand the circumstances
+in which to use PBT after having watched a presentation about it, and P1
+expressed a desire for the library documentation to
+include a comprehensive corpus of examples to use as starting points for their own tests:
+\begin{quote}
+  The hard part is knowing when you
+  have a property that you can test and how to write that test. What
+  would make it easier? I almost feel like more examples, you know,
+  like\ldots{} just examples upon examples upon examples, so that you can just
+  read through them and eventually hit one that, you know, hit a
+  couple that click, and then those are clicked in your mind. And if you see
+  that again, you can apply [them]?
+\end{quote}
+
+Developers also recounted trepidation at the idea of explaining PBT to
+their organization's newcomers, fearing that it represented yet another unfamiliar
+tool to learn in their already complex stack.
+\begin{quote}
+It's a bit scary, because every time I have to show the code base to a newcomer,
+there is plenty of complicated things in the code base\ldots{} and when you
+talk about all those things, which are complicated or interconnected, you
+then go on, `By the way, there is this Hypothesis thing, which is really
+a bit more complicated'\ldots{} so, *\emph{laughs}*\ldots{} I don't know if
+when I talk about that people are too lost.
+\end{quote}
+
+\textit{The Critical Mass Problem}.
+Finally, some of our participants' responses underlined a far more basic and
+somewhat circular impediment to PBT adoption: for PBT to become widely adopted, it
+must first become popular. This was best illustrated by P5,
+when asked if they thought that PBT was missing any features that could help
+drive adoption.
+\begin{quote}
+  Well, I think the problem is really more one of popularity, more than a
+  technical problem. If lots of people use property based testing, then more
+  people will be adept at using it.  And people will be more willing to write
+  code that might support such a methodology of testing.
+\end{quote}
+
+P6 also implied a very similar problem when describing
+how their managers reacted to a property-based test that found a potentially
+severe bug. Despite their excitement around the success story, P6's
+managers were unwilling to further invest in PBT due to its relative
+unpopularity.
+\begin{quote}
+  They realize that [PBT is] very important and very useful, but can they find
+  somebody to write those tests and maintain those tests? That's another
+  question.
+\end{quote}
+
+This bootstrapping problem is not specific to PBT, but this is a helpful 
+reminder that solving both the
+technical problems above and the as-of-yet hidden ones is necessary, but
+likely not sufficient, to ensure broad adoption of PBT. To truly see PBT used across the software
+industry, researchers need to convince developers, managers, and community
+leaders, to invest in PBT without guarantees that it will take off.
 
 We expect to learn more about these challenges, as well as about other challenges,
 in depth during our interview study with Jane Street, to further refine our
@@ -422,7 +571,7 @@ understanding of the nature and impact of these challenges in the studies
 described in subsequent sections, and to develop tooling to address
 those challenges with the research described in Section~\ref{sec:tools}.
 
-\subsubsectionstar{Characterizing the Potential Reach for PBT Tools}
+\subsubsectionstar{Study 2. Characterizing the Potential for Impact in Improved PBT Tools}
 
 We will conduct a survey with the purpose of understanding the impact that
 improved PBT tools could have in industry, if major usability issues were
@@ -432,7 +581,7 @@ questionnaire will help shed light into which of the usability challenges from
 the interview study, if addressed, are most likely to impact a broad set of
 current and prospective users of PBT tools.
 
-\subsubsectionstar{Understanding the Structure of PBT Tasks in Detail}
+\subsubsectionstar{Study 3. Understanding the Structure of PBT Tasks in Detail}
 
 The next step is to more deeply characterize the obstacles faced with specific
 tools and tasks through close observation. We anticipate conducting observations
@@ -477,6 +626,20 @@ should write it for them... :-)
 \end{itemize}
 }
 
+\subsubsectionstar{Visualizing and tuning data distributions}
+
+% (this topic is what Joe is most excited about)
+
+% For visualizing data distributions...
+
+Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.  \bcp{I love this thread---understanding the distribution that you're getting from a random generator is one of the most challenging aspects of PBT---the thing that makes it an art rather than a pushbutton or even fully automatable activity.  (We should acknowledge this challenge even more clearly and prominently, at the very top.)  Jessica and I have been struggling just this week to figure out what to measure to get a better understanding of some specific distributions!  I feel like there must be a ton or two of work on this, in adjacent or distant communities.  I wonder how we'd find it...} \amh{Currently the project ideas are arranged chronologically according to when programmers would use them (i.e., first they would write properties, then generators, then understand their solutions, then integrate the tests into continuous integration, etc.). I could see also ordering by our level of enthusiasm / likelihood to work on it, which, as I understand, would put this section at the top.}
+
+% For tuning data distributions...
+
+Plan of work: indicating areas of the distribution that should not be generated.
+
+Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
+
 \subsubsectionstar{Interactive property specification}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague and high level---I feel like technical readers will want a bit more meat.  Could we spice it up with a concrete example?  (Indeed, should we be thinking about a running example for the whole proposal?)} \amh{Agreed, I think a concrete example would be \emph{great} here. Maybe there is an example we can bring in from the QuickSpec paper~\cite{claessen2010quickspec}}
@@ -493,20 +656,6 @@ Developer could guide a specification mining tool to extracting relevant propert
 \textit{Tools should help developers \emph{revise} properties}. If a generated property is too relaxed, the tool should request that developer provides a counterexample that should trigger a failure, and then regenerate the property. If a generated property is too strict, a tool should allow a programmer to mark a counterexample that was generated by the PBT tool as spurious, i.e., not indicating an actual failure of the program. In each of these cases, the property generator may have generate multiple properties for a developer to review, each of which may satisfy the refinements that a developer has provided.
 
 \textit{Plan of work}: We will iteratively design and develop developer tools as an extension to the VSCode editor, a popular development environment for Haskell. In our first iterations, candidate properties will be generated using QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be designed and tested first for simple programs, and then on successively more complex programs from our benchmark set. PI Head has extensive experience designing and developing developer tools involving program analysis~\cite{head2018interactive,head2019managing} and program synthesis~\cite{head2017writing} components, and extending the VSCode environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml tools, rather than Haskell, since this is where there might be synergy with Jane Street?  Or do both?} \amh{This is a great idea. Does anyone know of any specification generators for OCaml?}
-
-\subsubsectionstar{Visualizing and tuning data distributions}
-
-% (this topic is what Joe is most excited about)
-
-% For visualizing data distributions...
-
-Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.  \bcp{I love this thread---understanding the distribution that you're getting from a random generator is one of the most challenging aspects of PBT---the thing that makes it an art rather than a pushbutton or even fully automatable activity.  (We should acknowledge this challenge even more clearly and prominently, at the very top.)  Jessica and I have been struggling just this week to figure out what to measure to get a better understanding of some specific distributions!  I feel like there must be a ton or two of work on this, in adjacent or distant communities.  I wonder how we'd find it...} \amh{Currently the project ideas are arranged chronologically according to when programmers would use them (i.e., first they would write properties, then generators, then understand their solutions, then integrate the tests into continuous integration, etc.). I could see also ordering by our level of enthusiasm / likelihood to work on it, which, as I understand, would put this section at the top.}
-
-% For tuning data distributions...
-
-Plan of work: indicating areas of the distribution that should not be generated.
-
-Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
 
 \subsubsectionstar{Debugging support for understanding counterexamples}
 
