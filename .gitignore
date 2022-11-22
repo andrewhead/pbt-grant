@@ -2,3 +2,11 @@
 out
 main.pdf
 /main.out
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.bbl
+*.blg
+*.synctex.gz
+*.toc

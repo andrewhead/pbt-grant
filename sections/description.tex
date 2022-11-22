@@ -36,29 +36,9 @@ studies, consisting of semi-structured interviews with developers, to uncover
 and hopefully solve some of these hidden challenges. This work will form the
 second major theme of my dissertation.
 
-\todo{
-[MODEL AFTER THESIS INTRO / CONCLUSION]
-\begin{itemize}
-   \item High level: Advance the theory and practice of PBT, making it more valuable to a wider range of software engineers
-   \item PBT is great
-\begin{itemize}
-      \item For people who like formal methods, it’s a way to write a formal spec and check it without doing full verification
-      \item Even for people who don’t, it’s been extremely effective finding bugs in practice
-         \item Cite…
-      \item (?) And people really like it (maybe pull quotes from preliminary study)
-\end{itemize}
-   \item But there is still room for PBT to grow (maybe stats, feel free to refine this argument more)
-   \item We want to advance the theory and practice of PBT so it is more valuable to SEs
-\end{itemize}
-}
+\subsection{Motivation: A Formative Study \pagebudget{2}}
 
-\subsection{Background and Related Work \pagebudget{1.5}}
-
-\bcp{This is currently just a verbatim dump from Harry's proposal.  I suspect it will need to be rewritten pretty thoroughly.}
-
-\bcp{Related work to mention: HypoFuzz \url{https://hypofuzz.com}}
-
-\subsubsectionstar{Property-Based Testing}%
+\subsubsectionstar{Background: Property-Based Testing}%
 %
 Property-based testing (PBT) is a form of random testing~\cite{hamlet1994random}
 that was popularized by the QuickCheck~\cite{DBLP:conf/icfp/ClaessenH00} library
@@ -105,160 +85,7 @@ manually~\cite{DBLP:conf/icfp/ClaessenH00}. Even more importantly, testers need
 to ensure that the sampled inputs are {\em valid} to test with; I discuss this
 problem in the next section.
 
-\subsubsectionstar{The Valid Generation Problem}%
-%
-Note that the property above has a {\em precondition} (which I also refer to
-equivalently as a {\em validity condition} or {\em input constraint}): the
-property is vacuous if the input tree is not a valid BST. This can be problematic,
-because many preconditions are difficult to satisfy randomly; in the case above
-we would need to randomly stumble on valid BSTs, which is very unlikely for
-trees that are more than a few nodes deep. I call this the {\em valid generation
-problem}. In the next section I will discuss the standard solution to this
-problem in PBT---hand-written {\em monadic generators}---but first here is a
-short overview of other options.
-
-The solutions to the valid generation problem fall on a spectrum from fully
-automatic to fully manual. The most automatic possible approach is to simply
-generate inputs as normal, ignoring preconditions entirely, and throw away any
-that do not satisfy the precondition. As I mentioned above, this is extremely
-inefficient when the precondition is {\em sparse}, or unlikely to be satisfied
-randomly.
-
-Equally automatic, but often more effective, are coverage-guided approaches like
-those used by {\em fuzzers}. Fuzzers like AFL~\cite{afl-readme} measure the code
-coverage achieved by each input they try. If an input does not achieve coverage
-of new program branches, it is discarded, but if the input is deemed
-``interesting,'' then it may be mutated and tried again in an attempt to explore
-even more new code paths. This process makes finding valid inputs more likely
-because optimizing for code coverage encourages exploration of paths deeper in
-the program (i.e., past the point where the precondition is checked).
-Unfortunately, this only works so well, and again begins to fail with very
-sparse preconditions.
-
-A different approach that is {\em almost} entirely automatic is {\sc
-Target}~\cite{loscher2017targetedpbt}; it uses search strategies like hill
-climbing and simulated annealing to guide generation to more useful inputs.
-\citeauthor{loscher2017targetedpbt}'s approach works well when the notion of
-validity is in some way continuous (i.e., an input is not simply invalid, it is
-$X\%$ valid), but this is often not the case.
-
-Some approaches use machine learning to automatically generate valid inputs.
-{\sc Learn\&Fuzz}~\cite{godefroid2017learn} generates valid data using a
-recurrent neural network.  This solution seems to work best when a large corpus
-of inputs is already available and the validity condition is more structural
-than semantic. In the same vein, {\sc RLCheck}~\cite{DBLP:conf/icse/ReddyLPS20}
-uses reinforcement learning to guide a generator to valid inputs.
-
-For preconditions that are primarily structural, {\em grammar-based fuzzing}
-provides a compelling (if slightly more manual) solution. In {\em
-Grammar-based whitebox fuzzing}~\cite{godefroid2008grammar} a context-free
-grammar (CFG) is used to constrain the fuzzer's output. Over the years, many
-versions of this paradigm have been developed, including ones that use
-pre-written fragments of the input language to give the mutator interesting
-things to work with~\cite{holler2012fuzzing} and ones that use genetic
-programming to find more interesting inputs~\cite{veggalam2016ifuzzer}. The
-newest grammar-based fuzzing approaches use the grammar to do more structured
-mutation of values~\cite{wang2019superion,srivastava2021gramatron}. These ideas have also been integrated
-into PBT in the FuzzChick library~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}.
-
-Moving into the range of ``mostly manual'' solutions, there are a variety of
-solver-aided languages for expressing generators for data with preconditions.
-\citeauthor{dewey2017automated} proposed using constraint logic programming
-(CLP) to define generators for interesting structures like Rust
-programs~\cite{dewey2017automated}.  The {\sc Luck} language~\cite{LuckPOPL}
-also uses a solver, but a bespoke one, to define generators and validity
-predicates at the same time. \citet{steinhofel2022input} use a
-grammar and SMT-expressible constraints on a structure to generate
-precondition-satisfying values.
-
-Finally, {\em Generating Good Generators}~\cite{lampropoulos2017generating} an
-outlier on the spectrum: technically it is a manual approach since it requires
-users to first express their validity predicates as inductive relations in Coq,
-but in Coq it is likely that the user already has an inductive relation
-available! {\em Generating Good Generators} is a great approach in the
-situations where it applies.
-
-\subsubsectionstar{Monadic Generators}%
-%
-The most manual, but arguably the most flexible, solution to the valid
-generation problem is write {\em monadic} generators.
-
-We represent generators using {\em monads\/}~\cite{moggi1991notions}. A monad is
-a type constructor (e.g., \lstinline{List}, \lstinline{Maybe}, etc.)
-\lstinline{M} equipped with two operations,
-\begin{lstlisting}
-  return :: a -> M a
-\end{lstlisting}
-\noindent and
-\begin{lstlisting}
-  (>>=) :: M a -> (a -> M b) -> M b
-\end{lstlisting}
-\noindent (pronounced ``bind''). Conceptually, \lstinline{return} is the
-simplest way to put some value into the monad, while bind gives a way to
-sequence operations that produce monadic values.
-
-We can use these operations to define {\sf genTree} like we would in QuickCheck:
-\begin{lstlisting}
-  genTree :: Int -> Gen Tree
-  genTree 0 = return Leaf
-  genTree $h$ = do
-    c <- frequency [(1,False), (3,True)]
-    case c of
-      False -> return Leaf
-      True -> do
-        x <- genInt
-        l <- genTree ($h$ - 1)
-        r <- genTree ($h$ - 1)
-        return (Node l x r)
-\end{lstlisting}
-We use the monadic operations (along with \lstinline{frequency}) to generate a
-random tree of integers. The expression \lstinline{return Leaf} is a degenerate
-generator that always produces the value \lstinline{Leaf}---this is what we mean
-by the ``simplest way to put a value into the \lstinline{Gen} monad.''
-
-Rather than use \lstinline{(>>=)} explicitly, we use \lstinline{do}-notation,
-where
-\begin{lstlisting}
-  do
-    a <- x
-    f a
-\end{lstlisting}
-\noindent is syntactic sugar for \lstinline{x >>= f}. In the context of the
-\lstinline{Gen} type, this operation samples from a generator \lstinline{x} to
-get a value \lstinline{a} and then passes it to \lstinline{f} for further
-processing---this is what we mean by ``sequencing operations.''
-
-\smallskip
-
-Monadic parsers are maximally expressive.  They can generate values satisfying
-arbitrary computable constraints (e.g., it is possible to write a monadic
-generator for well-typed System F terms), subsuming less powerful
-representations like probabilistic context-free grammars.
-
-For example, the following monadic generator generates (only) valid binary
-search trees:
-\begin{lstlisting}
-  genBST :: (Int, Int) -> Gen Tree
-  genBST (lo, hi) | lo > hi = return Leaf
-  genBST (lo, hi) = do
-    c <- frequency [(1,False), (3,True)]
-    case c of
-      False -> return Leaf
-      True -> do
-        x <- genRange (lo, hi)
-        l <- genBST (lo, x - 1)
-        r <- genBST (x + 1, hi)
-        return (Node l x r)
-\end{lstlisting}
-\noindent The generator maintains the BST invariant by keeping track of the
-minimum and maximum values available for a given sub-tree and ensuring that all
-values to the left of a value are less and that all values to the right of a
-value are greater.  This kind of generator is impossible to express as a
-stochastic CFG, since there is dependence between the choice of value
-\lstinline{x} and the choices of sub-trees. Our examples are mostly focused on
-simple (non-dependent) generators to streamline the exposition, but our theory
-applies to the full class of monadic generators with finitely supported
-distributions.
+\bcp{Related work to mention: HypoFuzz \url{https://hypofuzz.com}}
 
 \subsubsectionstar{Why Us?}%
 %
@@ -266,49 +93,18 @@ distributions.
   qualifications complement each other, and what kind of students we aim to
   support.  Include a pointer to the work plan section below.}
 
-\subsection{Extending the Foundation \pagebudget{3}}
-
-\todo{
-\begin{itemize}
-   \item Story
-\begin{itemize}
-      \item The research community has identified that random generation (and in particular, the valid generation problem)[b] causes problems for testers
-      \item This shows up in prior work, and also in realistic examples (e.g., the fuzzing community really cares about this!)
-      \item We’ve already done some work to explore new abstractions for random generation (free generators) and we have more that we want to try (reflective generators)
-      \item In addition, the PBT community is missing tools to empirically evaluate generation strategies
-      \item And the PBT literature is also woefully disconnected from the fuzzing literature, where they have their own partial solutions to this problem
-\end{itemize}
-   \item Prior Work - Free generators [CHAPTER 1[c] OF THESIS PROPOSAL is a
-   source, but it's way too long -- we need to write a compact precis of the
-   crucial points]
-   (perhaps also some other prior things)
-   \item Planned Work - Reflective generators [CHAPTER 2 OF THESIS PROPOSAL]   (needs new work on evaluation; maybe rests on benchmarking infrastructure; validity-preserving mutation scheme needs to be evaluated by real implementation and measurement)
-   \item Planned Work - Empirical Evaluation Playground [JESSICA OR BENJAMIN WRITE] (can ultimately be used for Benchmarking; in the short term, it’s a playground for individual PBT efforts to see how they are doing)
-   \item Speculative Work - Add PBT incrementally to a fuzzing system [CHAPTER 3 OF THESIS PROPOSAL](follows directly from the free and reflective generators work)
-\end{itemize}
-}
-
-\subsection{Finding out what working programmers need \pagebudget{3}}
-
-The projects above follow the lead of prior work, solving problems that have already been identified, but we have no reason to believe that those problems are exhaustive. Indeed, there may be high-leverage opportunities to improve PBT that have nothing to do with the valid generation problem. We;re in the process of uncovering “unknown unknowns” by talking to PBT users about their experiences - we've already done a preliminary study, and we plan on talking to Jane Street developers for a full-scale study.
-
-We're not sure what we should do after that, but the preliminary study gave us some ideas. We can obviously keep talking to users (via surveys or observations). We also identified that there are likely workflow improvements that could help PBT fit into a developer’s environment better (and user-centered design opportunities there). We may even find interesting PBT opportunities at Jane Street that will give us a hands-on opportunity to solve problems that real developers are actively dealing with.
-
-\todo{Consolidate, revise the text above.} In this aim, we plan to set course for research in PBT, both broadly and for the
-future directions of our group. We will conduct a series of formative studies,
-each addressing one of three main goals:
-
-\subsubsectionstar{Study 1. Understanding Challenges to Using Contemporary PBT Tools}
+\subsection{Foundation: Completing Formative Analysis \pagebudget{2}}
+\subsubsection{Prior Work: Preliminary Study}
 
 The first step is to conduct qualitative interviews to understand the challenges
-that programmers face when using PBT tools. To this end, we plan to undertake an 
-interview study with our research partner, Jane Street, LLC\footnote{See letter 
-of support in the appendix.} to develop a deep understanding of the challenges 
-programmers face using PBT in industrial settings as well as being to explore 
+that programmers face when using PBT tools. To this end, we plan to undertake an
+interview study with our research partner, Jane Street, LLC\footnote{See letter
+of support in the appendix.} to develop a deep understanding of the challenges
+programmers face using PBT in industrial settings as well as being to explore
 potential solutions.
 
 \textbf{Research questions}.
-Our key research question will be, \emph{How can the research community make PBT 
+Our key research question will be, \emph{How can the research community make PBT
 more valuable for software developers?} More specifically, we seek
 answers to the following questions:
 
@@ -401,7 +197,7 @@ project (and if not, why not). Finally, we will ask questions addressing
 \todo{Shorten to about 1 page.}
 We have conducted a preliminary interview study with 7 professional developers
 who have experience using PBT tools.
-What emerged were five categories of obstacles that developers encountered, 
+What emerged were five categories of obstacles that developers encountered,
 relating
 to the design of properties, the definition of generators, learning PBT,
 integrating PBT into team workflows, and achieving critical mass in the use of the tools.
@@ -454,7 +250,7 @@ worst. P6 reported that, for them, often the costs of restructuring code outstri
 leading them not to use PBT where it might otherwise have been useful.
 
 \textit{Challenges Writing Random Data Generators}.
-Developers also faced obstacles writing data generators for their property-based 
+Developers also faced obstacles writing data generators for their property-based
 tests.
 Some developers reported that they lacked support for generating the kinds of
 distributions of input data that they felt were necessary for their tests.
@@ -558,7 +354,7 @@ unpopularity.
   question.
 \end{quote}
 
-This bootstrapping problem is not specific to PBT, but this is a helpful 
+This bootstrapping problem is not specific to PBT, but this is a helpful
 reminder that solving both the
 technical problems above and the as-of-yet hidden ones is necessary, but
 likely not sufficient, to ensure broad adoption of PBT. To truly see PBT used across the software
@@ -571,7 +367,11 @@ understanding of the nature and impact of these challenges in the studies
 described in subsequent sections, and to develop tooling to address
 those challenges with the research described in Section~\ref{sec:tools}.
 
-\subsubsectionstar{Study 2. Characterizing the Potential for Impact in Improved PBT Tools}
+\subsubsection{Ongoing Work: Formative Study with Jane Street}
+
+\subsubsection{Proposed Work: Validating Formative Results with a Survey}
+
+\subsubsection{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
 
 We will conduct a survey with the purpose of understanding the impact that
 improved PBT tools could have in industry, if major usability issues were
@@ -581,7 +381,7 @@ questionnaire will help shed light into which of the usability challenges from
 the interview study, if addressed, are most likely to impact a broad set of
 current and prospective users of PBT tools.
 
-\subsubsectionstar{Study 3. Understanding the Structure of PBT Tasks in Detail}
+\subsubsection{Proposed Work: Understanding the Structure of PBT Tasks in Detail}
 
 The next step is to more deeply characterize the obstacles faced with specific
 tools and tasks through close observation. We anticipate conducting observations
@@ -591,87 +391,319 @@ additional detail about ways that developers are supported and not supported by
 the tools they use today to a level of depth we will not achieve with the
 interviews.
 
-\subsection{Exploiting the Foundations to Build Powerful, Interactive PBT Tools \pagebudget{3}}
-\label{sec:tools}
+\subsection{Specification: Step 1, Widening the On-Ramp to Properties \pagebudget{2.5}}
+\subsubsection{Proposed Work: When to Specify It!}
+\subsubsection{Proposed Work: Properties Over Printed Output}
+\subsubsection{Proposed Work: Making Model-Based PBT First-Class}
 
-Upon the advanced technical foundation from Aim 1 and the refined understanding
-of programmers' needs from Aim 2, our final aim (Aim 3) will focus on the
-development of programmer-facing tools that allow them to leverage properties in
-testing their code more efficiently and effectively.
+\hg{Andrew wrote this for a slightly different thing}
+Motivation: How do you design a generator DSL in an imperative language? A
+generator uses higher-level functions in a way that might be confusing to people
+who used Python.  (e.g., passing a generator of numbers to a generator of lists
+to get randomized lists of numbers). Is there a way of designing APIs for
+generators that can make the composition of these types of generators easier to
+reason about and express for some programmers?
 
-While the specific focus of our tool design and research efforts will be
-continually refined on the basis of what we learn from Aim 2, below we detail
-several directions that we expect to lead to the design of tools that are both
-innovative within the research community, as well as potentially impactful,
-drawing on the lessons learned from the preliminary need-finding research we
-have done to date as well as our own intuitions, and as critical users and
-engaged members of the communities for these tools.
+(Joe says the DSLs are well-designed, but the code is hard to debug. How do you
+write a generator that works really well, that has a good data distribution and
+finds bugs? See below.)
 
-\todo{Discuss:
+Plan of work. Not sure. This might require some discussions with more uses of
+Hypothesis-like libraries.
 
-\begin{itemize}
+Next steps—get examples of sloppily-expressed PBtests in Python and then think
+through how they would be written more clearly.
 
-% \item Some of the tools we propose in this section may depend on a technical
-% background we do not have on this team. For instance, property generation.
-% Should we be keeping the scope of the proposed work to those where we as a team
-% have expertise in the backend technologies? After discussing with BCP, we need
-% not limit ourselves to areas where we are at present the leading experts. Let's
-% draft the descriptions, see the ones we are excited about, wave away some
-% of the details that we have not yet educated ourselves, and go from there.
+\subsubsection{Proposed Work: Interactive Property Specification}
 
-\item We should ask Jane Street for a letter of support indicating their
-willingness to collaborate on the need-finding activities.  (Yes!  And we
-should write it for them... :-)
+\bcp{General comment for this section: It all seems good, but it is a bit vague
+and high level---I feel like technical readers will want a bit more meat.  Could
+we spice it up with a concrete example?  (Indeed, should we be thinking about a
+running example for the whole proposal?)} \amh{Agreed, I think a concrete
+example would be \emph{great} here. Maybe there is an example we can bring in
+from the QuickSpec paper~\cite{claessen2010quickspec}}
 
-\end{itemize}
-}
+As our preliminary interview study has suggested, developers sometimes have
+difficulty imagining which properties to test, even when they know that their
+software would benefit from property-based testing. One area we are interested
+in exploring is how programmers can work with their PBT tools to decide on a set
+of significant properties to test.  Prior research demonstrates that automated
+tools can extract specifications of a program's
+behavior\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
+interested in the non-trivial research problem of integrating such techniques
+into usable developer tools. We see the research as addressing several
+challenges:
 
-\subsubsectionstar{Visualizing and tuning data distributions}
+\textit{Generated properties should be \emph{important}}. Any non-trivial
+program can be characterized by an overwhelmingly large number of properties,
+many of which describe only incidental aspects of the program's behavior that do
+not need to be tested. How can tools produce those properties that developers
+would want to have tested? We believe that this is a problem that can be best
+solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties
+are determined by judiciously incorporating both developer input and automated
+techniques.
 
-% (this topic is what Joe is most excited about)
+Developer could guide a specification mining tool to extracting relevant
+properties through input mechanisms such as (1) identifying regions of code that
+are likely to lead to an adverse behavior such as an exception or a logical
+error; (2) providing unit test cases that test a special case of a generalized
+property; and (3) indicating aspects of interest on input and output data during
+exploration in a debugging REPL.
 
-% For visualizing data distributions...
+\textit{Generated properties should be \emph{readable}}. While prior research
+has shown promise for automatically generating specifications of program
+behavior, we expect that users of PBT systems would benefit from having
+properties generated in the language of their property-based testing tools.
+Furthermore, there are some variants about systems that may be so complex that
+they require significant comprehension time for users (i.e., those involving a
+large number of clauses). In such cases, a tool may way to generate simpler
+variants of properties first, and allow developers to refine them on their own.
 
-Plan of work: easily computable summary statistics; as well as user-defined metrics for understanding what you care the most about from the distribution. Seeing what the “average” data structure is that is getting generated. For multimodal data, what are the different modes of data. The set of data types to be handled in PBT are: algebraic data types, lists, trees (this would also cover programs). Joe thinks we already have good visualizations for numbers, booleans, and strings; it is compositional data types that we lack good visualizations for. People need to (1) see representative examples (2) understand spread (3) indicate areas of the space that should not be explored.  \bcp{I love this thread---understanding the distribution that you're getting from a random generator is one of the most challenging aspects of PBT---the thing that makes it an art rather than a pushbutton or even fully automatable activity.  (We should acknowledge this challenge even more clearly and prominently, at the very top.)  Jessica and I have been struggling just this week to figure out what to measure to get a better understanding of some specific distributions!  I feel like there must be a ton or two of work on this, in adjacent or distant communities.  I wonder how we'd find it...} \amh{Currently the project ideas are arranged chronologically according to when programmers would use them (i.e., first they would write properties, then generators, then understand their solutions, then integrate the tests into continuous integration, etc.). I could see also ordering by our level of enthusiasm / likelihood to work on it, which, as I understand, would put this section at the top.}
+\textit{Tools should help developers \emph{revise} properties}. If a generated
+property is too relaxed, the tool should request that developer provides a
+counterexample that should trigger a failure, and then regenerate the property.
+If a generated property is too strict, a tool should allow a programmer to mark
+a counterexample that was generated by the PBT tool as spurious, i.e., not
+indicating an actual failure of the program. In each of these cases, the
+property generator may have generate multiple properties for a developer to
+review, each of which may satisfy the refinements that a developer has provided.
 
-% For tuning data distributions...
+\textit{Plan of work}: We will iteratively design and develop developer tools as
+an extension to the VSCode editor, a popular development environment for
+Haskell. In our first iterations, candidate properties will be generated using
+QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be
+designed and tested first for simple programs, and then on successively more
+complex programs from our benchmark set. PI Head has extensive experience
+designing and developing developer tools involving program
+analysis~\cite{head2018interactive,head2019managing} and program
+synthesis~\cite{head2017writing} components, and extending the VSCode
+environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml
+tools, rather than Haskell, since this is where there might be synergy with Jane
+Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
+specification generators for OCaml?}
+
+\subsection{Generation: Step 2, Better Tools for Random Inputs \pagebudget{3}}
+\subsubsectionstar{Background: The Valid Generation Problem}%
+%
+Note that the property above has a {\em precondition} (which I also refer to
+equivalently as a {\em validity condition} or {\em input constraint}): the
+property is vacuous if the input tree is not a valid BST. This can be problematic,
+because many preconditions are difficult to satisfy randomly; in the case above
+we would need to randomly stumble on valid BSTs, which is very unlikely for
+trees that are more than a few nodes deep. I call this the {\em valid generation
+problem}. In the next section I will discuss the standard solution to this
+problem in PBT---hand-written {\em monadic generators}---but first here is a
+short overview of other options.
+
+The solutions to the valid generation problem fall on a spectrum from fully
+automatic to fully manual. The most automatic possible approach is to simply
+generate inputs as normal, ignoring preconditions entirely, and throw away any
+that do not satisfy the precondition. As I mentioned above, this is extremely
+inefficient when the precondition is {\em sparse}, or unlikely to be satisfied
+randomly.
+
+Equally automatic, but often more effective, are coverage-guided approaches like
+those used by {\em fuzzers}. Fuzzers like AFL~\cite{afl-readme} measure the code
+coverage achieved by each input they try. If an input does not achieve coverage
+of new program branches, it is discarded, but if the input is deemed
+``interesting,'' then it may be mutated and tried again in an attempt to explore
+even more new code paths. This process makes finding valid inputs more likely
+because optimizing for code coverage encourages exploration of paths deeper in
+the program (i.e., past the point where the precondition is checked).
+Unfortunately, this only works so well, and again begins to fail with very
+sparse preconditions.
+
+A different approach that is {\em almost} entirely automatic is {\sc
+Target}~\cite{loscher2017targetedpbt}; it uses search strategies like hill
+climbing and simulated annealing to guide generation to more useful inputs.
+\citeauthor{loscher2017targetedpbt}'s approach works well when the notion of
+validity is in some way continuous (i.e., an input is not simply invalid, it is
+$X\%$ valid), but this is often not the case.
+
+Some approaches use machine learning to automatically generate valid inputs.
+{\sc Learn\&Fuzz}~\cite{godefroid2017learn} generates valid data using a
+recurrent neural network.  This solution seems to work best when a large corpus
+of inputs is already available and the validity condition is more structural
+than semantic. In the same vein, {\sc RLCheck}~\cite{DBLP:conf/icse/ReddyLPS20}
+uses reinforcement learning to guide a generator to valid inputs.
+
+For preconditions that are primarily structural, {\em grammar-based fuzzing}
+provides a compelling (if slightly more manual) solution. In {\em
+Grammar-based whitebox fuzzing}~\cite{godefroid2008grammar} a context-free
+grammar (CFG) is used to constrain the fuzzer's output. Over the years, many
+versions of this paradigm have been developed, including ones that use
+pre-written fragments of the input language to give the mutator interesting
+things to work with~\cite{holler2012fuzzing} and ones that use genetic
+programming to find more interesting inputs~\cite{veggalam2016ifuzzer}. The
+newest grammar-based fuzzing approaches use the grammar to do more structured
+mutation of values~\cite{wang2019superion,srivastava2021gramatron}. These ideas have also been integrated
+into PBT in the FuzzChick library~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}.
+
+Moving into the range of ``mostly manual'' solutions, there are a variety of
+solver-aided languages for expressing generators for data with preconditions.
+\citeauthor{dewey2017automated} proposed using constraint logic programming
+(CLP) to define generators for interesting structures like Rust
+programs~\cite{dewey2017automated}.  The {\sc Luck} language~\cite{LuckPOPL}
+also uses a solver, but a bespoke one, to define generators and validity
+predicates at the same time. \citet{steinhofel2022input} use a
+grammar and SMT-expressible constraints on a structure to generate
+precondition-satisfying values.
+
+Finally, {\em Generating Good Generators}~\cite{lampropoulos2017generating} an
+outlier on the spectrum: technically it is a manual approach since it requires
+users to first express their validity predicates as inductive relations in Coq,
+but in Coq it is likely that the user already has an inductive relation
+available! {\em Generating Good Generators} is a great approach in the
+situations where it applies.
+
+\subsubsectionstar{Background: Monadic Generators}%
+%
+The most manual, but arguably the most flexible, solution to the valid
+generation problem is write {\em monadic} generators.
+
+We represent generators using {\em monads\/}~\cite{moggi1991notions}. A monad is
+a type constructor (e.g., \lstinline{List}, \lstinline{Maybe}, etc.)
+\lstinline{M} equipped with two operations,
+\begin{lstlisting}
+  return :: a -> M a
+\end{lstlisting}
+\noindent and
+\begin{lstlisting}
+  (>>=) :: M a -> (a -> M b) -> M b
+\end{lstlisting}
+\noindent (pronounced ``bind''). Conceptually, \lstinline{return} is the
+simplest way to put some value into the monad, while bind gives a way to
+sequence operations that produce monadic values.
+
+We can use these operations to define {\sf genTree} like we would in QuickCheck:
+\begin{lstlisting}
+  genTree :: Int -> Gen Tree
+  genTree 0 = return Leaf
+  genTree $h$ = do
+    c <- frequency [(1,False), (3,True)]
+    case c of
+      False -> return Leaf
+      True -> do
+        x <- genInt
+        l <- genTree ($h$ - 1)
+        r <- genTree ($h$ - 1)
+        return (Node l x r)
+\end{lstlisting}
+We use the monadic operations (along with \lstinline{frequency}) to generate a
+random tree of integers. The expression \lstinline{return Leaf} is a degenerate
+generator that always produces the value \lstinline{Leaf}---this is what we mean
+by the ``simplest way to put a value into the \lstinline{Gen} monad.''
+
+Rather than use \lstinline{(>>=)} explicitly, we use \lstinline{do}-notation,
+where
+\begin{lstlisting}
+  do
+    a <- x
+    f a
+\end{lstlisting}
+\noindent is syntactic sugar for \lstinline{x >>= f}. In the context of the
+\lstinline{Gen} type, this operation samples from a generator \lstinline{x} to
+get a value \lstinline{a} and then passes it to \lstinline{f} for further
+processing---this is what we mean by ``sequencing operations.''
+
+\smallskip
+
+Monadic parsers are maximally expressive.  They can generate values satisfying
+arbitrary computable constraints (e.g., it is possible to write a monadic
+generator for well-typed System F terms), subsuming less powerful
+representations like probabilistic context-free grammars.
+
+For example, the following monadic generator generates (only) valid binary
+search trees:
+\begin{lstlisting}
+  genBST :: (Int, Int) -> Gen Tree
+  genBST (lo, hi) | lo > hi = return Leaf
+  genBST (lo, hi) = do
+    c <- frequency [(1,False), (3,True)]
+    case c of
+      False -> return Leaf
+      True -> do
+        x <- genRange (lo, hi)
+        l <- genBST (lo, x - 1)
+        r <- genBST (x + 1, hi)
+        return (Node l x r)
+\end{lstlisting}
+\noindent The generator maintains the BST invariant by keeping track of the
+minimum and maximum values available for a given sub-tree and ensuring that all
+values to the left of a value are less and that all values to the right of a
+value are greater.  This kind of generator is impossible to express as a
+stochastic CFG, since there is dependence between the choice of value
+\lstinline{x} and the choices of sub-trees. Our examples are mostly focused on
+simple (non-dependent) generators to streamline the exposition, but our theory
+applies to the full class of monadic generators with finitely supported
+distributions.
+
+\subsubsection{Prior Work: Free Generators}
+\subsubsection{Ongoing Work: Reflective Generators}
+\subsubsection{Proposed Work: Bringing Fuzzing into Focus}
+\subsubsection{Proposed Work: Reflective Shrinking}
+
+\subsection{Validation: Step 3, Understanding Testing Effectiveness \pagebudget{2.5}}
+\subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
+
+\subsubsection{Proposed Work: Visualizing and Tuning Data Distributions}
+
+Plan of work: easily computable summary statistics; as well as user-defined
+metrics for understanding what you care the most about from the distribution.
+Seeing what the “average” data structure is that is getting generated. For
+multimodal data, what are the different modes of data. The set of data types to
+be handled in PBT are: algebraic data types, lists, trees (this would also cover
+programs). Joe thinks we already have good visualizations for numbers, booleans,
+and strings; it is compositional data types that we lack good visualizations
+for. People need to (1) see representative examples (2) understand spread (3)
+indicate areas of the space that should not be explored.  \bcp{I love this
+thread---understanding the distribution that you're getting from a random
+generator is one of the most challenging aspects of PBT---the thing that makes
+it an art rather than a pushbutton or even fully automatable activity.  (We
+should acknowledge this challenge even more clearly and prominently, at the very
+top.)  Jessica and I have been struggling just this week to figure out what to
+measure to get a better understanding of some specific distributions!  I feel
+like there must be a ton or two of work on this, in adjacent or distant
+communities.  I wonder how we'd find it...} \amh{Currently the project ideas are
+arranged chronologically according to when programmers would use them (i.e.,
+first they would write properties, then generators, then understand their
+solutions, then integrate the tests into continuous integration, etc.). I could
+see also ordering by our level of enthusiasm / likelihood to work on it, which,
+as I understand, would put this section at the top.}
 
 Plan of work: indicating areas of the distribution that should not be generated.
 
-Example: writing a generator of programs (for instance, to test out a compiler). You want lots of different programs that make sense in different ways. You want large ones, small ones, ones that use variables in coherent ways, ones that don’t overuse certain constructs, ones that use a variety of different language features. You want the generated programs to be representative of those that people might write. You also want some weird programs to catch the edge cases, but you don’t want all weird programs. (How big, how deep, how wide of programs?). Also, for trees, one might want to specify heights and breadths of the tree.
+Example: writing a generator of programs (for instance, to test out a compiler).
+You want lots of different programs that make sense in different ways. You want
+large ones, small ones, ones that use variables in coherent ways, ones that
+don’t overuse certain constructs, ones that use a variety of different language
+features. You want the generated programs to be representative of those that
+people might write. You also want some weird programs to catch the edge cases,
+but you don’t want all weird programs. (How big, how deep, how wide of
+programs?). Also, for trees, one might want to specify heights and breadths of
+the tree.
 
-\subsubsectionstar{Interactive property specification}
 
-\bcp{General comment for this section: It all seems good, but it is a bit vague and high level---I feel like technical readers will want a bit more meat.  Could we spice it up with a concrete example?  (Indeed, should we be thinking about a running example for the whole proposal?)} \amh{Agreed, I think a concrete example would be \emph{great} here. Maybe there is an example we can bring in from the QuickSpec paper~\cite{claessen2010quickspec}}
+\subsubsection{Proposed Work: Debugging Support for Understanding Counterexamples}
 
-As our preliminary interview study has suggested, developers sometimes have difficulty imagining which properties to test, even when they know that their software would benefit from property-based testing. One area we are interested in exploring is how programmers can work with their PBT tools to decide on a set of significant properties to test.
-Prior research demonstrates that automated tools can extract specifications of a program's behavior\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are interested in the non-trivial research problem of integrating such techniques into usable developer tools. We see the research as addressing several challenges:
+Once a PBT tool generates a counterexample of where a property fails, a
+programmer will need to understand what in an input caused the program to fail.
+This task can be rather challenging because generated inputs can be complex,
+deep data structures \todo{Do we have a reference that implies the complexity of
+generated counterexamples?}. Methods for making it clearer why a counterexample
+fails could be to generate additional inputs that are very close to the
+counterexample that are actually correct, to run the program up to the point
+where the traces of the programs begin to diverge, and then to drop a programmer
+into a debugging environment where they can query the state of the program and
+step through the remainder of the execution. PI Head has prior work designing
+debugging tools that help programmers understand trace divergences in an
+educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We
+should acknowledge all the work that's been done on shrinking in the PBT
+community.} \amh{Good thinking!}
+\hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
+should make sure we don't step on toes}
 
-\textit{Generated properties should be \emph{important}}. Any non-trivial program can be characterized by an overwhelmingly large number of properties, many of which describe only incidental aspects of the program's behavior that do not need to be tested. How can tools produce those properties that developers would want to have tested? We believe that this is a problem that can be best solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties are determined by judiciously incorporating both developer input and automated techniques.
-
-Developer could guide a specification mining tool to extracting relevant properties through input mechanisms such as (1) identifying regions of code that are likely to lead to an adverse behavior such as an exception or a logical error; (2) providing unit test cases that test a special case of a generalized property; and (3) indicating aspects of interest on input and output data during exploration in a debugging REPL.
-
-\textit{Generated properties should be \emph{readable}}. While prior research has shown promise for automatically generating specifications of program behavior, we expect that users of PBT systems would benefit from having properties generated in the language of their property-based testing tools. Furthermore, there are some variants about systems that may be so complex that they require significant comprehension time for users (i.e., those involving a large number of clauses). In such cases, a tool may way to generate simpler variants of properties first, and allow developers to refine them on their own.
-
-\textit{Tools should help developers \emph{revise} properties}. If a generated property is too relaxed, the tool should request that developer provides a counterexample that should trigger a failure, and then regenerate the property. If a generated property is too strict, a tool should allow a programmer to mark a counterexample that was generated by the PBT tool as spurious, i.e., not indicating an actual failure of the program. In each of these cases, the property generator may have generate multiple properties for a developer to review, each of which may satisfy the refinements that a developer has provided.
-
-\textit{Plan of work}: We will iteratively design and develop developer tools as an extension to the VSCode editor, a popular development environment for Haskell. In our first iterations, candidate properties will be generated using QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be designed and tested first for simple programs, and then on successively more complex programs from our benchmark set. PI Head has extensive experience designing and developing developer tools involving program analysis~\cite{head2018interactive,head2019managing} and program synthesis~\cite{head2017writing} components, and extending the VSCode environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml tools, rather than Haskell, since this is where there might be synergy with Jane Street?  Or do both?} \amh{This is a great idea. Does anyone know of any specification generators for OCaml?}
-
-\subsubsectionstar{Debugging support for understanding counterexamples}
-
-Once a PBT tool generates a counterexample of where a property fails, a programmer will need to understand what in an input caused the program to fail. This task can be rather challenging because generated inputs can be complex, deep data structures \todo{Do we have a reference that implies the complexity of generated counterexamples?}. Methods for making it clearer why a counterexample fails could be to generate additional inputs that are very close to the counterexample that are actually correct, to run the program up to the point where the traces of the programs begin to diverge, and then to drop a programmer into a debugging environment where they can query the state of the program and step through the remainder of the execution. PI Head has prior work designing debugging tools that help programmers understand trace divergences in an educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We should acknowledge all the work that's been done on shrinking in the PBT community.} \amh{Good thinking!}
-
-\subsubsectionstar{Reconciling generator API design with imperative language idioms}
-
-Motivation: How do you design a generator DSL in an imperative language? A generator uses higher-level functions in a way that might be confusing to people who used Python.  (e.g., passing a generator of numbers to a generator of lists to get randomized lists of numbers). Is there a way of designing APIs for generators that can make the composition of these types of generators easier to reason about and express for some programmers?
-
-(Joe says the DSLs are well-designed, but the code is hard to debug. How do you write a generator that works really well, that has a good data distribution and finds bugs? See below.)
-
-Plan of work. Not sure. This might require some discussions with more uses of Hypothesis-like libraries.
-
-Next steps—get examples of sloppily-expressed PBtests in Python and then think through how they would be written more clearly.
-
-\subsubsectionstar{Integration with continuous integration workflows}
+\subsubsection{Proposed Work: Integration with Continuous Integration Workflows}
 
 The preliminary study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
@@ -698,7 +730,7 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
-\subsection{Education \pagebudget{1}}
+\subsection{Education: Advancing Testing in the Broader Culture \pagebudget{1}}
 
 The preliminary study also reminded us that PBT builds on concepts that are not
 always comfortable for developers, and we expect that we will learn more about
@@ -772,7 +804,7 @@ and models, as described in any Data Management Plan.
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
 
-\subsection{More stuff to not forget :-)}
+\subsectionstar{More stuff to not forget :-)}
 
 Unfunded collaborations: Any substantial collaboration with individuals not included in the budget should be described in the Facilities, Equipment and Other Resources section of the proposal (see Chapter II.C.2.i) and documented in a letter of collaboration from each collaborator. Such letters should be provided in the supplementary documentation section of FastLane or Research.gov and follow the format instructions specified in Chapter II.C.2.j. Collaborative activities that are identified in the budget should follow the instructions in Chapter II.D.3.
 
