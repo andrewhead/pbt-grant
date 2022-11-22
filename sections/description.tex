@@ -1,44 +1,66 @@
 \section{Project Description \pagebudget{.5}}
 
-% \comment{Meta comment: I think a lot of the technical content here can come from my thesis proposal. It has all of the technical projects other than the benchmarking project (which BCP should be able to write about — or maybe ask for Jessica’s help?) and it also has the background and related work. It may be useful to go to the individual papers for some deeper details, but I’d be surprised.}
-
-In 2022, software is not just ubiquitous: it is pervasive.  As software
-permeates our lives, so do the bugs the software contains, threatening our
-time, our money, our privacy, and our health.
-Luckily, techniques for ensuring the correctness of software have grown
-alongside the software industry. A modern programmer has a wealth of tools
-available to help them avoid potentially catastrophic errors.
-
+\todo{
+  \begin{itemize}
+    \item Testing is a huge part of the modern software development process
+    \item There are many flavors of testing (unit testing, integration testing,
+    etc.) that are popular and effective
+    \item The things that SE has adopted are powerful, and there are tools that
+    are even more powerful
+    \item
 One such tool,
 property-based testing (PBT) combines formal software specification with random
-testing to achieve low-effort, high-impact bug-finding. It has
+testing to achieve low-effort, high-impact bug-finding. TODO Rich theoretical foundation. It has
 seen enormous success, finding critical bugs in telecommunications
 software~\cite{arts2006testing}, replicated
 file-stores~\cite{hughes2014mysteries}, cars~\cite{arts2015testing}, and a range
 of other programs~\cite{hughes2016experiences}. Select companies make PBT part of
 their testing workflow and find it to be an invaluable tool for ensuring
 correctness~\cite{Bornholt2021}.
+    \item Increasing the impact of PBT in industry would improve productivity
+    and make software more robust. What would that take?
+    \item We're in the middle of an in-depth formative study to find out just
+    that
+    \begin{itemize}
+      \item Still doing analysis, but some broad themes have become clear
+      \item List high-level theme categories
+    \end{itemize}
+    \item The goal of the project is to capitalize on that data and advance PBT
+    by:
+    \begin{enumerate}
+      \item Understanding the foundation: challenges PBT faces in industry
+      \item Addressing difficulties in specification, generation, and testing
+      validation with theoretically motivated and rigorously designed tools
+      \item Setting up comprehensive resources for education
+    \end{enumerate}
+    \item In the following section, we describe the study in some detail and use
+    it to motivate the work that we propose in this project
+    \item MOTIVATION SECTION
+    \begin{itemize}
+      \item Motivating questions for JS study
+      \item Lay out study parameters in some (but not much) detail
+      \item Discuss some emerging themes
+      \begin{itemize}
+        \item Give justification in the form of quotes for some
+        \item Say why the themes are important, how they line up with existing
+        understanding
+        \item Situate themes relative to their categories
+      \end{itemize}
+      \item Tie everything together
+      \begin{itemize}
+        \item The themes of this study map onto the projects that we plan to
+        carry out
+        \item Each theme category has a section below, each project in those
+        sections directly serves one or more of the themes in that category
+        \item Here's what we're going to do...
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+}
 
-But the PBT community must not rest on its laurels: there is still work to be
-done. The literature has identified a number of challenges that make PBT
-difficult or time consuming to apply in certain testing situations. One critical
-class of challenges concerns the random data generators that testers use as part
-of the PBT process.
-Successful PBT relies on random data that is both well distributed and ``valid''
-for the system under test. I have spent the last few years exploring ways to
-make effective random generators more powerful and easier to write, and I will
-continue that work in my dissertation.
+\subsectionstar{Motivation: A Formative Study \pagebudget{2}}
 
-Additionally, it is clear that there are also ``unknown unknowns'': challenges
-facing PBT, particularly those important to software developers, that the
-research community is not yet aware of. I have begun a series of need-finding
-studies, consisting of semi-structured interviews with developers, to uncover
-and hopefully solve some of these hidden challenges. This work will form the
-second major theme of my dissertation.
-
-\subsection{Motivation: A Formative Study \pagebudget{2}}
-
-\subsubsectionstar{Background: Property-Based Testing}%
+\subsubsectionstar{Context: Property-Based Testing}%
 %
 Property-based testing (PBT) is a form of random testing~\cite{hamlet1994random}
 that was popularized by the QuickCheck~\cite{DBLP:conf/icfp/ClaessenH00} library
@@ -87,8 +109,11 @@ problem in the next section.
 
 \bcp{Related work to mention: HypoFuzz \url{https://hypofuzz.com}}
 
-\subsubsectionstar{Why Us?}%
+\subsectionstar{Contributions}
+
 %
+\todo{Outline project}
+
 \todo{A short paragraph about what a great team we are, how the PI
   qualifications complement each other, and what kind of students we aim to
   support.  Include a pointer to the work plan section below.}
@@ -483,7 +508,7 @@ Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
 \subsection{Generation: Step 2, Better Tools for Random Inputs \pagebudget{3}}
-\subsubsectionstar{Background: The Valid Generation Problem}%
+\subsubsectionstar{Context: The Valid Generation Problem}%
 %
 Note that the property above has a {\em precondition} (which I also refer to
 equivalently as a {\em validity condition} or {\em input constraint}): the
@@ -556,7 +581,7 @@ but in Coq it is likely that the user already has an inductive relation
 available! {\em Generating Good Generators} is a great approach in the
 situations where it applies.
 
-\subsubsectionstar{Background: Monadic Generators}%
+\subsubsectionstar{Context: Monadic Generators}%
 %
 The most manual, but arguably the most flexible, solution to the valid
 generation problem is write {\em monadic} generators.
