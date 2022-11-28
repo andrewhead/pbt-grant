@@ -508,78 +508,58 @@ Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
 \subsection{Generation: Step 2, Better Tools for Random Inputs \pagebudget{3}}
-\subsubsectionstar{Context: The Valid Generation Problem}%
-%
-Note that the property above has a {\em precondition} (which I also refer to
-equivalently as a {\em validity condition} or {\em input constraint}): the
-property is vacuous if the input tree is not a valid BST. This can be problematic,
-because many preconditions are difficult to satisfy randomly; in the case above
-we would need to randomly stumble on valid BSTs, which is very unlikely for
-trees that are more than a few nodes deep. I call this the {\em valid generation
-problem}. In the next section I will discuss the standard solution to this
-problem in PBT---hand-written {\em monadic generators}---but first here is a
-short overview of other options.
+\hg{Intro here}
+
+\subsubsectionstar{Context: Why is random generation hard?}%
+Before presenting our proposed work to improve the state of random data
+generators, we must first discuss the major difficulties with random generation
+for PBT and the existing work that aims to address those difficulties.
+
+{\em Validity Constraints.}
+Many properties that developers want to test have {\em preconditions}
+(equivalently {\em validity conditions} or {\em input constraints}) that
+restrict the set of inputs that should be used for testing. This comes up often
+when testing data structures with invariants that must hold in order to apply
+the operations under test.  Testing such properties can be problematic, because
+many preconditions are difficult to satisfy randomly; if the developer is not
+careful they may waste considerable time and energy generating and throwing away
+invalid inputs. We call the challenge of quickly generating lots of
+precondition-satisfying inputs the {\em valid generation problem}.
+
+{\em Coverage of Realistic Inputs.}
+Even among valid inputs, not all are equally realistic. Often generated inputs
+feel fabricated, since they are not constructed with prior knowledge of the
+kinds of inputs that the program is likely to see. Ideally, developers should be
+able to quickly and easily tune their generators to better mimic the real world.
+
+{\em Other Distributional Concerns.}
+\hg{TODO}
+
+\hg{TODO transition into solutions}
 
 The solutions to the valid generation problem fall on a spectrum from fully
-automatic to fully manual. The most automatic possible approach is to simply
-generate inputs as normal, ignoring preconditions entirely, and throw away any
-that do not satisfy the precondition. As I mentioned above, this is extremely
-inefficient when the precondition is {\em sparse}, or unlikely to be satisfied
-randomly.
+automatic to fully manual. The most automatic possible approach is {\em
+rejection sampling}; simply generate inputs as normal, ignoring preconditions
+entirely, and throw away any that do not satisfy the precondition. Rejection
+sampling can be improved by guiding input generation towards interesting values
+using proxies for validity. Some existing tools optimize readily available
+metrics like code coverage~\cite{afl-readme}, others ask users to provide
+metics~\cite{loscher2017targetedpbt}, and, naturally, a few use machine learning
+to infer proxies validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}.
 
-Equally automatic, but often more effective, are coverage-guided approaches like
-those used by {\em fuzzers}. Fuzzers like AFL~\cite{afl-readme} measure the code
-coverage achieved by each input they try. If an input does not achieve coverage
-of new program branches, it is discarded, but if the input is deemed
-``interesting,'' then it may be mutated and tried again in an attempt to explore
-even more new code paths. This process makes finding valid inputs more likely
-because optimizing for code coverage encourages exploration of paths deeper in
-the program (i.e., past the point where the precondition is checked).
-Unfortunately, this only works so well, and again begins to fail with very
-sparse preconditions.
+Still, rejection sampling is slow; there manual solutions that are nevertheless
+relatively easy to use. For preconditions that are primarily structural, {\em
+grammar-based fuzzing} provides a compelling
+solution~\cite{godefroid2008grammar, holler2012fuzzing, veggalam2016ifuzzer,
+wang2019superion, srivastava2021gramatron}. For more complex, semantic
+preconditions, some have proposed using SMT-solvers
+programming~\cite{dewey2017automated, LuckPOPL, steinhofel2022input} to
+automatically seek out valid inputs.
 
-A different approach that is {\em almost} entirely automatic is {\sc
-Target}~\cite{loscher2017targetedpbt}; it uses search strategies like hill
-climbing and simulated annealing to guide generation to more useful inputs.
-\citeauthor{loscher2017targetedpbt}'s approach works well when the notion of
-validity is in some way continuous (i.e., an input is not simply invalid, it is
-$X\%$ valid), but this is often not the case.
+The most flexible, but the most manual, solutions use hand-written generators,
+written in a convenient domain-specific language. These are the topic of the
+next section.
 
-Some approaches use machine learning to automatically generate valid inputs.
-{\sc Learn\&Fuzz}~\cite{godefroid2017learn} generates valid data using a
-recurrent neural network.  This solution seems to work best when a large corpus
-of inputs is already available and the validity condition is more structural
-than semantic. In the same vein, {\sc RLCheck}~\cite{DBLP:conf/icse/ReddyLPS20}
-uses reinforcement learning to guide a generator to valid inputs.
-
-For preconditions that are primarily structural, {\em grammar-based fuzzing}
-provides a compelling (if slightly more manual) solution. In {\em
-Grammar-based whitebox fuzzing}~\cite{godefroid2008grammar} a context-free
-grammar (CFG) is used to constrain the fuzzer's output. Over the years, many
-versions of this paradigm have been developed, including ones that use
-pre-written fragments of the input language to give the mutator interesting
-things to work with~\cite{holler2012fuzzing} and ones that use genetic
-programming to find more interesting inputs~\cite{veggalam2016ifuzzer}. The
-newest grammar-based fuzzing approaches use the grammar to do more structured
-mutation of values~\cite{wang2019superion,srivastava2021gramatron}. These ideas have also been integrated
-into PBT in the FuzzChick library~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}.
-
-Moving into the range of ``mostly manual'' solutions, there are a variety of
-solver-aided languages for expressing generators for data with preconditions.
-\citeauthor{dewey2017automated} proposed using constraint logic programming
-(CLP) to define generators for interesting structures like Rust
-programs~\cite{dewey2017automated}.  The {\sc Luck} language~\cite{LuckPOPL}
-also uses a solver, but a bespoke one, to define generators and validity
-predicates at the same time. \citet{steinhofel2022input} use a
-grammar and SMT-expressible constraints on a structure to generate
-precondition-satisfying values.
-
-Finally, {\em Generating Good Generators}~\cite{lampropoulos2017generating} an
-outlier on the spectrum: technically it is a manual approach since it requires
-users to first express their validity predicates as inductive relations in Coq,
-but in Coq it is likely that the user already has an inductive relation
-available! {\em Generating Good Generators} is a great approach in the
-situations where it applies.
 
 \subsubsectionstar{Context: Monadic Generators}%
 %
