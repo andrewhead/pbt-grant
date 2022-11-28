@@ -1252,14 +1252,24 @@
   keywords   = {semantics, monads, Haskell, effect handlers, modularity, syntax}
 }
 
-@misc{goldstein2022parsing,
-  title         = {Parsing Randomness: Unifying and Differentiating Parsers and Random Generators},
-  author        = {Harrison Goldstein and Benjamin C. Pierce},
-  year          = {2022},
-  eprint        = {2203.00652},
-  archiveprefix = {arXiv},
-  primaryclass  = {cs.PL}
+@article{goldstein2022parsing,
+  title     = {Parsing {Randomness}},
+  volume    = {6},
+  copyright = {All rights reserved},
+  url       = {https://doi.org/10.1145/3563291},
+  doi       = {10.1145/3563291},
+  abstract  = {Random data generators can be thought of as parsers of streams of randomness. This perspective on generators for random data structures is established folklore in the programming languages community, but it has never been formalized, nor have its consequences been deeply explored. We build on the idea of freer monads to develop free generators, which unify parsing and generation using a common structure that makes the relationship between the two concepts precise. Free generators lead naturally to a proof that a monadic generator can be factored into a parser plus a distribution over choice sequences. Free generators also support a notion of derivative, analogous to the familiar Brzozowski derivatives of formal languages, allowing analysis tools to "preview" the effect of a particular generator choice. This gives rise to a novel algorithm for generating data structures satisfying user-specified preconditions.},
+  number    = {OOPSLA2},
+  urldate   = {2022-11-21},
+  journal   = {Proceedings of the ACM on Programming Languages},
+  author    = {Goldstein, Harrison and Pierce, Benjamin C.},
+  month     = oct,
+  year      = {2022},
+  keywords  = {read},
+  pages     = {128:89--128:113},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/7DHQCBVA/Goldstein and Pierce - 2022 - Parsing randomness.pdf:application/pdf}
 }
+
 
 @inproceedings{10.1145/3471874.3472982,
   author    = {Teegen, Finn and Prott, Kai-Oliver and Bunkenburg, Niels},

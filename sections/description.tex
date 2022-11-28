@@ -514,6 +514,7 @@ specification generators for OCaml?}
 Before presenting our proposed work to improve the state of random data
 generators, we must first discuss the major difficulties with random generation
 for PBT and the existing work that aims to address those difficulties.
+\todo{Link all of this to the intro}
 
 {\em Validity Constraints.}
 Many properties that developers want to test have {\em preconditions}
@@ -533,52 +534,51 @@ kinds of inputs that the program is likely to see. Ideally, developers should be
 able to quickly and easily tune their generators to better mimic the real world.
 
 {\em Other Distributional Concerns.}
-\hg{TODO}
+And {\em even} with validity and realism accounted for, there are other ways for
+generators to under-perform. In particular, the spaces of inputs that generators
+target is often very large, and the best generators explore the whole space as
+quickly as possible. This often (but not always) leads users to manually tune
+the weights on generators' choices to ensure that the generator does not spend
+too much time in one part of the space or another.
 
-\hg{TODO transition into solutions}
-
-The solutions to the valid generation problem fall on a spectrum from fully
-automatic to fully manual. The most automatic possible approach is {\em
-rejection sampling}; simply generate inputs as normal, ignoring preconditions
-entirely, and throw away any that do not satisfy the precondition. Rejection
-sampling can be improved by guiding input generation towards interesting values
-using proxies for validity. Some existing tools optimize readily available
-metrics like code coverage~\cite{afl-readme}, others ask users to provide
-metics~\cite{loscher2017targetedpbt}, and, naturally, a few use machine learning
-to infer proxies validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}.
-
-Still, rejection sampling is slow; there manual solutions that are nevertheless
-relatively easy to use. For preconditions that are primarily structural, {\em
-grammar-based fuzzing} provides a compelling
+The literature addresses these concerns to various degrees, and the tools to
+fall on a spectrum from automatic to manual. The automatic approaches use
+proxies for validity and general ``interestingness'' of inputs: some optimize
+readily available metrics like code coverage~\cite{afl-readme}, others ask users
+to provide metics~\cite{loscher2017targetedpbt}, and, naturally, a few use
+machine learning to infer proxies validity~\cite{godefroid2017learn,
+DBLP:conf/icse/ReddyLPS20}. Slightly more manual approaches are based on
+declarative representations of validity conditions: for preconditions that are
+primarily structural, {\em grammar-based fuzzing} provides a compelling
 solution~\cite{godefroid2008grammar, holler2012fuzzing, veggalam2016ifuzzer,
-wang2019superion, srivastava2021gramatron}. For more complex, semantic
+wang2019superion, srivastava2021gramatron}, and for more complex, semantic
 preconditions, some have proposed using SMT-solvers
 programming~\cite{dewey2017automated, LuckPOPL, steinhofel2022input} to
-automatically seek out valid inputs.
+automatically seek out valid inputs. This semi-automatic category also includes
+tools for {\em example-based tuning}, a process that improves realism of inputs
+by mimicking user-provided examples~\cite{soremekun2020inputs}.
 
 The most flexible, but the most manual, solutions use hand-written generators,
 written in a convenient domain-specific language. These are the topic of the
 next section.
 
-
 \subsubsectionstar{Context: Monadic Generators}%
-%
-The most manual, but arguably the most flexible, solution to the valid
-generation problem is write {\em monadic} generators.
-
-We represent generators using {\em monads\/}~\cite{moggi1991notions}. A monad is
-a type constructor (e.g., \lstinline{List}, \lstinline{Maybe}, etc.)
+When writing generators manually, it helps to have a clean domain-specific
+language (DSL) for writing them down. THe PBT community has organized around
+{\em monads\/}~\cite{moggi1991notions} as the foundation for generator DSLs. A
+monad is a type constructor (e.g., \lstinline{List}, \lstinline{Maybe}, etc.)
 \lstinline{M} equipped with two operations,
-\begin{lstlisting}
-  return :: a -> M a
-\end{lstlisting}
-\noindent and
-\begin{lstlisting}
-  (>>=) :: M a -> (a -> M b) -> M b
-\end{lstlisting}
-\noindent (pronounced ``bind''). Conceptually, \lstinline{return} is the
+\begin{center}
+  \lstinline{return :: a -> M a} \qquad and \qquad \lstinline{(>>=) :: M a -> (a -> M b) -> M b}
+\end{center}
+(the latter pronounced ``bind''). Conceptually, \lstinline{return} is the
 simplest way to put some value into the monad, while bind gives a way to
 sequence operations that produce monadic values.
+
+\hg{What should we do here? Can we avoid monad syntax entirely, and just present
+the formalism with some justification about why it's good? The down-side would
+be that we can't show reflective generator notation later. But this just feels
+like way too much data.}
 
 We can use these operations to define {\sf genTree} like we would in QuickCheck:
 \begin{lstlisting}
@@ -644,8 +644,26 @@ applies to the full class of monadic generators with finitely supported
 distributions.
 
 \subsubsection{Prior Work: Free Generators}
+In order to improve monadic generation along the dimensions listed above, we
+must first re-frame generators as {\em parsers of randomness}. A generator
+operates by making a series of random choices, but we can equivalently think of
+it as being provided some random sequence of choices and then simply following
+those choices to produce a value. This perspective has been used in a few
+implementations of PBT systems~\cn{}, but we made it formal in our paper, {\em
+Parsing Randomness}~\cite{goldstein2022parsing}.
+
+The paper introduces {\em free generators}, which generalize the standard
+monadic generator abstraction, demonstrate a formal link between parsing and
+random generation, and enable new algorithms for generation that address the
+valid generation problem. Free generators represent a view of generator syntax
+trees, capturing the operations that a generator {\em would} carry out, without
+actually running them.
+\hg{How much detail here?}
+
 \subsubsection{Ongoing Work: Reflective Generators}
+
 \subsubsection{Proposed Work: Bringing Fuzzing into Focus}
+
 \subsubsection{Proposed Work: Reflective Shrinking}
 
 \subsection{Validation: Step 3, Understanding Testing Effectiveness \pagebudget{2.5}}
