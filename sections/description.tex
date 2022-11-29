@@ -586,86 +586,24 @@ The most flexible, but the most manual, solutions use hand-written generators,
 written in a convenient domain-specific language. These are the topic of the
 next section.
 
-\subsubsectionstar{Context: Monadic Generators}%
+\subsubsectionstar{Context: Monadic Generators}
 When writing generators manually, it helps to have a clean domain-specific
-language (DSL) for writing them down. THe PBT community has organized around
-{\em monads\/}~\cite{moggi1991notions} as the foundation for generator DSLs. A
-monad is a type constructor (e.g., \lstinline{List}, \lstinline{Maybe}, etc.)
-\lstinline{M} equipped with two operations,
-\begin{center}
-  \lstinline{return :: a -> M a} \qquad and \qquad \lstinline{(>>=) :: M a -> (a -> M b) -> M b}
-\end{center}
-(the latter pronounced ``bind''). Conceptually, \lstinline{return} is the
-simplest way to put some value into the monad, while bind gives a way to
-sequence operations that produce monadic values.
+language (DSL) for writing them down. In the Haskell language, where PBT was
+first popularized, many such DSLs are implemented using {\em
+monads\/}~\cite{moggi1991notions}, which are an elegant design pattern for
+expressing effectful (in this case, random and stateful) computations in a pure
+language. While monadic DSLs are not necessary to express generators in non-pure
+languages, some libraries (e.g., in OCaml) still use monadic abstractions to
+build their generator DSLs.
 
-\hg{What should we do here? Can we avoid monad syntax entirely, and just present
-the formalism with some justification about why it's good? The down-side would
-be that we can't show reflective generator notation later. But this just feels
-like way too much data.}
-
-We can use these operations to define {\sf genTree} like we would in QuickCheck:
-\begin{lstlisting}
-  genTree :: Int -> Gen Tree
-  genTree 0 = return Leaf
-  genTree $h$ = do
-    c <- frequency [(1,False), (3,True)]
-    case c of
-      False -> return Leaf
-      True -> do
-        x <- genInt
-        l <- genTree ($h$ - 1)
-        r <- genTree ($h$ - 1)
-        return (Node l x r)
-\end{lstlisting}
-We use the monadic operations (along with \lstinline{frequency}) to generate a
-random tree of integers. The expression \lstinline{return Leaf} is a degenerate
-generator that always produces the value \lstinline{Leaf}---this is what we mean
-by the ``simplest way to put a value into the \lstinline{Gen} monad.''
-
-Rather than use \lstinline{(>>=)} explicitly, we use \lstinline{do}-notation,
-where
-\begin{lstlisting}
-  do
-    a <- x
-    f a
-\end{lstlisting}
-\noindent is syntactic sugar for \lstinline{x >>= f}. In the context of the
-\lstinline{Gen} type, this operation samples from a generator \lstinline{x} to
-get a value \lstinline{a} and then passes it to \lstinline{f} for further
-processing---this is what we mean by ``sequencing operations.''
-
-\smallskip
-
-Monadic parsers are maximally expressive.  They can generate values satisfying
-arbitrary computable constraints (e.g., it is possible to write a monadic
-generator for well-typed System F terms), subsuming less powerful
-representations like probabilistic context-free grammars.
-
-For example, the following monadic generator generates (only) valid binary
-search trees:
-\begin{lstlisting}
-  genBST :: (Int, Int) -> Gen Tree
-  genBST (lo, hi) | lo > hi = return Leaf
-  genBST (lo, hi) = do
-    c <- frequency [(1,False), (3,True)]
-    case c of
-      False -> return Leaf
-      True -> do
-        x <- genRange (lo, hi)
-        l <- genBST (lo, x - 1)
-        r <- genBST (x + 1, hi)
-        return (Node l x r)
-\end{lstlisting}
-\noindent The generator maintains the BST invariant by keeping track of the
-minimum and maximum values available for a given sub-tree and ensuring that all
-values to the left of a value are less and that all values to the right of a
-value are greater.  This kind of generator is impossible to express as a
-stochastic CFG, since there is dependence between the choice of value
-\lstinline{x} and the choices of sub-trees. Our examples are mostly focused on
-simple (non-dependent) generators to streamline the exposition, but our theory
-applies to the full class of monadic generators with finitely supported
-distributions.
+Monadic generators implement arbitrary random data producers (e.g., it is
+possible to write a monadic generator for well-typed System F terms), so they do
+not compromise on expressiveness over other representations. Yet, monadic
+generators are syntactically constrained in a way that isolates the
+probabilistic code and prevents usage errors (like passing the wrong random seed
+around). As we will see, the constrained nature of monadic generators makes them
+the perfect candidates for sophisticated manipulations and interesting
+generalizations.
 
 \subsubsection{Prior Work: Free Generators}
 In order to improve monadic generation along the dimensions listed above, we
@@ -681,7 +619,20 @@ monadic generator abstraction, demonstrate a formal link between parsing and
 random generation, and enable new algorithms for generation that address the
 valid generation problem. Free generators represent a view of generator syntax
 trees, capturing the operations that a generator {\em would} carry out, without
-actually running them.
+actually running them.%
+\footnote{Free generators are implemented using {\em freer
+monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
+years to capture the structure of effectful computations (c.f.
+ITrees~\cite{old:xia2019interaction}). Freer monads represent monadic
+computations syntactically by reifying the monad operations (\lstinline{return}
+and \lstinline{>>=}) as data constructors. Critically, moving to this
+representation requires very little modification of the generator syntax, and it
+is all implemented within the language (no macros or AST manipulation). In {\em
+Parsing Randomness} we prove that any free generator, represented as a datatype
+in this way, can be interpreted equivalently as a standard monadic generator or
+as a source of random choice strings and a parser over those strings. See the
+paper for more details on the free generator representation and for our proofs.}
+
 \hg{How much detail here?}
 
 \subsubsection{Ongoing Work: Reflective Generators}
