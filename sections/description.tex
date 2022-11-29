@@ -406,6 +406,36 @@ interviews.
 
 \subsection{Specification: Step 1, Widening the On-Ramp to Properties \pagebudget{2.5}}
 \subsubsection{Proposed Work: When to Specify It!}
+Since PBT is often described as a kind of lightweight formal method, one might
+have imagined that a central challenge of using PBT would be coming up with the
+right specifications. Indeed, our preliminary study concluded just that. But at
+Jane Street we actually heard very little about the challenge of coming up with
+properties; instead, most participants described applying PBT in scenarios when
+properties were already available or quite easy to imagine. This suggests that,
+while PBT education should certainly spend some time teaching developers how to
+write specifications for arbitrary programs, it should spend even more energy
+helping developers quickly recognize  situations where PBT is a particularly
+natural fit because properties are obvious.
+
+With this in mind, we plan to write a short paper (with an accompanying talk)
+entitled {\em When to Specify It!}. The paper will be a spiritual successor to
+John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely account
+of the many different kinds of properties that one can write for a given piece
+of code. Clearly it is important to ask {\em How}, but the developer interviews
+suggest that it may be even more important to have a clear sense of {\em When}
+to use PBT. {\em When to Specify It!} will combine examples from developer
+interviews with ones from our our years of experience studying and applying PBT
+into the definitive guide for the most impactful opportunities to apply PBT.
+% \begin{itemize}
+% \item Code that is already (semi-)formally specified.
+% \item Functions that round trip.
+% \item Pure data structures.
+% \item Modules with invariants.
+% \item Related versions of the same code.
+% \item Programs that may fail catastrophically.
+% \item Stateful APIs with well-understood contracts.
+% \end{itemize}
+
 \subsubsection{Proposed Work: Properties Over Printed Output}
 \subsubsection{Proposed Work: Making Model-Based PBT First-Class}
 
