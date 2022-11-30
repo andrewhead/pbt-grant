@@ -201,188 +201,10 @@ problem in the next section.
   qualifications complement each other, and what kind of students we aim to
   support.  }
 
-\subsection{Foundation: Completing Formative Analysis \pagebudget{1}}
-\subsubsection{Prior Work: Preliminary Study}
+\subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}
 
-\hg{I think we need to say way less about this. The preliminary study is
-different from our ``preliminary results'' now, so I don't think the preliminary
-study results are actually worth discussing in any detail}\bcp{Agreed:
-we have moved on.  This should be cut to a sentence or two somewhere.}
-\textbf{Preliminary results}.
-\todo{Shorten to about 1 page.}
-We have conducted a preliminary interview study with 7 professional developers
-who have experience using PBT tools.
-What emerged were five categories of obstacles that developers encountered,
-relating
-to the design of properties, the definition of generators, learning PBT,
-integrating PBT into team workflows, and achieving critical mass in the use of the tools.
-In Section~\ref{sec:future}, we describe how these challenges
-can help shape the research and design of usable PBT tools.
-Below, we detail these challenges, referring to particular participants by
-pseudonyms P1--7. Quotes from participants are lightly edited for clarity,
-removing filler words and backtracking.
-We note that, given the small scale of this preliminary study, some
-of the obstacles are reflective of singular experiences, and the set of
-obstacles may not be complete. This
-highlights the need for expanded
-studies of the sort we describe in Section~\ref{sec:full-scale} to confirm
-and deepen our understanding of the usability of PBT tools.
+\subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street}
 
-\textit{Challenges Designing Properties}.
-One common challenge for developers was to identify, design,
-and articulate properties that would meaningfully test their code.
-
-To begin with, developers seemed to have trouble identifying use-cases for PBT
-that took advantage of the unique benefits of PBT over alternative approaches. While participants
-did write properties, often times they either under-specified the
-behavior of the system (for instance, simply testing that a program does not crash),
-or over-specifying it (for instance, comparing to a behaviorally complete
-{\em model} of the program under test, which might need to be separately
-implemented) (P1, P3--5).
-These participants were not testing properties as is conceptualized
-in conventional PBT, which either undermined the power of their tests or
-led to tests that could be brittle or time-consuming to implement.
-
-In other cases, developer simply did not know how to express the notion of
-correctness of their program as a property, which we call a failure
-to ``imagine'' a property.
-P1 described this as the problem of ``formulating the right property in the first place,''
-a difficulty they had experienced despite prior successes using PBT according to
-an over-specified model-based approach. P2 described circumstances in which this
-challenge to imagine properties might arise: they were testing a complex numerical
-computation involved in financial risk modeling. While they anticipated that
-properties could help them test the validity of the computation better than their
-existing suite of unit tests, they emphasized that determining such properties
-was not at all straightforward.
-
-Once a developer can imagine a property, the next challenge is to implement it.
-Implementation challenges were of several sorts (P4--6). One
-is common to software design generally---that module boundaries must be present
-around the functionality to be tested. P6 described this as the challenge of
-finding ``compose points where you can integrate [PBT] with the system.'' Refactoring
-code to be testable can be tedious at best and prohibitively time-consuming at
-worst. P6 reported that, for them, often the costs of restructuring code outstripped the benefits,
-leading them not to use PBT where it might otherwise have been useful.
-
-\textit{Challenges Writing Random Data Generators}.
-Developers also faced obstacles writing data generators for their property-based
-tests.
-Some developers reported that they lacked support for generating the kinds of
-distributions of input data that they felt were necessary for their tests.
-
-P7 recounted testing an application where the inputs were network access control lists (ACLs)
-with many different validity conditions, each given by
-a different hardware vendor.
-In this situation, P7 found that the {\em rejection sampling} approach to generation---generating
-arbitrary ACLs and throwing out invalid ones---was too slow to be useful.
-The standard solution would be to write a generator that enforces preconditions
-by construction. Indeed, the participant did note that ``it might be possible to
-make the generator smarter.'' However, they continued that it ``may or may not be worth it,'' due to
-the complexity of generating access control lists that are valid for \emph{all}
-of the vendors.
-
-In another expected finding, some participants described difficulties with
-controlling the distribution over test cases that their generators produce.
-As P6 recounted, poor test-case distributions can lead to long testing times and missed bugs
-as the generator repeatedly tries similar inputs and misses importantly different ones.
-\begin{quote}
-  I just relied on the built in [generators]. But\dots [there were] some tests
-  that were running for quite a long time. Sometimes they were missing some
-  useful use cases, just because the data distribution targeted use cases were
-  missed by the default generators.
-\end{quote}
-
-Besides these technical issues,
-participants encountered usability problems working with generator tools. P3 struggled to
-write a generator in Hypothesis' generator DSL. They
-explained that the (purely-functional style) abstraction did not match their expectations, given that Python is an imperative language, and they could
-not ``hold it in [their] head very easily.'' This highlights the importance of
-{\em idiomatic} generator abstractions.
-
-\textit{Challenges Integrating PBT into Programmer Workflows}.
-One unanticipated finding was that some participants struggled to incorporate
-PBT into their team's development process. One issue
-that came up was exactly where properties should be checked in the development pipeline.
-P4 explained that they generally only check their properties in their
-continuous integration (CI) system, because they are too slow to run locally.
-However, they also pointed out that, because property-based testing finds
-bugs at random, running PBT in CI is ``a bit like
-Russian roulette, because sometimes the code breaks while you're working on
-something totally unrelated.'' Indeed, P1 agreed that they preferred
-to not have properties in CI for that reason.
-% The tension created by PBT being
-% both long-running and nondeterministic suggests a number of
-% opportunities for research into improved PBT tooling and workflows \amh{[small fix] clearly spell out those opportunities here, or remove this.}.
-
-\textit{Challenges Learning PBT}.
-For some developers, the process of learning PBT proved a challenge in and of
-itself.  While developers learned about PBT concepts from presentation
-materials, library documentation, and blog posts, they sometimes found these
-sources inaccessible or otherwise insufficient for learning how to apply PBT in practice.
-For example, P4 described finding it challenging to understand the circumstances
-in which to use PBT after having watched a presentation about it, and P1
-expressed a desire for the library documentation to
-include a comprehensive corpus of examples to use as starting points for their own tests:
-\begin{quote}
-  The hard part is knowing when you
-  have a property that you can test and how to write that test. What
-  would make it easier? I almost feel like more examples, you know,
-  like\ldots{} just examples upon examples upon examples, so that you can just
-  read through them and eventually hit one that, you know, hit a
-  couple that click, and then those are clicked in your mind. And if you see
-  that again, you can apply [them]?
-\end{quote}
-
-Developers also recounted trepidation at the idea of explaining PBT to
-their organization's newcomers, fearing that it represented yet another unfamiliar
-tool to learn in their already complex stack.
-\begin{quote}
-It's a bit scary, because every time I have to show the code base to a newcomer,
-there is plenty of complicated things in the code base\ldots{} and when you
-talk about all those things, which are complicated or interconnected, you
-then go on, `By the way, there is this Hypothesis thing, which is really
-a bit more complicated'\ldots{} so, *\emph{laughs}*\ldots{} I don't know if
-when I talk about that people are too lost.
-\end{quote}
-
-\textit{The Critical Mass Problem}.
-Finally, some of our participants' responses underlined a far more basic and
-somewhat circular impediment to PBT adoption: for PBT to become widely adopted, it
-must first become popular. This was best illustrated by P5,
-when asked if they thought that PBT was missing any features that could help
-drive adoption.
-\begin{quote}
-  Well, I think the problem is really more one of popularity, more than a
-  technical problem. If lots of people use property based testing, then more
-  people will be adept at using it.  And people will be more willing to write
-  code that might support such a methodology of testing.
-\end{quote}
-
-P6 also implied a very similar problem when describing
-how their managers reacted to a property-based test that found a potentially
-severe bug. Despite their excitement around the success story, P6's
-managers were unwilling to further invest in PBT due to its relative
-unpopularity.
-\begin{quote}
-  They realize that [PBT is] very important and very useful, but can they find
-  somebody to write those tests and maintain those tests? That's another
-  question.
-\end{quote}
-
-This bootstrapping problem is not specific to PBT, but this is a helpful
-reminder that solving both the
-technical problems above and the as-of-yet hidden ones is necessary, but
-likely not sufficient, to ensure broad adoption of PBT. To truly see PBT used across the software
-industry, researchers need to convince developers, managers, and community
-leaders, to invest in PBT without guarantees that it will take off.
-
-We expect to learn more about these challenges, as well as about other challenges,
-in depth during our interview study with Jane Street, to further refine our
-understanding of the nature and impact of these challenges in the studies
-described in subsequent sections, and to develop tooling to address
-those challenges with the research described in Section~\ref{sec:tools}.
-
-\subsubsection{Ongoing Work: Formative Study with Jane Street}
 The preliminary findings of the formative study were discussed in
 Section~\ref{sec:motivation}; here we describe the study parameters in more
 detail and outline the work that has not yet been done.
@@ -392,6 +214,12 @@ developers from across the company, including many users of PBT, some builders
 of PBT tools, and a few non-users of PBT. Interview is allotted a one-hour slot,
 and the discussion is structured around a standard script of interview questions
 (attached \hg{can we?}).
+
+\amh{Methods: mention that we piloted this study with 7 users of Hypothesis,
+testing out our analysis process and developing the conceptual framework upon
+which we developed our results for the on-going need-finding study. This paper
+was published at HATRA, a workshop at SPLASH devoted to understanding human
+factors of types, reasoning assistants, and formal methods tools.}
 
 At the time of writing, we have interviewed \hg{27} of the 30 developers that we
 planned to speak with in total, and we have done a very lightweight analysis of
@@ -410,9 +238,14 @@ software development practices can vary greatly from firm to firm, from job to
 job. I think it is more problematic for a grant of this size (versus a single
 paper, say) to rely on a single company for its need-finding.}
 
-\subsubsection{Proposed Work: Validating Formative Results with a Survey}
+\subsubsection{Proposed Work: Survey for generalizing findings}
 
-\subsubsection{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
+% \subsubsection{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
+
+\amh{Mention that we plan to distribute a survey among users of Hypothesis to
+assess the extent to which our findings generalize among a broader population of
+users of PBT tools. Can we get a letter of support from Zac?}
+
 We will conduct a survey with the purpose of understanding the impact that
 improved PBT tools could have in industry, if major usability issues were
 addressed. We see this survey as crucial in understanding the amount of
@@ -421,7 +254,15 @@ questionnaire will help shed light into which of the usability challenges from
 the interview study, if addressed, are most likely to impact a broad set of
 current and prospective users of PBT tools.
 
-\subsubsection{Proposed Work: Understanding the Structure of PBT Tasks in Detail}
+\subsubsection{Proposed Work: Observations of PBT in practice}
+
+\amh{The areas where I think we could most benefit from better understanding
+PBT tasks in detail are (1) generator design, implementation, and evaluation;
+(2) evaluating the results of properties (in particular, debugging and addressing
+counterexamples). I think that our success in designing appropriate tools for
+developers might depend on us having a clearer understanding of what it looks
+like for developers to undertake these tasks.}
+
 The next step is to more deeply characterize the obstacles faced with specific
 tools and tasks through close observation. We anticipate conducting observations
 of participants formulating properties and creating generators, as we expect
