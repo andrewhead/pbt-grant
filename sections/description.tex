@@ -38,34 +38,43 @@ users~\cite{ZacPersonalCommunication}\todo{Am I remembering that
 quality for its users.\iflater\bcp{Can we justify that?}\fi
 
 What would it take to make the benefits of PBT available to an even
-broader community of software developers?  Maybe not much.
+broader community of software developers?  Maybe not so much.
 
 In an ongoing study of users of OCaml's QuickCheck testing tool at
 Jane Street Capital, a Wall Street financial firm, we have heard
 strong enthusiam tempered by a degree of frustration on a few fronts.
 These developers generally appreciate PBT for its power and broad
-applicability, but (a) they sometimes struggle to identify and articulate properties
-suitable for testing, (b) they XXXX
-(c) they note a paucity of educational and training materials for
-introducing newcomers to PBT tools.
+applicability, but (a) they sometimes struggle to identify and
+articulate properties suitable for testing, (b) they complain that it
+is sometimes difficult to write random generators for data structures
+with complex invariants or to tune generator distributions to
+adequately explore the space of interesting test cases, (c) they find
+it hard to understand whether their properties and generators are
+effectively testing their software, and (d) they are disappointed by
+the paucity of educational and training materials for introducing
+newcomers to PBT.  \bcp{All that needs tuning.}
+%
+Fortunately, we believe all these difficulties can be significantly
+improved with a modest amount of suitably focused research energy.  We
+propose to provide it.
 
 The remainder of this section introduces property-based testing and
 describes the findings of the Jane Street user study in more detail,
 to motivate and contextualize the work planned for this project.  The
-following sections describe several threads of planned work and their
-expected contributions.  Specifically, we aim to (1) more deeply
-investigate the challenges PBT faces in industry through two further
-user studies (\sectionref{sec:spec}); address the challenges we
-have observed in (2) property specification (\sectionref{sec:tools}),
-(3) test-case generation (\sectionref{sec:gen}), and (4) validation of
-testing effectiveness (\sectionref{sec:val}) by developing new,
-theoretically motivated and rigorously designed, tools; and (5) create
-comprehensive resources for educating developers and university
-students in best practices for PBT (\sectionref{sec:ed}).  \bcp{This
-  is OK as a TOC, but as a list of contributions it is still pretty
+remaining sections describe several threads of planned work and their
+expected contributions.  Specifically, we aim to (1) further
+investigate the challenges PBT faces in industry through
+two\bcp{three?}  additional user studies (\sectionref{sec:spec});
+address the challenges we have observed in (2) property specification
+(\sectionref{sec:spec}), (3) test-case generation
+(\sectionref{sec:gen}), and (4) validation of testing effectiveness
+(\sectionref{sec:val}) by developing new, theoretically motivated and
+rigorously designed, tools; and (5) create comprehensive resources for
+educating developers and university students in best practices for PBT
+(\sectionref{sec:ed}).  \bcp{This is OK as a TOC, but as an
+  advertisement of planned contributions it is still pretty
   lacking. We'll need to either add a separate contributions paragraph
-someplace later or (better?) beef up this one.}
-
+  someplace later or (better, I think) beef up this one.}
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
@@ -759,7 +768,7 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
-\subsection{Step 3, Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:ed}
+\subsection{Step 3, Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
 
 \subsubsection{Proposed Work: Visualizing and Tuning Data Distributions}
@@ -846,7 +855,7 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
-\subsection{Step 4, Education: Advancing Testing in the Broader Culture \pagebudget{1}}
+\subsection{Step 4, Education: Advancing Testing in the Broader Culture \pagebudget{1}}\label{sec:ed}
 
 The preliminary study also reminded us that PBT builds on concepts that are not
 always comfortable for developers, and we expect that we will learn more about
