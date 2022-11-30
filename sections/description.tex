@@ -1,24 +1,38 @@
 \section{Project Description \pagebudget{.5}}
 
-\cite{bluemke2021software} (need some others)
+Testing plays a central role in modern software development,
+contributing crucially both to the costs of software projects and to
+the quality of their results.
+%
+Testing comes in many styles---unit testing, integration testing,
+performance testing, stress testing, accessibility testing,
+etc.---supported by many sorts of tools, with yet more advanced tools
+and techniques continually being developed, discussed, and applied.
+
+One such technique, {\em property-based testing} (PBT), has become
+quite popular in the functional programming community since its
+introduction in the QuickCheck library~\cite{ClaessenHughes00} in
+Haskell and is beginning to make significant inroads in the broader
+software industry---for example, the developers of the Hypothesis PBT
+tool in Python estimat it has on the order of half a million
+users\cite{ZacPersonalCommunication}\todo{Am I remembering that
+  right?}.
+
+PBT combines formal software specification\bcp{blah} with random\bcp{?}
+testing to achieve low-effort, high-impact bug-finding.
+\bcp{Rich theoretical foundation, etc. etc.}
+%
+It has been used, for example, to find critical bugs in telecommunications
+software~\cite{arts2006testing}, replicated
+file-stores~\cite{hughes2014mysteries}, cars~\cite{arts2015testing}, and a range
+of other programs~\cite{hughes2016experiences}.
+%
+Select companies make PBT part of
+their testing workflow and find it to be an invaluable tool for ensuring
+correctness~\cite{Bornholt2021}.
 
 \todo{
   \begin{itemize}
-    \item Testing is a huge part of the modern software development process
-    \item There are many flavors of testing (unit testing, integration testing,
-    etc.) that are popular and effective
-    \item The things that SE has adopted are powerful, and there are tools that
-    are even more powerful
-    \item
-One such tool,
-property-based testing (PBT) combines formal software specification with random
-testing to achieve low-effort, high-impact bug-finding. TODO Rich theoretical foundation. It has
-seen enormous success, finding critical bugs in telecommunications
-software~\cite{arts2006testing}, replicated
-file-stores~\cite{hughes2014mysteries}, cars~\cite{arts2015testing}, and a range
-of other programs~\cite{hughes2016experiences}. Select companies make PBT part of
-their testing workflow and find it to be an invaluable tool for ensuring
-correctness~\cite{Bornholt2021}.
     \item Increasing the impact of PBT in industry would improve productivity
     and make software more robust. What would that take?
     \item We're in the middle of an in-depth formative study to find out just
@@ -60,7 +74,13 @@ correctness~\cite{Bornholt2021}.
   \end{itemize}
 }
 
-\subsectionstar{Motivation: A Formative Study \pagebudget{2}}\label{sec:motivation}
+\subsectionstar{Orientation: What is Property-Based Testing? \pagebudget{.4}}\label{sec:orientation}
+
+\bcp{I think we need a longer overview of PBT, here, for readers that
+  are not familiar.}
+
+\subsectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
+
 \hg{Pulled from the section below, we'll need to massage}
 The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools. To this end, we plan to undertake an
@@ -629,9 +649,10 @@ and \lstinline{>>=}) as data constructors. Critically, moving to this
 representation requires very little modification of the generator syntax, and it
 is all implemented within the language (no macros or AST manipulation). In {\em
 Parsing Randomness} we prove that any free generator, represented as a datatype
-in this way, can be interpreted equivalently as a standard monadic generator or
+in this way, can be interpreted either as a standard monadic generator or
 as a source of random choice strings and a parser over those strings. See the
-paper for more details on the free generator representation and for our proofs.}
+paper for more details on the free generator representation and its
+properties.} 
 
 \hg{How much detail here?}
 
