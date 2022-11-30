@@ -1,5 +1,8 @@
 \section{Project Description \pagebudget{.5}}
 
+\iflater\todo{Remember to not use any URLs in the project description!
+  (They are encouraged in the references.)}\fi
+
 Testing plays a central role in modern software development,
 contributing crucially both to the costs of software projects and to
 the quality of their results.
@@ -21,37 +24,48 @@ specifications by running it against a large number of automatically
 generated test cases.
 
 This combination of rich, high-level specifications with low-effort,
-mostly automatic validation has been shown to be extremely effective
-at flushing out bugs in telecommunications
-software~\cite{arts2006testing}, replicated
-file~\cite{hughes2014mysteries} and key-value
+mostly automatic validation has proved extremely effective at flushing
+out bugs in telecommunications software~\cite{arts2006testing},
+replicated file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}.  With PBT
 tools now available in pretty much every major programming language,
 PBT has begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
-users\cite{ZacPersonalCommunication}\todo{Am I remembering that
+users~\cite{ZacPersonalCommunication}\todo{Am I remembering that
   right?}---creating large benefits in productivity and software
 quality for its users.\iflater\bcp{Can we justify that?}\fi
 
 What would it take to make the benefits of PBT available to an even
-broader community of software developers?  We believe the answer is
-``Not much.''
+broader community of software developers?  Maybe not much.
 
 In an ongoing study of users of OCaml's QuickCheck testing tool at
-Jane Street Capital, a Wall Street financial firm, we have heard both
-enthusiam and frustration---striking successes combined with struggles
-on a few notable fronts.  \todo{Spell out both.  Include Education!}
+Jane Street Capital, a Wall Street financial firm, we have heard
+strong enthusiam tempered by a degree of frustration on a few fronts.
+These developers generally appreciate PBT for its power and broad
+applicability, but (a) they sometimes struggle to identify and articulate properties
+suitable for testing, (b) they XXXX
+(c) they note a paucity of educational and training materials for
+introducing newcomers to PBT tools.
 
+The remainder of this section introduces property-based testing and
+describes the findings of the Jane Street user study in more detail,
+to motivate and contextualize the work planned for this project.  The
+following sections describe several threads of planned work and their
+expected contributions.  Specifically, we aim to (1) more deeply
+investigate the challenges PBT faces in industry through two further
+user studies (\sectionref{sec:spec}); address the challenges we
+have observed in (2) property specification (\sectionref{sec:tools}),
+(3) test-case generation (\sectionref{sec:gen}), and (4) validation of
+testing effectiveness (\sectionref{sec:val}) by developing new,
+theoretically motivated and rigorously designed, tools; and (5) create
+comprehensive resources for educating developers and university
+students in best practices for PBT (\sectionref{sec:ed}).  \bcp{This
+  is OK as a TOC, but as a list of contributions it is still pretty
+  lacking. We'll need to either add a separate contributions paragraph
+someplace later or (better?) beef up this one.}
 
-Goals of this project:
- Understanding the foundation: challenges PBT faces in industry
- Addressing difficulties in specification, generation, and testing
-      validation with theoretically motivated and rigorously designed tools
- Setting up comprehensive resources for education
-
-(Transition)
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
@@ -330,7 +344,7 @@ additional detail about ways that developers are supported and not supported by
 the tools they use today to a level of depth we will not achieve with the
 interviews.
 
-\subsection{Specification: Step 1, Widening the On-Ramp to Properties \pagebudget{2}}
+\subsection{Step 1, Specification: Widening the On-Ramp to Properties \pagebudget{2}}\label{sec:spec}
 \subsubsection{Proposed Work: When to Specify It!}
 Since PBT is often described as a kind of lightweight formal method, one might
 have imagined that a central challenge of using PBT would be coming up with the
@@ -451,7 +465,8 @@ tools, rather than Haskell, since this is where there might be synergy with Jane
 Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
-\subsection{Generation: Step 2, Better Tools for Random Inputs \pagebudget{3}}
+\subsection{Step 2, Generation: Better Tools for Random Inputs
+  \pagebudget{3}} \label{sec:gen}
 \hg{Intro here}
 
 \subsubsectionstar{Context: Why is random generation hard?}%
@@ -744,7 +759,7 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
-\subsection{Validation: Step 3, Understanding Testing Effectiveness \pagebudget{3}}
+\subsection{Step 3, Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:ed}
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
 
 \subsubsection{Proposed Work: Visualizing and Tuning Data Distributions}
@@ -831,7 +846,7 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
-\subsection{Education: Advancing Testing in the Broader Culture \pagebudget{1}}
+\subsection{Step 4, Education: Advancing Testing in the Broader Culture \pagebudget{1}}
 
 The preliminary study also reminded us that PBT builds on concepts that are not
 always comfortable for developers, and we expect that we will learn more about
@@ -905,9 +920,20 @@ and models, as described in any Data Management Plan.
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
 
+\iflater
 \subsectionstar{More stuff to not forget :-)}
 
-Unfunded collaborations: Any substantial collaboration with individuals not included in the budget should be described in the Facilities, Equipment and Other Resources section of the proposal (see Chapter II.C.2.i) and documented in a letter of collaboration from each collaborator. Such letters should be provided in the supplementary documentation section of FastLane or Research.gov and follow the format instructions specified in Chapter II.C.2.j. Collaborative activities that are identified in the budget should follow the instructions in Chapter II.D.3.
+Unfunded collaborations: Any substantial collaboration with
+individuals not included in the budget should be described in the
+Facilities, Equipment and Other Resources section of the proposal (see
+Chapter II.C.2.i) and documented in a letter of collaboration from
+each collaborator. Such letters should be provided in the
+supplementary documentation section of FastLane or Research.gov and
+follow the format instructions specified in Chapter
+II.C.2.j. Collaborative activities that are identified in the budget
+should follow the instructions in Chapter II.D.3.  \bcp{Jane Street.
+  And maybe we should ask John too?}
 
-Remember to not use any URLs in the project description!  (They are
-encouraged in the references.)
+bpc.net - source materials for NSF BPC plans (they also vet plans).
+  we should check that other universities are doing!
+\fi
