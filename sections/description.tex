@@ -522,7 +522,7 @@ trees.%
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
 (cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
-monadic 
+monadic
 computations syntactically by reifying the monad operations (\lstinline{return}
 and \lstinline{>>=}) as data constructors. Critically, this is all implemented
 within the language (no macros or AST manipulation). See the paper for more
@@ -579,7 +579,7 @@ with no BST-specific code written other than the reflective generator.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.8\textwidth]{assets/mutate-diagram.pdf}
+  \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
   BST invariant.}\label{fig:mutation}
 \end{figure}
@@ -600,6 +600,114 @@ reflective ones. Additionally, we are confident that there are more use-cases
 for reflective generators, which we discuss more in the following sections.
 
 \subsubsection{Proposed Work: Bringing Fuzzing into Focus}
+{\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
+ones behind PBT: they both leverage randomized testing to quickly exercise
+as many program behaviors as possible.
+
+One might then expect that the fuzzing and PBT share a significant amount of
+literature, but in reality they do not. Often the communities seem to ``talk
+past'' one another.
+
+We propose that the main thing separating the PBT and fuzzing communities is
+simply a difference of {\em focus}. The fuzzing literature mostly talks about
+fast and automatic ways to find critical (security) vulnerabilities in
+programs---usually manifesting in the form of crash failures.  In contrast, PBT
+researchers want effective ways to test semi-formal logical specifications of
+their programs. Both areas of focus are important: fuzzing captures the ``80\%''
+of cases catching high-profile bugs with minimal programmer effort, and PBT
+gives a level of thoroughness that fuzzing does not claim to match. But there is
+something unsatisfying when things are laid out this way. In particular, while
+fuzzing and PBT focus on different testing problems, they face many of the same
+technological hurdles. Both PBT and fuzzing need fast and effective ways to
+generate random inputs that are valid for the systems that they are testing, and
+neither community has truly settled on the ``right'' way to get there.
+
+There is already some work at the intersection of PBT and fuzzing...
+\cite{10.1145/3293882.3339002,
+DBLP:journals/pacmpl/Lampropoulos0P19,DBLP:conf/icse/ReddyLPS20} \todo{Talk more
+about hypofuzz and crowbar}
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+  \centering
+  \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
+  \caption{Overview of gradually constrained fuzzing.}\label{fig:fuzzing-plan}
+\end{wrapfigure}
+
+Our system will start with a setup similar to Crowbar, but with a much greater
+focus on the generators; in particular, we will use reflective generators to
+gain significant testing power. The setup is shown in
+Figure~\ref{fig:fuzzing-plan}. We start with a classic fuzzing setup, attempting
+to make the system under test crash by passing it a variety of semi-random
+inputs. Normally, the fuzzer is working against the parser, in the sense that
+the parser's job is to reject invalid inputs and the fuzzer's job is to ``get
+past the parser.'' The CFGs used by grammar-based fuzzers help a bit, but they
+cannot generate inputs satisfying complex context-sensitive constraints. As in
+Crowbar, we avoid this adversarial relationship and subsume grammar-based
+generation with a powerful generator that is powerful enough to satisfy the
+parser by construction; in our case, that generator is reflective.
+
+
+Why use a reflective generator?  One compelling reason is that the backward
+interpretation of the reflective generator can be used to help seed the fuzzer.
+Most fuzzers ask for a number of {\em seeds}, input examples that the fuzzer can
+start from, in order to ensure that the fuzzer does not spend ages exploring
+inputs that have no hope of working out. Normally these seeds are easy enough
+for the user to write down, since they are simply program inputs, but now that
+we are asking the fuzzer to generate sequences of choices it becomes much more
+tedious (and error prone) to produce seeds by hand.  This is one great use for a
+backward interpretation. The user can write down their seeds (either as values
+in the program, or as text that can be parsed by the program's parser), and then
+the reflective generator can reflect on the choices that produce those seeds.
+
+The reflective generator also provides validity-preserving mutation  Guided by
+heuristics, the system can opt to supplement the fuzzer's mutation schedule with
+mutations that are obtained by the reflective generator's validity-preserving
+mutation. \todo{Say more}
+
+\todo{Talk about the grand vision of gradually constrained fuzzing, and make
+sure to talk about implementation language}
+% The flagship feature of this approach is that a reflective generator is far more
+% powerful and flexible than a CFG when it comes to constraining the generated
+% inputs. At its simplest, a reflective generator can enforce the same invariants
+% as a simple CFG, ensuring that the input is well-formed (and, since the
+% reflective generator lives in the same language as the system under test,
+% well-typed). But we need not stop there. If the tester finds that the fuzzer
+% still fails to produce useful inputs, the user is free to add constraints to the
+% reflective generator.  These constraints can be simple, like narrowing the range
+% of an integer field, or extremely complex, like ensuring that a program is
+% well-typed. The beauty is that the tester can decide exactly how hard to work on
+% the generator, finding the the right balance between effort and testing
+% performance.
+
+% Of course, if a tester was only concerned with satisfying input constraints,
+% they might just opt to write a standard PBT generator. Another benefit of this
+% approach is that it keeps an off-the-shelf fuzzer in the loop, using its
+% highly-tuned process for coverage-guided mutation to help make choices
+% intelligently. In theory, this may mean that the user can stop optimizing the
+% generator early, allowing coverage information to guide the generator the rest
+% of the way.
+
+% One interesting note is that there is flexibility in exactly how we tell the
+% generator to process choices. We could choose to interpret the reflective
+% generator as a strict parser (albeit of a much simpler language) and reject
+% invalid choice sequences. Alternatively, we could interpret the reflective
+% generator in a way that more robust to invalid choice sequences. It's possible that
+% each could be better in different circumstances, so I am eager to experiment
+% to see which makes the most sense.
+
+\todo{Expand this a bunch}
+Bringing PBT ideas to fuzzing, as I propose in Part 1, has the advantage that
+advancements to PBT can directly improve fuzzing. It would be great if the
+reverse was true as well! The FuzzChick library in Coq has already shown that
+using fuzzing techniques to test properties is
+worthwhile~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}, so what would it look
+like to bring properties into the system that I outlined in Part 1?
+
+The answer is actually very simple: fuzz a binary that checks the property and
+crashes if it fails. This can be done relatively easy with macros or build
+scripts, so the programmer hardly needs to know that there is fuzzing happening
+at all.  Ultimately this part of the project is not groundbreaking, but I think
+the contribution lies in the unification of the ecosystems.
 
 \subsubsection{Proposed Work: Reflective Shrinking}
 A more modest application of reflective generators uses them to implement
