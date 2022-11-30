@@ -654,9 +654,9 @@ start from, in order to ensure that the fuzzer does not spend ages exploring
 inputs that have no hope of working out. Normally these seeds are easy enough
 for the user to write down, since they are simply program inputs, but now that
 we are asking the fuzzer to generate sequences of choices it becomes much more
-tedious (and error prone) to produce seeds by hand.  This is one great use for a
-backward interpretation. The user can write down their seeds (either as values
-in the program, or as text that can be parsed by the program's parser), and then
+error-prone (and tedious) to produce seeds by hand.  This is one great use for a
+backward interpretation. The user can write down their seeds---either as values
+in the program, or as text that can be parsed by the program's parser---and then
 the reflective generator can reflect on the choices that produce those seeds.
 
 The reflective generator also provides validity-preserving mutation  Guided by
