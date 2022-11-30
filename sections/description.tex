@@ -33,22 +33,21 @@ tools now available in pretty much every major programming language,
 PBT has begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
-users~\cite{ZacPersonalCommunication}\todo{Am I remembering that
-  right?}---creating large benefits in productivity and software
+users~\cite{ZacPersonalCommunication}\iflater\bcp{Am I remembering that
+  right?}\fi---creating large benefits in productivity and software
 quality for its users.\iflater\bcp{Can we justify that?}\fi
 
 What would it take to make the benefits of PBT available to an even
 broader community of software developers?  Maybe not so much.
-\hg{Then why are we asking for \$600k+? :-)}
+\hg{Then why are we asking for \$600k+? :-)} \bcp{We're asking for
+  \$1.2m, but even that is not much in the grand scheme...}
 
 In an ongoing study of users of OCaml's QuickCheck testing tool at
 Jane Street Capital, a Wall Street financial firm, we have heard
 strong enthusiasm tempered by a degree of frustration on a few fronts.
 These developers generally appreciate PBT for its power and broad
-applicability, but (a) they sometimes struggle to identify and
-articulate properties suitable for testing, \hg{This one feels less true after
-talking to JS folks. The property issues at JS are more about identifying
-situations where PBT is valuable than they are about articulating properties}
+applicability, but (a) they sometimes struggle to identify
+situations where PBT will be valuable,
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
 with complex invariants or to tune generator distributions to
@@ -56,7 +55,7 @@ adequately explore the space of interesting test cases, (c) they find
 it hard to understand whether their properties and generators are
 effectively testing their software, and (d) they are disappointed by
 the paucity of educational and training materials for introducing
-newcomers to PBT.  \bcp{All that needs tuning.}
+newcomers to PBT.  \iflater\bcp{All that needs final tuning.}\fi
 %
 Fortunately, we believe all these difficulties can be significantly
 improved with a modest amount of suitably focused research energy.  We
