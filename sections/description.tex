@@ -39,13 +39,17 @@ quality for its users.\iflater\bcp{Can we justify that?}\fi
 
 What would it take to make the benefits of PBT available to an even
 broader community of software developers?  Maybe not so much.
+\hg{Then why are we asking for \$600k+? :-)}
 
 In an ongoing study of users of OCaml's QuickCheck testing tool at
 Jane Street Capital, a Wall Street financial firm, we have heard
-strong enthusiam tempered by a degree of frustration on a few fronts.
+strong enthusiasm tempered by a degree of frustration on a few fronts.
 These developers generally appreciate PBT for its power and broad
 applicability, but (a) they sometimes struggle to identify and
-articulate properties suitable for testing, (b) they complain that it
+articulate properties suitable for testing, \hg{This one feels less true after
+talking to JS folks. The property issues at JS are more about identifying
+situations where PBT is valuable than they are about articulating properties}
+(b) they complain that it
 is sometimes difficult to write random generators for data structures
 with complex invariants or to tune generator distributions to
 adequately explore the space of interesting test cases, (c) they find
