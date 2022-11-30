@@ -617,29 +617,103 @@ Parsing Randomness}~\cite{goldstein2022parsing}.
 The paper introduces {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
 random generation, and enable new algorithms for generation that address the
-valid generation problem. Free generators represent a view of generator syntax
-trees, capturing the operations that a generator {\em would} carry out, without
-actually running them.%
+valid generation problem. Free generators are written the same way as standard
+monadic generators, but they are more like generator ``plans'' or syntax
+trees.%
 \footnote{Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations (c.f.
 ITrees~\cite{old:xia2019interaction}). Freer monads represent monadic
 computations syntactically by reifying the monad operations (\lstinline{return}
-and \lstinline{>>=}) as data constructors. Critically, moving to this
-representation requires very little modification of the generator syntax, and it
-is all implemented within the language (no macros or AST manipulation). In {\em
-Parsing Randomness} we prove that any free generator, represented as a datatype
-in this way, can be interpreted equivalently as a standard monadic generator or
-as a source of random choice strings and a parser over those strings. See the
-paper for more details on the free generator representation and for our proofs.}
-
-\hg{How much detail here?}
+and \lstinline{>>=}) as data constructors. Critically, this is all implemented
+within the language (no macros or AST manipulation). See the paper for more
+details on the free generator representation.}
+This means that a single free generator can be be {\em interpreted} in multiple
+different ways. In {\em Parsing Randomness} we prove that any free generator can
+be interpreted equivalently as a standard monadic generator or as a source of
+random choice strings with a parser over those strings; this formalizes the
+relationship between generators and parsers. Furthermore, since free generators
+are uninterpreted syntax trees, they can be manipulated programmatically. Free
+generators admit a version of a Brzozowski
+derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
+generation. We show that free generator derivatives enable an algorithm called
+{\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
+generator to inputs that are more likely to be valid with respect to a given
+precondition.
 
 \subsubsection{Ongoing Work: Reflective Generators}
+Continuing on from the free generator work, we have begun to look at even more
+powerful generalizations of the standard monadic approach to random generation.
+One such project, which is already well underway, concerns monadic generators
+that can be run {\em backward}.
+
+If a generator parses a sequence of choices into a value, then running the
+generator backward should take a value and produce a sequence of choices that
+would produce that value. With this in mind, we present {\em reflective
+generators}, an extension of monadic generators that can be run backward to
+``reflect'' on the choices that they made when producing an input. The machinery
+that makes reflective generators work is quite complex,%
+\footnote{Reflective generators are both monads and {\em partial profunctors},
+and implement bidirectional programming in the style of Xia et
+al.~\cite{xia2019composing}. This approach to bidirectional programming is
+related to lenses~\cite{foster2009bidirectional}, but it hides much of the
+complexity of bidirectional program composition in the bind operation of the
+monad. The result is an elegant programming experience where both directions of
+the computation can be written at once in a type-safe way.} but, like free
+generators, their syntax is still quite close to that of normal monadic
+generators.
+
+Reflective generators are useful for more than just generation; we currently
+have two working examples of useful applications.
+
+\noindent {\em Validity-Preserving Mutation} Many automated testing algorithms
+(especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values to explore
+the behavior of the program in a space ``around'' those values. This can be
+difficult in PBT scenarios, where values are subject to complex validity
+constraints, since the mutation often produces invalid values. Reflective
+generators can help: we can (1) reflect on the choices that lead to a particular
+value, (2) mutate those choices, and (3) re-run the generator with the new
+choices {\bf while correcting any choices that
+would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
+algorithm is able to mutate a binary search tree, while maintaining validity,
+with no BST-specific code written other than the reflective generator.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=.8\textwidth]{assets/mutate-diagram.pdf}
+  \caption{Validity-preserving mutation of a binary search tree, maintaining the
+  BST invariant.}\label{fig:mutation}
+\end{figure}
+
+\noindent {\em Example-Based Tuning} Earlier we pointed out that good generators
+produce ``realistic'' inputs; one way to ensure this is to tune the generator so
+it produces values that are similar to some user-supplied values deemed
+realistic. Existing tools make good use of this example-based approach to
+tuning~\cite{soremekun2020inputs}, but they do not work with generators as
+powerful as monadic generators. We implement a similar algorithm using
+reflective generators: we can (1) again, reflect on the choices that lead to a
+set of realistic values, and (2) run the generator with {\em new choice weights}
+informed by the choices that we saw.
+
+Both of these applications have the potential to significantly improve testing
+effectiveness, and we get {\em both} by upgrading our existing generators to
+reflective ones. Additionally, we are confident that there are more use-cases
+for reflective generators, which we discuss more in the following sections.
 
 \subsubsection{Proposed Work: Bringing Fuzzing into Focus}
 
 \subsubsection{Proposed Work: Reflective Shrinking}
+A more modest application of reflective generators uses them to implement
+validity-preserving {\em shrinking} of values to find smaller counterexamples
+and speed up debugging. On its face, this feels similar to validity-preserving
+mutation: Can we reflect on choices, shrink the choices, and then re-run the
+generator with the smaller choices? Likely yes! But there are complications.
+When mutating, it is often fine if the mutated value is accidentally quite
+different from the original value, since the mutator is trying many values and
+any that catch a bug are equally good. But when shrinking, it is often very
+important to get another input that is both smaller and, ideally, provokes the
+{\em same bug}. These nice properties are likely within reach, but care will
+need to be taken to ensure that shrinkers behave as expected.
 
 \subsection{Validation: Step 3, Understanding Testing Effectiveness \pagebudget{3}}
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
