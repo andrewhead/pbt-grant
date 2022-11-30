@@ -220,38 +220,52 @@ design new algorithms and interactive tools that better support those tasks
 \subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street}
 \label{sec:interviews}
 
-The preliminary findings of the formative study were discussed in
-Section~\ref{sec:motivation}; here we describe the study parameters in more
-detail and outline the work that has not yet been done.
+We will begin our need-finding work by interviewing developers who can shed
+light into how PBT is already being used, and obstacles in its use. Interview
+studies are common in early-stage need-finding research, due to their ability
+to yield highly informative stories about people, the tasks they need to
+accomplish, and the tools they use to accomplish them. The purpose of these
+interviews is to identify a broad set of opportunities for improving PBT tools,
+grounded in concrete, authentic, detailed stories from developers.
 
-The population we are working with at Jane Street includes a diverse mix of
-developers from across the company, including many users of PBT, some builders
-of PBT tools, and a few non-users of PBT. Interview is allotted a one-hour slot,
-and the discussion is structured around a standard script of interview questions
-(attached \hg{can we?}).
+\textbf{Method}. Semistructured interviews will be conducted with approximately
+30 developers. Questions will focus on tasks these developers wish to accomplish
+with PBT tools, and around developers' recollections of what it was like to
+work with PBT tools to accomplish these tasks.
 
-\amh{Methods: mention that we piloted this study with 7 users of Hypothesis,
-testing out our analysis process and developing the conceptual framework upon
-which we developed our results for the on-going need-finding study. This paper
-was published at HATRA, a workshop at SPLASH devoted to understanding human
-factors of types, reasoning assistants, and formal methods tools.}
+\textbf{Population}. Ideally, these interviews would involve both current users
+of PBT as well as non-users of PBT. In reality, it is difficult to recruit and
+have meaningful conversations with non-users of a technology. We plan to
+recruit users across as broad a spectrum of usage as we can reasonably recruit,
+including both frequent users of PBT technologies, as well as a handful of
+developers who have had only limited, occasional exposure to PBT. Our survey
+study (Section~\ref{sec:survey}) aims to establish contact with a broader
+sample of non-users of PBT to assess opportunities for making PBT tools more
+valuable and discoverable for this group.
 
-At the time of writing, we have interviewed \hg{27} of the 30 developers that we
-planned to speak with in total, and we have done a very lightweight analysis of
-our real-time notes. Ultimately, once we complete the interviews, we plan to do
-an in-depth qualitative analysis of the interview transcripts to extract common
-themes and establish a strong basis for future work.
-\todo{What else to say here? Let's see after the motivation is written}
+\textbf{Progress}. Our interview instrument and analysis process was developed
+and tested with 7 users of the Hypothesis PBT toolkit, recruited over Twitter.
+This analysis yielded a conceptual framework of barriers to usage of PBT, which
+we published recently at HATRA, an ACM SPLASH workshop and one of the key
+venues for presenting preliminary research on human aspects of formal methods
+tools and type systems~\cite{goldstein2022some}.
 
-\amh{[study design] I think we should consider also reaching out to software
-developers who are not at Jane Street, e.g., users of Hypothesis and QuickCheck
-who we could reach over public mailing lists, to try to reveal problems that
-might not come up at Jane Street due to difference in level of technical
-proficiency or different software development practices. Or, at least, we need
-to be ready to defend our choice of focusing exclusively on Jane Street when
-software development practices can vary greatly from firm to firm, from job to
-job. I think it is more problematic for a grant of this size (versus a single
-paper, say) to rely on a single company for its need-finding.}
+We have since established a collaboration with Jane Street, LLC\footnote{See
+the attached letter of support.} with whom we will conduct an expanded
+interview study. To date, through this collaboration we have already conducted
+27 of 30 interviews, including both developers who have had exposure to PBT as
+well as developers of PBT tools. Our interview process has included an on-site
+visit where we collected feedback on our evolving conceptual framework of the
+needs and opportunities we have discerned around PBT tools.
+
+What remains for this project is another approximately 2 months of Ph.D.
+student work, including conducting the remaining interviews, performing
+in-depth qualitative analysis of the data following a thematic analysis
+approach~\cite[Chapter 5]{blandford2016qualitative}, and preparing a manuscript
+for submission to OOPSLA. Key takeaways emerging from our initial analysis appear
+in Section~\ref{sec:motivation}.
+
+\amh{Is there anything else we want to say here about the results to date?}
 
 \subsubsection{Proposed Work: Survey for generalizing findings}
 \label{sec:survey}
