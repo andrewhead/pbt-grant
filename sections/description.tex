@@ -33,18 +33,23 @@ tools now available in pretty much every major programming language,
 PBT has begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
-users~\cite{ZacPersonalCommunication}---creating large benefits in
-productivity and software quality for its users.\iflater\bcp{Can we
-  justify that?}\fi
+users~\cite{ZacPersonalCommunication}.  
+%
+(Also) In an ongoing study of users of OCaml's QuickCheck testing tool
+at Jane Street Capital, a Wall Street financial firm, we have heard
+strong enthusiasm \todo{details...}.
+% These users generally appreciate PBT for its power and broad applicability...
 
-What would it take to make the benefits of PBT available to an even
-broader community of software developers?  Maybe not so much.
+(However, what the world has right now is decent bare-bones tools,
+which can be used very effectively by people that know what they are
+doing and are willing to work a little.  What's lacking is
+comprehensive support for PBT, both technically (in people's
+programming environments) and culturally/educationally (in what people
+are taught about PBT and the information resources / best practices
+/etc. they have available).)
 
-In an ongoing study of users of OCaml's QuickCheck testing tool at
-Jane Street Capital, a Wall Street financial firm, we have heard
-strong enthusiasm tempered by a degree of frustration on a few fronts.
-These developers generally appreciate PBT for its power and broad
-applicability, but (a) they sometimes struggle to identify
+We heard about this in the Jane Street study, where users
+(a) sometimes struggle to identify
 situations where PBT will be valuable,
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
@@ -54,11 +59,16 @@ it hard to understand whether their properties and generators are
 effectively testing their software, and (d) they are disappointed by
 the paucity of educational and training materials for introducing
 newcomers to PBT.  \iflater\bcp{All that needs final tuning.}\fi
-%
-Fortunately, we believe all these difficulties can be significantly
-improved with a modest amount of suitably focused research energy.  We
-propose to provide it.
 
+We believe the situation can be significantly improved with a modest
+amount of suitably focused research energy, moving from bare-bones
+tools to a comprehensive environment for PBT.  The goal of this
+project is to build a prototype programming environment and
+accompanying educational resources...
+%
+\todo{Contributions}
+
+(shorten to just a TOC:)
 The remainder of this section introduces property-based testing and
 describes the findings of the Jane Street user study in more detail,
 to motivate and contextualize the work planned for this project.  The
@@ -72,11 +82,84 @@ address the challenges we have observed in (2) property specification
 (\sectionref{sec:val}) by developing new, theoretically motivated and
 rigorously designed, tools; and (5) create comprehensive resources for
 educating developers and university students in best practices for PBT
-(\sectionref{sec:ed}).  \bcp{This is OK as a TOC, but as an
-  advertisement of planned contributions it is still pretty
-  lacking. We'll need to either add a separate contributions paragraph
-  someplace later or (better, I think) beef up this one.}
-\bcp{Need to mention broader impacts and work plan sections.}
+(\sectionref{sec:ed}).  
+\bcp{mention broader impacts and work plan sections.}
+
+% Testing plays a central role in modern software development,
+% contributing crucially both to the costs of software projects and to
+% the quality of their results.
+% %
+% Testing comes in many styles---unit testing, integration testing,
+% performance testing, stress testing, accessibility testing,
+% etc.---supported by many sorts of tools, with yet more advanced tools
+% and techniques continually being developed, discussed, and applied.
+
+% One such technique, {\em property-based testing} (PBT), has enjoyed
+% widespread popularity in the functional programming community since
+% its introduction in the QuickCheck library~\cite{ClaessenHughes00} in
+% Haskell.  PBT can be thought of as a kind of ``formal specification
+% without formal verification.''  Programmers are invited to
+% characterize the desired behaviors of their software systems or
+% individual components at a high level, in the form of abstract models
+% or algebraic laws; their code is then validated against these
+% specifications by running it against a large number of automatically
+% generated test cases.
+
+% This combination of rich, high-level specifications with easy, mostly
+% automatic validation has proved extremely effective at flushing out
+% bugs in telecommunications software~\cite{arts2006testing}, replicated
+% file~\cite{hughes2014mysteries} and key-value
+% stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
+% of other real-world systems~\cite{hughes2016experiences}.  With PBT
+% tools now available in pretty much every major programming language,
+% PBT has begun to make significant inroads in the broader software
+% industry---for example, the developers of the Hypothesis library for
+% Python estimate that it has on the order of half a million
+% users~\cite{ZacPersonalCommunication}---creating large benefits in
+% productivity and software quality for its users.\iflater\bcp{Can we
+%   justify that?}\fi
+
+% What would it take to make the benefits of PBT available to an even
+% broader community of software developers?  Maybe not so much.
+
+% In an ongoing study of users of OCaml's QuickCheck testing tool at
+% Jane Street Capital, a Wall Street financial firm, we have heard
+% strong enthusiasm tempered by a degree of frustration on a few fronts.
+% These users generally appreciate PBT for its power and broad
+% applicability, but (a) they sometimes struggle to identify
+% situations where PBT will be valuable,
+% (b) they complain that it
+% is sometimes difficult to write random generators for data structures
+% with complex invariants or to tune generator distributions tg
+% adequately explore the space of interesting test cases, (c) they find
+% it hard to understand whether their properties and generators are
+% effectively testing their software, and (d) they are disappointed by
+% the paucity of educational and training materials for introducing
+% newcomers to PBT.  \iflater\bcp{All that needs final tuning.}\fi
+% %
+% Fortunately, we believe all these difficulties can be significantly
+% improved with a modest amount of suitably focused research energy.  We
+% propose to provide it.
+
+% The remainder of this section introduces property-based testing and
+% describes the findings of the Jane Street user study in more detail,
+% to motivate and contextualize the work planned for this project.  The
+% remaining sections describe several threads of planned work and their
+% expected contributions.  Specifically, we aim to (1) further
+% investigate the challenges PBT faces in industry through
+% two\bcp{three?}  additional user studies (\sectionref{sec:spec});
+% address the challenges we have observed in (2) property specification
+% (\sectionref{sec:spec}), (3) test-case generation
+% (\sectionref{sec:gen}), and (4) validation of testing effectiveness
+% (\sectionref{sec:val}) by developing new, theoretically motivated and
+% rigorously designed, tools; and (5) create comprehensive resources for
+% educating developers and university students in best practices for PBT
+% (\sectionref{sec:ed}).  \bcp{This is OK as a TOC, but as an
+%   advertisement of planned contributions it is still pretty
+%   lacking. We'll need to either add a separate contributions paragraph
+%   someplace later or (better, I think) beef up this one.}
+% \bcp{Need to mention broader impacts and work plan sections.}
+
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
