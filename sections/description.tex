@@ -39,8 +39,6 @@ productivity and software quality for its users.\iflater\bcp{Can we
 
 What would it take to make the benefits of PBT available to an even
 broader community of software developers?  Maybe not so much.
-\hg{Then why are we asking for \$600k+? :-)} \bcp{We're asking for
-  \$1.2m, but even that is not much in the grand scheme...}
 
 In an ongoing study of users of OCaml's QuickCheck testing tool at
 Jane Street Capital, a Wall Street financial firm, we have heard
@@ -50,7 +48,7 @@ applicability, but (a) they sometimes struggle to identify
 situations where PBT will be valuable,
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
-with complex invariants or to tune generator distributions to
+with complex invariants or to tune generator distributions tg
 adequately explore the space of interesting test cases, (c) they find
 it hard to understand whether their properties and generators are
 effectively testing their software, and (d) they are disappointed by
@@ -495,9 +493,16 @@ tools, rather than Haskell, since this is where there might be synergy with Jane
 Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
-\subsection{Step 2, Generation: Better Tools for Random Inputs
-  \pagebudget{3}} \label{sec:gen}
-\hg{Intro here}
+\subsection{Step 2, Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
+\hg{Half page over at the moment}
+One of the most important, and most and difficult, tasks in the PBT process is
+designing and implementing the random data generators that are used check that
+each property holds. Indeed, recall that developers we interviewed consistently
+cited designing generators one of the hardest parts of the PBT process, and many
+developers asked for better tools for constructing generators that accomplish
+their testing goals. In this section, we discuss a series of projects that build
+on a rich literature to develop new and better ways to express random data
+generators.
 
 \subsubsectionstar{Context: Why is random generation hard?}%
 Before presenting our proposed work to improve the state of random data
@@ -505,22 +510,19 @@ generators, we must first discuss the major difficulties with random generation
 for PBT and the existing work that aims to address those difficulties.
 \todo{Link all of this to the intro}
 
-{\em Validity Constraints.}
+{\em Preconditions.}
 Many properties that developers want to test have {\em preconditions}
 (equivalently {\em validity conditions} or {\em input constraints}) that
 restrict the set of inputs that should be used for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
-the operations under test.  Testing such properties can be problematic, because
+the operations under test. Testing such properties can be problematic, because
 many preconditions are difficult to satisfy randomly; if the developer is not
-careful they may waste considerable time and energy generating and throwing away
-invalid inputs. We call the challenge of quickly generating lots of
-precondition-satisfying inputs the {\em valid generation problem}.
+careful they may waste considerable time generating and discarding invalid inputs.
 
 {\em Coverage of Realistic Inputs.}
 Even among valid inputs, not all are equally realistic. Often generated inputs
 feel fabricated, since they are not constructed with prior knowledge of the
-kinds of inputs that the program is likely to see. Ideally, developers should be
-able to quickly and easily tune their generators to better mimic the real world.
+kinds of inputs that the program is likely to see.
 
 {\em Other Distributional Concerns.}
 And {\em even} with validity and realism accounted for, there are other ways for
@@ -530,12 +532,15 @@ quickly as possible. This often (but not always) leads users to manually tune
 the weights on generators' choices to ensure that the generator does not spend
 too much time in one part of the space or another.
 
-The literature addresses these concerns to various degrees, and the tools to
+\todo{Make sure we tailor the explanations above to the problems we actually
+solve, and then make it clear when we've solved one of the problems.}
+
+The literature addresses these concerns to various degrees, and existing tools
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some optimize
 readily available metrics like code coverage~\cite{afl-readme}, others ask users
 to provide metics~\cite{loscher2017targetedpbt}, and, naturally, a few use
-machine learning to infer proxies validity~\cite{godefroid2017learn,
+machine learning to infer proxies for validity~\cite{godefroid2017learn,
 DBLP:conf/icse/ReddyLPS20}. Slightly more manual approaches are based on
 declarative representations of validity conditions: for preconditions that are
 primarily structural, {\em grammar-based fuzzing} provides a compelling
@@ -547,9 +552,9 @@ automatically seek out valid inputs. This semi-automatic category also includes
 tools for {\em example-based tuning}, a process that improves realism of inputs
 by mimicking user-provided examples~\cite{soremekun2020inputs}.
 
-The most flexible, but the most manual, solutions use hand-written generators,
-written in a convenient domain-specific language. These are the topic of the
-next section.
+The most manual, but also the most flexible, solutions use hand-written
+generators, written in a convenient domain-specific language. These are the
+topic of the next section.
 
 \subsubsectionstar{Context: Monadic Generators}
 When writing generators manually, it helps to have a clean domain-specific
@@ -557,46 +562,46 @@ language (DSL) for writing them down. In the Haskell language, where PBT was
 first popularized, many such DSLs are implemented using {\em
 monads\/}~\cite{moggi1991notions}, which are an elegant design pattern for
 expressing effectful (in this case, random and stateful) computations in a pure
-language. While monadic DSLs are not necessary to express generators in non-pure
-languages, some libraries (e.g., in OCaml) still use monadic abstractions to
-build their generator DSLs.
+language. While monadic DSLs are not actually necessary to express generators in
+non-pure languages, some libraries (e.g., in OCaml) still use monadic
+abstractions to build their generator DSLs.
 
-Monadic generators implement arbitrary random data producers (e.g., it is
-possible to write a monadic generator for well-typed System F terms), so they do
-not compromise on expressiveness over other representations. Yet, monadic
-generators are syntactically constrained in a way that isolates the
-probabilistic code and prevents usage errors (like passing the wrong random seed
-around). As we will see, the constrained nature of monadic generators makes them
-the perfect candidates for sophisticated manipulations and interesting
-generalizations.
+Monadic generators implement random data producers of arbitrary complexity
+(e.g., it is possible to write a monadic generator for well-typed System F
+terms), so they are often more expressive than other representations like
+grammar-based generators.  Yet, monadic generators are syntactically constrained
+in a way that isolates the probabilistic code and prevents usage errors (like
+passing the wrong random seed around). As we will see, the constrained nature of
+monadic generators also makes them the perfect candidates for sophisticated
+manipulations and interesting generalizations.
 
 \subsubsection{Prior Work: Free Generators}
 In order to improve monadic generation along the dimensions listed above, we
-must first re-frame generators as {\em parsers of randomness}. A generator
+choose to re-frame generators as {\em parsers of randomness}. A generator
 operates by making a series of random choices, but we can equivalently think of
 it as being provided some random sequence of choices and then simply following
 those choices to produce a value. This perspective has been used in a few
-implementations of PBT systems~\cn{}, but we made it formal in our paper, {\em
-Parsing Randomness}~\cite{goldstein2022parsing}.
+implementations of PBT systems~\cite{maciver2019hypothesis,dolan2017testing},
+but we made it formal in our paper, {\em Parsing
+Randomness}~\cite{goldstein2022parsing}.
 
 The paper introduces {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
-random generation, and enable new algorithms for generation that address the
-valid generation problem. Free generators are written the same way as standard
-monadic generators, but they are more like generator ``plans'' or syntax
-trees.%
+random generation, and enable new algorithms for generation that improve
+generation modulo validity constraints. Free generators are written the same
+way as standard monadic generators, but they are more like generator ``plans''
+or syntax trees.%
 \footnote{Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
 (cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
-monadic
-computations syntactically by reifying the monad operations (\lstinline{return}
-and \lstinline{>>=}) as data constructors. Critically, this is all implemented
-within the language (no macros or AST manipulation). See the paper for more
-details on the free generator representation.}
+monadic computations syntactically by reifying the monad operations
+(\lstinline{return} and \lstinline{>>=}) as data constructors. Critically, this
+is all implemented within the language (no macros or AST manipulation). See the
+paper for more details on the free generator representation.}
 This means that a single free generator can be be {\em interpreted} in multiple
 different ways. In {\em Parsing Randomness} we prove that any free generator can
-  be interpreted either as a standard monadic generator or as a source of
+be interpreted either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
 relationship between generators and parsers. Furthermore, since free generators
 are uninterpreted syntax trees, they can be manipulated programmatically. Free
@@ -605,7 +610,8 @@ derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
 generation. We show that free generator derivatives enable an algorithm called
 {\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
 generator to inputs that are more likely to be valid with respect to a given
-precondition.
+precondition. This work is an important step towards better automation for
+generators with complex preconditions.
 
 \subsubsection{Ongoing Work: Reflective Generators}
 Continuing on from the free generator work, we have begun to look at even more
@@ -625,14 +631,14 @@ al.~\cite{xia2019composing}. This approach to bidirectional programming is
 related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
-the computation can be written at once in a type-safe way.} but, like free
-generators, their syntax is still quite close to that of normal monadic
-generators.
+the computation can be written at once in a type-safe way.}
+but, like free generators, their syntax is still quite close to that of normal
+monadic generators.
 
 Reflective generators are useful for more than just generation; we currently
 have two working examples of useful applications.
 
-\noindent {\em Validity-Preserving Mutation} Many automated testing algorithms
+{\em Validity-Preserving Mutation.} Many automated testing algorithms
 (especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values to explore
 the behavior of the program in a space ``around'' those values. This can be
 difficult in PBT scenarios, where values are subject to complex validity
@@ -651,7 +657,7 @@ with no BST-specific code written other than the reflective generator.
   BST invariant.}\label{fig:mutation}
 \end{figure}
 
-\noindent {\em Example-Based Tuning} Earlier we pointed out that good generators
+{\em Example-Based Tuning.} Earlier we pointed out that good generators
 produce ``realistic'' inputs; one way to ensure this is to tune the generator so
 it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
@@ -662,18 +668,19 @@ set of realistic values, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw.
 
 Both of these applications have the potential to significantly improve testing
-effectiveness, and we get {\em both} by upgrading our existing generators to
-reflective ones. Additionally, we are confident that there are more use-cases
-for reflective generators, which we discuss more in the following sections.
+effectiveness---example-based tuning helps users generate more realistic inputs,
+adn validity-preserving mutation enables more automated approaches to improving
+generator distributions---and we get {\em both} by upgrading our existing
+generators to reflective ones. Additionally, we are confident that there are
+more use-cases for reflective generators, which we discuss more in the following
+sections.
 
 \subsubsection{Proposed Work: Bringing Fuzzing into Focus}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
-ones behind PBT: they both leverage randomized testing to quickly exercise
-as many program behaviors as possible.
-
-One might then expect that the fuzzing and PBT share a significant amount of
-literature, but in reality they do not. Often the communities seem to ``talk
-past'' one another.
+ones behind PBT: they both leverage randomized testing to quickly exercise as
+many program behaviors as possible.  One might then expect that the fuzzing and
+PBT share a significant amount of literature, but in reality they do not. Often
+the communities seem to ``talk past'' one another.
 
 We propose that the main thing separating the PBT and fuzzing communities is
 simply a difference of {\em focus}. The fuzzing literature mostly talks about
@@ -689,10 +696,16 @@ technological hurdles. Both PBT and fuzzing need fast and effective ways to
 generate random inputs that are valid for the systems that they are testing, and
 neither community has truly settled on the ``right'' way to get there.
 
-There is already some work at the intersection of PBT and fuzzing...
-\cite{10.1145/3293882.3339002,
-DBLP:journals/pacmpl/Lampropoulos0P19,DBLP:conf/icse/ReddyLPS20} \todo{Talk more
-about hypofuzz and crowbar}
+There is certainly some work that attempts to bridge the gap between PBT and
+fuzzing. For example, FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
+uses code coverage as guidance for PBT and the HypoFuzz library uses a
+similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
+are demonstrably powerful, but neither benefits from the years of expertise
+poured into actual fuzzers; Crowbar does~\cite{dolan2017testing}. Crowbar uses
+AFL~\cite{afl-readme}\footnote{We plan to use AFL++~\cite{fioraldi_afl_2020},
+which has supplanted the original project.}, one of the most well-established
+fuzzers, to generate random bit-strings that are later parsed into program
+inputs.
 
 \begin{wrapfigure}{l}{0.5\textwidth}
   \centering
@@ -713,11 +726,21 @@ Crowbar, we avoid this adversarial relationship and subsume grammar-based
 generation with a powerful generator that is powerful enough to satisfy the
 parser by construction; in our case, that generator is reflective.
 
+Why use a reflective generator? First, we should clarify why any kind of monadic
+generator is preferable to grammar-based options. Monadic generators can
+straightforwardly generate context-free structures, and they can often do so
+automatically with the help of type information~\cite{mista2019deriving}. If
+this is all that the precondition requires, then there is no harm in using a
+monadic generator, rather than a grammar-based one. But the beauty of a monadic
+generator is that it can be made far more powerful, incrementally, as the
+developer's testing needs change. The developer can start off thinking that they
+need only consider the structure of their inputs, but they can later add more
+semantic guarantees if they determine that their testing is ineffective.
 
-Why use a reflective generator?  One compelling reason is that the backward
-interpretation of the reflective generator can be used to help seed the fuzzer.
-Most fuzzers ask for a number of {\em seeds}, input examples that the fuzzer can
-start from, in order to ensure that the fuzzer does not spend ages exploring
+Focusing on reflective generators specifically, one compelling benefit is that
+their backward interpretation can be used to help seed the fuzzer.  Most fuzzers
+ask for a number of {\em seeds}, input examples that the fuzzer can start from,
+in order to ensure that the fuzzer does not spend ages exploring
 inputs that have no hope of working out. Normally these seeds are easy enough
 for the user to write down, since they are simply program inputs, but now that
 we are asking the fuzzer to generate sequences of choices it becomes much more
@@ -726,55 +749,19 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and then
 the reflective generator can reflect on the choices that produce those seeds.
 
-The reflective generator also provides validity-preserving mutation  Guided by
+The reflective generator also provides validity-preserving mutation. Guided by
 heuristics, the system can opt to supplement the fuzzer's mutation schedule with
 mutations that are obtained by the reflective generator's validity-preserving
-mutation. \todo{Say more}
+mutation (which is more targeted than the mutators provided by the fuzzer). We
+expect this to have a significant impact on performance, especially in contexts
+where preconditions are relatively sparse and therefore hard for AFL++ to mutate
+correctly.
 
-\todo{Talk about the grand vision of gradually constrained fuzzing, and make
-sure to talk about implementation language}
-% The flagship feature of this approach is that a reflective generator is far more
-% powerful and flexible than a CFG when it comes to constraining the generated
-% inputs. At its simplest, a reflective generator can enforce the same invariants
-% as a simple CFG, ensuring that the input is well-formed (and, since the
-% reflective generator lives in the same language as the system under test,
-% well-typed). But we need not stop there. If the tester finds that the fuzzer
-% still fails to produce useful inputs, the user is free to add constraints to the
-% reflective generator.  These constraints can be simple, like narrowing the range
-% of an integer field, or extremely complex, like ensuring that a program is
-% well-typed. The beauty is that the tester can decide exactly how hard to work on
-% the generator, finding the the right balance between effort and testing
-% performance.
-
-% Of course, if a tester was only concerned with satisfying input constraints,
-% they might just opt to write a standard PBT generator. Another benefit of this
-% approach is that it keeps an off-the-shelf fuzzer in the loop, using its
-% highly-tuned process for coverage-guided mutation to help make choices
-% intelligently. In theory, this may mean that the user can stop optimizing the
-% generator early, allowing coverage information to guide the generator the rest
-% of the way.
-
-% One interesting note is that there is flexibility in exactly how we tell the
-% generator to process choices. We could choose to interpret the reflective
-% generator as a strict parser (albeit of a much simpler language) and reject
-% invalid choice sequences. Alternatively, we could interpret the reflective
-% generator in a way that more robust to invalid choice sequences. It's possible that
-% each could be better in different circumstances, so I am eager to experiment
-% to see which makes the most sense.
-
-\todo{Expand this a bunch}
-Bringing PBT ideas to fuzzing, as I propose in Part 1, has the advantage that
-advancements to PBT can directly improve fuzzing. It would be great if the
-reverse was true as well! The FuzzChick library in Coq has already shown that
-using fuzzing techniques to test properties is
-worthwhile~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}, so what would it look
-like to bring properties into the system that I outlined in Part 1?
-
-The answer is actually very simple: fuzz a binary that checks the property and
-crashes if it fails. This can be done relatively easy with macros or build
-scripts, so the programmer hardly needs to know that there is fuzzing happening
-at all.  Ultimately this part of the project is not groundbreaking, but I think
-the contribution lies in the unification of the ecosystems.
+Our ultimate goal is a grand unification of PBT and fuzzing generator tooling:
+the fuzzing literature provides battle-tested heuristics for coverage-guided
+generation, the PBT literature provides powerful tools like reflective
+generators for refining generator performance incrementally, and both
+communities benefit from generators with better distributions.
 
 \subsubsection{Proposed Work: Reflective Shrinking}
 A more modest application of reflective generators uses them to implement
