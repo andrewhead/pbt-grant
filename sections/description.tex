@@ -923,77 +923,82 @@ need to be taken to ensure that shrinkers behave as expected.
 
 \subsection{Step 3, Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
+\hg{Jessica is going to write us a couple of paragraphs for this}
 
 \subsubsection{Proposed Work: Visualizing and Tuning Generator Distributions}
+\newcommand{\genvis}{GenVis}
 The work in Section~\ref{sec:gen} will significantly improve the tools that
 users have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
 when writing generators. One common challenge is understanding when a random
-generator successfully produces an interesting distribution of values.  Many
-developers we talked to complained that understanding generator distributions is
-hard; they asked for better tools for understanding what their generator is
-doing.  Such tools could help developers avoid mistakes that hamper their
-testing efforts and make it easier to quickly adapt and tune their generators to
-their specific needs.
+generator successfully produces an interesting distribution of values. Many
+participants in our study complained that they did not really know what their
+generators were doing and asked for better tools for understanding the space of
+inputs that the generator covers. Tools like this would help developers catch
+mistakes that hamper their testing efforts and make it easier to quickly adapt
+and tune their generators to their specific needs.
 
-Understanding generator distributions is challenging for a few reasons. First,
-the values produced by generators are often highly structured, with complex
-shapes (think lists, trees, and other algebraic data types). Such values cannot
-simply be plotted on a chart. Second, even spot-checking the values produced by
-a generator is challenging since the values are often quite large. And finally,
-writing generators is already considered by developers to be a burden; any tool
-in this space needs to be incredibly automatic and easy to use, or developers
-may conclude it is not worth the trouble.
+Of course, understanding generator distributions is challenging.  The values
+produced by generators are often highly structured and have complex shapes
+(think lists, trees, and other algebraic data types). Such values cannot simply
+be plotted on a chart, and even spot-checking them visually may be hard if the
+values are large.  Furthermore, writing generators is already considered by
+developers to be a burden, so any tool in this space needs to be incredibly
+automatic and easy to use.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
+<<<<<<< HEAD
   \caption{A prototype tool for visualizing generator distributions.}\label{fig:gen-vis}
 \iflater\bcp{Dark mode will not come out well if people print out the
   proposal...}\fi
+=======
+  \caption{A mockup of \genvis.}\label{fig:gen-vis}
+>>>>>>> 404fc02 (Finish GenVis section)
 \end{wrapfigure}
 
-\newcommand{\genvis}{GenVis}
-With these challenges in mind, we propose an early prototype of \genvis, a tool
-that gives developers comprehensive visualizations of their generators'
-distributions from directly within their code editor. \genvis{} will address the
-challenges with visualizing generator distributions by leveraging program
+With these challenges in mind, we propose prototype of \genvis, a tool that
+gives developers comprehensive visualizations of their generators' distributions
+from directly within their code editor. \genvis{} will address the challenges
+with visualizing generator distributions by leveraging lightweight program
 synthesis, visualization recommendation, and ideas from the live programming
 literature.
 
 \genvis{} starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
 the system extracts and plots relevant {\em features} of a given datatype (e.g.,
-for lists: length; for trees: size, depth, balance factor, etc.). An initial set
-of features is extracted from the surrounding programming environment and
-validated by the user; this will likely result in a few useful visualizations,
-but maybe not enough. To ensure a comprehensive understanding of the data,
-\genvis{} will use simple synthesis techniques~\cn{}, to compose and combine the
-initial set of features into more interesting features. This new round of features
-may show the relationship between first-round features, compose the functions to
-perform some kind of reduction in dimension\hg{idk}, or \hg{idk}. All of the
-features, original and synthesized, will be made available to users in a variety
-of charts and graphs.
+for lists: length; for trees: size, depth, balance factor, etc.). \genvis{} will
+start with a base set of features, extracted from the surrounding programming
+environment and validated by the user; this will likely result in a few useful
+visualizations, but maybe not enough. To ensure a comprehensive understanding of
+the data, \genvis{} will then use lightweight program synthesis to compose and
+combine the base of features to get {\em derived} features. The derived features
+may features may show the relationship between different base features or even
+compose base feature extractors to get entirely new features. All of the
+features, base and derived, will be made available to users in a variety of
+charts and graphs.
 
-Of course, showing a developer dozens of charts for their generator may be
-overkill, so \genvis{} will also have a way for users to specify which features
-are interesting (and which to hide). We will base these interactions based on
-the literature around visualization recommendation, specifically
-Voyager~\cite{wongsuphasawat_voyager_2016}.
+Of course, developers would struggle to grok dozens of charts representing
+their data's features, so \genvis{} will also have a way for users to specify
+which visualizations are interesting (and which to hide). We will base these
+interactions based on the literature around visualization recommendation,
+specifically Voyager~\cite{wongsuphasawat_voyager_2016,
+wongsuphasawat_voyager_2017}. This interaction might be very quick (maybe a few
+seconds to find a single representative chart) or slow and careful (many minutes
+spent curating a dashboard of results to help with tuning), depending on how
+much time and energy the developer has to put into their generator. Besides
+charts, \genvis{} will also present the user with structured representations of
+some generated values. We plan to use meta-programming to build
+DOT graphs~\cite{ellson_graphviz_2002} that represent data types, and then
+present those graphs to the developer for easier spot-checking of data.
 
-Finally \todo{live programming}
-
-\todo{Talk about DOT vis and ease of use}
-
-% Example: writing a generator of programs (for instance, to test out a compiler).
-% You want lots of different programs that make sense in different ways. You want
-% large ones, small ones, ones that use variables in coherent ways, ones that
-% don’t overuse certain constructs, ones that use a variety of different language
-% features. You want the generated programs to be representative of those that
-% people might write. You also want some weird programs to catch the edge cases,
-% but you don’t want all weird programs. (How big, how deep, how wide of
-% programs?). Also, for trees, one might want to specify heights and breadths of
-% the tree.
+All of these features will be made available to developers from within their
+editor as a VSCode extension, and they will update live as the programmer edits
+their generator and adds new functions that are candidates for extracting base
+features. We will evaluate \genvis{} in a small user study (~15 participants),
+hoping to learn which features of the tool are most useful, and how the design
+may be refined into a tool that real developers can use.
 
 \subsubsection{Proposed Work: Debugging Support for Understanding Counterexamples}
 
