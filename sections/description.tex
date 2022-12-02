@@ -12,18 +12,17 @@ performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
 
-One such technique, {\em property-based testing} (PBT), has enjoyed widespread
-popularity in the functional programming community since its introduction in
-the QuickCheck library~\cite{ClaessenHughes00} in Haskell. \amh{[minor point] I
-read this sentence as ``PBT is already quite popular'' which seems in contrast
-to our goal of trying to pave the way for PBT to become even more widely used.
-Maybe there is a way of conveying that QuickCheck has gained a significant
-foothold in the Haskell community without the term ``widespread popularity''?}
-PBT can be thought of as a kind of ``formal specification without formal
-verification.''  Programmers are invited to characterize the desired behaviors
-of their software systems or individual components at a high level, in the form
-of abstract models or algebraic laws; their code is then validated against
-these specifications by running it against a large number of automatically
+One such technique, {\em property-based testing} (PBT), has been
+enthusiastically adopted within the functional programming community
+since its introduction in
+Haskell's QuickCheck library~\cite{ClaessenHughes00}.
+%
+PBT can be explained as ``formal specification without formal
+verification''---programmers are invited to characterize the desired
+behaviors of their software systems or individual components at a high
+level, in the form of executable {\em properties}, which are simply
+boolean-valued functions; their code is then validated against these
+properties by running it against a large number of automatically
 generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
@@ -31,12 +30,12 @@ automatic validation has proved extremely effective at flushing out
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
-of other real-world systems~\cite{hughes2016experiences}.  With PBT
-tools now available in pretty much every major programming language,
-PBT has begun to make significant inroads in the broader software
+of other real-world systems~\cite{hughes2016experiences}.  With tools
+now available in pretty much every major programming language, PBT has
+begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
-users~\cite{ZacPersonalCommunication}.  
+users~\cite{ZacPersonalCommunication}.
 %
 (Also) In an ongoing study of users of OCaml's QuickCheck testing tool
 at Jane Street Capital, a Wall Street financial firm, we have heard
@@ -52,8 +51,12 @@ are taught about PBT and the information resources / best practices
 /etc. they have available).)
 
 We heard about this in the Jane Street study, where users
-(a) sometimes struggle to identify
-situations where PBT will be valuable \amh{Here I think it is important to have an affirmation that there are indeed cases where PBT will be valuable to them that they just have not yet identified},
+(a) sometimes struggle to identify all the
+situations where PBT will be valuable
+% \amh{Here I think it is important to have an affirmation that there
+%   are indeed cases where PBT will be valuable to them that they just
+%   have not yet identified},
+% BCP: Added "all the"--is that enough?
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
 with complex invariants or to tune generator distributions tg
@@ -70,17 +73,17 @@ project is to build a prototype programming environment and
 accompanying educational resources...
 %
 \todo{Contributions}
-\amh{One part of the vision that I want to see here is the transformation
-we think we could see in who uses PBT, and how often they use it. One of
-the worrying aspects of the description above is that by mentioning
-``abstract models'' and ``algebraic laws,'' readers might be primed to
-think that these tools are only really suitable in a limited number of
-problems by a limited number of users, and so the impact of this project
-would be limited to making the work easier for that limited number of
-problems and users. If we think that updates to tooling and education could
-lead to these tools---which might be seen as niche---to broad use across
-the software industry by a new contingent of developers, I think we should
-say so explicitly.}
+% \amh{One part of the vision that I want to see here is the transformation
+% we think we could see in who uses PBT, and how often they use it. One of
+% the worrying aspects of the description above is that by mentioning
+% ``abstract models'' and ``algebraic laws,'' readers might be primed to
+% think that these tools are only really suitable in a limited number of
+% problems by a limited number of users, and so the impact of this project
+% would be limited to making the work easier for that limited number of
+% problems and users. If we think that updates to tooling and education could
+% lead to these tools---which might be seen as niche---to broad use across
+% the software industry by a new contingent of developers, I think we should
+% say so explicitly.}
 
 (shorten to just a TOC:)
 The remainder of this section introduces property-based testing and
@@ -96,7 +99,7 @@ address the challenges we have observed in (2) property specification
 (\sectionref{sec:val}) by developing new, theoretically motivated and
 rigorously designed, tools; and (5) create comprehensive resources for
 educating developers and university students in best practices for PBT
-(\sectionref{sec:ed}).  
+(\sectionref{sec:ed}).
 \bcp{mention broader impacts and work plan sections.}
 
 % Testing plays a central role in modern software development,
@@ -176,16 +179,12 @@ educating developers and university students in best practices for PBT
 
 
 \subsectionstar{Orientation: Property-Based Testing}
-%
-% Property-based testing is a form of random
-% testing~ that was popularized by the
-% QuickCheck~\cite{DBLP:conf/icfp/ClaessenH00} library in Haskell.
-\amh{I'd propose leading in with a sentence asserting the power of PBT to show why
-we should care. For instance, ``Property-based testing tools provide programmers
-with an efficient means for testing their software's behavior to level of
-comprehensiveness not possible with alternative tools.'' Then we can
-drill down into the details of how PBT tools accomplish that aim.}
-Property-based testing tools allow users to write executable functions
+\bcp{Added this sentence per Andrew, but I wonder if it belongs earlier}
+Property-based testing tools give programmers
+an efficient way of testing their software's behavior with a
+comprehensiveness that is often not possible with alternative tools.
+
+PBT tools allow users to write executable functions
 that act as partial
 specifications of a function under test. For example, a user might
 write the following property of the \lstinline{insert}
@@ -193,24 +192,19 @@ function for an implementation of a binary search tree (BST):
 \begin{lstlisting}
   prop_insertCorrect x t  =  (isBST t ==> isBST (insert x t))
 \end{lstlisting}
-
-\amh{[proposal] Alternative wording for a reader of the proposal like me, who
-would need a little hand-holding for this syntax:
-What deserves note is that this single property listing takes only a single
-line to express, and yet can be used to validate a limitless number of
-input-output pairs. This line defines a property, which is implemented as
-a simple function that takes a set of arguments and returns a Boolean value:
-true if the property is satisfied, and false if it is not. This particular
-function, \texttt{prop\_insertCorrect}, checks that the insert operation on
-the binary search tree preserves the binary ordering of the tree.
-The function can be read as stating that, given an arbitrary tree ``\texttt{t}'' and an
-integer ``\texttt{x}'' to insert into that tree, as long as the tree
-is a binary search tree (``\texttt{isBST t}''), then the tree should still be
-a binary search tree following the insertion of the next integer
-(``\texttt{isBST (insert x t)})''.}
-This is an ordinary function that takes as inputs an integer and a
-tree and asserts that, if the tree satisfies the BST invariant, then
-so does the tree that results from inserting the integer.
+This property takes only a single
+line to express, yet it can be used to validate a limitless number of
+input-output pairs. Concretely, it is
+a simple function that takes two arguments and returns a
+Boolean value: true if the property is satisfied, and false if it is
+not. The function \texttt{prop\_insertCorrect} checks
+that an insert operation on a binary search tree preserves the
+binary ordering of the tree; it states
+that, given an arbitrary tree \texttt{t} and an integer
+\texttt{x} to insert into that tree, if the original tree
+satisfies the
+binary search tree invariant (``\texttt{isBST t}''), then it should remain
+a BST following the insertion of \texttt{x} (``\texttt{isBST (insert x t)})''.
 
 \iflater \bcp{I think this point will show up later:}There are a
 myriad of different kinds of properties that one might use to specify
@@ -224,47 +218,12 @@ inputs are tried, a developer is given more confidence that their implementation
 of the function is correct, given that the properties hold for many
 tested configurations.
 
-\amh{[small change] I removed ``Our focus'' because it felt like it
-was leading towards a statement of our contributions, which I want
-to discourage a reader from thinking we're trying to talk about
-in this background section.}
-One approach to input generation, which is the approach used by
-the tools we study in this proposal, is {\em random}
-testing~\cite{hamlet1994random}, where the inputs used to validate a
-property are generated by some random process, but there are other
-alternatives. In particular, {\em enumerative
-  testing}~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck}
-deterministically lists every possible input from the smallest to the
-largest, and its effectiveness relies on the ``small scope
-hypothesis''~\cite{jackson1996elements} that most bugs can be found
-with ``small'' inputs. Some\iflater\bcp{which?}\fi{} forms of model
-checking can also be considered alternatives to random PBT; their
-approaches vary, but, to a first approximation, model checkers are
-essentially tools for searching an input space for
-counterexamples~\cite{biere2009bounded}.
-%
-Despite the success of enumerative test-case generation and model
-checking, random generation remains the dominant approach in the PBT
-space. Its surprising effectiveness is often attributed to the
-``combinatorial'' nature of larger test cases: bugs can often be
-exposed by test inputs with a specific combination of features,
-independent of whatever other features may be present---for example,
-by any sequence of API calls that includes calls to four particular
-functions in a particular order, even if these calls happens to be
-interleaved with other API calls.  This means that testing with one
-big structure has the effect of testing with exponentially many
-smaller sub-structures. Both practical experience and theoretical
-arguments~\cite{HarryPaper} suggest that this effect is quite
-powerful---i.e., we can discover small counterexamples by generating
-a few larger test inputs containing combinatorially many diverse
-sub-structures rather than systematically enumerating test inputs
-beginning with the smallest ones. \amh{[shorten] We can probably shorten the
-above paragraph---I am not sure that we need to sell random testing as
-a paradigm, given that it seems the dominant form of testing in PBT
-tools today. The detailed comparison to enumerative testing feels
-a bit distracting to me. I think it's enough to say that we would
-just want to better support random testing because it is the approach
-that people are already using.}
+% \amh{[small change] I removed ``Our focus'' because it felt like it
+% was leading towards a statement of our contributions, which I want
+% to discourage a reader from thinking we're trying to talk about
+% in this background section.}
+% BCP: Even better is to move this whole discussion to later -- I've
+% done so.  :-)
 
 One well-known challenge of random testing is that some work is often
 required to generate {\em well-distributed} random inputs, which can
@@ -289,14 +248,14 @@ tasks related to PBT. What do programmers have to write code for to make
 PBT work? (1) They need to define a property (one was given above);
 (2) They need to define a generator (this is only implied by the above),
 which can be done by either writing a program that generates inputs,
-or by using tools that infer generators based on type definitions; (3) 
+or by using tools that infer generators based on type definitions; (3)
 They need to write some test driver code that looks for the properties
 and generators and executes them. And then, (4) a programmer has to
 make sense of the output of the generators and counterexamples, perhaps
 by inspecting console logs\ldots{} I think it is important to foreshadow
 in this section the different points in the engineering process
 where tools can be created, because I think it will be clunky to try to
-introduce them alongside novel findings in the ``Motivation'' or ``Foundations'' sections.}
+introduce them alongside novel findings in the ``Motivation'' or ``Foundations'' sections.}\bcp{Yes!!}
 
 \subsectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 
@@ -637,7 +596,47 @@ Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
 \subsection{Step 2, Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
-\hg{Half page over at the moment}
+\hg{Half page over at the moment}\bcp{Made it a bit worse by moving
+  the discussion of random vs. enumerative here... :-)}
+Our focus in this proposal is on {\em random}
+testing~\cite{hamlet1994random}, where the inputs used to validate a
+property are generated by some random process, but there are other
+alternatives. In particular, {\em enumerative
+  testing}~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck}
+deterministically lists every possible input from the smallest to the
+largest, and its effectiveness relies on the ``small scope
+hypothesis''~\cite{jackson1996elements} that most bugs can be found
+with ``small'' inputs. Some\iflater\bcp{which?}\fi{} forms of model
+checking can also be considered alternatives to random PBT; their
+approaches vary, but, to a first approximation, model checkers are
+essentially tools for searching an input space for
+counterexamples~\cite{biere2009bounded}.
+%
+Despite the success of enumerative test-case generation and model
+checking, random generation remains the dominant approach in the PBT
+space. Its surprising effectiveness is often attributed to the
+``combinatorial'' nature of larger test cases: bugs can often be
+exposed by test inputs with a specific combination of features,
+independent of whatever other features may be present---for example,
+by any sequence of API calls that includes calls to four particular
+functions in a particular order, even if these calls happens to be
+interleaved with other API calls.  This means that testing with one
+big structure has the effect of testing with exponentially many
+smaller sub-structures. Both practical experience and theoretical
+arguments~\cite{HarryPaper} suggest that this effect is quite
+powerful---i.e., we can discover small counterexamples by generating
+a few larger test inputs containing combinatorially many diverse
+sub-structures rather than systematically enumerating test inputs
+beginning with the smallest ones. \amh{[shorten] We can probably shorten the
+above paragraph---I am not sure that we need to sell random testing as
+a paradigm, given that it seems the dominant form of testing in PBT
+tools today. The detailed comparison to enumerative testing feels
+a bit distracting to me. I think it's enough to say that we would
+just want to better support random testing because it is the approach
+that people are already using.}
+
+\bcp{Work needed here on the transition.}
+
 One of the most important, and most and difficult, tasks in the PBT process is
 designing and implementing the random data generators that are used check that
 each property holds. Indeed, recall that developers we interviewed consistently
