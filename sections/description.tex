@@ -12,15 +12,18 @@ performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
 
-One such technique, {\em property-based testing} (PBT), has enjoyed
-widespread popularity in the functional programming community since
-its introduction in the QuickCheck library~\cite{ClaessenHughes00} in
-Haskell.  PBT can be thought of as a kind of ``formal specification
-without formal verification.''  Programmers are invited to
-characterize the desired behaviors of their software systems or
-individual components at a high level, in the form of abstract models
-or algebraic laws; their code is then validated against these
-specifications by running it against a large number of automatically
+One such technique, {\em property-based testing} (PBT), has enjoyed widespread
+popularity in the functional programming community since its introduction in
+the QuickCheck library~\cite{ClaessenHughes00} in Haskell. \amh{[minor point] I
+read this sentence as ``PBT is already quite popular'' which seems in contrast
+to our goal of trying to pave the way for PBT to become even more widely used.
+Maybe there is a way of conveying that QuickCheck has gained a significant
+foothold in the Haskell community without the term ``widespread popularity''?}
+PBT can be thought of as a kind of ``formal specification without formal
+verification.''  Programmers are invited to characterize the desired behaviors
+of their software systems or individual components at a high level, in the form
+of abstract models or algebraic laws; their code is then validated against
+these specifications by running it against a large number of automatically
 generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
@@ -50,7 +53,7 @@ are taught about PBT and the information resources / best practices
 
 We heard about this in the Jane Street study, where users
 (a) sometimes struggle to identify
-situations where PBT will be valuable,
+situations where PBT will be valuable \amh{Here I think it is important to have an affirmation that there are indeed cases where PBT will be valuable to them that they just have not yet identified},
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
 with complex invariants or to tune generator distributions tg
@@ -67,6 +70,17 @@ project is to build a prototype programming environment and
 accompanying educational resources...
 %
 \todo{Contributions}
+\amh{One part of the vision that I want to see here is the transformation
+we think we could see in who uses PBT, and how often they use it. One of
+the worrying aspects of the description above is that by mentioning
+``abstract models'' and ``algebraic laws,'' readers might be primed to
+think that these tools are only really suitable in a limited number of
+problems by a limited number of users, and so the impact of this project
+would be limited to making the work easier for that limited number of
+problems and users. If we think that updates to tooling and education could
+lead to these tools---which might be seen as niche---to broad use across
+the software industry by a new contingent of developers, I think we should
+say so explicitly.}
 
 (shorten to just a TOC:)
 The remainder of this section introduces property-based testing and
