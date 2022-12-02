@@ -81,6 +81,7 @@
 \definecolor{string}{HTML}{02782d}
 \definecolor{Fuchsia}{HTML}{8C368C}
 \definecolor{quoteblue}{HTML}{2264b4}
+\definecolor{gray}{HTML}{BBBBBB}
 
 \newif\ifdraft\drafttrue{}
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
@@ -92,6 +93,7 @@
 \newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
 \newcommand{\comment}[1]{{\em #1}}
 \newcommand{\todo}[1]{{\color{nord-red} TODO: #1}}
+\newcommand{\writeme}[1]{{\color{gray} #1}}
 \newcommand{\pagebudget}[1]{(#1 pages)}
 
 \newif\iflater\laterfalse

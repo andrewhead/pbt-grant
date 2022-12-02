@@ -3,19 +3,19 @@
 \iflater\todo{Remember to not use any URLs in the project description!
   (They are encouraged in the references.)}\fi
 
-Testing plays a central role in modern software development,
+Testing plays a key role in modern software development,
 contributing crucially both to the costs of software projects and to
 the quality of their results.
-%
+
 Testing comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
-
+%
 One such technique, {\em property-based testing} (PBT), has been
-enthusiastically adopted within the functional programming community
-since its introduction in
-Haskell's QuickCheck library~\cite{ClaessenHughes00}.
+enthusiastically applied and refined within the functional programming
+community since its introduction in the Haskell QuickCheck
+library~\cite{ClaessenHughes00}.
 %
 PBT can be explained as ``formal specification without formal
 verification''---programmers are invited to characterize the desired
@@ -31,7 +31,7 @@ bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}.  With tools
-now available in pretty much every major programming language, PBT has
+now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
@@ -39,16 +39,16 @@ users~\cite{ZacPersonalCommunication}.
 %
 (Also) In an ongoing study of users of OCaml's QuickCheck testing tool
 at Jane Street Capital, a Wall Street financial firm, we have heard
-strong enthusiasm \todo{details...}.
+strong enthusiasm \writeme{details...}.
 % These users generally appreciate PBT for its power and broad applicability...
 
-(However, what the world has right now is decent bare-bones tools,
+\writeme{(However, what the world has right now is decent bare-bones tools,
 which can be used very effectively by people that know what they are
 doing and are willing to work a little.  What's lacking is
 comprehensive support for PBT, both technically (in people's
 programming environments) and culturally/educationally (in what people
 are taught about PBT and the information resources / best practices
-/etc. they have available).)
+/etc. they have available).)}
 
 We heard about this in the Jane Street study, where users
 (a) sometimes struggle to identify all the
@@ -70,9 +70,9 @@ We believe the situation can be significantly improved with a modest
 amount of suitably focused research energy, moving from bare-bones
 tools to a comprehensive environment for PBT.  The goal of this
 project is to build a prototype programming environment and
-accompanying educational resources...
+accompanying educational resources
 %
-\todo{Contributions}
+\writeme{... describe contributions}
 % \amh{One part of the vision that I want to see here is the transformation
 % we think we could see in who uses PBT, and how often they use it. One of
 % the worrying aspects of the description above is that by mentioning
@@ -92,7 +92,7 @@ to motivate and contextualize the work planned for this project.  The
 remaining sections describe several threads of planned work and their
 expected contributions.  Specifically, we aim to (1) further
 investigate the challenges PBT faces in industry through
-two\bcp{three?}  additional user studies (\sectionref{sec:spec});
+two\iflater\bcp{three?}\fi{}  additional user studies (\sectionref{sec:spec});
 address the challenges we have observed in (2) property specification
 (\sectionref{sec:spec}), (3) test-case generation
 (\sectionref{sec:gen}), and (4) validation of testing effectiveness
@@ -100,7 +100,7 @@ address the challenges we have observed in (2) property specification
 rigorously designed, tools; and (5) create comprehensive resources for
 educating developers and university students in best practices for PBT
 (\sectionref{sec:ed}).
-\bcp{mention broader impacts and work plan sections.}
+\writeme{Mention broader impacts and work plan sections.}
 
 % Testing plays a central role in modern software development,
 % contributing crucially both to the costs of software projects and to
@@ -348,17 +348,11 @@ developers that we talk to will come to the discussion with a wide variety of
 experiences.
 
 
-\subsectionstar{Contributions}
-
-%
-\todo{Outline project goals with pointers to relevant
-  sections.  (Or do this earlier?)}
-
 \subsectionstar{Personnel}
 
-\todo{A short paragraph about what a great team we are, how the PI
-  qualifications complement each other, and what kind of students we aim to
-  support.  }
+\todo{One paragraph about what a great team we are, how the PI
+  qualifications complement each other, and what kind of students we
+  aim to support.}
 
 \subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}
 
@@ -441,7 +435,7 @@ properties as a source of documentation.}
 
 \amh{Mention that we plan to distribute a survey among users of Hypothesis to
 assess the extent to which our findings generalize among a broader population of
-users of PBT tools. Can we get a letter of support from Zac?}
+users of PBT tools. Can we get a letter of support from Zac?}\bcp{We should!!}
 
 \amh{I think we need to conduct two studies, one focused on assessing the
 extent to which our findings about obstacles generalize across PBT users
@@ -598,6 +592,8 @@ specification generators for OCaml?}
 \subsection{Step 2, Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
 \hg{Half page over at the moment}\bcp{Made it a bit worse by moving
   the discussion of random vs. enumerative here... :-)}
+
+\bcp{The opening needs tuning.}
 Our focus in this proposal is on {\em random}
 testing~\cite{hamlet1994random}, where the inputs used to validate a
 property are generated by some random process, but there are other
@@ -846,10 +842,10 @@ uses code coverage as guidance for PBT and the HypoFuzz library uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
 poured into actual fuzzers; Crowbar does~\cite{dolan2017testing}. Crowbar uses
-AFL~\cite{afl-readme}\footnote{We plan to use AFL++~\cite{fioraldi_afl_2020},
-which has supplanted the original project.}, one of the most well-established
+AFL~\cite{afl-readme}, one of the most well-established
 fuzzers, to generate random bit-strings that are later parsed into program
-inputs.
+inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
+which has supplanted the original AFL we project.)
 
 \begin{wrapfigure}{l}{0.5\textwidth}
   \centering
@@ -948,6 +944,8 @@ may conclude it is not worth the trouble.
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
   \caption{A prototype tool for visualizing generator distributions.}\label{fig:gen-vis}
+\iflater\bcp{Dark mode will not come out well if people print out the
+  proposal...}\fi
 \end{wrapfigure}
 
 \newcommand{\genvis}{GenVis}
@@ -1064,7 +1062,7 @@ less well-developed unit testing instincts. Honestly I think this is a good
 thing, as it gives students more ways to succeed and it may re-enforce the value
 of PBT, but some may find this problematic.
 
-\subsection{Plan of Work \pagebudget{1}}
+\subsection{Plan of Work \pagebudget{.7}}
 
 \todo{(with a pretty pert chart or suchlike...)}
 
