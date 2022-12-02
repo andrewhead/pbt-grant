@@ -82,6 +82,7 @@
 \definecolor{Fuchsia}{HTML}{8C368C}
 \definecolor{quoteblue}{HTML}{2264b4}
 \definecolor{gray}{HTML}{BBBBBB}
+\definecolor{darkgray}{HTML}{555555}
 
 \newif\ifdraft\drafttrue{}
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
@@ -98,10 +99,13 @@
 
 \newcommand{\jsquote}[2]{%
   \begin{center}
+  {\color{darkgray}
     \fbox{
+      \color{black}
       \begin{minipage}{0.87\linewidth}
         ``#2''  \hfill --Participant P#1
-      \end{minipage}
+        \end{minipage}
+        }
     }
   \end{center}
 }
