@@ -495,6 +495,7 @@ suggest that it may be even more important to have a clear sense of {\em When}
 to use PBT. {\em When to Specify It!} will combine examples from developer
 interviews with ones from our our years of experience studying and applying PBT
 into the definitive guide for the most impactful opportunities to apply PBT.
+\hg{Do we need more here? I can give examples...}
 % \begin{itemize}
 % \item Code that is already (semi-)formally specified.
 % \item Functions that round trip.
@@ -505,26 +506,80 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 % \item Stateful APIs with well-understood contracts.
 % \end{itemize}
 
-\subsubsection{Proposed Work: Properties Over Printed Output}
-\subsubsection{Proposed Work: Making Model-Based PBT First-Class}
+\subsubsection{Proposed Work: Properties Over Logged Output}
+One common problem raised by Jane Street developers (and even more loudly by the
+participants of the \hg{preliminary}) study was that code may not be abstracted
+in a way that is conducive to PBT. Indeed, any kind of unit testing requires
+that the programmer is able to extract some ``unit'' of code to test, but PBT is
+especially sensitive to things like poorly handled global state and fuzzy
+abstraction boundaries. Fuzzers \todo{I think we need to intro fuzzers in the
+beginning; I've mentioned them a bunch already} get around these issues by
+testing the code from the outside---they do not care about internal
+abstractions, only the external interface---but that usually comes at the
+expense of expressive properties.
 
-\hg{Andrew wrote this for a slightly different thing}
-Motivation: How do you design a generator DSL in an imperative language? A
-generator uses higher-level functions in a way that might be confusing to people
-who used Python.  (e.g., passing a generator of numbers to a generator of lists
-to get randomized lists of numbers). Is there a way of designing APIs for
-generators that can make the composition of these types of generators easier to
-reason about and express for some programmers?
+We hypothesize a solution that enables better PBT of messy code without giving
+up expressiveness: inject logging calls into the code under test, and write
+properties over the logs that the code produces. For example, if the developer
+knows about some invariant on a variable \lstinline{x}, they can log out the
+value of \lstinline{x} every time it is set, and then check that the logged
+values satisfy the invariant. Even better, if the invariant applies over time
+(e.g., the value of \lstinline{x} should never decrease) properties over logs
+could capture that too. This would be difficult to do with debug assertions,
+especially if performance is a concern.
 
-(Joe says the DSLs are well-designed, but the code is hard to debug. How do you
-write a generator that works really well, that has a good data distribution and
-finds bugs? See below.)
+Concretely, we propose a framework for inserting lightweight test-logging and a
+language for writing properties over those logs. The logging itself is a matter
+of engineering, but the language for properties is an exciting opportunity to
+apply powerful logical ideas. Specifically, the properties over logged outputs
+should be written in a temporal logic like {\em linear temporal logic} (LTL) so
+they can make complex assertions about the way past and future values interact.
+The Quickstrom language~\cite{oconnor_quickstrom_2022} has already shown that
+LTL properties are possible (it uses LTL to write properties about graphical
+user interfaces), but making them work well for a broader range of scenarios is
+an exciting research challenge.
 
-Plan of work. Not sure. This might require some discussions with more uses of
-Hypothesis-like libraries.
+\subsubsection{Proposed Work: Automating Model-Based PBT}
+Our studies have shown that a common pattern of PBT, especially for stateful
+APIs, is to implement a {\em model implementation} of the system under test, and
+then check that the two versions of the code agree on a series of API calls.
+This is a well documented approach to PBT~\cite{hughes_experiences_2016}, but it
+is not always supported as well as it could be by existing tooling. For example,
+developers at Jane Street cited setting up essentially the same basic
+model-based PBT harness for at least three different projects; implementing each
+of those harnesses took significant developer time and slowed down the testing
+process.
 
-Next steps—get examples of sloppily-expressed PBtests in Python and then think
-through how they would be written more clearly.
+We propose new, type-based automation for model-based testing of ML-style
+modules. This automation will take a model signature, for example
+\begin{lstlisting}[language=Caml]
+  module Map : sig
+    type ('k, 'v) t
+    val get : ('k, 'v) t -> 'k -> 'v option
+    val put : ('k, 'v) t -> 'k -> 'v -> ('k, 'v) t
+  end
+\end{lstlisting}
+and generate a series of calls like
+\begin{lstlisting}[language=Caml]
+  let m = put m 1 2; get m 1; let m = put m 1 3; m get 1
+\end{lstlisting}
+that manipulate the data structure and query its contents. When testing two
+different implementations of \lstinline{Map}, the developer can verify that the
+two implementations produce the same results for each of the operations in the
+sequence. The automated tooling could also insert checks for internal
+invariants, ensure that one operation executes at least as quickly as another,
+and insert other checks that are simple to specify but tedious to implement
+manually.
+
+Our choice to focus on ML-style modules is motivated from two directions. One is
+practical: our relationship with Jane Street makes it easy to evaluate tools
+that are compatible with OCaml, the language that almost all of their developers
+are the most comfortable with. Working within the OCaml ecosystem will mean that
+we can quickly find technical or usability issues with the tools we build. The
+other reason, though, is technical interest. ML modules are extremely
+expressive and fairly complicated. This gives us a number of complex problems to
+solve: for example, \todo{Maybe have Joe look at this section. He really likes
+this project}
 
 \subsubsection{Proposed Work: Interactive Property Specification}
 
