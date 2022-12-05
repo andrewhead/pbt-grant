@@ -1729,3 +1729,54 @@
   pages      = {98--106},
   file       = {Chasins et al. - 2021 - PL and HCI better together.pdf:/Users/harrison/Zotero/storage/S9C9HTDP/Chasins et al. - 2021 - PL and HCI better together.pdf:application/pdf}
 }
+
+@inproceedings{paraskevopoulou_foundational_2015,
+  address   = {Cham},
+  series    = {Lecture {Notes} in {Computer} {Science}},
+  title     = {Foundational {Property}-{Based} {Testing}},
+  isbn      = {978-3-319-22102-1},
+  doi       = {10.1007/978-3-319-22102-1_22},
+  abstract  = {Integrating property-based testing with a proof assistant creates an interesting opportunity: reusable or tricky testing code can be formally verified using the proof assistant itself. In this work we introduce a novel methodology for formally verified property-based testing and implement it as a foundational verification framework for QuickChick, a port of QuickCheck to Coq. Our framework enables one to verify that the executable testing code is testing the right Coq property. To make verification tractable, we provide a systematic way for reasoning about the set of outcomes a random data generator can produce with non-zero probability, while abstracting away from the actual probabilities. Our framework is firmly grounded in a fully verified implementation of QuickChick itself, using the same underlying verification methodology. We also apply this methodology to a complex case study on testing an information-flow control abstract machine, demonstrating that our verification methodology is modular and scalable and that it requires minimal changes to existing code.},
+  language  = {en},
+  booktitle = {Interactive {Theorem} {Proving}},
+  publisher = {Springer International Publishing},
+  author    = {Paraskevopoulou, Zoe and Hriţcu, Cătălin and Dénès, Maxime and Lampropoulos, Leonidas and Pierce, Benjamin C.},
+  editor    = {Urban, Christian and Zhang, Xingyuan},
+  year      = {2015},
+  pages     = {325--343},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/JEPHXVET/Paraskevopoulou et al. - 2015 - Foundational Property-Based Testing.pdf:application/pdf}
+}
+
+@article{lampropoulos_coverage_2019,
+  title    = {Coverage guided, property based testing},
+  volume   = {3},
+  url      = {https://doi.org/10.1145/3360607},
+  doi      = {10.1145/3360607},
+  number   = {OOPSLA},
+  journal  = {PACMPL},
+  author   = {Lampropoulos, Leonidas and Hicks, Michael and Pierce, Benjamin C.},
+  year     = {2019},
+  keywords = {AFL, coverage, fuzz testing, FuzzChick, property-based testing, QuickChick, random testing},
+  pages    = {181:1--181:29},
+  file     = {Full Text:/Users/harrison/Zotero/storage/DZM9WCC7/Lampropoulos et al. - 2019 - Coverage guided, property based testing.pdf:application/pdf}
+}
+
+@inproceedings{li_model-based_2021,
+  address   = {New York, NY, USA},
+  series    = {{ISSTA} 2021},
+  title     = {Model-based testing of networked applications},
+  isbn      = {978-1-4503-8459-9},
+  url       = {http://doi.org/10.1145/3460319.3464798},
+  doi       = {10.1145/3460319.3464798},
+  abstract  = {We present a principled automatic testing framework for application-layer protocols. The key innovation is a domain-specific embedded language for writing nondeterministic models of the behavior of networked servers. These models are defined within the Coq interactive theorem prover, supporting a smooth transition from testing to formal verification. Given a server model, we show how to automatically derive a tester that probes the server for unexpected behaviors. We address the uncertainties caused by both the server's internal choices and the network delaying messages nondeterministically. The derived tester accepts server implementations whose possible behaviors are a subset of those allowed by the nondeterministic model. We demonstrate the effectiveness of this framework by using it to specify and test a fragment of the HTTP/1.1 protocol, showing that the automatically derived tester can capture RFC violations in buggy server implementations, including the latest versions of Apache and Nginx.},
+  urldate   = {2022-12-05},
+  booktitle = {Proceedings of the 30th {ACM} {SIGSOFT} {International} {Symposium} on {Software} {Testing} and {Analysis}},
+  publisher = {Association for Computing Machinery},
+  author    = {Li, Yishuai and Pierce, Benjamin C. and Zdancewic, Steve},
+  month     = jul,
+  year      = {2021},
+  keywords  = {Coq, HTTP, interaction trees, Model-based testing, network refinement, nondeterminism},
+  pages     = {529--539},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/RETUZJ44/Li et al. - 2021 - Model-based testing of networked applications.pdf:application/pdf}
+}
+

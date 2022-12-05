@@ -29,12 +29,11 @@ community since its introduction in the Haskell QuickCheck
 library~\cite{ClaessenHughes00}.
 %
 PBT can be explained as ``formal specification without formal
-verification''---programmers are invited to characterize the \hg{wordy}desired
-behaviors of their software systems or individual components at a high
-level\hg{/}, in the form of executable {\em properties}, which are simply
-Boolean-valued functions; their code is then validated against these
-properties by running it over and over with a large number of automatically
-generated test cases.
+verification''---developers are invited to characterize their program's desired
+behaviors at a high level, in the form of executable {\em properties},
+which are simply Boolean-valued functions; their code is then validated against
+these properties by running it over and over with a large number of
+automatically generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
 automatic validation has proved extremely effective at flushing out
@@ -49,17 +48,19 @@ Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
 We have seen this success firsthand: as a research group, we have been involved
-with PBT for years, watching it succeed and addressing challenges in areas where
-it fails. The research community as a whole is dedicated to improving the state
-of PBT tools, and recent work has continued to make great strides in areas like
-expressivity and testing effectiveness. But we see one area as critically
-under-studied by the PBT research community: What challenges do real-world
-developers face when actually {\em using} PBT tools? It is not clear when
-developers see the most benefit from PBT and what slows them down or turns them
-away. There may be developers who could hugely benefit from PBT, if only the
-tools were better suited to their use cases. If PBT is to continue to grow and
-find critical bugs across the software industry, this line of questioning must
-be explored.
+in the PBT community for years, pushing it to its limits as a tool for standard
+testing software~\cite{hughes2014mysteries,li_model-based_2021} and adapting it
+to new domains like theorem proving~\cite{paraskevopoulou_foundational_2015,
+lampropoulos_coverage_2019}. The community has dedicated itself to improving the
+theory and applications of PBT, and recent work has continued to make great
+strides in areas like expressivity and testing effectiveness. But we see one
+area as critically under-studied by the PBT research community: What challenges
+do real-world developers face when actually {\em using} PBT tools? It is not
+clear when developers see the most benefit from PBT and what slows them down or
+turns them away. There may be developers who could hugely benefit from PBT, if
+only the tools were better suited to their use cases. If PBT is to continue to
+grow and find critical bugs across the software industry, this line of
+questioning must be explored.
 
 In this light, we have begun to apply need-finding techniques to identify
 potential high-impact improvements to PBT tools. In an ongoing study of users of
