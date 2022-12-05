@@ -3,19 +3,6 @@
 \iflater\todo{Remember to not use any URLs in the project description!
   (They are encouraged in the references.)}\fi
 
-The interest and excitement around the intersection of programming languages
-(PL) and human-computer interaction (HCI) has grown dramatically over the last
-few years.\bcp{Can we not open with ``Interest in X is increasing in
-  the past few years''? :-)} Chasins et al.~\cite{chasins_pl_2021}
-argue that PL+HCI is a ``sweet spot'' that marries 
-``tools that make it easy to build domain-specific and general-purpose
-programming languages'' with ``need-finding techniques [to] identify high-impact
-problem domains''\bcp{not clear why identifying high-impact problem
-  domains is a key missing piece of the puzzle}. We agree. This
-proposal brings the power of both PL and HCI techniques to bear, laying the
-groundwork for a theoretically-motivated and human-centered
-revolution\bcp{too gushy} in software testing.
-
 Testing plays a key role in modern software development, contributing
 crucially to robustness and overall quality---as well as to overall
 development costs.
@@ -49,30 +36,12 @@ industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
-We have seen these trends firsthand: the PL research group at Penn has
-contributed to PBT research for years, pushing PBT to its limits as a
-tool for standard 
-testing software~\cite{hughes2014mysteries, li_model-based_2021,
-goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
-like theorem proving~\cite{paraskevopoulou_foundational_2015,
-lampropoulos_coverage_2019}.  The community has dedicated itself to improving
-the theory and applications of PBT, and recent work has continued to make great
-strides in areas like expressivity and testing effectiveness.
-
-But we see one area as critically under-studied by the PBT research
-community: What challenges do real-world developers face when actually
-{\em using} PBT tools? It is not clear when developers see the most
-benefit from PBT and what slows them down or turns them away. There
-may be\bcp{weak} developers who could significantly benefit from PBT,
-if only the tools were better suited to their use cases. If PBT is to
-continue to grow and find critical bugs across the software industry,
-this line of questioning must be explored.
-
-In this light, we have begun to apply need-finding techniques in real-world
-software development contexts to identify potential high-impact improvements to
-PBT tools. In an ongoing study of users of OCaml's QuickCheck testing tool at
-Jane Street Capital, a Wall Street financial firm, we have found a healthy mix
-of consistent enthusiasm for PBT
+With all of this success, one might wonder if the research community has already
+identified all of the important challenges that limit PBT's adoption, but it
+seems that the answer is no.
+In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
+at Jane Street Capital, a Wall Street financial firm, we have found a healthy
+mix of consistent enthusiasm for PBT
 % \jsquote{28}{If you’re trying to build something that needs to be
 %   reliable and work all the time, [PBT] is worth the
 %   investment.\iflater\bcp{This is a paraphrase of what Dani said.  We
@@ -82,10 +51,10 @@ of consistent enthusiasm for PBT
 % the job better. Or maybe we can include that quote from the
 % preliminary study which stated that PBT was 1000x better
 % than the alternatives.}
-and clear signals that point to potential room
-for improvement. Specifically, the developers we have spoken with so far
-(a) sometimes struggle to identify all the
-situations where properties are readily accessible for testing
+and challenging new research questions based on developer concerns.
+Specifically, the developers we have spoken with so far (a) sometimes struggle
+to identify all the situations where properties are readily accessible for
+testing
 % \amh{Here I think it is important to have an affirmation that there
 %   are indeed cases where PBT will be valuable to them that they just
 %   have not yet identified},
@@ -97,29 +66,30 @@ adequately explore the space of interesting test cases, (c) they find
 it hard to understand whether their properties and generators are
 effectively testing their software, and (d) they are disappointed by
 the paucity of educational and training materials for introducing
-newcomers to PBT.  \iflater\bcp{All that needs final tuning.}\fi
-All of these signals come alongside a clear sense that there is more to learn,
-and clear excitement on the part of developers about human-centered research in
-this space.
+newcomers to PBT.\iflater\bcp{All that needs final tuning.}\fi
 
-With all of this in mind, we propose a comprehensive, interdisciplinary research
-program that will apply the tools of PL+HCI build a blueprint for the future of
-PBT theory and practice. The projects we undertake will be motivated by
-foundational need-finding research in the software industry, including, but not
-limited to, the aforementioned study with Jane Street. Some projects will have a
-clear PL flavor, focusing on domain-specific languages and type-based tools that
-will make PBT tools more powerful and flexible; but we will motivate and
-evaluate them with techniques from HCI. Other projects will focus on the HCI elements
-of PBT, building better interfaces and experiences for developers; yet their
-implementation will draw from our wealth of PL knowledge. In this way, we craft
-a holistic research agenda around PBT that is sure to be both well motivated and
-well founded.
+The solutions to these problems, much like the techniques that helped us to
+identify them, require insights from both the programming languages (PL) and
+human-computer interaction (HCI) communities.  Chasins et
+al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
+``need-finding techniques [to] identify ...  programmers' current and future
+pain points''
+with
+``tools that make it easy to build domain-specific and
+general-purpose programming languages,''\hg{Try to find a better quote}
+and we whole-heartedly agree.
 
-The remainder of this section introduces property-based testing and
-describes the findings of the Jane Street user study in more detail,
-to motivate and contextualize the work planned for this project. The
-remaining sections describe several threads of planned work and their
-expected contributions.  Specifically, we aim to (1) further
+Thus, we propose a comprehensive, interdisciplinary research program that will
+bring the power of both PL and HCI techniques to bear: we will build a blueprint
+for the future of PBT theory and practice that is motivated by users and built
+on solid theoretical results. The remainder of this section introduces
+property-based testing and describes the findings of the Jane Street user study
+in more detail, to motivate and contextualize the work planned for this project.
+The remaining sections describe several threads of planned work and their
+expected contributions.
+
+\todo{Break this out and bullet it}
+Specifically, we aim to (1) further
 investigate the challenges PBT faces in industry through
 two\iflater\bcp{three?}\fi{}  additional user studies (\sectionref{sec:spec});
 address the challenges we have observed in (2) property specification
@@ -130,6 +100,17 @@ rigorously designed, tools; and (5) create comprehensive resources for
 educating developers and university students in best practices for PBT
 (\sectionref{sec:ed}).
 \writeme{Mention broader impacts and work plan sections.}
+
+The projects we undertake will be motivated by
+foundational need-finding research in the software industry, including, but not
+limited to, the aforementioned study with Jane Street. Some projects will have a
+clear PL flavor, focusing on domain-specific languages and type-based tools that
+will make PBT tools more powerful and flexible; but we will motivate and
+evaluate them with techniques from HCI. Other projects will focus on the HCI elements
+of PBT, building better interfaces and experiences for developers; yet their
+implementation will draw from our wealth of PL knowledge. In this way, we craft
+a holistic research agenda around PBT that is sure to be both well motivated and
+well founded.
 
 % Testing plays a central role in modern software development,
 % contributing crucially both to the costs of software projects and to
@@ -382,6 +363,17 @@ experiences.
 \todo{One paragraph about what a great team we are, how the PI
   qualifications complement each other, and what kind of students we
   aim to support.}
+
+% We have seen these trends firsthand: the PL research group at Penn has
+% contributed to PBT research for years, pushing PBT to its limits as a
+% tool for standard
+% testing software~\cite{hughes2014mysteries, li_model-based_2021,
+% goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
+% like theorem proving~\cite{paraskevopoulou_foundational_2015,
+% lampropoulos_coverage_2019}.  The community has dedicated itself to improving
+% the theory and applications of PBT, and recent work has continued to make great
+% strides in areas like expressivity and testing effectiveness.
+
 
 \subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}
 
