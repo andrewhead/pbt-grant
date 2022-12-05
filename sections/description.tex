@@ -5,20 +5,22 @@
 
 The interest and excitement around the intersection of programming languages
 (PL) and human-computer interaction (HCI) has grown dramatically over the last
-few years. Chasins et al. argue that PL+HCI is a ``sweet spot'' that marries
+few years.\bcp{Can we not open with ``Interest in X is increasing in
+  the past few years''? :-)} Chasins et al.~\cite{chasins_pl_2021}
+argue that PL+HCI is a ``sweet spot'' that marries 
 ``tools that make it easy to build domain-specific and general-purpose
 programming languages'' with ``need-finding techniques [to] identify high-impact
-problem domains''~\cite{chasins_pl_2021}; we firmly agree. The following
-proposal brings the full power of both PL and HCI techniques to bear, laying the
-groundwork for a theoretically-motivated and human-centered revolution in software testing.
+problem domains''\bcp{not clear why identifying high-impact problem
+  domains is a key missing piece of the puzzle}. We agree. This
+proposal brings the power of both PL and HCI techniques to bear, laying the
+groundwork for a theoretically-motivated and human-centered
+revolution\bcp{too gushy} in software testing.
 
-\noindent \hrulefill
-
-Testing plays a key role in modern software development,
-contributing crucially both to the costs of software projects and to
-the quality of their results.
-
-Testing comes in many styles---unit testing, integration testing,
+Testing plays a key role in modern software development, contributing
+crucially to robustness and overall quality---as well as to overall
+development costs.
+%
+It comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
@@ -28,7 +30,7 @@ enthusiastically applied and refined within the functional programming
 community since its introduction in the Haskell QuickCheck
 library~\cite{ClaessenHughes00}.
 %
-PBT can be explained as ``formal specification without formal
+PBT is sometimes explained as ``formal specification without formal
 verification''---developers are invited to characterize their program's desired
 behaviors at a high level, in the form of executable {\em properties},
 which are simply Boolean-valued functions; their code is then validated against
@@ -36,10 +38,10 @@ these properties by running it over and over with a large number of
 automatically generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
-automatic validation has proved extremely effective at flushing out
+automatic validation has proved effective at identifying subtle
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
-stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
+stores~\cite{Bornholt2021}, car software~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}. With tools
 now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
@@ -47,21 +49,24 @@ industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
-We have seen this success firsthand: as a research group, we have been involved
-in the PBT community for years, pushing it to its limits as a tool for standard
+We have seen these trends firsthand: the PL research group at Penn has
+contributed to PBT research for years, pushing PBT to its limits as a
+tool for standard 
 testing software~\cite{hughes2014mysteries, li_model-based_2021,
 goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
 like theorem proving~\cite{paraskevopoulou_foundational_2015,
 lampropoulos_coverage_2019}.  The community has dedicated itself to improving
 the theory and applications of PBT, and recent work has continued to make great
-strides in areas like expressivity and testing effectiveness. But we see one
-area as critically under-studied by the PBT research community: What challenges
-do real-world developers face when actually {\em using} PBT tools? It is not
-clear when developers see the most benefit from PBT and what slows them down or
-turns them away. There may be developers who could hugely benefit from PBT, if
-only the tools were better suited to their use cases. If PBT is to continue to
-grow and find critical bugs across the software industry, this line of
-questioning must be explored.
+strides in areas like expressivity and testing effectiveness.
+
+But we see one area as critically under-studied by the PBT research
+community: What challenges do real-world developers face when actually
+{\em using} PBT tools? It is not clear when developers see the most
+benefit from PBT and what slows them down or turns them away. There
+may be\bcp{weak} developers who could significantly benefit from PBT,
+if only the tools were better suited to their use cases. If PBT is to
+continue to grow and find critical bugs across the software industry,
+this line of questioning must be explored.
 
 In this light, we have begun to apply need-finding techniques in real-world
 software development contexts to identify potential high-impact improvements to
