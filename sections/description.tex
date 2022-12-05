@@ -3,6 +3,17 @@
 \iflater\todo{Remember to not use any URLs in the project description!
   (They are encouraged in the references.)}\fi
 
+The interest and excitement around the intersection of programming languages
+(PL) and human-computer interaction (HCI) has grown dramatically over the last
+few years. Chasins et al. argue that PL+HCI is a ``sweet spot'' that marries
+``tools that make it easy to build domain-specific and general-purpose
+programming languages'' with ``need-finding techniques [to] identify high-impact
+problem domains''~\cite{chasins_pl_2021}; we firmly agree. The following
+proposal brings the full power of both PL and HCI techniques to bear, laying the
+groundwork for a theoretically-motivated and human-centered revolution in software testing.
+
+\noindent \hrulefill
+
 Testing plays a key role in modern software development,
 contributing crucially both to the costs of software projects and to
 the quality of their results.
@@ -18,11 +29,11 @@ community since its introduction in the Haskell QuickCheck
 library~\cite{ClaessenHughes00}.
 %
 PBT can be explained as ``formal specification without formal
-verification''---programmers are invited to characterize the desired
+verification''---programmers are invited to characterize the \hg{wordy}desired
 behaviors of their software systems or individual components at a high
-level, in the form of executable {\em properties}, which are simply
-boolean-valued functions; their code is then validated against these
-properties by running it against a large number of automatically
+level\hg{/}, in the form of executable {\em properties}, which are simply
+Boolean-valued functions; their code is then validated against these
+properties by running it over and over with a large number of automatically
 generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
@@ -30,16 +41,25 @@ automatic validation has proved extremely effective at flushing out
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, cars~\cite{arts2015testing}, and a range
-of other real-world systems~\cite{hughes2016experiences}.  With tools
+of other real-world systems~\cite{hughes2016experiences}. With tools
 now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
-%
-\writeme{(Also)} In an ongoing study of users of OCaml's QuickCheck testing tool
-at Jane Street Capital, a Wall Street financial firm, we have heard
-strong enthusiasm \writeme{details...}.
+
+\hg{Re-frame as more positive?}
+But despite its growing success, little research has been done to understand the
+challenges that real-world developers face when actually {\em using} PBT tools.
+When have they seen the most benefit from PBT? What slows them down or turns
+them away? Could some gain huge benefits from PBT, if only the tools were better
+suited to their use cases? If PBT is to continue to grow and find critical bugs
+across the software industry, we must take these questions seriously.
+
+In this light, we have begun to apply need-finding techniques to identify
+potential high-impact improvements to PBT tools. In an ongoing study of users of
+OCaml's QuickCheck testing tool at Jane Street Capital, a Wall Street financial
+\writeme{...}.
 % These users generally appreciate PBT for its power and broad applicability...
 
 \jsquote{28}{If you’re trying to build something that needs to be
