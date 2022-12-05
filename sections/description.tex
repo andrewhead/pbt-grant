@@ -49,10 +49,11 @@ users~\cite{ZacPersonalCommunication}.
 
 We have seen this success firsthand: as a research group, we have been involved
 in the PBT community for years, pushing it to its limits as a tool for standard
-testing software~\cite{hughes2014mysteries,li_model-based_2021} and adapting it
-to new domains like theorem proving~\cite{paraskevopoulou_foundational_2015,
-lampropoulos_coverage_2019}. The community has dedicated itself to improving the
-theory and applications of PBT, and recent work has continued to make great
+testing software~\cite{hughes2014mysteries, li_model-based_2021,
+goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
+like theorem proving~\cite{paraskevopoulou_foundational_2015,
+lampropoulos_coverage_2019}.  The community has dedicated itself to improving
+the theory and applications of PBT, and recent work has continued to make great
 strides in areas like expressivity and testing effectiveness. But we see one
 area as critically under-studied by the PBT research community: What challenges
 do real-world developers face when actually {\em using} PBT tools? It is not
@@ -62,33 +63,24 @@ only the tools were better suited to their use cases. If PBT is to continue to
 grow and find critical bugs across the software industry, this line of
 questioning must be explored.
 
-In this light, we have begun to apply need-finding techniques to identify
-potential high-impact improvements to PBT tools. In an ongoing study of users of
-OCaml's QuickCheck testing tool at Jane Street Capital, a Wall Street financial
-\writeme{...}.
-% These users generally appreciate PBT for its power and broad applicability...
-
-\jsquote{28}{If you’re trying to build something that needs to be
-  reliable and work all the time, [PBT] is worth the
-  investment.\iflater\bcp{This is a paraphrase of what Dani said.  We
-    need to pull the actual quote. }\fi}
-
-\amh{This quote to me does not convey strong enthusiasm, but
-rather muted pragmatism :-). Maybe another quote would do
-the job better. Or maybe we can include that quote from the
-preliminary study which stated that PBT was 1000x better
-than the alternatives.}
-\writeme{(However, what the world has right now is decent bare-bones tools,
-which can be used very effectively by people that know what they are
-doing and are willing to work a little.  What's lacking is
-comprehensive support for PBT, both technically (in people's
-programming environments) and culturally/educationally (in what people
-are taught about PBT and the information resources / best practices
-/etc. they have available).)}
-
-We heard about this in the Jane Street study, where users
+In this light, we have begun to apply need-finding techniques in real-world
+software development contexts to identify potential high-impact improvements to
+PBT tools. In an ongoing study of users of OCaml's QuickCheck testing tool at
+Jane Street Capital, a Wall Street financial firm, we have found a healthy mix
+of consistent enthusiasm for PBT
+% \jsquote{28}{If you’re trying to build something that needs to be
+%   reliable and work all the time, [PBT] is worth the
+%   investment.\iflater\bcp{This is a paraphrase of what Dani said.  We
+%     need to pull the actual quote. }\fi}
+% \amh{This quote to me does not convey strong enthusiasm, but
+% rather muted pragmatism :-). Maybe another quote would do
+% the job better. Or maybe we can include that quote from the
+% preliminary study which stated that PBT was 1000x better
+% than the alternatives.}
+and clear signals that point to potential room
+for improvement. Specifically, the developers we have spoken with so far
 (a) sometimes struggle to identify all the
-situations where PBT will be valuable
+situations where properties are readily accessible for testing
 % \amh{Here I think it is important to have an affirmation that there
 %   are indeed cases where PBT will be valuable to them that they just
 %   have not yet identified},
@@ -101,30 +93,26 @@ it hard to understand whether their properties and generators are
 effectively testing their software, and (d) they are disappointed by
 the paucity of educational and training materials for introducing
 newcomers to PBT.  \iflater\bcp{All that needs final tuning.}\fi
+All of these signals come alongside a clear sense that there is more to learn,
+and clear excitement on the part of developers about human-centered research in
+this space.
 
-We believe the situation can be significantly improved with a modest
-amount of suitably focused research energy, moving from bare-bones
-tools to a comprehensive environment for PBT.  The goal of this
-project is to build a prototype programming environment and
-accompanying educational resources
-%
-\writeme{... describe contributions}
-% \amh{One part of the vision that I want to see here is the transformation
-% we think we could see in who uses PBT, and how often they use it. One of
-% the worrying aspects of the description above is that by mentioning
-% ``abstract models'' and ``algebraic laws,'' readers might be primed to
-% think that these tools are only really suitable in a limited number of
-% problems by a limited number of users, and so the impact of this project
-% would be limited to making the work easier for that limited number of
-% problems and users. If we think that updates to tooling and education could
-% lead to these tools---which might be seen as niche---to broad use across
-% the software industry by a new contingent of developers, I think we should
-% say so explicitly.}
+With all of this in mind, we propose a comprehensive, interdisciplinary research
+program that will apply the tools of PL+HCI build a blueprint for the future of
+PBT theory and practice. The projects we undertake will be motivated by
+foundational need-finding research in the software industry, including, but not
+limited to, the aforementioned study with Jane Street. Some projects will have a
+clear PL flavor, focusing on domain-specific languages and type-based tools that
+will make PBT tools more powerful and flexible; but we will motivate and
+evaluate them with techniques from HCI. Other projects will focus on the HCI elements
+of PBT, building better interfaces and experiences for developers; yet their
+implementation will draw from our wealth of PL knowledge. In this way, we craft
+a holistic research agenda around PBT that is sure to be both well motivated and
+well founded.
 
-\writeme{(shorten to just a TOC...)}
 The remainder of this section introduces property-based testing and
 describes the findings of the Jane Street user study in more detail,
-to motivate and contextualize the work planned for this project.  The
+to motivate and contextualize the work planned for this project. The
 remaining sections describe several threads of planned work and their
 expected contributions.  Specifically, we aim to (1) further
 investigate the challenges PBT faces in industry through
