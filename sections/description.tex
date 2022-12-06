@@ -293,7 +293,47 @@ introduce them alongside novel findings in the ``Motivation'' or ``Foundations''
 
 \subsectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 \iflater\todo{Fix the capitalization.  :-(}\fi
-The
+The projects that we propose are in large part motivated by an ongoing
+need-finding study that asks the question: {\bf How can the research community
+make PBT more valuable for software developers?} \todo{Sentence to justify why
+we did the study}
+
+\subsubsectionstar{Study Population}
+The study population is software developers at Jane Street Capital. Jane Street
+is one of the world's largest market-makers, with over 1700 employees including
+around 700 software developers. Jane Street has a number of qualities that
+makes it an ideal place for this study.
+To start, Jane Street developers use
+a variety of testing tools, including PBT. This gives us a place to start
+when asking questions, since participants will likely have seen PBT before,
+and it means that will be score for exploring trade-offs between PBT and
+other forms of testing.
+Additionally, Jane Street developers famously build almost all of their
+systems in OCaml, a mostly functional programming language with strong support
+for static typing and modularity. This unified ecosystem
+will allow
+us to control for a number of potentially confounding factors: all of the
+developers we talk to will have access to the same PBT tools and the same
+libraries, language-level programming abstractions, house coding rules,
+etc. (which might make testing easier or harder).
+
+Naturally, carrying out a study at a single firm has potential drawbacks as
+well. The most obvious is that our results may not generalize: We
+cannot guarantee that our findings will apply outside of the OCaml ecosystem (and
+other ecosystems like it). However, Jane Street is home to a diverse array of
+software systems, including trading systems, quantitative
+algorithms, networked systems, and hardware description code~\cite{signalsandthreads}.
+We hope that the breadth of these programming tasks will mean that the software
+developers that we talk to will come to the discussion with a wide variety of
+experiences.
+
+The study consists of semi-structured interviews, exploring developers use and
+impressions of PBT. At the time of writing, the final target of 30 interviews
+has been completed, and a preliminary analysis done, but full-scale analysis has
+not yet begun. For more details on the study parameters and the current state of
+the project, see \sectionref{sec:foundation}.
+
+\subsubsectionstar{Preliminary Results}
 
 \todo{
   \begin{itemize}
@@ -320,68 +360,6 @@ The
   \end{itemize}
 }
 
-\hg{Pulled from the section below, we'll need to massage}
-The first step is to conduct qualitative interviews to understand the challenges
-that programmers face when using PBT tools. To this end, we plan to undertake an
-interview study with our research partner, Jane Street, LLC, , a Wall Street financial firm,\footnote{See letter
-of support in the appendix.} to develop a deep understanding of the challenges
-programmers face using PBT in industrial settings as well as being to explore
-potential solutions.
-
-TODO: Jane Street Capital is one of the world's largest market-makers,
-with over 1700 employees including around 700 software developers...
-
-\textbf{Research questions}.
-Our key research question will be, \emph{How can the research community make PBT
-more valuable for software developers?} More specifically, we seek
-answers to the following questions:
-
-\begin{itemize}[noitemsep,leftmargin=4em]
-\item[\bf RQ1.] What support do developers need to help them imagine properties? \todo{Reword, the notion of ``imagining'' properties has not yet been introduced.}
-\item[\bf RQ2.] What kinds of generators do testers need to exercise their
-  properties effectively? Do they have specific precondition and/or distributional
-  requirements?
-\item[\bf RQ3.] What aspects of the developer workflow around PBT need improvement?
-\item[\bf RQ4.] What concrete changes could be made to modern PBT systems
-  to improve effectiveness and usability?
-\end{itemize}
-
-{\bf RQ1}, {\bf RQ2}, and {\bf RQ3} relate to property,
-generator, and workflow challenges, respectively.
-{\bf RQ4} more directly asks how existing systems might
-be improved. This final question will help to keep us focused,
-reminding us that participants likely have the context and knowledge not
-only to identify challenges but also to suggest
-solutions.
-
-\textbf{Research site}. We will partner with Jane Street, LLC, a large
-financial technology firm.
-Jane Street has a number of qualities that makes it an ideal place for
-this study. To start, Jane Street developers use
-a variety of testing tools, including PBT. This gives us a place to start
-when asking questions, since participants will likely have seen PBT before,
-and it means that will be score for exploring trade-offs between PBT and
-other forms of testing.
-Additionally, Jane Street developers famously build almost all of their
-systems in OCaml, a mostly functional programming language with strong support
-for static typing and modularity. This unified ecosystem
-will allow
-us to control for a number of potentially confounding factors: all of the
-developers we talk to will have access to the same PBT tools and the same
-libraries, language-level programming abstractions, house coding rules,
-etc. (which might make testing easier or harder).
-
-Naturally, carrying out a study at a single firm has potential drawbacks as
-well. The most obvious is that our results may not generalize: We
-cannot guarantee that our findings will apply outside of the OCaml ecosystem (and
-other ecosystems like it). However, Jane Street is home to a diverse array of
-software systems, including trading systems, quantitative
-algorithms, networked systems, and hardware description code~\cite{signalsandthreads}.
-We hope that the breadth of these programming tasks will mean that the software
-developers that we talk to will come to the discussion with a wide variety of
-experiences.
-
-
 \subsectionstar{Personnel}
 
 \todo{One paragraph about what a great team we are, how the PI
@@ -399,7 +377,7 @@ experiences.
 % strides in areas like expressivity and testing effectiveness.
 
 
-\subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}
+\subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
 
 As PBT moves into broader adoption, new opportunities present
 themselves for understanding how
