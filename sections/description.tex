@@ -24,26 +24,30 @@ some piece of code at a high level, in the form of executable {\em
   properties}, which are simply Boolean-valued functions; the code is
 then validated against these properties by running it over and over
 with a large number of automatically generated test cases.
+%
+PBT tools thus give programmers an efficient way of testing their
+software's behavior with a comprehensiveness that is often not
+possible with alternative tools.
 
-This combination of rich, high-level specification with easy, mostly
+PBT's combination of rich, high-level specification with easy, mostly
 automatic validation has proved effective at identifying subtle
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, car software~\cite{arts2015testing}, and a range
-of other real-world systems~\cite{hughes2016experiences}. With tools
+of other real-world systems~\cite{hughes2016experiences}. With support
 now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
 industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
-With all these successes, one might wonder if the research community has already
-identified all of the important challenges that limit PBT's adoption
+After all these successes, one might wonder if the research community has already
+addressed all of the challenges that might significantly limit PBT's adoption
 in the broader software industry, but it
-seems that the answer is no.
+seems the answer is no.
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
 at Jane Street Capital, we have found a
-mix of consistent enthusiasm for PBT
+mixture of consistent enthusiasm for PBT
 % \jsquote{28}{If you’re trying to build something that needs to be
 %   reliable and work all the time, [PBT] is worth the
 %   investment.\iflater\bcp{This is a paraphrase of what Dani said.  We
@@ -206,11 +210,6 @@ well founded.
 \subsectionstar{Orientation: Property-Based Testing}
 
 \todo{Transition sentence: ``in the rest of this section, we...''}
-
-\bcp{Added this sentence per Andrew, but I wonder if it belongs earlier}
-Property-based testing tools give programmers
-an efficient way of testing their software's behavior with a
-comprehensiveness that is often not possible with alternative tools.
 
 PBT tools allow users to write executable functions
 that act as partial
@@ -395,9 +394,10 @@ experiences.
 
 \subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}
 
-As PBT sees wider adoption, new opportunities present for understanding how
-these tools are being used in practice, and how these tools can be further
-developed to better support developers' needs. In this section, we describe a
+As PBT moves into broader adoption, new opportunities present
+themselves for understanding how
+the tools are being used in practice and how they can be further
+improved to better support developers' needs. In this section, we describe a
 sequence of studies we will undertake to better understand developers' needs.
 These studies will draw on mixed methods in the service of producing a
 comprehensive and actionable agenda for future research.  Phases of this
