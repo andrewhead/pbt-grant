@@ -338,31 +338,67 @@ not yet begun. For more details on the study parameters and the current state of
 the project, see \sectionref{sec:foundation}.
 
 \subsubsectionstar{Preliminary Results}
+As with the \writeme{preliminary} study, the study with Jane Street is a
+qualitative one; the main research output will be a collection of themes that
+encompass useful and interesting observations about the ways Jane Street
+developers use PBT, what they need from it, and how we may be able to help them.
+While we have not yet done a deep analysis of the transcripts, some themes have
+been immediately apparent from our real-time notes.
 
+\newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
+\newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
+\newcommand{\efftheme}[1]{{\color{nord-purple} \em #1}}
+{\bf Specification.} Some early themes revolve around the specifications that
+developers test and the kinds of programs in which they choose to test them.
+Since PBT is often described as a kind of lightweight formal method, one might
+have imagined that a central challenge of using PBT would be coming up with the
+right specifications. Indeed, the \writeme{preliminary} study concluded just
+that. But at Jane Street we actually heard very little about the challenge of
+coming up with properties; instead, most participants described applying PBT in
+\proptheme{High-Leverage Scenarios} where properties were already available or
+quite easy to imagine. This suggests a more effective way to approach education
+and documentation around PBT, focused on more opportunistic applications of PBT.
+
+But while focusing on easy applications of PBT may be helpful for education and
+adoption, it feels disappointing from a research perspective. Luckily, our
+discussions at Jane Street have pointed at further \proptheme{Opportunities for
+Better Leverage}---situations where PBT is not easy {\em yet}, but where it
+could be with more research effort. Furthermore, the participants spoke at
+length about one particular kind of PBT they do often, called
+\proptheme{Model-Based Testing}. Model-based testing is not so much a scenario in
+which to apply PBT as it is a technique for using it, but the interviews have
+given us ideas for how to improve model-based testing in a way that may make PBT
+easier in some situations.
+
+{\bf Generation.} Another set of themes resolves around the generation of the
+random inputs that are used to test properties. Many participants spoke quite
+highly of \gentheme{Derived Generators} that are inferred from the type system.
+These generators are already quite good, but they can be better: participants
+discussed both small (e.g., API quirks) and large (e.g., derived generators
+cannot enforce semantic preconditions) deficiencies. When derived generators
+failed, participants fell back to standard \gentheme{Bespoke Generators}. These
+are far more flexible, but they are proportionally more time consuming to design
+and work with. There is significant room for improvement here.
+
+Finally, if a generated input is deemed to be a {\em counter-example} for a
+property, highlighting a bug in the code, it should ideally be easy to use that
+input to determine the root cause of the bug. The interviews are clear that
+\gentheme{Shrinking}, the process of finding the smallest possible input that
+provokes a given bug, is a critical part of the PBT process for this reason.
+
+{\bf Evaluation.}
 \todo{
-  \begin{itemize}
-    \item MOTIVATION SECTION
-    \begin{itemize}
-      \item Motivating questions for JS study
-      \item Lay out study parameters in some (but not much) detail
-      \item Discuss some emerging themes
-      \begin{itemize}
-        \item Give justification in the form of quotes for some
-        \item Say why the themes are important, how they line up with existing
-        understanding
-        \item Situate themes relative to their categories
-      \end{itemize}
-      \item Tie everything together
-      \begin{itemize}
-        \item The themes of this study map onto the projects that we plan to
-        carry out
-        \item Each theme category has a section below, each project in those
-        sections directly serves one or more of the themes in that category
-        \item Here's what we're going to do...
-      \end{itemize}
-    \end{itemize}
-  \end{itemize}
+		About how developers get inputs to test with…
+			Derived Generators
+      Bespoke Generators
+			Shrinking
+		And about how developers understand testing effectiveness…
+			Budgeting Time for PBT
+			Evaluation of Effectiveness
+			Debugging
 }
+
+\todo{Probably add quotes and stuff here to make this more interesting}
 
 \subsectionstar{Personnel}
 
