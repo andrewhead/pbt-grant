@@ -27,17 +27,19 @@
 \titleformat{\section}{\Large\bfseries}{}{0pt}{%
   \thetoplevelsection.
   \ \
-  \titlecap{#1}}
+  #1}
 \titleformat{\subsection}{\large\bfseries}{}{0pt}{%
   \thetoplevelsection \arabic{subsection}.
   \ \
-  \titlecap{#1}}
+  #1}
 \newcommand{\subsectionstar}[1]{{\bigskip\large\bfseries\noindent\titlecap{#1}} \par
   \medskip\noindent \ignorespaces}
 \titleformat{\subsubsection}{\bfseries}{}{0pt}{%
-  \arabic{subsection}.\arabic{subsubsection}.
+  D\arabic{subsection}.\arabic{subsubsection}.
+  % \makeatletter\def\@currentlabel{FOO}\makeatother
+  %   D\arabic{subsection}.\arabic{subsubsection}.
   \ \
-  \titlecap{#1}}
+  #1}
 \newcommand{\subsubsectionstar}[1]{{%
     \medskip\bfseries\noindent\titlecap{#1}%
     \par\smallskip\noindent\ignorespaces}}

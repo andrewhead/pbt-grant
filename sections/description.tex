@@ -102,7 +102,11 @@ blueprint for future PBT theory and practice.
   \item We will further explore gaps in the present understanding of the
   challenges PBT faces in
   industry by conducting two\iflater\bcp{three?}\fi{} additional formative user
-  studies (\sectionref{sec:spec}).
+  studies (\sectionref{sec:spec}\bcp{Sigh: I'm not sure where the
+    extra ``2.'' is coming from---the NSF class that we used as a
+    starting point is doing all kinds of fancy stuff with section
+    numbering, and my attempts to make it look better have resulted in
+    a mess. :-(}).
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
   enhance and extend that set of use cases (\sectionref{sec:spec}). \bcp{??}
@@ -398,18 +402,19 @@ As PBT moves into broader adoption, new opportunities present
 themselves for understanding how
 the tools are being used in practice and how they can be further
 improved to better support developers' needs. In this section, we describe a
-sequence of studies we will undertake to better understand developers' needs.
-These studies will draw on mixed methods in the service of producing a
-comprehensive and actionable agenda for future research.  Phases of this
-research include ongoing interviews to develop an initial taxonomy of needs and
-obstacles to tool use (Section~\ref{sec:interviews}), a survey to assess the
+sequence of studies to better understand developers' needs.
+These studies draw on mixed methods in the service of producing a
+comprehensive and actionable agenda for future research---in this
+project and beyond.  Concrete tasks include ongoing interviews to
+develop an initial taxonomy of needs and
+obstacles to tool use (\sectionref{sec:interviews}), a survey to assess the
 generality of these needs and obstacles and to identify potential for adoption
-of PBT tools (Section~\ref{sec:survey}), and observations to understand
+of PBT tools (\sectionref{sec:survey}), and observations to understand
 particular tasks involved in PBT to an extent that we can understand how to
 design new algorithms and interactive tools that better support those tasks
-(Section~\ref{sec:observations}).
+(\sectionref{sec:observations}).
 
-\subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street}
+\subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street Developers}
 \label{sec:interviews}
 
 We will begin our need-finding work by interviewing developers who can shed
@@ -434,19 +439,21 @@ have meaningful conversations with non-users of a technology. We plan to
 recruit users across as broad a spectrum of usage as we can reasonably recruit,
 including both frequent users of PBT technologies, as well as a handful of
 developers who have had only limited, occasional exposure to PBT. Our survey
-study (Section~\ref{sec:survey}) aims to establish contact with a broader
+study (\sectionref{sec:survey}) aims to establish contact with a broader
 sample of non-users of PBT to assess opportunities for making PBT tools more
 valuable and discoverable for this group.
 
-\textbf{Progress}. Our interview instrument and analysis process was developed
+\textbf{Progress}. Our interview instrument and analysis process were developed
 and tested with 7 users of the Hypothesis PBT toolkit, recruited over Twitter.
 This analysis yielded a conceptual framework of barriers to usage of PBT, which
 we published recently at HATRA, an ACM SPLASH workshop and one of the key
 venues for presenting preliminary research on human aspects of formal methods
 tools and type systems~\cite{goldstein2022some}.
 
-We have since established a collaboration with Jane Street, LLC\footnote{See
-the attached letter of support.} with whom we will conduct an expanded
+\iflater\bcp{This will need to be tuned in light of ewhatever we say
+  in the Motivation section.}\fi
+We have since established a collaboration with Jane Street, LLC (see
+attached letter of support), with whom we will conduct an expanded
 interview study. To date, through this collaboration we have already conducted
 27 of 30 interviews, including both developers who have had exposure to PBT as
 well as developers of PBT tools. Our interview process has included an on-site
@@ -460,7 +467,7 @@ approach~\cite[Chapter 5]{blandford2016qualitative}, and preparing a manuscript
 for submission to OOPSLA.
 
 \textbf{Preliminary results}. Key takeaways emerging from our initial analysis
-appear in Section~\ref{sec:motivation}.\amh{Is there anything else we want to
+appear in \sectionref{sec:motivation}.\amh{Is there anything else we want to
 say here about the results?} \amh{Let's recapitulate the major findings that
 motivate this proposal as a whole. Then, let's foreshadow other findings that
 we will publish that are outside of the scope of this proposal, but which might
@@ -470,7 +477,7 @@ budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
 tests), integration with unit testing frameworks, and exploring the use of
 properties as a source of documentation.}
 
-\subsubsection{Proposed Work: Surveys to generalize findings}
+\subsubsection{Proposed Work: Surveys to Generalize Findings}
 \label{sec:survey}
 
 % \subsubsection{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
@@ -527,7 +534,10 @@ extent to which our findings about obstacles generalize across PBT users
 broadly, and one assessing the extent of potential adoption of these tools,
 if major obstacles to adoption are lowered.}
 
-\subsubsection{Proposed Work: Observations of PBT in practice}
+\bcp{This section needs to be clearer about expected outcomes /
+  contributions of these studies.}
+
+\subsubsection{Proposed Work: Observations of PBT in Practice}
 \label{sec:observations}
 
 \amh{The areas where I think we could most benefit from better understanding
@@ -545,7 +555,13 @@ additional detail about ways that developers are supported and not supported by
 the tools they use today to a level of depth we will not achieve with the
 interviews.
 
-\subsection{Step 1, Specification: Widening the On-Ramp to Properties \pagebudget{2}}\label{sec:spec}
+\bcp{Again, we need to explain the expected contributions---what end
+  does ``characterizing obstacles'' serve.}
+
+\bcp{This section should close with some kind of transition that
+  launches us toward the next section.}
+
+\subsection{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
 \subsubsection{Proposed Work: When to Specify It!}
 Since PBT is often described as a kind of lightweight formal method, one might
 have imagined that a central challenge of using PBT would be coming up with the
@@ -721,7 +737,7 @@ tools, rather than Haskell, since this is where there might be synergy with Jane
 Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
 specification generators for OCaml?}
 
-\subsection{Step 2, Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
+\subsection{Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
 \hg{Half page over at the moment}\bcp{Made it a bit worse by moving
   the discussion of random vs. enumerative here... :-)}
 
@@ -918,7 +934,7 @@ constraints, since the mutation often produces invalid values. Reflective
 generators can help: we can (1) reflect on the choices that lead to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
 choices {\bf while correcting any choices that
-would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
+would lead to an invalid value.} Figure~\sectionref{fig:mutation} shows the way this
 algorithm is able to mutate a binary search tree, while maintaining validity,
 with no BST-specific code written other than the reflective generator.
 
@@ -988,7 +1004,7 @@ which has supplanted the original AFL we project.)
 Our system will start with a setup similar to Crowbar, but with a much greater
 focus on the generators; in particular, we will use reflective generators to
 gain significant testing power. The setup is shown in
-Figure~\ref{fig:fuzzing-plan}. We start with a classic fuzzing setup, attempting
+Figure~\sectionref{fig:fuzzing-plan}. We start with a classic fuzzing setup, attempting
 to make the system under test crash by passing it a variety of semi-random
 inputs. Normally, the fuzzer is working against the parser, in the sense that
 the parser's job is to reject invalid inputs and the fuzzer's job is to ``get
@@ -1048,7 +1064,7 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
-\subsection{Step 3, Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
+\subsection{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
@@ -1061,7 +1077,7 @@ bridging to Jessica's paragraphs, linking in a theme from the intro}
 
 \subsubsection{Proposed Work: Visualizing and Tuning Generator Distributions}
 \newcommand{\genvis}{GenVis}
-The work in Section~\ref{sec:gen} will significantly improve the tools that
+The work in \sectionref{sec:gen} will significantly improve the tools that
 users have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
 when writing generators. One common challenge is understanding when a random
@@ -1174,7 +1190,7 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
-\subsection{Step 4, Education: Advancing Testing in the Broader Culture \pagebudget{1}}\label{sec:ed}
+\subsection{Education: Advancing Testing in the Broader Culture \pagebudget{1}}\label{sec:ed}
 
 \hg{This isn't actually written, this is just starter stuff from my thesis
 proposal}
