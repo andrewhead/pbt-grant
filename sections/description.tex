@@ -3,9 +3,9 @@
 \iflater\todo{Remember to not use any URLs in the project description!
   (They are encouraged in the references.)}\fi
 
-Testing plays a key role in modern software development, contributing
-crucially to robustness and overall quality---as well as to overall
-development costs.
+Testing plays a vital role in modern software development processes,
+contributing crucially to robustness and overall quality---as well as
+to overall development costs.
 %
 It comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
@@ -13,16 +13,16 @@ etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
 
 One such technique, {\em property-based testing} (PBT), has been
-enthusiastically applied and refined within the functional programming
+enthusiastically developed and adopted within the functional programming
 community since its introduction in the Haskell QuickCheck
 library~\cite{ClaessenHughes00}.
 %
 PBT is sometimes explained as ``formal specification without formal
-verification''---developers are invited to characterize their program's desired
-behaviors at a high level, in the form of executable {\em properties},
-which are simply Boolean-valued functions; their code is then validated against
-these properties by running it over and over with a large number of
-automatically generated test cases.
+verification''---a developer characterizes a the desired behavior of
+some piece of code at a high level, in the form of executable {\em
+  properties}, which are simply Boolean-valued functions; the code is
+then validated against these properties by running it over and over
+with a large number of automatically generated test cases.
 
 This combination of rich, high-level specifications with easy, mostly
 automatic validation has proved effective at identifying subtle
@@ -37,10 +37,11 @@ Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
 With all of this success, one might wonder if the research community has already
-identified all of the important challenges that limit PBT's adoption, but it
+identified all of the important challenges that limit PBT's adoption
+in the broader software industry, but it
 seems that the answer is no.
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
-at Jane Street Capital, a Wall Street financial firm, we have found a healthy
+at Jane Street Capital, we have found a healthy
 mix of consistent enthusiasm for PBT
 % \jsquote{28}{If you’re trying to build something that needs to be
 %   reliable and work all the time, [PBT] is worth the
@@ -305,7 +306,7 @@ introduce them alongside novel findings in the ``Motivation'' or ``Foundations''
 \hg{Pulled from the section below, we'll need to massage}
 The first step is to conduct qualitative interviews to understand the challenges
 that programmers face when using PBT tools. To this end, we plan to undertake an
-interview study with our research partner, Jane Street, LLC\footnote{See letter
+interview study with our research partner, Jane Street, LLC, , a Wall Street financial firm,\footnote{See letter
 of support in the appendix.} to develop a deep understanding of the challenges
 programmers face using PBT in industrial settings as well as being to explore
 potential solutions.
