@@ -13,9 +13,10 @@ etc.---supported by many sorts of tools, with yet more advanced tools
 and techniques continually being developed, discussed, and applied.
 
 One such technique, {\em property-based testing} (PBT), has been
-enthusiastically developed and adopted within the functional programming
-community since its introduction in the Haskell QuickCheck
-library~\cite{ClaessenHughes00}.
+enthusiastically taken up by the functional programming research
+community, since its introduction in the QuickCheck
+library~\cite{ClaessenHughes00} in Haskell, and is beginning to make
+serious inroads beyond academia.
 %
 PBT is sometimes explained as ``formal specification without formal
 verification''---a developer characterizes a the desired behavior of
@@ -24,7 +25,7 @@ some piece of code at a high level, in the form of executable {\em
 then validated against these properties by running it over and over
 with a large number of automatically generated test cases.
 
-This combination of rich, high-level specifications with easy, mostly
+This combination of rich, high-level specification with easy, mostly
 automatic validation has proved effective at identifying subtle
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
@@ -36,12 +37,12 @@ industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
-With all of this success, one might wonder if the research community has already
+With all these successes, one might wonder if the research community has already
 identified all of the important challenges that limit PBT's adoption
 in the broader software industry, but it
 seems that the answer is no.
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
-at Jane Street Capital, we have found a healthy
+at Jane Street Capital, we have found a
 mix of consistent enthusiasm for PBT
 % \jsquote{28}{If you’re trying to build something that needs to be
 %   reliable and work all the time, [PBT] is worth the
@@ -52,59 +53,69 @@ mix of consistent enthusiasm for PBT
 % the job better. Or maybe we can include that quote from the
 % preliminary study which stated that PBT was 1000x better
 % than the alternatives.}
+\bcp{If we can find a stronger quote from the JS study (there should
+  be many!), I'd love to include one here.}
 and challenging new research questions based on developer concerns.
-Specifically, the developers we have spoken with so far (a) sometimes struggle
+Specifically, the developers we have spoken with so far
+%
+(a) sometimes struggle
 to identify all the situations where properties are readily accessible for
-testing
-% \amh{Here I think it is important to have an affirmation that there
-%   are indeed cases where PBT will be valuable to them that they just
-%   have not yet identified},
-% BCP: Added "all the"--is that enough?
+testing,
+%
 (b) they complain that it
 is sometimes difficult to write random generators for data structures
 with complex invariants or to tune generator distributions to
-adequately explore the space of interesting test cases, (c) they find
+adequately explore the space of interesting test cases,
+%
+(c) they find
 it hard to understand whether their properties and generators are
-effectively testing their software, and (d) they are disappointed by
+effectively testing their software, and
+%
+(d) they are disappointed by
 the paucity of educational and training materials for introducing
 newcomers to PBT.\iflater\bcp{All that needs final tuning.}\fi
 
-The solutions to these problems, much like the techniques that helped us to
-identify them, require insights from both the programming languages (PL) and
+Solutions to these challenges, much like the study that helped us to
+identify them, will demand insights from both the programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
 pain points''
 with
 ``tools that make it easy to build domain-specific and
-general-purpose programming languages,''\hg{Try to find a better quote}
-and we whole-heartedly agree.
+general-purpose programming languages.''\hg{Try to find a better quote}
+We whole-heartedly agree.
 
-Thus, we propose a comprehensive, interdisciplinary research program that will
-bring the power of both PL and HCI techniques to bear: our work will form
-blueprint for the future of PBT theory and practice. After an orientation to
-PBT and discussion of our motivating study, we discuss the following lines of
-work:
+We propose here a comprehensive, interdisciplinary research program that will
+bring the combined power of PL and HCI approaches to bear, creating a
+blueprint for future PBT theory and practice.
+% BCP: I really think this is not needed (readers will figure it out),
+% and it weakens the rhetorical punch:
+%   After an orientation to
+%   PBT and discussion of our motivating study, we discuss the following lines of
+%   work:
 \begin{itemize}[noitemsep]
-  \item We will explore gaps in our understanding of the challenges PBT faces in
+  \item We will further explore gaps in the present understanding of the
+  challenges PBT faces in
   industry by conducting two\iflater\bcp{three?}\fi{} additional formative user
   studies (\sectionref{sec:spec}).
   \item We will address challenges in property specification by developing a
-  conceptual framework of high-impact PBT use-cases, along with tools that
-  enhance and extend that set of use-cases (\sectionref{sec:spec}).
+  conceptual framework of high-impact PBT use cases, along with tools that
+  enhance and extend that set of use cases (\sectionref{sec:spec}). \bcp{??}
   \item We will address challenges in test-case generation with new
   domain-specific languages for expressing generators that enable novel
-  algorithms for many PBT tasks (\sectionref{sec:gen}).
+  algorithms for many PBT tasks (\sectionref{sec:gen}). \bcp{?}
   \item We will address gaps in validation of testing effectiveness by providing
   users with powerful new ways of interacting with their generators and test
   suites that (\sectionref{sec:val}).
-  \item We will create comprehensive resources for educating developers and
+  \item We will create comprehensive educational resources for training developers and
   university students in best practices for PBT (\sectionref{sec:ed}).
 \end{itemize}
-We conclude with a concrete outline of our work plan
-(\sectionref{sec:plan-of-work}) and an account of the broader impacts of this
+We conclude the proposal with a concrete outline of our work plan
+(\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
 proposed work (\sectionref{sec:broader-impacts})
 
+\iflater\bcp{This needs a bit of focusing and toning down at some point.}\fi
 The projects we undertake will be motivated by
 foundational need-finding research in the software industry, including, but not
 limited to, the aforementioned study with Jane Street. Some projects will have a
@@ -930,7 +941,7 @@ effectiveness---example-based tuning helps users generate more realistic inputs,
 adn validity-preserving mutation enables more automated approaches to improving
 generator distributions---and we get {\em both} by upgrading our existing
 generators to reflective ones. Additionally, we are confident that there are
-more use-cases for reflective generators, which we discuss more in the following
+more use cases for reflective generators, which we discuss more in the following
 sections.
 
 \subsubsection{Proposed Work: Bringing Fuzzing into Focus}
