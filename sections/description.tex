@@ -101,7 +101,9 @@ blueprint for future PBT theory and practice.
 \hg{I think the Orientation section is too dense (and long) to make it clear
 that the motivation is coming. If someone sees orientation, thinks "OK, I know
 PBT so I'll skip this and come back if needed" they may skip to D1 and miss
-motivation by accident}
+motivation by accident}\bcp{Maybe we can somehow add a reference to the
+Motivation discussion in the first bullet?  (I'm still not so worried
+about this, though.))}
 \begin{itemize}[noitemsep]
   \item We will further explore gaps in the present understanding of the
   challenges PBT faces in
@@ -114,12 +116,16 @@ motivation by accident}
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
   enhance and extend that set of use cases (\sectionref{sec:spec}).
-  \bcp{??}\hg{Tools for automating MBT and testing based on logged output?}
+  \bcp{??}\hg{Tools for automating MBT and testing based on logged
+    output?}\bcp{Sure.}
   \item We will address challenges in test-case generation with new
   domain-specific languages for expressing generators that enable novel
   algorithms for many PBT tasks (\sectionref{sec:gen}). \bcp{?}\hg{Like CGS and
   mutation/example-based tuning modulo preconditions?}\hg{Feel free to rephrase
-  either of these, but I think what I had wasn't totally unreasonable...}
+  either of these, but I think what I had wasn't totally
+  unreasonable...}\bcp{No, it wasn't.  I just want to give readers a
+  little sharper sense of what the proposed work {\em is}, since we're
+    then going to spend 3pp talking about other stuff.}
   \item We will address gaps in validation of testing effectiveness by providing
   users with powerful new ways of interacting with their generators and test
   suites that (\sectionref{sec:val}).
@@ -547,28 +553,44 @@ interviews.
   launches us toward the next section.}
 
 \subsection{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
+
+\bcp{...and this one should open with a continuation of the transition
+that suggests how these particular projects are motivated and informed
+by all the studies.}
+
 \subsubsection{Proposed Work: When to Specify It!}
-Since PBT is often described as a kind of lightweight formal method, one might
-have imagined that a central challenge of using PBT would be coming up with the
+PBT is often described as a kind of lightweight formal method, and one
+might therefore imagine that a central challenge of using PBT would be
+coming up with the
 right specifications. Indeed, our preliminary study concluded just that. But at
 Jane Street we actually heard very little about the challenge of coming up with
 properties; instead, most participants described applying PBT in scenarios when
-properties were already available or quite easy to imagine. This suggests that,
-while PBT education should certainly spend some time teaching developers how to
-write specifications for arbitrary programs, it should spend even more energy
+properties were already available or quite easy to imagine. \bcp{I
+  think readers are going to have trouble keeping the distinction
+  between the ``preliminary study'' and the ``Jane Street study''
+  (which is also preliminary, relative to this proposal) clear in
+  their heads.  Could we just lump them together as ``our preliminary
+  studies''?} This suggests that,
+while PBT educators should certainly spend some time teaching developers how to
+write specifications for arbitrary programs, they should spend even more energy
 helping developers quickly recognize  situations where PBT is a particularly
-natural fit because properties are obvious.
+natural fit because properties are obvious!
 
-With this in mind, we plan to write a short paper (with an accompanying talk)
-entitled {\em When to Specify It!}. The paper will be a spiritual successor to
-John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely account
-of the many different kinds of properties that one can write for a given piece
-of code. Clearly it is important to ask {\em How}, but the developer interviews
+With this in mind, we plan to write a short\bcp{why short?} paper
+(with an accompanying talk)
+entitled {\em When to Specify It!} in homage to
+John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely
+tutorial on the many different kinds of properties that one can write
+for a given piece
+of code. Clearly it is important to ask {\em How}, but our developer interviews
 suggest that it may be even more important to have a clear sense of {\em When}
-to use PBT. {\em When to Specify It!} will combine examples from developer
+to use PBT. Our paper on {\em When to Specify It!} will combine examples from developer
 interviews with ones from our our years of experience studying and applying PBT
 into the definitive guide for the most impactful opportunities to apply PBT.
-\hg{Do we need more here? I can give examples...}
+\iflater\hg{Do we need more here? I can give examples...}
+\bcp{If they haven't already come up earlier, then yes, let's list
+  some here!}
+\fi
 % \begin{itemize}
 % \item Code that is already (semi-)formally specified.
 % \item Functions that round trip.
@@ -581,25 +603,32 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 
 \subsubsection{Proposed Work: Properties Over Logged Output}
 One common problem raised by Jane Street developers (and even more loudly by the
-participants of the \hg{preliminary}) study was that code may not be abstracted
-in a way that is conducive to PBT. Indeed, any kind of unit testing requires
-that the programmer is able to extract some ``unit'' of code to test, but PBT is
+participants of the preliminary study\bcp{same comment as above}) was
+that code may not be abstracted
+in a way that is conducive to PBT. Indeed, any kind of unit
+testing\bcp{is PBT a kind of unit testing??} requires
+that the programmer be able to extract some ``unit'' of code to test, but PBT is
 especially sensitive to things like poorly handled global state and fuzzy
-abstraction boundaries. Fuzzers \todo{I think we need to intro fuzzers in the
-beginning; I've mentioned them a bunch already} get around these issues by
+abstraction boundaries\bcp{why?}. Fuzzers \todo{I think we need to
+  intro fuzzers in the
+beginning; I've mentioned them a bunch already}\bcp{Yes: in the
+Orientation section, I guess?  This will be important for getting
+non-PBT people on the same page as us.} get around these issues by
 testing the code from the outside---they do not care about internal
 abstractions, only the external interface---but that usually comes at the
 expense of expressive properties.
 
-We hypothesize a solution that enables better PBT of messy code without giving
+We hypothesize a solution that enables better PBT of messy
+code\bcp{why only of messy code?} without giving
 up expressiveness: inject logging calls into the code under test, and write
 properties over the logs that the code produces. For example, if the developer
 knows about some invariant on a variable \lstinline{x}, they can log out the
-value of \lstinline{x} every time it is set, and then check that the logged
+value of \lstinline{x} every time it is set\bcp{manually?}, and then check that the logged
 values satisfy the invariant. Even better, if the invariant applies over time
 (e.g., the value of \lstinline{x} should never decrease) properties over logs
-could capture that too. This would be difficult to do with debug assertions,
-especially if performance is a concern.
+could capture that too. This would be difficult to do with debug assertions\bcp{why?},
+especially if performance is a concern\bcp{can't it just be turned
+  off in production if performance is a concern?}.
 
 Concretely, we propose a framework for inserting lightweight test-logging and a
 language for writing properties over those logs. The logging itself is a matter
@@ -607,10 +636,13 @@ of engineering, but the language for properties is an exciting opportunity to
 apply powerful logical ideas. Specifically, the properties over logged outputs
 should be written in a temporal logic like {\em linear temporal logic} (LTL) so
 they can make complex assertions about the way past and future values interact.
-The Quickstrom language~\cite{oconnor_quickstrom_2022} has already shown that
+The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown that
 LTL properties are possible (it uses LTL to write properties about graphical
 user interfaces), but making them work well for a broader range of scenarios is
 an exciting research challenge.
+
+\bcp{Identifying a challenge is fine, but can we be clearer about the
+  contribution that our proposed tool will make?}
 
 \subsubsection{Proposed Work: Automating Model-Based PBT}
 Our studies have shown that a common pattern of PBT, especially for stateful
@@ -654,6 +686,10 @@ expressive and fairly complicated. This gives us a number of complex problems to
 solve: for example, \todo{Maybe have Joe look at this section. He really likes
 this project}
 
+\bcp{This all needs to sound more like research (as opposed to
+  ``building a little tool for JS'')...  The unwritten bits should
+  help. :-)}
+
 \subsubsection{Proposed Work: Interactive Property Specification}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague
@@ -674,7 +710,7 @@ interested in the non-trivial research problem of integrating such techniques
 into usable developer tools. We see the research as addressing several
 challenges:
 
-\textit{Generated properties should be \emph{important}}. Any non-trivial
+\textit{Generated properties should be \underline{important}}. Any non-trivial
 program can be characterized by an overwhelmingly large number of properties,
 many of which describe only incidental aspects of the program's behavior that do
 not need to be tested. How can tools produce those properties that developers
@@ -690,7 +726,7 @@ error; (2) providing unit test cases that test a special case of a generalized
 property; and (3) indicating aspects of interest on input and output data during
 exploration in a debugging REPL.
 
-\textit{Generated properties should be \emph{readable}}. While prior research
+\textit{Generated properties should be \underline{readable}}. While prior research\bcp{which?}
 has shown promise for automatically generating specifications of program
 behavior, we expect that users of PBT systems would benefit from having
 properties generated in the language of their property-based testing tools.
@@ -699,7 +735,7 @@ they require significant comprehension time for users (i.e., those involving a
 large number of clauses). In such cases, a tool may way to generate simpler
 variants of properties first, and allow developers to refine them on their own.
 
-\textit{Tools should help developers \emph{revise} properties}. If a generated
+\textit{Tools should help developers \underline{revise} properties}. If a generated
 property is too relaxed, the tool should request that developer provides a
 counterexample that should trigger a failure, and then regenerate the property.
 If a generated property is too strict, a tool should allow a programmer to mark
@@ -720,12 +756,25 @@ synthesis~\cite{head2017writing} components, and extending the VSCode
 environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml
 tools, rather than Haskell, since this is where there might be synergy with Jane
 Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
-specification generators for OCaml?}
+specification generators for OCaml?}\bcp{No, but there is a ton of
+follow-on work after QuickSpec (and related work before and
+after)---we should make sure to cite it coherently.}
 
 \subsection{Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
 \hg{Half page over at the moment}\bcp{Made it a bit worse by moving
-  the discussion of random vs. enumerative here... :-)}
+  the discussion of random vs. enumerative here... :-)}\bcp{And, just
+  in terms of balance, spending 1.5 pages on context at this point
+  feels excessive, unless we can really justify it in the narrative.}
 
+One of the most important---and difficult---tasks in the PBT process is
+designing and implementing the random data generators that are used check that
+each property holds. Indeed, the developers we interviewed consistently
+cited designing generators one of the hardest parts of the PBT process, and many
+developers asked for better tools for constructing generators that accomplish
+their testing goals. In this section, we describe a series of projects
+to develop new and better ways to express random data generators.
+
+\subsubsectionstar{Context: Why is Random Generation Useful?}%
 \bcp{The opening needs tuning.}
 Our focus in this proposal is on {\em random}
 testing~\cite{hamlet1994random}, where the inputs used to validate a
@@ -734,7 +783,8 @@ alternatives. In particular, {\em enumerative
   testing}~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck}
 deterministically lists every possible input from the smallest to the
 largest, and its effectiveness relies on the ``small scope
-hypothesis''~\cite{jackson1996elements} that most bugs can be found
+hypothesis''~\cite{jackson1996elements}---i.e., the assumption that
+most bugs can be found
 with ``small'' inputs. Some\iflater\bcp{which?}\fi{} forms of model
 checking can also be considered alternatives to random PBT; their
 approaches vary, but, to a first approximation, model checkers are
@@ -763,25 +813,18 @@ tools today. The detailed comparison to enumerative testing feels
 a bit distracting to me. I think it's enough to say that we would
 just want to better support random testing because it is the approach
 that people are already using.}
+\bcp{I agree that the paragraph can be shortened, but IMO we need to
+  keep most of the last 2/3: we're leaning heavily on the need for
+  random generators in this section, and readers may wonder why this
+  is an important topic.}
 
-\bcp{Work needed here on the transition.}
-
-One of the most important, and most and difficult, tasks in the PBT process is
-designing and implementing the random data generators that are used check that
-each property holds. Indeed, recall that developers we interviewed consistently
-cited designing generators one of the hardest parts of the PBT process, and many
-developers asked for better tools for constructing generators that accomplish
-their testing goals. In this section, we discuss a series of projects that build
-on a rich literature to develop new and better ways to express random data
-generators.
-
-\subsubsectionstar{Context: Why is input selection hard?}%
+\subsubsectionstar{Context: Why is Random Generation Hard?}%
 Before presenting our proposed work to improve the state of random data
 generators, we must first discuss the major difficulties with random generation
 for PBT and the existing work that aims to address those difficulties.
 \todo{Link all of this to the intro}
 
-\todo{Talk about enumeration}
+% \todo{Talk about enumeration}
 
 {\em Preconditions.}
 Many properties that developers want to test have {\em preconditions}
@@ -797,10 +840,11 @@ Even among valid inputs, not all are equally realistic. Often generated inputs
 feel fabricated, since they are not constructed with prior knowledge of the
 kinds of inputs that the program is likely to see.
 
-{\em Other Distributional Concerns.}
+{\em Distributional Concerns.}
 And {\em even} with validity and realism accounted for, there are other ways for
 generators to under-perform. In particular, the spaces of inputs that generators
-target is often very large, and the best generators explore the whole space as
+target is often very large, and the best generators explore the whole\bcp{?!?}
+space as
 quickly as possible. This often (but not always) leads users to manually tune
 the weights on generators' choices to ensure that the generator does not spend
 too much time in one part of the space or another.
@@ -812,51 +856,50 @@ The literature addresses these concerns to various degrees, and existing tools
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some optimize
 readily available metrics like code coverage~\cite{afl-readme}, others ask users
-to provide metics~\cite{loscher2017targetedpbt}, and, naturally, a few use
+to provide metrics~\cite{loscher2017targetedpbt}, and naturally some use
 machine learning to infer proxies for validity~\cite{godefroid2017learn,
 DBLP:conf/icse/ReddyLPS20}. Slightly more manual approaches are based on
 declarative representations of validity conditions: for preconditions that are
 primarily structural, {\em grammar-based fuzzing} provides a compelling
 solution~\cite{godefroid2008grammar, holler2012fuzzing, veggalam2016ifuzzer,
 wang2019superion, srivastava2021gramatron}, and for more complex, semantic
-preconditions, some have proposed using SMT-solvers
-programming~\cite{dewey2017automated, LuckPOPL, steinhofel2022input} to
+preconditions, some have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL, steinhofel2022input} to
 automatically seek out valid inputs. This semi-automatic category also includes
 tools for {\em example-based tuning}, a process that improves realism of inputs
 by mimicking user-provided examples~\cite{soremekun2020inputs}.
 
 The most manual, but also the most flexible, solutions use hand-written
-generators, written in a convenient domain-specific language. These are the
-topic of the next section.
+generators, written in a convenient domain-specific language...
 
 \subsubsectionstar{Context: Monadic Generators}
 When writing generators manually, it helps to have a clean domain-specific
 language (DSL) for writing them down. In the Haskell language, where PBT was
 first popularized, many such DSLs are implemented using {\em
-monads\/}~\cite{moggi1991notions}, which are an elegant design pattern for
-expressing effectful (in this case, random and stateful) computations in a pure
+monads\/}~\cite{moggi1991notions}, an elegant design pattern for
+expressing effectful (in this case, random and stateful) computations
+in a pure, stateless underlying
 language. While monadic DSLs are not actually necessary to express generators in
 non-pure languages, some libraries (e.g., in OCaml) still use monadic
 abstractions to build their generator DSLs.
 
 Monadic generators implement random data producers of arbitrary complexity
 (e.g., it is possible to write a monadic generator for well-typed System F
-terms), so they are often more expressive than other representations like
-grammar-based generators.  Yet, monadic generators are syntactically constrained
+terms\bcp{citation? or maybe mention Haskell and C programs instead}), so they are often more expressive than other representations like
+grammar-based generators.  Yet monadic generators are syntactically constrained
 in a way that isolates the probabilistic code and prevents usage errors (like
 passing the wrong random seed around). As we will see, the constrained nature of
 monadic generators also makes them the perfect candidates for sophisticated
 manipulations and interesting generalizations.
 
 \subsubsection{Prior Work: Free Generators}
-In order to improve monadic generation along the dimensions listed above, we
-choose to re-frame generators as {\em parsers of randomness}. A generator
+In order to improve monadic generation along the dimensions listed
+above, it helps to re-frame generators as {\em parsers of randomness}. A generator
 operates by making a series of random choices, but we can equivalently think of
 it as being provided some random sequence of choices and then simply following
 those choices to produce a value. This perspective has been used in a few
-implementations of PBT systems~\cite{maciver2019hypothesis,dolan2017testing},
-but we made it formal in our paper, {\em Parsing
-Randomness}~\cite{goldstein2022parsing}.
+implementations of PBT
+systems~\cite{maciver2019hypothesis, dolan2017testing}; we made it
+formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 The paper introduces {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
@@ -870,8 +913,9 @@ years to capture the structure of effectful computations
 (cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
 monadic computations syntactically by reifying the monad operations
 (\lstinline{return} and \lstinline{>>=}) as data constructors. Critically, this
-is all implemented within the language (no macros or AST manipulation). See the
-paper for more details on the free generator representation.}
+is all implemented within the language (no macros or AST
+manipulation). See \cite{goldstein2022parsing} for more details on the
+free generator representation.}
 This means that a single free generator can be be {\em interpreted} in multiple
 different ways. In {\em Parsing Randomness} we prove that any free generator can
 be interpreted either as a standard monadic generator or as a source of
@@ -918,8 +962,8 @@ difficult in PBT scenarios, where values are subject to complex validity
 constraints, since the mutation often produces invalid values. Reflective
 generators can help: we can (1) reflect on the choices that lead to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
-choices {\bf while correcting any choices that
-would lead to an invalid value.} Figure~\sectionref{fig:mutation} shows the way this
+choices {\em while correcting any choices that
+would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
 algorithm is able to mutate a binary search tree, while maintaining validity,
 with no BST-specific code written other than the reflective generator.
 
@@ -1084,10 +1128,11 @@ automatic and easy to use.
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
-  \caption{A mockup of \genvis.}\label{fig:gen-vis}
+  \caption{A mockup of \genvis.\bcp{Can the background be white, for
+      greater contrast?  It's hard to see, even blown up.}}\label{fig:gen-vis}
 \end{wrapfigure}
 
-With these challenges in mind, we propose prototype of \genvis, a tool that
+With these challenges in mind, we propose to build \genvis, a tool that
 gives developers comprehensive visualizations of their generators' distributions
 from directly within their code editor. \genvis{} will address the challenges
 with visualizing generator distributions by leveraging lightweight program
