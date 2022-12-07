@@ -532,26 +532,47 @@ of widely-experienced pain points with PBT tools and
 (2) characterize the potential benefits of better PBT tools
 to the software industry as a whole.
 
-\emph{Validation survey}. While our interview study was
-revealed a number of issues with existing PBT tools, it can
-be difficult to determine how broadly these issues are
-experienced, and their severity, from interviews alone. Of
-the usability issues identified in our interview study,
-which ones most merit the attention of the research
+\emph{Validation survey}. While our interview study revealed
+a number of issues with existing PBT tools, it is not clear
+how broadly these issues are experienced by developers, and
+their severity. Of the issues identified in the interview
+study, which issues most merit the attention of the research
 community? To answer this question, we will conduct a survey
-asking developers to report which of the issues they have
-personally experienced, and to estimate the severity of the
-issue when they encountered it. Respondents will also be
-asked to elaborate on some of the most extreme obstacles
-they have experienced, in order to collect more motivating
-stories to guide future tool design.
+where developers report which issues we have identified are
+ones they have experienced, and the severity of those issues
+in their experience. Respondents will be asked to report on
+other issues that have arised in their use of PBT tools that
+we did not discover in the interview study so that we can
+form a more complete set of issues. Furthermore, to provide
+clear usage scenarios to guide future work, respondents will
+be asked to write brief anecdotes elaborating on some of the
+most severe issues they encountered with PBT tools.
 
-The sample for our survey will be\ldots{}
-\amh{Continue from here. Mention that this survey will be
-conducted with users of a variety of a set of PBT tools. The
-purpose of the survey will be to both assess the frequency
-with which certain kinds of usability issues arise, as well
-as the severity of those issues.}
+One of the purposes of this survey is to overcome the bias
+of the findings that arose from our interview study, given
+that the study was conducted with a single company with a
+unique company-wide approach to development (namely,
+functional programming with OCaml). For this survey, we will
+recruit more broadly from the interviews. Respondents will
+be recruited from three sources. First, we will recruit
+among users of Hypothesis, a widely-used Python-based PBT
+framework\footnote{In personal communications, one of the
+maintainers of Hypothesis estimates that Hypothesis has
+approximately 500k current users. \amh{I am not sure if we
+should include this. It sounds too big to be true to
+me.}} (see the attached letter of support). Recruiting from this population allows us to overcome
+biases that are related to Jane Street's dependency on OCaml
+and, we expect, will connect us with developers with a
+broader set of backgrounds with respect to comfort with
+functional programming and advanced testing utilities.
+Second, we will also distribute our survey at Jane Street,
+albeit among a broader and larger number of developers.
+Finally, we will recruit users from social media by posting
+survey announcements from the PIs' Twitter and Mastadon
+accounts, tagging the functional programming and testing
+communities. \amh{Do we have any connections that would give
+us access to functional programming or testing-related
+software development conferences?}
 
 \emph{Impact survey}. As evidenced in this proposal through
 the usage stories we have shared from the research
@@ -579,27 +600,36 @@ a way that we get a convincing answer to our question of
 ``who would use PBT if the tools were sufficiently
 well-designed?''}
 
-\amh{Mention that we plan to distribute a survey among users of Hypothesis to
-assess the extent to which our findings generalize among a broader population of
-users of PBT tools. Can we get a letter of support from Zac?}\bcp{We should!!}
-
-\amh{I think we need to conduct two studies, one focused on assessing the
-extent to which our findings about obstacles generalize across PBT users
-broadly, and one assessing the extent of potential adoption of these tools,
-if major obstacles to adoption are lowered.}
-
 \bcp{This section needs to be clearer about expected outcomes /
   contributions of these studies.}
 
 \subsubsection{Proposed Work: Observations of PBT in Practice}
 \label{sec:observations}
 
-\amh{The areas where I think we could most benefit from better understanding
-PBT tasks in detail are (1) generator design, implementation, and evaluation;
-(2) evaluating the results of properties (in particular, debugging and addressing
-counterexamples). I think that our success in designing appropriate tools for
-developers might depend on us having a clearer understanding of what it looks
-like for developers to undertake these tasks.}
+As noted above in the preliminary results from the interview
+study, developers could benefit from support in numerous
+tasks, including designing, implementing, and evaluating
+generators, as well as evaluating test results (i.e.,
+debugging counterexamples, fixing them, and incorporating
+counterexamples into regression tests). In reality,
+participant anecdotes from interviews are often not enough
+to inform good tool designs.\ldots{} \amh{Describe factors
+that we will observe that will be important to understand
+what makes a good design. Share the example of evaluating
+the results of a generator. How much time will a user devote
+to the task? How much are they willing to iterate on the
+generator? How much space can be taken up on the screen
+while still allowing programmers to reference their code and
+debugging applications. What kinds of representations seem
+to lead to ``a-ha'' moments about generator distributions?
+These are the types of questions we seek to answer. The
+design of each of the tools described in Section D\# will
+begin with observations of developers undertaking the
+respective PBT tasks we seek to improve (on the order of a
+small handful, i.e., 2--10 observation sessions) to help us
+develop a clear picture of developer's process, and in
+particular the contextual factors that we should use to
+limit the available set of designs.}
 
 The next step is to more deeply characterize the obstacles faced with specific
 tools and tasks through close observation. We anticipate conducting observations
