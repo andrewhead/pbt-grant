@@ -1170,26 +1170,60 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
+\SUBSECTION{Ongoing Work: Empirically Evaluating PBT Tools}
+\amh{It's awkward to have ongoing work after proposed work, though I moved this 
+subsection up here because we are considering integrating it into the section on 
+generators as per our discussion over Slack.}
+The many papers in the PBT literature demonstrate effectiveness with case
+studies, showing that certain bugs in certain systems are caught more quickly
+with one too over another. For theoretical advances, this is often sufficient
+to demonstrate that the paper is worth publishing, but this kind of evaluation
+can be hard to interpret from the perspective of a would-be user. \todo{Sentence
+bridging to Jessica's paragraphs, linking in a theme from the intro}
+
+\hg{Jessica is going to write us a couple of paragraphs for this}
+
 \SECTION{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 
-Property-based testing poses kinds of challenges in evaluating test results that
-are unique within software testing and, in our opinion, currently without
-solution. These problems arise from the multiplicity of tests\ldots{}
-\amh{Continue from here. The challenges that arise from working with generators
-are that: (1) a developer has not manually written the inputs, so they do not
-actually have an understanding of those inputs as a natural byproduct of writing
-the test code; (2) the generated inputs can be complex; (3) a developer does not
-care just about singular inputs, but rather the distribution of generated
-inputs, that it covers a sufficiently interesting and representative space of
-inputs; (4) as with conventional debugging, it can be difficult to understand
-the cause of software failures---though here PBT provides a unique opportunity,
-because failed inputs might be best understood in terms of deviation from
-behavior for nearby successful inputs; (5) developers needs to make decisions
-about how much computer ``budget'' to allocate to generating and testing inputs.
-Our goal in the upcoming work is to develop a vision of what great testing tools
-look like for a multiplicity of generated inputs.  This is an area that has not
-yet received attention in the area of HCI for programming tools, and one that is
-fruitful with exciting areas to explore and with high potential for impact.}
+One of the unique challenges in creating usable property-based testing is 
+providing adequate support for evaluating test results. Testing with properties 
+is fundamentally different from conventional unit testing tools in many ways.  
+First, it becomes a task in and of itself to understand individual inputs. This 
+because the inputs are not written by the developer, but rather generated 
+automatically, and furthermore, they can be of unbounded structural complexity.  
+Second, a developer needs to assess the quality of their tests. The quality of a 
+property-based test depends in part on the extent to which it covers execution 
+pathways through the code, though it also depends on the quality of the inputs.  
+Namely, are the inputs complex enough, and distributed in such a way that they 
+are likely to trigger practically important bugs? Third, developers need to 
+decide what to do with failed test cases, and may need to spend time migrating 
+failed test cases into regression suites. Finally, developers need to make 
+difficult decisions around how much computation time to budget for exercising 
+the property-based tests.
+
+Each of these points of departure from conventional testing methodology 
+introduces new challenges into the testing process. And they require new 
+approaches to tool design to help developers reason about complex distributions 
+of complex inputs. In this section, we describe a sequence of research projects 
+we will undertake to bring about usable developer tooling for property-based 
+testing. These projects will contribute new paradigms for tools that help 
+developers understand program failures involving complex inputs 
+(Section~\ref{}), assess whether their generators are generating sufficient, 
+appropriate inputs (Section~\ref{}) and whether those inputs sufficiently 
+exercise their code (Section~\ref{}), migrate failed property-based tests into 
+regression tests (Section~\ref{}), and decide on compute budgets for their 
+property-based tests (Section~\ref{}). These projects will be pursued using
+human-computer interaction methodology, integrating these tools into 
+contemporary development environments for functional programming. The result of 
+this work will be a comprehensive, innovative set of design primitives for 
+helping developers get work done in the challenge setting of reasoning about 
+tests with an overabundance of input-output examples.
+
+% \amh{I think I want to organize this section chronologically around the
+% following sequence of tasks: (1) understanding (and debugging) a single input;
+% (2) understanding distributions of inputs; (3) tuning distributions of inputs;
+% (4) integration of specific inputs into regression tests; (5) supporting good
+% decisions around ``time budgets'' for PBT.}
 
 \amh{Some notes on framing from a prior meeting with HG and BCP: When we write
 about HCI-related parts of the projects, I think the right tack is to describe
@@ -1201,21 +1235,24 @@ ways of expressing and reviewing tests, and could have
 potentially transformative impact within interactive programming systems in the
 long term. (Can we flesh out just how big a field we feel this is?)}
 
-\amh{I think I want to organize this section chronologically around the
-following sequence of tasks: (1) understanding (and debugging) a single input;
-(2) understanding distributions of inputs; (3) tuning distributions of inputs;
-(4) integration of specific inputs into regression tests; (5) supporting good
-decisions around ``time budgets'' for PBT.}
+\SUBSECTION{Proposed Work: Debugging Support for Understanding Counterexamples}
 
-\SUBSECTION{Ongoing Work: Empirically Evaluating PBT Tools}
-The many papers in the PBT literature demonstrate effectiveness with case
-studies, showing that certain bugs in certain systems are caught more quickly
-with one too over another. For theoretical advances, this is often sufficient
-to demonstrate that the paper is worth publishing, but this kind of evaluation
-can be hard to interpret from the perspective of a would-be user. \todo{Sentence
-bridging to Jessica's paragraphs, linking in a theme from the intro}
-
-\hg{Jessica is going to write us a couple of paragraphs for this}
+Once a PBT tool generates a counterexample of where a property fails, a
+programmer will need to understand what in an input caused the program to fail.
+This task can be rather challenging because generated inputs can be complex,
+deep data structures \todo{Do we have a reference that implies the complexity of
+generated counterexamples?}. Methods for making it clearer why a counterexample
+fails could be to generate additional inputs that are very close to the
+counterexample that are actually correct, to run the program up to the point
+where the traces of the programs begin to diverge, and then to drop a programmer
+into a debugging environment where they can query the state of the program and
+step through the remainder of the execution. PI Head has prior work designing
+debugging tools that help programmers understand trace divergences in an
+educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We
+should acknowledge all the work that's been done on shrinking in the PBT
+community.} \amh{Good thinking!}
+\hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
+should make sure we don't step on toes}
 
 \SUBSECTION{Proposed Work: Visualizing and Tuning Generator Distributions}
 \newcommand{\genvis}{GenVis}
@@ -1315,25 +1352,6 @@ strategy for getting this tool into the hands of real developers?}
 developers not just understand distributions in the aggregate, but also helping
 them review individual examples, given that you need to see specific examples to
 know that a generator is creating the right kind of data.}
-
-\SUBSECTION{Proposed Work: Debugging Support for Understanding Counterexamples}
-
-Once a PBT tool generates a counterexample of where a property fails, a
-programmer will need to understand what in an input caused the program to fail.
-This task can be rather challenging because generated inputs can be complex,
-deep data structures \todo{Do we have a reference that implies the complexity of
-generated counterexamples?}. Methods for making it clearer why a counterexample
-fails could be to generate additional inputs that are very close to the
-counterexample that are actually correct, to run the program up to the point
-where the traces of the programs begin to diverge, and then to drop a programmer
-into a debugging environment where they can query the state of the program and
-step through the remainder of the execution. PI Head has prior work designing
-debugging tools that help programmers understand trace divergences in an
-educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We
-should acknowledge all the work that's been done on shrinking in the PBT
-community.} \amh{Good thinking!}
-\hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
-should make sure we don't step on toes}
 
 \SUBSECTION{Proposed Work: Integration with Continuous Integration Workflows}
 
