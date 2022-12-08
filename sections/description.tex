@@ -341,98 +341,114 @@ where tools can be created, because I think it will be clunky to try to
 introduce them alongside novel findings in the ``Motivation'' or ``Foundations'' sections.}\bcp{Yes!!}
 
 \sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
-\iflater\todo{Fix the capitalization.  :-(}\fi
-The projects that we propose are in large part motivated by an ongoing
-need-finding study that asks the question: {\bf How can the research community
-make PBT more valuable for software developers?} \todo{Sentence to justify why
-we did the study}
+%
+The concrete technical goals of this proposal are grounded in early
+findings from an ongoing need-finding study asking {\em How can the
+  research community make PBT more valuable for software developers?}
+%
+\iflater \todo{Sentence to justify why
+we did the study}\bcp{If needed...}\fi
+%
+% \subsectionstar{Study Population}
+%
+To address this question, we have interviewed users of PBT at Jane
+Street Capital. Jane Street is one of the world's largest
+market-makers in the finance sector, with over 1700 employees
+including around 700 software developers.  A number of features made
+it an attractive place for this study.  Most importantly, PBT is
+already well established at Jane Street, so there is a large
+population of people with well-grounded opinions on its benefits and
+challenges.  Also, Jane Street famously builds almost all of its
+software in OCaml, a mostly functional programming language with
+strong support for static typing and modularity. This unified
+ecosystem allows us to control for a number of potentially confounding
+factors: all of the developers have access to the same PBT tools,
+libraries, language-level programming abstractions, house coding
+rules, etc.
 
-\subsectionstar{Study Population}
-The study population is software developers at Jane Street Capital. Jane Street
-is one of the world's largest market-makers, with over 1700 employees including
-around 700 software developers. Jane Street has a number of qualities that
-makes it an ideal place for this study.
-To start, Jane Street developers use
-a variety of testing tools, including PBT. This gives us a place to start
-when asking questions, since participants will likely have seen PBT before,
-and it means that will be score for exploring trade-offs between PBT and
-other forms of testing.
-Additionally, Jane Street developers famously build almost all of their
-systems in OCaml, a mostly functional programming language with strong support
-for static typing and modularity. This unified ecosystem
-will allow
-us to control for a number of potentially confounding factors: all of the
-developers we talk to will have access to the same PBT tools and the same
-libraries, language-level programming abstractions, house coding rules,
-etc. (which might make testing easier or harder).
+Of course, a study at a single firm may not generalize outside of the
+OCaml ecosystem. Part of the work we are proposing will be to carry
+out further user studies targeting a broader and more diverse
+community.  In the meantime, though, Jane Street itself does build
+software of many disparate sorts, including real-time trading,
+quantitative algorithms, networked systems, and hardware description
+code~\cite{signalsandthreads}, so our study participants come a wide
+variety of experiences and requirements.
 
-Naturally, carrying out a study at a single firm has potential drawbacks as
-well. The most obvious is that our results may not generalize: We
-cannot guarantee that our findings will apply outside of the OCaml ecosystem (and
-other ecosystems like it). However, Jane Street is home to a diverse array of
-software systems, including trading systems, quantitative
-algorithms, networked systems, and hardware description code~\cite{signalsandthreads}.
-We hope that the breadth of these programming tasks will mean that the software
-developers that we talk to will come to the discussion with a wide variety of
-experiences.
+The study consists of semi-structured interviews, exploring
+developers' experiences and impressions of PBT. At the time of
+writing, the full complement of 30 interviews and a preliminary round
+of analysis have been completed, but full-scale analysis has not yet
+begun. For more details on the study parameters and the current state
+of the project, see \sectionref{sec:foundation} below.
 
-The study consists of semi-structured interviews, exploring developers use and
-impressions of PBT. At the time of writing, the final target of 30 interviews
-has been completed, and a preliminary analysis done, but full-scale analysis has
-not yet begun. For more details on the study parameters and the current state of
-the project, see \sectionref{sec:foundation}.
-
-\subsection*{Preliminary Results}
-As with the pilot study, the study with Jane Street is a
-qualitative one; the main research output will be a collection of themes that
-encompass useful and interesting observations about the ways Jane Street
-developers use PBT, what they need from it, and how we may be able to help them.
-While we have not yet done a deep analysis of the transcripts, some themes have
-been immediately apparent from our real-time notes.
+\subsectionstar{Preliminary Themes} The main theoretical output from
+this qualitative study will be a collection of themes that summarize
+and categorize our observations about the ways Jane Street developers
+use PBT, what they need from it, and how the research community be
+able to help.  While deep analysis of the interview transcripts has
+not yet begun, several themes are already apparent in our real-time
+notes; these form the backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
-\newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
-{\bf Specification.} Some early themes revolve around the specifications that
-developers test and the kinds of programs in which they choose to test them.
-Since PBT is often described as a kind of lightweight formal method, one might
-have imagined that a central challenge of using PBT would be coming up with the
-right specifications. Indeed, the pilot study concluded just
-that. But at Jane Street we actually heard very little about the challenge of
-coming up with properties; instead, most participants described applying PBT in
-\proptheme{High-Leverage Scenarios} where properties were already available or
-quite easy to imagine. This suggests a more effective way to approach education
-and documentation around PBT, focused on more opportunistic applications of PBT.
+\newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}} One set of
+themes revolves around the {\bf specifications} that developers test.
+% and the kinds of programs in which they choose to test them.
+Since
+PBT is often described as a kind of lightweight formal method, one
+might imagine that a central challenge would be coming up with the
+right specifications. Indeed, a smaller pilot study of PBT users in
+Python that we ran to prepare for the Jane Street
+study~\cite{PilotHypothesisStudy}\iflater\bcp{Is this the first
+  mention of the pilot study?  If not, move this citation earlier and
+  no need for it here.}\fi{} concluded just that. But at Jane Street
+we actually heard very little about difficulties coming up with
+properties; rather, most participants described applying PBT in
+\proptheme{High-Leverage Scenarios} where properties were already
+available or quite easy to imagine. This suggests a more effective way
+to approach education and documentation around PBT, focusing on
+``opportunistic'' applications of PBT as an easy on-ramp.
 
-But while focusing on easy applications of PBT may be helpful for education and
-adoption, it feels disappointing from a research perspective. Luckily, our
-discussions at Jane Street have pointed at further \proptheme{Opportunities for
-Better Leverage}---situations where PBT is not easy {\em yet}, but where it
-could be with more research effort. Furthermore, the participants spoke at
-length about one particular kind of PBT they do often, called
-\proptheme{Model-Based Testing}. Model-based testing is not so much a scenario in
-which to apply PBT as it is a technique for using it, but the interviews have
-given us ideas for how to improve model-based testing in a way that may make PBT
-easier in some situations.
+% But while focusing on easy applications of PBT may be helpful for education and
+% adoption, it feels disappointing\bcp{blah} from a research perspective. Luckily,
 
-{\bf Generation.} Another set of themes resolves around the generation of the
-random inputs that are used to test properties. Many participants spoke quite
-highly of \gentheme{Derived Generators} that are inferred from the type system.
-These generators are already quite good, but they can be better: participants
+Our interviews also identified several \proptheme{Opportunities for
+  Better Leverage}---situations where PBT is not easy {\em yet}, but
+where it could be with a little more research effort.\bcp{Quick
+  examples?} Furthermore, participants spoke at length about one
+particular kind of PBT they do often, commonly called
+\proptheme{Model-Based Testing}. Model-based testing is not so much a
+scenario in which to apply PBT as it is a technique for using it, but
+the interviews have given us ideas for how to improve model-based
+testing in a way that may make PBT easier in some situations.
+\bcp{huh?}
+\bcp{Maybe add a forward reference to \sectionref{sec:gen}?}
+
+Another set of themes concerns the {\bf generation} of
+random inputs for property-based testing. Many participants spoke
+highly of the \gentheme{Derived Generators} that can be inferred from the type system.
+These generators are already quite good, but they could be better: participants
 discussed both small (e.g., API quirks) and large (e.g., derived generators
 cannot enforce semantic preconditions) deficiencies. When derived generators
-failed, participants fell back to standard \gentheme{Bespoke Generators}. These
-are far more flexible, but they are proportionally more time consuming to design
-and work with. There is significant room for improvement here.
-
+failed, participants fell back to standard \gentheme{Bespoke
+  Generators}, which
+are far more flexible but proportionally more time consuming to design
+and work with. There is significant room for improvement here.\bcp{A
+  bit of detail, and a forward reference?}
+%
 Finally, if a generated input is deemed to be a {\em counter-example} for a
-property, highlighting a bug in the code, it should ideally be easy to use that
-input to determine the root cause of the bug. The interviews are clear that
+property, highlighting a bug in the code, it should needs to be easy to use that
+input to determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
-provokes a given bug, is a critical part of the PBT process for this reason.
+provokes a given bug, is a critical part of the PBT process.\bcp{Also
+  that there are problems to solve there?  (Otherwise, why are we
+  mentioning it?)}
 
-{\bf Evaluation.} The final category of themes concerns testing evaluation. In
-general, it can be difficult to know when ``enough is enough'' when it comes to
+The final category of themes concerns the {\bf evaluation} of testing
+effectiveness. In
+general, it can be difficult to know when ``enough is enough'' when it
+comes to any sort of
 testing. In standard unit testing, developers sometimes worry that test number
 $n + 1$ would be the one that catches the bug; PBT does make it possible to to
 automatically generate that one extra test, but one still has to decide when to
@@ -451,11 +467,14 @@ to input space coverage, and even things like {\em mutation
 testing}~\cite{papadakis_mutation_2018}; we hope to explore the user experience
 around many of these avenues.
 
-\todo{Probably add quotes and stuff here to make this more interesting}
+\todo{Probably add quotes and stuff here to make this more
+  interesting}\bcp{Maybe.  But we don't have space for too many.  (I
+  guess if we don't format them in their own fboxes, we can fit more
+  of them!)}
 
-\todo{Debugging doesn't really fit here...}
+% \todo{Debugging doesn't really fit here...}
 
-\section*{Personnel}
+\sectionstar{Personnel}
 
 \todo{One paragraph about what a great team we are, how the PI
   qualifications complement each other, and what kind of students we
@@ -909,7 +928,7 @@ developers asked for better tools for constructing generators that accomplish
 their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
 
-\subsection*{Context: Why is Random Generation Hard?}%
+\subsectionstar{Context: Why is Random Generation Hard?}%
 Before presenting our proposed work to improve the state of random data
 generators, we must first discuss the major difficulties with random generation
 for PBT and the existing work that aims to address those difficulties.
@@ -961,7 +980,7 @@ by mimicking user-provided examples~\cite{soremekun2020inputs}.
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language...
 
-\subsection*{Context: Monadic Generators}
+\subsectionstar{Context: Monadic Generators}
 When writing generators manually, it helps to have a clean domain-specific
 language (DSL) for writing them down. In the Haskell language, where PBT was
 first popularized, many such DSLs are implemented using {\em
@@ -1264,8 +1283,7 @@ automatic and easy to use.
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
-  \caption{A mockup of \genvis.\bcp{Can the background be white, for
-      greater contrast?  It's hard to see, even blown up.} \amh{There is a lot
+  \caption{A mockup of \genvis.\amh{There is a lot
 going on in this image, and I think it would help to zoom in a lot, and add
 labels to the parts of the figure that represent key innovations, which you can
 refer to from the text.} }\label{fig:gen-vis}
