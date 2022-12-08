@@ -55,13 +55,20 @@ industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
+\newcommand{\participant}[1]{{\bf P#1}}
+
 After all these successes, one might wonder if the research community has already
 addressed all of the challenges that might significantly limit PBT's adoption
 in the broader software industry, but it
 seems the answer is no.
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
-at Jane Street Capital, we have found a
-mixture of consistent enthusiasm for PBT
+at Jane Street Capital, we found
+consistent enthusiasm for PBT---participants called it it
+``obviously valuable'' [\participant{1}]\footnote{Throughout this proposal,
+\participant{n} refers to the $n$th participant in our Jane Street study.},
+built their own libraries for it when none were available [\participant{8},
+\participant{21}], and suggested that ``everyone'' at the company should use it
+[\participant{20}]. But we also found
 % \jsquote{28}{If you’re trying to build something that needs to be
 %   reliable and work all the time, [PBT] is worth the
 %   investment.\iflater\bcp{This is a paraphrase of what Dani said.  We
@@ -71,9 +78,7 @@ mixture of consistent enthusiasm for PBT
 % the job better. Or maybe we can include that quote from the
 % pilot study which stated that PBT was 1000x better
 % than the alternatives.}
-\bcp{If we can find a stronger quote from the JS study (there should
-  be many!), I'd love to include one here.}\hg{Agreed}
-and challenging new research questions based on developer concerns.
+challenging new research questions based on developer concerns.
 Specifically, the developers we have spoken with so far
 %
 (a) sometimes struggle
@@ -98,11 +103,8 @@ identify them, will demand insights from both the programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
-pain points''
-with
-``tools that make it easy to build domain-specific and
-general-purpose programming languages.''\hg{Try to find a better quote}
-We whole-heartedly agree.
+pain points'' with tools that ``help [programmers] write safe and correct
+programs.'' We whole-heartedly agree.
 
 We propose here a comprehensive, interdisciplinary research program that will
 bring the combined power of PL and HCI approaches to bear, creating a
@@ -119,26 +121,26 @@ motivation by accident}\bcp{Maybe we can somehow add a reference to the
 Motivation discussion in the first bullet?  (I'm still not so worried
 about this, though.))}\fi
 \begin{itemize}[noitemsep]
-  \item \hg{Mention motivation briefly}We will further explore gaps in the present understanding of the
+  \item
+  Our motivating study (described later in this section) is just the first step
+  of our formative research.
+  We will further explore gaps in the present understanding of the
   challenges PBT faces in
   industry by conducting two\iflater\bcp{three?}\fi{} additional formative user
   studies (\sectionref{sec:foundation}).
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
-  enhance and extend that set of use cases (\sectionref{sec:spec}).
-  \bcp{??}\hg{Tools for automating MBT and testing based on logged
-    output?}\bcp{Sure.}
+  enhance PBT in common use-cases like model-based testing and extend that set
+  of use cases with the ability to write properties over logged output (\sectionref{sec:spec}).
   \item We will address challenges in test-case generation with new
   domain-specific languages for expressing generators that enable novel
-  algorithms for many PBT tasks (\sectionref{sec:gen}). \bcp{?}\hg{Like CGS and
-  mutation/example-based tuning modulo preconditions?}\hg{Feel free to rephrase
-  either of these, but I think what I had wasn't totally
-  unreasonable...}\bcp{No, it wasn't.  I just want to give readers a
-  little sharper sense of what the proposed work {\em is}, since we're
-    then going to spend 3pp talking about other stuff.}
+  algorithms for PBT tasks like generation of precondition-satisfying values,
+  test input mutation, and example-based generator tuning.
+  (\sectionref{sec:gen}).
   \item We will address gaps in validation of testing effectiveness by providing
   users with powerful new ways of interacting with their generators and test
-  suites that (\sectionref{sec:val}).
+  suites that give them visibility into the bug-finding power of their tests
+  (\sectionref{sec:val}).
   \item We will create comprehensive educational resources for training developers and
   university students in best practices for PBT (\sectionref{sec:ed}).
 \end{itemize}
