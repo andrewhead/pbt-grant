@@ -1170,6 +1170,43 @@ important to get another input that is both smaller and, ideally, provokes the
 need to be taken to ensure that shrinkers behave as expected.
 
 \subsection{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
+
+One of the most important---and difficult---tasks in the PBT process is 
+designing and implementing the random data generators that used to check that 
+each property holds. Indeed, the developers we interviewed consistently cited 
+designing generators as one of the hardest parts of the PBT process, and many 
+developers asked for better tools for constructing generators that accomplished 
+their testing goals. In this section, we describe a series of projects to 
+develop new and better ways to express random data generators.
+
+Property-based testing poses kinds of challenges in evaluating test results that 
+are unique within software testing and, in our opinion, currently without 
+solution. These problems arise from the multiplicity of tests\ldots{} 
+\amh{Continue from here. The challenges that arise from working with generators 
+are that: (1) a developer has not manually written the inputs, so they do not 
+actually have an understanding of those inputs as a natural byproduct of writing 
+the test code; (2) the generated outputs can be complex; (3) a developer does 
+not care just about singular outputs, but rather the distribution of generated 
+outputs, that it covers a sufficiently interesting and representative space of 
+inputs; and (4) as with conventional debugging, it can be difficult to 
+understand the cause of software failures---though here PBT provides a unique 
+opportunity, because failed inputs might be best understood in terms of 
+deviation from behavior for nearby successful inputs. Our goal in the upcoming 
+work is to develop a vision of what great testing tools look like for a 
+multiplicity of generated inputs. This is an area that has not yet received 
+attention in the area of HCI for programming tools, and one that is fruitful 
+with exciting areas to explore and with high potential for impact.}
+
+\amh{Some notes on framing from a prior meeting with HG and BCP: When we write 
+about HCI-related parts of the projects, I think the right tack is to describe 
+this as an area of HCI-oriented programming tools that merits additional 
+exploration in tooling of the following types: X, Y, Z.  We will draw 
+inspiration from adjacent areas, though the idea is to establish some of the 
+first work in usable multi-example software testing.  This requires entirely new 
+ways of expressing and reviewing tests, and could have
+potentially transformative impact within interactive programming systems in the 
+long term. (Can we flesh out just how big a field we feel this is?)}
+
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
@@ -1182,6 +1219,13 @@ bridging to Jessica's paragraphs, linking in a theme from the intro}
 
 \subsubsection{Proposed Work: Visualizing and Tuning Generator Distributions}
 \newcommand{\genvis}{GenVis}
+
+\amh{In general, I think this proposal could be strengthened by: (1) emphasizing 
+needs that need to be satisfied with the tool (perhaps organizing the structure 
+of this subsubsection around those needs); and (2) proposing the features as 
+aspirational, rather than fixed, admitting in places where we don't know yet 
+what the right solution will be (for instance, I think it will take some work to 
+get a really good set of visualizations.)}
 The work in \sectionref{sec:gen} will significantly improve the tools that
 users have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
@@ -1195,7 +1239,10 @@ and tune their generators to their specific needs.
 
 Of course, understanding generator distributions is challenging.  The values
 produced by generators are often highly structured and have complex shapes
-(think lists, trees, and other algebraic data types). Such values cannot simply
+(think lists, trees, and other algebraic data types) \amh{I think the best 
+example of this I heard of during the interview study were lists of log events, 
+where each of those log events had multiple data fields---this would be really 
+hard to visualize without a bespoke visualization}.  Such values cannot simply
 be plotted on a chart, and even spot-checking them visually may be hard if the
 values are large.  Furthermore, writing generators is already considered by
 developers to be a burden, so any tool in this space needs to be incredibly
@@ -1205,7 +1252,10 @@ automatic and easy to use.
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
   \caption{A mockup of \genvis.\bcp{Can the background be white, for
-      greater contrast?  It's hard to see, even blown up.}}\label{fig:gen-vis}
+      greater contrast?  It's hard to see, even blown up.} \amh{There is a lot 
+going on in this image, and I think it would help to zoom in a lot, and add 
+labels to the parts of the figure that represent key innovations, which you can 
+refer to from the text.} }\label{fig:gen-vis}
 \end{wrapfigure}
 
 With these challenges in mind, we propose to build \genvis, a tool that
@@ -1225,7 +1275,10 @@ visualizations, but maybe not enough. To ensure a comprehensive understanding of
 the data, \genvis{} will then use lightweight program synthesis to compose and
 combine the base of features to get {\em derived} features. The derived features
 may features may show the relationship between different base features or even
-compose base feature extractors to get entirely new features. All of the
+compose base feature extractors to get entirely new features. \amh{Do you have 
+an example of a useful derived feature? I'm having a difficult time envisioning 
+a derived feature one would want to see, so it's less clear to me that this 
+feature will be useful.} All of the
 features, base and derived, will be made available to users in a variety of
 charts and graphs.
 
@@ -1241,14 +1294,28 @@ much time and energy the developer has to put into their generator. Besides
 charts, \genvis{} will also present the user with structured representations of
 some generated values. We plan to use meta-programming to build
 DOT graphs~\cite{ellson_graphviz_2002} that represent data types, and then
-present those graphs to the developer for easier spot-checking of data.
+present those graphs to the developer for easier spot-checking of data.  
+\amh{The visualization skeptic in me wonders if it will be possible come up with 
+generalizable DOT-based visualizations that work out of the box for most data 
+types. I would expect most visualizations to become unreadable once the number 
+of nodes in the data structures surpasses 10. We need to make a stronger case 
+that our automated features (including proposed visualizations types of filters) 
+will regularly work on the kinds of complexity of the data people will generate, 
+or otherwise shift to a goal of supporting developers in rapid definition of 
+their own filters and visualizations.}
 
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
 features. We will evaluate \genvis{} in a small user study (~15 participants),
 hoping to learn which features of the tool are most useful, and how the design
-may be refined into a tool that real developers can use.
+may be refined into a tool that real developers can use. \amh{What is our 
+strategy for getting this tool into the hands of real developers?}
+
+\amh{Somewhere in this section we should emphasize the importance of helping 
+developers not just understand distributions in the aggregate, but also helping 
+them review individual examples, given that you need to see specific examples to 
+know that a generator is creating the right kind of data.}
 
 \subsubsection{Proposed Work: Debugging Support for Understanding Counterexamples}
 
