@@ -121,7 +121,7 @@ about this, though.))}\fi
 \begin{itemize}[noitemsep]
   \item \hg{Mention motivation briefly}We will further explore gaps in the present understanding of the
   challenges PBT faces in
-  industry by conducting two\iflater\bcp{three?}\fi{} additional formative user
+  industry by conducting additional formative user
   studies (\sectionref{sec:foundation}).
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
@@ -351,8 +351,23 @@ we did the study}\bcp{If needed...}\fi
 %
 % \subsectionstar{Study Population}
 %
-To address this question, we have interviewed users of PBT at Jane
-Street Capital. Jane Street is one of the world's largest
+To address this question, we conducted semistructured interviews with
+stakeholders at Jane
+Street Capital, including both
+developers who have had exposure to PBT as
+well as developers of PBT tools.
+Questions focused on tasks that developers wish to
+accomplish with PBT tools and developers' recollections of what it was like to
+work with PBT tools to accomplish these tasks.
+
+Interview
+studies are common in early-stage need-finding research, due to their ability
+to yield highly informative stories about people, the tasks they need to
+accomplish, and the tools they use to accomplish them. The purpose of these
+interviews is to identify a broad set of opportunities for improving PBT tools,
+grounded in concrete, authentic, detailed stories from developers.
+
+Jane Street is one of the world's largest
 market-makers in the finance sector, with over 1700 employees
 including around 700 software developers.  A number of features made
 it an attractive place for this study.  Most importantly, PBT is
@@ -366,23 +381,43 @@ factors: all of the developers have access to the same PBT tools,
 libraries, language-level programming abstractions, house coding
 rules, etc.
 
-Of course, a study at a single firm may not generalize outside of the
-OCaml ecosystem. Part of the work we are proposing will be to carry
-out further user studies targeting a broader and more diverse
-community.  In the meantime, though, Jane Street itself does build
-software of many disparate sorts, including real-time trading,
-quantitative algorithms, networked systems, and hardware description
-code~\cite{signalsandthreads}, so our study participants come a wide
-variety of experiences and requirements.
+\iflater\bcp{Not sure we need to say all this?}
+Ideally, these interviews would have included both current
+users
+of PBT as well as non-users of PBT. In reality, it is difficult to recruit and
+have meaningful conversations with non-users of a technology. Our strategy was
+to recruit across as broad a spectrum of usage as could be reasonably recruited
+at our partner institution, including both frequent users of PBT technologies,
+as well as a handful of
+developers who have had only limited, occasional exposure to PBT. Our survey
+study (\sectionref{sec:survey}) aims to establish contact with a broader
+sample of non-users of PBT to assess opportunities for making PBT tools more
+valuable and discoverable for this group.
+\fi
 
-The study format is semi-structured interviews exploring
-developers' experiences and impressions of PBT. At the time of
-writing, the full complement of 30 interviews and a preliminary round
-of analysis have been completed; full-scale analysis has not yet
-begun. For more details on the study parameters and the current state
-of the project, see \sectionref{sec:foundation} below.  \bcp{Is it
-  actually useful to split this discussion between here and
-  \sectionref{sec:foundation}??}
+Of course, findings from a study at a single firm with a homogeneous
+OCaml-based testing ecosystem may not generalize outside of this
+ecosystem. Part of our proposed work is to carry out further user
+studies targeting a broader and more diverse community
+(\sectionref{sec:foundation}).  However, Jane Street itself is quite
+diverse in the sorts of software it builds, including real-time
+trading, quantitative algorithms, networked systems, and hardware
+description code~\cite{signalsandthreads}, and our study participants
+come with a wide variety of experiences and requirements.
+
+Our interview instrument---the script that we used to loosely
+structure the interviews---and our analysis process were developed and
+tested through a prototype study with seven users of the Hypothesis
+PBT toolkit, recruited over Twitter.  This analysis yielded a
+conceptual framework of barriers to usage of PBT, which we published
+recently at the SPLASH HATRA workshop, one of the key venues for
+emerging work on human aspects of formal methods tools and type
+systems~\cite{goldstein2022some}.
+
+The study format was semi-structured interviews exploring developers'
+experiences and impressions of PBT. At the time of writing, the full
+complement of 30 interviews and a preliminary round of analysis have
+been completed; full-scale analysis will begin in 2023.
 
 \subsectionstar{Preliminary Themes} The main theoretical output from
 this qualitative study will be a collection of themes that summarize
@@ -476,6 +511,27 @@ around many of these avenues.
   guess if we don't format them in their own fboxes, we can fit more
   of them!)}
 
+\iflater
+\bcp{I think this can be cut?}What remains for this project is another
+approximately 2 months of Ph.D.  student work, including conducting
+the remaining interviews, performing in-depth qualitative analysis of
+the data following a thematic analysis approach~\cite[Chapter
+5]{blandford2016qualitative}, and preparing a manuscript for
+submission to OOPSLA.
+\fi
+
+\iflater
+\amh{Let's foreshadow other findings that
+we will publish that are outside of the scope of this proposal, but which might
+be motivating to other researchers, including: developers could benefit from
+additional automated support for deriving generators from types, effectiveness
+budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
+tests), integration with unit testing frameworks, and exploring the use of
+properties as a source of documentation.}
+\bcp{Not sure where is the right place for this discussion (or if
+  there will be space)...}
+\fi
+
 % \todo{Debugging doesn't really fit here...}
 
 \sectionstar{Personnel}
@@ -501,105 +557,35 @@ around many of these avenues.
 probably being too heavy-handed in trying to justify the methodological choices.
 Help me figure out what to prune!}
 
-As PBT moves into broader adoption, new opportunities present
-themselves for understanding how
-the tools are being used in practice and how they can be further
-improved to better support developers' needs. In this section, we describe a
-sequence of studies to better understand developers' needs.
-These studies draw on mixed methods in the service of producing a
-comprehensive and actionable agenda for future research---in this
-project and beyond.  Concrete tasks include ongoing interviews to
-develop an initial taxonomy of needs and
-obstacles to tool use (\sectionref{sec:interviews}), a survey to assess the
-generality of these needs and obstacles and to identify potential for adoption
-of PBT tools (\sectionref{sec:survey}), and observations to understand
-particular tasks involved in PBT to an extent that we can understand how to
-design new algorithms and interactive tools that better support those tasks
-(\sectionref{sec:observations}).
+Our preliminary study at Jane Street paints a clear picture of the
+benefits and challenges of PBT in one specific context.  But to fully
+understand its potential impact across the software industry and the
+factors that may limit its adoption, we need to cast a wider net.
+%
+In this section, we describe two planned studies, drawing on mixed
+methods in the service of producing a comprehensive and actionable
+agenda for future research, in this research project and beyond.
+Concrete tasks include a written survey to assess the generality of
+these needs and obstacles and to identify potential for adoption of
+PBT tools (\sectionref{sec:survey}), and an observation study to
+understand particular tasks involved in PBT to guide the design of new
+algorithms and interactive tools (\sectionref{sec:observations}).
 
-\SUBSECTION{Ongoing Work: Need-Finding Interviews with Jane Street Developers}
-\label{sec:interviews}
-
-\amh{I attempted to fix conflicting verb tenses to better reflect what
-we now have done (i.e., we have finished conducting the interviews). This still
-reads a bit clunky, and the text would probably benefit from some smoothing.}
-
-We will begin our need-finding work by interviewing developers who can shed
-light into how PBT is already being used, and obstacles in its use. Interview
-studies are common in early-stage need-finding research, due to their ability
-to yield highly informative stories about people, the tasks they need to
-accomplish, and the tools they use to accomplish them. The purpose of these
-interviews is to identify a broad set of opportunities for improving PBT tools,
-grounded in concrete, authentic, detailed stories from developers.
-
-\textbf{Method}. We conducted semistructured interviews with
-approximately 30 developers. Questions focused on tasks these developers wish to
-accomplish with PBT tools, and developers' recollections of what it was like to
-work with PBT tools to accomplish these tasks.
-
-\textbf{Population}. Ideally, these interviews would have included both current
-users
-of PBT as well as non-users of PBT. In reality, it is difficult to recruit and
-have meaningful conversations with non-users of a technology. Our strategy was
-to recruit across as broad a spectrum of usage as could be reasonably recruited
-at our partner institution, including both frequent users of PBT technologies,
-as well as a handful of
-developers who have had only limited, occasional exposure to PBT. Our survey
-study (\sectionref{sec:survey}) aims to establish contact with a broader
-sample of non-users of PBT to assess opportunities for making PBT tools more
-valuable and discoverable for this group.
-
-\textbf{Progress}. Our interview instrument and analysis process were developed
-and tested with 7 users of the Hypothesis PBT toolkit, recruited over Twitter.
-This analysis yielded a conceptual framework of barriers to usage of PBT, which
-we published recently at HATRA, an ACM SPLASH workshop and one of the key
-venues for presenting preliminary research on human aspects of formal methods
-tools and type systems~\cite{goldstein2022some}.
-
-\iflater\bcp{This will need to be tuned in light of ewhatever we say
-  in the Motivation section.}\fi
-We have since established a collaboration with Jane Street, LLC (see
-attached letter of support), with whom we have begun the expanded interview
-study. Interviews have been conducted with 30 stakeholders, including both
-developers who have had exposure to PBT as
-well as developers of PBT tools. Our interview process has included an on-site
-visit where we collected feedback on our evolving conceptual framework of the
-needs and opportunities we have discerned around PBT tools.
-
-What remains for this project is another approximately 2 months of Ph.D.
-student work, including conducting the remaining interviews, performing
-in-depth qualitative analysis of the data following a thematic analysis
-approach~\cite[Chapter 5]{blandford2016qualitative}, and preparing a manuscript
-for submission to OOPSLA.
-
-\textbf{Preliminary results}. Key takeaways emerging from our initial analysis
-appear in Section~\ref{sec:motivation}.\amh{TODO (after some of the
-results are written down in the motivation section). Let's recapitulate the major findings that
-motivate this proposal as a whole. Then, let's foreshadow other findings that
-we will publish that are outside of the scope of this proposal, but which might
-be motivating to other researchers, including: developers could benefit from
-additional automated support for deriving generators from types, effectiveness
-budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
-tests), integration with unit testing frameworks, and exploring the use of
-properties as a source of documentation.}
+\iflater\bcp{Somewhere, we need to mention the letter of support from
+  JS.  I guess it belongs in the section where we describe potential
+  further collaborations with them.}\fi
 
 \SUBSECTION{Proposed Work: Surveys to Generalize Findings}
 \label{sec:survey}
 
-% \SUBSECTION{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
-
-Our interview study will reveal a number of opportunities to
-improve tools for property-based testing. What we will not
-know from the interview study is which of the opportunities
-are most important for the research community to explore. Will
-some of these opportunities have disproportionately positive
-impact on developers' experience? To answer this question,
-we will conduct two surveys, each with a broad sample of
-developers. These surveys aim to (1) determine which
-obstacles from the interview study are most representative
-of widely-experienced pain points with PBT tools and
-(2) characterize the potential benefits of better PBT tools
-to the software industry as a whole.
+Our Jane Street study has revealed a number of opportunities to
+improve tools for property-based testing. To better understand which
+of these opportunities are most important for the research community
+to explore, we will conduct two surveys, each with a broad sample of
+developers. These surveys aim to (1) determine which obstacles from
+the interview study are most representative of widely-experienced pain
+points with PBT tools and (2) characterize the potential benefits of
+better PBT tools to the software industry as a whole.
 
 \emph{Validation survey}. While our interview study revealed
 a number of issues with existing PBT tools, it is not clear
@@ -629,7 +615,8 @@ framework\footnote{In personal communications, one of the
 maintainers of Hypothesis estimates that Hypothesis has
 approximately 500k current users. \amh{I am not sure if we
 should include this. It sounds too big to be true to
-me.}} (see the attached letter of support). Recruiting from this population allows us to overcome
+me.}} (see the attached letter of support). Recruiting from this
+population allows us to overcome
 biases that are related to Jane Street's dependency on OCaml
 and, we expect, will connect us with developers with a
 broader set of backgrounds with respect to comfort with
