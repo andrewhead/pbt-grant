@@ -345,18 +345,19 @@ interviews is to identify a broad set of opportunities for improving PBT tools,
 grounded in concrete, authentic, detailed stories from developers.
 
 Jane Street is one of the world's largest
-market-makers in the finance sector, with over 1700 employees
-including around 700 software developers.  A number of features made
+financial market-makers; its 1700 employees
+include around 700 software developers.  A number of features make
 it an attractive place for this study.  Most importantly, PBT is
 already well established at Jane Street, so there is a large
-population of people with well-grounded opinions on its benefits and
+population of people with well-informed opinions on its benefits and
 challenges.  Also, Jane Street famously builds almost all of its
 software in OCaml, a mostly functional programming language with
-strong support for static typing and modularity. This unified
+strong support for static typing and modularity and a well-engineered
+PBT tool. This unified
 ecosystem allows us to control for a number of potentially confounding
-factors: all of the developers have access to the same PBT tools,
+factors: all of the developers have access to the same tools,
 libraries, language-level programming abstractions, house coding
-rules, etc.
+rules, social conventions, etc.
 
 \iflater\bcp{Not sure we need to say all this?}
 Ideally, these interviews would have included both current
@@ -535,18 +536,18 @@ probably being too heavy-handed in trying to justify the methodological choices.
 Help me figure out what to prune!}
 
 Our preliminary study at Jane Street paints a clear picture of the
-benefits and challenges of PBT in one specific context.  But to fully
+benefits and challenges of PBT in one specific context.  To fully
 understand its potential impact across the software industry and the
 factors that may limit its adoption, we need to cast a wider net.
 %
-In this section, we describe two planned studies, drawing on mixed
+In this section, we describe three planned studies, drawing on mixed
 methods in the service of producing a comprehensive and actionable
-agenda for future research, in this research project and beyond.
-Concrete tasks include a written survey to assess the generality of
-these needs and obstacles and to identify potential for adoption of
-PBT tools (\sectionref{sec:survey}), and an observation study to
-understand particular tasks involved in PBT to guide the design of new
-algorithms and interactive tools (\sectionref{sec:observations}).
+agenda for future research, in this research project and beyond---two
+written surveys to assess the generality of these needs and obstacles
+and to identify potential for adoption of PBT tools
+(\sectionref{sec:survey}) and an observation study to understand
+particular tasks involved in PBT to guide the design of new algorithms
+and interactive tools (\sectionref{sec:observations}).
 
 \iflater\bcp{Somewhere, we need to mention the letter of support from
   JS.  I guess it belongs in the section where we describe potential
@@ -555,121 +556,103 @@ algorithms and interactive tools (\sectionref{sec:observations}).
 \SUBSECTION{Proposed Work: Surveys to Generalize Findings}
 \label{sec:survey}
 
-Our Jane Street study has revealed a number of opportunities to
-improve tools for property-based testing. To better understand which
-of these opportunities are most important for the research community
-to explore, we will conduct two surveys, each with a broad sample of
-developers. These surveys aim to (1) determine which obstacles from
-the interview study are most representative of widely-experienced pain
-points with PBT tools and (2) characterize the potential benefits of
-better PBT tools to the software industry as a whole.
+Our ongoing Jane Street study has already revealed a number of
+opportunities to improve tools for property-based testing. To identify
+others, and to better understand which of these opportunities are most
+important for the research community to explore, we will conduct two
+surveys, each with a broad sample of developers. These surveys aim to
+(1) determine which obstacles observed in the interview study
+represent widely experienced pain points with PBT tools and
+(2) characterize the potential benefits of better tools to the
+software industry as a whole.
 
-\emph{Validation survey}. While our interview study revealed
-a number of issues with existing PBT tools, it is not clear
-how broadly these issues are experienced by developers, and
-their severity. Of the issues identified in the interview
-study, which issues most merit the attention of the research
-community? To answer this question, we will conduct a survey
-where developers report which issues we have identified are
+\emph{Validation survey}. Our interview study has revealed
+a number of issues with existing PBT tools, but it is not clear
+how broadly these issues are experienced by developers, or
+their relative severity. To find out, we will conduct a survey
+asking developers which of the issues we have identified are
 ones they have experienced, and the severity of those issues
-in their experience. Respondents will be asked to report on
-other issues that have arised in their use of PBT tools that
-we did not discover in the interview study so that we can
-form a more complete set of issues. Furthermore, to provide
+in their experience. Respondents will also be asked to report on
+other issues that have arised in their use of PBT tools.
+To provide
 clear usage scenarios to guide future work, respondents will
-be asked to write brief anecdotes elaborating on some of the
-most severe issues they encountered with PBT tools.
+be asked to write brief anecdotes elaborating on the
+most severe issues they encountered.
 
-One of the purposes of this survey is to overcome the bias
-of the findings that arose from our interview study, given
-that the study was conducted with a single company with a
-unique company-wide approach to development (namely,
-functional programming with OCaml). For this survey, we will
-recruit more broadly from the interviews. Respondents will
-be recruited from three sources. First, we will recruit
-among users of Hypothesis, a widely-used Python-based PBT
-framework\footnote{In personal communications, one of the
-maintainers of Hypothesis estimates that Hypothesis has
-approximately 500k current users. \amh{I am not sure if we
-should include this. It sounds too big to be true to
-me.}} (see the attached letter of support). Recruiting from this
-population allows us to overcome
-biases that are related to Jane Street's dependency on OCaml
-and, we expect, will connect us with developers with a
-broader set of backgrounds with respect to comfort with
-functional programming and advanced testing utilities.
-Second, we will also distribute our survey at Jane Street,
-albeit among a broader and larger number of developers.
-Finally, we will recruit users from social media by posting
+Respondents will
+be recruited broadly, from three sources. First, we will recruit
+users of Hypothesis, a widely-used Python-based PBT
+framework
+% \footnote{In personal communications, one of the
+% maintainers of Hypothesis estimates that Hypothesis has
+% approximately 500k current users. \amh{I am not sure if we
+% should include this. It sounds too big to be true to
+% me.}}
+% BCP: Already mentioned at the top
+(see the attached letter of support).
+Second, we will distribute the survey at Jane Street, hoping to reach
+a broader set of developers than we were able to interview.
+And third, we will recruit users from social media by posting
 survey announcements from the PIs' Twitter and Mastadon
 accounts, tagging the functional programming and testing
 communities. \amh{Do we have any connections that would give
 us access to functional programming or testing-related
-software development conferences?}
+software development conferences?}\bcp{Sure.  What would we do with
+them?}
 
-\emph{Impact survey}. As evidenced in this proposal through
-the usage stories we have shared from the research
-literature and interviews, PBT has been demonstrated to have
-massive potential for helping individual developers validate
-their software. That said, what is less clear is the breadth
-of applicability of these technologies. Is PBT the sort of
-technology that one day would be used by every developer? Or
-instead by the set of developers who use it today? We
-anticipate it is somewhere in between. To help the research
-field as a whole assess the potential impact of developments
-in PBT technology, we will conduct a survey to attain better
-estimates of the group of proximal users of PBT---that is,
-those users who do not use PBT currently, but who experience
+\emph{Impact survey}. Is PBT the sort of
+technology that could one day be used by every developer? To get a
+sense of this, we survey ``proximal'' users of PBT---that is,
+developers who do not use PBT currently, but who experience
 use cases where PBT methods would be particularly useful,
 once designed to fit their tasks and workflows. Particular
 attention will be given to those whose work requires the
 writing of validation code and public APIs with some
 definition of types. We will recruit a broad sample of
 participants across development contexts (professional, open
-source, educational) by working with our industry contact
+source, educational) by working with our industry contacts
 and by recruiting over social media. \amh{I am not sure this
 survey feels quite right. It feels really hard to conduct in
 a way that we get a convincing answer to our question of
 ``who would use PBT if the tools were sufficiently
-well-designed?''}
-
-\bcp{This section needs to be clearer about expected outcomes /
-  contributions of these studies.} \amh{Are we any closer to hitting the mark on
-clarity of expected outcomes / contributions with this expanded text?}
+well-designed?''}\bcp{Indeed---feels weaker than the other.}
 
 \SUBSECTION{Proposed Work: Observations of PBT in Practice}
 \label{sec:observations}
 
-As noted above in the preliminary results from the interview study, developers
-could benefit from support in tasks including the design, implementation, and
-evaluation of generators, and debugging and addressing counterexamples. It is
-often the case that anecdotes arising from interviews do not, in and of
-themselves, provide enough information to inform what it means to design
-effective tools to address them. Details that are often missing from interviews
-include questions like: (1) How much time are participants willing to devote to
+Anecdotes related in interviews do not generally, in and of
+themselves, provide enough information to inform the design of
+effective tools---they beg questions like: (1) How much time
+are participants willing to devote to
 a task like creating a generator or debugging a counterexample when in the
 middle of a programming task? (2) How much space is available on a developer's
-screen (amidst other tools like code editors and terminals) for introducing new
-tools? (3) What are developers' current strategies for solving these problems
+screen (amidst other tools like code editors and terminals) for
+interacting with new
+tools? (3) What are developers' current strategies for solving the
+problems they describe
 (for example, what representations of generated data currently seem most helpful
 for programmers trying to under the distributions of data generated by a
-generator? Prior to designing tools with a substantial novel interface
-component, we will observe developers undertaking the respective PBT tasks we
+generator)?.  As a basis for designing tools with a substantial novel interface
+component\bcp{add forward reference...}, we will observe developers
+undertaking the respective PBT tasks we
 aim to support, on the order of a small handful of developers (i.e., 2--10
-observation sessions). These observation sessions will allow us to evolve what
-are singular anecdotes from the interviews into a more comprehensive picture of
-what kinds of designs will be viable for helping programmers in the moment.
+observation sessions). These observation sessions will allow us to evolve
+singular anecdotes from the interviews into a more comprehensive picture of
+what kinds of designs will be viable for helping programmers.
 
-\bcp{Again, we need to explain the expected contributions---what end
-  does ``characterizing obstacles'' serve.}
+% \bcp{Again, we need to explain the expected contributions---what end
+%   does ``characterizing obstacles'' serve.}
 
-\bcp{This section should close with some kind of transition that
-  launches us toward the next section.} \amh{How about the below?}
+\smallskip
 
-Together, these studies will provide a firm foundation for the remaining
-research activities, in the form of a validated and prioritized set of developer
-needs for PBT tools, a detailed set of requirements for how tools should be
-redesigned to best satisfy the most important of those needs.
+Together, the studies described in this section provide a firm
+foundation for the rest of the proposed
+activities, in the form of a validated and prioritized set of developer
+needs for PBT tools and a detailed set of requirements for how tools should be
+(re)designed to best satisfy the most important of those needs.
+\bcp{Does that mean that the rest of the activities can only be
+  started once these studies are complete??  (More generally, let's
+  work on the Work Plan!)}
 
 \SECTION{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
 
