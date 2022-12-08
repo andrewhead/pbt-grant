@@ -1181,17 +1181,18 @@ solution. These problems arise from the multiplicity of tests\ldots{}
 \amh{Continue from here. The challenges that arise from working with generators 
 are that: (1) a developer has not manually written the inputs, so they do not 
 actually have an understanding of those inputs as a natural byproduct of writing 
-the test code; (2) the generated outputs can be complex; (3) a developer does 
-not care just about singular outputs, but rather the distribution of generated 
-outputs, that it covers a sufficiently interesting and representative space of 
-inputs; and (4) as with conventional debugging, it can be difficult to 
-understand the cause of software failures---though here PBT provides a unique 
-opportunity, because failed inputs might be best understood in terms of 
-deviation from behavior for nearby successful inputs. Our goal in the upcoming 
-work is to develop a vision of what great testing tools look like for a 
-multiplicity of generated inputs. This is an area that has not yet received 
-attention in the area of HCI for programming tools, and one that is fruitful 
-with exciting areas to explore and with high potential for impact.}
+the test code; (2) the generated inputs can be complex; (3) a developer does not 
+care just about singular inputs, but rather the distribution of generated 
+inputs, that it covers a sufficiently interesting and representative space of 
+inputs; (4) as with conventional debugging, it can be difficult to understand 
+the cause of software failures---though here PBT provides a unique opportunity, 
+because failed inputs might be best understood in terms of deviation from 
+behavior for nearby successful inputs; (5) developers needs to make decisions 
+about how much computer ``budget'' to allocate to generating and testing inputs.  
+Our goal in the upcoming work is to develop a vision of what great testing tools 
+look like for a multiplicity of generated inputs.  This is an area that has not 
+yet received attention in the area of HCI for programming tools, and one that is 
+fruitful with exciting areas to explore and with high potential for impact.}
 
 \amh{Some notes on framing from a prior meeting with HG and BCP: When we write 
 about HCI-related parts of the projects, I think the right tack is to describe 
@@ -1202,6 +1203,12 @@ first work in usable multi-example software testing.  This requires entirely new
 ways of expressing and reviewing tests, and could have
 potentially transformative impact within interactive programming systems in the 
 long term. (Can we flesh out just how big a field we feel this is?)}
+
+\amh{I think I want to organize this section chronologically around the 
+following sequence of tasks: (1) understanding (and debugging) a single input; 
+(2) understanding distributions of inputs; (3) tuning distributions of inputs; 
+(4) integration of specific inputs into regression tests; (5) supporting good 
+decisions around ``time budgets'' for PBT.}
 
 \subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
 The many papers in the PBT literature demonstrate effectiveness with case
