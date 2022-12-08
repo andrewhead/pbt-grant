@@ -1,4 +1,18 @@
-\section{Project Description \pagebudget{.5}}
+\section*{Project Description}
+
+% \SECTION{A}
+% Ref A = \ref{A},
+% Ref B = \ref{B},
+% Ref C = \ref{C}
+% \SECTION{B}
+% \SUBSECTION{C}
+
+% \section{A}\label{A}
+% Ref A = \ref{A},
+% Ref B = \ref{B},
+% Ref C = \ref{C}
+% \section{B}\label{B}
+% \subsection{C}\label{C}
 
 \iflater\todo{Remember to not use any URLs in the project description!
   (They are encouraged in the references.)}\fi
@@ -108,11 +122,7 @@ about this, though.))}\fi
   \item \hg{Mention motivation briefly}We will further explore gaps in the present understanding of the
   challenges PBT faces in
   industry by conducting two\iflater\bcp{three?}\fi{} additional formative user
-  studies (\sectionref{sec:foundation}\bcp{Sigh: I'm not sure where the
-    extra ``2.'' is coming from---the NSF class that we used as a
-    starting point is doing all kinds of fancy stuff with section
-    numbering, and my attempts to make it look better have resulted in
-    a mess. :-(}).
+  studies (\sectionref{sec:foundation}).
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
   enhance and extend that set of use cases (\sectionref{sec:spec}).
@@ -224,7 +234,7 @@ well founded.
 % \bcp{Need to mention broader impacts and work plan sections.}
 
 
-\subsectionstar{Orientation: Property-Based Testing}
+\sectionstar{Orientation: Property-Based Testing}
 
 \todo{Transition sentence: ``in the rest of this section, we...''}
 
@@ -330,14 +340,14 @@ in this section the different points in the engineering process
 where tools can be created, because I think it will be clunky to try to
 introduce them alongside novel findings in the ``Motivation'' or ``Foundations'' sections.}\bcp{Yes!!}
 
-\subsectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
+\sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 \iflater\todo{Fix the capitalization.  :-(}\fi
 The projects that we propose are in large part motivated by an ongoing
 need-finding study that asks the question: {\bf How can the research community
 make PBT more valuable for software developers?} \todo{Sentence to justify why
 we did the study}
 
-\subsubsectionstar{Study Population}
+\subsectionstar{Study Population}
 The study population is software developers at Jane Street Capital. Jane Street
 is one of the world's largest market-makers, with over 1700 employees including
 around 700 software developers. Jane Street has a number of qualities that
@@ -372,7 +382,7 @@ has been completed, and a preliminary analysis done, but full-scale analysis has
 not yet begun. For more details on the study parameters and the current state of
 the project, see \sectionref{sec:foundation}.
 
-\subsubsectionstar{Preliminary Results}
+\subsection*{Preliminary Results}
 As with the pilot study, the study with Jane Street is a
 qualitative one; the main research output will be a collection of themes that
 encompass useful and interesting observations about the ways Jane Street
@@ -445,7 +455,7 @@ around many of these avenues.
 
 \todo{Debugging doesn't really fit here...}
 
-\subsectionstar{Personnel}
+\section*{Personnel}
 
 \todo{One paragraph about what a great team we are, how the PI
   qualifications complement each other, and what kind of students we
@@ -462,7 +472,7 @@ around many of these avenues.
 % strides in areas like expressivity and testing effectiveness.
 
 
-\subsection{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
+\SECTION{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
 
 As PBT moves into broader adoption, new opportunities present
 themselves for understanding how
@@ -480,7 +490,7 @@ particular tasks involved in PBT to an extent that we can understand how to
 design new algorithms and interactive tools that better support those tasks
 (\sectionref{sec:observations}).
 
-\subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street Developers}
+\SUBSECTION{Ongoing Work: Need-Finding Interviews with Jane Street Developers}
 \label{sec:interviews}
 
 We will begin our need-finding work by interviewing developers who can shed
@@ -543,10 +553,10 @@ budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
 tests), integration with unit testing frameworks, and exploring the use of
 properties as a source of documentation.}
 
-\subsubsection{Proposed Work: Surveys to Generalize Findings}
+\SUBSECTION{Proposed Work: Surveys to Generalize Findings}
 \label{sec:survey}
 
-% \subsubsection{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
+% \SUBSECTION{Proposed Work: Characterizing the Potential for Impact in Improved PBT Tools}
 
 Our interview study will reveal a number of opportunities to
 improve tools for property-based testing. What we will not
@@ -632,7 +642,7 @@ well-designed?''}
 \bcp{This section needs to be clearer about expected outcomes /
   contributions of these studies.}
 
-\subsubsection{Proposed Work: Observations of PBT in Practice}
+\SUBSECTION{Proposed Work: Observations of PBT in Practice}
 \label{sec:observations}
 
 As noted above in the preliminary results from the interview
@@ -674,13 +684,13 @@ interviews.
 \bcp{This section should close with some kind of transition that
   launches us toward the next section.}
 
-\subsection{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
+\SECTION{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
 
 \bcp{...and this one should open with a continuation of the transition
 that suggests how these particular projects are motivated and informed
 by all the studies.}
 
-\subsubsection{Proposed Work: When to Specify It!}
+\SUBSECTION{Proposed Work: When to Specify It!}
 PBT is often described as a kind of lightweight formal method, and one
 might therefore imagine that a central challenge of using PBT would be
 coming up with the
@@ -718,7 +728,7 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 % \item Stateful APIs with well-understood contracts.
 % \end{itemize}
 
-\subsubsection{Proposed Work: Properties Over Logged Output}
+\SUBSECTION{Proposed Work: Properties Over Logged Output}
 One common problem raised by Jane Street developers (and even more loudly by the
 participants of the pilot study) was
 that code may not be abstracted
@@ -769,7 +779,7 @@ LTL properties are possible (it uses LTL to write properties about graphical
 user interfaces), and we will adapt those results to be useful for a much
 broader set of programs.
 
-\subsubsection{Proposed Work: Automating Model-Based PBT}
+\SUBSECTION{Proposed Work: Automating Model-Based PBT}
 Our studies have shown that a common pattern of PBT, especially for stateful
 APIs, is to implement a {\em model implementation} of the system under test, and
 then check that the two versions of the code agree on a series of API calls.
@@ -815,7 +825,7 @@ this project}
   ``building a little tool for JS'')...  The unwritten bits should
   help. :-)}
 
-\subsubsection{Proposed Work: Interactive Property Specification}
+\SUBSECTION{Proposed Work: Interactive Property Specification}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague
 and high level---I feel like technical readers will want a bit more meat.  Could
@@ -885,7 +895,7 @@ specification generators for OCaml?}\bcp{No, but there is a ton of
 follow-on work after QuickSpec (and related work before and
 after)---we should make sure to cite it coherently.}
 
-\subsection{Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
+\SECTION{Generation: Better Tools for Random Inputs \pagebudget{3}}\label{sec:gen}
 \hg{Half page over at the moment}\bcp{Made it a bit worse by moving
   the discussion of random vs. enumerative here... :-)}\bcp{And, just
   in terms of balance, spending 1.5 pages on context at this point
@@ -899,7 +909,7 @@ developers asked for better tools for constructing generators that accomplish
 their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
 
-\subsubsectionstar{Context: Why is Random Generation Hard?}%
+\subsection*{Context: Why is Random Generation Hard?}%
 Before presenting our proposed work to improve the state of random data
 generators, we must first discuss the major difficulties with random generation
 for PBT and the existing work that aims to address those difficulties.
@@ -951,7 +961,7 @@ by mimicking user-provided examples~\cite{soremekun2020inputs}.
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language...
 
-\subsubsectionstar{Context: Monadic Generators}
+\subsection*{Context: Monadic Generators}
 When writing generators manually, it helps to have a clean domain-specific
 language (DSL) for writing them down. In the Haskell language, where PBT was
 first popularized, many such DSLs are implemented using {\em
@@ -971,7 +981,7 @@ prevents usage errors (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them the perfect
 candidates for sophisticated manipulations and interesting generalizations.
 
-\subsubsection{Prior Work: Free Generators}
+\SUBSECTION{Prior Work: Free Generators}
 In order to improve monadic generation along the dimensions listed
 above, it helps to re-frame generators as {\em parsers of randomness}. A generator
 operates by making a series of random choices, but we can equivalently think of
@@ -1010,7 +1020,7 @@ generator to inputs that are more likely to be valid with respect to a given
 precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
-\subsubsection{Ongoing Work: Reflective Generators}
+\SUBSECTION{Ongoing Work: Reflective Generators}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project, which is already well underway, concerns monadic generators
@@ -1072,7 +1082,7 @@ generators to reflective ones. Additionally, we are confident that there are
 more use cases for reflective generators, which we discuss more in the following
 sections.
 
-\subsubsection{Proposed Work: Bringing Fuzzing into Focus}
+\SUBSECTION{Proposed Work: Bringing Fuzzing into Focus}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they both leverage randomized testing to quickly exercise as
 many program behaviors as possible.  One might then expect that the fuzzing and
@@ -1160,7 +1170,7 @@ generation, the PBT literature provides powerful tools like reflective
 generators for refining generator performance incrementally, and both
 communities benefit from generators with better distributions.
 
-\subsubsection{Proposed Work: Reflective Shrinking}
+\SUBSECTION{Proposed Work: Reflective Shrinking}
 A more modest application of reflective generators uses them to implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging. On its face, this feels similar to validity-preserving
@@ -1173,8 +1183,8 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
-\subsection{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
-\subsubsection{Ongoing Work: Empirically Evaluating PBT Tools}
+\SECTION{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
+\SUBSECTION{Ongoing Work: Empirically Evaluating PBT Tools}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
@@ -1184,7 +1194,7 @@ bridging to Jessica's paragraphs, linking in a theme from the intro}
 
 \hg{Jessica is going to write us a couple of paragraphs for this}
 
-\subsubsection{Proposed Work: Visualizing and Tuning Generator Distributions}
+\SUBSECTION{Proposed Work: Visualizing and Tuning Generator Distributions}
 \newcommand{\genvis}{GenVis}
 The work in \sectionref{sec:gen} will significantly improve the tools that
 users have at their disposal when designing and using random generators, but
@@ -1254,7 +1264,7 @@ features. We will evaluate \genvis{} in a small user study (~15 participants),
 hoping to learn which features of the tool are most useful, and how the design
 may be refined into a tool that real developers can use.
 
-\subsubsection{Proposed Work: Debugging Support for Understanding Counterexamples}
+\SUBSECTION{Proposed Work: Debugging Support for Understanding Counterexamples}
 
 Once a PBT tool generates a counterexample of where a property fails, a
 programmer will need to understand what in an input caused the program to fail.
@@ -1273,7 +1283,7 @@ community.} \amh{Good thinking!}
 \hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
 should make sure we don't step on toes}
 
-\subsubsection{Proposed Work: Integration with Continuous Integration Workflows}
+\SUBSECTION{Proposed Work: Integration with Continuous Integration Workflows}
 
 The pilot study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
@@ -1300,7 +1310,7 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
-\subsection{Education: Advancing Testing in the Broader Culture \pagebudget{1}}\label{sec:ed}
+\SECTION{Education: Advancing Testing in the Broader Culture \pagebudget{1}}\label{sec:ed}
 
 \hg{This isn't actually written, this is just starter stuff from my thesis
 proposal}
@@ -1328,11 +1338,11 @@ less well-developed unit testing instincts. Honestly I think this is a good
 thing, as it gives students more ways to succeed and it may re-enforce the value
 of PBT, but some may find this problematic.
 
-\subsection{Plan of Work \pagebudget{.7}}\label{sec:plan-of-work}
+\SECTION{Plan of Work \pagebudget{.7}}\label{sec:plan-of-work}
 
 \todo{(with a pretty pert chart or suchlike...)}
 
-\subsection{Broader Impacts \pagebudget{.5}}\label{sec:broader-impacts}
+\SECTION{Broader Impacts \pagebudget{.5}}\label{sec:broader-impacts}
 The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
 activities. Broader impacts may be accomplished through the research itself, through the activities that are
@@ -1346,7 +1356,7 @@ society; development of a diverse,globally competitive STEM workforce; increased
 academia, industry, and others; improved national security; increased economic competitiveness of the United
 States; and enhanced infrastructure for research and education.
 
-\subsection{Results from Prior NSF Support \pagebudget{.5}}
+\SECTION{Results from Prior NSF Support \pagebudget{.5}}
 If any PI or co-PI identified on the project has received NSF funding (including any current
 funding) in the past five years, in formation on the award(s) is required,
 irrespective of whether the support was directly related to the proposal or not.
@@ -1362,7 +1372,7 @@ none, state: ``No publications were produced under this award.'' {\bf Research P
 and their availability, including, but not limited to: data, publications, samples, physical collections, software,
 and models, as described in any Data Management Plan.
 
-% \subsubsection{Proposed Study}
+% \SUBSECTION{Proposed Study}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:
 % objectives for the period of the proposed work and expected significance; relation to longer-term goals of the PI's
 % project; and relation to the present state of knowledge in the field, to work in progress by the PI under other
@@ -1377,7 +1387,7 @@ and models, as described in any Data Management Plan.
 % make broader contributions.
 
 \iflater
-\subsectionstar{More stuff to not forget :-)}
+\section*{More stuff to not forget :-)}
 
 Unfunded collaborations: Any substantial collaboration with
 individuals not included in the budget should be described in the

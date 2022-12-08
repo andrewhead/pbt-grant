@@ -22,30 +22,44 @@
 \RequirePackage{titlecaps}
 
 \RequirePackage[explicit]{titlesec}
-% \titleformat{\section}{\Large\bfseries\filcenter}{}{0pt}%
-%                    {\titlecap{#1}\\\rule{\textwidth}{0.4pt}}
-\titleformat{\section}{\Large\bfseries}{}{0pt}{%
-  \thetoplevelsection.
-  \ \
-  #1}
-\titleformat{\subsection}{\large\bfseries}{}{0pt}{%
-  \thetoplevelsection \arabic{subsection}.
-  \ \
-  #1}
-\newcommand{\subsectionstar}[1]{{\bigskip\large\bfseries\noindent#1} \par
-  \medskip\noindent \ignorespaces}
-\titleformat{\subsubsection}{\bfseries}{}{0pt}{%
-  D\arabic{subsection}.\arabic{subsubsection}.
-  % \makeatletter\def\@currentlabel{FOO}\makeatother
-  %   D\arabic{subsection}.\arabic{subsubsection}.
-  \ \
-  #1}
-\newcommand{\subsubsectionstar}[1]{{%
-    \medskip\bfseries\noindent{#1}%
-    \par\smallskip\noindent\ignorespaces}}
-%\titlespacing*{\section}{0pt}{0.5em}{0.3pt}
-%\titlespacing*{\subsection}{0pt}{0.35em}{0pt}
-%\titlespacing*{\subsubsection}{0pt}{0.25em}{0pt}
+% % \titleformat{\section}{\Large\bfseries\filcenter}{}{0pt}%
+% %                    {\titlecap{#1}\\\rule{\textwidth}{0.4pt}}
+% \titleformat{\section}{\Large\bfseries}{}{0pt}{%
+%   \thetoplevelsection.
+%   \ \
+%   #1}
+% \titleformat{\subsection}{\large\bfseries}{}{0pt}{%
+%   \arabic{subsection}.
+%   \ \
+%   #1}
+% \newcommand{\subsectionstar}[1]{{\bigskip\large\bfseries\noindent#1} \par
+%   \medskip\noindent \ignorespaces}
+% % \titleformat{\subsubsection}{\bfseries}{}{0pt}{%
+% %   D\arabic{subsection}.\arabic{subsubsection}.
+% %   \makeatother
+% %   [CurrentLabel=\makeatletter\@currentlabel\makeatother]
+% %   %   D\arabic{subsection}.\arabic{subsubsection}.
+% %   \ \
+% %   #1}
+% \newcommand{\subsubsectionstar}[1]{{%
+%     \medskip\bfseries\noindent{#1}%
+%     \par\smallskip\noindent\ignorespaces}}
+% %\titlespacing*{\section}{0pt}{0.5em}{0.3pt}
+% %\titlespacing*{\subsection}{0pt}{0.35em}{0pt}
+% %\titlespacing*{\subsubsection}{0pt}{0.25em}{0pt}
+
+% \newcounter{SECTION}
+% \newcounter{SUBSECTION}[SECTION]
+
+% \newcommand{\SECTION}[1]{%
+%   \refstepcounter{SECTION}
+%   \section*{D\arabic{SECTION}: #1}
+% }
+% \newcommand{\SUBSECTION}[1]{%
+%   \refstepcounter{SUBSECTION}
+%   \subsubsection*{D\arabic{SUBSECTION}: #1}
+% }
+
 
 \renewcommand{\title}[1]{\begin{center}\LARGE\bfseries{#1}\end{center}}
 
