@@ -47,7 +47,7 @@ PBT's combination of rich, high-level specification with easy, mostly
 automatic validation has proved effective at identifying subtle
 bugs in telecommunications software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
-stores~\cite{Bornholt2021}, car software~\cite{arts2015testing}, and a range
+stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}. With support
 now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
@@ -55,18 +55,19 @@ industry---for example, the developers of the Hypothesis library for
 Python estimate that it has on the order of half a million
 users~\cite{ZacPersonalCommunication}.
 
-\newcommand{\participant}[1]{{\bf P#1}}
+\newcommand{\participant}[1]{{P#1}}
+% \newcommand{\participant}[1]{{\bf P#1}}
 
 After all these successes, one might wonder if the research community has already
-addressed all of the challenges that might significantly limit PBT's adoption
+addressed all of the challenges that could limit PBT's adoption
 in the broader software industry, but it
 seems the answer is no.
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
 at Jane Street Capital, we found
 consistent enthusiasm for PBT---participants called it it
-``obviously valuable'' [\participant{1}]\footnote{Throughout this proposal,
-\participant{n} refers to the $n$th participant in our Jane Street study.},
-built their own libraries for it when none were available [\participant{8},
+``obviously valuable'' [Participant \participant{1}],
+built their own libraries for it when standard ones were not available in their
+development context [\participant{8},
 \participant{21}], and suggested that ``everyone'' at the company should use it
 [\participant{20}]. But we also found
 % \jsquote{28}{If you’re trying to build something that needs to be
@@ -86,7 +87,7 @@ to identify all the situations where properties are readily accessible for
 testing,
 %
 (b) they complain that it
-is sometimes difficult to write random generators for data structures
+can be difficult to write random generators for data structures
 with complex invariants or to tune generator distributions to
 adequately explore the space of interesting test cases,
 %
@@ -98,17 +99,18 @@ effectively testing their software, and
 the paucity of educational and training materials for introducing
 newcomers to PBT.\iflater\bcp{All that needs final tuning.}\fi
 
-Solutions to these challenges, much like the study that helped us to
-identify them, will demand insights from both the programming languages (PL) and
+Solutions to these challenges will demand insights from both the
+programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
 pain points'' with tools that ``help [programmers] write safe and correct
-programs.'' We whole-heartedly agree.
+programs.'' We wholeheartedly agree.
 
-We propose here a comprehensive, interdisciplinary research program that will
-bring the combined power of PL and HCI approaches to bear, creating a
-blueprint for future PBT theory and practice.
+We propose a comprehensive, interdisciplinary research program that
+will bring the combined power of PL and HCI approaches to bear,
+accelerating PBT's transition into practice\iflater\bcp{do we need
+  this?} and creating a blueprint for further research\fi.
 % BCP: I really think this is not needed (readers will figure it out),
 % and it weakens the rhetorical punch:
 %   After an orientation to
@@ -122,16 +124,17 @@ Motivation discussion in the first bullet?  (I'm still not so worried
 about this, though.))}\fi
 \begin{itemize}[noitemsep]
   \item
-  Our motivating study (described later in this section) is just the first step
-  of our formative research.
-  We will further explore gaps in the present understanding of the
-  challenges PBT faces in
-  industry by conducting additional formative user
-  studies (\sectionref{sec:foundation}).
+  Our ongoing study (described in more detail below) is
+  just the first step in our formative research.
+  We will further explore the challenges PBT faces in
+  industry by conducting three additional
+  studies---two survey studies and one observation study of
+  PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will address challenges in property specification by developing a
   conceptual framework of high-impact PBT use cases, along with tools that
   enhance PBT in common use-cases like model-based testing and extend that set
-  of use cases with the ability to write properties over logged output (\sectionref{sec:spec}).
+  of use cases with the ability to write properties over logged output
+  (\sectionref{sec:spec}).
   \item We will address challenges in test-case generation with new
   domain-specific languages for expressing generators that enable novel
   algorithms for PBT tasks like generation of precondition-satisfying values,
@@ -289,19 +292,19 @@ sub-structures rather than systematically enumerating test inputs
 beginning with the smallest ones.
 
 From the perspective of a user, applying PBT happens in a series of steps:
-\begin{enumerate}[noitemsep]
-  \item Define one or more properties that should be true of the program under
+(1) Define one or more properties that should be true of the program under
   test.
-  \item Design (or otherwise obtain) {\em random input generators} for the
+(2) Design (or otherwise obtain) {\em random input generators} for the
   values that the properties take as input.
-  \item Check the properties with generated inputs, using infrastructure
+(3) Check the properties with generated inputs, using infrastructure
   provided by the PBT framework.
-  \item If counter-examples are found, make sense of them and determine the
+And (4) if counter-examples are found, make sense of them and determine the
   source of the bug.
-\end{enumerate}
 Each of these steps presents opportunities to improve the user experience of
-PBT; when applicable, we will make it clear which of our projects targets which
-of these steps.\todo{Do that?}
+PBT, as we shall see below.
+% How's that?
+% ; when applicable, we will make it clear which of our projects targets which
+% of these steps.\todo{Do that?}
 
 \bcp{This is also the place to make our strongest argument for
   potential impact: Why is PBT so much better than standard unit and
