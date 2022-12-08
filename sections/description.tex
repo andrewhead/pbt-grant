@@ -454,6 +454,10 @@ design new algorithms and interactive tools that better support those tasks
 \subsubsection{Ongoing Work: Need-Finding Interviews with Jane Street Developers}
 \label{sec:interviews}
 
+\amh{I attempted to fix conflicting verb tenses to better reflect what
+we now have done (i.e., we have finished conducting the interviews). This still 
+reads a bit clunky, and the text would probably benefit from some smoothing.}
+
 We will begin our need-finding work by interviewing developers who can shed
 light into how PBT is already being used, and obstacles in its use. Interview
 studies are common in early-stage need-finding research, due to their ability
@@ -462,19 +466,18 @@ accomplish, and the tools they use to accomplish them. The purpose of these
 interviews is to identify a broad set of opportunities for improving PBT tools,
 grounded in concrete, authentic, detailed stories from developers.
 
-\textbf{Method}. Semistructured interviews will be conducted with
-approximately 30 developers.\bcp{The verb tenses in this section are a
-  bit confusing---we need to make sure not to seem to be implying that
-  already-done things are actually yet to be done.} Questions will
-focus on tasks these developers wish to accomplish with PBT tools, and
-around developers' recollections of what it was like to work with PBT
-tools to accomplish these tasks.
+\textbf{Method}. We conducted semistructured interviews with
+approximately 30 developers. Questions focused on tasks these developers wish to 
+accomplish with PBT tools, and developers' recollections of what it was like to 
+work with PBT tools to accomplish these tasks.
 
-\textbf{Population}. Ideally, these interviews would involve both current users
+\textbf{Population}. Ideally, these interviews would have included both current 
+users
 of PBT as well as non-users of PBT. In reality, it is difficult to recruit and
-have meaningful conversations with non-users of a technology. We plan to
-recruit users across as broad a spectrum of usage as we can reasonably recruit,
-including both frequent users of PBT technologies, as well as a handful of
+have meaningful conversations with non-users of a technology. Our strategy was
+to recruit across as broad a spectrum of usage as could be reasonably recruited
+at our partner institution, including both frequent users of PBT technologies, 
+as well as a handful of
 developers who have had only limited, occasional exposure to PBT. Our survey
 study (\sectionref{sec:survey}) aims to establish contact with a broader
 sample of non-users of PBT to assess opportunities for making PBT tools more
@@ -490,9 +493,9 @@ tools and type systems~\cite{goldstein2022some}.
 \iflater\bcp{This will need to be tuned in light of ewhatever we say
   in the Motivation section.}\fi
 We have since established a collaboration with Jane Street, LLC (see
-attached letter of support), with whom we will conduct an expanded
-interview study. To date, through this collaboration we have already conducted
-27 of 30 interviews, including both developers who have had exposure to PBT as
+attached letter of support), with whom we have begun the expanded interview
+study. Interviews have been conducted with 30 stakeholders, including both 
+developers who have had exposure to PBT as
 well as developers of PBT tools. Our interview process has included an on-site
 visit where we collected feedback on our evolving conceptual framework of the
 needs and opportunities we have discerned around PBT tools.
@@ -601,49 +604,42 @@ a way that we get a convincing answer to our question of
 well-designed?''}
 
 \bcp{This section needs to be clearer about expected outcomes /
-  contributions of these studies.}
+  contributions of these studies.} \amh{Are we any closer to hitting the mark on 
+clarity of expected outcomes / contributions with this expanded text?}
 
 \subsubsection{Proposed Work: Observations of PBT in Practice}
 \label{sec:observations}
 
-As noted above in the preliminary results from the interview
-study, developers could benefit from support in numerous
-tasks, including designing, implementing, and evaluating
-generators, as well as evaluating test results (i.e.,
-debugging counterexamples, fixing them, and incorporating
-counterexamples into regression tests). In reality,
-participant anecdotes from interviews are often not enough
-to inform good tool designs.\ldots{} \amh{Describe factors
-that we will observe that will be important to understand
-what makes a good design. Share the example of evaluating
-the results of a generator. How much time will a user devote
-to the task? How much are they willing to iterate on the
-generator? How much space can be taken up on the screen
-while still allowing programmers to reference their code and
-debugging applications. What kinds of representations seem
-to lead to ``a-ha'' moments about generator distributions?
-These are the types of questions we seek to answer. The
-design of each of the tools described in Section D\# will
-begin with observations of developers undertaking the
-respective PBT tasks we seek to improve (on the order of a
-small handful, i.e., 2--10 observation sessions) to help us
-develop a clear picture of developer's process, and in
-particular the contextual factors that we should use to
-limit the available set of designs.}
-
-The next step is to more deeply characterize the obstacles faced with specific
-tools and tasks through close observation. We anticipate conducting observations
-of participants formulating properties and creating generators, as we expect
-that close observation of developers performing these tasks will yield yet
-additional detail about ways that developers are supported and not supported by
-the tools they use today to a level of depth we will not achieve with the
-interviews.
+As noted above in the preliminary results from the interview study, developers 
+could benefit from support in tasks including the design, implementation, and 
+evaluation of generators, and debugging and addressing counterexamples. It is 
+often the case that anecdotes arising from interviews do not, in and of 
+themselves, provide enough information to inform what it means to design 
+effective tools to address them. Details that are often missing from interviews 
+include questions like: (1) How much time are participants willing to devote to 
+a task like creating a generator or debugging a counterexample when in the 
+middle of a programming task? (2) How much space is available on a developer's
+screen (amidst other tools like code editors and terminals) for introducing new 
+tools? (3) What are developers' current strategies for solving these problems 
+(for example, what representations of generated data currently seem most helpful 
+for programmers trying to under the distributions of data generated by a 
+generator? Prior to designing tools with a substantial novel interface 
+component, we will observe developers undertaking the respective PBT tasks we 
+aim to support, on the order of a small handful of developers (i.e., 2--10 
+observation sessions). These observation sessions will allow us to evolve what 
+are singular anecdotes from the interviews into a more comprehensive picture of 
+what kinds of designs will be viable for helping programmers in the moment.
 
 \bcp{Again, we need to explain the expected contributions---what end
   does ``characterizing obstacles'' serve.}
 
 \bcp{This section should close with some kind of transition that
-  launches us toward the next section.}
+  launches us toward the next section.} \amh{How about the below?}
+
+Together, these studies will provide a firm foundation for the remaining
+research activities, in the form of a validated and prioritized set of developer 
+needs for PBT tools, a detailed set of requirements for how tools should be 
+redesigned to best satisfy the most important of those needs.
 
 \subsection{Specification: Widening the On-Ramp \pagebudget{2}}\label{sec:spec}
 
