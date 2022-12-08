@@ -694,29 +694,40 @@ One common problem raised by Jane Street developers (and even more loudly by the
 participants of the pilot study) was
 that code may not be abstracted
 in a way that is conducive to PBT. Indeed, any kind of unit
-testing\bcp{is PBT a kind of unit testing??} requires
+testing\footnote{Many applications of PBT fall under the broad umbrella of unit
+testing, in that they test individual software ``units'' rather than integrated
+programs.}\bcp{is PBT a kind of unit testing??}\hg{In this sense I really think
+it
+is... Unit testing is testing of software ``units'' as opposed to integration
+testing which tests the whole thing. I don't really know how else to say this} requires
 that the programmer be able to extract some ``unit'' of code to test, but PBT is
-especially sensitive to things like poorly handled global state and fuzzy
-abstraction boundaries\bcp{why?}. Fuzzers \todo{I think we need to
-  intro fuzzers in the
-beginning; I've mentioned them a bunch already}\bcp{Yes: in the
-Orientation section, I guess?  This will be important for getting
-non-PBT people on the same page as us.} get around these issues by
+especially sensitive to things like poorly handled global state (which may
+impact the repeatability of testing) and fuzzy
+abstraction boundaries (which muddy logical specifications). Fuzzers \todo{I
+think we need to intro fuzzers in the beginning; I've mentioned them a bunch
+already}\bcp{Yes: in the Orientation section, I guess?  This will be important
+for getting non-PBT people on the same page as us.}\hg{Probably, yeah. I have an
+intro for it somewhere, we just need to hoist it} get around these issues by
 testing the code from the outside---they do not care about internal
 abstractions, only the external interface---but that usually comes at the
 expense of expressive properties.
 
-We hypothesize a solution that enables better PBT of messy
-code\bcp{why only of messy code?} without giving
+We hypothesize a solution that enables better PBT,
+especially in messy programs that do not have clean abstraction boundaries,
+without giving
 up expressiveness: inject logging calls into the code under test, and write
 properties over the logs that the code produces. For example, if the developer
 knows about some invariant on a variable \lstinline{x}, they can log out the
-value of \lstinline{x} every time it is set\bcp{manually?}, and then check that the logged
-values satisfy the invariant. Even better, if the invariant applies over time
-(e.g., the value of \lstinline{x} should never decrease) properties over logs
-could capture that too. This would be difficult to do with debug assertions\bcp{why?},
-especially if performance is a concern\bcp{can't it just be turned
-  off in production if performance is a concern?}.
+value of \lstinline{x} every time it is set, and then check that the logged
+values satisfy the invariant. We plan to use meta-programming to automate this
+process, so a user need only mark the variable to log its updates. Another
+useful property over logs concerns
+invariants that applies over time (e.g., the value of \lstinline{x} should
+never decrease).
+This would be difficult to do with debug assertions, since state would need to
+be kept for arbitrary amounts of time between variable updates; setting up such
+state may itself require some error-prone restructuring of the code, especially
+if the debug state should be compiled away in release builds.
 
 Concretely, we propose a framework for inserting lightweight test-logging and a
 language for writing properties over those logs. The logging itself is a matter
@@ -726,11 +737,8 @@ should be written in a temporal logic like {\em linear temporal logic} (LTL) so
 they can make complex assertions about the way past and future values interact.
 The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown that
 LTL properties are possible (it uses LTL to write properties about graphical
-user interfaces), but making them work well for a broader range of scenarios is
-an exciting research challenge.
-
-\bcp{Identifying a challenge is fine, but can we be clearer about the
-  contribution that our proposed tool will make?}
+user interfaces), and we will adapt those results to be useful for a much
+broader set of programs.
 
 \subsubsection{Proposed Work: Automating Model-Based PBT}
 Our studies have shown that a common pattern of PBT, especially for stateful
@@ -931,9 +939,8 @@ kinds of inputs that the program is likely to see.
 {\em Distributional Concerns.}
 And {\em even} with validity and realism accounted for, there are other ways for
 generators to under-perform. In particular, the spaces of inputs that generators
-target is often very large, and the best generators explore the whole\bcp{?!?}
-space as
-quickly as possible. This often (but not always) leads users to manually tune
+target is often very large, and the best generators explore as much of the space
+as possible, as quickly as possible. This often (but not always) leads users to manually tune
 the weights on generators' choices to ensure that the generator does not spend
 too much time in one part of the space or another.
 
@@ -971,13 +978,13 @@ non-pure languages, some libraries (e.g., in OCaml) still use monadic
 abstractions to build their generator DSLs.
 
 Monadic generators implement random data producers of arbitrary complexity
-(e.g., it is possible to write a monadic generator for well-typed System F
-terms\bcp{citation? or maybe mention Haskell and C programs instead}), so they are often more expressive than other representations like
-grammar-based generators.  Yet monadic generators are syntactically constrained
-in a way that isolates the probabilistic code and prevents usage errors (like
-passing the wrong random seed around). As we will see, the constrained nature of
-monadic generators also makes them the perfect candidates for sophisticated
-manipulations and interesting generalizations.
+(e.g., it is possible to write a monadic generator for Haskell
+programs~\cite{palka_testing_2011}), so they are often more expressive than
+other representations like grammar-based generators.  Yet monadic generators are
+syntactically constrained in a way that isolates the probabilistic code and
+prevents usage errors (like passing the wrong random seed around). As we will
+see, the constrained nature of monadic generators also makes them the perfect
+candidates for sophisticated manipulations and interesting generalizations.
 
 \subsubsection{Prior Work: Free Generators}
 In order to improve monadic generation along the dimensions listed
