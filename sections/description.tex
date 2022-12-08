@@ -375,12 +375,14 @@ quantitative algorithms, networked systems, and hardware description
 code~\cite{signalsandthreads}, so our study participants come a wide
 variety of experiences and requirements.
 
-The study consists of semi-structured interviews, exploring
+The study format is semi-structured interviews exploring
 developers' experiences and impressions of PBT. At the time of
 writing, the full complement of 30 interviews and a preliminary round
-of analysis have been completed, but full-scale analysis has not yet
+of analysis have been completed; full-scale analysis has not yet
 begun. For more details on the study parameters and the current state
-of the project, see \sectionref{sec:foundation} below.
+of the project, see \sectionref{sec:foundation} below.  \bcp{Is it
+  actually useful to split this discussion between here and
+  \sectionref{sec:foundation}??}
 
 \subsectionstar{Preliminary Themes} The main theoretical output from
 this qualitative study will be a collection of themes that summarize
@@ -406,16 +408,16 @@ study~\cite{PilotHypothesisStudy}\iflater\bcp{Is this the first
 we actually heard very little about difficulties coming up with
 properties; rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or quite easy to imagine. This suggests a more effective way
-to approach education and documentation around PBT, focusing on
+available or quite easy to imagine. This suggests that an effective way
+to approach education and documentation around PBT may be to focus on
 ``opportunistic'' applications of PBT as an easy on-ramp.
-
+%
 % But while focusing on easy applications of PBT may be helpful for education and
 % adoption, it feels disappointing\bcp{blah} from a research perspective. Luckily,
 
 Our interviews also identified several \proptheme{Opportunities for
   Better Leverage}---situations where PBT is not easy {\em yet}, but
-where it could be with a little more research effort.\bcp{Quick
+could be with a little more research effort.\bcp{Quick
   examples?} Furthermore, participants spoke at length about one
 particular kind of PBT they do often, commonly called
 \proptheme{Model-Based Testing}. Model-based testing is not so much a
@@ -436,9 +438,9 @@ failed, participants fell back to standard \gentheme{Bespoke
 are far more flexible but proportionally more time consuming to design
 and work with. There is significant room for improvement here.\bcp{A
   bit of detail, and a forward reference?}
-%
-Finally, if a generated input is deemed to be a {\em counter-example} for a
-property, highlighting a bug in the code, it should needs to be easy to use that
+
+If a generated input is deemed to be a {\em counter-example} for a
+property, highlighting a bug in the code, it needs to be easy to use that
 input to determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
 provokes a given bug, is a critical part of the PBT process.\bcp{Also
@@ -447,24 +449,26 @@ provokes a given bug, is a critical part of the PBT process.\bcp{Also
 
 The final category of themes concerns the {\bf evaluation} of testing
 effectiveness. In
-general, it can be difficult to know when ``enough is enough'' when it
-comes to any sort of
-testing. In standard unit testing, developers sometimes worry that test number
-$n + 1$ would be the one that catches the bug; PBT does make it possible to to
+general, with any sort of
+testing, it can be difficult to know when ``enough is enough.'' In
+standard unit testing, for example, developers may worry that test number
+$n + 1$ will be the one that catches a bug; PBT does make it possible to to
 automatically generate that one extra test, but one still has to decide when to
-stop. This tension lead participants to a variety of conclusions around
-\evaltheme{Budgeting Time for PBT}: most run PBT for a few seconds, expecting
+stop. This tension leads to a variety of approaches to
+\evaltheme{Budgeting Time for PBT}: most of our interviewees run PBT
+testing just for a few seconds per property, expecting
 that the bulk of the necessary testing is done in hundreds or up to around a
 thousand examples, but some run PBT for much longer. Interestingly, the opposite
 is true about a close cousin of PBT, fuzz testing. Participants who used both
-PBT and fuzzing tools ran the fuzzers for far longer (some for up to a year!).
+PBT and fuzzing tools ran the fuzzers for far longer (some for up to a CPU-year!).
 
-It may be easier for developers to make informed decisions about testing time if
+It would be easier for developers to make informed decisions about
+time budgets for testing if
 they had better access to feedback about how well their testing is doing.
-Indeed, \evaltheme{Evaluation of Effectiveness} was a central theme of our
-conversations. There are many forms this feedback could take, from code coverage
-to input space coverage, and even things like {\em mutation
-testing}~\cite{papadakis_mutation_2018}; we hope to explore the user experience
+Indeed, \evaltheme{Evaluation of Effectiveness} turned out to be a common theme of our
+conversations. There are many forms such feedback could take, from
+code coverage to input space coverage measurements and even strategies like {\em mutation
+testing}~\cite{papadakis_mutation_2018}; we hope\bcp{plan?} to explore the user experience
 around many of these avenues.
 
 \todo{Probably add quotes and stuff here to make this more
