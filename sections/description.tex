@@ -749,6 +749,9 @@ user interfaces), and we will adapt those results to be useful for a much
 broader set of programs.
 
 \SUBSECTION{Proposed Work: Automating Model-Based PBT}
+\hg{Plan: reverse this section. Start with MBT, then discuss the ML module
+system, and then discuss a theory-based approach to make that automatically
+testable}
 Our studies have shown that a common pattern of PBT, especially for stateful
 APIs, is to implement a {\em model implementation} of the system under test, and
 then check that the two versions of the code agree on a series of API calls.
@@ -786,13 +789,7 @@ that are compatible with OCaml, the language that almost all of their developers
 are the most comfortable with. Working within the OCaml ecosystem will mean that
 we can quickly find technical or usability issues with the tools we build. The
 other reason, though, is technical interest. ML modules are extremely
-expressive and fairly complicated. This gives us a number of complex problems to
-solve: for example, \todo{Maybe have Joe look at this section. He really likes
-this project}
-
-\bcp{This all needs to sound more like research (as opposed to
-  ``building a little tool for JS'')...  The unwritten bits should
-  help. :-)}
+expressive and fairly complicated.
 
 \SUBSECTION{Proposed Work: Interactive Property Specification}
 
@@ -1273,6 +1270,20 @@ long term. (Can we flesh out just how big a field we feel this is?)}
 
 \SUBSECTION{Proposed Work: Understanding Failures}
 
+The first task is to figure out what kind of error this is.
+Is it a parsing error? Is it an off-by-one error? You can
+determine this from the input if it is of manageable size.
+
+Interactive shrinking? Have someone edit the input, and then
+ask for more inputs like the manually shrunk input. A more
+structural interface to editing the input may be easier than
+using a console. Can you do tuning of the generator to the
+shape of a hyper-specific input?
+
+Rapid, incremental, interactive shrinking of inputs. The
+main feedback is just a check or an "ex" determining whether
+the test still fails.
+
 Once a PBT tool generates a counterexample of where a property fails, a
 programmer will need to understand what in an input caused the program to fail.
 This task can be rather challenging because generated inputs can be complex,
@@ -1398,6 +1409,24 @@ them review individual examples, given that you need to see specific examples to
 know that a generator is creating the right kind of data.}
 
 \SUBSECTION{Proposed Work: Tuning Input Data Distributions}
+
+Can someone take a bar on a graph, manipulate that bar, and
+then use reflective generators to increase that bar. (Tune
+the reflective generator to weight certain decisions). We
+can do this in some circumstances. [Andrew thinks we should
+lead into this idea as much as possible, because it relates
+to our secret superpower of novel kinds of generators, and
+sounds really cool.]
+
+And often, developers do not filter out repeated tests of
+unimportant conditions. In this case, even if you cannot
+reparameterize a reflective generator, simply filtering out
+those data instances before running them through the test
+would lead to performance improvements.
+
+Convey during this latter kind of tuning the discard rate of
+inputs, which might help the developer decide when it's time
+to invest in rewriting their generator.
 
 \SUBSECTION{Proposed Work: Assessing Testing Effectiveness}
 
