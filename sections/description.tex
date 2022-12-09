@@ -426,7 +426,8 @@ notes, and these form the backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
-\newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}} One set of
+\newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
+One set of
 themes revolves around the {\bf specifications} that developers test.
 % and the kinds of programs in which they choose to test them.
 Since
@@ -436,50 +437,68 @@ right specifications. Indeed, a smaller pilot study of PBT users in
 Python that we ran to prepare for the Jane Street
 study~\cite{PilotHypothesisStudy}\iflater\bcp{Is this the first
   mention of the pilot study?  If not, move this citation earlier and
-  no need for it here.}\fi{} concluded just that. But at Jane Street
+no need for it here.}\hg{How do we cite this? HATRA is non-archival}\fi{}
+concluded just that. 
+  But at Jane Street
 we actually heard very little about difficulties coming up with
 properties; rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or quite easy to imagine. This suggests that an effective way
-to approach education and documentation around PBT may be to focus on
+available or quite easy to imagine.  For example, \participant{9} pointed out
+that PBT is particularly easy to apply when one has ``a really good abstraction
+with a complicated implementation.''
+Participants who were willing to speculate (\participant{3}, \participant{15},
+\participant{20}, \participant{22}) guessed that 80--100\% of Jane Street
+developers write programs like this, where properties are easy to find, and
+where PBT is relatively easy to apply.  This suggests that an effective way to
+approach education and documentation around PBT may be to focus on
 ``opportunistic'' applications of PBT as an easy on-ramp.
-%
-% But while focusing on easy applications of PBT may be helpful for education and
-% adoption, it feels disappointing\bcp{blah} from a research perspective. Luckily,
 
-Our interviews also identified several \proptheme{Opportunities for
-  Better Leverage}---situations where PBT is not easy {\em yet}, but
-could be with a little more research effort.\bcp{Quick
-  examples?} Furthermore, participants spoke at length about one
-particular kind of PBT they do often, commonly called
-\proptheme{Model-Based Testing}. Model-based testing is not so much a
-scenario in which to apply PBT as it is a technique for using it, but
-the interviews have given us ideas for how to improve model-based
-testing in a way that may make PBT easier in some situations.
-\bcp{huh?}
-\bcp{Maybe add a forward reference to \sectionref{sec:gen}?}
+Our interviews also identified several \proptheme{Opportunities for Better
+Leverage}---situations where PBT is not easy {\em yet}, but could be with a
+little more research effort. For example, \participant{7} spoke about trying to
+test a poorly-abstracted program (which are notoriously resistant to PBT) by
+writing properties about output it prints to the terminal; we plan to
+operationalize this approach.
+Furthermore, more than 75\% of study participants did a
+particular kind of PBT, commonly called
+\proptheme{Model-Based Testing}. Model-based testing is not so much a scenario
+in which to apply PBT as it is a technique for using it, but participants like
+\participant{3} thought that better automation and tooling around model-based
+testing could make PBT significantly easier to pick up and use.
+
+We discuss plans for work that addresses specification themes in \sectionref{sec:spec}.
 
 Another set of themes concerns the {\bf generation} of
 random inputs for property-based testing. Many participants spoke
-highly of the \gentheme{Derived Generators} that can be inferred from the type system.
+highly of the \gentheme{Derived Generators} that can be inferred from the type
+system (\participant{5} called OCaml's tools for this ``f***ing amazing''\hg{I
+really like the impact of this quote, but I'm open to cutting it or finding a
+better way to present it (e.g., ``[expletive] amazing'' or I guess just ``amazing'')}
+and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
 discussed both small (e.g., API quirks) and large (e.g., derived generators
 cannot enforce semantic preconditions) deficiencies. When derived generators
-failed, participants fell back to standard \gentheme{Bespoke
-  Generators}, which
-are far more flexible but proportionally more time consuming to design
-and work with. There is significant room for improvement here.\bcp{A
-  bit of detail, and a forward reference?}
+failed, participants fell back to standard \gentheme{Bespoke Generators}, which
+are far more flexible but proportionally more time consuming to design and work
+with. For example, \participant{20} found important bugs with a generator for XML documents,
+but they reported spending ``at least a day'' writing it. We are confident
+that improving the abstractions available for writing bespoke generators can
+greatly improve both the experience of using PBT and its potential for
+bug-finding.
 
-If a generated input is deemed to be a {\em counter-example} for a
-property, highlighting a bug in the code, it needs to be easy to use that
-input to determine the root cause of the bug. The interviews made clear that
+If a generated input is deemed to be a {\em counter-example} for a property,
+highlighting a bug in the code, it needs to be easy to use that input to
+determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
-provokes a given bug, is a critical part of the PBT process.\bcp{Also
-  that there are problems to solve there?  (Otherwise, why are we
-  mentioning it?)}
+provokes a given bug, is a critical part of the PBT process.  \participant{8}
+and \participant{21}, who each needed to implement their own PBT libraries, both
+made sure to include shrinkers in their implementations. Unfortunately, getting
+shrinking right, especially for values that must satisfy preconditions, is
+difficult.
 
-The final category of themes concerns the {\bf evaluation} of testing
+We discuss plans for work that addresses generation themes in \sectionref{sec:gen}.
+
+The final category of themes concerns the {\bf validation} of testing
 effectiveness. In
 general, with any sort of
 testing, it can be difficult to know when ``enough is enough.'' In
@@ -491,31 +510,24 @@ stop. This tension leads to a variety of approaches to
 testing just for a few seconds per property, expecting
 that the bulk of the necessary testing is done in hundreds or up to around a
 thousand examples, but some run PBT for much longer. Interestingly, the opposite
-is true about a close cousin of PBT, fuzz testing. Participants who used both
-PBT and fuzzing tools ran the fuzzers for far longer (some for up to a CPU-year!).
+is true about a close cousin of PBT, fuzz testing. Participants like
+\participant{14} and \participant{20}, who used both
+PBT and fuzzing tools, ran the fuzzers for far longer
+% HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
+(some for up to a year!).
 
 It would be easier for developers to make informed decisions about
 time budgets for testing if
 they had better access to feedback about how well their testing is doing.
 Indeed, \evaltheme{Evaluation of Effectiveness} turned out to be a common theme of our
-conversations. There are many forms such feedback could take, from
-code coverage to input space coverage measurements and even strategies like {\em mutation
-testing}~\cite{papadakis_mutation_2018}; we hope\bcp{plan?} to explore the user experience
-around many of these avenues.
+conversations.
+There are many forms such feedback could take, from code coverage (requested by
+\participant{9} and \participant{25}) to input space coverage measurements
+(requested by \participant{10}, \participant{16}, and \participant{16}) and even
+strategies like {\em mutation testing}~\cite{papadakis_mutation_2018}; we plan
+to explore the user experience around many of these avenues.
 
-\todo{Probably add quotes and stuff here to make this more
-  interesting}\bcp{Maybe.  But we don't have space for too many.  (I
-  guess if we don't format them in their own fboxes, we can fit more
-  of them!)}
-
-\iflater
-\bcp{I think this can be cut?}What remains for this project is another
-approximately 2 months of Ph.D.  student work, including conducting
-the remaining interviews, performing in-depth qualitative analysis of
-the data following a thematic analysis approach~\cite[Chapter
-5]{blandford2016qualitative}, and preparing a manuscript for
-submission to OOPSLA.
-\fi
+We discuss plans for work that addresses validation themes in \sectionref{sec:val}.
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -530,7 +542,7 @@ properties as a source of documentation.}
 \fi
 
 % \todo{Debugging doesn't really fit here...}
-
+\hg{What else does this need? Does it work?}
 
 \SECTION{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
 
@@ -715,10 +727,8 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.  Fuzzing tools get around these issues by
 testing code ``from the outside''---they do not care about internal
-abstractions, only external interfaces---but this usually comes at the
-expense of expressive properties.  \bcp{``but this usually comes at the
-expense of expressive properties''---spell out what this means and why
-it is so.}
+abstractions, only external interfaces---but this necessarily limits their
+ability to test complex properties that concern internal values and invariants.
 
 We hypothesize a solution that enables better PBT,
 especially in messy programs that do not have clean abstraction boundaries,
@@ -749,9 +759,6 @@ user interfaces), and we will adapt those results to be useful for a much
 broader set of programs.
 
 \SUBSECTION{Proposed Work: Automating Model-Based PBT}
-\hg{Plan: reverse this section. Start with MBT, then discuss the ML module
-system, and then discuss a theory-based approach to make that automatically
-testable}
 Our studies have shown that a common pattern of PBT, especially for stateful
 APIs, is to implement a {\em model implementation} of the system under test, and
 then check that the two versions of the code agree on a series of API calls.
@@ -762,8 +769,22 @@ model-based PBT harness for at least three different projects; implementing each
 of those harnesses took significant developer time and slowed down the testing
 process.
 
-We propose new, type-based automation for model-based testing of ML-style
-modules. This automation will take a model signature, for example
+The APIs that the Jane Street developers tested came in the form of ML-style
+modules~\cite{macqueen_modules_1984}. The module systems of OCaml and other
+ML-based languages are theoretically interesting and extremely expressive, and
+they are objects of study in their own right~\cn{}. We propose
+new, type-based automation for model-based testing of these kinds of modules,
+building both theoretical and practical tools for understanding the ways that
+their APIs can be exercised.
+
+We will work from first-principles, building a model of ML-module {\em traces}.
+This model will need to capture the various initial inputs that need to be
+generated, the output values that should be checked for agreement, and, most
+importantly, all of the ways that outputs from one call can flow to inputs of
+another. Since these values are all typed, this model will likely need to be
+dependently typed to maintain all necessary invariants.
+
+Concretely, the tools we build will take a model signature, for example
 \begin{lstlisting}[language=Caml]
   module Map : sig
     type ('k, 'v) t
@@ -783,13 +804,9 @@ invariants, ensure that one operation executes at least as quickly as another,
 and insert other checks that are simple to specify but tedious to implement
 manually.
 
-Our choice to focus on ML-style modules is motivated from two directions. One is
-practical: our relationship with Jane Street makes it easy to evaluate tools
-that are compatible with OCaml, the language that almost all of their developers
-are the most comfortable with. Working within the OCaml ecosystem will mean that
-we can quickly find technical or usability issues with the tools we build. The
-other reason, though, is technical interest. ML modules are extremely
-expressive and fairly complicated.
+With the prevalence of ML-derived languages used in practice today, and with ML
+modules' similarities to other tools for defining interfaces, this project has
+the potential to significantly increase the usability model-based PBT.
 
 \SUBSECTION{Proposed Work: Interactive Property Specification}
 
@@ -1184,6 +1201,7 @@ generators for refining generator performance incrementally, and both
 communities benefit from generators with better distributions.
 
 \SUBSECTION{Proposed Work: Reflective Shrinking}
+\label{sec:shrinking}
 A more modest application of reflective generators uses them to implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging. On its face, this feels similar to validity-preserving
@@ -1216,6 +1234,10 @@ can be hard to interpret from the perspective of a would-be user. \todo{Sentence
 bridging to Jessica's paragraphs, linking in a theme from the intro}
 
 \hg{Jessica is going to write us a couple of paragraphs for this}
+As the landscape of PBT literature continues to grow, there are increasingly many tools and approaches to choose among. Practitioners face the problem of deciding what to use and how to use it, while researchers need to understand how their proposed improvements compare to existing work.
+One current project, which we are on track to submit to a conference in early 2023, seeks to popularize robust empirical evaluation for PBT. Our core contribution is an infrastructure for easily and extensibly running experiments. By “easily,” we mean that we take on the burden of collecting data and analyzing the results, exposing to the user library functions for their particular instantiations as needed. By “extensibly,” we mean that in addition to the two languages (Haskell and Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and numerous workloads that we already support, we also designed the infrastructure so that users can easily add new things along each dimension.
+Working on this project has revealed some interesting distinctions between evaluation for PBT versus for fuzzing. [cite Magma?] While in both cases, we often want to measure a tool’s bug-finding ability by assessing whether it detects inserted mutants, the level of granularity differs. For example, whereas fuzzing generally [fault-based properties vs. semantic properties]. [or talk about how fuzzing is automated but pbt needs to be tuned].
+[maybe need a paragraph about recommendations that will come out of this project]
 
 \SECTION{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 
@@ -1271,47 +1293,72 @@ long term. (Can we flesh out just how big a field we feel this is?)}
 
 \SUBSECTION{Proposed Work: Understanding Failures}
 
-The first task is to figure out what kind of error this is.
-Is it a parsing error? Is it an off-by-one error? You can
-determine this from the input if it is of manageable size.
+A developer can better understand a failure if the input
+that triggered it is simple. We propose rapid, incremental,
+interactive shrinking of complex inputs into simpler inputs.
+Our novel insight is that an input can be made simpler by
+shrinking it interactively in dialog with the techniques
+proposed in Section~\ref{sec:shrinking}. We will design
+interfaces that allow developers to shrink inputs by pruning
+the input's contents and structure in an interactive object
+viewer. The trick in interactive shrinking will be to point
+out to developers the \emph{valid} ways in which an input
+can be pruned. These valid options for pruning can be
+collected as metadata for the input as they are generated by
+a reflective generator; in other words, many choices that
+the generator makes correspond to an aspect of the input
+that could be pruned. These pruning points will be made
+visible in the object viewer. As a developer prunes the
+input, they will receive continuous feedback as to whether
+it still causes a test to fail or not, to help the developer
+determine whether the simplified input in fact continues to
+trigger the same error. Developers will also be alerted if
+the execution path through the code has changed as a result
+of shrinking the input. In some circumstances, this will
+indicate an undesirable change in the shrunken input, and in
+other cases, such changes in execution paths may be
+permissible (e.g., if the change in the input has led to a
+reduction in the number of cycles through a loop).
 
-Interactive shrinking? Have someone edit the input, and then
-ask for more inputs like the manually shrunk input. A more
-structural interface to editing the input may be easier than
-using a console. Can you do tuning of the generator to the
-shape of a hyper-specific input?
-
-Rapid, incremental, interactive shrinking of inputs. The
-main feedback is just a check or an "ex" determining whether
-the test still fails.
-
-Once a PBT tool generates a counterexample of where a property fails, a
-programmer will need to understand what in an input caused the program to fail.
-This task can be rather challenging because generated inputs can be complex,
-deep data structures \todo{Do we have a reference that implies the complexity of
-generated counterexamples?}. Methods for making it clearer why a counterexample
-fails could be to generate additional inputs that are very close to the
-counterexample that are actually correct, to run the program up to the point
-where the traces of the programs begin to diverge, and then to drop a programmer
-into a debugging environment where they can query the state of the program and
-step through the remainder of the execution. PI Head has prior work designing
-debugging tools that help programmers understand trace divergences in an
-educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We
-should acknowledge all the work that's been done on shrinking in the PBT
-community.} \amh{Good thinking!}
-\hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
-should make sure we don't step on toes}\bcp{IMO the danger of stepping
-on toes at this point is minimal---the time to worry about (and check) whose toes are
-out there is when we actually start doing the work.}
+With complex and simple inputs alike, we propose that tools
+should provide better support for helping developers
+identify areas of the code that are likely causes of
+undesired program behavior. We propose to make it clearer
+why and input fails as follows. First, we will generate
+additional inputs that are very close to the counterexample
+that are pass the test. Then, we will execute the program up
+to the point where the traces of the programs begin to
+diverge. Finally, we will drop the programmer into a
+debugging environment where they can query the state of the
+program and step through the remainder of the execution. PI
+Head has prior work designing debugging tools that help
+programmers understand trace divergences in an educational
+setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very
+cool!  We should acknowledge all the work that's been done
+on shrinking in the PBT community.} \amh{Good thinking!}
+\hg{Hila had a similar idea that she wanted one of her
+undergrads to work on, we should make sure we don't step on
+toes}\bcp{IMO the danger of stepping on toes at this point
+is minimal---the time to worry about (and check) whose toes
+are out there is when we actually start doing the
+work.}\amh{@BCP, should we be concerned about Harry's
+concerns if Hila is a prospective reviewer of this proposal?}
 
 \SUBSECTION{Proposed Work: Evaluating Input Distributions}
+\label{sec:evaluating_distributions}
 \newcommand{\genvis}{GenVis}
 
-\amh{It might make sense for us to split out functionality
-for tuning generator data distributions into a separate
-section. I think the solutions to tuning data distributions
-will require dedicated effort independent of the work to
-develop useful visualizations of the distributions.}
+\amh{Andrew's planning notes for this section: What takes
+this project beyond a typical visualization to a new kind of
+power tool for conducting multi-input tests is: (1) direct
+hooks into functions defined in the local scope which can be
+used as directives for visualization; (2) live feedback as
+the generators change; (3) support for common programming
+structures (i.e., trees, graphs); (4) the ability to look up
+individual examples; (5) the ability to ``hop'' between
+similar examples that succeeded or failed. I think that the
+combination of 1, 2, and 4 together might be enough to
+constitute a ``novel approach'' to interactive debugging.}
 
 \amh{In general, I think this proposal could be strengthened by: (1) emphasizing
 needs that need to be satisfied with the tool (perhaps organizing the structure
