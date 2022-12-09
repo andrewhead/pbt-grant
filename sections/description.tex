@@ -727,10 +727,8 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.  Fuzzing tools get around these issues by
 testing code ``from the outside''---they do not care about internal
-abstractions, only external interfaces---but this usually comes at the
-expense of expressive properties.  \bcp{``but this usually comes at the
-expense of expressive properties''---spell out what this means and why
-it is so.}
+abstractions, only external interfaces---but this necessarily limits their
+ability to test complex properties that concern internal values and invariants.
 
 We hypothesize a solution that enables better PBT,
 especially in messy programs that do not have clean abstraction boundaries,
