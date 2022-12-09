@@ -500,7 +500,7 @@ Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
-If a generated input is deemed to be a {\em counter-example} for a property,
+If a generated input is deemed a {\em counter-example} for a property,
 highlighting a bug in the code, it needs to be easy to use that input to
 determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
@@ -514,19 +514,21 @@ We discuss plans for work that addresses \gentheme{generation themes} in \sectio
 
 \smallskip
 
-The final category of themes concerns the {\bf validation} of testing
+A final category of common themes concerned the {\bf validation} of testing
 effectiveness. In
 general, with any sort of
-testing, it can be difficult to know when ``enough is enough.'' In
+testing, it is difficult to know when ``enough is enough.'' In
 standard unit testing, for example, developers may worry that test number
 $n + 1$ will be the one that catches a bug; PBT does make it possible to to
 automatically generate that one extra test, but one still has to decide when to
-stop. This tension leads to a variety of approaches to
+stop.\bcp{That comparison doesnt really hit home: with PBT, too, the
+  one test that you didn't run might be the one that catches the bug.} This tension leads to a variety of approaches to
 \evaltheme{Budgeting Time for PBT}: most of our interviewees run PBT
 testing just for a few seconds per property, expecting
 that the bulk of the necessary testing is done in hundreds or up to around a
-thousand examples, but some run PBT for much longer. Interestingly, the opposite
-is true about a close cousin of PBT, fuzz testing. Participants like
+thousand examples, but some run it for much longer. Interestingly, the opposite
+was true about a close cousin of PBT, fuzz testing. Participants
+like\bcp{again, if there are more why not just list them?}
 \participant{14} and \participant{20}, who used both
 PBT and fuzzing tools, ran the fuzzers for far longer
 % HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
@@ -535,13 +537,14 @@ PBT and fuzzing tools, ran the fuzzers for far longer
 It would be easier for developers to make informed decisions about
 time budgets for testing if
 they had better access to feedback about how well their testing is doing.
-Indeed, \evaltheme{Evaluation of Effectiveness} turned out to be a common theme of our
+Indeed, \evaltheme{Evaluation of Effectiveness} often featured in our
 conversations.
 There are many forms such feedback could take, from code coverage (requested by
 \participant{9} and \participant{25}) to input space coverage measurements
 (requested by \participant{10}, \participant{16}, and \participant{16}) and even
-strategies like {\em mutation testing}~\cite{papadakis_mutation_2018}; we plan
-to explore the user experience around many of these avenues.
+strategies like {\em mutation
+  testing}~\cite{papadakis_mutation_2018}\proposecut{; we plan
+to explore the user experience around many of these avenues}.
 
 We discuss plans for work that addresses \evaltheme{validation themes} in \sectionref{sec:val}.
 
