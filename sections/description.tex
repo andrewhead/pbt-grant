@@ -330,15 +330,18 @@ PBT, as we shall see below.
   ability to discover weird edge cases, value as documentation, ease
   of application (in some common cases), ... what else?} \amh{+1}
 
-\bcp{This is probably the place to mention a whole ton of related
-  work, no?}
+% \bcp{This is probably the place to mention a whole ton of related
+%   work, no?}
 
  \todo{Talk about fuzzers.}\hg{Probably, yeah. I have an
 intro for it somewhere, we just need to hoist it}
 
+\iflater\todo{Double-check that we've mentioned all relevant
+  ``hgih-level'' related work here.}\fi
+
 \sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 %
-The concrete technical goals of this proposal are grounded in early
+The technical goals of this proposal are grounded in early
 findings from an ongoing need-finding study asking {\em How can the
   research community make PBT more valuable for software developers?}
 %
@@ -347,52 +350,55 @@ we did the study}\bcp{If needed...}\fi
 %
 % \subsectionstar{Study Population}
 %
-To address this question, we conducted semistructured interviews with
-stakeholders at Jane
-Street Capital, including both
+In this study, we have conducted semistructured interviews with
+PBT stakeholders at Jane
+Street Capital---both
 developers who have had exposure to PBT as
 well as developers of PBT tools.
-Questions focused on tasks that developers wish to
-accomplish with PBT tools and developers' recollections of what it was like to
-work with PBT tools to accomplish these tasks.
+\proposecut{The interviews have focused on tasks that developers would like to
+accomplish with PBT tools and their recollections of what it was like to
+work with PBT tools to accomplish these tasks.}\bcp{Maybe that sentence
+can go?  (What else would such interviews focus on?)}
 
 Interview
-studies are common in early-stage need-finding research, due to their ability
-to yield highly informative stories about people, the tasks they need to
-accomplish, and the tools they use to accomplish them. The purpose of these
-interviews is to identify a broad set of opportunities for improving PBT tools,
-grounded in concrete, authentic, detailed stories from developers.
+studies are a common tool for early-stage need finding in
+HCI research, yielding highly informative stories about people, the tasks they need to
+accomplish, and the tools they use to accomplish them. The goal
+is to identify a broad set of opportunities for improving PBT tools,
+grounded in concrete, detailed, authentic stories from developers.
 
-Jane Street is one of the world's largest
+Jane Street is among of the world's largest
 financial market-makers; its 1700 employees
 include around 700 software developers.  A number of features make
-it an attractive place for this study.  Most importantly, PBT is
+it an attractive setting for this study.  Most importantly, PBT is
 already well established at Jane Street, so there is a large
 population of people with well-informed opinions on its benefits and
 challenges.  Also, Jane Street famously builds almost all of its
 software in OCaml, a mostly functional programming language with
-strong support for static typing and modularity and a well-engineered
+strong support for rich static typing and modularity, plus a well-engineered
 PBT tool. This unified
 ecosystem allows us to control for a number of potentially confounding
 factors: all of the developers have access to the same tools,
 libraries, language-level programming abstractions, house coding
 rules, social conventions, etc.
 
-\iflater\bcp{Not sure we need to say all this?}
-Ideally, these interviews would have included both current
+\bcp{Not sure we need to say all (or any) of this, but maybe?  If we
+  keep it, we'll need a bit of transition to the next paragraph.}%
+\proposecut{Ideally, the study population would have included both
 users
-of PBT as well as non-users of PBT. In reality, it is difficult to recruit and
-have meaningful conversations with non-users of a technology. Our strategy was
-to recruit across as broad a spectrum of usage as could be reasonably recruited
+and {\em non}-users of PBT. In reality, it is difficult to recruit and
+have meaningful conversations with non-users of a technology. Our
+strategy, instead, was
+to recruit across as broad a spectrum of usage as could be reasonably found
 at our partner institution, including both frequent users of PBT technologies,
 as well as a handful of
-developers who have had only limited, occasional exposure to PBT. Our survey
+developers who had had only limited, occasional exposure to PBT. Our
+proposed survey
 study (\sectionref{sec:survey}) aims to establish contact with a broader
 sample of non-users of PBT to assess opportunities for making PBT tools more
-valuable and discoverable for this group.
-\fi
+valuable and discoverable for this group.}
 
-Of course, findings from a study at a single firm with a homogeneous
+There is a danger that findings from a study at a single firm with a homogeneous
 OCaml-based testing ecosystem may not generalize outside of this
 ecosystem. Part of our proposed work is to carry out further user
 studies targeting a broader and more diverse community
@@ -402,7 +408,7 @@ trading, quantitative algorithms, networked systems, and hardware
 description code~\cite{signalsandthreads}, and our study participants
 come with a wide variety of experiences and requirements.
 
-Our interview instrument---the script that we used to loosely
+Our interview instrument---the script used to loosely
 structure the interviews---and our analysis process were developed and
 tested through a prototype study with seven users of the Hypothesis
 PBT toolkit, recruited over Twitter.  This analysis yielded a
@@ -411,78 +417,86 @@ recently at the SPLASH HATRA workshop, one of the key venues for
 emerging work on human aspects of formal methods tools and type
 systems~\cite{goldstein2022some}.
 
-The study format was semi-structured interviews exploring developers'
-experiences and impressions of PBT. At the time of writing, the full
+\proposecut{The study format was semi-structured interviews exploring developers'
+experiences and impressions of PBT.} At the time of writing, the full
 complement of 30 interviews and a preliminary round of analysis have
 been completed; full-scale analysis will begin in 2023.
 
 \subsectionstar{Organizing Themes} The main theoretical output from
-this qualitative study will be a collection of themes that summarize
-and categorize our observations about the ways Jane Street developers
+this qualitative study will be a collection of {\em Themes} summarizing
+and categorizing our observations about the ways Jane Street developers
 use PBT, what they need from it, and how the research community be
-able to help.  While deep analysis of the interview transcripts has
-not yet begun, several themes are already apparent in our real-time
+able to help.  While deep analysis of the interview transcripts remains
+to be done, several themes are already apparent in our real-time
 notes, and these form the backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
-One set of
+A first set of
 themes revolves around the {\bf specifications} that developers test.
 % and the kinds of programs in which they choose to test them.
 Since
 PBT is often described as a kind of lightweight formal method, one
 might imagine that a central challenge would be coming up with the
-right specifications. Indeed, a smaller pilot study of PBT users in
-Python that we ran to prepare for the Jane Street
-study~\cite{PilotHypothesisStudy}\iflater\bcp{Is this the first
+right specifications. Indeed, an earlier pilot study of PBT users in
+Python~\cite{PilotHypothesisStudy} that we ran to prepare for the Jane Street
+study\iflater\bcp{Is this the first
   mention of the pilot study?  If not, move this citation earlier and
-no need for it here.}\hg{How do we cite this? HATRA is non-archival}\fi{}
-concluded just that. 
-  But at Jane Street
+no need for it here.}\hg{How do we cite this? HATRA is
+non-archival}\bcp{Cite the arxiv version and say it was presented at
+the workshop.}\fi{}
+concluded just that.
+  But at Jane Street itself
 we actually heard very little about difficulties coming up with
 properties; rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or quite easy to imagine.  For example, \participant{9} pointed out
+available or straightforward to invent.  For example, \participant{9} pointed out
 that PBT is particularly easy to apply when one has ``a really good abstraction
 with a complicated implementation.''
-Participants who were willing to speculate (\participant{3}, \participant{15},
-\participant{20}, \participant{22}) guessed that 80--100\% of Jane Street
+Several participants (\participant{3}, \participant{15},
+\participant{20}, \participant{22}), when asked to speculate, guessed
+that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find, and
 where PBT is relatively easy to apply.  This suggests that an effective way to
-approach education and documentation around PBT may be to focus on
+approach education and documentation around PBT would be to focus on
 ``opportunistic'' applications of PBT as an easy on-ramp.
 
 Our interviews also identified several \proptheme{Opportunities for Better
 Leverage}---situations where PBT is not easy {\em yet}, but could be with a
 little more research effort. For example, \participant{7} spoke about trying to
-test a poorly-abstracted program (which are notoriously resistant to PBT) by
+test a poorly abstracted program (which are notoriously resistant to PBT) by
 writing properties about output it prints to the terminal; we plan to
 operationalize this approach.
-Furthermore, more than 75\% of study participants did a
+Furthermore, more than three quarters of study participants had used a
 particular kind of PBT, commonly called
-\proptheme{Model-Based Testing}. Model-based testing is not so much a scenario
-in which to apply PBT as it is a technique for using it, but participants like
+\proptheme{Model-Based Testing}. \proposecut{Model-based testing is not so much a scenario
+in which to apply PBT as it is a technique for using it, but}
+participants like\bcp{including? (but if there were multiple ones, why
+  not list them all?)}
 \participant{3} thought that better automation and tooling around model-based
 testing could make PBT significantly easier to pick up and use.
 
-We discuss plans for work that addresses specification themes in \sectionref{sec:spec}.
+We discuss plans for work that addresses \proptheme{specification
+  themes} in \sectionref{sec:spec}.
 
-Another set of themes concerns the {\bf generation} of
+\smallskip
+
+Another set of common themes in the interviews concerned the {\bf generation} of
 random inputs for property-based testing. Many participants spoke
-highly of the \gentheme{Derived Generators} that can be inferred from the type
-system (\participant{5} called OCaml's tools for this ``f***ing amazing''\hg{I
-really like the impact of this quote, but I'm open to cutting it or finding a
-better way to present it (e.g., ``[expletive] amazing'' or I guess just ``amazing'')}
-and \participant{30} called them a ``game changer'').
+highly of the \gentheme{Derived Generators} that can be inferred from
+the OCaml type system (\participant{5} called OCaml's tools for this
+``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
-discussed both small (e.g., API quirks) and large (e.g., derived generators
-cannot enforce semantic preconditions) deficiencies. When derived generators
-failed, participants fell back to standard \gentheme{Bespoke Generators}, which
+identified deficiencies both small (e.g., API quirks) and large (e.g.,
+derived generators 
+cannot enforce semantic preconditions). When derived generators
+failed, participants fell back to \gentheme{Bespoke Generators}, which
 are far more flexible but proportionally more time consuming to design and work
-with. For example, \participant{20} found important bugs with a generator for XML documents,
-but they reported spending ``at least a day'' writing it. We are confident
-that improving the abstractions available for writing bespoke generators can
+with. For example, \participant{20} found important bugs with a bespoke
+generator for XML documents, 
+but reported spending ``at least a day'' writing it. 
+Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
@@ -496,7 +510,9 @@ made sure to include shrinkers in their implementations. Unfortunately, getting
 shrinking right, especially for values that must satisfy preconditions, is
 difficult.
 
-We discuss plans for work that addresses generation themes in \sectionref{sec:gen}.
+We discuss plans for work that addresses \gentheme{generation themes} in \sectionref{sec:gen}.
+
+\smallskip
 
 The final category of themes concerns the {\bf validation} of testing
 effectiveness. In
@@ -527,7 +543,7 @@ There are many forms such feedback could take, from code coverage (requested by
 strategies like {\em mutation testing}~\cite{papadakis_mutation_2018}; we plan
 to explore the user experience around many of these avenues.
 
-We discuss plans for work that addresses validation themes in \sectionref{sec:val}.
+We discuss plans for work that addresses \evaltheme{validation themes} in \sectionref{sec:val}.
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -542,7 +558,10 @@ properties as a source of documentation.}
 \fi
 
 % \todo{Debugging doesn't really fit here...}
-\hg{What else does this need? Does it work?}
+\hg{What else does this need? Does it work?}\bcp{I think it's good!
+  If you want, we could save a tiny bit of space by grouping all the
+  ``We discuss'' sentences into a paragraph at the end.  But if space
+  is OK, I think it reads well this way.}
 
 \SECTION{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
 
@@ -598,7 +617,7 @@ most severe issues they encountered.
 
 Respondents will
 be recruited broadly, from three sources. First, we will recruit
-users of Hypothesis, a widely-used Python-based PBT
+users of Hypothesis, a widely used Python-based PBT
 framework
 % \footnote{In personal communications, one of the
 % maintainers of Hypothesis estimates that Hypothesis has
