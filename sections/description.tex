@@ -1070,12 +1070,13 @@ generate random inputs that are valid for the systems that they are testing, and
 neither community has truly settled on the ``right'' way to get there.
 
 There is certainly some work that attempts to bridge the gap between PBT and
-fuzzing. For example, FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
+fuzzing. For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
 uses code coverage as guidance for PBT and the HypoFuzz library uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
-poured into actual fuzzers; Crowbar does~\cite{dolan2017testing}. Crowbar uses
-AFL~\cite{afl-readme}, one of the most well-established
+poured into industrial-strength fuzzers; Crowbar
+does~\cite{dolan2017testing}. Crowbar uses
+AFL~\cite{afl-readme}, one of the best-established
 fuzzers, to generate random bit-strings that are later parsed into program
 inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
 which has supplanted the original AFL project.)  \bcp{Maybe this is a
