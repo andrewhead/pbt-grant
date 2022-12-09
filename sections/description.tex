@@ -759,9 +759,6 @@ user interfaces), and we will adapt those results to be useful for a much
 broader set of programs.
 
 \SUBSECTION{Proposed Work: Automating Model-Based PBT}
-\hg{Plan: reverse this section. Start with MBT, then discuss the ML module
-system, and then discuss a theory-based approach to make that automatically
-testable}
 Our studies have shown that a common pattern of PBT, especially for stateful
 APIs, is to implement a {\em model implementation} of the system under test, and
 then check that the two versions of the code agree on a series of API calls.
@@ -772,8 +769,22 @@ model-based PBT harness for at least three different projects; implementing each
 of those harnesses took significant developer time and slowed down the testing
 process.
 
-We propose new, type-based automation for model-based testing of ML-style
-modules. This automation will take a model signature, for example
+The APIs that the Jane Street developers tested came in the form of ML-style
+modules~\cite{macqueen_modules_1984}. The module systems of OCaml and other
+ML-based languages are theoretically interesting and extremely expressive, and
+they are objects of study in their own right~\cn{}. We propose
+new, type-based automation for model-based testing of these kinds of modules,
+building both theoretical and practical tools for understanding the ways that
+their APIs can be exercised.
+
+We will work from first-principles, building a model of ML-module {\em traces}.
+This model will need to capture the various initial inputs that need to be
+generated, the output values that should be checked for agreement, and, most
+importantly, all of the ways that outputs from one call can flow to inputs of
+another. Since these values are all typed, this model will likely need to be
+dependently typed to maintain all necessary invariants.
+
+Concretely, the tools we build will take a model signature, for example
 \begin{lstlisting}[language=Caml]
   module Map : sig
     type ('k, 'v) t
@@ -793,13 +804,9 @@ invariants, ensure that one operation executes at least as quickly as another,
 and insert other checks that are simple to specify but tedious to implement
 manually.
 
-Our choice to focus on ML-style modules is motivated from two directions. One is
-practical: our relationship with Jane Street makes it easy to evaluate tools
-that are compatible with OCaml, the language that almost all of their developers
-are the most comfortable with. Working within the OCaml ecosystem will mean that
-we can quickly find technical or usability issues with the tools we build. The
-other reason, though, is technical interest. ML modules are extremely
-expressive and fairly complicated.
+With the prevalence of ML-derived languages used in practice today, and with ML
+modules' similarities to other tools for defining interfaces, this project has
+the potential to significantly increase the usability model-based PBT.
 
 \SUBSECTION{Proposed Work: Interactive Property Specification}
 
