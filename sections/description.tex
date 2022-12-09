@@ -750,6 +750,9 @@ user interfaces), and we will adapt those results to be useful for a much
 broader set of programs.
 
 \SUBSECTION{Proposed Work: Automating Model-Based PBT}
+\hg{Plan: reverse this section. Start with MBT, then discuss the ML module
+system, and then discuss a theory-based approach to make that automatically
+testable}
 Our studies have shown that a common pattern of PBT, especially for stateful
 APIs, is to implement a {\em model implementation} of the system under test, and
 then check that the two versions of the code agree on a series of API calls.
@@ -787,13 +790,7 @@ that are compatible with OCaml, the language that almost all of their developers
 are the most comfortable with. Working within the OCaml ecosystem will mean that
 we can quickly find technical or usability issues with the tools we build. The
 other reason, though, is technical interest. ML modules are extremely
-expressive and fairly complicated. This gives us a number of complex problems to
-solve: for example, \todo{Maybe have Joe look at this section. He really likes
-this project}
-
-\bcp{This all needs to sound more like research (as opposed to
-  ``building a little tool for JS'')...  The unwritten bits should
-  help. :-)}
+expressive and fairly complicated.
 
 \SUBSECTION{Proposed Work: Interactive Property Specification}
 
