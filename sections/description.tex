@@ -1218,7 +1218,7 @@ ways of expressing and reviewing tests, and could have
 potentially transformative impact within interactive programming systems in the
 long term. (Can we flesh out just how big a field we feel this is?)}
 
-\SUBSECTION{Proposed Work: Debugging Support for Understanding Counterexamples}
+\SUBSECTION{Proposed Work: Understanding Failures}
 
 Once a PBT tool generates a counterexample of where a property fails, a
 programmer will need to understand what in an input caused the program to fail.
@@ -1237,8 +1237,14 @@ community.} \amh{Good thinking!}
 \hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
 should make sure we don't step on toes}
 
-\SUBSECTION{Proposed Work: Visualizing and Tuning Generator Distributions}
+\SUBSECTION{Proposed Work: Evaluating Input Distributions}
 \newcommand{\genvis}{GenVis}
+
+\amh{It might make sense for us to split out functionality
+for tuning generator data distributions into a separate
+section. I think the solutions to tuning data distributions
+will require dedicated effort independent of the work to
+develop useful visualizations of the distributions.}
 
 \amh{In general, I think this proposal could be strengthened by: (1) emphasizing
 needs that need to be satisfied with the tool (perhaps organizing the structure
@@ -1336,7 +1342,30 @@ developers not just understand distributions in the aggregate, but also helping
 them review individual examples, given that you need to see specific examples to
 know that a generator is creating the right kind of data.}
 
-\SUBSECTION{Proposed Work: Integration with Continuous Integration Workflows}
+\SUBSECTION{Proposed Work: Tuning Input Data Distributions}
+
+\SUBSECTION{Proposed Work: Assessing Testing Effectiveness}
+
+This section will include something about how to help
+developers reason about whether their tests achieve adequate
+code coverage. \amh{Discuss with Harry whether there is any
+new approach we can achieve for code coverage, beyond
+providing the kinds of metrics that appear from unit tests.
+Maybe there are ways of automatically tuning input data
+distributions so that they are more likely to execute path
+through the code that a developer has indicated are
+particularly important to exercise?}
+
+\SUBSECTION{Proposed Work: Transforming Counterexamples into
+Regression Tests}
+
+\amh{Refer to Hila's work.} \amh{Discuss with Harry to
+figure out if we have something novel to contribute here.
+Perhaps it would involve novel technologies around
+shrinkers.}
+
+\SUBSECTION{Proposed Work: Running More Tests with Less Work}
+% \SUBSECTION{Proposed Work: Integration with Continuous Integration Workflows}
 
 The pilot study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
