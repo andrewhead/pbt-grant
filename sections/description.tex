@@ -24,7 +24,7 @@ to overall development costs.
 It comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with yet more advanced tools
-and techniques continually being developed, discussed, and applied.
+and techniques continually being developed, studied, and applied.
 
 One such technique, {\em property-based testing} (PBT), has been
 enthusiastically taken up by the functional programming research
@@ -238,13 +238,31 @@ well founded.
 %   someplace later or (better, I think) beef up this one.}
 % \bcp{Need to mention broader impacts and work plan sections.}
 
+\subsectionstar{Personnel}
+%
+\todo{One paragraph about what a great team we are, how the PI
+  qualifications complement each other, and what kind of students we
+  aim to support.  To make it fit smoothly here, concentrate on the
+  interdisciplinary nature of the project.  Or maybe we should just
+  add a bit about the team to the end of the PL+HCI paragraph above?}
+% We have seen these trends firsthand: the PL research group at Penn has
+% contributed to PBT research for years, pushing PBT to its limits as a
+% tool for standard
+% testing software~\cite{hughes2014mysteries, li_model-based_2021,
+% goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
+% like theorem proving~\cite{paraskevopoulou_foundational_2015,
+% lampropoulos_coverage_2019}.  The community has dedicated itself to improving
+% the theory and applications of PBT, and recent work has continued to make great
+% strides in areas like expressivity and testing effectiveness.
+
 
 \sectionstar{Orientation: Property-Based Testing}
-Before discussing our motivating study, we should briefly clarify what PBT is
+Before discussing our motivating study, we briefly explain what PBT is
 and why it is important.
 
-PBT tools allow users to write executable functions
-that act as partial
+PBT is a form of random testing~\cite{hamlet1994random} where
+users write executable functions, usually in the same language as
+their System Under Test, which act as partial
 specifications of a function under test. For example, a user might
 write the following property of the \lstinline{insert}
 function for an implementation of a binary search tree (BST):
@@ -312,10 +330,11 @@ PBT, as we shall see below.
   ability to discover weird edge cases, value as documentation, ease
   of application (in some common cases), ... what else?} \amh{+1}
 
-
-\bcp{Related work to mention: HypoFuzz \url{https://hypofuzz.com}}
 \bcp{This is probably the place to mention a whole ton of related
   work, no?}
+
+ \todo{Talk about fuzzers.}\hg{Probably, yeah. I have an
+intro for it somewhere, we just need to hoist it}
 
 \sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 %
@@ -397,13 +416,13 @@ experiences and impressions of PBT. At the time of writing, the full
 complement of 30 interviews and a preliminary round of analysis have
 been completed; full-scale analysis will begin in 2023.
 
-\subsectionstar{Preliminary Themes} The main theoretical output from
+\subsectionstar{Organizing Themes} The main theoretical output from
 this qualitative study will be a collection of themes that summarize
 and categorize our observations about the ways Jane Street developers
 use PBT, what they need from it, and how the research community be
 able to help.  While deep analysis of the interview transcripts has
 not yet begun, several themes are already apparent in our real-time
-notes; these form the backbone of the present proposal.
+notes, and these form the backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
@@ -512,40 +531,26 @@ properties as a source of documentation.}
 
 % \todo{Debugging doesn't really fit here...}
 
-\sectionstar{Personnel}
-
-\todo{One paragraph about what a great team we are, how the PI
-  qualifications complement each other, and what kind of students we
-  aim to support.}
-
-% We have seen these trends firsthand: the PL research group at Penn has
-% contributed to PBT research for years, pushing PBT to its limits as a
-% tool for standard
-% testing software~\cite{hughes2014mysteries, li_model-based_2021,
-% goldstein2021dojudgeatest, goldstein2022parsing} and adapting it to new domains
-% like theorem proving~\cite{paraskevopoulou_foundational_2015,
-% lampropoulos_coverage_2019}.  The community has dedicated itself to improving
-% the theory and applications of PBT, and recent work has continued to make great
-% strides in areas like expressivity and testing effectiveness.
-
 
 \SECTION{Foundation: Understanding Needs and Opportunities \pagebudget{1}}\label{sec:foundation}
 
-\amh{This section is around double its page budget. One reason is that I am
-probably being too heavy-handed in trying to justify the methodological choices.
-Help me figure out what to prune!}
+% \amh{This section is around double its page budget. One reason is that I am
+% probably being too heavy-handed in trying to justify the methodological choices.
+% Help me figure out what to prune!}\bcp{Did some pruning! :-)}
 
-Our preliminary study at Jane Street paints a clear picture of the
-benefits and challenges of PBT in one specific context.  To fully
-understand its potential impact across the software industry and the
-factors that may limit its adoption, we need to cast a wider net.
+The final results from the in-progress user study should paint a clear
+picture of the benefits and challenges of PBT in the specific context
+of Jane Street and other organizations with similar characteristics.  But to
+fully understand the potential impact of PBT across the software
+industry---and the factors that may limit its adoption---we need to
+cast a wider net.
 %
 In this section, we describe three planned studies, drawing on mixed
 methods in the service of producing a comprehensive and actionable
 agenda for future research, in this research project and beyond---two
-written surveys to assess the generality of these needs and obstacles
-and to identify potential for adoption of PBT tools
-(\sectionref{sec:survey}) and an observation study to understand
+written surveys, one to assess the generality of these needs and obstacles
+and one to identify potential for adoption of PBT tools
+(\sectionref{sec:survey}), and an observation study to understand
 particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
@@ -698,28 +703,22 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 % \item Stateful APIs with well-understood contracts.
 % \end{itemize}
 
-\SUBSECTION{Proposed Work: Properties Over Logged Output}
-One common problem raised by Jane Street developers (and even more loudly by the
-participants of the pilot study) was
-that code may not be abstracted
-in a way that is conducive to PBT. Indeed, any kind of unit
-testing\footnote{Many applications of PBT fall under the broad umbrella of unit
-testing, in that they test individual software ``units'' rather than integrated
-programs.}\bcp{is PBT a kind of unit testing??}\hg{In this sense I really think
-it
-is... Unit testing is testing of software ``units'' as opposed to integration
-testing which tests the whole thing. I don't really know how else to say this} requires
-that the programmer be able to extract some ``unit'' of code to test, but PBT is
-especially sensitive to things like poorly handled global state (which may
-impact the repeatability of testing) and fuzzy
-abstraction boundaries (which muddy logical specifications). Fuzzers \todo{I
-think we need to intro fuzzers in the beginning; I've mentioned them a bunch
-already}\bcp{Yes: in the Orientation section, I guess?  This will be important
-for getting non-PBT people on the same page as us.}\hg{Probably, yeah. I have an
-intro for it somewhere, we just need to hoist it} get around these issues by
-testing the code from the outside---they do not care about internal
-abstractions, only the external interface---but that usually comes at the
-expense of expressive properties.
+\SUBSECTION{Proposed Work: Properties Over Output Logs}
+One common problem raised by Jane Street developers (and even more loudly
+in our earlier pilot study~\cite{goldstein2022some}) was
+that code may sometimes not be abstracted
+in a way that is amenable to PBT. Indeed, any kind of
+testing of software units---using PBT techniques or otherwise---requires
+``units'' to test!  But PBT is
+especially sensitive to things like poorly encapsulated global state, which may
+impact the repeatability of testing, and leaky or confusing
+abstraction boundaries, which make it difficult to cleanly state
+properties or specifications.  Fuzzing tools get around these issues by
+testing code ``from the outside''---they do not care about internal
+abstractions, only external interfaces---but this usually comes at the
+expense of expressive properties.  \bcp{``but this usually comes at the
+expense of expressive properties''---spell out what this means and why
+it is so.}
 
 We hypothesize a solution that enables better PBT,
 especially in messy programs that do not have clean abstraction boundaries,
@@ -1054,7 +1053,7 @@ sections.
 
 \SUBSECTION{Proposed Work: Bringing Fuzzing into Focus}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
-ones behind PBT: they both leverage randomized testing to quickly exercise as
+ones behind PBT: they leverage randomized testing to quickly exercise as
 many program behaviors as possible.  One might then expect that the fuzzing and
 PBT share a significant amount of literature, but in reality they do not. Often
 the communities seem to ``talk past'' one another.
@@ -1082,7 +1081,53 @@ poured into actual fuzzers; Crowbar does~\cite{dolan2017testing}. Crowbar uses
 AFL~\cite{afl-readme}, one of the most well-established
 fuzzers, to generate random bit-strings that are later parsed into program
 inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
-which has supplanted the original AFL we project.)
+which has supplanted the original AFL project.)  \bcp{Maybe this is a
+  good place to mention Target, Learn\&Fuzz, Grammar-based fuzzing,
+  etc.  Some paragraphs from Harry's thesis are in comments here.}
+
+% A different approach that is {\em almost} entirely automatic is {\sc
+% Target}~\cite{loscher2017targetedpbt}; it uses search strategies like hill
+% climbing and simulated annealing to guide generation to more useful inputs.
+% \citeauthor{loscher2017targetedpbt}'s approach works well when the notion of
+% validity is in some way continuous (i.e., an input is not simply invalid, it is
+% $X\%$ valid), but this is often not the case.
+
+% Some approaches use machine learning to automatically generate valid inputs.
+% {\sc Learn\&Fuzz}~\cite{godefroid2017learn} generates valid data using a
+% recurrent neural network.  This solution seems to work best when a large corpus
+% of inputs is already available and the validity condition is more structural
+% than semantic. In the same vein, {\sc RLCheck}~\cite{DBLP:conf/icse/ReddyLPS20}
+% uses reinforcement learning to guide a generator to valid inputs.
+
+% For preconditions that are primarily structural, {\em grammar-based fuzzing}
+% provides a compelling (if slightly more manual) solution. In {\em
+% Grammar-based whitebox fuzzing}~\cite{godefroid2008grammar} a context-free
+% grammar (CFG) is used to constrain the fuzzer's output. Over the years, many
+% versions of this paradigm have been developed, including ones that use
+% pre-written fragments of the input language to give the mutator interesting
+% things to work with~\cite{holler2012fuzzing} and ones that use genetic
+% programming to find more interesting inputs~\cite{veggalam2016ifuzzer}. The
+% newest grammar-based fuzzing approaches use the grammar to do more structured
+% mutation of values~\cite{wang2019superion,srivastava2021gramatron}. These ideas have also been integrated
+% into PBT in the FuzzChick library~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}.
+
+% Moving into the range of ``mostly manual'' solutions, there are a variety of
+% solver-aided languages for expressing generators for data with preconditions.
+% \citeauthor{dewey2017automated} proposed using constraint logic programming
+% (CLP) to define generators for interesting structures like Rust
+% programs~\cite{dewey2017automated}.  The {\sc Luck} language~\cite{LuckPOPL}
+% also uses a solver, but a bespoke one, to define generators and validity
+% predicates at the same time. \citet{steinhofel2022input} use a
+% grammar and SMT-expressible constraints on a structure to generate
+% precondition-satisfying values.
+
+% Finally, {\em Generating Good Generators}~\cite{lampropoulos2017generating} an
+% outlier on the spectrum: technically it is a manual approach since it requires
+% users to first express their validity predicates as inductive relations in Coq,
+% but in Coq it is likely that the user already has an inductive relation
+% available! {\em Generating Good Generators} is a great approach in the
+% situations where it applies.
+
 
 \begin{wrapfigure}{l}{0.5\textwidth}
   \centering
@@ -1154,9 +1199,17 @@ important to get another input that is both smaller and, ideally, provokes the
 need to be taken to ensure that shrinkers behave as expected.
 
 \SUBSECTION{Ongoing Work: Empirically Evaluating PBT Tools}
-\amh{It's awkward to have ongoing work after proposed work, though I moved this 
-subsection up here because we are considering integrating it into the section on 
+\amh{It's awkward to have ongoing work after proposed work, though I moved this
+subsection up here because we are considering integrating it into the section on
 generators as per our discussion over Slack.}
+\bcp{If we're going to include the benchmarking project at all (and I
+  think we should), we should ignore the fact that we've been working
+  on it for a bit (after all, nothing is published or ready to
+  publish) and talk aout it as proposed work.  At the same time, we
+  should paint a big-picture vision for it, going somewhat beyond the
+  ICFP submission we hope to make and talking about a real benchmark
+  suite that we and others might build later.}
+
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
@@ -1168,38 +1221,38 @@ bridging to Jessica's paragraphs, linking in a theme from the intro}
 
 \SECTION{Validation: Understanding Testing Effectiveness \pagebudget{3}}\label{sec:val}
 
-One of the unique challenges in creating usable property-based testing is 
-providing adequate support for evaluating test results. Testing with properties 
-is fundamentally different from conventional unit testing tools in many ways.  
-First, it becomes a task in and of itself to understand individual inputs. This 
-because the inputs are not written by the developer, but rather generated 
-automatically, and furthermore, they can be of unbounded structural complexity.  
-Second, a developer needs to assess the quality of their tests. The quality of a 
-property-based test depends in part on the extent to which it covers execution 
-pathways through the code, though it also depends on the quality of the inputs.  
-Namely, are the inputs complex enough, and distributed in such a way that they 
-are likely to trigger practically important bugs? Third, developers need to 
-decide what to do with failed test cases, and may need to spend time migrating 
-failed test cases into regression suites. Finally, developers need to make 
-difficult decisions around how much computation time to budget for exercising 
+One of the unique challenges in creating usable property-based testing is
+providing adequate support for evaluating test results. Testing with properties
+is fundamentally different from conventional unit testing tools in many ways.
+First, it becomes a task in and of itself to understand individual inputs. This
+because the inputs are not written by the developer, but rather generated
+automatically, and furthermore, they can be of unbounded structural complexity.
+Second, a developer needs to assess the quality of their tests. The quality of a
+property-based test depends in part on the extent to which it covers execution
+pathways through the code, though it also depends on the quality of the inputs.
+Namely, are the inputs complex enough, and distributed in such a way that they
+are likely to trigger practically important bugs? Third, developers need to
+decide what to do with failed test cases, and may need to spend time migrating
+failed test cases into regression suites. Finally, developers need to make
+difficult decisions around how much computation time to budget for exercising
 the property-based tests.
 
-Each of these points of departure from conventional testing methodology 
-introduces new challenges into the testing process. And they require new 
-approaches to tool design to help developers reason about complex distributions 
-of complex inputs. In this section, we describe a sequence of research projects 
-we will undertake to bring about usable developer tooling for property-based 
-testing. These projects will contribute new paradigms for tools that help 
-developers understand program failures involving complex inputs 
-(Section~\ref{}), assess whether their generators are generating sufficient, 
-appropriate inputs (Section~\ref{}) and whether those inputs sufficiently 
-exercise their code (Section~\ref{}), migrate failed property-based tests into 
-regression tests (Section~\ref{}), and decide on compute budgets for their 
+Each of these points of departure from conventional testing methodology
+introduces new challenges into the testing process. And they require new
+approaches to tool design to help developers reason about complex distributions
+of complex inputs. In this section, we describe a sequence of research projects
+we will undertake to bring about usable developer tooling for property-based
+testing. These projects will contribute new paradigms for tools that help
+developers understand program failures involving complex inputs
+(Section~\ref{}), assess whether their generators are generating sufficient,
+appropriate inputs (Section~\ref{}) and whether those inputs sufficiently
+exercise their code (Section~\ref{}), migrate failed property-based tests into
+regression tests (Section~\ref{}), and decide on compute budgets for their
 property-based tests (Section~\ref{}). These projects will be pursued using
-human-computer interaction methodology, integrating these tools into 
-contemporary development environments for functional programming. The result of 
-this work will be a comprehensive, innovative set of design primitives for 
-helping developers get work done in the challenge setting of reasoning about 
+human-computer interaction methodology, integrating these tools into
+contemporary development environments for functional programming. The result of
+this work will be a comprehensive, innovative set of design primitives for
+helping developers get work done in the challenge setting of reasoning about
 tests with an overabundance of input-output examples.
 
 % \amh{I think I want to organize this section chronologically around the
@@ -1235,7 +1288,9 @@ educational setting~\cite{suzuki2017tracediff}.  \bcp{This sounds very cool!  We
 should acknowledge all the work that's been done on shrinking in the PBT
 community.} \amh{Good thinking!}
 \hg{Hila had a similar idea that she wanted one of her undergrads to work on, we
-should make sure we don't step on toes}
+should make sure we don't step on toes}\bcp{IMO the danger of stepping
+on toes at this point is minimal---the time to worry about (and check) whose toes are
+out there is when we actually start doing the work.}
 
 \SUBSECTION{Proposed Work: Evaluating Input Distributions}
 \newcommand{\genvis}{GenVis}
