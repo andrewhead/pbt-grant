@@ -153,10 +153,10 @@ a holistic research agenda around PBT that is sure to be both well motivated and
 well founded.
 
 \sectionstar{Orientation: Property-Based Testing}
-\todo{More citations here}
 Before discussing our motivating study, we briefly explain what PBT is
 and why it is important.
 
+Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
 users write executable functions, usually in the same language as
 their System Under Test, which act as partial
@@ -185,7 +185,8 @@ checks that the property evaluates to \lstinline{True} for each input; any input
 that causes the property to fail is reported as a {\em counterexample}.  This
 proposal is on property-based {\em random} testing~\cite{hamlet1994random}, in
 which these inputs are chosen randomly.
-\todo{There are other approaches, including} enumerative test-case generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
+There are other approaches, including enumerative test-case
+generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
 checking, but random generation remains the dominant approach in the PBT
 space. Its surprising effectiveness is often attributed to the
 ``combinatorial'' nature of larger test cases: bugs can often be
@@ -196,7 +197,7 @@ functions in a particular order, even if these calls happens to be
 interleaved with other API calls.  This means that testing with one
 big structure has the effect of testing with exponentially many
 smaller sub-structures. Both practical experience and theoretical
-arguments~\cite{goldstein2021dojudgeatest}\hg{?} suggest that this effect is quite
+arguments~\cite{goldstein2021dojudgeatest} suggest that this effect is quite
 powerful---i.e., we can discover small counterexamples by generating
 a few larger test inputs containing combinatorially many diverse
 sub-structures rather than systematically enumerating test inputs
@@ -213,6 +214,8 @@ And (4) if counter-examples are found, make sense of them and determine the
   source of the bug.
 Each of these steps presents opportunities to improve the user experience of
 PBT, as we shall see below.
+
+\smallskip
 
 \bcp{This is also the place to make our strongest argument for
   potential impact: Why is PBT so much better than standard unit and
@@ -1002,53 +1005,7 @@ does~\cite{dolan2017testing}. Crowbar uses
 AFL~\cite{afl-readme}, one of the best-established
 fuzzers, to generate random bit-strings that are later parsed into program
 inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
-which has supplanted the original AFL project.)  \bcp{Maybe this is a
-  good place to mention Target, Learn\&Fuzz, Grammar-based fuzzing,
-  etc.  Some paragraphs from Harry's thesis are in comments here.}
-
-% A different approach that is {\em almost} entirely automatic is {\sc
-% Target}~\cite{loscher2017targetedpbt}; it uses search strategies like hill
-% climbing and simulated annealing to guide generation to more useful inputs.
-% \citeauthor{loscher2017targetedpbt}'s approach works well when the notion of
-% validity is in some way continuous (i.e., an input is not simply invalid, it is
-% $X\%$ valid), but this is often not the case.
-
-% Some approaches use machine learning to automatically generate valid inputs.
-% {\sc Learn\&Fuzz}~\cite{godefroid2017learn} generates valid data using a
-% recurrent neural network.  This solution seems to work best when a large corpus
-% of inputs is already available and the validity condition is more structural
-% than semantic. In the same vein, {\sc RLCheck}~\cite{DBLP:conf/icse/ReddyLPS20}
-% uses reinforcement learning to guide a generator to valid inputs.
-
-% For preconditions that are primarily structural, {\em grammar-based fuzzing}
-% provides a compelling (if slightly more manual) solution. In {\em
-% Grammar-based whitebox fuzzing}~\cite{godefroid2008grammar} a context-free
-% grammar (CFG) is used to constrain the fuzzer's output. Over the years, many
-% versions of this paradigm have been developed, including ones that use
-% pre-written fragments of the input language to give the mutator interesting
-% things to work with~\cite{holler2012fuzzing} and ones that use genetic
-% programming to find more interesting inputs~\cite{veggalam2016ifuzzer}. The
-% newest grammar-based fuzzing approaches use the grammar to do more structured
-% mutation of values~\cite{wang2019superion,srivastava2021gramatron}. These ideas have also been integrated
-% into PBT in the FuzzChick library~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}.
-
-% Moving into the range of ``mostly manual'' solutions, there are a variety of
-% solver-aided languages for expressing generators for data with preconditions.
-% \citeauthor{dewey2017automated} proposed using constraint logic programming
-% (CLP) to define generators for interesting structures like Rust
-% programs~\cite{dewey2017automated}.  The {\sc Luck} language~\cite{LuckPOPL}
-% also uses a solver, but a bespoke one, to define generators and validity
-% predicates at the same time. \citet{steinhofel2022input} use a
-% grammar and SMT-expressible constraints on a structure to generate
-% precondition-satisfying values.
-
-% Finally, {\em Generating Good Generators}~\cite{lampropoulos2017generating} an
-% outlier on the spectrum: technically it is a manual approach since it requires
-% users to first express their validity predicates as inductive relations in Coq,
-% but in Coq it is likely that the user already has an inductive relation
-% available! {\em Generating Good Generators} is a great approach in the
-% situations where it applies.
-
+which has supplanted the original AFL project.)
 
 \begin{wrapfigure}{l}{0.5\textwidth}
   \centering
