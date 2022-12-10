@@ -629,7 +629,7 @@ testing of software units---using PBT techniques or otherwise---requires
 especially sensitive to things like poorly encapsulated global state, which may
 impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
-properties or specifications.  Fuzzing tools get around these issues by
+properties or specifications. Integration testing tools get around these issues by
 testing code ``from the outside''---they do not care about internal
 abstractions, only external interfaces---but this necessarily limits their
 ability to test complex properties that concern internal values and invariants.
@@ -826,19 +826,21 @@ solve, and then make it clear when we've solved one of the problems.}
 
 The literature addresses these concerns to various degrees, and existing tools
 fall on a spectrum from automatic to manual. The automatic approaches use
-proxies for validity and general ``interestingness'' of inputs: some optimize
-readily available metrics like code coverage~\cite{afl-readme}, others ask users
-to provide metrics~\cite{loscher2017targetedpbt}, and naturally some use
-machine learning to infer proxies for validity~\cite{godefroid2017learn,
-DBLP:conf/icse/ReddyLPS20}. Slightly more manual approaches are based on
-declarative representations of validity conditions: for preconditions that are
-primarily structural, {\em grammar-based fuzzing} provides a compelling
-solution~\cite{godefroid2008grammar, holler2012fuzzing, veggalam2016ifuzzer,
-wang2019superion, srivastava2021gramatron}, and for more complex, semantic
-preconditions, some have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL, steinhofel2022input} to
-automatically seek out valid inputs. This semi-automatic category also includes
-tools for {\em example-based tuning}, a process that improves realism of inputs
-by mimicking user-provided examples~\cite{soremekun2020inputs}.
+proxies for validity and general ``interestingness'' of inputs: some, like {\em
+fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
+coverage, others ask users to provide metrics~\cite{loscher2017targetedpbt}, and
+naturally some use machine learning to infer proxies for
+validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. Slightly more
+manual approaches are based on declarative representations of validity
+conditions: for preconditions that are primarily structural, {\em grammar-based
+fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
+holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
+srivastava2021gramatron}, and for more complex, semantic preconditions, some
+have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
+steinhofel2022input} to automatically seek out valid inputs. This semi-automatic
+category also includes tools for {\em example-based tuning}, a process that
+improves realism of inputs by mimicking user-provided
+examples~\cite{soremekun2020inputs}.
 
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language...
