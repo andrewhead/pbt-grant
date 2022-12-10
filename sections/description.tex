@@ -1417,17 +1417,36 @@ of PBT, but some may find this problematic.
 
 \SECTION{Plan of Work \pagebudget{.7}}\label{sec:plan-of-work}
 
-\begin{figure}[ht]
-  \centering
-  \vspace*{-1in}
-  \hspace*{-.4in}\includegraphics[width=1.1\textwidth]{assets/workplan.pdf}
-  \vspace*{-1.3in}
-  \caption{Plan of work.}\label{fig:workplan}
-\end{figure}
+% \begin{figure}[ht]
+%   \centering
+%   \vspace*{-1in}
+%   \hspace*{-.4in}\includegraphics[width=1.1\textwidth]{assets/workplan.pdf}
+%   \vspace*{-1.3in}
+%   \caption{Plan of work.}\label{fig:workplan}
+% \end{figure}
 
+% \todo{Flesh out the chart in PPT; maybe eventually re-draw it in some
+%   nicer form.}
 
-\todo{Flesh out the chart in PPT; maybe eventually re-draw it in some
-  nicer form.}
+\ganttset{bar height=.6}
+\begin{ganttchart}[
+      expand chart=\textwidth,
+      y unit chart=.5cm
+    ]{1}{5}
+  \gantttitle{Ongoing}{1}
+  \gantttitle{Year 1}{1}
+  \gantttitle{Year 2}{1}
+  \gantttitle{Year 3}{1}
+  \gantttitle{Year 4}{1} \\
+  \ganttbar[bar/.append style={draw=white}] {Foundation}{2}{3} \\
+  \ganttbar{\small Surveys to Generalize Findings (\sectionref{sec:survey})}{2}{3} \\
+  \ganttbar{Specification}{2}{3} \\
+  \ganttbar{Generation}{5}{5} \\
+  \ganttbar{Validation}{5}{5} \\
+  \ganttbar{Education}{5}{5}
+\end{ganttchart}
+
+\todo{Write words}
 
 \SECTION{Broader Impacts \pagebudget{.5}}\label{sec:broader-impacts}
 The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
