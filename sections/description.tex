@@ -97,14 +97,15 @@ al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
 pain points'' with tools that ``help [programmers] write safe and correct
 programs.'' We wholeheartedly agree.
-\hg{Got rid of personnel and put this here. Thoughts?}
+\hg{Got rid of personnel and put this here. Thoughts?}\bcp{I like it
+  here.  Needs a bit better transition to what comes before and after.}
 PI Head
 is deeply embedded in the HCI community and recently co-founded the new HCI
 group of the University of Pennsylvania, while PI Pierce is has published in
 every corner of the PL world and has decades of experience in both researching
 and teaching about programming languages.
 This proposal was born, in part, because PI
-Pierce and PI Head want to leverage the power of PL+HCI collaboration.  
+Pierce and PI Head want to leverage the power of PL+HCI collaboration.
 
 We propose a comprehensive, interdisciplinary research program that
 will bring the combined power of PL and HCI approaches to bear,
@@ -266,6 +267,7 @@ factors: all of the developers have access to the same tools,
 libraries, language-level programming abstractions, house coding
 rules, social conventions, etc.
 
+\iflater
 \bcp{Not sure we need to say all (or any) of this, but maybe?  If we
   keep it, we'll need a bit of transition to the next paragraph.}%
 \proposecut{Ideally, the study population would have included both
@@ -282,7 +284,10 @@ study (\sectionref{sec:survey}) aims to establish contact with a broader
 sample of non-users of PBT to assess opportunities for making PBT tools more
 valuable and discoverable for this group.}
 \hg{I think I'm in favor of cutting. I do like the idea of a forward pointer to
-the survey, but we sort of already do that in the next paragraph}
+  the survey, but we sort of already do that in the next paragraph}
+\bcp{Let's take one more look at it in a few days before deleting for
+  good...}
+\fi
 
 There is a danger that findings from a study at a single firm with a homogeneous
 OCaml-based testing ecosystem may not generalize outside of this
@@ -372,13 +377,13 @@ the OCaml type system (\participant{5} called OCaml's tools for this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
 identified deficiencies both small (e.g., API quirks) and large (e.g.,
-derived generators 
+derived generators
 cannot enforce semantic preconditions). When derived generators
 failed, participants fell back to \gentheme{Bespoke Generators}, which
 are far more flexible but proportionally more time consuming to design and work
 with. For example, \participant{20} found important bugs with a bespoke
-generator for XML documents, 
-but reported spending ``at least a day'' writing it. 
+generator for XML documents,
+but reported spending ``at least a day'' writing it.
 Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
@@ -1455,7 +1460,17 @@ of PBT, but some may find this problematic.
 
 \SECTION{Plan of Work \pagebudget{.7}}\label{sec:plan-of-work}
 
-\todo{(with a pretty pert chart or suchlike...)}
+\begin{figure}[ht]
+  \centering
+  \vspace*{-1in}
+  \hspace*{-.4in}\includegraphics[width=1.1\textwidth]{assets/workplan.pdf}
+  \vspace*{-1.3in}
+  \caption{Plan of work.}\label{fig:workplan}
+\end{figure}
+
+
+\todo{Flesh out the chart in PPT; maybe eventually re-draw it in some
+  nicer form.}
 
 \SECTION{Broader Impacts \pagebudget{.5}}\label{sec:broader-impacts}
 The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
