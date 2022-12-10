@@ -631,55 +631,74 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{goldstein2022some}) was
 that code may sometimes not be abstracted
-in a way that is amenable to PBT. Indeed, any kind of
-testing of software units---using PBT techniques or otherwise---requires
+in a way that is amenable to testing. Indeed, any kind of
+testing of software units---with PBT techniques or otherwise---requires
 ``units'' to test!  But PBT is
-especially sensitive to things like poorly encapsulated global state, which may
+especially sensitive to issues like poorly encapsulated global state, which may
 impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
-properties or specifications. Integration testing tools get around these issues by
+properties or specifications.
+\proposecut{Integration testing tools get around these issues by
 testing code ``from the outside''---they do not care about internal
 abstractions, only external interfaces---but this necessarily limits their
-ability to test complex properties that concern internal values and invariants.
+ability to test complex properties that concern internal values and
+invariants.}
 
-We hypothesize a solution that enables better PBT,
-especially in messy programs that do not have clean abstraction boundaries,
-without giving
-up expressiveness: inject logging calls into the code under test, and write
-properties over the logs that the code produces. For example, if the developer
-knows about some invariant on a variable \lstinline{x}, they can log out the
-value of \lstinline{x} every time it is set, and then check that the logged
-values satisfy the invariant. We plan to use meta-programming to automate this
-process, so a user need only mark the variable to log its updates. Another
+Here is a straightforward approach that might enable much better testing
+of poorly abstracted code without giving
+up expressiveness: add some logging (printfs or whatever) into the
+code under test to record when interesting events occur, then write
+properties over the logs that are produced when it runs, rather than over its
+inputs and outputs. For example, if the developer
+knows about some invariant on a variable \lstinline{x}, they can log the
+value of \lstinline{x} every time it is set, then write a property
+stating that the logged
+values satisfy the invariant.\bcp{Not very convinced by this
+  example---it's way too abstract.  What real examples do we actually have in
+mind?}  We can use meta-programming to automate this
+process, so a user need only mark the variable at its declaration site
+to log all updates to it.\bcp{Can OCaml actually do that??}
+
+Another
 useful property over logs concerns
 invariants that applies over time (e.g., the value of \lstinline{x} should
 never decrease).
-This would be difficult to do with debug assertions, since state would need to
+This would be difficult to do with debug assertions\bcp{who said
+  anything about debug assetions??}, since state would need to
 be kept for arbitrary amounts of time between variable updates; setting up such
 state may itself require some error-prone restructuring of the code, especially
 if the debug state should be compiled away in release builds.
+\bcp{Generally not very convincing.}
 
-Concretely, we propose a framework for inserting lightweight test-logging and a
-language for writing properties over those logs. The logging itself is a matter
-of engineering, but the language for properties is an exciting opportunity to
+Concretely, we propose a framework for inserting lightweight
+logging-for-testing and a
+language for writing properties over those logs. The logging is a
+``mere matter
+of engineering,''\bcp{how hard is it?} but the language for properties
+is an exciting\bcp{have you noticed I always cut this word when I see
+  it?  :-)} opportunity to
 apply powerful logical ideas. Specifically, the properties over logged outputs
 should be written in a temporal logic like {\em linear temporal logic} (LTL) so
 they can make complex assertions about the way past and future values interact.
 The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown that
-LTL properties are possible (it uses LTL to write properties about graphical
-user interfaces), and we will adapt those results to be useful for a much
-broader set of programs.
+LTL properties can be used for specifying and testing graphical
+user interfaces; we will adapt and generalize its methods to a
+broader set of programs.\bcp{Weak ending, and this whole section is a
+  bit vague.}
 
 \SUBSECTION{Proposed Work: Automating Model-Based PBT}
-Our studies have shown that a common pattern of PBT, especially for stateful
-APIs, is to implement a {\em model implementation} of the system under test, and
-then check that the two versions of the code agree on a series of API calls.
-This is a well documented approach to PBT~\cite{hughes_experiences_2016}, but it
-is not always supported as well as it could be by existing tooling. For example,
-developers at Jane Street cited setting up essentially the same basic
+One finding that has surprised us from the Jane Street study
+is that it is {\em very} common for developers to
+build (or already to have) a {\em model implementation} of the code
+they are testing and
+check that the two versions of the code agree on randomly generated
+sequences of API calls.
+This is a well-documented approach to PBT~\cite{hughes_experiences_2016}, but it
+is not supported as well as it could be by existing tooling. For example,
+interviewees described setting up essentially the same basic
 model-based PBT harness for at least three different projects; implementing each
 of those harnesses took significant developer time and slowed down the testing
-process.
+process.  \bcp{But now that they're done, why is more research needed?}
 
 The APIs that the Jane Street developers tested came in the form of ML-style
 {\em modules}. The module systems of OCaml and other
@@ -708,7 +727,9 @@ and generate a series of calls like
 \begin{lstlisting}[language=Caml]
   let m = put m 1 2; get m 1; let m = put m 1 3; m get 1
 \end{lstlisting}
-that manipulate the data structure and query its contents. When testing two
+that manipulate the data structure and query its contents.
+\bcp{Prior work on testing polymorphic code seems relevant here---citations!}
+When testing two
 different implementations of \lstinline{Map}, the developer can verify that the
 two implementations produce the same results for each of the operations in the
 sequence. The automated tooling could also insert checks for internal
@@ -718,14 +739,20 @@ manually.
 
 With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
-the potential to significantly increase the usability model-based PBT.
+the potential to significantly increase the usability of model-based
+PBT.
+
+\bcp{Not very convincing.  For one thing, we neither make a case that
+  solving this problem for ML modules will generalize (at all, much
+  less straightforwardly) to other languages with different modularity
+  mechanisms.  At the same time, we don't convey they technical
+  challenge of doing it even for ML.}
 
 \SUBSECTION{Proposed Work: Interactive Property Specification}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague
 and high level---I feel like technical readers will want a bit more meat.  Could
-we spice it up with a concrete example?  (Indeed, should we be thinking about a
-running example for the whole proposal?)} \amh{Agreed, I think a concrete
+we spice it up with a concrete example?} \amh{Agreed, I think a concrete
 example would be \emph{great} here. Maybe there is an example we can bring in
 from the QuickSpec paper~\cite{claessen2010quickspec}}
 
@@ -735,7 +762,7 @@ software would benefit from property-based testing. One area we are interested
 in exploring is how programmers can work with their PBT tools to decide on a set
 of significant properties to test.  Prior research demonstrates that automated
 tools can extract specifications of a program's
-behavior\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
+behavior~\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
 interested in the non-trivial research problem of integrating such techniques
 into usable developer tools. We see the research as addressing several
 challenges:
@@ -800,21 +827,23 @@ their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
 
 \subsectionstar{Context: Why is Random Generation Hard?}%
-Before presenting our proposed work to improve the state of random data
-generators, we must first discuss the major difficulties with random generation
-for PBT and the existing work that aims to address those difficulties.
-\todo{Link all of this to the intro}
+\proposecut{Before presenting our proposed work to improve the state
+  of random data generators, we must first discuss the major
+  difficulties with random generation for PBT and the existing work
+  that aims to address those difficulties.}  \todo{Link all of this to
+  the intro}
 
 % \todo{Talk about enumeration}
 
 {\em Preconditions.}
 Many properties that developers want to test have {\em preconditions}
-(equivalently {\em validity conditions} or {\em input constraints}) that
+(or {\em validity conditions} or {\em input constraints}) that
 restrict the set of inputs that should be used for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
 the operations under test. Testing such properties can be problematic, because
 many preconditions are difficult to satisfy randomly; if the developer is not
-careful they may waste considerable time generating and discarding invalid inputs.
+careful they may waste most of their testing time generating and
+discarding invalid inputs.
 
 {\em Coverage of Realistic Inputs.}
 Even among valid inputs, not all are equally realistic. Often generated inputs
@@ -850,12 +879,10 @@ category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
 examples~\cite{soremekun2020inputs}.
 
-The most manual, but also the most flexible, solutions use hand-written
-generators, written in a convenient domain-specific language...
-
 \subsectionstar{Context: Monadic Generators}
-When writing generators manually, it helps to have a clean domain-specific
-language (DSL) for writing them down. In the Haskell language, where PBT was
+The most manual, but also the most flexible, solutions use hand-written
+generators, written in a convenient domain-specific language (DSL).
+In  Haskell, where PBT was
 first popularized, many such DSLs are implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
 expressing effectful (in this case, random and stateful) computations
@@ -864,7 +891,7 @@ language. While monadic DSLs are not actually necessary to express generators in
 non-pure languages, some libraries (e.g., in OCaml) still use monadic
 abstractions to build their generator DSLs.
 
-Monadic generators implement random data producers of arbitrary complexity
+Monadic generators can implement random data producers of arbitrary complexity
 (e.g., it is possible to write a monadic generator for Haskell
 programs~\cite{palka_testing_2011}), so they are often more expressive than
 other representations like grammar-based generators.  Yet monadic generators are
@@ -913,6 +940,7 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Ongoing Work: Reflective Generators}
+\bcp{Maybe this is also better described as proposed work?}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project, which is already well underway, concerns monadic generators
@@ -1429,22 +1457,35 @@ of PBT, but some may find this problematic.
 %   nicer form.}
 
 \ganttset{bar height=.6}
+\newcommand{\ganttsection}[1]{
+  \ganttbar[bar/.append style={draw=white}] {#1}{2}{3} \\}
+\newcommand{\task}[4]{
+  \ganttbar [bar/.append style={fill=gray}]
+    {\small #1 (\sectionref{#2})}{#3}{#4} \\ }
+
+\begin{figure}[ht]
+  \centering
 \begin{ganttchart}[
       expand chart=\textwidth,
       y unit chart=.5cm
-    ]{1}{5}
-  \gantttitle{Ongoing}{1}
+    ]{1}{4}
+% \gantttitle{Ongoing}{1}
   \gantttitle{Year 1}{1}
   \gantttitle{Year 2}{1}
   \gantttitle{Year 3}{1}
   \gantttitle{Year 4}{1} \\
-  \ganttbar[bar/.append style={draw=white}] {Foundation}{2}{3} \\
-  \ganttbar{\small Surveys to Generalize Findings (\sectionref{sec:survey})}{2}{3} \\
-  \ganttbar{Specification}{2}{3} \\
-  \ganttbar{Generation}{5}{5} \\
-  \ganttbar{Validation}{5}{5} \\
-  \ganttbar{Education}{5}{5}
+  \ganttsection{Foundation}
+  % \task{Jane Street study (analysis and
+  %   publication)\iflater\bcp{?}\fi}{sec:motivation}{1}{2}
+  \task{Surveys to Generalize Findings}{sec:survey}{1}{1}
+  \task{Observations of PBT in Practice}{sec:observations}{2}{2}
+  \ganttsection{Specification}
+  \ganttsection{Generation}
+  \ganttsection{Validation}
+  \ganttsection{Education}
 \end{ganttchart}
+  \caption{Plan of work.  \todo{Finish it}}\label{fig:workplan}
+\end{figure}
 
 \todo{Write words}
 
