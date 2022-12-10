@@ -355,10 +355,6 @@ PBT stakeholders at Jane
 Street Capital---both
 developers who have had exposure to PBT as
 well as developers of PBT tools.
-\proposecut{The interviews have focused on tasks that developers would like to
-accomplish with PBT tools and their recollections of what it was like to
-work with PBT tools to accomplish these tasks.}\bcp{Maybe that sentence
-can go?  (What else would such interviews focus on?)}
 
 Interview
 studies are a common tool for early-stage need finding in
@@ -397,6 +393,8 @@ proposed survey
 study (\sectionref{sec:survey}) aims to establish contact with a broader
 sample of non-users of PBT to assess opportunities for making PBT tools more
 valuable and discoverable for this group.}
+\hg{I think I'm in favor of cutting. I do like the idea of a forward pointer to
+the survey, but we sort of already do that in the next paragraph}
 
 There is a danger that findings from a study at a single firm with a homogeneous
 OCaml-based testing ecosystem may not generalize outside of this
@@ -417,8 +415,7 @@ recently at the SPLASH HATRA workshop, one of the key venues for
 emerging work on human aspects of formal methods tools and type
 systems~\cite{goldstein2022some}.
 
-\proposecut{The study format was semi-structured interviews exploring developers'
-experiences and impressions of PBT.} At the time of writing, the full
+At the time of writing, the full
 complement of 30 interviews and a preliminary round of analysis have
 been completed; full-scale analysis will begin in 2023.
 
@@ -470,12 +467,10 @@ writing properties about output it prints to the terminal; we plan to
 operationalize this approach.
 Furthermore, more than three quarters of study participants had used a
 particular kind of PBT, commonly called
-\proptheme{Model-Based Testing}. \proposecut{Model-based testing is not so much a scenario
-in which to apply PBT as it is a technique for using it, but}
-participants like\bcp{including? (but if there were multiple ones, why
-  not list them all?)}
-\participant{3} thought that better automation and tooling around model-based
-testing could make PBT significantly easier to pick up and use.
+\proptheme{Model-Based Testing}.
+\participant{3}, an author of PBT tools at Jane Street, considered better
+automation and tooling around model-based testing to be one of the most
+significant ways improve PBT and make it easier to pick up and use.
 
 We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:spec}.
@@ -515,22 +510,16 @@ We discuss plans for work that addresses \gentheme{generation themes} in \sectio
 \smallskip
 
 A final category of common themes concerned the {\bf validation} of testing
-effectiveness. In
-general, with any sort of
-testing, it is difficult to know when ``enough is enough.'' In
-standard unit testing, for example, developers may worry that test number
-$n + 1$ will be the one that catches a bug; PBT does make it possible to to
-automatically generate that one extra test, but one still has to decide when to
-stop.\bcp{That comparison doesnt really hit home: with PBT, too, the
-  one test that you didn't run might be the one that catches the bug.} This tension leads to a variety of approaches to
-\evaltheme{Budgeting Time for PBT}: most of our interviewees run PBT
-testing just for a few seconds per property, expecting
-that the bulk of the necessary testing is done in hundreds or up to around a
-thousand examples, but some run it for much longer. Interestingly, the opposite
-was true about a close cousin of PBT, fuzz testing. Participants
-like\bcp{again, if there are more why not just list them?}
-\participant{14} and \participant{20}, who used both
-PBT and fuzzing tools, ran the fuzzers for far longer
+effectiveness. As with any sort of testing, when doing PBT it is difficult to
+know when ``enough is enough.'' One standard approach is to simply test up to a
+time limit, but participants' approaches to \evaltheme{Budgeting Time for PBT}
+were anything but standardized.
+Most of our interviewees run PBT testing just for a few seconds per property,
+expecting that the bulk of the necessary testing is done in hundreds or up to
+around a thousand examples, but some run it for much longer.
+Interestingly, the opposite was true about a close cousin of PBT, fuzz testing.
+Participants \participant{14} and \participant{20}, who used both PBT and
+fuzzing tools, ran the fuzzers for far longer
 % HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
 (some for up to a year!).
 
