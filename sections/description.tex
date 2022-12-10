@@ -110,17 +110,6 @@ We propose a comprehensive, interdisciplinary research program that
 will bring the combined power of PL and HCI approaches to bear,
 accelerating PBT's transition into practice\iflater\bcp{do we need
   this?} and creating a blueprint for further research\fi.
-% BCP: I really think this is not needed (readers will figure it out),
-% and it weakens the rhetorical punch:
-%   After an orientation to
-%   PBT and discussion of our motivating study, we discuss the following lines of
-%   work:
-\iflater\hg{I think the Orientation section is too dense (and long) to make it clear
-that the motivation is coming. If someone sees orientation, thinks "OK, I know
-PBT so I'll skip this and come back if needed" they may skip to D1 and miss
-motivation by accident}\bcp{Maybe we can somehow add a reference to the
-Motivation discussion in the first bullet?  (I'm still not so worried
-about this, though.))}\fi
 \begin{itemize}[noitemsep]
   \item
   Our ongoing study (described in more detail below) is
@@ -163,6 +152,7 @@ a holistic research agenda around PBT that is sure to be both well motivated and
 well founded.
 
 \sectionstar{Orientation: Property-Based Testing}
+\todo{More citations here}
 Before discussing our motivating study, we briefly explain what PBT is
 and why it is important.
 
@@ -188,10 +178,6 @@ that, given an arbitrary tree \texttt{t} and an integer
 satisfies the
 binary search tree invariant (``\texttt{isBST t}''), then it should remain
 a BST following the insertion of \texttt{x} (``\texttt{isBST (insert x t)})''.
-
-\iflater \bcp{I think this point will show up later:}There are a
-myriad of different kinds of properties that one might use to specify
-a system; a good source of examples is \citet{HowToSpecifyIt}.  \fi
 
 Given a property like this one, the PBT tool chooses large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
@@ -226,9 +212,6 @@ And (4) if counter-examples are found, make sense of them and determine the
   source of the bug.
 Each of these steps presents opportunities to improve the user experience of
 PBT, as we shall see below.
-% How's that?
-% ; when applicable, we will make it clear which of our projects targets which
-% of these steps.\todo{Do that?}
 
 \bcp{This is also the place to make our strongest argument for
   potential impact: Why is PBT so much better than standard unit and
@@ -236,14 +219,13 @@ PBT, as we shall see below.
   ability to discover weird edge cases, value as documentation, ease
   of application (in some common cases), ... what else?} \amh{+1}
 
-% \bcp{This is probably the place to mention a whole ton of related
-%   work, no?}
-
- \todo{Talk about fuzzers.}\hg{Probably, yeah. I have an
-intro for it somewhere, we just need to hoist it}
-
 \iflater\todo{Double-check that we've mentioned all relevant
-  ``hgih-level'' related work here.}\fi
+  ``hgih-level'' related work somewhere.}
+  \hg{My current decision is that Orientation should stay high-level RE PBT.
+  Specifically, I think it shouldn't get into the weeds of generation
+  techniques, including fuzzing. I added a bunch of references RE that later on
+  in the context sections.}
+  \fi
 
 \sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
 %
