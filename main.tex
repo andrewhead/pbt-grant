@@ -120,7 +120,9 @@
 
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
-\newcommand{\SECTION}[1]{\section{#1}
+\newcommand{\SIMPLESECTION}[2]{\section{#1}\label{#2}}
+\newcommand{\SECTION}[3]{%
+  \SIMPLESECTION{#1: #2}{#3}
   \immediate\write\workplanfile{\string\ganttsection{#1}}
 }
 \newcommand{\sectionstar}[1]{\subsection*{#1}}
@@ -136,7 +138,7 @@
 \usepackage{pgfgantt}
 \ganttset{bar height=.6}
 \newcommand{\ganttsection}[1]{
-  \\ \ganttbar[bar/.append style={draw=white}] {#1}{2}{3}}
+  \\ \ganttbar[bar/.append style={draw=white}] {\bf #1}{2}{3}}
 \newcommand{\task}[4]{
   \\ \ganttbar [bar/.append style={fill=gray}]
     {\small #1 (\sectionref{#2})}{#3}{#4} }
