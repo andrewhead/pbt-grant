@@ -10,3 +10,4 @@ main.pdf
 *.blg
 *.synctex.gz
 *.toc
+/main.workplan

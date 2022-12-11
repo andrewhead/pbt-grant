@@ -118,14 +118,56 @@
 
 \usepackage{enumitem}
 
-\newcommand{\SECTION}[1]{\section{#1}}
+\newwrite\workplanfile
+\immediate\openout\workplanfile=\jobname.workplan
+\newcommand{\SECTION}[1]{\section{#1}
+  \immediate\write\workplanfile{\string\ganttsection{#1}}
+}
 \newcommand{\sectionstar}[1]{\subsection*{#1}}
 \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
-\newcommand{\SUBSECTION}[1]{\subsection{#1}}
+\newcommand{\SUBSECTION}[4]{%
+  \subsection{#1}
+  \label{#2}
+  \immediate\write\workplanfile{\string\task{#1}{#2}{#3}{#4}}
+}
 \newcommand{\sectionref}[1]{\S\ref{#1}}
 
 \usepackage{pgfgantt}
+\ganttset{bar height=.6}
+\newcommand{\ganttsection}[1]{
+  \\ \ganttbar[bar/.append style={draw=white}] {#1}{2}{3}}
+\newcommand{\task}[4]{
+  \\ \ganttbar [bar/.append style={fill=gray}]
+    {\small #1 (\sectionref{#2})}{#3}{#4} }
+
+  % \makeatletter
+% \newcommand{\SECTION}[1]{\section{#1}
+%   \g@addto@macro\workplanitems{\ganttsection{#1}}
+% }
+% \makeatother
+% \newcommand{\sectionstar}[1]{\subsection*{#1}}
+% \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
+% % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
+% \newcommand{\SUBSECTION}[4]{%
+%   \subsection{#1}
+%   \label{#2}
+%   \workplanitem{\task{#1}{#2}{#3}{#4} \\}
+% }
+% \newcommand{\sectionref}[1]{\S\ref{#1}}
+
+% \usepackage{pgfgantt}
+% \def\workplanitems{FOO}
+% \makeatletter
+% \def\workplanitem#1{%
+%   \g@addto@macro\workplanitems{#1 }}
+% \makeatother
+% \ganttset{bar height=.6}
+% \newcommand{\ganttsection}[1]{
+%   \ganttbar[bar/.append style={draw=white}] {#1}{2}{3} \\}
+% \newcommand{\task}[4]{
+%   \ganttbar [bar/.append style={fill=gray}]
+%     {\small #1 (\sectionref{#2})}{#3}{#4} \\ }
 
 \begin{document}
 
