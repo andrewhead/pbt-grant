@@ -683,15 +683,20 @@ check that the two versions of the code agree on randomly generated
 sequences of API calls.
 This is a well-documented approach to PBT~\cite{hughes_experiences_2016}, but it
 is not supported as well as it could be by existing tooling. For example,
-interviewees described setting up essentially the same basic
-model-based PBT harness for at least three different projects; implementing each
-of those harnesses took significant developer time and slowed down the testing
-process.  \bcp{But now that they're done, why is more research needed?}\hg{Is it
+interviewees described setting up {\em very similar}
+model-based PBT harnesses for at least three different projects. Each harness
+was specific to the problem at hand, so the hard work of setting up these tests
+has no hope of being reused from one project to another, but the logic behind
+the harnesses is ripe for automation.
+\bcp{But now that they're done, why is more research needed?}\hg{Is it
 not compelling that developers continue to waste time on the same automatable
 task? I thought that was a slam dunk...}\bcp{We're not being explicit
 about exactly what's missing that makes people have to reimplement
 things all the time---if what was missing was just the things, then
 once they'd been implemented we'd be done.}
+\hg{Better? I think it wasn't clear that ``harness'' doesn't mean
+``generalizable library'' it means ``domain specific thing that won't help me
+next time'}
 
 The APIs that the Jane Street developers tested came in the form of ML-style
 {\em modules}. The module systems of OCaml and other
