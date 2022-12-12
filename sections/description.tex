@@ -1278,14 +1278,15 @@ and tune their generators to their specific needs.
 
 Of course, understanding generator distributions is challenging.  The values
 produced by generators are often highly structured and have complex shapes
-(think lists, trees, and other algebraic data types) \amh{I think the best
-example of this I heard of during the interview study were lists of log events,
-where each of those log events had multiple data fields---this would be really
-hard to visualize without a bespoke visualization}.  Such values cannot simply
-be plotted on a chart, and even spot-checking them visually may be hard if the
-values are large.  Furthermore, writing generators is already considered by
-developers to be a burden, so any tool in this space needs to be incredibly
-automatic and easy to use.
+(think lists, trees, and other algebraic data types). As a concrete example,
+consider a list of log events with type:
+\begin{lstlisting}
+  type log = {id : int; payload : string} list
+\end{lstlisting}
+Such values cannot simply be plotted on a chart, and even spot-checking them
+visually may be hard if the values are large.  Furthermore, writing generators
+is already considered by developers to be a burden, so any tool in this space
+needs to be incredibly automatic and easy to use.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
@@ -1305,20 +1306,23 @@ literature.
 
 \genvis{} starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
-the system extracts and plots relevant {\em features} of a given datatype (e.g.,
-for lists: length; for trees: size, depth, balance factor, etc.). \genvis{} will
-start with a base set of features, extracted from the surrounding programming
-environment and validated by the user; this will likely result in a few useful
-visualizations, but maybe not enough. To ensure a comprehensive understanding of
-the data, \genvis{} will then use lightweight program synthesis to compose and
-combine the base of features to get {\em derived} features. The derived features
-may features may show the relationship between different base features or even
-compose base feature extractors to get entirely new features. \amh{Do you have
-an example of a useful derived feature? I'm having a difficult time envisioning
-a derived feature one would want to see, so it's less clear to me that this
-feature will be useful.} All of the
-features, base and derived, will be made available to users in a variety of
-charts and graphs.
+the system extracts and plots relevant {\em features} of a given datatype, that
+will be extracted using functions in the surrounding programming environment and
+validated by the user. In the case of the \lstinline{log} type above, \genvis{}
+would consider simple functions like \lstinline{length},
+destructors like \lstinline{head}, \lstinline{id}, and \lstinline{payload}, and
+even aggregators like \lstinline{max} and \lstinline{avg}. Then
+\genvis{} will then use lightweight program synthesis to compose and
+combine these functions to get features. It may choose to show the
+\lstinline{length} of a log, but also the \lstinline{max (length . payload)} and
+even \lstinline{(length, max (length . payload))} (plotting length versus
+the maximum payload length, in, e.g., a scatter chart).
+If there are features that the user notices should be extracted, but that the
+system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
+write it themselves and add it to the \genvis{} interface.
+All of the features, base and derived, will be made available to users
+in a variety of charts and graphs.\todo{I don't think this is at all clear, but
+I wanted to get something down on paper to talk about}
 
 Of course, developers would struggle to grok dozens of charts representing
 their data's features, so \genvis{} will also have a way for users to specify
@@ -1330,9 +1334,16 @@ seconds to find a single representative chart) or slow and careful (many minutes
 spent curating a dashboard of results to help with tuning), depending on how
 much time and energy the developer has to put into their generator. Besides
 charts, \genvis{} will also present the user with structured representations of
-some generated values. We plan to use meta-programming to build
-DOT graphs~\cite{ellson_graphviz_2002} that represent data types, and then
-present those graphs to the developer for easier spot-checking of data.
+some generated values that can be used to help the developer spot-check the
+generated data.  The specifics this are not yet certain, since of visualizations
+used for individual values may need to depend on the domain, but we have some
+ideas. For some kinds of structures, it may be useful to present the user with
+DOT graphs~\cite{ellson_graphviz_2002} that represent data types; such graphs
+could be generated via meta-programming and rendered for the user. Another
+option is to simply present the user with a JSON representation of
+the data that they can explore via mouse interactions (e.g., clicking to expand
+or collapse sections) or even via tools like \lstinline{jq}~\cn{}.
+
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
 types. I would expect most visualizations to become unreadable once the number
@@ -1341,11 +1352,12 @@ that our automated features (including proposed visualizations types of filters)
 will regularly work on the kinds of complexity of the data people will generate,
 or otherwise shift to a goal of supporting developers in rapid definition of
 their own filters and visualizations.}
+\hg{Any better?}
 
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
-features. We will evaluate \genvis{} in a small user study (~15 participants),
+features. We will evaluate \genvis{} in a small user study (around 15 participants),
 hoping to learn which features of the tool are most useful, and how the design
 may be refined into a tool that real developers can use. \amh{What is our
 strategy for getting this tool into the hands of real developers?}
