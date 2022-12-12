@@ -630,8 +630,7 @@ properties or specifications.
 
 Here is a straightforward approach that might enable much better testing
 of poorly abstracted code without giving
-up expressiveness: add some logging \proposecut{(printfs or whatever)\hg{``or
-whatever'' reads as dismissive}} into the
+up expressiveness: add some logging calls to the
 code under test to record when interesting events occur, then write
 properties over the logs that are produced when it runs, rather than over its
 inputs and outputs. For example, if the developer
@@ -643,7 +642,9 @@ values satisfy the invariant.\bcp{Not very convinced by this
 mind?}  We can use meta-programming to automate this
 process, so a user need only mark the variable at its declaration site
 to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
-not... ppxs are arbitrary code transformations}
+not... ppxs are arbitrary code transformations}\bcp{How would it deal
+with, for example, aliasing (i.e., multiple pointers to some
+``watched'' location, with different names)?}
 
 Another
 useful property over logs concerns
@@ -687,7 +688,10 @@ model-based PBT harness for at least three different projects; implementing each
 of those harnesses took significant developer time and slowed down the testing
 process.  \bcp{But now that they're done, why is more research needed?}\hg{Is it
 not compelling that developers continue to waste time on the same automatable
-task? I thought that was a slam dunk...}
+task? I thought that was a slam dunk...}\bcp{We're not being explicit
+about exactly what's missing that makes people have to reimplement
+things all the time---if what was missing was just the things, then
+once they'd been implemented we'd be done.}
 
 The APIs that the Jane Street developers tested came in the form of ML-style
 {\em modules}. The module systems of OCaml and other
@@ -738,6 +742,7 @@ PBT.
   challenge of doing it even for ML.}
 \hg{Same problem as the previous section---I'm working from hunches here. Maybe
 we should take a half hour to talk through these projects?}
+\bcp{Definitely.}
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
 
@@ -812,7 +817,7 @@ after)---we should make sure to cite it coherently.}
 %
 The Jane Street developers we interviewed consistently
 cited {\em designing generators} as one of the most challenging parts of the
-PBT process, and many 
+PBT process, and many
 asked for better tools for constructing generators that reliably address
 their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
@@ -849,7 +854,9 @@ solve, and then make it clear when we've solved the problems.}
 
 The PBT literature partially addresses these concerns, with solutions solving
 one problem at the expense of another and trading off between programmer effort
-and generator power. The existing solutions
+and generator power.\bcp{Better!  We can make it better yet by being
+  explicit about where these tradeoffs happen in the discussion that
+  follows.} The existing solutions 
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
@@ -934,7 +941,11 @@ generators with complex preconditions.
 \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
 worry that enough of the following projects rest on reflective generators that
 we want to be able to say ``don't worry, we actually have an idea what these
-will look like''}
+will look like''}\bcp{That's fair enough.  I think we can finesse this
+issue though---e.g., by mentioning that we've been discussing this
+with Sam and Meng and have some concrete ideas how to proceed (and
+then giving a bit of technical meat, though of course there is not
+room for much).}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project, which is already well underway, concerns monadic generators
