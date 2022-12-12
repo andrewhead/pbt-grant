@@ -203,11 +203,26 @@ PBT, as we shall see below.
 
 \smallskip
 
-\bcp{This is also the place to make our strongest argument for
-  potential impact: Why is PBT so much better than standard unit and
-  integration testing (at least sometimes)---e.g., its thoroughness,
-  ability to discover weird edge cases, value as documentation, ease
-  of application (in some common cases), ... what else?} \amh{+1}
+Why go to the trouble of PBT, when more straightforward example testing is the
+de-facto standard in the software industry? First and foremost, PBT has the
+potential to be much more thorough than user-defined examples. As mentioned
+previously, PBT has an impressive track-record uncovering bugs that other
+approaches to testing had failed to find~\cite{arts2006testing,
+hughes2014mysteries, Bornholt2021, arts2015testing, hughes2016experiences}. But
+PBT is more than just thorough---it is actually more general than example-based
+testing. Wrenn et al.~\cite{wrenn2021using} point out that example-based testing
+of programs like that implement relations (e.g., topological sort, which may
+produce one of a number of potentially correct results) is impossible to do
+faithfully; a property-based specification is a much better choice. PBT is also
+obviously preferable if formal properties already exist; this is the use-case
+for QuickChick~\cite{paraskevopoulou_foundational_2015}, which implements PBT in
+the Coq proof assistant. Finally, PBT can act as superior documentation:
+participants in our foundational study (\participant{5}, \participant{21})
+talked at length about properties being an ideal way to communicate what a
+program is supposed to do.
+
+With so many potential advantages, it is clear that PBT should be a tool that
+software developers have readily at their fingertips. We plan to put it there.
 
 \iflater\todo{Double-check that we've mentioned all relevant
   ``hgih-level'' related work somewhere.}
