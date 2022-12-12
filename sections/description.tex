@@ -627,15 +627,11 @@ especially sensitive to issues like poorly encapsulated global state, which may
 impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
-\proposecut{Integration testing tools get around these issues by
-testing code ``from the outside''---they do not care about internal
-abstractions, only external interfaces---but this necessarily limits their
-ability to test complex properties that concern internal values and
-invariants.}
 
 Here is a straightforward approach that might enable much better testing
 of poorly abstracted code without giving
-up expressiveness: add some logging (printfs or whatever) into the
+up expressiveness: add some logging \proposecut{(printfs or whatever)\hg{``or
+whatever'' reads as dismissive}} into the
 code under test to record when interesting events occur, then write
 properties over the logs that are produced when it runs, rather than over its
 inputs and outputs. For example, if the developer
@@ -646,7 +642,8 @@ values satisfy the invariant.\bcp{Not very convinced by this
   example---it's way too abstract.  What real examples do we actually have in
 mind?}  We can use meta-programming to automate this
 process, so a user need only mark the variable at its declaration site
-to log all updates to it.\bcp{Can OCaml actually do that??}
+to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
+not... ppxs are arbitrary code transformations}
 
 Another
 useful property over logs concerns
@@ -663,9 +660,9 @@ Concretely, we propose a framework for inserting lightweight
 logging-for-testing and a
 language for writing properties over those logs. The logging is a
 ``mere matter
-of engineering,''\bcp{how hard is it?} but the language for properties
-is an exciting\bcp{have you noticed I always cut this word when I see
-  it?  :-)} opportunity to
+of engineering,''\bcp{how hard is it?}\hg{Not sure, but I doubt it's a
+theoretical lift...} but the language for properties
+is an opportunity to
 apply powerful logical ideas. Specifically, the properties over logged outputs
 should be written in a temporal logic like {\em linear temporal logic} (LTL) so
 they can make complex assertions about the way past and future values interact.
@@ -673,7 +670,8 @@ The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already show
 LTL properties can be used for specifying and testing graphical
 user interfaces; we will adapt and generalize its methods to a
 broader set of programs.\bcp{Weak ending, and this whole section is a
-  bit vague.}
+bit vague.}\hg{Would love some input. It's vague because I really haven't had
+time to flesh out this idea}
 
 \SUBSECTION{Automating Model-Based PBT}{sec:automating}{2}{3}
 One finding that has surprised us from the Jane Street study
