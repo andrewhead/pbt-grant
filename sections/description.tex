@@ -83,15 +83,14 @@ al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
 pain points'' with tools that ``help [programmers] write safe and correct
 programs.'' We wholeheartedly agree.
-\hg{Got rid of personnel and put this here. Thoughts?}\bcp{I like it
-  here.  Needs a bit better transition to what comes before and after.}
-PI Head
-is deeply embedded in the HCI community and recently co-founded the new HCI
-group of the University of Pennsylvania, while PI Pierce is has published in
-every corner of the PL world and has decades of experience in both researching
-and teaching about programming languages.
-This proposal was born, in part, because PI
-Pierce and PI Head want to leverage the power of PL+HCI collaboration.
+The team behind this proposal is uniquely positioned to advance the state of
+PL+HCI: PI Head is deeply embedded in the HCI community and recently co-founded
+the new HCI group of the University of Pennsylvania, while PI Pierce is has
+published in every corner of the PL world and has decades of experience in both
+researching and teaching about programming languages. This proposal will be the
+first of many PL+HCI projects that the University of Pennsylvania Computing and
+Information Science department undertakes.\iflater\hg{I'm just spitballing,
+feel free to change}\fi
 
 We propose a comprehensive, interdisciplinary research program that
 will bring the combined power of PL and HCI approaches to bear,
@@ -203,11 +202,26 @@ PBT, as we shall see below.
 
 \smallskip
 
-\bcp{This is also the place to make our strongest argument for
-  potential impact: Why is PBT so much better than standard unit and
-  integration testing (at least sometimes)---e.g., its thoroughness,
-  ability to discover weird edge cases, value as documentation, ease
-  of application (in some common cases), ... what else?} \amh{+1}
+Why go to the trouble of PBT, when more straightforward example testing is the
+de-facto standard in the software industry? First and foremost, PBT has the
+potential to be much more thorough than user-defined examples. As mentioned
+previously, PBT has an impressive track-record uncovering bugs that other
+approaches to testing had failed to find~\cite{arts2006testing,
+hughes2014mysteries, Bornholt2021, arts2015testing, hughes2016experiences}. But
+PBT is more than just thorough---it is actually more general than example-based
+testing. Wrenn et al.~\cite{wrenn2021using} point out that example-based testing
+of programs like that implement relations (e.g., topological sort, which may
+produce one of a number of potentially correct results) is impossible to do
+faithfully; a property-based specification is a much better choice. PBT is also
+obviously preferable if formal properties already exist; this is the use-case
+for QuickChick~\cite{paraskevopoulou_foundational_2015}, which implements PBT in
+the Coq proof assistant. Finally, PBT can act as superior documentation:
+participants in our foundational study (\participant{5}, \participant{21})
+talked at length about properties being an ideal way to communicate what a
+program is supposed to do.
+
+With so many potential advantages, it is clear that PBT should be a tool that
+software developers have readily at their fingertips. We plan to put it there.
 
 \iflater\todo{Double-check that we've mentioned all relevant
   ``hgih-level'' related work somewhere.}
@@ -627,45 +641,48 @@ especially sensitive to issues like poorly encapsulated global state, which may
 impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
-\proposecut{Integration testing tools get around these issues by
-testing code ``from the outside''---they do not care about internal
-abstractions, only external interfaces---but this necessarily limits their
-ability to test complex properties that concern internal values and
-invariants.}
 
-Here is a straightforward approach that might enable much better testing
-of poorly abstracted code without giving
-up expressiveness: add some logging (printfs or whatever) into the
-code under test to record when interesting events occur, then write
-properties over the logs that are produced when it runs, rather than over its
-inputs and outputs. For example, if the developer
-knows about some invariant on a variable \lstinline{x}, they can log the
-value of \lstinline{x} every time it is set, then write a property
-stating that the logged
-values satisfy the invariant.\bcp{Not very convinced by this
-  example---it's way too abstract.  What real examples do we actually have in
-mind?}  We can use meta-programming to automate this
-process, so a user need only mark the variable at its declaration site
-to log all updates to it.\bcp{Can OCaml actually do that??}
+One Jane Street developer (\participant{??}) described their experience testing
+a system (we'll call it System A) with messy abstraction boundaries. In this
+case, System A was hard to test because it was primarily used as a sub-component
+of a larger System B: System B would take in simple data, and then at some point
+pass a large, complex data structure to System A, which would do some work and
+hand results back to System B. PBT of System A was therefore hard, because
+generating valid examples of the large data structure that System A takes as
+input required deep knowledge of the internals and types of System B that the
+developers of System A did not have access to, and because the interface was too
+complex to write straightforward properties about.
 
-Another
-useful property over logs concerns
-invariants that applies over time (e.g., the value of \lstinline{x} should
-never decrease).
-This would be difficult to do with debug assertions\bcp{who said
-  anything about debug assetions??}, since state would need to
-be kept for arbitrary amounts of time between variable updates; setting up such
-state may itself require some error-prone restructuring of the code, especially
-if the debug state should be compiled away in release builds.
-\bcp{Generally not very convincing.}
+Here is a straightforward approach that might help in this scenario: add some
+logging calls to System A to record when interesting events occur, then write
+properties over the logs that are produced when it runs as part of System B.
+For example, the developer might ensure properties like
+\begin{lstlisting}
+  msg.length < 100 ==> never (overflow = true)
+  eventually (processed = msg.length)
+  processed <= next (processed)
+\end{lstlisting}
+that demonstrate that internal variables like \lstinline{msg},
+\lstinline{overflow}, and \lstinline{processed} evolve correctly over time.
+These properties can be tested without ever running System A on its own: we can
+generate inputs to System B, have System B call into System A (which logs out
+variable values), and simply monitor the logged values to check the desired
+properties.\hg{I think this is an improvement, we can discuss}
+
+% We can use meta-programming to automate this
+% process, so a user need only mark the variable at its declaration site
+% to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
+% not... ppxs are arbitrary code transformations}\bcp{How would it deal
+% with, for example, aliasing (i.e., multiple pointers to some
+% ``watched'' location, with different names)?}
 
 Concretely, we propose a framework for inserting lightweight
 logging-for-testing and a
 language for writing properties over those logs. The logging is a
 ``mere matter
-of engineering,''\bcp{how hard is it?} but the language for properties
-is an exciting\bcp{have you noticed I always cut this word when I see
-  it?  :-)} opportunity to
+of engineering,''\bcp{how hard is it?}\hg{Not sure, but I doubt it's a
+theoretical lift...} but the language for properties
+is an opportunity to
 apply powerful logical ideas. Specifically, the properties over logged outputs
 should be written in a temporal logic like {\em linear temporal logic} (LTL) so
 they can make complex assertions about the way past and future values interact.
@@ -673,7 +690,8 @@ The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already show
 LTL properties can be used for specifying and testing graphical
 user interfaces; we will adapt and generalize its methods to a
 broader set of programs.\bcp{Weak ending, and this whole section is a
-  bit vague.}
+bit vague.}\hg{Would love some input. It's vague because I really haven't had
+time to flesh out this idea}
 
 \SUBSECTION{Automating Model-Based PBT}{sec:automating}{2}{3}
 One finding that has surprised us from the Jane Street study
@@ -684,10 +702,20 @@ check that the two versions of the code agree on randomly generated
 sequences of API calls.
 This is a well-documented approach to PBT~\cite{hughes_experiences_2016}, but it
 is not supported as well as it could be by existing tooling. For example,
-interviewees described setting up essentially the same basic
-model-based PBT harness for at least three different projects; implementing each
-of those harnesses took significant developer time and slowed down the testing
-process.  \bcp{But now that they're done, why is more research needed?}
+interviewees described setting up {\em very similar}
+model-based PBT harnesses for at least three different projects. Each harness
+was specific to the problem at hand, so the hard work of setting up these tests
+has no hope of being reused from one project to another, but the logic behind
+the harnesses is ripe for automation.
+\bcp{But now that they're done, why is more research needed?}\hg{Is it
+not compelling that developers continue to waste time on the same automatable
+task? I thought that was a slam dunk...}\bcp{We're not being explicit
+about exactly what's missing that makes people have to reimplement
+things all the time---if what was missing was just the things, then
+once they'd been implemented we'd be done.}
+\hg{Better? I think it wasn't clear that ``harness'' doesn't mean
+``generalizable library'' it means ``domain specific thing that won't help me
+next time'}
 
 The APIs that the Jane Street developers tested came in the form of ML-style
 {\em modules}. The module systems of OCaml and other
@@ -736,6 +764,9 @@ PBT.
   less straightforwardly) to other languages with different modularity
   mechanisms.  At the same time, we don't convey they technical
   challenge of doing it even for ML.}
+\hg{Same problem as the previous section---I'm working from hunches here. Maybe
+we should take a half hour to talk through these projects?}
+\bcp{Definitely.}
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
 
@@ -816,12 +847,7 @@ their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
 
 \subsectionstar{Context: Why is Random Generation Hard?}%
-\proposecut{Before presenting our proposed work to improve the state
-  of random data generators, we must first discuss the major
-  difficulties with random generation for PBT and the existing work
-  that aims to address those difficulties.}  \todo{Link all of this to
-  the intro}
-
+\todo{Link all of this to the intro}
 % \todo{Talk about enumeration}
 
 {\em Preconditions.}
@@ -850,8 +876,11 @@ too much time in one part of the space or another.
 \todo{Make sure we tailor the explanations above to the problems we actually
 solve, and then make it clear when we've solved the problems.}
 
-The PBT literature addresses these concerns to various degrees\bcp{but
-not ``fully''?}, and existing tools
+The PBT literature partially addresses these concerns, with solutions solving
+one problem at the expense of another and trading off between programmer effort
+and generator power.\bcp{Better!  We can make it better yet by being
+  explicit about where these tradeoffs happen in the discussion that
+  follows.} The existing solutions 
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
@@ -867,7 +896,9 @@ have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
 steinhofel2022input} to automatically seek out valid inputs. This semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
-examples~\cite{soremekun2020inputs}.  \bcp{Why are developers not happy with
+examples~\cite{soremekun2020inputs}.
+
+\bcp{Why are developers not happy with
   these approaches / tools?}
 
 \subsectionstar{Context: Monadic Generators}
@@ -931,7 +962,14 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
-\bcp{IMO this is also better described as proposed work...}
+\bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
+worry that enough of the following projects rest on reflective generators that
+we want to be able to say ``don't worry, we actually have an idea what these
+will look like''}\bcp{That's fair enough.  I think we can finesse this
+issue though---e.g., by mentioning that we've been discussing this
+with Sam and Meng and have some concrete ideas how to proceed (and
+then giving a bit of technical meat, though of course there is not
+room for much).}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project concerns monadic generators
@@ -1261,14 +1299,15 @@ and tune their generators to their specific needs.
 
 Of course, understanding generator distributions is challenging.  The values
 produced by generators are often highly structured and have complex shapes
-(think lists, trees, and other algebraic data types) \amh{I think the best
-example of this I heard of during the interview study were lists of log events,
-where each of those log events had multiple data fields---this would be really
-hard to visualize without a bespoke visualization}.  Such values cannot simply
-be plotted on a chart, and even spot-checking them visually may be hard if the
-values are large.  Furthermore, writing generators is already considered by
-developers to be a burden, so any tool in this space needs to be incredibly
-automatic and easy to use.
+(think lists, trees, and other algebraic data types). As a concrete example,
+consider a list of log events with type:
+\begin{lstlisting}
+  type log = {id : int; payload : string} list
+\end{lstlisting}
+Such values cannot simply be plotted on a chart, and even spot-checking them
+visually may be hard if the values are large.  Furthermore, writing generators
+is already considered by developers to be a burden, so any tool in this space
+needs to be incredibly automatic and easy to use.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
@@ -1288,20 +1327,23 @@ literature.
 
 \genvis{} starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
-the system extracts and plots relevant {\em features} of a given datatype (e.g.,
-for lists: length; for trees: size, depth, balance factor, etc.). \genvis{} will
-start with a base set of features, extracted from the surrounding programming
-environment and validated by the user; this will likely result in a few useful
-visualizations, but maybe not enough. To ensure a comprehensive understanding of
-the data, \genvis{} will then use lightweight program synthesis to compose and
-combine the base of features to get {\em derived} features. The derived features
-may features may show the relationship between different base features or even
-compose base feature extractors to get entirely new features. \amh{Do you have
-an example of a useful derived feature? I'm having a difficult time envisioning
-a derived feature one would want to see, so it's less clear to me that this
-feature will be useful.} All of the
-features, base and derived, will be made available to users in a variety of
-charts and graphs.
+the system extracts and plots relevant {\em features} of a given datatype, that
+will be extracted using functions in the surrounding programming environment and
+validated by the user. In the case of the \lstinline{log} type above, \genvis{}
+would consider simple functions like \lstinline{length},
+destructors like \lstinline{head}, \lstinline{id}, and \lstinline{payload}, and
+even aggregators like \lstinline{max} and \lstinline{avg}. Then
+\genvis{} will then use lightweight program synthesis to compose and
+combine these functions to get features. It may choose to show the
+\lstinline{length} of a log, but also the \lstinline{max (length . payload)} and
+even \lstinline{(length, max (length . payload))} (plotting length versus
+the maximum payload length, in, e.g., a scatter chart).
+If there are features that the user notices should be extracted, but that the
+system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
+write it themselves and add it to the \genvis{} interface.
+All of the features, base and derived, will be made available to users
+in a variety of charts and graphs.\todo{I don't think this is at all clear, but
+I wanted to get something down on paper to talk about}
 
 Of course, developers would struggle to grok dozens of charts representing
 their data's features, so \genvis{} will also have a way for users to specify
@@ -1313,9 +1355,16 @@ seconds to find a single representative chart) or slow and careful (many minutes
 spent curating a dashboard of results to help with tuning), depending on how
 much time and energy the developer has to put into their generator. Besides
 charts, \genvis{} will also present the user with structured representations of
-some generated values. We plan to use meta-programming to build
-DOT graphs~\cite{ellson_graphviz_2002} that represent data types, and then
-present those graphs to the developer for easier spot-checking of data.
+some generated values that can be used to help the developer spot-check the
+generated data.  The specifics this are not yet certain, since of visualizations
+used for individual values may need to depend on the domain, but we have some
+ideas. For some kinds of structures, it may be useful to present the user with
+DOT graphs~\cite{ellson_graphviz_2002} that represent data types; such graphs
+could be generated via meta-programming and rendered for the user. Another
+option is to simply present the user with a JSON representation of
+the data that they can explore via mouse interactions (e.g., clicking to expand
+or collapse sections) or even via tools like \lstinline{jq}~\cn{}.
+
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
 types. I would expect most visualizations to become unreadable once the number
@@ -1324,11 +1373,12 @@ that our automated features (including proposed visualizations types of filters)
 will regularly work on the kinds of complexity of the data people will generate,
 or otherwise shift to a goal of supporting developers in rapid definition of
 their own filters and visualizations.}
+\hg{Any better?}
 
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
-features. We will evaluate \genvis{} in a small user study (~15 participants),
+features. We will evaluate \genvis{} in a small user study (around 15 participants),
 hoping to learn which features of the tool are most useful, and how the design
 may be refined into a tool that real developers can use. \amh{What is our
 strategy for getting this tool into the hands of real developers?}
