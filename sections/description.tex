@@ -518,10 +518,11 @@ a broader set of developers than we were able to interview.
 And third, we will recruit users from social media by posting
 survey announcements from the PIs' Twitter and Mastadon
 accounts, tagging the functional programming and testing
-communities. \amh{Do we have any connections that would give
+communities.
+\amh{Do we have any connections that would give
 us access to functional programming or testing-related
-software development conferences?}\bcp{Sure.  What would we do with
-them?}
+software development conferences?}
+\bcp{Sure. What would we do with them?}
 
 \emph{Impact survey}. Is PBT the sort of
 technology that could one day be used by every developer? To get a
@@ -572,25 +573,32 @@ what kinds of designs will be viable for helping programmers.
 
 \smallskip
 
-Together, the studies described in this section provide a firm
-foundation for the rest of the proposed
-activities, in the form of a validated and prioritized set of developer
-needs for PBT tools and a detailed set of requirements for how tools should be
+Together, the studies described in this section provide a firm foundation many
+of the activities in this proposal, and for future research on PBT more
+generally. We will produce a validated and prioritized set of developer needs
+for PBT tools and a detailed set of requirements for how tools should be
 (re)designed to best satisfy the most important of those needs.
-\bcp{Does that mean that the rest of the activities can only be
-  started once these studies are complete??  (More generally, let's
-  work on the Work Plan!)}
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
-
-\bcp{...and this one should open with a continuation of the transition
-that suggests how these particular projects are motivated and informed
-by all the studies.}
+The projects in this section address the \proptheme{specification themes}
+discussed in the Motivation section. In \sectionref{sec:whento}, we discuss a
+plan to aggregate and communicate a comprehensive list of PBT patterns that
+developers can use to decide if PBT is an easy choice for testing their code.
+Then in \sectionref{sec:outpurprop} we describe a plan to significantly expand
+that list of patterns, and in \sectionref{sec:automating} we focus in on a
+particular pattern and provide tools to apply it automatically. Together, these
+projects will greatly improve the on-ramp to PBT and clarify its place in the
+software industry.
 
 \SUBSECTION{When to Specify It!}{sec:whento}{3}{4}
 %
 \bcp{The research content here (as described) is pretty minimal.
   Maybe this belongs in the education section instead?}
+\hg{I think no. It'd take a bit of explaining elsewhere that I don't really want
+to do, but more importantly I think it works as a real literature review /
+survey / knowlege gathering exercise.  Let me know what you think of the
+additions below; if you don't like it, we can just move the whole thing to edu
+and fix the broken references}
 %
 PBT is often described as a kind of lightweight formal method, and one
 might therefore imagine that a central challenge of using PBT would be
@@ -601,10 +609,32 @@ properties; instead, most participants described applying PBT in scenarios when
 properties were already available or quite easy to imagine. This suggests that,
 while PBT educators should certainly spend some time teaching developers how to
 write specifications for arbitrary programs, they should spend even more energy
-helping developers quickly recognize  situations where PBT is a particularly
+helping developers quickly recognize situations where PBT is a particularly
 natural fit because properties are obvious!
 
-With this in mind, we plan to write a paper
+The study with Jane Street provides a solid start to a comprehensive list of
+high-leverage use-cases for PBT. We have already identified seven software
+patterns where properties are relatively straightforward to find and PBT is an
+obvious choice for testing:
+\begin{enumerate}[noitemsep]
+\item Code that is already (semi-)formally specified.
+\item Functions that round trip.
+\item Pure data structures.
+\item Modules with invariants.
+\item Related versions of the same code.
+\item Programs that may fail catastrophically.
+\item Stateful APIs with well-understood contracts.
+\end{enumerate}
+These patterns are already quite broad in their scope, and include many
+scenarios that real software developers regularly find themselves in, but they
+are likely not exhaustive. Thus, we will continue to gather examples of
+high-leverage use-cases: we will survey research papers and experience reports,
+examine open-source software projects, and leverage our connections with various
+PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
+to ensure that we have a comprehensive understanding of the best uses for PBT.
+
+Then,
+we will compile a survey paper
 (with an accompanying talk)
 entitled {\em When to Specify It!} in homage to
 John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely
@@ -615,19 +645,6 @@ suggest that it may be even more important to have a clear sense of {\em When}
 to use PBT. Our paper on {\em When to Specify It!} will combine examples from developer
 interviews with ones from our our years of experience studying and applying PBT
 into the definitive guide for the most impactful opportunities to apply PBT.
-\iflater\hg{Do we need more here? I can give examples...}
-\bcp{If they haven't already come up earlier, then yes, let's list
-  some here!}
-\fi
-% \begin{itemize}
-% \item Code that is already (semi-)formally specified.
-% \item Functions that round trip.
-% \item Pure data structures.
-% \item Modules with invariants.
-% \item Related versions of the same code.
-% \item Programs that may fail catastrophically.
-% \item Stateful APIs with well-understood contracts.
-% \end{itemize}
 
 \SUBSECTION{Writing Properties Over Output Logs}{sec:outpurprop}{2}{3}
 
