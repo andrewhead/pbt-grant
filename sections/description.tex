@@ -810,7 +810,7 @@ after)---we should make sure to cite it coherently.}
 %
 The Jane Street developers we interviewed consistently
 cited {\em designing generators} as one of the most challenging parts of the
-PBT process, and many 
+PBT process, and many
 asked for better tools for constructing generators that reliably address
 their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
@@ -907,7 +907,7 @@ random generation, and enable new algorithms for generation that improve
 generation modulo validity constraints. Free generators are written the same
 way as standard monadic generators, but they are more like generator ``plans''
 or syntax trees.%
-\footnote{Free generators are implemented using {\em freer
+\footnote{For experts: Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
 (cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
@@ -931,42 +931,43 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
-\bcp{Maybe this is also better described as proposed work?}
+\bcp{IMO this is also better described as proposed work...}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
-One such project, which is already well underway, concerns monadic generators
+One such project concerns monadic generators
 that can be run {\em backward}.
 
 If a generator parses a sequence of choices into a value, then running the
 generator backward should take a value and produce a sequence of choices that
-would produce that value. With this in mind, we present {\em reflective
+would produce that value. With this in mind, we propose {\em reflective
 generators}, an extension of monadic generators that can be run backward to
 ``reflect'' on the choices that they made when producing an input. The machinery
 that makes reflective generators work is quite complex,%
-\footnote{Reflective generators are both monads and {\em partial profunctors},
-and implement bidirectional programming in the style of Xia et
+\footnote{Reflective generators are both monads and {\em
+    partial profunctors},
+implementing bidirectional programming in the style of Xia et
 al.~\cite{xia2019composing}. This approach to bidirectional programming is
 related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
-the computation can be written at once in a type-safe way.}
+the computation can be written at once, in a type-safe way.}
 but, like free generators, their syntax is still quite close to that of normal
 monadic generators.
 
-Reflective generators are useful for more than just generation; we currently
-have two working examples of useful applications.
+But reflective generators are useful for more than just generation!
+We plan to explore (at least) the following two example applications.
 
 {\em Validity-Preserving Mutation.} Many automated testing algorithms
 (especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values to explore
 the behavior of the program in a space ``around'' those values. This can be
 difficult in PBT scenarios, where values are subject to complex validity
-constraints, since the mutation often produces invalid values. Reflective
+constraints, since mutation often produces invalid values. Reflective
 generators can help: we can (1) reflect on the choices that lead to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
 choices {\em while correcting any choices that
 would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
 algorithm is able to mutate a binary search tree, while maintaining validity,
-with no BST-specific code written other than the reflective generator.
+using no BST-specific code beyond the reflective generator itself.
 
 \begin{figure}[h]
   \centering
@@ -985,13 +986,13 @@ reflective generators: we can (1) again, reflect on the choices that lead to a
 set of realistic values, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw.
 
-Both of these applications have the potential to significantly improve testing
-effectiveness---example-based tuning helps users generate more realistic inputs,
-adn validity-preserving mutation enables more automated approaches to improving
-generator distributions---and we get {\em both} by upgrading our existing
-generators to reflective ones. Additionally, we are confident that there are
-more use cases for reflective generators, which we discuss more in the following
-sections.
+Both of these applications have the potential to significantly improve
+testing effectiveness---example-based tuning helps users generate more
+realistic inputs, while validity-preserving mutation enables more
+automated approaches to improving generator distributions---and we get
+{\em both} by upgrading our existing generators to reflective ones. We
+will see some additional use cases for reflective generators in the
+following sections.
 
 \SUBSECTION{Bringing Fuzzing into Focus}{sec:fuzzing}{2}{3}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
@@ -1014,7 +1015,7 @@ technological hurdles. Both PBT and fuzzing need fast and effective ways to
 generate random inputs that are valid for the systems that they are testing, and
 neither community has truly settled on the ``right'' way to get there.
 
-There is certainly some work that attempts to bridge the gap between PBT and
+There is already some work that attempts to bridge the gap between PBT and
 fuzzing. For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
 uses code coverage as guidance for PBT and the HypoFuzz library uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
@@ -1105,7 +1106,8 @@ generators as per our discussion over Slack.}
   publish) and talk aout it as proposed work.  At the same time, we
   should paint a big-picture vision for it, going somewhat beyond the
   ICFP submission we hope to make and talking about a real benchmark
-  suite that we and others might build later.}
+  suite that we and others might build later.  (We can and should
+  mention that we've been discussing potential designs with UMD.)}
 
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
