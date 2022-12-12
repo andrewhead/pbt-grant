@@ -642,34 +642,39 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-Here is a straightforward approach that might enable much better testing
-of poorly abstracted code without giving
-up expressiveness: add some logging calls to the
-code under test to record when interesting events occur, then write
-properties over the logs that are produced when it runs, rather than over its
-inputs and outputs. For example, if the developer
-knows about some invariant on a variable \lstinline{x}, they can log the
-value of \lstinline{x} every time it is set, then write a property
-stating that the logged
-values satisfy the invariant.\bcp{Not very convinced by this
-  example---it's way too abstract.  What real examples do we actually have in
-mind?}  We can use meta-programming to automate this
-process, so a user need only mark the variable at its declaration site
-to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
-not... ppxs are arbitrary code transformations}\bcp{How would it deal
-with, for example, aliasing (i.e., multiple pointers to some
-``watched'' location, with different names)?}
+One Jane Street developer (\participant{??}) described their experience testing
+a system (we'll call it System A) with messy abstraction boundaries. In this
+case, System A was hard to test because it was primarily used as a sub-component
+of a larger System B: System B would take in simple data, and then at some point
+pass a large, complex data structure to System A, which would do some work and
+hand results back to System B. PBT of System A was therefore hard, because
+generating valid examples of the large data structure that System A takes as
+input required deep knowledge of the internals and types of System B that the
+developers of System A did not have access to, and because the interface was too
+complex to write straightforward properties about.
 
-Another
-useful property over logs concerns
-invariants that applies over time (e.g., the value of \lstinline{x} should
-never decrease).
-This would be difficult to do with debug assertions\bcp{who said
-  anything about debug assetions??}, since state would need to
-be kept for arbitrary amounts of time between variable updates; setting up such
-state may itself require some error-prone restructuring of the code, especially
-if the debug state should be compiled away in release builds.
-\bcp{Generally not very convincing.}
+Here is a straightforward approach that might help in this scenario: add some
+logging calls to System A to record when interesting events occur, then write
+properties over the logs that are produced when it runs as part of System B.
+For example, the developer might ensure properties like
+\begin{lstlisting}
+  msg.length < 100 ==> never (overflow = true)
+  eventually (processed = msg.length)
+  processed <= next (processed)
+\end{lstlisting}
+that demonstrate that internal variables like \lstinline{msg},
+\lstinline{overflow}, and \lstinline{processed} evolve correctly over time.
+These properties can be tested without ever running System A on its own: we can
+generate inputs to System B, have System B call into System A (which logs out
+variable values), and simply monitor the logged values to check the desired
+properties.\hg{I think this is an improvement, we can discuss}
+
+% We can use meta-programming to automate this
+% process, so a user need only mark the variable at its declaration site
+% to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
+% not... ppxs are arbitrary code transformations}\bcp{How would it deal
+% with, for example, aliasing (i.e., multiple pointers to some
+% ``watched'' location, with different names)?}
 
 Concretely, we propose a framework for inserting lightweight
 logging-for-testing and a
