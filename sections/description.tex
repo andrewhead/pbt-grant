@@ -653,13 +653,6 @@ takes as input required deep knowledge of the internals and types of System B
 that the developers of System A did not have access to, and because the
 interface was too complex to write straightforward properties about.
 
-Here is a straightforward approach that might help in this scenario:
-
-add some
-logging calls to System A to record when interesting events occur, then write
-properties over the logs that are produced when it runs as part of System B.
-For example, the developer might ensure properties like
-
 One might imagine trying to test System A through System B by writing properties
 over intermediate values in System A. One might imagine trying to write and
 test properties like
@@ -684,27 +677,26 @@ to check properties (2) or (3) at all! Doing so would require making an
 assertion at the ``end'' of the computation, which may not actually be possible
 if System B is driving System A from the outside.
 
-% We can use meta-programming to automate this
-% process, so a user need only mark the variable at its declaration site
-% to log all updates to it.\bcp{Can OCaml actually do that??}\hg{I don't see why
-% not... ppxs are arbitrary code transformations}\bcp{How would it deal
-% with, for example, aliasing (i.e., multiple pointers to some
-% ``watched'' location, with different names)?}
-
 Instead, we propose a framework for writing properties over {\em logged values}
 that can capture the interesting relationships between past and future variable
 values that the above properties demand.  Concretely, we will insert lightweight
-logging annotations and provide a language language for writing properties over
-those logs. The property language will need some non-traditional logical
-connectives to express concepts like \lstinline{next}, \lstinline{never}, and
-\lstinline{eventually} from the above examples. This suggests that the language
-should be based on temporal logic like {\em linear temporal logic} (LTL). The
-Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown
-that LTL properties can be used for specifying and testing graphical user
-interfaces; we will adapt and generalize its methods to a broader set of
-programs.\todo{Still working on this}\bcp{Weak ending, and this whole section is a
-bit vague.}\hg{Would love some input. It's vague because I really haven't had
-time to flesh out this idea}
+logging annotations and provide a language for writing properties over those
+logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
+\lstinline{eventually} the property language will need some logical connectives
+that are not standard in PBT.  In particular, we need a temporal logic like {\em
+linear temporal logic} (LTL) so that properties can capture a notion of time.
+
+Using LTL with PBT is not unheard of---Quickstrom testing
+framework~\cite{oconnor_quickstrom_2022} has already shown that LTL properties
+can be used for specifying and testing graphical user interfaces---but LTL
+properties at this level of generality have not yet been attempted. We plan to
+compile the user's LTL formulae to properties over traces that respect the
+structure of the log and ignore updates to irrelevant variables. Then, the
+developer can provide inputs to some system containing the sub-system under
+test, and the test harness will apply the trace properties in real time. In this
+way, the user can get feedback about the invariants that should hold of the
+intermediate values of their programs, making PBT available in a huge range of
+programs where it was previously too difficult to apply.
 
 \SUBSECTION{Automating Model-Based PBT}{sec:automating}{2}{3}
 One finding that has surprised us from the Jane Street study
