@@ -643,31 +643,46 @@ abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
 One Jane Street developer (\participant{??}) described their experience testing
-a system (we'll call it System A) with messy abstraction boundaries. In this
-case, System A was hard to test because it was primarily used as a sub-component
-of a larger System B: System B would take in simple data, and then at some point
-pass a large, complex data structure to System A, which would do some work and
-hand results back to System B. PBT of System A was therefore hard, because
-generating valid examples of the large data structure that System A takes as
-input required deep knowledge of the internals and types of System B that the
-developers of System A did not have access to, and because the interface was too
-complex to write straightforward properties about.
+a trading system (we'll call it System A) with messy abstraction boundaries. In
+this case, System A was hard to test because it was primarily used as a
+sub-component of a larger System B: System B would take in simple data, and then
+at some point pass a large, complex data structure to System A, which would do
+some work and hand results back to System B. PBT of System A was therefore hard,
+because generating valid examples of the large data structure that System A
+takes as input required deep knowledge of the internals and types of System B
+that the developers of System A did not have access to, and because the
+interface was too complex to write straightforward properties about.
 
-Here is a straightforward approach that might help in this scenario: add some
+Here is a straightforward approach that might help in this scenario:
+
+add some
 logging calls to System A to record when interesting events occur, then write
 properties over the logs that are produced when it runs as part of System B.
 For example, the developer might ensure properties like
+
+One might imagine trying to test System A through System B by writing properties
+over intermediate values in System A. One might imagine trying to write and
+test properties like
 \begin{lstlisting}
-  msg.length < 100 ==> never (overflow = true)
-  eventually (processed = msg.length)
-  processed <= next (processed)
+  sublist_of processed (next (processed))      (* 1. Processing is monotonic. *)
+  msg.length < 100 ==> never (overflow = true) (* 2. Capacity at least 100 bytes. *)
+  eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
-that demonstrate that internal variables like \lstinline{msg},
-\lstinline{overflow}, and \lstinline{processed} evolve correctly over time.
-These properties can be tested without ever running System A on its own: we can
-generate inputs to System B, have System B call into System A (which logs out
-variable values), and simply monitor the logged values to check the desired
-properties.\hg{I think this is an improvement, we can discuss}
+which demonstrate that internal variables like \lstinline{processed},
+\lstinline{msg}, and \lstinline{overflow} evolve correctly over time.
+These properties could theoretically be tested without ever running System A on
+its own: we can generate inputs to System B, have System B drive System A, and
+simply monitor the variable values to check the desired properties.
+
+The tricky part comes with how to actually implement this testing. One might
+hope to do it through debug assertions, but that quickly becomes untenable.
+Checking the property (1) with debug assertions would require noisy code to
+saves the previous value every time \lstinline{processed} is updated, and the
+programmer would need to use macros or some other kind of meta-programming to
+remove that code when building in release mode. Even worse, there may be no way
+to check properties (2) or (3) at all! Doing so would require making an
+assertion at the ``end'' of the computation, which may not actually be possible
+if System B is driving System A from the outside.
 
 % We can use meta-programming to automate this
 % process, so a user need only mark the variable at its declaration site
@@ -676,20 +691,18 @@ properties.\hg{I think this is an improvement, we can discuss}
 % with, for example, aliasing (i.e., multiple pointers to some
 % ``watched'' location, with different names)?}
 
-Concretely, we propose a framework for inserting lightweight
-logging-for-testing and a
-language for writing properties over those logs. The logging is a
-``mere matter
-of engineering,''\bcp{how hard is it?}\hg{Not sure, but I doubt it's a
-theoretical lift...} but the language for properties
-is an opportunity to
-apply powerful logical ideas. Specifically, the properties over logged outputs
-should be written in a temporal logic like {\em linear temporal logic} (LTL) so
-they can make complex assertions about the way past and future values interact.
-The Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown that
-LTL properties can be used for specifying and testing graphical
-user interfaces; we will adapt and generalize its methods to a
-broader set of programs.\bcp{Weak ending, and this whole section is a
+Instead, we propose a framework for writing properties over {\em logged values}
+that can capture the interesting relationships between past and future variable
+values that the above properties demand.  Concretely, we will insert lightweight
+logging annotations and provide a language language for writing properties over
+those logs. The property language will need some non-traditional logical
+connectives to express concepts like \lstinline{next}, \lstinline{never}, and
+\lstinline{eventually} from the above examples. This suggests that the language
+should be based on temporal logic like {\em linear temporal logic} (LTL). The
+Quickstrom testing framework~\cite{oconnor_quickstrom_2022} has already shown
+that LTL properties can be used for specifying and testing graphical user
+interfaces; we will adapt and generalize its methods to a broader set of
+programs.\todo{Still working on this}\bcp{Weak ending, and this whole section is a
 bit vague.}\hg{Would love some input. It's vague because I really haven't had
 time to flesh out this idea}
 
