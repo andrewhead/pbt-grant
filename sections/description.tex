@@ -736,7 +736,8 @@ PBT.
   less straightforwardly) to other languages with different modularity
   mechanisms.  At the same time, we don't convey they technical
   challenge of doing it even for ML.}
-\hg{Same problem as the previous section---I'm working from hunches here.}
+\hg{Same problem as the previous section---I'm working from hunches here. Maybe
+we should take a half hour to talk through these projects?}
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
 
@@ -817,12 +818,7 @@ their testing goals. In this section, we describe a series of projects
 to develop new and better ways to express random data generators.
 
 \subsectionstar{Context: Why is Random Generation Hard?}%
-\proposecut{Before presenting our proposed work to improve the state
-  of random data generators, we must first discuss the major
-  difficulties with random generation for PBT and the existing work
-  that aims to address those difficulties.}  \todo{Link all of this to
-  the intro}
-
+\todo{Link all of this to the intro}
 % \todo{Talk about enumeration}
 
 {\em Preconditions.}
@@ -851,8 +847,9 @@ too much time in one part of the space or another.
 \todo{Make sure we tailor the explanations above to the problems we actually
 solve, and then make it clear when we've solved the problems.}
 
-The PBT literature addresses these concerns to various degrees\bcp{but
-not ``fully''?}, and existing tools
+The PBT literature partially addresses these concerns, with solutions solving
+one problem at the expense of another and trading off between programmer effort
+and generator power. The existing solutions
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
@@ -868,7 +865,9 @@ have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
 steinhofel2022input} to automatically seek out valid inputs. This semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
-examples~\cite{soremekun2020inputs}.  \bcp{Why are developers not happy with
+examples~\cite{soremekun2020inputs}.
+
+\bcp{Why are developers not happy with
   these approaches / tools?}
 
 \subsectionstar{Context: Monadic Generators}
@@ -932,7 +931,10 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
-\bcp{Maybe this is also better described as proposed work?}
+\bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
+worry that enough of the following projects rest on reflective generators that
+we want to be able to say ``don't worry, we actually have an idea what these
+will look like''}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project, which is already well underway, concerns monadic generators
