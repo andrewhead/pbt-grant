@@ -593,62 +593,6 @@ particular pattern and provide tools to apply it automatically. Together, these
 projects will greatly improve the on-ramp to PBT and clarify its place in the
 software industry.
 
-\SUBSECTION{When to Specify It!}{sec:whento}{3}{4}
-%
-\bcp{The research content here (as described) is pretty minimal.
-  Maybe this belongs in the education section instead?}
-\hg{I think no. It'd take a bit of explaining elsewhere that I don't really want
-to do, but more importantly I think it works as a real literature review /
-survey / knowlege gathering exercise.  Let me know what you think of the
-additions below; if you don't like it, we can just move the whole thing to edu
-and fix the broken references}
-%
-PBT is often described as a kind of lightweight formal method, and one
-might therefore imagine that a central challenge of using PBT would be
-coming up with the
-right specifications. Indeed, our pilot study concluded just that. But at
-Jane Street we actually heard very little about the challenge of coming up with
-properties; instead, most participants described applying PBT in scenarios when
-properties were already available or quite easy to imagine. This suggests that,
-while PBT educators should certainly spend some time teaching developers how to
-write specifications for arbitrary programs, they should spend even more energy
-helping developers quickly recognize situations where PBT is a particularly
-natural fit because properties are obvious!
-
-The study with Jane Street provides a solid start to a comprehensive list of
-high-leverage use-cases for PBT. We have already identified seven software
-patterns where properties are relatively straightforward to find and PBT is an
-obvious choice for testing:
-\begin{enumerate}[noitemsep]
-\item Code that is already (semi-)formally specified.
-\item Functions that round trip.
-\item Pure data structures.
-\item Modules with invariants.
-\item Related versions of the same code.
-\item Programs that may fail catastrophically.
-\item Stateful APIs with well-understood contracts.
-\end{enumerate}
-These patterns are already quite broad in their scope, and include many
-scenarios that real software developers regularly find themselves in, but they
-are likely not exhaustive. Thus, we will continue to gather examples of
-high-leverage use-cases: we will survey research papers and experience reports,
-examine open-source software projects, and leverage our connections with various
-PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
-to ensure that we have a comprehensive understanding of the best uses for PBT.
-
-Then,
-we will compile a survey paper
-(with an accompanying talk)
-entitled {\em When to Specify It!} in homage to
-John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely
-tutorial on the many different kinds of properties that one can write
-for a given piece
-of code. Clearly it is important to ask {\em How}, but our developer interviews
-suggest that it may be even more important to have a clear sense of {\em When}
-to use PBT. Our paper on {\em When to Specify It!} will combine examples from developer
-interviews with ones from our our years of experience studying and applying PBT
-into the definitive guide for the most impactful opportunities to apply PBT.
-
 \SUBSECTION{Writing Properties Over Output Logs}{sec:outpurprop}{2}{3}
 
 One common problem raised by Jane Street developers (and even more loudly
@@ -796,82 +740,6 @@ PBT.
 we should take a half hour to talk through these projects?}
 \bcp{Definitely.}
 
-\SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
-
-\bcp{General comment for this section: It all seems good, but it is a bit vague
-and high level---I feel like technical readers will want a bit more meat.  Could
-we spice it up with a concrete example?} \amh{Agreed, I think a concrete
-example would be \emph{great} here. Maybe there is an example we can bring in
-from the QuickSpec paper~\cite{claessen2010quickspec}}
-
-\amh{Examples of complex properties that might not be
-straightforward to implement. Algebraic properties of
-libraries.  Reversing a list twice comes up with the same
-list.  Properties of regular expressions. Maybe this would
-be best as an educational tool. For instance, helping
-students figure out how to test their code. Helping people
-modularize their existing systems (suggestions to remove
-depenedencies on Swing so that it is more testable, etc.).}
-
-Preliminary findings from the Jane Street study suggest that developers sometimes have
-difficulty imagining which properties to test, even when they believe their
-software would benefit from property-based testing. One area we are interested
-in exploring is how programmers can work with their PBT tools to decide on a set
-of significant properties to test.  Prior research demonstrates that automated
-tools can extract specifications of a program's
-behavior~\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
-interested in the non-trivial research problem of integrating such techniques
-into usable developer tools. We see the research as addressing several
-challenges:
-
-\textit{Generated properties should be \underline{important}}. Any non-trivial
-program can be characterized by an overwhelmingly large number of properties,
-many of which describe only incidental aspects of the program's behavior that do
-not need to be tested. How can tools produce those properties that developers
-would want to have tested? We believe that this is a problem that can be best
-solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties
-are determined by judiciously incorporating both developer input and automated
-techniques.
-
-Developer could guide a specification mining tool to extracting relevant
-properties through input mechanisms such as (1) identifying regions of code that
-are likely to lead to an adverse behavior such as an exception or a logical
-error; (2) providing unit test cases that test a special case of a generalized
-property; and (3) indicating aspects of interest on input and output data during
-exploration in a debugging REPL.
-
-\textit{Generated properties should be \underline{readable}}. While prior research~\cite{claessen2010quickspec}
-has shown promise for automatically generating specifications of program
-behavior, we expect that users of PBT systems would benefit from having
-properties generated in the language of their property-based testing tools.
-Furthermore, there are some variants about systems that may be so complex that
-they require significant comprehension time for users (i.e., those involving a
-large number of clauses). In such cases, a tool may way to generate simpler
-variants of properties first, and allow developers to refine them on their own.
-
-\textit{Tools should help developers \underline{revise} properties}. If a generated
-property is too relaxed, the tool should request that developer provides a
-counterexample that should trigger a failure, and then regenerate the property.
-If a generated property is too strict, a tool should allow a programmer to mark
-a counterexample that was generated by the PBT tool as spurious, i.e., not
-indicating an actual failure of the program. In each of these cases, the
-property generator may have generate multiple properties for a developer to
-review, each of which may satisfy the refinements that a developer has provided.
-
-\textit{Plan of work}: We will iteratively design and develop developer tools as
-an extension to the VSCode editor. In our first iterations, we will generate
-candidate properties using QuickSpec~\cite{claessen2010quickspec}, a tool that
-builds on Haskell's QuickCheck library to synthesize a series of plausible
-properties about a given function. Future iterations will include tools like
-\todo{cite other quickspec follow-on}~\cite{smith_discovering_2017}.
-The interactions described above will be
-designed and tested first for simple programs, and then on successively more
-complex programs from our benchmark set. PI Head has extensive experience
-designing and developing developer tools involving program
-analysis~\cite{head2018interactive,head2019managing} and program
-synthesis~\cite{head2017writing} components, and extending the VSCode
-environment~\cite{head2020composing}.
-
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
 The Jane Street study also highlighted several \gentheme{generation themes}.
@@ -913,7 +781,7 @@ as possible, as quickly as possible.
 The PBT literature partially addresses these concerns, with solutions solving
 one problem at the expense of another and trading off between programmer effort
 and generator power.
-The existing solutions 
+The existing solutions
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
@@ -1518,6 +1386,7 @@ by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 
 \SECTION{Education}{Advancing Testing in the Broader Culture \pagebudget{1}}{sec:ed}
+\bcp{Needs some polishing and reintegration of the moved sections.}
 
 \hg{This isn't actually written, this is just starter stuff from my thesis
 proposal}\bcp{We need to do some actual, serious thinking about this.}
@@ -1545,6 +1414,141 @@ course {\em easier}, especially for students with some knowledge of logic and/or
 less well-developed unit testing instincts. Honestly I think this is a good
 thing, as it gives students more ways to succeed and it may re-enforce the value
 of PBT, but some may find this problematic.
+
+\SUBSECTION{When to Specify It!}{sec:whento}{3}{4}
+%
+\bcp{The research content here (as described) is pretty minimal.
+  Maybe this belongs in the education section instead?}
+\hg{I think no. It'd take a bit of explaining elsewhere that I don't really want
+to do, but more importantly I think it works as a real literature review /
+survey / knowlege gathering exercise.  Let me know what you think of the
+additions below; if you don't like it, we can just move the whole thing to edu
+and fix the broken references}
+%
+PBT is often described as a kind of lightweight formal method, and one
+might therefore imagine that a central challenge of using PBT would be
+coming up with the
+right specifications. Indeed, our pilot study concluded just that. But at
+Jane Street we actually heard very little about the challenge of coming up with
+properties; instead, most participants described applying PBT in scenarios when
+properties were already available or quite easy to imagine. This suggests that,
+while PBT educators should certainly spend some time teaching developers how to
+write specifications for arbitrary programs, they should spend even more energy
+helping developers quickly recognize situations where PBT is a particularly
+natural fit because properties are obvious!
+
+The study with Jane Street provides a solid start to a comprehensive list of
+high-leverage use-cases for PBT. We have already identified seven software
+patterns where properties are relatively straightforward to find and PBT is an
+obvious choice for testing:
+\begin{enumerate}[noitemsep]
+\item Code that is already (semi-)formally specified.
+\item Functions that round trip.
+\item Pure data structures.
+\item Modules with invariants.
+\item Related versions of the same code.
+\item Programs that may fail catastrophically.
+\item Stateful APIs with well-understood contracts.
+\end{enumerate}
+These patterns are already quite broad in their scope, and include many
+scenarios that real software developers regularly find themselves in, but they
+are likely not exhaustive. Thus, we will continue to gather examples of
+high-leverage use-cases: we will survey research papers and experience reports,
+examine open-source software projects, and leverage our connections with various
+PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
+to ensure that we have a comprehensive understanding of the best uses for PBT.
+
+Then,
+we will compile a survey paper
+(with an accompanying talk)
+entitled {\em When to Specify It!} in homage to
+John Hughes's {\em How to Specify It!}~\cite{HowToSpecifyIt}, a lovely
+tutorial on the many different kinds of properties that one can write
+for a given piece
+of code. Clearly it is important to ask {\em How}, but our developer interviews
+suggest that it may be even more important to have a clear sense of {\em When}
+to use PBT. Our paper on {\em When to Specify It!} will combine examples from developer
+interviews with ones from our our years of experience studying and applying PBT
+into the definitive guide for the most impactful opportunities to apply PBT.
+
+\SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
+
+\bcp{General comment for this section: It all seems good, but it is a bit vague
+and high level---I feel like technical readers will want a bit more meat.  Could
+we spice it up with a concrete example?} \amh{Agreed, I think a concrete
+example would be \emph{great} here. Maybe there is an example we can bring in
+from the QuickSpec paper~\cite{claessen2010quickspec}}
+
+\amh{Examples of complex properties that might not be
+straightforward to implement. Algebraic properties of
+libraries.  Reversing a list twice comes up with the same
+list.  Properties of regular expressions. Maybe this would
+be best as an educational tool. For instance, helping
+students figure out how to test their code. Helping people
+modularize their existing systems (suggestions to remove
+depenedencies on Swing so that it is more testable, etc.).}
+
+Preliminary findings from the Jane Street study suggest that developers sometimes have
+difficulty imagining which properties to test, even when they believe their
+software would benefit from property-based testing. One area we are interested
+in exploring is how programmers can work with their PBT tools to decide on a set
+of significant properties to test.  Prior research demonstrates that automated
+tools can extract specifications of a program's
+behavior~\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
+interested in the non-trivial research problem of integrating such techniques
+into usable developer tools. We see the research as addressing several
+challenges:
+
+\textit{Generated properties should be \underline{important}}. Any non-trivial
+program can be characterized by an overwhelmingly large number of properties,
+many of which describe only incidental aspects of the program's behavior that do
+not need to be tested. How can tools produce those properties that developers
+would want to have tested? We believe that this is a problem that can be best
+solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties
+are determined by judiciously incorporating both developer input and automated
+techniques.
+
+Developer could guide a specification mining tool to extracting relevant
+properties through input mechanisms such as (1) identifying regions of code that
+are likely to lead to an adverse behavior such as an exception or a logical
+error; (2) providing unit test cases that test a special case of a generalized
+property; and (3) indicating aspects of interest on input and output data during
+exploration in a debugging REPL.
+
+\textit{Generated properties should be \underline{readable}}. While prior research~\cite{claessen2010quickspec}
+has shown promise for automatically generating specifications of program
+behavior, we expect that users of PBT systems would benefit from having
+properties generated in the language of their property-based testing tools.
+Furthermore, there are some variants about systems that may be so complex that
+they require significant comprehension time for users (i.e., those involving a
+large number of clauses). In such cases, a tool may way to generate simpler
+variants of properties first, and allow developers to refine them on their own.
+
+\textit{Tools should help developers \underline{revise} properties}. If a generated
+property is too relaxed, the tool should request that developer provides a
+counterexample that should trigger a failure, and then regenerate the property.
+If a generated property is too strict, a tool should allow a programmer to mark
+a counterexample that was generated by the PBT tool as spurious, i.e., not
+indicating an actual failure of the program. In each of these cases, the
+property generator may have generate multiple properties for a developer to
+review, each of which may satisfy the refinements that a developer has provided.
+
+\textit{Plan of work}: We will iteratively design and develop developer tools as
+an extension to the VSCode editor. In our first iterations, we will generate
+candidate properties using QuickSpec~\cite{claessen2010quickspec}, a tool that
+builds on Haskell's QuickCheck library to synthesize a series of plausible
+properties about a given function. Future iterations will include tools like
+\todo{cite other quickspec follow-on}~\cite{smith_discovering_2017}.
+The interactions described above will be
+designed and tested first for simple programs, and then on successively more
+complex programs from our benchmark set. PI Head has extensive experience
+designing and developing developer tools involving program
+analysis~\cite{head2018interactive,head2019managing} and program
+synthesis~\cite{head2017writing} components, and extending the VSCode
+environment~\cite{head2020composing}.
+
+\SUBSECTION{Adding PBT to 1210}{sec:1210}{2}{4}
+\bcp{Write me.  (Move stuff from upstairs?)}
 
 \immediate\closeout\workplanfile
 \SIMPLESECTION{Plan of Work \pagebudget{.7}}{sec:plan-of-work}
