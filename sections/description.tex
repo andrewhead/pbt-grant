@@ -1538,6 +1538,40 @@ particularly important to exercise?}
 
 \SUBSECTION{Transforming Counterexamples into Regression Tests}{sec:counter}{3}{4}
 
+\amh{Add references to Titus' slow fixes project,
+CodeScoop, Emerson's work on visual extract-method
+refactorings, and drag-n-drop refactoring, and test case
+generation (e.g., RANDOOP).}
+
+After a developer has identified a failure in their
+property-based tests, they often wish to turn that failure
+into a regression test, to ensure that later changes to the
+code will not reintroduce the failure. One pain point
+experienced by informants in our interview study was that it
+required considerable work to transform a failure that was
+already detected by their PBT tools into a regression test,
+despite the fact that much of the work involved in doing so
+felt mechanical. \amh{@HG, check that I am faithfully
+representing the informant(s) that said this.}
+
+We plan to develop usable tooling for transforming failed
+PBT tests into single regression tests. What is important to
+note about this project is that creation of regression tests
+is \emph{mostly}, but not entirely mechanical. In reality,
+the creation of regression tests will likely require
+judicious incorporation of the developer's input at key
+decision points. This is particularly the case for
+specifying acceptance criteria. For instance, consider a
+property that checks that a list insertion function never
+produces an empty list. In the event of a failure, a
+developer may want to produce a regression test checking the
+exactness of the result for the failed input (i.e., checking
+on a particular concrete list that should have been produced
+by the insertion) rather than simply checking that the
+output list is non-empty. The act of writing regression
+tests involve several such choices, including\ldots{} \amh{I
+ran out of time here.}
+
 \amh{Refer to Hila's work.} \amh{Discuss with Harry to
 figure out if we have something novel to contribute here.
 Perhaps it would involve novel technologies around
