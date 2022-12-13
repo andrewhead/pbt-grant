@@ -1366,28 +1366,22 @@ judicious incorporation of the developer's input at key
 decision points. This is particularly the case for
 specifying acceptance criteria. For instance, consider a
 property that checks that a list insertion function never
-produces an empty list. In the event of a failure, a
-developer may want to produce a regression test checking the
-exactness of the result for the failed input (i.e., checking
-on a particular concrete list that should have been produced
-by the insertion) rather than simply checking that the
-output list is non-empty. The act of writing regression
-tests involve several such choices, including\ldots{} \writeme{Finish me.} \amh{I
-ran out of time here.}
-
-\amh{Refer to Hila's work.} \amh{Discuss with Harry to
-figure out if we have something novel to contribute here.
-Perhaps it would involve novel technologies around
-shrinkers.}
-\hg{This seems doable, as long as we think it's interesting... It strikes me as
-a great engineering problem, but I'm not sure what the research angle is}
-\amh{To create a test case, you need to unpack a property
-into an input and an output, rather than just a property. Do
-you want to test the property explicitly, or test for
-exactness of the output? You need to remember that it is
-failing case until after the bug is fixed\ldots{} once you
-have the updated fixed function, then the output can be
-plugged into expect test.}
+produces an empty list. In the event of a failure, a developer may want to produce
+a regression test checking the exactness of the result on
+the failed input (e.g., checking that the insertion produced
+a particular concrete list) rather than simply checking that
+the output list is non-empty. The act of writing regression
+tests involve several such choices, including whether to
+test for exact output, whether to test intermediate results,
+and how to initialize inputs. We will develop an interactive
+tool that assists developers in creating regression tests
+from failed property-based tests, which keeps track of the
+failed input, generates starter test code, substitutes in correct
+expected values of the output by executing corrected code,
+and then supports developers in rapidly performing likely
+edits to regression tests by providing suggestions to
+alterations to their code like the ability to generate
+general property checks with precise equality checks.
 
 \ifdraft
 \SUBSECTION{More Tests with Less Work}{sec:more}{3}{4}
