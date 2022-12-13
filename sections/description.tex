@@ -1257,55 +1257,25 @@ of the generated values, which they can use to spot-check the generated data. As
 we have mentioned, the shape and scale of these inputs may be
 problematic---showing the user simple print-outs of the examples will not be
 good enough. Thus, we propose potential ways of visualizing examples that may
-become part of our tool. For inputs that are of a reasonable size, but where the
-data {\em shape} is hard to see from text, we can give developers views of their
-data structures as DOT graphs~\cite{ellson_graphviz_2002}; such graphs could be
-generated via meta-programming and rendered for the user. When the input {\em size} is
-the main barrier to understandability, we can take a more programmatic approach:
-provide the user with the values represented as JSON objects, and give them
-ways to manipulate those objects {\em in situ}.\hg{Did I use
-that right?} \amh{lgtm!}
-This may involve exploring the data via mouse interactions (e.g., clicking to
-expand or collapse sections) or even via a REPL with commands for filtering and
-drilling into the structure.
+become part of our tool. 
+When the input {\em size} is the main barrier to understandability, we can
+provide the user with the values represented as JSON objects, and give them ways
+to manipulate those objects {\em in situ}.  This may involve exploring the data
+via mouse interactions (e.g., clicking to expand or collapse sections) or even
+via a REPL with commands for filtering and drilling into the structure. This
+will be a huge help when scale is a bottleneck, but what if the user really
+needs to know about the data's {\em shape}?
+In this case, we can give developers views of their data structures as DOT
+graphs~\cite{ellson_graphviz_2002}, which we can generate via
+meta-programming and render for the user. The graph visualizations will only
+work for smaller inputs (e.g., less than 100 nodes), but for certain data
+structures (e.g., trees) they may prove invaluable for understanding biases in
+the data.
 
 As the project evolves, and once ``Bringing Fuzzing into Focus'' from
 \sectionref{sec:fuzzing} is complete, we even plan to provide users with
 visualizations of code coverage feedback.\hg{This feels weak here, let's see how
 the end of the section ends up looking}
-
-\amh{The visualization skeptic in me wonders if it will be possible come up with
-generalizable DOT-based visualizations that work out of the box for most data
-types. I would expect most visualizations to become unreadable once the number
-of nodes in the data structures surpasses 10. We need to make a stronger case
-that our automated features (including proposed visualizations types of filters)
-will regularly work on the kinds of complexity of the data people will generate,
-or otherwise shift to a goal of supporting developers in rapid definition of
-their own filters and visualizations.}
-\hg{Any better?}
-\amh{Not really. I would prefer if the text directly
-addressed the fact that generated inputs often have many
-nodes for which conventional visualizations might not scale,
-and propose some kind of solution (I am not sure the DOT
-graphs would scale well). I think the JSON visualization
-sounds the most promising, in conjunction with the ability
-to use a REPL (I think I would leave out jq because it feels
-like it would require many developers to learn another tool)
-and the ability to write custom filters for viewing
-individual data instances.}
-\hg{For what it's worth, DOT graphs were my choice because it's what I actually
-wanted to see as a user. If you're generating any kind of tree structures, the
-shapes are really important, and one way or another that requires a visual
-representation.  I'm hesitant to cut that completely...}
-\amh{I think you're right, though it is risky to lead in
-with DOT graphs first, because it feels to me unlikely to
-generalize nicely. As I understand, many generated inputs
-will have hundreds or thousands of nodes that simply would
-not fit be comprehensible in a DOT graph. (And I'm wrong
-about that, then some of the reviewers might be too, and in
-that case we should explicitly state that generated outputs,
-although complex in structure, are likely to have less than
-100 nodes and be conducive to DOT visualization).}
 
 \todo{nice ending}
 
