@@ -851,7 +851,7 @@ an extension to the VSCode editor. In our first iterations, we will generate
 candidate properties using QuickSpec~\cite{claessen2010quickspec}, a tool that
 builds on Haskell's QuickCheck library to synthesize a series of plausible
 properties about a given function. Future iterations will include tools like
-\todo{cite other quickspec follow-on}.
+\todo{cite other quickspec follow-on}~\cite{smith_discovering_2017}.
 The interactions described above will be
 designed and tested first for simple programs, and then on successively more
 complex programs from our benchmark set. PI Head has extensive experience
@@ -872,8 +872,10 @@ to develop new and better ways to express random data generators that give
 developers more automatic ways to test their code more thoroughly.
 
 \subsectionstar{Context: Why is Random Generation Hard?}%
-\todo{Link all of this to the intro}
-% \todo{Talk about enumeration}
+As discussed in the Orientation, PBT relies heavily on {\em random data
+generators}. The inputs produced by the generator exercise the developer's
+properties and give confidence that they hold---provided the inputs are
+interesting enough.
 
 {\em Preconditions.}
 Many properties that developers want to test have {\em preconditions}
@@ -894,39 +896,37 @@ kinds of inputs that the program is likely to see.
 Worse yet, even with validity and realism accounted for, there are other ways for
 generators to under-perform. In particular, the spaces of inputs that generators
 target is often very large, and the best generators explore as much of the space
-as possible, as quickly as possible. This often (but not always) leads users to manually tune
-the weights on generators' choices to ensure that the generator does not spend
-too much time in one part of the space or another.
-
-\todo{Make sure we tailor the explanations above to the problems we actually
-solve, and then make it clear when we've solved the problems.}
+as possible, as quickly as possible.
 
 The PBT literature partially addresses these concerns, with solutions solving
 one problem at the expense of another and trading off between programmer effort
-and generator power.\bcp{Better!  We can make it better yet by being
-  explicit about where these tradeoffs happen in the discussion that
-  follows.} The existing solutions 
+and generator power.
+The existing solutions 
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
 coverage, others ask users to provide metrics~\cite{loscher2017targetedpbt}, and
 naturally some use machine learning to infer proxies for
-validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. Slightly more
+validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
+are easy to apply and can obtain good distribution coverage, but they are rarely
+sufficient for testing properties with complex preconditions. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
 holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
 srivastava2021gramatron}, and for more complex, semantic preconditions, some
 have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
-steinhofel2022input} to automatically seek out valid inputs. This semi-automatic
+steinhofel2022input} to automatically seek out valid inputs. These tools are
+much better at satisfying up to moderately-complex properties, but some are
+still out of reach. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
-examples~\cite{soremekun2020inputs}.
-
-\bcp{Why are developers not happy with
-  these approaches / tools?}
+examples~\cite{soremekun2020inputs}; the existing tools successfully generate
+more realistic inputs, but are again limited in the preconditions they can
+satisfy.
 
 \subsectionstar{Context: Monadic Generators}
+\iflater\hg{Not sure I love this transition... I liked it better when this sentence was above}\fi
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language (DSL).
 In  Haskell, where PBT was
@@ -995,6 +995,7 @@ issue though---e.g., by mentioning that we've been discussing this
 with Sam and Meng and have some concrete ideas how to proceed (and
 then giving a bit of technical meat, though of course there is not
 room for much).}
+\hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project concerns monadic generators
@@ -1160,30 +1161,39 @@ important to get another input that is both smaller and, ideally, provokes the
 need to be taken to ensure that shrinkers behave as expected.
 
 \SUBSECTION{Empirically Evaluating PBT Tools}{sec:benchmarking}{1}{3}
-\amh{It's awkward to have ongoing work after proposed work, though I moved this
-subsection up here because we are considering integrating it into the section on
-generators as per our discussion over Slack.}
-\bcp{If we're going to include the benchmarking project at all (and I
-  think we should), we should ignore the fact that we've been working
-  on it for a bit (after all, nothing is published or ready to
-  publish) and talk aout it as proposed work.  At the same time, we
-  should paint a big-picture vision for it, going somewhat beyond the
-  ICFP submission we hope to make and talking about a real benchmark
-  suite that we and others might build later.  (We can and should
-  mention that we've been discussing potential designs with UMD.)}
-
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
 to demonstrate that the paper is worth publishing, but this kind of evaluation
-can be hard to interpret from the perspective of a would-be user. \todo{Sentence
-bridging to Jessica's paragraphs, linking in a theme from the intro}
+can be hard to interpret from the perspective of a would-be user. With all of
+the new approaches to generation that we are proposing in this document, and
+considering our goals around usability, we want to do better.
 
-\hg{Jessica is going to write us a couple of paragraphs for this}
-As the landscape of PBT literature continues to grow, there are increasingly many tools and approaches to choose among. Practitioners face the problem of deciding what to use and how to use it, while researchers need to understand how their proposed improvements compare to existing work.
-One current project, which we are on track to submit to a conference in early 2023, seeks to popularize robust empirical evaluation for PBT. Our core contribution is an infrastructure for easily and extensibly running experiments. By “easily,” we mean that we take on the burden of collecting data and analyzing the results, exposing to the user library functions for their particular instantiations as needed. By “extensibly,” we mean that in addition to the two languages (Haskell and Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and numerous workloads that we already support, we also designed the infrastructure so that users can easily add new things along each dimension.
-Working on this project has revealed some interesting distinctions between evaluation for PBT versus for fuzzing. [cite Magma?] While in both cases, we often want to measure a tool’s bug-finding ability by assessing whether it detects inserted mutants, the level of granularity differs. For example, whereas fuzzing generally [fault-based properties vs. semantic properties]. [or talk about how fuzzing is automated but pbt needs to be tuned].
-[maybe need a paragraph about recommendations that will come out of this project]
+We will to develop and popularize a robust empirical evaluation framework for
+generators and other PBT techniques. Our first contribution will be an
+infrastructure for easily and extensibly running experiments.  By ``easily,'' we
+mean that we will take on the burden of collecting data and analyzing the
+results, exposing to the user library functions for their particular
+instantiations as needed. We will evaluate a given tool based on (1) the degree
+to which it is able to achieve high code coverage quickly, and (2) the speed
+with which it finds bugs that have been pre-seeded in example programs. By
+``extensibly,'' we mean that in addition to the two languages (Haskell and
+OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
+numerous workloads that we plan to support on release, we will design the
+infrastructure so that users can easily add new things along each dimension.
+
+Our second contribution will codify a library of case-studies and examples as
+{\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
+fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
+organized around the particular challenges that PBT tools face. In particular,
+few of the benchmarks deal with the kinds of complex preconditions that PBT
+tools are built to handle. We want to establish a set of challenging tasks that
+can serve as a north star for future improvements to PBT generators and
+bug-finding strategies (including our own!).
+
+Designs for this project are currently being discussed with Leonidas
+Lampropoulos and his group at the University of Maryland. PI Pierce has a long
+history of successful projects with Prof. Lampropoulos.
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
@@ -1210,12 +1220,13 @@ of complex inputs. In this section, we describe a sequence of research projects
 we will undertake to bring about usable developer tooling for property-based
 testing. These projects will contribute new paradigms for tools that help
 developers understand program failures involving complex inputs
-(Section~\ref{}), assess whether their generators are generating sufficient,
-appropriate inputs (Section~\ref{}) and whether those inputs sufficiently
-exercise their code (Section~\ref{}), migrate failed property-based tests into
-regression tests (Section~\ref{}), and decide on compute budgets for their
-property-based tests (Section~\ref{}). These projects will be pursued using
-human-computer interaction methodology, integrating these tools into
+(Section~\ref{sec:failures}), assess whether their generators are generating
+sufficient, appropriate inputs (Section~\ref{sec:evaluating_distributions}) and
+whether those inputs sufficiently exercise their code
+(Section~\ref{sec:tuning}), migrate failed property-based tests into regression
+tests (Section~\ref{sec:counter}), and decide on compute budgets for their
+property-based tests (Section~\ref{sec:more}). These projects will be pursued
+using human-computer interaction methodology, integrating these tools into
 contemporary development environments for functional programming. The result of
 this work will be a comprehensive, innovative set of design primitives for
 helping developers get work done in the challenge setting of reasoning about
