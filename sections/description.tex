@@ -659,7 +659,7 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-One Jane Street developer (\participant{??}) described their experience testing
+One Jane Street developer (\participant{7}) described their experience testing
 a trading system (we'll call it System A) with messy abstraction boundaries. In
 this case, System A was hard to test because it was primarily used as a
 sub-component of a larger System B: System B would take in simple data, and then
@@ -716,6 +716,18 @@ intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
 
 \SUBSECTION{Automating Model-Based PBT}{sec:automating}{2}{3}
+\hg{Talked to Richard: he suggested a few variations on this theme that are also
+interesting.
+\begin{itemize}[noitemsep]
+  \item One ``parent'' signature with two diverging ``children'': figure out how
+  to test implementations of the children against each other
+  \item What if the signatures aren't the same, but they're isomorphic? He's
+  testing the unboxed float module against the boxed float module; those sigs
+  are different (types aren't equal) but they are isomorphic...
+\end{itemize}
+I didn't get a chance to talk to Joe, but hopefully between these ideas and some
+more stewing we can find the right angle}
+
 One finding that has surprised us from the Jane Street study
 is that it is {\em very} common for developers to
 build (or already to have) a {\em model implementation} of the code
@@ -726,18 +738,9 @@ This is a well-documented approach to PBT~\cite{hughes_experiences_2016}, but it
 is not supported as well as it could be by existing tooling. For example,
 interviewees described setting up {\em very similar}
 model-based PBT harnesses for at least three different projects. Each harness
-was specific to the problem at hand, so the hard work of setting up these tests
+is specific to the problem at hand, so the hard work of setting up these tests
 has no hope of being reused from one project to another, but the logic behind
 the harnesses is ripe for automation.
-\bcp{But now that they're done, why is more research needed?}\hg{Is it
-not compelling that developers continue to waste time on the same automatable
-task? I thought that was a slam dunk...}\bcp{We're not being explicit
-about exactly what's missing that makes people have to reimplement
-things all the time---if what was missing was just the things, then
-once they'd been implemented we'd be done.}
-\hg{Better? I think it wasn't clear that ``harness'' doesn't mean
-``generalizable library'' it means ``domain specific thing that won't help me
-next time'}
 
 The APIs that the Jane Street developers tested came in the form of ML-style
 {\em modules}. The module systems of OCaml and other
@@ -825,7 +828,7 @@ error; (2) providing unit test cases that test a special case of a generalized
 property; and (3) indicating aspects of interest on input and output data during
 exploration in a debugging REPL.
 
-\textit{Generated properties should be \underline{readable}}. While prior research\bcp{which?}
+\textit{Generated properties should be \underline{readable}}. While prior research~\cite{claessen2010quickspec}
 has shown promise for automatically generating specifications of program
 behavior, we expect that users of PBT systems would benefit from having
 properties generated in the language of their property-based testing tools.
@@ -844,29 +847,29 @@ property generator may have generate multiple properties for a developer to
 review, each of which may satisfy the refinements that a developer has provided.
 
 \textit{Plan of work}: We will iteratively design and develop developer tools as
-an extension to the VSCode editor, a popular development environment for
-Haskell. In our first iterations, candidate properties will be generated using
-QuickSpec~\cite{claessen2010quickspec}. The interactions described above will be
+an extension to the VSCode editor. In our first iterations, we will generate
+candidate properties using QuickSpec~\cite{claessen2010quickspec}, a tool that
+builds on Haskell's QuickCheck library to synthesize a series of plausible
+properties about a given function. Future iterations will include tools like
+\todo{cite other quickspec follow-on}.
+The interactions described above will be
 designed and tested first for simple programs, and then on successively more
 complex programs from our benchmark set. PI Head has extensive experience
 designing and developing developer tools involving program
 analysis~\cite{head2018interactive,head2019managing} and program
 synthesis~\cite{head2017writing} components, and extending the VSCode
-environment~\cite{head2020composing}.  \bcp{Maybe consider focusing on OCaml
-tools, rather than Haskell, since this is where there might be synergy with Jane
-Street?  Or do both?} \amh{This is a great idea. Does anyone know of any
-specification generators for OCaml?}\bcp{No, but there is a ton of
-follow-on work after QuickSpec (and related work before and
-after)---we should make sure to cite it coherently.}
+environment~\cite{head2020composing}.
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
-The Jane Street developers we interviewed consistently
-cited {\em designing generators} as one of the most challenging parts of the
+The Jane Street study also highlighted several \gentheme{generation themes}.
+Generators were regularly cited
+as one of the most challenging parts of the
 PBT process, and many
 asked for better tools for constructing generators that reliably address
 their testing goals. In this section, we describe a series of projects
-to develop new and better ways to express random data generators.
+to develop new and better ways to express random data generators that give
+developers more automatic ways to test their code more thoroughly.
 
 \subsectionstar{Context: Why is Random Generation Hard?}%
 \todo{Link all of this to the intro}
