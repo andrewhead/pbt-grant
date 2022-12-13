@@ -367,9 +367,7 @@ automation and tooling around model-based testing to be one of the most
 significant ways improve PBT and make it easier to pick up and use.
 
 We discuss plans for work that addresses \proptheme{specification
-  themes} in \sectionref{sec:spec}.  \bcp{And the education section!
-  I think the discussion above is fine---we just need to put a second pointer
-here.}
+  themes} in \sectionref{sec:spec}.
 
 \smallskip
 
@@ -435,7 +433,14 @@ strategies like {\em mutation
 We discuss plans for work that addresses
 \evaltheme{validation themes} in \sectionref{sec:val}.
 
+\smallskip
+All of these themes will also inform our plans to improve education around PBT.
+Education projects are discussed in \sectionref{sec:ed}.
+\iflater
 \bcp{Why don't we have a separate color / paragraph for education themes??}
+\hg{I'd argue that we don't have ``education themes''---education is important
+around all three sections. I don't know if any JS themes are education specific}
+\fi
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -576,16 +581,12 @@ for PBT tools and a detailed set of requirements for how tools should be
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
 The projects in this section address the \proptheme{specification themes}
-discussed in the Motivation section. In \sectionref{sec:whento}, we discuss a
-plan to aggregate and communicate a comprehensive list of PBT patterns that
-developers can use to decide if PBT is an easy choice for testing their code.
-Then in \sectionref{sec:outpurprop} we describe a plan to significantly expand
-that list of patterns, and in \sectionref{sec:automating} we focus in on a
-particular pattern and provide tools to apply it automatically. Together, these
-projects will greatly improve the on-ramp to PBT and clarify its place in the
-software industry.
-
-\bcp{mention the section we moved to education}
+discussed in the Motivation section.  In \sectionref{sec:outpurprop} we describe
+a plan to significantly expand the scenarios where PBT has leverage, improving
+its applicability to poorly abstracted code. Then, in
+\sectionref{sec:automating} we provide tools to apply PBT automatically in one
+specific scenario: model-based testing.  Together, these projects will greatly
+improve the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}
 
@@ -726,6 +727,12 @@ With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
 the potential to significantly increase the usability of model-based
 PBT.
+
+\bigskip
+
+Section \sectionref{sec:whento} incorporates the ideas from this section along
+with many more into a comprehensive list of PBT patterns that developers can use
+to decide if PBT is an easy choice for testing their code.
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
@@ -1060,7 +1067,11 @@ bug-finding strategies (including our own!).
 
 Designs for this project are currently being discussed with Leonidas
 Lampropoulos and his group at the University of Maryland. PI Pierce has a long
-history of successful projects with Prof. Lampropoulos. \bcp{Citations}
+history of successful projects with Prof.
+Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+\iflater
+\hg{Is this everything? Probably not...}
+\fi
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
