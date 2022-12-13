@@ -342,7 +342,7 @@ concluded just that.
 we actually heard very little about difficulties coming up with
 properties; rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent.  For example, \participant{9} pointed out
+available or straightforward to invent. For example, \participant{9} pointed out
 that PBT is particularly easy to apply when one has ``a really good abstraction
 with a complicated implementation.''
 Several participants (\participant{3}, \participant{15},
@@ -367,7 +367,9 @@ automation and tooling around model-based testing to be one of the most
 significant ways improve PBT and make it easier to pick up and use.
 
 We discuss plans for work that addresses \proptheme{specification
-  themes} in \sectionref{sec:spec}.
+  themes} in \sectionref{sec:spec}.  \bcp{And the education section!
+  I think the discussion above is fine---we just need to put a second pointer
+here.}
 
 \smallskip
 
@@ -420,7 +422,7 @@ fuzzing tools, ran the fuzzers for far longer
 But even with arbitrary time budget, it is still difficult to know if PBT will
 find all of the bugs in a program. If the generator spends too much time
 producing uninteresting or invalid values, testing could still fail to find bugs
-after a {\em very} long time. 
+after a {\em very} long time.
 For this reason, \evaltheme{Evaluation of Effectiveness} often featured in our
 conversations, and participants asked explicitly for tools to help them evaluate
 their generators and properties.
@@ -432,6 +434,8 @@ strategies like {\em mutation
 
 We discuss plans for work that addresses
 \evaltheme{validation themes} in \sectionref{sec:val}.
+
+\bcp{Why don't we have a separate color / paragraph for education themes??}
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -478,7 +482,7 @@ and interactive tools (\sectionref{sec:observations}).
   JS.  I guess it belongs in the section where we describe potential
   further collaborations with them.}\fi
 
-\SUBSECTION{Generalizing the Findings from Jane Street}{sec:survey}{1}{1}
+\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{1}
 \iflater\bcp{Plural or singular?}\fi
 
 Our ongoing Jane Street study has already revealed a number of
@@ -553,7 +557,7 @@ It! work, and ask ``how many of these situations do you encounter once every X
 months at your job.'' That doesn't find the upper bound we want, but it'd find a
 much better lower bound.}
 
-\SUBSECTION{An Observation Study of PBT in Practice}{sec:observations}{2}{2}
+\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{2}
 
 Anecdotes related in interviews do not generally, in and of
 themselves, provide enough information to inform the design of
@@ -596,6 +600,8 @@ that list of patterns, and in \sectionref{sec:automating} we focus in on a
 particular pattern and provide tools to apply it automatically. Together, these
 projects will greatly improve the on-ramp to PBT and clarify its place in the
 software industry.
+
+\bcp{mention the section we moved to education}
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}
 
@@ -666,7 +672,7 @@ way, the user can get feedback about the invariants that should hold of the
 intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
 
-\SUBSECTION{Automating Model-Based PBT}{sec:automating}{2}{3}
+\SUBSECTION{Models for Modules}{sec:automating}{2}{3}
 \hg{Talked to Richard: he suggested a few variations on this theme that are also
 interesting.
 \begin{itemize}[noitemsep]
@@ -678,6 +684,8 @@ interesting.
 \end{itemize}
 I didn't get a chance to talk to Joe, but hopefully between these ideas and some
 more stewing we can find the right angle}
+
+\bcp{BCP write}
 
 One finding that has surprised us from the Jane Street study
 is that it is {\em very} common for developers to
@@ -734,15 +742,6 @@ With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
 the potential to significantly increase the usability of model-based
 PBT.
-
-\bcp{Not very convincing.  For one thing, we neither make a case that
-  solving this problem for ML modules will generalize (at all, much
-  less straightforwardly) to other languages with different modularity
-  mechanisms.  At the same time, we don't convey they technical
-  challenge of doing it even for ML.}
-\hg{Same problem as the previous section---I'm working from hunches here. Maybe
-we should take a half hour to talk through these projects?}
-\bcp{Definitely.}
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
@@ -871,15 +870,15 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
-\bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
-worry that enough of the following projects rest on reflective generators that
-we want to be able to say ``don't worry, we actually have an idea what these
-will look like''}\bcp{That's fair enough.  I think we can finesse this
-issue though---e.g., by mentioning that we've been discussing this
-with Sam and Meng and have some concrete ideas how to proceed (and
-then giving a bit of technical meat, though of course there is not
-room for much).}
-\hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
+% \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
+% worry that enough of the following projects rest on reflective generators that
+% we want to be able to say ``don't worry, we actually have an idea what these
+% will look like''}\bcp{That's fair enough.  I think we can finesse this
+% issue though---e.g., by mentioning that we've been discussing this
+% with Sam and Meng and have some concrete ideas how to proceed (and
+% then giving a bit of technical meat, though of course there is not
+% room for much).}
+% \hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
 One such project concerns monadic generators
@@ -942,7 +941,7 @@ automated approaches to improving generator distributions---and we get
 will see some additional use cases for reflective generators in the
 following sections.
 
-\SUBSECTION{Reflective Fuzzing}{sec:fuzzing}{2}{3}
+\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they leverage randomized testing to quickly exercise as
 many program behaviors as possible.  One might then expect that the fuzzing and
@@ -1031,9 +1030,7 @@ generation, the PBT literature provides powerful tools like reflective
 generators for refining generator performance incrementally, and both
 communities benefit from generators with better distributions.
 
-\SUBSECTION{Reflective Shrinking}{sec:shrinking}{3}{4}
-\bcp{Could we swap this with the previous section?  Would make the
-  wprk plan (progression of section titles) look a bit tidier...}
+\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}
 
 A more modest application of reflective generators uses them to implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
@@ -1080,7 +1077,7 @@ bug-finding strategies (including our own!).
 
 Designs for this project are currently being discussed with Leonidas
 Lampropoulos and his group at the University of Maryland. PI Pierce has a long
-history of successful projects with Prof. Lampropoulos.
+history of successful projects with Prof. Lampropoulos. \bcp{Citations}
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
@@ -1332,11 +1329,6 @@ usability study here, we should factor this out into an
 section.}
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{1}{3}
-\bcp{Why is this a Validation (as opposed to Generation) topic?  Also:
-Do we want to front-load the topics with earlier start times, in their
-respective sections.  (I'm just looking at the work plan table...)}
-\hg{It's going to be a graphical approach to tuning based on GenVis, so it
-wouldn't make much sense pulled out of context}
 
 The tool proposed in the previous section will give developers unprecedented
 visibility into their generator distributions, but what should they do if the
@@ -1365,7 +1357,7 @@ threshold, but a more robust to altering the generator would be better.
 Luckily, we may be able to both alleviate concerns around discard rates and
 implement more interactions with the help of reflective generators (introduced
 in \sectionref{sec:gen}). Recall that reflective generators can operate in
-reverse, reflecting on the generator choices that produce a particular value. 
+reverse, reflecting on the generator choices that produce a particular value.
 This means that if the user expresses a desire like ``category X should be
 better represented'' (maybe by dragging a bar or a pie slice as in interactions
 (2) or (3)), reflective generators can determine which choices often result in
@@ -1430,6 +1422,7 @@ failing case until after the bug is fixed\ldots{} once you
 have the updated fixed function, then the output can be
 plugged into expect test.}
 
+\ifdraft
 \SUBSECTION{More Tests with Less Work}{sec:more}{3}{4}
 
 \hg{This section needs honing; right now it's just what I wrote in my thesis
@@ -1446,6 +1439,7 @@ now that I think about it that seems like a lot at once. Honestly I think the
 cultural shift in SE (potentially backed by some large-scale software tools) is
 the more impactful angle, but I don't know if we can argue that we know how to /
 want to do that}
+\bcp{Delete the section?}
 
 The pilot study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
@@ -1471,8 +1465,9 @@ will refine these ideas via user-centered design. Rather than build a system and
 hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
+\fi
 
-\SECTION{Education}{Advancing Testing in the Broader Culture \pagebudget{1}}{sec:ed}
+\SECTION{Education}{Advancing PBT in the Broader Culture \pagebudget{1}}{sec:ed}
 \bcp{Needs some polishing and reintegration of the moved sections.}
 
 \hg{This isn't actually written, this is just starter stuff from my thesis
@@ -1482,25 +1477,9 @@ The pilot study also reminded us that PBT builds on concepts that are not
 always comfortable for developers, and we expect that we will learn more about
 the specifics of that discomfort in the large-scale study.  Prior work has
 explored ways to close this knowledge
-gap~\cite{wrenn2021using,nelson2021automated}, but we expect there are further
-education challenges that are worth exploring.
+gap~\cite{wrenn2021using,nelson2021automated}, but there are further
+education challenges that are worth addressing.
 
-I hope to work with the course staff of CIS 1210 to incorporate PBT into the
-curriculum. The ideal scenario would be to add a PBT thread throughout the
-course, giving students the tools to specify and test their code as they go.  I
-plan to follow the lead of others who have done similar things before (e.g., the
-PL folks at Brown University) to give students the best chance at incorporating
-PBT into their tool-set.
-
-There are a few important challenges that need to be considered in order for
-this to work out.  The curriculum is already quite full, so adding PBT likely
-means removing something else. I will need to work with the professors currently
-teaching the course to find room, but I expect that this process will be fairly
-difficult. It is also possible that adding PBT will actually make parts of the
-course {\em easier}, especially for students with some knowledge of logic and/or
-less well-developed unit testing instincts. Honestly I think this is a good
-thing, as it gives students more ways to succeed and it may re-enforce the value
-of PBT, but some may find this problematic.
 
 \SUBSECTION{When to Specify It!}{sec:whento}{3}{4}
 %
@@ -1528,7 +1507,7 @@ The study with Jane Street provides a solid start to a comprehensive list of
 high-leverage use-cases for PBT. We have already identified seven software
 patterns where properties are relatively straightforward to find and PBT is an
 obvious choice for testing:
-\begin{enumerate}[noitemsep]
+\begin{enumerate*}%[noitemsep]
 \item Code that is already (semi-)formally specified.
 \item Functions that round trip.
 \item Pure data structures.
@@ -1536,7 +1515,7 @@ obvious choice for testing:
 \item Related versions of the same code.
 \item Programs that may fail catastrophically.
 \item Stateful APIs with well-understood contracts.
-\end{enumerate}
+\end{enumerate*}
 These patterns are already quite broad in their scope, and include many
 scenarios that real software developers regularly find themselves in, but they
 are likely not exhaustive. Thus, we will continue to gather examples of
@@ -1635,7 +1614,26 @@ synthesis~\cite{head2017writing} components, and extending the VSCode
 environment~\cite{head2020composing}.
 
 \SUBSECTION{PBT in the Undergrad Curriculum}{sec:1210}{2}{4}
-\bcp{Write me.  (Move stuff from upstairs?)}
+
+\writeme{Write me.}
+
+% I hope to work with the course staff of CIS 1210 to incorporate PBT into the
+% curriculum. The ideal scenario would be to add a PBT thread throughout the
+% course, giving students the tools to specify and test their code as they go.  I
+% plan to follow the lead of others who have done similar things before (e.g., the
+% PL folks at Brown University) to give students the best chance at incorporating
+% PBT into their tool-set.
+
+% There are a few important challenges that need to be considered in order for
+% this to work out.  The curriculum is already quite full, so adding PBT likely
+% means removing something else. I will need to work with the professors currently
+% teaching the course to find room, but I expect that this process will be fairly
+% difficult. It is also possible that adding PBT will actually make parts of the
+% course {\em easier}, especially for students with some knowledge of logic and/or
+% less well-developed unit testing instincts. Honestly I think this is a good
+% thing, as it gives students more ways to succeed and it may re-enforce the value
+% of PBT, but some may find this problematic.
+
 
 \immediate\closeout\workplanfile
 \SIMPLESECTION{Plan of Work \pagebudget{.7}}{sec:plan-of-work}
@@ -1672,39 +1670,53 @@ environment~\cite{head2020composing}.
     titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi}\label{fig:workplan}
 \end{figure}
 
-\todo{Write words}
+\writeme{Write words}
+
+\bcp{Add color codes:
+  \begin{itemize}
+  \item harry: 2.1 and/or 2.2, all of 3, 4.2, 4.3, 5.1
+  \end{itemize}
+}
 
 \SIMPLESECTION{Broader Impacts \pagebudget{.5}}{sec:broader-impacts}
-The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
-Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
-activities. Broader impacts may be accomplished through the research itself, through the activities that are
-directly related to specific research projects, or through activities that are supported by, but are complementary to
-the project. NSF values the advancement of scientific knowledge and activities that contribute to the
-achievement of societally relevant outcomes. Such outcomes include, but are not limited to: full
-participation of women, persons with disabilities, and underrepresented minorities in science, technology, engineering, and
-mathematics (STEM); improved STEM education and educator development at any level; increased public
-scientific literacy and public engagement with science and technology; improved well-being of individuals in
-society; development of a diverse,globally competitive STEM workforce; increased partnerships between
-academia, industry, and others; improved national security; increased economic competitiveness of the United
-States; and enhanced infrastructure for research and education.
+
+\writeme{Write me}
+
+% The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
+% Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
+% activities. Broader impacts may be accomplished through the research itself, through the activities that are
+% directly related to specific research projects, or through activities that are supported by, but are complementary to
+% the project. NSF values the advancement of scientific knowledge and activities that contribute to the
+% achievement of societally relevant outcomes. Such outcomes include, but are not limited to: full
+% participation of women, persons with disabilities, and underrepresented minorities in science, technology, engineering, and
+% mathematics (STEM); improved STEM education and educator development at any level; increased public
+% scientific literacy and public engagement with science and technology; improved well-being of individuals in
+% society; development of a diverse,globally competitive STEM workforce; increased partnerships between
+% academia, industry, and others; improved national security; increased economic competitiveness of the United
+% States; and enhanced infrastructure for research and education.
 
 \bcp{Education is described in its own separate section.}
 
 \SIMPLESECTION{Results from Prior NSF Support \pagebudget{.5}}{sec:prior}
-If any PI or co-PI identified on the project has received NSF funding (including any current
-funding) in the past five years, in formation on the award(s) is required,
-irrespective of whether the support was directly related to the proposal or not.
-In cases where the PI or co-PI has received more than one award (excluding amendments),
-they need only report on the one award most closely related to the proposal. Funding includes not just salary
-support, but any funding awarded by NSF. The following information must be provided:\\
 
-\noindent
-\emph{\underline{Name of PI}}: NSF-Program (Award Number) ``Title of the Project'' (\$AMOUNT, PERIOD OF SUPPORT).
-{\bf Publications:} List of publications resulting from the NSF award. A complete bibliographic citation for each
-publication must be provided either in this section or in the References Cited section of the proposal); if
-none, state: ``No publications were produced under this award.'' {\bf Research Products:} evidence of research products
-and their availability, including, but not limited to: data, publications, samples, physical collections, software,
-and models, as described in any Data Management Plan.
+\writeme{Write me.}
+
+% If any PI or co-PI identified on the project has received NSF funding (including any current
+% funding) in the past five years, in formation on the award(s) is required,
+% irrespective of whether the support was directly related to the proposal or not.
+% In cases where the PI or co-PI has received more than one award (excluding amendments),
+% they need only report on the one award most closely related to the proposal. Funding includes not just salary
+% support, but any funding awarded by NSF. The following information must be provided:\\
+
+% \noindent
+% \emph{\underline{Name of PI}}: NSF-Program (Award Number) ``Title of the Project'' (\$AMOUNT, PERIOD OF SUPPORT).
+% {\bf Publications:} List of publications resulting from the NSF award. A complete bibliographic citation for each
+% publication must be provided either in this section or in the References Cited section of the proposal); if
+% none, state: ``No publications were produced under this award.'' {\bf Research Products:} evidence of research products
+% and their availability, including, but not limited to: data, publications, samples, physical collections, software,
+% and models, as described in any Data Management Plan.
+
+
 
 % \SUBSECTION{Proposed Study}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:

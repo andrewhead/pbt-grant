@@ -94,8 +94,9 @@
 \newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
 \newcommand{\comment}[1]{{\em #1}}
 \newcommand{\todo}[1]{{\color{nord-red} TODO: #1}}
-\newcommand{\writeme}[1]{{\color{gray} #1}}
-\newcommand{\pagebudget}[1]{(#1 pages)}
+\newcommand{\writeme}[1]{{\color{blue} #1}}
+% \newcommand{\pagebudget}[1]{(#1 pages)}
+\newcommand{\pagebudget}[1]{}
 
 \usepackage{ulem}\normalem
 \newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}\fi}}
@@ -116,7 +117,7 @@
 \newif\iflater\laterfalse
 \newif\ifdesperateforspace\desperateforspacefalse
 
-\usepackage{enumitem}
+\usepackage[inline]{enumitem}
 
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
@@ -173,15 +174,15 @@
 
 \begin{document}
 
-\title{CCF Core: Medium: Property-Based Testing in Practice}
+\title{CCF Core: Medium: Usable Property-Based Testing}
 
-\bigskip\bigskip\bigskip\bigskip
-\todo{More title ideas:
-  \begin{itemize}
-  \item Property-Based Testing for the People
-  \item (what else?)
-  \end{itemize}
-}
+% \bigskip\bigskip\bigskip\bigskip
+% \todo{More title ideas:
+%   \begin{itemize}
+%   \item Property-Based Testing for the People
+%   \item (what else?)
+%   \end{itemize}
+% }
 
 % \title{Property-Based Testing for the Working Programmer}
 % \tableofcontents % TODO Remove?
