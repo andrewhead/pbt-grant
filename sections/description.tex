@@ -479,7 +479,8 @@ and interactive tools (\sectionref{sec:observations}).
   JS.  I guess it belongs in the section where we describe potential
   further collaborations with them.}\fi
 
-\SUBSECTION{Surveys to Generalize Findings}{sec:survey}{1}{1}
+\SUBSECTION{Generalizing the Findings from Jane Street}{sec:survey}{1}{1}
+\iflater\bcp{Plural or singular?}\fi
 
 Our ongoing Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -553,7 +554,7 @@ It! work, and ask ``how many of these situations do you encounter once every X
 months at your job.'' That doesn't find the upper bound we want, but it'd find a
 much better lower bound.}
 
-\SUBSECTION{Observations of PBT in Practice}{sec:observations}{2}{2}
+\SUBSECTION{An Observation Study of PBT in Practice}{sec:observations}{2}{2}
 
 Anecdotes related in interviews do not generally, in and of
 themselves, provide enough information to inform the design of
@@ -597,7 +598,7 @@ particular pattern and provide tools to apply it automatically. Together, these
 projects will greatly improve the on-ramp to PBT and clarify its place in the
 software industry.
 
-\SUBSECTION{Writing Properties Over Output Logs}{sec:outpurprop}{2}{3}
+\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}
 
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{goldstein2022some}) was
@@ -1032,6 +1033,9 @@ generators for refining generator performance incrementally, and both
 communities benefit from generators with better distributions.
 
 \SUBSECTION{Reflective Shrinking}{sec:shrinking}{3}{4}
+\bcp{Could we swap this with the previous section?  Would make the
+  wprk plan (progression of section titles) look a bit tidier...}
+
 A more modest application of reflective generators uses them to implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging. On its face, this feels similar to validity-preserving
@@ -1318,13 +1322,16 @@ editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
 features. We will evaluate our tool in a small user study (around 15
 participants), hoping to learn which features of the tool are most useful, and
-how the design may be refined into a tool that real developers can use. 
+how the design may be refined into a tool that real developers can use.
 \amh{Probably instead of mentioning the
 usability study here, we should factor this out into an
 ``evaluation plan'' that covers all of the tools in this
 section.}
 
-\SUBSECTION{Tuning Input Data Distributions}{sec:tuning}{1}{3}
+\SUBSECTION{Tuning Data Distributions}{sec:tuning}{1}{3}
+\bcp{Why is this a Validation (as opposed to Generation) topic?  Also:
+Do we want to front-load the topics with earlier start times, in their
+respective sections.  (I'm just looking at the work plan table...)}
 
 \todo{Draft this out (HG: I can do this if you want, @AMH)}
 
@@ -1359,7 +1366,7 @@ through the code that a developer has indicated are
 particularly important to exercise?}
 \hg{Recommend: cut}
 
-\SUBSECTION{Transforming Counterexamples into Regression Tests}{sec:counter}{3}{4}
+\SUBSECTION{Turning Counterexamples into Regression Tests}{sec:counter}{3}{4}
 
 \amh{Add references to Titus' slow fixes project,
 CodeScoop, Emerson's work on visual extract-method
@@ -1409,7 +1416,7 @@ failing case until after the bug is fixed\ldots{} once you
 have the updated fixed function, then the output can be
 plugged into expect test.}
 
-\SUBSECTION{Running More Tests with Less Work}{sec:more}{3}{4}
+\SUBSECTION{More Tests with Less Work}{sec:more}{3}{4}
 
 \hg{This section needs honing; right now it's just what I wrote in my thesis
 proposal, and it's too high-level} \amh{Is this a user
@@ -1606,7 +1613,7 @@ analysis~\cite{head2018interactive,head2019managing} and program
 synthesis~\cite{head2017writing} components, and extending the VSCode
 environment~\cite{head2020composing}.
 
-\SUBSECTION{Adding PBT to 1210}{sec:1210}{2}{4}
+\SUBSECTION{Adding PBT to an Undergrad Data Structures Course}{sec:1210}{2}{4}
 \bcp{Write me.  (Move stuff from upstairs?)}
 
 \immediate\closeout\workplanfile
