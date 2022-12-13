@@ -855,19 +855,9 @@ precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
-\bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
-worry that enough of the following projects rest on reflective generators that
-we want to be able to say ``don't worry, we actually have an idea what these
-will look like''}\bcp{That's fair enough.  I think we can finesse this
-issue though---e.g., by mentioning that we've been discussing this
-with Sam and Meng and have some concrete ideas how to proceed (and
-then giving a bit of technical meat, though of course there is not
-room for much).}
-\hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
 Continuing on from the free generator work, we have begun to look at even more
 powerful generalizations of the standard monadic approach to random generation.
-One such project concerns monadic generators
-that can be run {\em backward}.
+One such project concerns monadic generators that can be run {\em backward}.
 
 If a generator parses a sequence of choices into a value, then running the
 generator backward should take a value and produce a sequence of choices that
