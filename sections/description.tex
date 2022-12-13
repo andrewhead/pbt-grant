@@ -417,11 +417,13 @@ fuzzing tools, ran the fuzzers for far longer
 % HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
 (\participant{14} ran the fuzzer for over a year!).
 
-It would be easier for developers to make informed decisions about
-time budgets for testing if
-they had better access to feedback about how well their testing is doing.
-Indeed, \evaltheme{Evaluation of Effectiveness} often featured in our
-conversations.
+But even with arbitrary time budget, it is still difficult to know if PBT will
+find all of the bugs in a program. If the generator spends too much time
+producing uninteresting or invalid values, testing could still fail to find bugs
+after a {\em very} long time. 
+For this reason, \evaltheme{Evaluation of Effectiveness} often featured in our
+conversations, and participants asked explicitly for tools to help them evaluate
+their generators and properties.
 There are many forms such feedback could take, from code coverage (requested by
 \participant{9} and \participant{25}) to input space coverage measurements
 (requested by \participant{10}, \participant{16}, and \participant{16}) and even
@@ -430,9 +432,6 @@ strategies like {\em mutation
 
 We discuss plans for work that addresses
 \evaltheme{validation themes} in \sectionref{sec:val}.
-\amh{I feel like this section does not yet make a convincing
-case that the current practices around validation are
-problematic.}
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -1281,13 +1280,18 @@ good enough. Thus, we propose potential ways of visualizing examples that may
 become part of our tool. For inputs that are of a reasonable size, but where the
 data {\em shape} is hard to see from text, we can give developers views of their
 data structures as DOT graphs~\cite{ellson_graphviz_2002}; such graphs could be
-generated via meta-programming and rendered for the user. When the input size is
+generated via meta-programming and rendered for the user. When the input {\em size} is
 the main barrier to understandability, we can take a more programmatic approach:
-provide the user with the values represented as JSON objects, and provide them
-with ways to manipulate those objects {\em in situ}.\hg{Did I use that right?}
+provide the user with the values represented as JSON objects, and give them
+ways to manipulate those objects {\em in situ}.\hg{Did I use that right?}
 This may involve exploring the data via mouse interactions (e.g., clicking to
 expand or collapse sections) or even via a REPL with commands for filtering and
 drilling into the structure.
+
+As the project evolves, and once ``Bringing Fuzzing into Focus'' from
+\sectionref{sec:fuzzing} is complete, we even plan to provide users with
+visualizations of code coverage feedback.\hg{This feels weak here, let's see how
+the end of the section ends up looking}
 
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
@@ -1313,8 +1317,7 @@ wanted to see as a user. If you're generating any kind of tree structures, the
 shapes are really important, and one way or another that requires a visual
 representation.  I'm hesitant to cut that completely...}
 
-Once we are happy with the design, we will publish the tool as an official
-extension and publicize it to the testing community.
+\todo{nice ending}
 
 \todo{Evaluation plan}
 All of these features will be made available to developers from within their
@@ -1332,39 +1335,51 @@ section.}
 \bcp{Why is this a Validation (as opposed to Generation) topic?  Also:
 Do we want to front-load the topics with earlier start times, in their
 respective sections.  (I'm just looking at the work plan table...)}
+\hg{It's going to be a graphical approach to tuning based on GenVis, so it
+wouldn't make much sense pulled out of context}
 
-\todo{Draft this out (HG: I can do this if you want, @AMH)}
+The tool proposed in the previous section will give developers unprecedented
+visibility into their generator distributions, but what should they do if the
+distribution is not the right one? Tuning generators is a challenging task~\cn{}
+that would be much easier with the support of tools.
 
-Can someone take a bar on a graph, manipulate that bar, and
-then use reflective generators to increase that bar. (Tune
-the reflective generator to weight certain decisions). We
-can do this in some circumstances. [Andrew thinks we should
-lead into this idea as much as possible, because it relates
-to our secret superpower of novel kinds of generators, and
-sounds really cool.]
+We propose extending the above visualization tool to include {\em bidirectional
+interactions}: the developer will be able to select parts of the visualization
+that seem wrong and edit them, causing changes to flow back into their editor as
+modifications to the generator. These interactions include things like (1)
+selecting points in a scatter plot to filter out; (2) dragging a bar on a bar
+chart up or down, to indicate that a certain feature value should be more or
+less represented; or (3) manipulating the sections of a pie chart to indicate
+a better categorical distribution.
 
-And often, developers do not filter out repeated tests of
-unimportant conditions. In this case, even if you cannot
-reparameterize a reflective generator, simply filtering out
-those data instances before running them through the test
-would lead to performance improvements.
+Some of these interactions can be implemented via {\em filtering}. Generators
+already support operations that filter their outputs via predicates, so this is
+a natural choice. If the user selects a range of values, as in interaction (1),
+we can simply ask the generator to discard any values that do not fall in that
+range.  However, filtering generators this way can be problematic: if the filter
+is too broad, the generator will slow down significantly as it wastes time
+generating inputs that it will have to discard.  We can protect users by
+reporting a {\em discard rate} and warning them when that rate reaches a certain
+threshold, but a more robust to altering the generator would be better.
 
-Convey during this latter kind of tuning the discard rate of
-inputs, which might help the developer decide when it's time
-to invest in rewriting their generator.
+Luckily, we may be able to both alleviate concerns around discard rates and
+implement more interactions with the help of reflective generators (introduced
+in \sectionref{sec:gen}). Recall that reflective generators can operate in
+reverse, reflecting on the generator choices that produce a particular value. 
+This means that if the user expresses a desire like ``category X should be
+better represented'' (maybe by dragging a bar or a pie slice as in interactions
+(2) or (3)), reflective generators can determine which choices often result in
+values of that category and raise the weights on those choices. And this mode of
+interaction can just as easily be applied to de-prioritize certain choices,
+meaning that in some situations re-weighting with reflective generators can
+obviate the need for expensive filters.
 
-\SUBSECTION{Assessing Testing Effectiveness}{sec:assessing}{2}{4}
-
-This section will include something about how to help
-developers reason about whether their tests achieve adequate
-code coverage. \amh{Discuss with Harry whether there is any
-new approach we can achieve for code coverage, beyond
-providing the kinds of metrics that appear from unit tests.
-Maybe there are ways of automatically tuning input data
-distributions so that they are more likely to execute path
-through the code that a developer has indicated are
-particularly important to exercise?}
-\hg{Recommend: cut}
+Ultimately we see this project and the previous one as a comprehensive toolkit
+for generator customization. The understanding and tuning generators is too
+often a cryptic process that users are inclined to avoid, to the detriment of
+their testing success. With interactive tools, developers will be far more
+likely to build useful generators that they can understand, and that they can
+customize as they see fit.
 
 \SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{3}{4}
 
@@ -1381,8 +1396,7 @@ experienced by informants in our interview study was that it
 required considerable work to transform a failure that was
 already detected by their PBT tools into a regression test,
 despite the fact that much of the work involved in doing so
-felt mechanical. \amh{@HG, check that I am faithfully
-representing the informant(s) that said this.}
+felt mechanical.
 
 We plan to develop usable tooling for transforming failed
 PBT tests into single regression tests. What is important to
@@ -1425,6 +1439,13 @@ and keeping tabs on long-running tests during solo
 programming? Or is it a project around proposing better
 software engineering process that gives the right amount of
 time to long-running PBT tests?}
+\hg{Good question. I kind of naively hoped it was a UI project that both helped
+users invoke and keep tabs of tests in the background AND pushed them towards
+software engineering processes that gave PBTs appropriate space to operate. But
+now that I think about it that seems like a lot at once. Honestly I think the
+cultural shift in SE (potentially backed by some large-scale software tools) is
+the more impactful angle, but I don't know if we can argue that we know how to /
+want to do that}
 
 The pilot study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
