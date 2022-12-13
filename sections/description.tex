@@ -417,11 +417,13 @@ fuzzing tools, ran the fuzzers for far longer
 % HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
 (\participant{14} ran the fuzzer for over a year!).
 
-It would be easier for developers to make informed decisions about
-time budgets for testing if
-they had better access to feedback about how well their testing is doing.
-Indeed, \evaltheme{Evaluation of Effectiveness} often featured in our
-conversations.
+But even with arbitrary time budget, it is still difficult to know if PBT will
+find all of the bugs in a program. If the generator spends too much time
+producing uninteresting or invalid values, testing could still fail to find bugs
+after a {\em very} long time. 
+For this reason, \evaltheme{Evaluation of Effectiveness} often featured in our
+conversations, and participants asked explicitly for tools to help them evaluate
+their generators and properties.
 There are many forms such feedback could take, from code coverage (requested by
 \participant{9} and \participant{25}) to input space coverage measurements
 (requested by \participant{10}, \participant{16}, and \participant{16}) and even
@@ -430,9 +432,6 @@ strategies like {\em mutation
 
 We discuss plans for work that addresses
 \evaltheme{validation themes} in \sectionref{sec:val}.
-\amh{I feel like this section does not yet make a convincing
-case that the current practices around validation are
-problematic.}
 
 \iflater
 \amh{Let's foreshadow other findings that
