@@ -1289,6 +1289,11 @@ This may involve exploring the data via mouse interactions (e.g., clicking to
 expand or collapse sections) or even via a REPL with commands for filtering and
 drilling into the structure.
 
+As the project evolves, and once ``Bringing Fuzzing into Focus'' from
+\sectionref{sec:fuzzing} is complete, we even plan to provide users with
+visualizations of code coverage feedback.\hg{This feels weak here, let's see how
+the end of the section ends up looking}
+
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
 types. I would expect most visualizations to become unreadable once the number
@@ -1376,19 +1381,6 @@ often a cryptic process that users are inclined to avoid, to the detriment of
 their testing success. With interactive tools, developers will be far more
 likely to build useful generators that they can understand, and that they can
 customize as they see fit.
-
-\SUBSECTION{Assessing Testing Effectiveness}{sec:assessing}{2}{4}
-
-This section will include something about how to help
-developers reason about whether their tests achieve adequate
-code coverage. \amh{Discuss with Harry whether there is any
-new approach we can achieve for code coverage, beyond
-providing the kinds of metrics that appear from unit tests.
-Maybe there are ways of automatically tuning input data
-distributions so that they are more likely to execute path
-through the code that a developer has indicated are
-particularly important to exercise?}
-\hg{Recommend: cut}
 
 \SUBSECTION{Turning Counterexamples into Regression Tests}{sec:counter}{3}{4}
 
