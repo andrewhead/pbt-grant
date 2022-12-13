@@ -1474,11 +1474,19 @@ Perhaps it would involve novel technologies around
 shrinkers.}
 \hg{This seems doable, as long as we think it's interesting... It strikes me as
 a great engineering problem, but I'm not sure what the research angle is}
+\amh{To create a test case, you need to unpack a property
+into an input and an output, rather than just a property. Do
+you want to test the property explicitly, or test for
+exactness of the output? You need to remember that it is
+failing case until after the bug is fixed\ldots{} once you
+have the updated fixed function, then the output can be
+plugged into expect test.}
 
 \SUBSECTION{Running More Tests with Less Work}{sec:more}{3}{4}
 
 \hg{This section needs honing; right now it's just what I wrote in my thesis
-proposal, and it's too high-level}
+proposal, and it's too high-level} \amh{Is this a user
+interface project devoted to figuring out ways of invoking }
 
 The pilot study suggests that one area that new developer tooling may be
 needed is in managing the interplay between PBT and continuous integration (CI)
