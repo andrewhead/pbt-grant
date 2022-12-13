@@ -1115,16 +1115,15 @@ tests with an overabundance of input-output examples.
 % (2) understanding distributions of inputs; (3) tuning distributions of inputs;
 % (4) integration of specific inputs into regression tests; (5) supporting good
 % decisions around ``time budgets'' for PBT.}
-
-\amh{Some notes on framing from a prior meeting with HG and BCP: When we write
-about HCI-related parts of the projects, I think the right tack is to describe
-this as an area of HCI-oriented programming tools that merits additional
-exploration in tooling of the following types: X, Y, Z.  We will draw
-inspiration from adjacent areas, though the idea is to establish some of the
-first work in usable multi-example software testing.  This requires entirely new
-ways of expressing and reviewing tests, and could have
-potentially transformative impact within interactive programming systems in the
-long term. (Can we flesh out just how big a field we feel this is?)}
+% \amh{Some notes on framing from a prior meeting with HG and BCP: When we write
+% about HCI-related parts of the projects, I think the right tack is to describe
+% this as an area of HCI-oriented programming tools that merits additional
+% exploration in tooling of the following types: X, Y, Z.  We will draw
+% inspiration from adjacent areas, though the idea is to establish some of the
+% first work in usable multi-example software testing.  This requires entirely new
+% ways of expressing and reviewing tests, and could have
+% potentially transformative impact within interactive programming systems in the
+% long term. (Can we flesh out just how big a field we feel this is?)}
 
 \SUBSECTION{Understanding Failures}{sec:failures}{3}{4}
 
@@ -1175,8 +1174,7 @@ programmers understand trace divergences in an educational
 setting~\cite{suzuki2017tracediff}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}
-
-\amh{[todo] Add references to related work on debugging,
+\todo{Add references to related work on debugging,
 including FireCrystal, Rehearse, Gamut, Chameleon, Lux}.
 
 The work in \sectionref{sec:gen} will significantly improve the tools that users
@@ -1285,30 +1283,22 @@ work for smaller inputs (e.g., less than 100 nodes), but for certain data
 structures (e.g., trees) they may prove invaluable for understanding biases in
 the data.
 
+\iflater
 As the project evolves, and once ``Bringing Fuzzing into Focus'' from
 \sectionref{sec:fuzzing} is complete, we even plan to provide users with
-visualizations of code coverage feedback.\hg{This feels weak here, let's see how
+visualizations of code coverage feedback.
+\hg{This feels weak here, let's see how
 the end of the section ends up looking}
+\fi
 
-\todo{nice ending}
-
-\todo{Evaluation plan}
-All of these features will be made available to developers from within their
-editor as a VSCode extension, and they will update live as the programmer edits
-their generator and adds new functions that are candidates for extracting base
-features. We will evaluate our tool in a small user study (around 15
-participants), hoping to learn which features of the tool are most useful, and
-how the design may be refined into a tool that real developers can use.
-\amh{Probably instead of mentioning the
-usability study here, we should factor this out into an
-``evaluation plan'' that covers all of the tools in this
-section.}
+When complete, this project will be the first live tool for generator
+feedback and analysis; in the next section, we take it one step farther.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}
 
 The tool proposed in the previous section will give developers unprecedented
 visibility into their generator distributions, but what should they do if the
-distribution is not the right one? Tuning generators is a challenging task~\cn{}
+distribution is not the right one? Tuning generators is a challenging task
 that would be much easier with the support of tools.
 
 We propose extending the above visualization tool to include {\em bidirectional
@@ -1442,6 +1432,18 @@ hope users like it, we will build minimal prototypes and iterate on the design
 by observing testers using it. Ultimately we hope this will guide us to a tool
 that will meaningfully improve the experience of PBT.
 \fi
+
+\bigskip
+
+The projects in this section must all be designed in concert with real users
+evaluated in terms of their impact and usability. We will design these tools
+using {\em human-centered design}: we will show prototypes to potential users,
+get feedback, redesign, and repeat, until we are satisfied that our design will
+solve users' problems effectively. When evaluating the designs, we will conduct
+short user studies, comparing a users' experiences with our tools to their
+performance on the same tasks without those tools. Designing and evaluating in
+this way will increase our potential for impact and keep our work grounded in
+the needs of real users.
 
 \SECTION{Education}{Advancing PBT in the Broader Culture \pagebudget{1}}{sec:ed}
 \bcp{Needs some polishing and reintegration of the moved sections.}
