@@ -428,7 +428,11 @@ There are many forms such feedback could take, from code coverage (requested by
 strategies like {\em mutation
   testing}~\cite{papadakis_mutation_2018}.
 
-We discuss plans for work that addresses \evaltheme{validation themes} in \sectionref{sec:val}.
+We discuss plans for work that addresses
+\evaltheme{validation themes} in \sectionref{sec:val}.
+\amh{I feel like this section does not yet make a convincing
+case that the current practices around validation are
+problematic.}
 
 \iflater
 \amh{Let's foreshadow other findings that
@@ -1309,6 +1313,18 @@ on shrinking in the PBT community.} \amh{Good thinking!}
 \SUBSECTION{Evaluating Input Distributions}{sec:evaluating_distributions}{3}{4}
 \newcommand{\genvis}{GenVis}
 
+\amh{[nit pick] I would rather we do not name the system we
+are going to build in this proposal, because it suggests
+that there is \emph{one} solution to the problem of
+evaluating input distributions, when in reality, there are
+many. I would rather present this section as a collection of
+suitable interaction techniques which, many of which are
+novel in their own right, and which would work even better
+in concert.}
+
+\amh{[todo] Add references to related work on debugging,
+including FireCrystal, Rehearse, Gamut, Chameleon, Lux}.
+
 \amh{Andrew's planning notes for this section: What takes
 this project beyond a typical visualization to a new kind of
 power tool for conducting multi-input tests is: (1) direct
@@ -1327,28 +1343,50 @@ of this subsubsection around those needs); and (2) proposing the features as
 aspirational, rather than fixed, admitting in places where we don't know yet
 what the right solution will be (for instance, I think it will take some work to
 get a really good set of visualizations.)}
+
 The work in \sectionref{sec:gen} will significantly improve the tools that
 users have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
 when writing generators. One common challenge is understanding when a random
-generator successfully produces an interesting distribution of values. Many
+generator successfully produces an interesting distribution
+of values. \amh{I would instead say that the task is to
+understand where generators fall short of producing useful
+input data distributions so that a developer
+can improve them} Many
 participants in our study complained that they did not really know what their
 generators were doing and asked for better tools for understanding the space of
-inputs that the generator covers. Tools like this would help developers catch
+inputs that the generator covers. \amh{Make the problem
+clearer. As I understand, the problems are that (1) a
+generator may not generate the kinds of inputs that should
+be tested at all, and (2) even if it does, it might do so so
+slowly that the test driver will take too long to find
+important failures.} Tools like this would help developers catch
 mistakes that hamper their testing efforts and make it easier to quickly adapt
 and tune their generators to their specific needs.
 
 Of course, understanding generator distributions is challenging.  The values
 produced by generators are often highly structured and have complex shapes
-(think lists, trees, and other algebraic data types). As a concrete example,
+(e.g., lists, trees, and other algebraic data types). As a
+concrete example \amh{Mention that this example comes from
+one of the informants in our study},
 consider a list of log events with type:
 \begin{lstlisting}
   type log = {id : int; payload : string} list
 \end{lstlisting}
+\amh{Briefly describe the kinds of questions that the
+developer would want to ask about the distribution to make
+it more concrete why simple, one-size-fits-all data displays
+will not be enough. Soime of the questions that come to mind
+for me are: do the logs look about long enough? Do they have a
+realistic distribution of the kinds of messages that would
+appear in the actual logs? Is the test driver wasting time
+repeatedly generating empty lists? Is there realistic
+representation of dependencies within those lists (e.g.,
+does a ``received'' event always follow a ``sent'' event)?}
 Such values cannot simply be plotted on a chart, and even spot-checking them
 visually may be hard if the values are large.  Furthermore, writing generators
 is already considered by developers to be a burden, so any tool in this space
-needs to be incredibly automatic and easy to use.
+needs to be efficient to invoke.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
@@ -1367,6 +1405,19 @@ from directly within their code editor. \genvis{} will address the challenges
 with visualizing generator distributions by leveraging lightweight program
 synthesis, visualization recommendation, and ideas from the live programming
 literature.
+\amh{nix the program synthesis, which I think is no longer
+relevant. We are unlikely to make
+contributions in visualization recommendation because it is
+a vast literature, so let's not mention that. Instead, I
+would highlight that this work explores how a novel
+combination of tried-and-true features can support the task
+of understanding the quality of input data distributions.
+This includes (1) live, realtime displays of generated
+values; (2) the ability to drill-down from aggregate
+displays to individual values; (3) extensibility with
+lightweight hooks for customizing aggregate data displays
+and previews of individual points; (4) live feedback on what
+code is covered by the generated inputs.}
 
 \genvis{} starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
@@ -1380,7 +1431,9 @@ lightweight type-based program synthesis to compose and combine these functions
 to get features. It may choose to show the \lstinline{length} of a log, but also
 the \lstinline{maxBy (fun l -> length l.payload)} (the maximum payload length),
 and even pairs of features like these (which could be viewed as a two
-dimensional feature).  If there are features that the user notices should be
+dimensional feature). \amh{Do we think most functions will
+meaningful filter functions like these for their input data?
+If so, that is really important to mention here.} If there are features that the user notices should be
 extracted, but that the system cannot come up with itself (e.g.,
 \lstinline{ids_unique}) the user can write it themselves and add it to the
 \genvis{} interface.
@@ -1421,15 +1474,32 @@ will regularly work on the kinds of complexity of the data people will generate,
 or otherwise shift to a goal of supporting developers in rapid definition of
 their own filters and visualizations.}
 \hg{Any better?}
+\amh{Not really. I would prefer if the text directly
+addressed the fact that generated inputs often have many
+nodes for which conventional visualizations might not scale,
+and propose some kind of solution (I am not sure the DOT
+graphs would scale well). I think the JSON visualization
+sounds the most promising, in conjunction with the ability
+to use a REPL (I think I would leave out jq because it feels
+like it would require many developers to learn another tool)
+and the ability to write custom filters for viewing
+individual data instances.}
 
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
 features. We will evaluate \genvis{} in a small user study (around 15
 participants), hoping to learn which features of the tool are most useful, and
-how the design may be refined into a tool that real developers can use. Once we
+how the design may be refined into a tool that real
+developers can use. \amh{Probably instead of mentioning the
+usability study here, we should factor this out into an
+``evaluation plan'' that covers all of the tools in this
+section.} Once we
 are happy with the design, we will publish the tool as an official extension,
-maintain it as an open source project, and publicize it to the testing community.
+maintain it as an open source project \amh{I am not sure we
+want to commit to this; this sounds like a lot of work
+especially if there are a lot of experimental, novel
+features}, and publicize it to the testing community.
 
 \SUBSECTION{Tuning Input Data Distributions}{sec:tuning}{1}{3}
 
