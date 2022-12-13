@@ -1179,138 +1179,87 @@ cool!  We should acknowledge all the work that's been done
 on shrinking in the PBT community.} \amh{Good thinking!}
 
 \SUBSECTION{Evaluating Input Distributions}{sec:evaluating_distributions}{3}{4}
-\newcommand{\genvis}{GenVis}
-
-\amh{[nit pick] I would rather we do not name the system we
-are going to build in this proposal, because it suggests
-that there is \emph{one} solution to the problem of
-evaluating input distributions, when in reality, there are
-many. I would rather present this section as a collection of
-suitable interaction techniques which, many of which are
-novel in their own right, and which would work even better
-in concert.}
 
 \amh{[todo] Add references to related work on debugging,
 including FireCrystal, Rehearse, Gamut, Chameleon, Lux}.
 
-\amh{Andrew's planning notes for this section: What takes
-this project beyond a typical visualization to a new kind of
-power tool for conducting multi-input tests is: (1) direct
-hooks into functions defined in the local scope which can be
-used as directives for visualization; (2) live feedback as
-the generators change; (3) support for common programming
-structures (i.e., trees, graphs); (4) the ability to look up
-individual examples; (5) the ability to ``hop'' between
-similar examples that succeeded or failed. I think that the
-combination of 1, 2, and 4 together might be enough to
-constitute a ``novel approach'' to interactive debugging.}
-
-\amh{In general, I think this proposal could be strengthened by: (1) emphasizing
-needs that need to be satisfied with the tool (perhaps organizing the structure
-of this subsubsection around those needs); and (2) proposing the features as
-aspirational, rather than fixed, admitting in places where we don't know yet
-what the right solution will be (for instance, I think it will take some work to
-get a really good set of visualizations.)}
-
-The work in \sectionref{sec:gen} will significantly improve the tools that
-users have at their disposal when designing and using random generators, but
+The work in \sectionref{sec:gen} will significantly improve the tools that users
+have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
 when writing generators. One common challenge is understanding when a random
-generator successfully produces an interesting distribution
-of values. \amh{I would instead say that the task is to
-understand where generators fall short of producing useful
-input data distributions so that a developer
-can improve them} Many
-participants in our study complained that they did not really know what their
-generators were doing and asked for better tools for understanding the space of
-inputs that the generator covers. \amh{Make the problem
-clearer. As I understand, the problems are that (1) a
-generator may not generate the kinds of inputs that should
-be tested at all, and (2) even if it does, it might do so so
-slowly that the test driver will take too long to find
-important failures.} Tools like this would help developers catch
-mistakes that hamper their testing efforts and make it easier to quickly adapt
-and tune their generators to their specific needs.
+generator falls short of producing useful input data distributions.  of values;
+many participants in our study complained that they did not really know what
+their generators were doing. In the worst case, the generators may generate
+totally unhelpful inputs (e.g., degenerate values like empty lists, or
+unrealistic values like strings of exclusively special characters), but even
+when some of the inputs are reasonable, the distribution may not hit interesting
+values frequently enough to make testing efficient.  The participants asked for
+tools to help them catch mistakes that hamper their testing efforts and make it
+easier to quickly adapt and tune their generators to their specific needs.
 
 Of course, understanding generator distributions is challenging.  The values
 produced by generators are often highly structured and have complex shapes
 (e.g., lists, trees, and other algebraic data types). As a
-concrete example \amh{Mention that this example comes from
-one of the informants in our study},
+concrete example,
+\iflater
+\amh{Mention that this example comes from
+one of the informants in our study}\hg{It does not}
+\fi
 consider a list of log events with type:
 \begin{lstlisting}
   type log = {id : int; payload : string} list
 \end{lstlisting}
-\amh{Briefly describe the kinds of questions that the
-developer would want to ask about the distribution to make
-it more concrete why simple, one-size-fits-all data displays
-will not be enough. Soime of the questions that come to mind
-for me are: do the logs look about long enough? Do they have a
-realistic distribution of the kinds of messages that would
-appear in the actual logs? Is the test driver wasting time
-repeatedly generating empty lists? Is there realistic
-representation of dependencies within those lists (e.g.,
-does a ``received'' event always follow a ``sent'' event)?}
 Such values cannot simply be plotted on a chart, and even spot-checking them
-visually may be hard if the values are large.  Furthermore, writing generators
-is already considered by developers to be a burden, so any tool in this space
-needs to be efficient to invoke.
+visually may be hard if the values are large.
+Ideally, a developer would have a way to answer questions like: Are the logs
+long enough? Do the messages have a reasonable distribution of payload lengths?
+Are the payloads realistic? etc.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{A mockup of \genvis. (1) A {\em code lens} that the developer clicks
-  to start \genvis. (2) High-level statistics about the generated values. (3)
+  \caption{A mockup of our tool. (1) A {\em code lens} that the developer clicks
+  to start the visualization. (2) High-level statistics about the generated values. (3)
   Charts displaying various data features. (4) Example values, rendered as
   graphs.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-With these challenges in mind, we propose to build \genvis, a tool that
-gives developers comprehensive visualizations of their generators' distributions
-from directly within their code editor. \genvis{} will address the challenges
-with visualizing generator distributions by leveraging lightweight program
-synthesis, visualization recommendation, and ideas from the live programming
-literature.
-\amh{nix the program synthesis, which I think is no longer
-relevant. We are unlikely to make
-contributions in visualization recommendation because it is
-a vast literature, so let's not mention that. Instead, I
-would highlight that this work explores how a novel
-combination of tried-and-true features can support the task
-of understanding the quality of input data distributions.
-This includes (1) live, realtime displays of generated
-values; (2) the ability to drill-down from aggregate
-displays to individual values; (3) extensibility with
-lightweight hooks for customizing aggregate data displays
-and previews of individual points; (4) live feedback on what
-code is covered by the generated inputs.}
+To help developers answer this question, we propose to build a tool that gives
+developers comprehensive visualizations of their generators' distributions from
+directly within their code editor. The tool will address the challenges with
+visualizing generator distributions using a novel combination of tried-and-true
+features can support the task of understanding the quality of input data
+distributions. This includes (1) live, realtime displays of generated values;
+(2) the ability to drill-down from aggregate displays to individual values; (3)
+extensibility with lightweight hooks for customizing aggregate data displays and
+previews of individual points; (4) live feedback on what code is covered by the
+generated inputs.
 
-\genvis{} starts by sampling a developer's generator and obtaining a set of
+Our tool starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
 the system extracts and plots relevant {\em features} of a given datatype, that
 will be extracted using functions in the surrounding programming environment and
-validated by the user. In the case of the \lstinline{log} type above, \genvis{}
-would consider simple functions like \lstinline{length}, field accessors like
-\lstinline{head}, \lstinline{id}, and \lstinline{payload}, and even aggregators
-like \lstinline{maxBy} and \lstinline{avgBy}. Then \genvis{} will then use
+validated by the user. In the case of the \lstinline{log} type above, we would
+consider simple functions like \lstinline{length}, field accessors like
+\lstinline{head}, \lstinline{id}, and \lstinline{payload}, filters like
+\lstinline{is_empty}, and even aggregators
+like \lstinline{maxBy} and \lstinline{avgBy}. Then the tool will then use
 lightweight type-based program synthesis to compose and combine these functions
 to get features. It may choose to show the \lstinline{length} of a log, but also
 the \lstinline{maxBy (fun l -> length l.payload)} (the maximum payload length),
 and even pairs of features like these (which could be viewed as a two
-dimensional feature). \amh{Do we think most functions will
-meaningful filter functions like these for their input data?
-If so, that is really important to mention here.} If there are features that the user notices should be
+dimensional feature).  If there are features that the user notices should be
 extracted, but that the system cannot come up with itself (e.g.,
 \lstinline{ids_unique}) the user can write it themselves and add it to the
-\genvis{} interface.
+interface.
 
-With the features extracted, \genvis{} will then select various charts and
+With the features extracted, the tool will then select various charts and
 graphs to visualize the data, depending on its type. We are not yet certain
 exactly which charts will be most helpful, but we will start with things like
 histograms for discrete numerical data, pie charts for categorical data, scatter
 plots for two dimensional numerical data, etc.  Of course, developers would
 struggle to grok dozens of charts representing their data's features, so
-\genvis{} will also have a way for users to specify which visualizations are
+we will also have a way for users to specify which visualizations are
 interesting (and which to hide). We will base these interactions based on the
 literature around visualization recommendation, specifically
 Voyager~\cite{wongsuphasawat_voyager_2016, wongsuphasawat_voyager_2017}. This
@@ -1320,16 +1269,21 @@ dashboard of results to help with tuning), depending on how much time and energy
 the developer has to put into their generator.
 
 Another important aspect of understanding a generator's distribution is looking
-at example values.  \genvis{} will therefore also present the user with
-structured representations of some generated values that can be used spot-check
-the generated data. We are not yet settled on the specifics, since the
-visualizations used for individual values may need to depend on the domain, but
-we have some ideas. For some kinds of structures, it may be useful to present
-the user with DOT graphs~\cite{ellson_graphviz_2002} that represent data types;
-such graphs could be generated via meta-programming and rendered for the user.
-Another option is to simply present the user with a JSON representation of the
-data that they can explore via mouse interactions (e.g., clicking to expand or
-collapse sections) or even via tools like \lstinline{jq}~\cite{dolan_jq_nodate}.
+at example values. We will therefore also present the user with views into some
+of the generated values, which they can use to spot-check the generated data. As
+we have mentioned, the shape and scale of these inputs may be
+problematic---showing the user simple print-outs of the examples will not be
+good enough. Thus, we propose potential ways of visualizing examples that may
+become part of our tool. For inputs that are of a reasonable size, but where the
+data {\em shape} is hard to see from text, we can give developers views of their
+data structures as DOT graphs~\cite{ellson_graphviz_2002}; such graphs could be
+generated via meta-programming and rendered for the user. When the input size is
+the main barrier to understandability, we can take a more programmatic approach:
+provide the user with the values represented as JSON objects, and provide them
+with ways to manipulate those objects {\em in situ}.\hg{Did I use that right?}
+This may involve exploring the data via mouse interactions (e.g., clicking to
+expand or collapse sections) or even via a REPL with commands for filtering and
+drilling into the structure.
 
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
@@ -1350,22 +1304,25 @@ to use a REPL (I think I would leave out jq because it feels
 like it would require many developers to learn another tool)
 and the ability to write custom filters for viewing
 individual data instances.}
+\hg{For what it's worth, DOT graphs were my choice because it's what I actually
+wanted to see as a user. If you're generating any kind of tree structures, the
+shapes are really important, and one way or another that requires a visual
+representation.  I'm hesitant to cut that completely...}
 
+Once we are happy with the design, we will publish the tool as an official
+extension and publicize it to the testing community.
+
+\todo{Evaluation plan}
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
-features. We will evaluate \genvis{} in a small user study (around 15
+features. We will evaluate our tool in a small user study (around 15
 participants), hoping to learn which features of the tool are most useful, and
-how the design may be refined into a tool that real
-developers can use. \amh{Probably instead of mentioning the
+how the design may be refined into a tool that real developers can use. 
+\amh{Probably instead of mentioning the
 usability study here, we should factor this out into an
 ``evaluation plan'' that covers all of the tools in this
-section.} Once we
-are happy with the design, we will publish the tool as an official extension,
-maintain it as an open source project \amh{I am not sure we
-want to commit to this; this sounds like a lot of work
-especially if there are a lot of experimental, novel
-features}, and publicize it to the testing community.
+section.}
 
 \SUBSECTION{Tuning Input Data Distributions}{sec:tuning}{1}{3}
 
