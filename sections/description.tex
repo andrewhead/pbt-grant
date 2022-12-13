@@ -943,7 +943,7 @@ automated approaches to improving generator distributions---and we get
 will see some additional use cases for reflective generators in the
 following sections.
 
-\SUBSECTION{Bringing Fuzzing into Focus}{sec:fuzzing}{2}{3}
+\SUBSECTION{Reflective Fuzzing}{sec:fuzzing}{2}{3}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they leverage randomized testing to quickly exercise as
 many program behaviors as possible.  One might then expect that the fuzzing and
@@ -1048,7 +1048,7 @@ important to get another input that is both smaller and, ideally, provokes the
 {\em same bug}. These nice properties are likely within reach, but care will
 need to be taken to ensure that shrinkers behave as expected.
 
-\SUBSECTION{Empirically Evaluating PBT Tools}{sec:benchmarking}{1}{3}
+\SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
@@ -1182,7 +1182,7 @@ setting~\cite{suzuki2017tracediff}. \bcp{This sounds very
 cool!  We should acknowledge all the work that's been done
 on shrinking in the PBT community.} \amh{Good thinking!}
 
-\SUBSECTION{Evaluating Input Distributions}{sec:evaluating_distributions}{3}{4}
+\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{3}{4}
 
 \amh{[todo] Add references to related work on debugging,
 including FireCrystal, Rehearse, Gamut, Chameleon, Lux}.
@@ -1366,7 +1366,7 @@ through the code that a developer has indicated are
 particularly important to exercise?}
 \hg{Recommend: cut}
 
-\SUBSECTION{Turning Counterexamples into Regression Tests}{sec:counter}{3}{4}
+\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{3}{4}
 
 \amh{Add references to Titus' slow fixes project,
 CodeScoop, Emerson's work on visual extract-method
