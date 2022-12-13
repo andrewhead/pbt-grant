@@ -93,7 +93,7 @@
 \newcommand{\jwc}[1]{\comm{dkgreen}{JC}{#1}}
 \newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
 \newcommand{\comment}[1]{{\em #1}}
-\newcommand{\todo}[1]{{\color{nord-red} TODO: #1}}
+\newcommand{\todo}[1]{\ifdraft {\color{nord-red} TODO: #1} \fi}
 \newcommand{\writeme}[1]{{\color{blue} #1}}
 % \newcommand{\pagebudget}[1]{(#1 pages)}
 \newcommand{\pagebudget}[1]{}
