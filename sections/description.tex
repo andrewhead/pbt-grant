@@ -1267,7 +1267,8 @@ data structures as DOT graphs~\cite{ellson_graphviz_2002}; such graphs could be
 generated via meta-programming and rendered for the user. When the input {\em size} is
 the main barrier to understandability, we can take a more programmatic approach:
 provide the user with the values represented as JSON objects, and give them
-ways to manipulate those objects {\em in situ}.\hg{Did I use that right?}
+ways to manipulate those objects {\em in situ}.\hg{Did I use
+that right?} \amh{lgtm!}
 This may involve exploring the data via mouse interactions (e.g., clicking to
 expand or collapse sections) or even via a REPL with commands for filtering and
 drilling into the structure.
@@ -1300,6 +1301,15 @@ individual data instances.}
 wanted to see as a user. If you're generating any kind of tree structures, the
 shapes are really important, and one way or another that requires a visual
 representation.  I'm hesitant to cut that completely...}
+\amh{I think you're right, though it is risky to lead in
+with DOT graphs first, because it feels to me unlikely to
+generalize nicely. As I understand, many generated inputs
+will have hundreds or thousands of nodes that simply would
+not fit be comprehensible in a DOT graph. (And I'm wrong
+about that, then some of the reviewers might be too, and in
+that case we should explicitly state that generated outputs,
+although complex in structure, are likely to have less than
+100 nodes and be conducive to DOT visualization).}
 
 \todo{nice ending}
 
