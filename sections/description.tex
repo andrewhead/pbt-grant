@@ -483,75 +483,59 @@ and interactive tools (\sectionref{sec:observations}).
 
 Our ongoing Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
-others, and to better understand which of these opportunities are most
+others and to better understand which of these opportunities are most
 important for the research community to explore, we will conduct two
-surveys, each with a broad sample of developers. These surveys aim to
+surveys with broader samples of developers. These surveys aim to
 (1) determine which obstacles observed in the interview study
 represent widely experienced pain points with PBT tools and
 (2) characterize the potential benefits of better tools to the
 software industry as a whole.
 
-\emph{Validation survey}. Our interview study has revealed
+\emph{Validation survey}. The main survey we plan to conduct aims to check that
+the things we learned from Jane Street generalize more broadly.
+Our interview study has revealed
 a number of issues with existing PBT tools, but it is not clear
 how broadly these issues are experienced by developers, or
-their relative severity. To find out, we will conduct a survey
-asking developers which of the issues we have identified are
+their relative severity. To find out, we will
+ask developers which of the issues we have identified are
 ones they have experienced, and the severity of those issues
 in their experience. Respondents will also be asked to report on
-other issues that have arised in their use of PBT tools.
+other issues they encountered in their use of PBT tools.
 To provide
 clear usage scenarios to guide future work, respondents will
 be asked to write brief anecdotes elaborating on the
-most severe issues they encountered.
+most severe issues they had.
 
 Respondents will
 be recruited broadly, from three sources. First, we will recruit
 users of Hypothesis, a widely used Python-based PBT
 framework
-% \footnote{In personal communications, one of the
-% maintainers of Hypothesis estimates that Hypothesis has
-% approximately 500k current users. \amh{I am not sure if we
-% should include this. It sounds too big to be true to
-% me.}}
-% BCP: Already mentioned at the top
 (see the attached letter of support).
 Second, we will distribute the survey at Jane Street, hoping to reach
 a broader set of developers than we were able to interview.
 And third, we will recruit users from social media by posting
-survey announcements from the PIs' Twitter and Mastadon
-accounts, tagging the functional programming and testing
-communities.
-\amh{Do we have any connections that would give
-us access to functional programming or testing-related
-software development conferences?}
-\bcp{Sure. What would we do with them?}
-Types and types-announce mailing lists. They are mailing
-lists for the types programming. We will distribute announcements among
-attendees of conferences like ICFP or ``Yow!'' whom have
-a cumulative thousands of programmers with functional
-programming experience.
+survey announcements from the PIs' Twitter and Mastodon
+accounts, various mailing lists, and on discussion boards for conferences like
+``Yow!'' where we have been invited to speak~\cite{noauthor_when_nodate}.
+% Types and types-announce mailing lists. They are mailing
+% lists for the types programming. We will distribute announcements among
+% attendees of conferences like ICFP or ``Yow!'' whom have
+% a cumulative thousands of programmers with functional
+% programming experience.
 
-\emph{Impact survey}. Is PBT the sort of
-technology that could one day be used by every developer? To get a
-sense of this, we survey ``proximal'' users of PBT---that is,
-developers who do not use PBT currently, but who experience
-use cases where PBT methods would be particularly useful,
-once designed to fit their tasks and workflows. Particular
-attention will be given to those whose work requires the
-writing of validation code and public APIs with some
-definition of types. We will recruit a broad sample of
-participants across development contexts (professional, open
-source, educational) by working with our industry contacts
-and by recruiting over social media. \amh{I am not sure this
-survey feels quite right. It feels really hard to conduct in
-a way that we get a convincing answer to our question of
-``who would use PBT if the tools were sufficiently
-well-designed?''}\bcp{Indeed---feels weaker than the other.}
-\hg{Yeah, I think the question is important, but I don't know we really know how
-to anwer it at this stage. One option is to piggy-back on the When to Specify
-It! work, and ask ``how many of these situations do you encounter once every X
-months at your job.'' That doesn't find the upper bound we want, but it'd find a
-much better lower bound.}
+\emph{Impact survey}. Another more speculative survey we hope to conduct asks
+how broadly PBT may eventually be able to reach.  To get a sense of this, we
+survey ``proximal'' users of PBT---that is, developers who do not use PBT
+currently, but who experience use cases where PBT methods would be particularly
+useful.  Particular attention will be given to those whose work requires the
+writing of validation code and public APIs with some definition of types. We
+will recruit a broad sample of participants across development contexts
+(professional, open source, educational) by working with our industry contacts
+and by recruiting over social media. Admittedly, this survey seems more
+difficult to ``get right,'' and the design will evolve over time as we gain a
+better understanding of the situations where PBT is most effective
+(\sectionref{sec:whento}), but if done right this could provide invaluable
+feedback to PBT researchers about how far their work could reach if done well.
 
 \SUBSECTION{An Observation Study of PBT in Practice}{sec:observations}{2}{2}
 
