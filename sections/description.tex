@@ -1340,10 +1340,11 @@ needs to be incredibly automatic and easy to use.
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.png}
   \caption{A mockup of \genvis.}\label{fig:gen-vis}
+  \iflater
   \amh{There is a lot
 going on in this image, and I think it would help to zoom in a lot, and add
 labels to the parts of the figure that represent key innovations, which you can
-refer to from the text.}
+refer to from the text.}\fi
 \end{wrapfigure}
 
 With these challenges in mind, we propose to build \genvis, a tool that
@@ -1358,40 +1359,44 @@ values to visualize. To get around the problem of arbitrarily structured data,
 the system extracts and plots relevant {\em features} of a given datatype, that
 will be extracted using functions in the surrounding programming environment and
 validated by the user. In the case of the \lstinline{log} type above, \genvis{}
-would consider simple functions like \lstinline{length},
-destructors like \lstinline{head}, \lstinline{id}, and \lstinline{payload}, and
-even aggregators like \lstinline{max} and \lstinline{avg}. Then
-\genvis{} will then use lightweight program synthesis to compose and
-combine these functions to get features. It may choose to show the
-\lstinline{length} of a log, but also the \lstinline{max (length . payload)} and
-even \lstinline{(length, max (length . payload))} (plotting length versus
-the maximum payload length, in, e.g., a scatter chart).
-If there are features that the user notices should be extracted, but that the
-system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
-write it themselves and add it to the \genvis{} interface.
-All of the features, base and derived, will be made available to users
-in a variety of charts and graphs.\todo{I don't think this is at all clear, but
-I wanted to get something down on paper to talk about}
+would consider simple functions like \lstinline{length}, field accessors like
+\lstinline{head}, \lstinline{id}, and \lstinline{payload}, and even aggregators
+like \lstinline{maxBy} and \lstinline{avgBy}. Then \genvis{} will then use
+lightweight type-based program synthesis to compose and combine these functions
+to get features. It may choose to show the \lstinline{length} of a log, but also
+the \lstinline{maxBy (fun l -> length l.payload)} (the maximum payload length),
+and even pairs of features like these (which could be viewed as a two
+dimensional feature).  If there are features that the user notices should be
+extracted, but that the system cannot come up with itself (e.g.,
+\lstinline{ids_unique}) the user can write it themselves and add it to the
+\genvis{} interface.
 
-Of course, developers would struggle to grok dozens of charts representing
-their data's features, so \genvis{} will also have a way for users to specify
-which visualizations are interesting (and which to hide). We will base these
-interactions based on the literature around visualization recommendation,
-specifically Voyager~\cite{wongsuphasawat_voyager_2016,
-wongsuphasawat_voyager_2017}. This interaction might be very quick (maybe a few
-seconds to find a single representative chart) or slow and careful (many minutes
-spent curating a dashboard of results to help with tuning), depending on how
-much time and energy the developer has to put into their generator. Besides
-charts, \genvis{} will also present the user with structured representations of
-some generated values that can be used to help the developer spot-check the
-generated data.  The specifics this are not yet certain, since of visualizations
-used for individual values may need to depend on the domain, but we have some
-ideas. For some kinds of structures, it may be useful to present the user with
-DOT graphs~\cite{ellson_graphviz_2002} that represent data types; such graphs
-could be generated via meta-programming and rendered for the user. Another
-option is to simply present the user with a JSON representation of
-the data that they can explore via mouse interactions (e.g., clicking to expand
-or collapse sections) or even via tools like \lstinline{jq}~\cn{}.
+With the features extracted, \genvis{} will then select various charts and
+graphs to visualize the data, depending on its type. We are not yet certain
+exactly which charts will be most helpful, but we will start with things like
+histograms for discrete numerical data, pie charts for categorical data, scatter
+plots for two dimensional numerical data, etc.  Of course, developers would
+struggle to grok dozens of charts representing their data's features, so
+\genvis{} will also have a way for users to specify which visualizations are
+interesting (and which to hide). We will base these interactions based on the
+literature around visualization recommendation, specifically
+Voyager~\cite{wongsuphasawat_voyager_2016, wongsuphasawat_voyager_2017}. This
+interaction might be very quick (maybe a few seconds to find a single
+representative chart) or slow and careful (many minutes spent curating a
+dashboard of results to help with tuning), depending on how much time and energy
+the developer has to put into their generator.
+
+Another important aspect of understanding a generator's distribution is looking
+at example values.  \genvis{} will therefore also present the user with
+structured representations of some generated values that can be used spot-check
+the generated data. We are not yet settled on the specifics, since the
+visualizations used for individual values may need to depend on the domain, but
+we have some ideas. For some kinds of structures, it may be useful to present
+the user with DOT graphs~\cite{ellson_graphviz_2002} that represent data types;
+such graphs could be generated via meta-programming and rendered for the user.
+Another option is to simply present the user with a JSON representation of the
+data that they can explore via mouse interactions (e.g., clicking to expand or
+collapse sections) or even via tools like \lstinline{jq}~\cite{dolan_jq_nodate}.
 
 \amh{The visualization skeptic in me wonders if it will be possible come up with
 generalizable DOT-based visualizations that work out of the box for most data
@@ -1406,15 +1411,11 @@ their own filters and visualizations.}
 All of these features will be made available to developers from within their
 editor as a VSCode extension, and they will update live as the programmer edits
 their generator and adds new functions that are candidates for extracting base
-features. We will evaluate \genvis{} in a small user study (around 15 participants),
-hoping to learn which features of the tool are most useful, and how the design
-may be refined into a tool that real developers can use. \amh{What is our
-strategy for getting this tool into the hands of real developers?}
-
-\amh{Somewhere in this section we should emphasize the importance of helping
-developers not just understand distributions in the aggregate, but also helping
-them review individual examples, given that you need to see specific examples to
-know that a generator is creating the right kind of data.}
+features. We will evaluate \genvis{} in a small user study (around 15
+participants), hoping to learn which features of the tool are most useful, and
+how the design may be refined into a tool that real developers can use. Once we
+are happy with the design, we will publish the tool as an official extension,
+maintain it as an open source project, and publicize it to the testing community.
 
 \SUBSECTION{Tuning Input Data Distributions}{sec:tuning}{1}{3}
 
