@@ -908,7 +908,7 @@ using no BST-specific code beyond the reflective generator itself.
   \centering
   \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant.}\label{fig:mutation}
+  BST invariant.\bcp{wrap it?}}\label{fig:mutation}
 \end{figure}
 
 {\em Example-Based Tuning.} Earlier we pointed out that good generators
@@ -1162,7 +1162,7 @@ literature~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and an area in
 which we will innovate in this project (see \sectionref{sec:shrinking}).  Though
 even with the advances proposed in this project, shrinking can be opaque, and
 often make suboptimal decisions that an individual developer might be able to
-make better. 
+make better.
 
 Drawing inspiration from approaches in recent HCI literature that have supported
 the interactive reduction of code through iterative, incremental
@@ -1197,7 +1197,7 @@ turn be easier to reason about when locating causes of failure in the code.
 % \hg{To a point... You'd run into exponential blowup pretty much immediately, but
 % depending on the scale of the input it could be doable}
 
-% Other related projects: 
+% Other related projects:
 % Whyline~\cite{ref:ko2009finding}.
 
 In addition to developing novel interaction techniques for simplifying inputs,
@@ -1553,7 +1553,7 @@ the needs of real users.
 \SECTION{Education}{Advancing PBT in the Broader Culture \pagebudget{1}}{sec:ed}
 
 Our goal with this project is to make PBT not only usable but {\em
-  used}; educational activities will thus play a crucial role.  This
+  used}; educational activities will play a crucial role.  This
 section describes three specific threads of activity addressing pedagogical
 challenges in different domains:
 (1) course materials for instructors who want to integrate PBT into
@@ -1566,13 +1566,36 @@ industrial developers on how to identify low-hanging fruit, and
 tool for helping both developers and students write properties
 interactively.
 
-\ifdraft
-\todo{Prior work~\cite{wrenn2021using,nelson2021automated} Shriram papers?}
-\fi
-
 \SUBSECTION{PBT for Undergrads}{sec:1210}{1}{2}{Harry}
 
 \writeme{Write me.}
+
+\begin{itemize}
+\item One great way to increase industrial usage of PBT is to make it
+part of the standard undergraduate curriculum.
+\item There are several places where this could happen---compilers,
+functional programming courses, intro courses---but we believe the
+most promising place to start will be a data structures course.
+\item Reasons:
+  \begin{itemize}
+  \item Data structures is often taken early in the curriculum, so
+  habits can carry over to other courses even where PBT is not
+  explicitly used.
+  \item ``Obvious'' properties are often readily available (e.g.,
+  algebraic specifications, inefficient reference implementations)
+  \end{itemize}
+\item Concrete plan:
+\begin{itemize}
+\item Create a model for how to do it by adding PBT to
+the 1210 homework assignments (HW is of course the most important
+place to put it) and creating some lecture material explaining it.
+\item Write a cs-ed paper about how others can do it.
+\end{itemize}
+\end{itemize}
+
+\ifdraft
+\todo{Prior work~\cite{wrenn2021using,nelson2021automated} Shriram papers?}
+\fi
 
 \SUBSECTION{When to Specify It!}{sec:whento}{2}{3}{Harry}
 PBT is often described as a lightweight formal method.  One
@@ -1783,6 +1806,25 @@ VSCode environment~\cite{ref:head2020composing}.
 
 \writeme{Write me.}
 
+\paragraph*{Benefits to Society} \todo{increase software reliability,
+  tech industry, ...}
+%
+All the tools we develop will be freely available, making the results
+of our research directly useful to students, industrial software
+engineers, and developers of similar tools targeting different
+languages and programming environments.
+
+\paragraph*{Educational Benefits}
+Specific pedagogical threads within the project are described
+in~\sectionref{sec:ed}.  Beyond these, more than
+60\%\iflater\bcp{check}\fi{} of the requested funding will support
+graduate students.  We also plan to work with undergraduate students
+during this project; they, too will benefit from the research
+experience. Each graduate student will have leadership responsibility
+for multiple facets of the project, including co-supervising
+interested undergraduate researchers.  See the Collaboration Plan for
+more. \iflater\bcp{I guess we need to write one?}\fi
+
 % The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 % Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
 % activities. Broader impacts may be accomplished through the research itself, through the activities that are
@@ -1796,11 +1838,7 @@ VSCode environment~\cite{ref:head2020composing}.
 % academia, industry, and others; improved national security; increased economic competitiveness of the United
 % States; and enhanced infrastructure for research and education.
 
-\bcp{Education is described in its own separate section.}
-
 \SIMPLESECTION{Results from Prior NSF Support \pagebudget{.5}}{sec:prior}
-
-\writeme{Write me.}
 
 % If any PI or co-PI identified on the project has received NSF funding (including any current
 % funding) in the past five years, in formation on the award(s) is required,
@@ -1809,15 +1847,15 @@ VSCode environment~\cite{ref:head2020composing}.
 % they need only report on the one award most closely related to the proposal. Funding includes not just salary
 % support, but any funding awarded by NSF. The following information must be provided:\\
 
-% \noindent
-% \emph{\underline{Name of PI}}: NSF-Program (Award Number) ``Title of the Project'' (\$AMOUNT, PERIOD OF SUPPORT).
-% {\bf Publications:} List of publications resulting from the NSF award. A complete bibliographic citation for each
-% publication must be provided either in this section or in the References Cited section of the proposal); if
-% none, state: ``No publications were produced under this award.'' {\bf Research Products:} evidence of research products
-% and their availability, including, but not limited to: data, publications, samples, physical collections, software,
-% and models, as described in any Data Management Plan.
+\emph{\underline{Pierce}}: (NSF 1955565) ``Collaborative Research:
+SHF: Medium: Bringing Python Up to Speed'' (\$437,999, 7/2020--6/2023), with co-PIs Michael Hicks (Maryland, now Amazon) and Emery
+Berger (Amherst).
+{\bf Publications (from Penn):}~\cite{DBLP:conf/esop/GoldsteinHLP21,
+  GoldsteinChoices2022, GoldsteinOOPSLA2022}.
+{\bf Research Products (from Penn):} The {\tt pytest-mutagen} mutation
+testing tool for Python~\cite{pytestmutagen}.
 
-
+PI Head has not previously received NSF support.
 
 % \SUBSECTION{Proposed Study}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:
