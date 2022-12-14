@@ -1221,22 +1221,6 @@ for similar inputs are abundant by the nature of reflective generators.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Other}
 
-\todo{Add references to related work on debugging,
-including FireCrystal~\cite{ref:oney2009firecrystal},
-Rehearse~\cite{ref:brandt2010rehearse},
-Gamut~\cite{ref:hohman2019gamut},
-Chameleon~\cite{ref:hohman2020understanding},
-Lux~\cite{ref:lee2021lux},
-Burg's Interactive Record/Replay
-project~\cite{ref:burg2013record},
-Examplore~\cite{ref:glassman2018visualizing}.
-Reference what level of liveness we seek to support from
-Tanimoto's work~\cite{ref:tanimoto1990viva}. There are examples of live environments for
-functional programming like the Hazel
-editor~\cite{ref:omar2019live} and Light
-Table~\cite{tool:lighttable}. OmniCode~\cite{ref:kang2017omnicode} visualizes the distributions of values that
-variables take on over a program's execution.}
-
 In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success of running
 property-based tests depends on a developer's ability to create a distribution
@@ -1309,54 +1293,36 @@ automatically for the most common data types.
 % dimensional feature).
 
 Second, the data displays will be easily extensible, providing lightweight hooks
-for customizing aggregate data displays and previews of individual points.  If
+for customizing aggregate data displays and previews. If
 there are features that the user notices should be extracted, but that the
 system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
-write it themselves in companion code alongside their property specifications,
-and the interface will automatically load those features as options into the
-display.
+write it themselves in companion code alongside their property specifications;
+the interface will automatically load those features into the display.
 
-\amh{Continue the rewrite from here, integrating additional
-references, calling attention to these features:
-(2) the ability to drill-down from aggregate displays to individual values; (4) live feedback on what code is covered by the
-generated inputs.}
+Third, the interface will make it possible to drill-down into individual inputs.
+In many cases, aggregate statistics will not be enough for understanding whether
+the right kind of inputs are being generated. A developer will be able to access
+sampled inputs from a list of samples. This list of samples can be interactively
+filtered by selecting marks visualizations (e.g., a developer can choose a bar
+for inputs of length ``10'' to preview individual inputs with that length). One
+challenge will be to provide suitable representations of complex inputs that
+will be easy to understand. The most general-purpose solution will be to
+pretty-print solutions, provide interactive object browsers like those available
+in JetBrains~\cite{tool:jetbrains}, and to allow a developer to explore an
+object using a built-in REPL. Additionally, we will produce DOT
+graph~\cite{ellson_graphviz_2002} representations of common kinds of inputs
+(i.e., lists, trees) that will provide an at-a-glance understanding of inputs up
+to dozens or hundreds of elements in length.
 
-With the features extracted, the tool will then select various charts and
-graphs to visualize the data, depending on its type. We are not yet certain
-exactly which charts will be most helpful, but we will start with things like
-histograms for discrete numerical data, pie charts for categorical data, scatter
-plots for two dimensional numerical data, etc.  Of course, developers would
-struggle to grok dozens of charts representing their data's features, so
-we will also have a way for users to specify which visualizations are
-interesting (and which to hide). We will base these interactions based on the
-literature around visualization recommendation, specifically
-Voyager~\cite{}. This
-interaction might be very quick (maybe a few seconds to find a single
-representative chart) or slow and careful (many minutes spent curating a
-dashboard of results to help with tuning), depending on how much time and energy
-the developer has to put into their generator.
-
-Another important aspect of understanding a generator's distribution is looking
-at example values. We will therefore also present the user with views into some
-of the generated values, which they can use to spot-check the generated data. As
-we have mentioned, the shape and scale of these inputs may be
-problematic---showing the user simple print-outs of the examples will not be
-good enough. Thus, we propose potential ways of visualizing examples that may
-become part of our tool.
-When the input {\em size} is the main barrier to understandability, we can
-provide the user with the values represented as JSON objects, and give them ways
-to manipulate those objects {\em in situ}.  This may involve exploring the data
-via mouse interactions (e.g., clicking to expand or collapse sections) or even
-via a REPL with commands for filtering and drilling into the structure. This
-will be a huge help when scale is a bottleneck, but what if the user really
-needs to know about the data's {\em shape}?
-In this case, we can give developers views of their data structures as DOT
-graphs~\cite{ellson_graphviz_2002}, which we can generate via
-meta-programming and render for the user. The graph visualizations will only
-work for smaller inputs (e.g., less than 100 nodes), but for certain data
-structures (e.g., trees) they may prove invaluable for understanding biases in
-the data.
-
+Finally, the tools will provide live feedback on completeness of the input
+distribution in the form of in-situ coverage feedback. Like other HCI research
+prototypes that have shown which lines of code are currently executing in a
+running
+program~\cite{ref:brandt2010rehearse,ref:oney2009firecrystal,ref:burg2013record},
+developer's will be able to see lines of code in their editor colorized on the
+basis of how frequently they have been executed while running the property-based
+tests. This will let a developer decide whether their generator is executing the
+paths in the code that they believe are particularly error-prone.
 \iflater
 As the project evolves, and once ``Bringing Fuzzing into Focus'' from
 \sectionref{sec:fuzzing} is complete, we even plan to provide users with
@@ -1364,117 +1330,95 @@ visualizations of code coverage feedback.
 \hg{This feels weak here, let's see how
 the end of the section ends up looking}
 \fi
-
 When complete, this project will be the first live tool for generator
-feedback and analysis; in the next section, we take it one step farther.
+feedback and analysis; in the next section, we take it one step farther to
+consider how interactive tools can help a developer not just understand input
+data distributions, but more directly change them.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 
-\amh{Add references to bidirectional editors including
-Sketch-n-Sketch~\cite{ref:hempel2018deuce},
-mage~\cite{ref:kery2020mage}, active
-code completion~\cite{ref:omar2012active},
-livelits~\cite{ref:omar2021filling}.}
-
-The tool proposed in the previous section will give developers unprecedented
-visibility into their generator distributions, but what should they do if the
-distribution is not the right one? Tuning generators is a challenging task,
-often requiring significant trial-and-error that often does not pay off.
+What should developers do if their property-based tests are testing the wrong
+inputs? Tuning generators is a challenging task,
+often requiring significant trial-and-error through an opaque process of
+changing generator parameters and hoping that the input data distribution will
+be updated in the right way. This process, however, often does not pay off.
 Ideally, developers could describe the kinds of inputs they want directly,
 rather than tweaking generator parameters and hoping it leads to the right kinds
 of input data distributions.
 
-\amh{Let's describe this tool as another tool in our
-comprehensive PBT toolkit, rather than an extension to the
-visualization tool. If reviewers don't like the
-visualization, they might still like this. And I think it better
-represents the fullness of the proposal when we describe
-this as an independent yet synergistic tool.}
-We propose extending the above visualization tool to include {\em bidirectional
-interactions}: the developer will be able to select parts of the visualization
-that seem wrong and edit them, causing changes to flow back into their editor as
-modifications to the generator. These interactions include things like
-selecting points in a scatter plot to filter out or dragging a bar on a bar
-chart up or down, to indicate that a certain feature value should be more or
-less represented.
+We will design tools to support the direct tuning of input data distributions
+through manipulation of generated inputs and input data distributions. This
+work will build on the foundation developed in the prior project
+(Section~\ref{sec:evaluating_distributions}). Inspired by recent tools in the PL/HCI literature
+for bidirectional manipulation of programs and their
+outputs~\cite{ref:hempel2019sketch,ref:kery2020mage,ref:omar2012active,ref:omar2021filling},
+we explore the unique affordances of reflective generators in their ability to
+support careful tuning of generators.
 
-Some of these interactions can be implemented via {\em filtering}. Generators
-already support operations that filter their outputs via predicates, so this is
-a natural choice. If the user selects a range of values from a scatter plot we
-can simply ask the generator to discard any values that do not fall in that
-range.  Filtering generators this way can be problematic---if the filter is too
-broad, the generator will slow down significantly as it wastes time generating
-inputs that it will have to discard---but for coarse adjustments to the
-distribution, filtering is a simple and general approach.  We can also protect
-users from slow-downs by reporting a {\em discard rate} and warning them when
-that rate reaches a certain threshold.
+The first, general-purpose method for tuning input data distributions will be to
+define filters on input data through interaction with aggregate data displays.
+For instance, developers will be able to select ranges of values from a bar
+chart showing input data features and then request that all values generated
+within that range are discarded before testing. This is a particularly
+compelling approach for its flexibility, though it is notably coarse-grained;
+it does not influence the implementation of the underlying generator, and
+therefore can only go so far in influencing the kinds of values that are
+generated.
 
-For more complex interactions, and in cases where filtering causes high discard
-rates, we hope to translate visualization manipulations to direct changes in the
-generator's weights. Standard monadic generators do not expose their weights
-in a way that makes them easy to tune from the outside, but reflective
-generators (introduced in \sectionref{sec:gen}) do. Recall that reflective
-generators can operate in reverse, reflecting on the generator choices that
-produce a particular value.  This means that if the user expresses a desire like
-``category X should be better represented'' (i.e., by dragging a bar in a bar
-chart), reflective generators can determine which choices often result in values
-of that category and raise the weights on those choices. And this mode of
-interaction can just as easily be applied to de-prioritize certain choices,
-meaning that in some situations re-weighting with reflective generators can
-obviate the need for filters that slow down testing.
-
-Ultimately we see this project and the previous one as a comprehensive toolkit
-for generator customization. The understanding and tuning generators is too
-often a cryptic process that users are inclined to avoid, to the detriment of
-their testing success. With interactive tools, developers will be far more
-likely to build useful generators that they can understand, and that they can
-customize as they see fit.
+A second innovative method is to leverage the technology we have developed for
+reflective generators (Section~\ref{sec:reflective}) to change the underlying
+generators. For some features, as a developer manipulates marks in the data
+distribution visulaizations, those manipulations can be mapped back to choices
+in the generator (e.g., what value to place in a node, or the number of nodes to
+produce, etc.). We envision building tools that show the generator code
+side-by-side with visualizations, and where parameter choices in the generator
+can update live as the data distribution is manipulated in the visualizations.
+Furthermore, developers will be able to interact with individual data points,
+expressing that they would like to see more inputs like one that has already
+been generated, or that they would like an input similar to a generated input,
+but different in a way that they have demonstrated. Together, this tool and the
+tool for visualizing generated data distributions will have a synergistic effect
+in improving dewvelopers' ability to understand and ultimately achieve more
+realistic, comprehensive data distributions for their property-based tests.
 
 \SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}{Other}
 
-\amh{Add references to Titus' slow fixes
-project~\cite{ref:barik2016quick},
-CodeScoop~\cite{ref:head2018interactive}, Emerson's work on visual extract-method
-refactorings~\cite{ref:murphyhill2008refactoring}, and
-drag-n-drop refactoring~\cite{ref:lee2013draganddrop}, and test case
-generation (e.g., RANDOOP), Daka et al.'s work on generated
-readable test cases~\cite{ref:daka2015modeling}.}
-
-After a developer has identified a failure in their
-property-based tests, they often wish to turn that failure
-into a regression test, to ensure that later changes to the
-code will not reintroduce the failure. One pain point
-experienced by informants in our interview study was that it
-required considerable work to transform a failure that was
-already detected by their PBT tools into a regression test,
-despite the fact that much of the work involved in doing so
+After a developer has identified a failure in their property-based tests, they
+often wish to turn that failure into a regression test, to ensure that later
+changes to the code will not reintroduce the failure. One pain point experienced
+by informants in our interview study was that it requires considerable work to
+transform a failure that was already detected by their PBT tools into a
+regression test, despite the fact that much of the work involved in doing so
 felt mechanical.
 
-We plan to develop usable tooling for transforming failed
-PBT tests into single regression tests. What is important to
-note about this project is that creation of regression tests
-is \emph{mostly}, but not entirely mechanical. In reality,
-the creation of regression tests will likely require
-judicious incorporation of the developer's input at key
-decision points. This is particularly the case for
-specifying acceptance criteria. For instance, consider a
-property that checks that a list insertion function never
-produces an empty list. In the event of a failure, a developer may want to produce
-a regression test checking the exactness of the result on
-the failed input (e.g., checking that the insertion produced
-a particular concrete list) rather than simply checking that
-the output list is non-empty. The act of writing regression
-tests involve several such choices, including whether to
-test for exact output, whether to test intermediate results,
-and how to initialize inputs. We will develop an interactive
-tool that assists developers in creating regression tests
-from failed property-based tests, which keeps track of the
-failed input, generates starter test code, substitutes in correct
-expected values of the output by executing corrected code,
-and then supports developers in rapidly performing likely
-edits to regression tests by providing suggestions to
-alterations to their code like the ability to generate
-general property checks with precise equality checks.
+We plan to develop usable tooling for transforming failed PBT tests into single
+regression tests. What is important to note about this project is that creation
+of regression tests is \emph{mostly}, but not entirely mechanical. In reality,
+the creation of regression tests will likely require judicious incorporation of
+the developer's input at key decision points. This is particularly the case for
+specifying acceptance criteria. For instance, consider a property that checks
+that a list insertion function never produces an empty list. In the event of a
+failure, a developer may want to produce a regression test checking the
+exactness of the result on the failed input (e.g., checking that the insertion
+produced a particular concrete list) rather than simply checking that the output
+list is non-empty. The act of writing regression tests involve several such
+choices, including whether to test for exact output, whether to test
+intermediate results, and how to initialize inputs.
+
+We will develop an interactive tool that assists developers in creating
+regression tests from failed property-based tests. The idea is to first develop
+technology for generating sufficiently readable code for regression tests (using
+approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
+in-situ editing assistance along the lines of contemporary interactive
+refactoring tools from the HCI
+literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
+For this unique task of transforming property-based tests into regression tests,
+our tool will provide the key features of keeping track of the failed input,
+generating starter test code, substituting in correct expected values of the
+output by executing corrected code, and then supporting developers in rapidly
+performing likely edits to regression tests by providing suggestions to
+alterations to their code like the ability to generate general property checks
+with precise equality checks.
 
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
