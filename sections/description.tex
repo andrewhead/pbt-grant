@@ -248,12 +248,12 @@ Street Capital---both
 developers who have had exposure to PBT as
 well as developers of PBT tools.
 
-Interview
-studies are a common tool for early-stage need finding in
-HCI research, yielding highly informative stories about people, the tasks they need to
-accomplish, and the tools they use to accomplish them. The goal
-is to identify a broad set of opportunities for improving PBT tools,
-grounded in concrete, detailed, authentic stories from developers.
+% Interview
+% studies are a common tool for early-stage need finding in
+% HCI research, yielding highly informative stories about people, the tasks they need to
+% accomplish, and the tools they use to accomplish them. The goal
+% is to identify a broad set of opportunities for improving PBT tools,
+% grounded in concrete, detailed, authentic stories from developers.
 
 Jane Street is among the world's largest
 financial market-makers; its 1700 employees
@@ -292,22 +292,25 @@ valuable and discoverable for this group.}
   good...}
 \fi
 
-There is a danger that findings from a study at a single firm with a homogeneous
-OCaml-based testing ecosystem may not generalize outside of this
-ecosystem. Part of our proposed work is to carry out further user
-studies targeting a broader and more diverse community
-(\sectionref{sec:foundation}).  However, Jane Street itself is quite
-diverse in the sorts of software it builds, including real-time
-trading, quantitative algorithms, networked systems, and hardware
-description code~\cite{signalsandthreads}, and our study participants
-come with a wide variety of experiences and requirements.
+\proposecut{There is a danger that findings from a study at a single
+  firm with a homogeneous OCaml-based testing ecosystem may not
+  generalize outside of this ecosystem. Part of our proposed work is
+  to carry out further user studies targeting a broader and more
+  diverse community (\sectionref{sec:foundation}).  However, Jane
+  Street itself is quite diverse in the sorts of software it builds,
+  including real-time trading, quantitative algorithms, networked
+  systems, and hardware description code~\cite{signalsandthreads}, and
+  our study participants come with a wide variety of experiences and
+  requirements.}
 
+\bcp{Probably cut this, but make sure the HATRA study is promimently
+  cited somewhere.}
 Our interview instrument---the script used to loosely
 structure the interviews---and our analysis process were developed and
 tested through a prototype study with seven users of the Hypothesis
 PBT toolkit, recruited over Twitter.  This analysis yielded a
 conceptual framework of barriers to usage of PBT, which we published
-recently at the SPLASH HATRA workshop, one of the key venues for
+at the SPLASH HATRA workshop, one of the key venues for
 emerging work on human aspects of formal methods tools and type
 systems~\cite{goldstein2022some}.
 
@@ -366,11 +369,6 @@ particular kind of PBT, commonly called
 automation and tooling around model-based testing to be one of the most
 significant ways improve PBT and make it easier to pick up and use.
 
-We discuss plans for work that addresses \proptheme{specification
-  themes} in \sectionref{sec:spec}.
-
-\smallskip
-
 Another set of common themes in the interviews concerned the {\bf generation} of
 random inputs for property-based testing. Many participants spoke
 highly of the \gentheme{Derived Generators} that can be inferred from
@@ -402,10 +400,6 @@ about it as an opaque or even magical process that they did not understand.
 Ideally, shrinkers would be an invisible part of the PBT process that
 automatically minimized counterexamples for developers.
 
-We discuss plans for work that addresses \gentheme{generation themes} in \sectionref{sec:gen}.
-
-\smallskip
-
 A final category of common themes concerned the {\bf validation} of testing
 effectiveness. As with any sort of testing, when doing PBT it is difficult to
 know when ``enough is enough.'' One standard approach is to simply test up to a
@@ -433,10 +427,11 @@ There are many forms such feedback could take, from code coverage (requested by
 strategies like {\em mutation
   testing}~\cite{papadakis_mutation_2018}.
 
-We discuss plans for work that addresses
+We discuss plans for work that addresses these themes below, \proptheme{specification
+  themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
+\sectionref{sec:gen}, and
 \evaltheme{validation themes} in \sectionref{sec:val}.
-
-\smallskip
+%
 All of these themes will also inform our plans to improve education around PBT.
 Education projects are discussed in \sectionref{sec:ed}.
 \iflater
@@ -490,7 +485,7 @@ and interactive tools (\sectionref{sec:observations}).
   JS.  I guess it belongs in the section where we describe potential
   further collaborations with them.}\fi
 
-\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}
+\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Other}
 \iflater\bcp{Plural or singular?}\fi
 
 Our ongoing Jane Street study has already revealed a number of
@@ -547,9 +542,9 @@ and by recruiting over social media. Admittedly, this survey seems more
 difficult to ``get right,'' and the design will evolve over time as we gain a
 better understanding of the situations where PBT is most effective
 (\sectionref{sec:whento}), but if done right this could provide invaluable
-feedback to PBT researchers about how far their work could reach if done well.
+feedback to PBT researchers about how far their work could reach.
 
-\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}
+\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Other}
 
 Anecdotes related in interviews do not generally, in and of
 themselves, provide enough information to inform the design of
@@ -591,7 +586,7 @@ its applicability to poorly abstracted code. Then, in
 specific scenario: model-based testing.  Together, these projects will greatly
 improve the on-ramp to PBT and clarify its place in the software industry.
 
-\SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}
+\SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
 
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{goldstein2022some}) was
@@ -660,7 +655,7 @@ way, the user can get feedback about the invariants that should hold of the
 intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
 
-\SUBSECTION{Models for Modules}{sec:automating}{2}{3}
+\SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 \hg{Talked to Richard: he suggested a few variations on this theme that are also
 interesting.
 \begin{itemize}[noitemsep]
@@ -704,7 +699,8 @@ importantly, all of the ways that outputs from one call can flow to inputs of
 another. Since these values are all typed, this model will likely need to be
 dependently typed to maintain all necessary invariants.
 
-Concretely, the tools we build will take a model signature, for example
+Concretely, the tools we build will take a model signature, for
+example\bcp{Cut the code}
 \begin{lstlisting}[language=Caml]
   module Map : sig
     type ('k, 'v) t
@@ -730,8 +726,6 @@ With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
 the potential to significantly increase the usability of model-based
 PBT.
-
-\bigskip
 
 Section \sectionref{sec:whento} incorporates the ideas from this section along
 with many more into a comprehensive list of PBT patterns that developers can use
@@ -863,7 +857,7 @@ generator to inputs that are more likely to be valid with respect to a given
 precondition. This work is an important step towards better automation for
 generators with complex preconditions.
 
-\SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}
+\SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
 % \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
 % worry that enough of the following projects rest on reflective generators that
 % we want to be able to say ``don't worry, we actually have an idea what these
@@ -934,7 +928,7 @@ automated approaches to improving generator distributions---and we get
 will see some additional use cases for reflective generators in the
 following sections.
 
-\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}
+\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they leverage randomized testing to quickly exercise as
 many program behaviors as possible.  One might then expect that the fuzzing and
@@ -1023,7 +1017,7 @@ generation, the PBT literature provides powerful tools like reflective
 generators for refining generator performance incrementally, and both
 communities benefit from generators with better distributions.
 
-\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}
+\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{Harry}
 
 A more modest application of reflective generators uses them to implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
@@ -1060,7 +1054,7 @@ generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
 simply making counterexamples smaller and easier to understand.
 
-\SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}
+\SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Harry}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
@@ -1153,7 +1147,7 @@ tests with an overabundance of input-output examples.
 % potentially transformative impact within interactive programming systems in the
 % long term. (Can we flesh out just how big a field we feel this is?)}
 
-\SUBSECTION{Understanding Failures}{sec:failures}{3}{4}
+\SUBSECTION{Understanding Failures}{sec:failures}{3}{4}{Other}
 
 A developer can better understand a failure if the input that triggered it is
 simple. We propose rapid, incremental, interactive shrinking of complex inputs
@@ -1211,7 +1205,7 @@ Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
 setting~\cite{suzuki2017tracediff}.
 
-\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}
+\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Harry}
 \todo{Add references to related work on debugging,
 including FireCrystal, Rehearse, Gamut, Chameleon, Lux,
 Burg's Interactive Record/Replay project, Examplore.
@@ -1311,7 +1305,7 @@ of the generated values, which they can use to spot-check the generated data. As
 we have mentioned, the shape and scale of these inputs may be
 problematic---showing the user simple print-outs of the examples will not be
 good enough. Thus, we propose potential ways of visualizing examples that may
-become part of our tool. 
+become part of our tool.
 When the input {\em size} is the main barrier to understandability, we can
 provide the user with the values represented as JSON objects, and give them ways
 to manipulate those objects {\em in situ}.  This may involve exploring the data
@@ -1337,7 +1331,7 @@ the end of the section ends up looking}
 When complete, this project will be the first live tool for generator
 feedback and analysis; in the next section, we take it one step farther.
 
-\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}
+\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 
 \amh{Add references to bidirectional editors including
 Sketch-n-Sketch, mage, active code completion, livelits}
@@ -1396,7 +1390,7 @@ their testing success. With interactive tools, developers will be far more
 likely to build useful generators that they can understand, and that they can
 customize as they see fit.
 
-\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}
+\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}{Other}
 
 \amh{Add references to Titus' slow fixes project,
 CodeScoop, Emerson's work on visual extract-method
@@ -1441,7 +1435,7 @@ alterations to their code like the ability to generate
 general property checks with precise equality checks.
 
 \ifdraft
-\SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}
+\SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
 
 The informants in our interview study admitted to heuristic
 approaches to determining how many tests to run. Many set
@@ -1538,7 +1532,7 @@ the needs of real users.
 Prior work~\cite{wrenn2021using,nelson2021automated}
 \fi
 
-\SUBSECTION{When to Specify It!}{sec:whento}{3}{4}
+\SUBSECTION{When to Specify It!}{sec:whento}{3}{4}{Harry}
 %
 \bcp{The research content here (as described) is pretty minimal.
   Maybe this belongs in the education section instead?}
@@ -1594,13 +1588,15 @@ to use PBT. Our paper on {\em When to Specify It!} will combine examples from de
 interviews with ones from our our years of experience studying and applying PBT
 into the definitive guide for the most impactful opportunities to apply PBT.
 
-\SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}
+\SUBSECTION{Interactive Property Specification}{sec:interactive}{2}{3}{Other}
 
 \bcp{General comment for this section: It all seems good, but it is a bit vague
 and high level---I feel like technical readers will want a bit more meat.  Could
 we spice it up with a concrete example?} \amh{Agreed, I think a concrete
 example would be \emph{great} here. Maybe there is an example we can bring in
 from the QuickSpec paper~\cite{claessen2010quickspec}}
+
+\bcp{make it shorter!}
 
 \amh{Examples of complex properties that might not be
 straightforward to implement. Algebraic properties of
@@ -1670,7 +1666,7 @@ analysis~\cite{head2018interactive,head2019managing} and program
 synthesis~\cite{head2017writing} components, and extending the VSCode
 environment~\cite{head2020composing}.
 
-\SUBSECTION{PBT in the Undergrad Curriculum}{sec:1210}{2}{4}
+\SUBSECTION{PBT in the Undergrad Curriculum}{sec:1210}{2}{4}{Other}
 
 \writeme{Write me.}
 
@@ -1724,16 +1720,15 @@ environment~\cite{head2020composing}.
       trim it a little by removing the main section headings.  After
       that, is it interesting enough to justify the space?  I guess we
     could alternatively include ``(Years X to Y)'' in subsection
-    titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi}\label{fig:workplan}
+    titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi
+   \bcp{The timeline needs to be brought into correspondence with our
+     actual expectations of timing, and explained.  Harry's projects
+     should end by year 3 latest!  :-)}
+}\label{fig:workplan}
 \end{figure}
 
 \writeme{Write me.}
 
-\bcp{Add color codes:
-  \begin{itemize}
-  \item harry: 2.1 and/or 2.2, all of 3, 4.2, 4.3, 5.1
-  \end{itemize}
-}
 
 \SIMPLESECTION{Broader Impacts \pagebudget{.5}}{sec:broader-impacts}
 
