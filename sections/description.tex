@@ -14,19 +14,19 @@ and techniques continually being developed, studied, and applied.
 
 One such technique, {\em property-based testing} (PBT), has been
 enthusiastically taken up by the functional programming research
-community, since its introduction in the QuickCheck
-library~\cite{ClaessenHughes00} in Haskell, and is beginning to make
+community since its introduction in the Haskell QuickCheck
+library~\cite{ClaessenHughes00}, and is beginning to make
 serious inroads beyond academia.
 %
-PBT is sometimes explained as ``formal specification without formal
-verification''---a developer characterizes a the desired behavior of
+PBT is sometimes glossed as ``formal specification without formal
+verification'': a developer characterizes a the desired behavior of
 some piece of code at a high level, in the form of executable {\em
   properties}, which are simply Boolean-valued functions; the code is
 then validated against these properties by running it over and over
 with a large number of automatically generated test cases.
 %
 PBT tools thus give programmers an efficient way of testing their
-software's behavior with a comprehensiveness that is often not
+code's behavior with a comprehensiveness that is often not
 possible with alternative tools.
 
 PBT's combination of rich, high-level specification with easy, mostly
@@ -44,7 +44,7 @@ users~\cite{ZacPersonalCommunication}.
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
-After all these successes, one might wonder if the research community has already
+With all these successes, one might wonder if the research community has already
 addressed all of the challenges that could limit PBT's adoption
 in the broader software industry, but it
 seems the answer is no.
@@ -56,7 +56,8 @@ built their own libraries for it when standard ones were not available in their
 development context (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20}). But we also found
-challenging new research questions based on developer concerns.
+challenging new research questions based on developer
+concerns\bcp{phrase in terms of usability}.
 Specifically, the developers we have spoken with so far
 %
 (a) sometimes struggle
@@ -76,51 +77,48 @@ effectively testing their software, and
 the paucity of educational and training materials for introducing
 newcomers to PBT.\iflater\bcp{All that needs final tuning.}\fi
 
-Solutions to these challenges will demand insights from both the
+Solutions to these challenges require insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
 ``need-finding techniques [to] identify ...  programmers' current and future
 pain points'' with tools that ``help [programmers] write safe and correct
 programs.'' We wholeheartedly agree.
-The team behind this proposal is uniquely positioned to advance the state of
-PL+HCI: PI Head is deeply embedded in the HCI community and recently co-founded
-the new HCI group of the University of Pennsylvania, while PI Pierce is has
-published in every corner of the PL world and has decades of experience in both
-researching and teaching about programming languages. This proposal will be the
-first of many PL+HCI projects that the University of Pennsylvania Computing and
-Information Science department undertakes.\iflater\hg{I'm just spitballing,
-feel free to change}\fi
+The team behind this proposal is uniquely positioned to advance the
+state of the art in PL+HCI: PI Head recently co-founded
+a new HCI group at the University of Pennsylvania, while PI Pierce has
+published widely on PL topics including PBT.
 
-We propose a comprehensive, interdisciplinary research program that
-will bring the combined power of PL and HCI approaches to bear,
-accelerating PBT's transition into practice\iflater\bcp{do we need
-  this?} and creating a blueprint for further research\fi.
+We propose a comprehensive, interdisciplinary research program
+bringing the combined power of PL and HCI to bear to accelerate PBT's
+transition into practice.
 \begin{itemize}[noitemsep]
-  \item
-  Our ongoing study (described in more detail later in this section) is
-  just the first step in our formative research.
-  We will further explore the challenges PBT faces in
-  industry by conducting three additional
-  studies---two\iflater\bcp{check!}\fi{} survey studies and one
-  observation study of
-  PBT users {\em in situ} (\sectionref{sec:foundation}).
-  \item We will address challenges in property specification by developing a
-  conceptual framework of high-impact PBT use cases\bcp{moved!}, along with tools that
+\item Our ongoing study is just the first step in laying a
+\emph{foundation} for HCI-informed research on PBT.  We will confirm
+its findings and further explore the challenges PBT faces in industry
+with three additional studies---two\iflater\bcp{check!}\fi{} survey
+studies and one observation study of PBT users {\em in situ}
+(\sectionref{sec:foundation}).
+  \item We will address challenges in property \emph{specification} by
+  developing tools that \bcp{ugh}
   enhance PBT in common use-cases like model-based testing and extend that set
   of use cases with the ability to write properties over logged output
   (\sectionref{sec:spec}).
-  \item We will address challenges in test-case generation with new
+  \item We will improve and simplify test-case \emph{generation} with new
   domain-specific languages for expressing generators that enable novel
   algorithms for PBT tasks like generation of precondition-satisfying values,
-  test input mutation, and example-based generator tuning.
+  test input mutation, and example-based generator tuning. \bcp{Can we
+  make that more usability-oriented?}
   (\sectionref{sec:gen}).
-  \item We will address gaps in validation of testing effectiveness by providing
+  \item We will close gaps in \emph{validation} of testing effectiveness by providing
   users with powerful new ways of interacting with their generators and test
   suites that give them visibility into the bug-finding power of their tests
   (\sectionref{sec:val}).
-  \item We will create comprehensive educational resources for training developers and
-  university students in best practices for PBT (\sectionref{sec:ed}).
+  \item We will create resources for PBT \emph{education}, including
+  materials for adding PBT to an undergraduate data structures course,
+  advice to developers on how to identify situations where properties
+  are readily available, and a tool for helping naive users articulate
+  properties (\sectionref{sec:ed}).
 \end{itemize}
 We conclude the proposal with a concrete outline of our work plan
 (\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
@@ -316,9 +314,9 @@ valuable and discoverable for this group.}
 % emerging work on human aspects of formal methods tools and type
 % systems~\cite{ref:goldstein2022some}.
 
-At the time of writing, the full
-complement of 30 interviews and a preliminary round of analysis have
-been completed; full-scale analysis will begin in 2023.
+As of December 2022, the full complement of 30 interviews and a
+preliminary round of analysis have been completed; full-scale analysis
+will begin in 2023.
 
 \subsectionstar{Organizing Themes} The main theoretical output from
 this qualitative study will be a collection of {\em Themes} summarizing
