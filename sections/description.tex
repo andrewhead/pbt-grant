@@ -1450,83 +1450,83 @@ edits to regression tests by providing suggestions to
 alterations to their code like the ability to generate
 general property checks with precise equality checks.
 
-\ifdraft
-\SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
+% \ifdraft
+% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
 
-The informants in our interview study admitted to heuristic
-approaches to determining how many tests to run. Many set
-rigid cutoffs such as one-thousand tests, or one minute's
-worth of tests. One reason for these heuristics was that
-developers did not want to lock up their computer's
-computational resources, or delay their other development
-tasks, by waiting for their property-based tests to
-complete. As one of our informants pointed out, this could
-lead to circumstances where bugs were not discovered until
-property-based tests were checked into the continuous
-integration system, when tests were finally conducted at a
-sufficient volume to generate failing inputs \amh{@HG can
-you fact check my paraphrase of this informant's input?}\hg{Technically this was
-a pilot study informant, but I think it's OK}.
-Unfortunately, when failures are detected in continuous
-integration, developers no longer have the context to
-address those problems easily, because they have likely
-moved on to other tasks.
+% The informants in our interview study admitted to heuristic
+% approaches to determining how many tests to run. Many set
+% rigid cutoffs such as one-thousand tests, or one minute's
+% worth of tests. One reason for these heuristics was that
+% developers did not want to lock up their computer's
+% computational resources, or delay their other development
+% tasks, by waiting for their property-based tests to
+% complete. As one of our informants pointed out, this could
+% lead to circumstances where bugs were not discovered until
+% property-based tests were checked into the continuous
+% integration system, when tests were finally conducted at a
+% sufficient volume to generate failing inputs \amh{@HG can
+% you fact check my paraphrase of this informant's input?}\hg{Technically this was
+% a pilot study informant, but I think it's OK}.
+% Unfortunately, when failures are detected in continuous
+% integration, developers no longer have the context to
+% address those problems easily, because they have likely
+% moved on to other tasks.
 
-We believe that, if appropriately designed, a developer's
-PBT tools can help developers get the best of both
-world: they can both increase assurance that their software
-is correct by running more property-based tests, while not
-locking up their computer's resources. We propose to extend
-in-editor testing tools to permit options where developers
-can configure their PBT test drivers to continue testing
-software in the background by default, without requiring a
-developer's explicit input. These tools will scan a
-developer's environment for property-based tests, divide
-time proportionally between the various tests, and capture
-the results in a digested form. To reduce the likelihood of
-breaking a developer's focus, errors will be marked through
-subtle annotations in the code (e.g., icons in the line
-margins) when one has been detected. Developers can also
-request alerts that can report failures instantaneously,
-should they wish to address any discovered failures right
-away.
+% We believe that, if appropriately designed, a developer's
+% PBT tools can help developers get the best of both
+% world: they can both increase assurance that their software
+% is correct by running more property-based tests, while not
+% locking up their computer's resources. We propose to extend
+% in-editor testing tools to permit options where developers
+% can configure their PBT test drivers to continue testing
+% software in the background by default, without requiring a
+% developer's explicit input. These tools will scan a
+% developer's environment for property-based tests, divide
+% time proportionally between the various tests, and capture
+% the results in a digested form. To reduce the likelihood of
+% breaking a developer's focus, errors will be marked through
+% subtle annotations in the code (e.g., icons in the line
+% margins) when one has been detected. Developers can also
+% request alerts that can report failures instantaneously,
+% should they wish to address any discovered failures right
+% away.
 
-\hg{This section needs honing; right now it's just what I wrote in my thesis
-proposal, and it's too high-level} \amh{Is this a user
-interface project devoted to figuring out ways of invoking
-and keeping tabs on long-running tests during solo
-programming? Or is it a project around proposing better
-software engineering process that gives the right amount of
-time to long-running PBT tests?}
-\hg{Good question. I kind of naively hoped it was a UI project that both helped
-users invoke and keep tabs of tests in the background AND pushed them towards
-software engineering processes that gave PBTs appropriate space to operate. But
-now that I think about it that seems like a lot at once. Honestly I think the
-cultural shift in SE (potentially backed by some large-scale software tools) is
-the more impactful angle, but I don't know if we can argue that we know how to /
-want to do that}
-\bcp{Delete the section?}
-\amh{I tried this section again, trying to spell out in more
-detail my updated conception about what would be useful and
-magical about this tool. Can someone else take a look at it
-and make the decision of whether to remove the section?}
-\hg{I think it's better, but it's still pretty vague and flat. I wish there was
-a specific example of an interaction that I could say ``oh yeah, why don't I
-have that?'' As written, it sort of feels like the devil is in the details and
-we didn't actually give an details}
+% \hg{This section needs honing; right now it's just what I wrote in my thesis
+% proposal, and it's too high-level} \amh{Is this a user
+% interface project devoted to figuring out ways of invoking
+% and keeping tabs on long-running tests during solo
+% programming? Or is it a project around proposing better
+% software engineering process that gives the right amount of
+% time to long-running PBT tests?}
+% \hg{Good question. I kind of naively hoped it was a UI project that both helped
+% users invoke and keep tabs of tests in the background AND pushed them towards
+% software engineering processes that gave PBTs appropriate space to operate. But
+% now that I think about it that seems like a lot at once. Honestly I think the
+% cultural shift in SE (potentially backed by some large-scale software tools) is
+% the more impactful angle, but I don't know if we can argue that we know how to /
+% want to do that}
+% \bcp{Delete the section?}
+% \amh{I tried this section again, trying to spell out in more
+% detail my updated conception about what would be useful and
+% magical about this tool. Can someone else take a look at it
+% and make the decision of whether to remove the section?}
+% \hg{I think it's better, but it's still pretty vague and flat. I wish there was
+% a specific example of an interaction that I could say ``oh yeah, why don't I
+% have that?'' As written, it sort of feels like the devil is in the details and
+% we didn't actually give an details}
 
-% It is likely that PBT tools could play a role in improving this state of
-% affairs. For example, one could take inspiration from some theorem
-% provers~\cite{berghofer2004random} and create a system in which properties are
-% checked locally but in the background, as the programmer works on other things.
-% This avoids waiting time while potentially being less frustrating than running
-% in CI, since bugs would likely be found while the programmer still had the code
-% ``paged in.'' Alternatively, one might design a PBT system with CI in mind,
-% providing automated features for deferring property failure notifications until
-% a specified time or turning failing properties into unit tests that can be saved
-% for future testing.
+% % It is likely that PBT tools could play a role in improving this state of
+% % affairs. For example, one could take inspiration from some theorem
+% % provers~\cite{berghofer2004random} and create a system in which properties are
+% % checked locally but in the background, as the programmer works on other things.
+% % This avoids waiting time while potentially being less frustrating than running
+% % in CI, since bugs would likely be found while the programmer still had the code
+% % ``paged in.'' Alternatively, one might design a PBT system with CI in mind,
+% % providing automated features for deferring property failure notifications until
+% % a specified time or turning failing properties into unit tests that can be saved
+% % for future testing.
 
-\fi
+% \fi
 
 \bigskip
 \bcp{Could this go at the top of the section (and be shorter)?}
@@ -1580,7 +1580,7 @@ natural fit because the properties are obvious!
 
 The Jane Street study also gives us a solid start on a comprehensive list of
 ``no-brainer properties.''  For example:
-\begin{enumerate*}%[noitemsep]
+\begin{enumerate*}[label=(1)]
 \item code that is already formally or semi-formally specified,\bcp{This seems like a non-example?}
 \item ``these two functions (e.g., a parser and a printer) should round trip,''
 \item pure data structures,
