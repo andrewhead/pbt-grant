@@ -98,7 +98,7 @@ accelerating PBT's transition into practice\iflater\bcp{do we need
   this?} and creating a blueprint for further research\fi.
 \begin{itemize}[noitemsep]
   \item
-  Our ongoing study (described in more detail below) is
+  Our ongoing study (described in more detail later in this section) is
   just the first step in our formative research.
   We will further explore the challenges PBT faces in
   industry by conducting three additional
@@ -106,7 +106,7 @@ accelerating PBT's transition into practice\iflater\bcp{do we need
   observation study of
   PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will address challenges in property specification by developing a
-  conceptual framework of high-impact PBT use cases, along with tools that
+  conceptual framework of high-impact PBT use cases\bcp{moved!}, along with tools that
   enhance PBT in common use-cases like model-based testing and extend that set
   of use cases with the ability to write properties over logged output
   (\sectionref{sec:spec}).
@@ -1594,6 +1594,8 @@ part of the standard undergraduate curriculum.
 \item There are several places where this could happen---compilers,
 functional programming courses, intro courses---but we believe the
 most promising place to start will be a data structures course.
+(Partly because this has already happened for intro courses---cite
+Brown folks, etc.)
 \item Reasons:
   \begin{itemize}
   \item Data structures is often taken early in the curriculum, so
@@ -1659,7 +1661,7 @@ These results will be presented in a survey-style paper (with an
 accompanying talk), tentatively entitled {\em When to Specify It!} in
 homage to John Hughes's {\em How to Specify
   It!}~\cite{HowToSpecifyIt}, a famous tutorial on the many different
-kinds of properties that can be written for a given piece of code.
+kinds of properties that can be written or a given piece of code.
 
 % Clearly it is important to ask {\em How}, but our developer interviews
 % suggest that it may be even more important to have a clear sense of {\em When}
@@ -1667,9 +1669,10 @@ kinds of properties that can be written for a given piece of code.
 % interviews with ones from our our years of experience studying and applying PBT
 % into the definitive guide for the most impactful opportunities to apply PBT.
 
-\SUBSECTION{Interactive Property Specification}{sec:interactive}{1}{2}{Other}
+\SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
 \bcp{I'm not sure any more that this belongs under Education.  It's
-  pretty researchy, and it's not clear what the pedagogical angle is...}
+  pretty researchy, and it's not clear what the pedagogical angle is.
+But maybe it can be revised to fit better here.}
 
 % \bcp{General comment for this section: It all seems good, but it is a bit vague
 % and high level---I feel like technical readers will want a bit more meat.  Could
@@ -1691,9 +1694,10 @@ kinds of properties that can be written for a given piece of code.
 We also heard from Jane Street developers about a number of scenarios
 where properties were {\em not} obvious but where PBT delivered
 sufficient benefit that it was well worth taking the trouble to
-discover them.  To make such scenarios easier to manage, we plan to
-build a tool that can work with developers to decide on a set of
-significant properties to test.
+discover them.  \bcp{Tune this to emphasize the cs-ed context.}  To
+help developers see what to do in such scenarios, we plan to build a
+tool that can work with developers to decide on a set of significant
+properties to test.
 
 Prior research has demonstrated that automated tools can extract
 specifications of a program's behavior~\cite{ref:ammons2002mining,
@@ -1769,7 +1773,7 @@ VSCode environment~\cite{ref:head2020composing}.
 % of PBT, but some may find this problematic.
 
 \bcp{There must be more work on automatically generating
-  specifications, etc...}
+  specifications, etc...  Need more citations...}
 
 \immediate\closeout\workplanfile
 \SIMPLESECTION{Plan of Work \pagebudget{.7}}{sec:plan-of-work}
@@ -1804,25 +1808,39 @@ VSCode environment~\cite{ref:head2020composing}.
       that, is it interesting enough to justify the space?  I guess we
     could alternatively include ``(Years X to Y)'' in subsection
     titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi
-   \bcp{The timeline needs to be brought into correspondence with our
-     actual expectations of timing, and explained.  Harry's projects
-     should end by year 3 latest!  :-)}
-   \hg{How's that?}
-   \bcp{Hmm---now it looks like there's not much happening in year 4!
-   Maybe we need to remove this constraint.  Also, there's not much
-   blue at the moment, and I'm not certain how to talk about the
-   distinction between the two students' domains of work.  Can we try
-   to make it more coherent (even at the cost of some accuracy
-   wrt. our expectations about what you're going to do)?}
+   % \bcp{The timeline needs to be brought into correspondence with our
+   %   actual expectations of timing, and explained.  Harry's projects
+   %   should end by year 3 latest!  :-)}
+   % \hg{How's that?}
+   % \bcp{Hmm---now it looks like there's not much happening in year 4!
+   % Maybe we need to remove this constraint.  Also, there's not much
+   % blue at the moment, and I'm not certain how to talk about the
+   % distinction between the two students' domains of work.  Can we try
+   % to make it more coherent (even at the cost of some accuracy
+   % wrt. our expectations about what you're going to do)?}
 }\label{fig:workplan}
 \end{figure}
 
 \writeme{Write me.}
 
 
-\SIMPLESECTION{Broader Impacts \pagebudget{.5}}{sec:broader-impacts}
+\SIMPLESECTION{Broader Impacts of the Proposed Work \pagebudget{.5}}{sec:broader-impacts}
 
 \writeme{Write me.}
+
+\begin{itemize}
+\item more secure and robust software
+\item development of a diverse,globally competitive STEM workforce;
+\item increased economic competitiveness of the United States
+\item improved STEM education and educator development at any level;
+\item mention jessica for the benchmarking project, plus female
+interns; note that Andrew has 2/3 female PhD students and BCP has one
+\item CACM article
+\item increased partnerships between academia, industry, and others
+(JS, Hypothesis)
+\item enhanced infrastructure for research and education (tool
+building).
+\end{itemize}
 
 \paragraph*{Benefits to Society} \todo{increase software reliability,
   tech industry, ...}
@@ -1842,6 +1860,7 @@ experience. Each graduate student will have leadership responsibility
 for multiple facets of the project, including co-supervising
 interested undergraduate researchers.  See the Collaboration Plan for
 more. \iflater\bcp{I guess we need to write one?}\fi
+
 
 % The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 % Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
