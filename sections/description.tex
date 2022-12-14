@@ -312,7 +312,7 @@ PBT toolkit, recruited over Twitter.  This analysis yielded a
 conceptual framework of barriers to usage of PBT, which we published
 at the SPLASH HATRA workshop, one of the key venues for
 emerging work on human aspects of formal methods tools and type
-systems~\cite{goldstein2022some}.
+systems~\cite{ref:goldstein2022some}.
 
 At the time of writing, the full
 complement of 30 interviews and a preliminary round of analysis have
@@ -589,7 +589,7 @@ improve the on-ramp to PBT and clarify its place in the software industry.
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
 
 One common problem raised by Jane Street developers (and even more loudly
-in our earlier pilot study~\cite{goldstein2022some}) was
+in our earlier pilot study~\cite{ref:goldstein2022some}) was
 that code may sometimes not be abstracted
 in a way that is amenable to testing. Indeed, any kind of
 testing of software units---with PBT techniques or otherwise---requires
@@ -1054,7 +1054,7 @@ generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
 simply making counterexamples smaller and easier to understand.
 
-\SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Harry}
+\todo{Make sure this feels different from Leo's CAREER}
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one too over another. For theoretical advances, this is often sufficient
@@ -1203,7 +1203,7 @@ debugging environment where they can query the state of the
 program and step through the remainder of the execution. PI
 Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
-setting~\cite{suzuki2017tracediff}.
+setting~\cite{ref:suzuki2017tracediff}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Harry}
 \todo{Add references to related work on debugging,
@@ -1594,7 +1594,7 @@ into the definitive guide for the most impactful opportunities to apply PBT.
 and high level---I feel like technical readers will want a bit more meat.  Could
 we spice it up with a concrete example?} \amh{Agreed, I think a concrete
 example would be \emph{great} here. Maybe there is an example we can bring in
-from the QuickSpec paper~\cite{claessen2010quickspec}}
+from the QuickSpec paper~\cite{ref:claessen2010quickspec}}
 
 \bcp{make it shorter!}
 
@@ -1613,7 +1613,7 @@ software would benefit from property-based testing. One area we are interested
 in exploring is how programmers can work with their PBT tools to decide on a set
 of significant properties to test.  Prior research demonstrates that automated
 tools can extract specifications of a program's
-behavior~\cite{ammons2002mining,le2018deep,claessen2010quickspec}. We are
+behavior~\cite{ref:ammons2002mining,ref:le2018deep,ref:claessen2010quickspec}. We are
 interested in the non-trivial research problem of integrating such techniques
 into usable developer tools. We see the research as addressing several
 challenges:
@@ -1623,7 +1623,7 @@ program can be characterized by an overwhelmingly large number of properties,
 many of which describe only incidental aspects of the program's behavior that do
 not need to be tested. How can tools produce those properties that developers
 would want to have tested? We believe that this is a problem that can be best
-solved with a mixed-initiative approach~\cite{allen1999mixed}, where properties
+solved with a mixed-initiative approach~\cite{ref:allen1999mixed}, where properties
 are determined by judiciously incorporating both developer input and automated
 techniques.
 
@@ -1634,7 +1634,8 @@ error; (2) providing unit test cases that test a special case of a generalized
 property; and (3) indicating aspects of interest on input and output data during
 exploration in a debugging REPL.
 
-\textit{Generated properties should be \underline{readable}}. While prior research~\cite{claessen2010quickspec}
+\textit{Generated properties should be
+\underline{readable}}. While prior research~\cite{ref:claessen2010quickspec}
 has shown promise for automatically generating specifications of program
 behavior, we expect that users of PBT systems would benefit from having
 properties generated in the language of their property-based testing tools.
@@ -1654,7 +1655,7 @@ review, each of which may satisfy the refinements that a developer has provided.
 
 \textit{Plan of work}: We will iteratively design and develop developer tools as
 an extension to the VSCode editor. In our first iterations, we will generate
-candidate properties using QuickSpec~\cite{claessen2010quickspec}, a tool that
+candidate properties using QuickSpec~\cite{ref:claessen2010quickspec}, a tool that
 builds on Haskell's QuickCheck library to synthesize a series of plausible
 properties about a given function. Future iterations will include tools like
 \todo{cite other quickspec follow-on}~\cite{smith_discovering_2017}.
@@ -1662,9 +1663,9 @@ The interactions described above will be
 designed and tested first for simple programs, and then on successively more
 complex programs from our benchmark set. PI Head has extensive experience
 designing and developing developer tools involving program
-analysis~\cite{head2018interactive,head2019managing} and program
-synthesis~\cite{head2017writing} components, and extending the VSCode
-environment~\cite{head2020composing}.
+analysis~\cite{ref:head2018interactive,ref:head2019managing} and program
+synthesis~\cite{ref:head2017writing} components, and extending the VSCode
+environment~\cite{ref:head2020composing}.
 
 \SUBSECTION{PBT in the Undergrad Curriculum}{sec:1210}{2}{4}{Other}
 
