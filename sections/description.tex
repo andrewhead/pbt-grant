@@ -1266,44 +1266,61 @@ developer support for easily defining meaningful views of the data.
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{A mockup of a tool for evaluating input data distributions.
-  (1) A developer can invoke the novel tool via controls that appear directly
-  next to their property in the editor. They are aided in evaluating the
-  input data distribution with (2) Aggregate statistics describing the generated values. (3)
-  Sensible aggregate visualizations chosen to match common data features. (4) Example values,
-  rendered as strings or DOT graphs. The developer can define additional
+  \caption{An envisioned tool for evaluating input data distributions.
+  (1) A developer invokes the tool from controls that appear directly
+  next to their property in the editor. They are supported in evaluating the
+  input data distribution with (2) aggregate statistics describing the generated
+  values, (3) visualizations of distributions of key features of the input, and (4)
+  example values, pretty-printed or represented with DOT graphs. The developer can define additional
   features and views in their functional code.}\label{fig:gen-vis}
 \end{wrapfigure}
 
 To this end, we will design new interactive tools that provide rapid,
-informative views of input data distributions.
-The tools will address the challenges with
-visualizing generator distributions using a novel combination of tried-and-true
-features can support the task of understanding the quality of input data
-distributions. This includes (1) live, realtime displays of generated values;
-(2) the ability to drill-down from aggregate displays to individual values; (3)
-extensibility with lightweight hooks for customizing aggregate data displays and
-previews of individual points; (4) live feedback on what code is covered by the
-generated inputs. \amh{Continue the rewrite from here, integrating additional
-references.}
+informative views of input data distributions. The tools will address the
+challenges of visualizing generator distributions using a novel combination of
+tailored, tried-and-true features for interactive programming environments.
 
-Our tool starts by sampling a developer's generator and obtaining a set of
-values to visualize. To get around the problem of arbitrarily structured data,
-the system extracts and plots relevant {\em features} of a given datatype, that
-will be extracted using functions in the surrounding programming environment and
-validated by the user. In the case of the \lstinline{log} type above, we would
-consider simple functions like \lstinline{length}, field accessors like
-\lstinline{head}, \lstinline{id}, and \lstinline{payload}, filters like
-\lstinline{is_empty}, and even aggregators
-like \lstinline{max_by} and \lstinline{avg_by}. Then the tool will then use
-lightweight type-based program synthesis to compose and combine these functions
-to get features. It may choose to show the \lstinline{length} of a log, but also
-the \lstinline{max_by (fun l -> length l.payload)} (the maximum payload length),
-and even pairs of features like these (which could be viewed as a two
-dimensional feature).  If there are features that the user notices should be
-extracted, but that the system cannot come up with itself (e.g.,
-\lstinline{ids_unique}) the user can write it themselves and add it to the
-interface.
+First, the tool will support live, realtime displays of generated values.
+Because property-based tests take some time to run, our first goal is to provide
+instant, live~\cite{ref:tanimoto1990viva} feedback on the generators. Building
+in the tradition of other live functional programming environments
+(e.g.,~\cite{tool:lighttable,ref:omar2019live}), our environment will provide
+live feedback on the many inputs associated with the code, rather than a single
+input. As the test runs, our tool will sample inputs output by the generator and
+pipe them into data displays (Figure~\ref{fig:gen-vis}). These data displays
+will first and foremost show aggregate data views, including aggregate
+statistics (Figure~\ref{fig:gen-vis}.2), and visualizations of the distribution
+of key features of the data (Figure~\ref{fig:gen-vis}.3). Visualizations will be
+generated according to simple recommendation rules, similarly to other recent
+exploratory data visualization tools from
+HCI~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
+wongsuphasawat_voyager_2017}. Unique to our project, features to visualize will
+be based on awareness of common features of alebraic data types, and extensible
+through lightweight user-written code. Consider the \lstinline{log} type
+described above. A developer might be interested in the log's
+\lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
+and \lstinline{timestamp}, filters like \lstinline{is_empty}, and even
+aggregators like \lstinline{max_by}. These kinds of features can be generated
+automatically for the most common data types.
+% Then the tool will then use
+% lightweight type-based program synthesis to compose and combine these functions
+% to get features. It may choose to show the \lstinline{length} of a log, but also
+% the \lstinline{max_by (fun l -> length l.payload)} (the maximum payload length),
+% and even pairs of features like these (which could be viewed as a two
+% dimensional feature).
+
+Second, the data displays will be easily extensible, providing lightweight hooks
+for customizing aggregate data displays and previews of individual points.  If
+there are features that the user notices should be extracted, but that the
+system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
+write it themselves in companion code alongside their property specifications,
+and the interface will automatically load those features as options into the
+display.
+
+\amh{Continue the rewrite from here, integrating additional
+references, calling attention to these features:
+(2) the ability to drill-down from aggregate displays to individual values; (4) live feedback on what code is covered by the
+generated inputs.}
 
 With the features extracted, the tool will then select various charts and
 graphs to visualize the data, depending on its type. We are not yet certain
@@ -1314,7 +1331,7 @@ struggle to grok dozens of charts representing their data's features, so
 we will also have a way for users to specify which visualizations are
 interesting (and which to hide). We will base these interactions based on the
 literature around visualization recommendation, specifically
-Voyager~\cite{wongsuphasawat_voyager_2016, wongsuphasawat_voyager_2017}. This
+Voyager~\cite{}. This
 interaction might be very quick (maybe a few seconds to find a single
 representative chart) or slow and careful (many minutes spent curating a
 dashboard of results to help with tuning), depending on how much time and energy
