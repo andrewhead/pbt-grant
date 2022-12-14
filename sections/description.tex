@@ -1337,17 +1337,11 @@ Sketch-n-Sketch, mage, active code completion, livelits}
 
 The tool proposed in the previous section will give developers unprecedented
 visibility into their generator distributions, but what should they do if the
-distribution is not the right one? Tuning generators is a challenging task
-that would be much easier with the support of tools.
-\amh{@HG can we give reviewers a sense of how difficult it
-is to tune one's generators using current tools? My sense is
-that, for some generators, it can involve a lot of
-trial-and-error that is unlikely to pay off. We can more
-clearly spell out that the purpose of this project is to
-reduce this trial and error by allowing developers to focus
-on directly describing the kinds of inputs they want,
-rather than tweaking generator parameters and hoping it
-leads to the right kinds of input data distributions.}
+distribution is not the right one? Tuning generators is a challenging task,
+often requiring significant trial-and-error that often does not pay off.
+Ideally, developers could describe the kinds of inputs they want directly,
+rather than tweaking generator parameters and hoping it leads to the right kinds
+of input data distributions.
 
 \amh{Let's describe this tool as another tool in our
 comprehensive PBT toolkit, rather than an extension to the
@@ -1358,50 +1352,35 @@ this as an independent yet synergistic tool.}
 We propose extending the above visualization tool to include {\em bidirectional
 interactions}: the developer will be able to select parts of the visualization
 that seem wrong and edit them, causing changes to flow back into their editor as
-modifications to the generator. These interactions include things like (1)
-selecting points in a scatter plot to filter out; (2) dragging a bar on a bar
+modifications to the generator. These interactions include things like
+selecting points in a scatter plot to filter out or dragging a bar on a bar
 chart up or down, to indicate that a certain feature value should be more or
-less represented; or (3) manipulating the sections of a pie
-chart \amh{Can we downplay pie charts? Pie charts are kind
-of looked down upon in the visualization literature, because
-they take up a lot of space, while making visual comparisons
-and estimations really difficult (people's perceptual
-systems are better tuned to estimating and comparing
-quantities on a linear scale than a radial one.)} to indicate
-a better categorical distribution.
+less represented.
 
 Some of these interactions can be implemented via {\em filtering}. Generators
 already support operations that filter their outputs via predicates, so this is
-a natural choice. If the user selects a range of values, as in interaction (1),
-we can simply ask the generator to discard any values that do not fall in that
-range.  However, filtering generators this way can be problematic: if the filter
-is too broad, the generator will slow down significantly as it wastes time
-generating inputs that it will have to discard.  We can protect users by
-reporting a {\em discard rate} and warning them when that rate reaches a certain
-threshold, \amh{Let's end this paragraph on a more positive
-tone. Rather than ``here is an idea, but here is where it
-might not work,'' let's phrase as ``a first, generalizable
-solution is'' and then begin the next paragraph with ``a yet
-powerful solution is\ldots{}''} but a more robust to altering the generator would be better.
+a natural choice. If the user selects a range of values from a scatter plot we
+can simply ask the generator to discard any values that do not fall in that
+range.  Filtering generators this way can be problematic---if the filter is too
+broad, the generator will slow down significantly as it wastes time generating
+inputs that it will have to discard---but for coarse adjustments to the
+distribution, filtering is a simple and general approach.  We can also protect
+users from slow-downs by reporting a {\em discard rate} and warning them when
+that rate reaches a certain threshold.
 
-\amh{I think it would be more clear to state that the other
-approach to changing generator distributions is to change
-the generator's code. Then we can state that this is
-infeasible to do with conventional generators, but it is
-possible for certain classes of changes in reflective
-generators.}
-Luckily, we may be able to both alleviate concerns around discard rates and
-implement more interactions with the help of reflective generators (introduced
-in \sectionref{sec:gen}). Recall that reflective generators can operate in
-reverse, reflecting on the generator choices that produce a particular value.
-This means that if the user expresses a desire like ``category X should be
-better represented'' (i.e., by dragging a bar or a pie slice as in interactions
-(2) or (3)), reflective generators can determine which choices often result in
-values of that category and raise the weights on those choices. And this mode of
+For more complex interactions, and in cases where filtering causes high discard
+rates, we hope to translate visualization manipulations to direct changes in the
+generator's weights. Standard monadic generators do not expose their weights
+in a way that makes them easy to tune from the outside, but reflective
+generators (introduced in \sectionref{sec:gen}) do. Recall that reflective
+generators can operate in reverse, reflecting on the generator choices that
+produce a particular value.  This means that if the user expresses a desire like
+``category X should be better represented'' (i.e., by dragging a bar in a bar
+chart), reflective generators can determine which choices often result in values
+of that category and raise the weights on those choices. And this mode of
 interaction can just as easily be applied to de-prioritize certain choices,
 meaning that in some situations re-weighting with reflective generators can
-obviate the need for expensive \amh{expensive in what sense?
-They lead to long-running tests?} filters.
+obviate the need for filters that slow down testing.
 
 Ultimately we see this project and the previous one as a comprehensive toolkit
 for generator customization. The understanding and tuning generators is too
