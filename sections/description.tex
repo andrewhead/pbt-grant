@@ -1164,6 +1164,14 @@ automatic when a reflective generator is available for a given type. But the
 shrinking process is often opaque and difficult to control.  Our novel shrinking
 can be done {\em interactively}.
 
+\amh{Add references to the related work of TraceDiff,
+JetBrains object browser interfaces, Telescope, Ply,
+Whyline, Gilligan}
+
+\amh{Could we indicate on top of an object explorer which
+parts of the structure, if changed, would end up leading to
+a different test result, or preserving it?}
+
 We will design
 interfaces that allow developers to shrink inputs by pruning
 the input's contents and structure in an interactive object
@@ -1203,7 +1211,8 @@ setting~\cite{suzuki2017tracediff}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}
 \todo{Add references to related work on debugging,
-including FireCrystal, Rehearse, Gamut, Chameleon, Lux.}
+including FireCrystal, Rehearse, Gamut, Chameleon, Lux,
+Burg's Interactive Record/Replay project, Examplore.}
 The work in \sectionref{sec:gen} will significantly improve the tools that users
 have at their disposal when designing and using random generators, but
 reflective generators do not solve all of the problems developers may run into
@@ -1322,6 +1331,9 @@ When complete, this project will be the first live tool for generator
 feedback and analysis; in the next section, we take it one step farther.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}
+
+\amh{Add references to bidirectional editors including
+Sketch-n-Sketch, mage, active code completion, livelits}
 
 The tool proposed in the previous section will give developers unprecedented
 visibility into their generator distributions, but what should they do if the
