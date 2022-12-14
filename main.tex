@@ -99,7 +99,7 @@
 \newcommand{\pagebudget}[1]{}
 
 \usepackage{ulem}\normalem
-\newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}\fi}}
+\newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}}\fi}
 
 \newcommand{\jsquote}[2]{%
   \begin{center}
@@ -129,19 +129,31 @@
 \newcommand{\sectionstar}[1]{\subsection*{#1}}
 \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
-\newcommand{\SUBSECTION}[4]{%
+\newcommand{\SUBSECTION}[5]{%
   \subsection{#1}
   \label{#2}
-  \immediate\write\workplanfile{\string\task{#1}{#2}{#3}{#4}}
+  \ifthenelse{\equal{#5}{Harry}}{%
+    \edef\FOO{\harrycolor}
+  }{%
+    \edef\FOO{\othercolor}}
+  \immediate\write\workplanfile{%
+    \string\task{#1}{#2}{#3}{#4}{
+      \FOO}}
 }
 \newcommand{\sectionref}[1]{\S\ref{#1}}
 
+\usepackage{ifthen}
 \usepackage{pgfgantt}
 \ganttset{bar height=.6}
 \newcommand{\ganttsection}[1]{
   \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}}
-\newcommand{\task}[4]{
-  \\ \ganttbar [bar/.append style={fill=gray}]
+\newcommand{\harrycolor}{dkred}
+\newcommand{\othercolor}{blue}
+\newcommand{\task}[5]{
+  \\ \ganttbar
+       [bar/.append
+          style={fill=#5}]
+%          style={fill=gray}]
     {\footnotesize #1 (\sectionref{#2})}{#3}{#4} }
 
   % \makeatletter
