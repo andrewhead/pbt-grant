@@ -1514,7 +1514,7 @@ we didn't actually give an details}
 \fi
 
 \bigskip
-
+\bcp{Could this go at the top of the section (and be shorter)?}
 The projects in this section must all be designed in concert with real users
 evaluated in terms of their impact and usability. We will design these tools
 using {\em human-centered design}: we will show prototypes to potential users,
@@ -1528,39 +1528,55 @@ the needs of real users.
 \SECTION{Education}{Advancing PBT in the Broader Culture \pagebudget{1}}{sec:ed}
 \bcp{Needs some polishing and reintegration of the moved sections.}
 
-\writeme{Needs introduction.}
+Our goal with this project is to make PBT not only usable but {\em
+  used}; educational activities will thus play a crucial role.  This
+section describes three specific threads of activity addressing pedagogical
+challenges in different domains:
+(1) course materials for instructors who want to integrate PBT into
+undergraduate data structures courses,
+%
+(2) guidance for
+industrial developers on how to identify low-hanging fruit, and
+%
+(3) a
+tool for helping both developers and students write properties
+interactively.
+
 \ifdraft
-Prior work~\cite{wrenn2021using,nelson2021automated}
+Prior work~\cite{wrenn2021using,nelson2021automated} Other Shriram papers?
 \fi
+
+\SUBSECTION{PBT for Undergrads}{sec:1210}{2}{4}{Other}
+
+\writeme{Write me.}
 
 \SUBSECTION{When to Specify It!}{sec:whento}{3}{4}{Harry}
 %
-PBT is often described as a kind of lightweight formal method.   One
+PBT is often described as a lightweight formal method.  One
 might therefore imagine that a central challenge of using PBT would be
 coming up with specifications. Indeed, a preliminary interview
-study that we carried out in preparation for the larger Jane Street
-study~\cite{ref:goldstein2022some} seemed to indicate just
-that. But at  
+study that we carried out in preparation
+for the larger Jane Street study seemed to indicate just
+that~\cite{ref:goldstein2022some}. But at
 Jane Street we actually heard very little about the challenge of coming up with
 properties; instead, most participants described applying PBT in scenarios when
 properties were already available or quite easy to imagine. This suggests that,
-while PBT educators should certainly spend some time teaching developers how to
-write specifications for arbitrary programs, they should spend even more energy
+while PBT educators should certainly developers how to
+write properties, they should concentrate on
 helping developers quickly recognize situations where PBT is a particularly
-natural fit because properties are obvious!
+natural fit because the properties are obvious!
 
-The study with Jane Street provides a solid start to a comprehensive list of
-high-leverage use-cases for PBT. We have already identified seven software
-patterns where properties are relatively straightforward to find and PBT is an
-obvious choice for testing:
+The Jane Street study also gives us a solid start on a comprehensive list of
+``no-brainer properties.''  For example:
 \begin{enumerate*}%[noitemsep]
-\item Code that is already (semi-)formally specified.
-\item Functions that round trip.
-\item Pure data structures.
-\item Modules with invariants.
-\item Related versions of the same code.
-\item Programs that may fail catastrophically.
-\item Stateful APIs with well-understood contracts.
+\item code that is already formally or semi-formally specified,\bcp{This seems like a non-example?}
+\item ``these two functions (e.g., a parser and a printer) should round trip,''
+\item pure data structures,
+\item modules with invariants,
+\item related versions of the same code,
+\item programs that may fail catastrophically,
+and
+\item stateful APIs with well-understood contracts\bcp{e.g.?}.
 \end{enumerate*}
 These patterns are already quite broad in their scope, and include many
 scenarios that real software developers regularly find themselves in, but they
@@ -1661,10 +1677,6 @@ designing and developing developer tools involving program
 analysis~\cite{ref:head2018interactive,ref:head2019managing} and program
 synthesis~\cite{ref:head2017writing} components, and extending the VSCode
 environment~\cite{ref:head2020composing}.
-
-\SUBSECTION{PBT in the Undergrad Curriculum}{sec:1210}{2}{4}{Other}
-
-\writeme{Write me.}
 
 % I hope to work with the course staff of CIS 1210 to incorporate PBT into the
 % curriculum. The ideal scenario would be to add a PBT thread throughout the
