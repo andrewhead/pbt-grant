@@ -1165,9 +1165,13 @@ automatic when a reflective generator is available for a given type. But the
 shrinking process is often opaque and difficult to control.  Our novel shrinking
 can be done {\em interactively}.
 
-\amh{Add references to the related work of TraceDiff,
-JetBrains object browser interfaces, Telescope, Ply,
-Whyline, Gilligan}
+\amh{Add references to the related work of
+TraceDiff~\cite{ref:suzuki2017tracediff}
+JetBrains object browser interfaces~\cite{tool:jetbrains},
+Telescope~\cite{ref:hibschman2016telescope},
+Ply~\cite{ref:lim2018ply},
+Whyline~\cite{ref:ko2009finding},
+Gilligan~\cite{ref:holmes2012systematizing}.}
 
 \amh{Could we indicate on top of an object explorer which
 parts of the structure, if changed, would end up leading to
@@ -1214,12 +1218,19 @@ setting~\cite{ref:suzuki2017tracediff}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}
 \todo{Add references to related work on debugging,
-including FireCrystal, Rehearse, Gamut, Chameleon, Lux,
-Burg's Interactive Record/Replay project, Examplore.
+including FireCrystal~\cite{ref:oney2009firecrystal},
+Rehearse~\cite{ref:brandt2010rehearse},
+Gamut~\cite{ref:hohman2019gamut},
+Chameleon~\cite{ref:hohman2020understanding},
+Lux~\cite{ref:lee2021lux},
+Burg's Interactive Record/Replay
+project~\cite{ref:burg2013record},
+Examplore~\cite{ref:glassman2018visualizing}.
 Reference what level of liveness we seek to support from
-Tanimoto's work. There are examples of live environments for
-functional programming like the Hazel editor and Light
-Table. OmniCode visualizes the distributions of values that
+Tanimoto's work~\cite{ref:tanimoto1990viva}. There are examples of live environments for
+functional programming like the Hazel
+editor~\cite{ref:omar2019live} and Light
+Table~\cite{tool:lighttable}. OmniCode~\cite{ref:kang2017omnicode} visualizes the distributions of values that
 variables take on over a program's execution.}
 The work in \sectionref{sec:gen} will significantly improve the tools that users
 have at their disposal when designing and using random generators, but
@@ -1341,7 +1352,10 @@ feedback and analysis; in the next section, we take it one step farther.
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}
 
 \amh{Add references to bidirectional editors including
-Sketch-n-Sketch, mage, active code completion, livelits}
+Sketch-n-Sketch~\cite{ref:hempel2018deuce},
+mage~\cite{ref:kery2020mage}, active
+code completion~\cite{ref:omar2012active},
+livelits~\cite{ref:omar2021filling}.}
 
 The tool proposed in the previous section will give developers unprecedented
 visibility into their generator distributions, but what should they do if the
@@ -1399,11 +1413,13 @@ customize as they see fit.
 
 \SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}
 
-\amh{Add references to Titus' slow fixes project,
-CodeScoop, Emerson's work on visual extract-method
-refactorings, and drag-n-drop refactoring, and test case
+\amh{Add references to Titus' slow fixes
+project~\cite{ref:barik2016quick},
+CodeScoop~\cite{ref:head2018interactive}, Emerson's work on visual extract-method
+refactorings~\cite{ref:murphyhill2008refactoring}, and
+drag-n-drop refactoring~\cite{ref:lee2013draganddrop}, and test case
 generation (e.g., RANDOOP), Daka et al.'s work on generated
-readable test cases.}
+readable test cases~\cite{ref:daka2015modeling}.}
 
 After a developer has identified a failure in their
 property-based tests, they often wish to turn that failure
