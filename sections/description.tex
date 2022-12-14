@@ -657,76 +657,78 @@ intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
-\hg{Talked to Richard: he suggested a few variations on this theme that are also
-interesting.
-\begin{itemize}[noitemsep]
-  \item One ``parent'' signature with two diverging ``children'': figure out how
-  to test implementations of the children against each other
-  \item What if the signatures aren't the same, but they're isomorphic? He's
-  testing the unboxed float module against the boxed float module; those sigs
-  are different (types aren't equal) but they are isomorphic...
-\end{itemize}
-I didn't get a chance to talk to Joe, but hopefully between these ideas and some
-more stewing we can find the right angle}
+One finding that has surprised us from the Jane Street study is that it is {\em
+very} common for developers to build (or already to have) a {\em model
+implementation} of the code they are testing and check that the two versions of
+the same code produce the same results.  This is a well-documented approach to
+PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
+be by existing tooling.
 
-\bcp{BCP write}
-
-One finding that has surprised us from the Jane Street study
-is that it is {\em very} common for developers to
-build (or already to have) a {\em model implementation} of the code
-they are testing and
-check that the two versions of the code agree on randomly generated
-sequences of API calls.
-This is a well-documented approach to PBT~\cite{hughes_experiences_2016}, but it
-is not supported as well as it could be by existing tooling. For example,
-interviewees described setting up {\em very similar}
-model-based PBT harnesses for at least three different projects. Each harness
-is specific to the problem at hand, so the hard work of setting up these tests
-has no hope of being reused from one project to another, but the logic behind
-the harnesses is ripe for automation.
-
-The APIs that the Jane Street developers tested came in the form of ML-style
-{\em modules}. The module systems of OCaml and other
-ML-based languages are theoretically interesting and extremely expressive, and
-they are objects of study in their own right~\cite{macqueen_modules_1984}. We propose
-new, type-based automation for model-based testing of these kinds of modules,
-building both theoretical and practical tools for understanding the ways that
-their APIs can be exercised.
-
-We will work from first-principles, building a model of ML-module {\em traces}.
-This model will need to capture the various initial inputs that need to be
-generated, the output values that should be checked for agreement, and, most
-importantly, all of the ways that outputs from one call can flow to inputs of
-another. Since these values are all typed, this model will likely need to be
-dependently typed to maintain all necessary invariants.
-
-Concretely, the tools we build will take a model signature, for
-example\bcp{Cut the code}
-\begin{lstlisting}[language=Caml]
-  module Map : sig
-    type ('k, 'v) t
-    val get : ('k, 'v) t -> 'k -> 'v option
-    val put : ('k, 'v) t -> 'k -> 'v -> ('k, 'v) t
-  end
+\begin{figure}[h]
+  \vspace{-5mm}
+  \begin{minipage}{.45\textwidth}
+\begin{lstlisting}
+module StringFns : sig
+  val reverse : string -> string
+  val drop_n  : int -> string -> string
+  val split   : string -> string * string
+end
 \end{lstlisting}
-and generate a series of calls like
-\begin{lstlisting}[language=Caml]
-  let m = put m 1 2; get m 1; let m = put m 1 3; m get 1
+  \end{minipage}
+  \qquad\qquad
+  \begin{minipage}{.45\textwidth}
+\begin{lstlisting}
+module Set : sig
+  type 'a t ;; val empty : 'a t
+  val mem   : 'a t -> 'a -> bool
+  val add   : 'a t -> 'a -> 'a t
+end
 \end{lstlisting}
-that manipulate the data structure and query its contents.
-\bcp{Prior work on testing polymorphic code seems relevant here---citations!}
-When testing two
-different implementations of \lstinline{Map}, the developer can verify that the
-two implementations produce the same results for each of the operations in the
-sequence. The automated tooling could also insert checks for internal
-invariants, ensure that one operation executes at least as quickly as another,
-and insert other checks that are simple to specify but tedious to implement
-manually.
+  \end{minipage}
+  \vspace{-4mm}
+  \caption{Module signatures that we would like to test automatically.}\label{fig:sigs}
+\end{figure}
+\vspace{-3mm}
+
+With this in mind, we propose comprehensive tooling to entirely automate
+model-based testing for a large class of ML-style software
+{\em modules}~\cite{macqueen_modules_1984}.
+
+Model-based testing is trivial in the simplest case (comparing two pure
+functions), but if the code under test is a {\em collection} of functions,
+organized into a module, things get more interesting. Testing even a simple
+module requires a complex orchestration of calls to the different functions in
+the module's signature. For example, testing \lstinline{StringFn} (in
+Figure~\ref{fig:sigs}) correctly requires wiring up the functions in the
+signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
+integer to know how much to drop, \lstinline{split} produces a pair of strings
+that can each be arguments to future function calls, etc. We will build on prior
+work~\cite{hughes_experiences_2016} to correctly generate graphs of function
+calls that are well-typed and that can be used to compare module implementations.
+
+Testing modules gets even hairier when they contain {\em abstract types}, as is
+the case with \lstinline{Set}. Now, some of the types in the signature cannot be
+generated on their own, so they must be built up from scratch (in this case by
+calling \lstinline{create} and \lstinline{add}). The \lstinline{Set} module is
+also {\em polymorphic}, so a type must be chosen for \lstinline{'a} before
+testing. (There is significant work on this
+problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
+To solve these problems, we will take a theoretical approach, breaking down
+modules theoretically and developing automation heuristics from first
+principles. This process will necessarily involve carving out some subset of
+modules where automation is not possible, but highlighting that subset will
+provide useful context for future work in PBT usability.
+
+Finally, so far we have only talked about comparing implementations of the same
+module signature, but what about implementations of {\em related} signatures? In
+theory, it should be possible to automate test harnesses when two modules share
+some subset of behaviors, or when the concrete types that they operate on are
+related in some known way. We plan to work with users to understand the
+important use-cases here and get the automation right.
 
 With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
-the potential to significantly increase the usability of model-based
-PBT.
+the potential to significantly increase the usability of model-based PBT.
 
 Section \sectionref{sec:whento} incorporates the ideas from this section along
 with many more into a comprehensive list of PBT patterns that developers can use
