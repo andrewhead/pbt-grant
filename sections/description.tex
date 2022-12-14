@@ -1280,10 +1280,10 @@ validated by the user. In the case of the \lstinline{log} type above, we would
 consider simple functions like \lstinline{length}, field accessors like
 \lstinline{head}, \lstinline{id}, and \lstinline{payload}, filters like
 \lstinline{is_empty}, and even aggregators
-like \lstinline{maxBy} and \lstinline{avgBy}. Then the tool will then use
+like \lstinline{max_by} and \lstinline{avg_by}. Then the tool will then use
 lightweight type-based program synthesis to compose and combine these functions
 to get features. It may choose to show the \lstinline{length} of a log, but also
-the \lstinline{maxBy (fun l -> length l.payload)} (the maximum payload length),
+the \lstinline{max_by (fun l -> length l.payload)} (the maximum payload length),
 and even pairs of features like these (which could be viewed as a two
 dimensional feature).  If there are features that the user notices should be
 extracted, but that the system cannot come up with itself (e.g.,
