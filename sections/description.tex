@@ -395,9 +395,12 @@ determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
 provokes a given bug, is a critical part of the PBT process.  \participant{8}
 and \participant{21}, who each needed to implement their own PBT libraries, both
-made sure to include shrinkers in their implementations. Unfortunately, getting
-shrinking right, especially for values that must satisfy preconditions, is
-difficult.
+made sure to include shrinkers in their implementations. Unfortunately,
+shrinkers are often time-consuming to build, and many participants
+(\participant{16}, \participant{20} \participant{21}, \participant{30}) talked
+about it as an opaque or even magical process that they did not understand.
+Ideally, shrinkers would be an invisible part of the PBT process that
+automatically minimized counterexamples for developers.
 
 We discuss plans for work that addresses \gentheme{generation themes} in \sectionref{sec:gen}.
 
@@ -1398,7 +1401,8 @@ lead to circumstances where bugs were not discovered until
 property-based tests were checked into the continuous
 integration system, when tests were finally conducted at a
 sufficient volume to generate failing inputs \amh{@HG can
-you fact check my paraphrase of this informant's input?}.
+you fact check my paraphrase of this informant's input?}\hg{Technically this was
+a pilot study informant, but I think it's OK}.
 Unfortunately, when failures are detected in continuous
 integration, developers no longer have the context to
 address those problems easily, because they have likely
@@ -1442,6 +1446,10 @@ want to do that}
 detail my updated conception about what would be useful and
 magical about this tool. Can someone else take a look at it
 and make the decision of whether to remove the section?}
+\hg{I think it's better, but it's still pretty vague and flat. I wish there was
+a specific example of an interaction that I could say ``oh yeah, why don't I
+have that?'' As written, it sort of feels like the devil is in the details and
+we didn't actually give an details}
 
 % It is likely that PBT tools could play a role in improving this state of
 % affairs. For example, one could take inspiration from some theorem
