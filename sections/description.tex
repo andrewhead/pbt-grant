@@ -664,6 +664,10 @@ the same code produce the same results.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
 be by existing tooling.
 
+With this in mind, we propose comprehensive tooling to entirely automate
+model-based testing for a large class of ML-style software
+{\em modules}~\cite{macqueen_modules_1984}.
+
 \begin{figure}[h]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
@@ -686,10 +690,6 @@ end
   \end{minipage}
   \caption{Module signatures that we would like to test automatically.}\label{fig:sigs}
 \end{figure}
-
-With this in mind, we propose comprehensive tooling to entirely automate
-model-based testing for a large class of ML-style software
-{\em modules}~\cite{macqueen_modules_1984}.
 
 Model-based testing is trivial in the simplest case (comparing two pure
 functions), but if the code under test is a {\em collection} of functions,
