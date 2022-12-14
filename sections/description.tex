@@ -1220,6 +1220,7 @@ bring this technology into professional programming environments where traces
 for similar inputs are abundant by the nature of reflective generators.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Harry}
+
 \todo{Add references to related work on debugging,
 including FireCrystal~\cite{ref:oney2009firecrystal},
 Rehearse~\cite{ref:brandt2010rehearse},
@@ -1235,57 +1236,55 @@ functional programming like the Hazel
 editor~\cite{ref:omar2019live} and Light
 Table~\cite{tool:lighttable}. OmniCode~\cite{ref:kang2017omnicode} visualizes the distributions of values that
 variables take on over a program's execution.}
-The work in \sectionref{sec:gen} will significantly improve the tools that users
-have at their disposal when designing and using random generators, but
-reflective generators do not solve all of the problems developers may run into
-when writing generators. One common challenge is understanding when a random
-generator falls short of producing useful input data distributions.  of values;
-many participants in our study complained that they did not really know what
-their generators were doing. In the worst case, the generators may generate
-totally unhelpful inputs (e.g., degenerate values like empty lists, or
-unrealistic values like strings of exclusively special characters), but even
-when some of the inputs are reasonable, the distribution may not hit interesting
-values frequently enough to make testing efficient.  The participants asked for
-tools to help them catch mistakes that hamper their testing efforts and make it
-easier to quickly adapt and tune their generators to their specific needs.
 
-Of course, understanding generator distributions is challenging.  The values
-produced by generators are often highly structured and have complex shapes
-(e.g., lists, trees, and other algebraic data types). As a
-concrete example,
-\iflater
-\amh{Mention that this example comes from
-one of the informants in our study}\hg{It does not}
-\fi
-consider a list of log events with type:
-\begin{lstlisting}
-  type log = {id : int; payload : string} list
-\end{lstlisting}
-Such values cannot simply be plotted on a chart, and even spot-checking them
-visually may be hard if the values are large.
-Ideally, a developer would have a way to answer questions like: Are the logs
-long enough? Do the messages have a reasonable distribution of payload lengths?
-Are the payloads realistic? etc.
+In comparison to testing techniques like unit testing, PBT focuses on testing
+distributions of inputs, rather than individual inputs. The success of running
+property-based tests depends on a developer's ability to create a distribution
+of input data that is sufficiently realistic and comprehensive. One of the major
+aims of our work is going to be to develop much-needed tooling around
+understanding distributions of input data and more easily changing them. This
+was a pain point of participants in our study, many of whom stated that they did
+not know the kinds of input their generators were producing.
+
+We draw inspiration from related work in HCI that has sought to better expose
+the shape of input data distributions in the domain of ML in the time of models
+that require massive datasets (e.g.,~\cite{ref:hohman2019gamut} and
+~\cite{ref:hohman2020understanding} and the sequence of values that programs
+take during single executions (e.g.,~\cite{ref:kang2017omnicode}. What is unique
+in our outlook is a focus on helping developers understand distributions of
+complex inputs (e.g., lists, trees, and other algebraic data types). Consider an
+example from a participant in our formative study, who wanted to generate
+realistic logs of input data, where each log entry included at least a timestamp
+and an event type. Such values are not trivially plotted in conventional
+visualizations, and it would be prohibitive to review individual examples if the
+logs are sufficiently long. Ideally, a developer would be able to answer
+questions like, are the generated log inputs long enough? Are the even sequences
+realistic?  This setting requires new kinds of views of data, and tight
+developer support for easily defining meaningful views of the data.
 
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{A mockup of our tool. (1) A {\em code lens} that the developer clicks
-  to start the visualization. (2) High-level statistics about the generated values. (3)
-  Charts displaying various data features. (4) Example values, rendered as
-  graphs.}\label{fig:gen-vis}
+  \caption{A mockup of a tool for evaluating input data distributions.
+  (1) A developer can invoke the novel tool via controls that appear directly
+  next to their property in the editor. They are aided in evaluating the
+  input data distribution with (2) Aggregate statistics describing the generated values. (3)
+  Sensible aggregate visualizations chosen to match common data features. (4) Example values,
+  rendered as strings or DOT graphs. The developer can define additional
+  features and views in their functional code.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-To help developers answer this question, we propose to build a tool that gives
-developers comprehensive visualizations of their generators' distributions from
-directly within their code editor. The tool will address the challenges with
+To this end, we will design new interactive tools that provide rapid,
+informative views of input data distributions.
+The tools will address the challenges with
 visualizing generator distributions using a novel combination of tried-and-true
 features can support the task of understanding the quality of input data
 distributions. This includes (1) live, realtime displays of generated values;
 (2) the ability to drill-down from aggregate displays to individual values; (3)
 extensibility with lightweight hooks for customizing aggregate data displays and
 previews of individual points; (4) live feedback on what code is covered by the
-generated inputs.
+generated inputs. \amh{Continue the rewrite from here, integrating additional
+references.}
 
 Our tool starts by sampling a developer's generator and obtaining a set of
 values to visualize. To get around the problem of arbitrarily structured data,
