@@ -511,7 +511,7 @@ better reflect the framing of the motivations section.}
 \bcp{What about swapping this with the modules section, which seems
   better motivated by the JS findings?  (Was the log issue mentioned
   by multiple people, or just P7?  Or are we extrapolating from other
-  things people said, about abstraction generally?)}%
+  things people said, about abstraction generally?)}\hg{Fine by me.}%
 %
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{ref:goldstein2022some}) was
@@ -524,35 +524,38 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-One Jane Street developer (\participant{7}) described their experience testing
-a trading system (we'll call it System A) with messy abstraction boundaries. In
-this case, System A was hard to test because it was primarily used as a
-sub-component of a larger System B: System B would take in simple data, and then
-at some point pass a large, complex data structure to System A, which would do
-some work and hand results back to System B. PBT of System A was therefore hard,
-because generating valid examples of the large data structure that System A
-takes as input required deep knowledge of the internals and types of System B
-that the developers of System A did not have access to, and because the
-interface was too complex to write straightforward properties about. \amh{System 
-A and System B are a bit abstract for my liking; I am having it hard to follow 
-the section without a more concrete sense of what these systems are and why they 
-would interact.}
+One Jane Street developer (\participant{7}) described their experience testing a
+trading system (we'll call it \lstinline{Inner}) with messy abstraction
+boundaries. In this case, \lstinline{Inner} was hard to test because it was
+primarily used as a sub-component of a larger system \lstinline{Outer};
+\lstinline{Outer} would take in simple data, and then at some point pass a
+large, complex data structure to \lstinline{Inner}, which would do some work and
+hand results back to \lstinline{Outer}. PBT of \lstinline{Inner} was therefore
+hard, because generating valid examples of the large data structure that
+\lstinline{Inner} takes as input required deep knowledge of the internals and
+types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
+access to, and because the interface was too complex to write straightforward
+properties about.
 
-\amh{Here we should to briefly state the goal of this line of work before moving 
-onto the hypothetical solution.}
-One might imagine trying to test System A through System B by writing properties
-over intermediate values in System A. One might imagine trying to write and
-test properties like
+We propose novel approach to testing systems like \lstinline{Inner}, that are
+difficult to write properties about because they cannot be fully extracted from
+a larger system.
+At its core, this approach tests
+\lstinline{Inner} through \lstinline{Outer} by
+writing properties over intermediate values in \lstinline{Inner}. Properties like
 \begin{lstlisting}
   sublist_of processed (next (processed))      (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Capacity at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
 which demonstrate that internal variables like \lstinline{processed},
-\lstinline{msg}, and \lstinline{overflow} evolve correctly over time.
-These properties could theoretically be tested without ever running System A on
-its own: we can generate inputs to System B, have System B drive System A, and
-simply monitor the variable values to check the desired properties.
+\lstinline{msg}, and \lstinline{overflow} evolve correctly over time, let the
+developer talk about the behavior of \lstinline{Innner} without talking about
+its external-facing API.
+These properties could theoretically be tested without ever running
+\lstinline{Inner} on its own: we can generate inputs to \lstinline{Outer}, have
+\lstinline{Outer} drive \lstinline{Inner}, and simply monitor the variable
+values to check the desired properties.
 
 The tricky part comes with how to actually implement this testing. One might
 hope to do it through debug assertions, but that quickly becomes untenable.
@@ -562,7 +565,7 @@ programmer would need to use macros or some other kind of meta-programming to
 remove that code when building in release mode. Even worse, there may be no way
 to check properties (2) or (3) at all. Doing so would require making an
 assertion at the ``end'' of the computation, which may not actually be possible
-if System B is driving System A from the outside.
+if \lstinline{Outer} is driving \lstinline{Inner} from the outside.
 
 Instead, we propose a framework for writing properties over {\em logged values}
 that can capture the interesting relationships between past and future variable
