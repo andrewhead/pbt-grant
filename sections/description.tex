@@ -233,102 +233,41 @@ their software. We intend to make it that way.
   in the context sections.}
   \fi
 
-\sectionstar{Motivation: A Formative Study of PBT in Industry \pagebudget{2}}\label{sec:motivation}
+\sectionstar{Motivations from a Formative Study of PBT in Industry 
+\pagebudget{2}}\label{sec:motivation}
 %
-The technical goals of this proposal are grounded in early
-findings from an ongoing need-finding study asking {\em How can the
-  research community make PBT more valuable for software developers?}
-%
-\iflater \todo{Sentence to justify why
-we did the study}\bcp{If needed...}\fi
-%
-% \subsectionstar{Study Population}
-%
-In this study, we have conducted semistructured interviews with
-PBT stakeholders at Jane
-Street Capital---both
-developers who have had exposure to PBT as
-well as developers of PBT tools.
-
-% Interview
-% studies are a common tool for early-stage need finding in
-% HCI research, yielding highly informative stories about people, the tasks they need to
-% accomplish, and the tools they use to accomplish them. The goal
-% is to identify a broad set of opportunities for improving PBT tools,
-% grounded in concrete, detailed, authentic stories from developers.
-
-Jane Street is among the world's largest
-financial market-makers; its 1700 employees
-include around 700 software developers.  A number of features make
-it an attractive setting for this study.  Most importantly, PBT is
+The goals of this proposal are motivated by findings from an on-going
+need-finding study we have been conducting in industry. The purpose of this 
+study was to understand how the research community can make PBT more valuable 
+for software developers. This study has consisted of semistructured interviews 
+with 30 stakeholders in PBT, including both developers who have used PBT and 
+developers and maintainers of PBT tools. The site of the study is Jane Street 
+Capital. A number of aspects of Jane Street make it
+an attractive setting for such a study.  Most importantly, PBT is
 already well established at Jane Street, so there is a large
 population of people with well-informed opinions on its benefits and
-challenges.  Also, Jane Street famously builds almost all of its
-software in OCaml, a mostly functional programming language with
-strong support for rich static typing and modularity, plus a well-engineered
-PBT tool. This unified
-ecosystem allows us to control for a number of potentially confounding
-factors: all of the developers have access to the same tools,
-libraries, language-level programming abstractions, house coding
-rules, social conventions, etc.
-
-\iflater
-\bcp{Not sure we need to say all (or any) of this, but maybe?  If we
-  keep it, we'll need a bit of transition to the next paragraph.}%
-\proposecut{Ideally, the study population would have included both
-users
-and {\em non}-users of PBT. In reality, it is difficult to recruit and
-have meaningful conversations with non-users of a technology. Our
-strategy, instead, was
-to recruit across as broad a spectrum of usage as could be reasonably found
-at our partner institution, including both frequent users of PBT technologies,
-as well as a handful of
-developers who had had only limited, occasional exposure to PBT. Our
-proposed survey
-study (\sectionref{sec:survey}) aims to establish contact with a broader
-sample of non-users of PBT to assess opportunities for making PBT tools more
-valuable and discoverable for this group.}
-\hg{I think I'm in favor of cutting. I do like the idea of a forward pointer to
-  the survey, but we sort of already do that in the next paragraph}
-\bcp{Let's take one more look at it in a few days before deleting for
-  good...}
-\fi
-
-\proposecut{There is a danger that findings from a study at a single
-  firm with a homogeneous OCaml-based testing ecosystem may not
-  generalize outside of this ecosystem. Part of our proposed work is
-  to carry out further user studies targeting a broader and more
-  diverse community (\sectionref{sec:foundation}).  However, Jane
-  Street itself is quite diverse in the sorts of software it builds,
-  including real-time trading, quantitative algorithms, networked
-  systems, and hardware description code~\cite{signalsandthreads}, and
-  our study participants come with a wide variety of experiences and
-  requirements.}
-
-% \bcp{Probably cut this, but make sure the HATRA study is promimently
-%   cited somewhere.}
-% % BCP: Done!
-% Our interview instrument---the script used to loosely
-% structure the interviews---and our analysis process were developed and
-% tested through a prototype study with seven users of the Hypothesis
-% PBT toolkit, recruited over Twitter.  This analysis yielded a
-% conceptual framework of barriers to usage of PBT, which we published
-% at the SPLASH HATRA workshop, one of the key venues for
-% emerging work on human aspects of formal methods tools and type
-% systems~\cite{ref:goldstein2022some}.
+challenges. Additionally, Jane Street famously builds almost all of its
+software in OCaml, a mostly functional programming language for which
+there is a well-engineered PBT tool. This unified
+ecosystem allows us to ensure that developers have access to mature PBT tools,
+experience using them in collaborative settings,
+and awareness of language-level programming abstractions necessary
+to advanced usage.\footnote{Because our primary need-finding study to-date has 
+taken place solely at Jane Street, our follow-up studies in 
+\sectionref{sec:foundation} will engage with broader groups of developers using 
+PBT to expand and generalize our findings.}
 
 As of December 2022, the full complement of 30 interviews and a
-preliminary round of analysis have been completed; full-scale analysis
-will begin in 2023.  A paper describing our findings will be submitted
+preliminary round of qualitative analysis have been completed; full-scale 
+analysis will begin in 2023.  A paper describing our findings will be submitted
 to a top-tier software engineering conference.
 
-\subsectionstar{Organizing Themes} The main theoretical output from
-this qualitative study will be a collection of {\em Themes} summarizing
-and categorizing our observations about the ways Jane Street developers
-use PBT, what they need from it, and how the research community be
-able to help.  While deep analysis of the interview transcripts remains
-to be done, several themes are already apparent in our real-time
-notes, and these form the backbone of the present proposal.
+\subsectionstar{Framework: Challenges Using PBT} Upon completing
+our analysis, we will contribute a deep, qualitative description of how 
+developers use PBT, what they need from it, and how the research community can 
+help improve PBT tools. While full analysis of the data remains
+to be done, several themes have arisen from our initial analysis
+of interview session notes. These form the backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
