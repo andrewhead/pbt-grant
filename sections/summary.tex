@@ -3,6 +3,31 @@
 \todo{Recheck in GPG}
 
 \paragraph*{Overview}
+Property-based testing (PBT) is an advanced software testing
+methodology where users write executable specifications of their code
+and an automated test harness checks that they hold for many randomly
+generated test inputs.  From its roots in the QuickCheck library in
+Haskell, PBT has grown into a standard tool across the functional
+programming community, and it has begun to make inroads into
+industrial practice in companies such as Quviq, Galois, Amazon, and
+Jane Street.
+%
+However, despite its well-established bug-finding power, uptake of PBT
+in industry has been slow.  A need-finding study of PBT users at Jane
+Street found them enthusiastic about its {\em usefulness} but
+sometimes frustrated by issues with {\em usability}.
+%
+At the level of {\em specification}, developers wished for better
+support for expressing common requirements such as ``this
+high-performance implementation of a service must behave exactly the
+same as that reference model'' and for articulating properties of
+poorly modularized code.
+% 
+At the level of {\em generation} of random test cases,
+
+ and ``shrinking'' of failing
+tests to minimal counterexamples,  
+
 \begin{itemize}
 \item PBT is promising.  Starting to move from academia into industry
 at places like Quviq, Galois, Amazon, and JS.
