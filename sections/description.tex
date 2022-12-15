@@ -62,30 +62,7 @@ challenging new research questions where advances in technical foundations and
 tool design necessary to overcome present usability challenges and expand the
 potential impact of PBT.
 
-Our formative research suggests that a future of \emph{usable property-based
-testing} depends on research addressing the challenge problems of helping
-developers
-%
-(a) identify situations where a property-based approach is suitable for
-testing,
-%
-(b) specify properties that cross module boundaries,\bcp{Not sure
-  about this one.}
-%
-(c) write random generators for data structures with complex invariants,
-%
-(d) understand whether generated data distributions are sufficiently realistic
-and comprehensive, and in turn tune the generated data distributions,
-%
-(e) understand individual test failures, and
-%
-(f) learn about effective PBT practice in the first place.
-\amh{This feels redundant with the later bullet points. I'd propose we have this
-simply state the high-level categories of needs from the project summary, and
-save the specifics for the bullet points below.}\bcp{Agreed.}
-\iflater\bcp{All that needs final tuning.}\fi
-
-Solutions to these challenges require insights from both the
+Addressing usability challenges in PBT requires insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that a methodology
@@ -100,9 +77,9 @@ a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
-We propose a comprehensive, interdisciplinary research program
-bringing the combined power of PL and HCI to bear to accelerate PBT's
-transition into practice.
+We therefore propose a comprehensive, interdisciplinary research program of \emph{usable
+property-based testing}, bringing the combined power of PL and HCI to bear to
+accelerate PBT's transition into practice.
 \begin{itemize}[noitemsep]
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 beginning with our ongoing need-finding study. We will confirm
@@ -111,8 +88,8 @@ two\iflater\bcp{check!}\fi{} survey studies and observation studies
 of PBT users {\em in situ} designed to lead to concrete tool designs
 (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with new approaches
-to support the key use cases of properties that cross module boundaries and
-those that represent complex model-based checks (\sectionref{sec:spec}).
+to support the writing properties over internal program states and
+automating model-based testing (\sectionref{sec:spec}).
   \item We will help developers efficiently define and tune test-case
 \emph{generators} with novel techniques for generating precondition-satisfying
 values, test input mutation, and example-based generator tuning, building
@@ -122,9 +99,9 @@ values, test input mutation, and example-based generator tuning, building
 locate the cause of a test failure and understand how to improve their generated
 data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We will propose an agenda\bcp{weak} for PBT \emph{education}, grounding this
-  agenda in resources for teaching PBT practices in an undergraduate
-  computer science curriculum, a tool to help students author
+  \item We will propose an program for PBT \emph{education} including
+  an introduction to PBT for undergraduate
+  computer science curricula, a tool to help students author
   properties, and a comprehensive review of PBT practice
   to help developers learn about diverse situations to which they should
   put properties to work to validate their software
