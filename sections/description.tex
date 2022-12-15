@@ -195,7 +195,7 @@ steps. First, the developer defines one or more properties that should be true
 of the program under test. Then, they design (or reuse, or tailor) {\em random
 input generators} for the values that the properties take as input. Then, they
 check the properties with generated inputs, using test drivers provided by their
-PBT tools. And finally, if counter-examples are discovered, they make sense of
+PBT tools. And finally, if counterexamples are discovered, they make sense of
 them and determine the source of the bug.
 Each of these steps presents opportunities to improve the user experience of
 PBT, as we describe in the next section.
@@ -276,6 +276,7 @@ pseudonyms P1--30.
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
+\newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
 A first set of
 themes revolves around {\bf specifications} (i.e., properties).
 % and the kinds of programs in which they choose to test them.
@@ -331,7 +332,7 @@ Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
-If a generated input is deemed a {\em counter-example} for a property,
+If a generated input is deemed a {\em counterexample} for a property,
 highlighting a bug in the code, it needs to be easy to use that input to
 determine the root cause of the bug. The interviews made clear that
 \gentheme{Shrinking}, the process of finding the smallest possible input that
@@ -344,47 +345,41 @@ about it as an opaque or even magical process that they did not understand.
 Ideally, shrinkers would be an invisible part of the PBT process that
 automatically minimized counterexamples for developers.
 
-A final category of common themes concerned the {\bf validation} of testing
-effectiveness. As with any sort of testing, when doing PBT it is difficult to
-know when ``enough is enough.'' One standard approach is to simply test up to a
-time limit, but participants' approaches to \evaltheme{Budgeting Time for PBT}
-were anything but standardized.
-Most of our interviewees run PBT testing just for a few seconds per property,
-expecting that the bulk of the necessary testing is done in hundreds or up to
-around a thousand examples, but some run it for much longer.
-Interestingly, the opposite was true about a close cousin of PBT, fuzz testing.
-Participants \participant{14} and \participant{20}, who used both PBT and
-fuzzing tools, ran the fuzzers for far longer
-% HG: Don't change this from "year" to "CPU-year" -- he really ran AFL for A YEAR
-(\participant{14} ran the fuzzer for over a year!).
+Some more themes from the interview study concerned the {\bf validation} of
+testing effectiveness. The developers' \evaltheme{Evaluation of Effectiveness}
+often featured in our conversations, with some participants asking explicitly
+for better ways to evaluate their generators and properties. There are many
+forms such feedback could take, including code coverage (requested by
+\participant{9} and \participant{25}), {\em mutation
+testing}~\cite{papadakis_mutation_2018}, and especially input space coverage
+measurements (requested by \participant{10}, \participant{16}, and
+\participant{16}). Providing good tools that provide this feedback is critical:
+though they asked for better feedback when prompted, many admitted to
+\evaltheme{Implicit Trust in Infrastructure} that they had not thoroughly
+analyzed---\participant{14} actually shipped broken code to production because
+their generator missed important input examples. Tools in this space should
+warn developers about under-performing testing without them needing to ask.
 
-But even with arbitrary time budget, it is still difficult to know if PBT will
-find all of the bugs in a program. If the generator spends too much time
-producing uninteresting or invalid values, testing could still fail to find bugs
-after a {\em very} long time.
-For this reason, \evaltheme{Evaluation of Effectiveness} often featured in our
-conversations, and participants asked explicitly for tools to help them evaluate
-their generators and properties.
-There are many forms such feedback could take, from code coverage (requested by
-\participant{9} and \participant{25}) to input space coverage measurements
-(requested by \participant{10}, \participant{16}, and \participant{16}) and even
-strategies like {\em mutation
-  testing}~\cite{papadakis_mutation_2018}.
-
-\todo{Education}
+Finally, improving the usability of PBT requires a focus on {\bf education}. As
+mentioned above, focusing on \edutheme{High-Leverage Scenarios} should lower the
+barrier to entry for PBT and give developers patterns that they can match when
+deciding if PBT is a good choice for a particular program. Additionally, even in
+situations where properties are readily available, developers who are less
+experienced than those at Jane Street struggle with \edutheme{Imagining
+Properties}. In our pilot study~\cite{ref:goldstein2022some} in population of
+Python developers, participants (Pilot-\participant{1}, Pilot-\participant{3},
+Pilot-\participant{4}, Pilot-\participant{5}) consistently complained that they
+could not see what properties to test, even when it might have been clear to
+someone with more experience. Developers with all levels of experience
+(including Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
+\participant{11}) also complained about the dearth of \edutheme{Documentation
+and Examples} available for PBT tools.
 
 We discuss plans for work that addresses these themes below, \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
-\sectionref{sec:gen}, and
-\evaltheme{validation themes} in \sectionref{sec:val}.
-%
-All of these themes will also inform our plans to improve education around PBT.
-Education projects are discussed in \sectionref{sec:ed}.
-\iflater
-\bcp{Why don't we have a separate color / paragraph for education themes??}
-\hg{I'd argue that we don't have ``education themes''---education is important
-around all three sections. I don't know if any JS themes are education specific}
-\fi
+\sectionref{sec:gen},
+  \evaltheme{validation themes} in \sectionref{sec:val}, and \edutheme{education
+  themes} in \sectionref{sec:ed}.
 
 \iflater
 \amh{Let's foreshadow other findings that
