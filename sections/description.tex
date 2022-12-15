@@ -433,6 +433,8 @@ There are many forms such feedback could take, from code coverage (requested by
 strategies like {\em mutation
   testing}~\cite{papadakis_mutation_2018}.
 
+\todo{Education}
+
 We discuss plans for work that addresses these themes below, \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
 \sectionref{sec:gen}, and
@@ -693,14 +695,14 @@ end
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
 module Set : sig
-  type 'a t ;; val empty : 'a t
+  type 'a t     val empty : 'a t
   val mem   : 'a t -> 'a -> bool
   val add   : 'a t -> 'a -> 'a t
 end
 \end{lstlisting}
   \end{minipage}
   \caption{Some module interfaces we would like to test
-    automatically.\bcp{The ;; is confusing -- is it needed??}}\label{fig:sigs}
+    automatically.}\label{fig:sigs}
 \end{figure}
 
 Model-based testing is trivial in the simplest case (comparing two pure
