@@ -93,27 +93,29 @@ We propose a comprehensive, interdisciplinary research program
 bringing the combined power of PL and HCI to bear to accelerate PBT's
 transition into practice.
 \begin{itemize}[noitemsep]
-\item Our ongoing study is just the first step in laying a
+\item Our ongoing study constitutes a first step in laying a
 \emph{foundation} for HCI-informed research on PBT.  We will confirm
-its findings and further explore the challenges PBT faces in industry
-with three additional studies---two\iflater\bcp{check!}\fi{} survey
-studies and one observation study of PBT users {\em in situ}
-(\sectionref{sec:foundation}).
-  \item We will address challenges in property \emph{specification} by
-  developing tools that \bcp{ugh}
-  enhance PBT in common use-cases like model-based testing and extend that set
-  of use cases with the ability to write properties over logged output
-  (\sectionref{sec:spec}).
+its findings and further explore PBT's usability with
+two\iflater\bcp{check!}\fi{} survey studies and an observation study
+of PBT users {\em in situ} (\sectionref{sec:foundation}).
+  \item We will address usability challenges in property \emph{specification} by
+  developing tools to \bcp{ugh:}
+  automatically derive properties for the common use case of
+  model-based testing, and we will facilitate specifying
+  poorly abstracted code with a notation for writing and checking
+  temporal properties over logged outputs (\sectionref{sec:spec}).
   \item We will improve and simplify test-case \emph{generation} with new
-  domain-specific languages for expressing generators that enable novel
+  domain-specific languages\bcp{??} for generators that enable novel
   algorithms for PBT tasks like generation of precondition-satisfying values,
   test input mutation, and example-based generator tuning. \bcp{Can we
-  make that more usability-oriented?}
+  make that more usability-oriented?  And mention the word ``reflective''?}
   (\sectionref{sec:gen}).
-  \item We will close gaps in \emph{validation} of testing effectiveness by providing
+  \item We will improve \emph{validation} of testing
+  effectiveness by providing
   users with powerful new ways of interacting with their generators and test
   suites that give them visibility into the bug-finding power of their tests
-  (\sectionref{sec:val}).
+  (\sectionref{sec:val}). \bcp{Again, I want to lean into the idea of
+    usability.}
   \item We will create resources for PBT \emph{education}, including
   materials for adding PBT to an undergraduate data structures course,
   advice to developers on how to identify situations where properties
@@ -124,17 +126,20 @@ We conclude the proposal with a concrete outline of our work plan
 (\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
 proposed work (\sectionref{sec:broader-impacts})
 
-\iflater\bcp{This needs a bit of focusing and toning down at some point.}\fi
-The projects we undertake will be motivated by
-foundational need-finding research in the software industry, including, but not
-limited to, the aforementioned study with Jane Street. Some projects will have a
-clear PL flavor, focusing on domain-specific languages and type-based tools that
-will make PBT tools more powerful and flexible; but we will motivate and
-evaluate them with techniques from HCI. Other projects will focus on the HCI elements
-of PBT, building better interfaces and experiences for developers; yet their
-implementation will draw from our wealth of PL knowledge. In this way, we craft
-a holistic research agenda around PBT that is sure to be both well motivated and
-well founded.
+\iflater\bcp{This needs a bit of focusing and toning down at some
+  point.}\fi The projects we undertake will be motivated by
+foundational need-finding research in the software industry,
+including, but not limited to, the aforementioned study with Jane
+Street.\bcp{What ``foundational need-finding research in the software
+  industry'' do we have in mind besides the JS study?} Some projects
+will have a clear PL flavor, focusing on domain-specific languages and
+type-based tools that will make PBT tools more powerful and flexible;
+but we will motivate and evaluate them with techniques from HCI. Other
+projects will focus on the HCI elements of PBT, building better
+interfaces and experiences for developers; yet their implementation
+will draw from our wealth of PL knowledge. In this way, we craft a
+holistic research agenda around PBT that is sure to be both well
+motivated and well founded.
 
 \sectionstar{Orientation: Property-Based Testing}
 Before discussing our motivating study, we briefly explain what PBT is
@@ -662,18 +667,19 @@ intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
-One finding that has surprised us from the Jane Street study is that it is {\em
-very} common for developers to build (or already to have) a {\em model
+One finding that has surprised us from the Jane Street study is that
+it is {very} common for developers to build (or already to have) a
+{\em model 
 implementation} of the code they are testing and check that the two versions of
 the same code produce the same results.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
 be by existing tooling.
-
+%
 With this in mind, we propose comprehensive tooling to entirely automate
 model-based testing for a large class of ML-style software
 {\em modules}~\cite{macqueen_modules_1984}.
 
-\begin{figure}[h]
+\begin{figure}[t]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
 module StringFns : sig
@@ -693,7 +699,8 @@ module Set : sig
 end
 \end{lstlisting}
   \end{minipage}
-  \caption{Module signatures that we would like to test automatically.}\label{fig:sigs}
+  \caption{Some module interfaces we would like to test
+    automatically.\bcp{The ;; is confusing -- is it needed??}}\label{fig:sigs}
 \end{figure}
 
 Model-based testing is trivial in the simplest case (comparing two pure
@@ -753,32 +760,31 @@ As discussed in the Orientation, PBT relies heavily on {\em random data
 generators}. The inputs produced by the generator exercise the developer's
 properties and give confidence that they hold---provided the inputs are
 interesting enough.
-
-{\em Preconditions.}
-Many properties that developers want to test have {\em preconditions}
+%
+However,
+many properties that developers want to test have {\em preconditions}
 (or {\em validity conditions} or {\em input constraints}) that
 restrict the set of inputs that should be used for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
 the operations under test. Testing such properties can be problematic, because
 many preconditions are difficult to satisfy randomly; if the developer is not
-careful their testing may waste most of its time budget generating and
+careful they may waste most of their testing time generating and
 discarding invalid inputs.
-
-{\em Coverage of Realistic Inputs.}
+%
 Worse, even among valid inputs, not all are equally realistic. Often generated inputs
 feel fabricated, since they are not constructed with prior knowledge of the
 kinds of inputs that the program is likely to see.
+%
+Worse yet, even with validity and realism accounted for, there are
+other ways for generators to under-perform---for example, by
+generating many overly similar inputs while ignoring large parts of
+the input space.
 
-{\em Distributional Concerns.}
-Worse yet, even with validity and realism accounted for, there are other ways for
-generators to under-perform. In particular, the spaces of inputs that generators
-target is often very large, and the best generators explore as much of the space
-as possible, as quickly as possible.
+% The PBT literature partially addresses these concerns, with solutions solving
+% one problem at the expense of another and trading off between programmer effort
+% and generator power.
 
-The PBT literature partially addresses these concerns, with solutions solving
-one problem at the expense of another and trading off between programmer effort
-and generator power.
-The existing solutions
+Existing approaches to these issues
 fall on a spectrum from automatic to manual. The automatic approaches use
 proxies for validity and general ``interestingness'' of inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
