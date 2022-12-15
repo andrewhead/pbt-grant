@@ -142,10 +142,9 @@ proposed work (\sectionref{sec:broader-impacts})
 
 \sectionstar{Orientation: Property-Based Testing}
 
-We next describe the essence of the PBT approach, highlighting the
-tools involved. These form the surface area of technologies that
-the research community has leverage in improving.\bcp{Well, we also
-  have leverage in education...}
+We next describe the basics of the PBT approach, with the aim of highlighting 
+where research has unique leverage in improving tooling, processes, and 
+education around PBT.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
@@ -161,16 +160,15 @@ a BST after the insertion of \texttt{x} (``\lstinline{is_bst (insert x t)}'').}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
-Like most\bcp{?} properties, this one is a simple function which takes in generated
+As is the case with properties generally, this property is a function which 
+takes in generated
 test inputs and evaluates to \lstinline{True} if the test passes, and
 \lstinline{False} otherwise.  This function, ``\verb|prop_insert_correct|'',
 checks
 that an insert operation on a binary search tree preserves the
 binary ordering of the tree.
-
-The value of properties arises in part from their brevity\bcp{well,
-  this depends on what you count as ``the property''}: they often require
-only a few lines to express, yet can validate unlimited
+While properties like this one require
+only a few lines to express, they can validate unlimited
 input-output pairs.  Given a property like this one, the PBT tool generates a
 large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
@@ -178,21 +176,21 @@ that causes the property to fail is reported as a {\em counterexample}.
 
 This proposal focuses on {\em random}
 generation~\cite{hamlet1994random}, in contrast to other
-approaches, like enumerative test-case
-generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
-checking. Random generation remains the dominant approach in PBT. Its
+approaches like enumerative test-case
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
+checking. Random generation is the dominant approach in PBT. Its
 surprising effectiveness is often attributed to the
 ``combinatorial'' nature of larger test cases: bugs can be
-exposed by test inputs with a specific combination of features,
-independent of whatever other features may be present. For example,
-a bug may be triggered by some particular sequence of API calls in a
+exposed with test inputs that embody a specific combination of features,
+independent of whatever other features are present. For example,
+a bug may be triggered by some sequence of API calls in a
 particular order,
 regardless of whether they are
-interleaved with other API calls. The upshot is that testing with large random
+interleaved with other API calls. As a result, testing with large random
 inputs often exposes the same issues as testing with exponentially more
 enumeratively generated inputs.
 
-From the perspective of a developer, applying PBT happens entails the following
+From the perspective of a developer, applying PBT entails the following
 steps. First, the developer defines one or more properties that should be true
 of the program under test. Then, they design (or reuse, or tailor) {\em random
 input generators} for the values that the properties take as input. Then, they
@@ -215,15 +213,17 @@ testing. Wrenn et al.~\cite{wrenn2021using} point out that example-based testing
 of programs like that implement relations (e.g., topological sort, which may
 produce one of a number of potentially correct results) is impossible to do
 faithfully; a property-based specification is a much better choice. PBT is also
-obviously preferable if formal properties already exist; this is the use-case
-for QuickChick~\cite{paraskevopoulou_foundational_2015}, which implements PBT in
+an obvious choice if formal properties have already been written, as is the case 
+with tools like QuickChick~\cite{paraskevopoulou_foundational_2015}, which 
+implements PBT in
 the Coq proof assistant. Finally, PBT can act as superior documentation:
 participants in our foundational study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
-With so many potential advantages, it is clear that PBT should be a tool that
-software developers have readily at their fingertips. We plan to put it there.
+With so many potential advantages, it is clear that PBT should be a tool should 
+be a tool that software developers turn to without hesitation for validating 
+their software. We intend to make it that way.
 
 \iflater\todo{Double-check that we've mentioned all relevant
   ``hgih-level'' related work somewhere.}
