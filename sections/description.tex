@@ -160,14 +160,14 @@ line to express, yet it can be used to validate a limitless number of
 input-output pairs. Concretely, it is
 a simple function that takes two arguments and returns a
 Boolean value: true if the property is satisfied, and false if it is
-not. The function \texttt{prop\_insertCorrect} checks
+not. The function \verb|prop_insert_correct| checks
 that an insert operation on a binary search tree preserves the
 binary ordering of the tree; it states
 that, given an arbitrary tree \texttt{t} and an integer
 \texttt{x} to insert into that tree, if the original tree
 satisfies the
-binary search tree invariant (``\texttt{isBST t}''), then it should remain
-a BST following the insertion of \texttt{x} (``\texttt{isBST (insert x t)})''.
+binary search tree invariant (``\verb|is_bst t|''), then it should remain
+a BST following the insertion of \verb|x| (``\verb|is_bst (insert x t)|)''.
 
 Given a property like this one, the PBT tool chooses large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
