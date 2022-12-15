@@ -537,6 +537,8 @@ its applicability to poorly abstracted code. Then, in
 automatically in a specific high-leverage
 scenario: model-based testing.  Together, these projects will greatly
 improve the on-ramp to PBT and clarify its place in the software industry.
+\amh{Provide a forward-reference to the work on ``When to Specify It!'' to 
+better reflect the framing of the motivations section.}
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
 %
@@ -565,8 +567,13 @@ some work and hand results back to System B. PBT of System A was therefore hard,
 because generating valid examples of the large data structure that System A
 takes as input required deep knowledge of the internals and types of System B
 that the developers of System A did not have access to, and because the
-interface was too complex to write straightforward properties about.
+interface was too complex to write straightforward properties about. \amh{System 
+A and System B are a bit abstract for my liking; I am having it hard to follow 
+the section without a more concrete sense of what these systems are and why they 
+would interact.}
 
+\amh{Here we should to briefly state the goal of this line of work before moving 
+onto the hypothetical solution.}
 One might imagine trying to test System A through System B by writing properties
 over intermediate values in System A. One might imagine trying to write and
 test properties like
@@ -587,7 +594,7 @@ Checking the property (1) with debug assertions would require noisy code to
 saves the previous value every time \lstinline{processed} is updated, and the
 programmer would need to use macros or some other kind of meta-programming to
 remove that code when building in release mode. Even worse, there may be no way
-to check properties (2) or (3) at all! Doing so would require making an
+to check properties (2) or (3) at all. Doing so would require making an
 assertion at the ``end'' of the computation, which may not actually be possible
 if System B is driving System A from the outside.
 
