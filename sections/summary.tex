@@ -6,45 +6,67 @@
 Property-based testing (PBT) is an advanced software testing
 methodology where users write executable specifications of their code
 and an automated test harness checks that they hold for many randomly
-generated test inputs.  From its roots in the QuickCheck library in
-Haskell, PBT has grown into a standard tool across the functional
-programming community, and it has begun to make inroads into
-industrial practice in companies such as Quviq, Galois, Amazon, and
-Jane Street.
+generated test inputs.  Its bug-finding power arises from its ability
+to exercise a wide range of system behaviors---both expected and
+unexpected---with minimal user guidance.
 %
-However, despite its well-established bug-finding power, uptake of PBT
-in industry has been slow.  A need-finding study of PBT users at Jane
-Street found them enthusiastic about its {\em usefulness} but
+From its roots in the QuickCheck library in Haskell, PBT has grown
+into a standard tool across the functional programming community, and it
+has begun to make inroads into industrial practice
+% and it is more recently being incorporated into testing processes
+in companies such as Quviq, Galois, and Amazon.\iflater\todo{Who else??}\fi{}
+% ... where it finds lots of bugs!
+%
+The goal of this project is to accelerate this transition
+by identifying and addressing key challenges in
+present-day PBT tools.
+
+What are these challenges?
+A need-finding study of PBT at Jane
+Street, a Wall Street firm with a focus on software
+technology as a competitive advantage, found developers enthusiastic
+about its {\em usefulness} but
 sometimes frustrated by issues with {\em usability}.
 %
-At the level of {\em specification}, developers wished for better
-support for expressing common requirements such as ``this
-high-performance implementation of a service must behave exactly the
-same as that reference model'' and for articulating properties of
-poorly modularized code.
-% 
-Concerning the other main component of PBT, the {\em generation} of
-random test cases, \todo{...}
-%
-Developers also need better {\em validation} tools for checking
-that their testing is actually effective.\todo{blah}
-%
-Finally, better {\em education} of potential PBT users is critically
-required.
+The study identified usability issues in both of the major components
+of PBT tooling---{\em specification} of properties and {\em
+  generation} of random inputs. Furthermore, it identified challenges
+around another aspect of PBT that has received less attention in the
+research literature: how programmers can {\em validate} the
+effectiveness of testing.
+
+% At the level of {\em specification}, developers wished for better
+% support for expressing common requirements such as ``this
+% high-performance implementation of a service must behave exactly the
+% same as that reference model'' and for articulating properties of
+% poorly modularized code.
+% %
+% Concerning the other main component of PBT, the {\em generation} of
+% random test cases, \todo{...}
+% %
+% Developers also need better {\em validation} tools for checking
+% that their testing is actually effective.\todo{blah}
+% %
+% Finally, better {\em education} of potential PBT users is critically
+% required.
 
 %  and ``shrinking'' of failing
-% tests to minimal counterexamples,  
+% tests to minimal counterexamples,
 
-\begin{itemize}
-\item PBT originates in PL; HCI is all about usability.  We need
-insights from both to close the gap.
-\item The four-year program of research and education in
-PBT proposed here will combine PL and HCI methods to make PBT usable by a broad
-community of industrial developers and students.
-\end{itemize}
+To make progress on usability of PBT, insights are needed from two
+sources: PL (which is where PBT originated) and HCI (which is all
+about usability).
+%
+This four-year project will (1) deploy tools from HCI to better
+understand all these challenges, (2) combine PL and HCI methods to
+build solutions, and (3) develop educational materials to make PBT
+concepts and tools accessible to a broad community of university
+students and industrial developers.
 
-Keywords: Property-based random testing, human-computer interaction,
-usability.
+\smallskip
+
+\noindent{\bf Keywords:} Property-based random testing, PBT,
+human-computer interaction, programming languages, usability.
 
 \paragraph*{Intellectual Merit}
 % The statement on intellectual merit should describe the potential of the proposed activity to advance knowledge.
