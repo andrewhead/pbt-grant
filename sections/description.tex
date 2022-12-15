@@ -19,9 +19,9 @@ library~\cite{ClaessenHughes00}, and is beginning to make
 serious inroads beyond academia.
 %
 PBT is sometimes glossed as ``formal specification without formal
-verification'': a developer characterizes a the desired behavior of
-some piece of code at a high level, in the form of executable {\em
-  properties}, which are simply Boolean-valued functions; the code is
+verification'': a developer characterizes the desired behavior of
+some piece of code at a high level in the form of executable {\em
+  properties}, which are simply Boolean-valued functions. The code is
 then validated against these properties by running it over and over
 with a large number of automatically generated test cases.
 %
@@ -31,20 +31,22 @@ possible with alternative tools.
 
 PBT's combination of rich, high-level specification with easy, mostly
 automatic validation has proved effective at identifying subtle
-bugs in telecommunications software~\cite{arts2006testing}, replicated
+bugs in an impressive variety of settings, including telecommunications 
+software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}. With support
 now available in all major programming languages, PBT has
 begun to make significant inroads in the broader software
-industry---for example, the developers of the Hypothesis library for
-Python estimate that it has on the order of half a million
-users~\cite{ZacPersonalCommunication}.
+industry. For example, the developers of the Hypothesis library for
+Python estimate that the library is used by on the order of half a million
+developers~\cite{ZacPersonalCommunication}.
 
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
-With all these successes, one might wonder if the research community has already
+With all of this momentum, one might wonder if the research community has 
+already
 addressed all of the challenges that could limit PBT's adoption
 in the broader software industry, but it
 seems the answer is no.
@@ -56,48 +58,57 @@ built their own libraries for it when standard ones were not available in their
 development context (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20}). But we also found
-challenging new research questions based on developer
-concerns\bcp{phrase in terms of usability}.
-Specifically, the developers we have spoken with so far
+challenging new research questions where advances in technical foundations and 
+tool design necessary to overcome present usability challenges and expand the 
+potential impact of PBT.
+
+Our formative research suggests that a future of \emph{usable property-based 
+testing} depends on research addressing the challenge problems of helping 
+developers
 %
-(a) sometimes struggle
-to identify all the situations where properties are readily accessible for
+(a) identify situations where a property-based approach is suitable for
 testing,
 %
-(b) they complain that it
-can be difficult to write random generators for data structures
-with complex invariants or to tune generator distributions to
-adequately explore the space of interesting test cases,
+(b) specify properties that cross module boundaries,
 %
-(c) they find
-it hard to understand whether their properties and generators are
-effectively testing their software, and
+(c) write random data generators for data structures with complex invariants,
 %
-(d) they are disappointed by
-the paucity of educational and training materials for introducing
-newcomers to PBT.\iflater\bcp{All that needs final tuning.}\fi
+(d) understand whether generated data distributions are sufficiently realistic 
+and comprehensive, and in turn tune the generated data distributions,
+%
+(e) understand individual test failures, and
+%
+(f) learn about effective PBT practice in the first place.
+\amh{This feels redundant with the later bullet points. I'd propose we have this 
+simply state the high-level categories of needs from the project summary, and 
+save the specifics for the bullet points below.}
+\iflater\bcp{All that needs final tuning.}\fi
 
 Solutions to these challenges require insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
-al.~\cite{chasins_pl_2021} argue that PL+HCI is a ``sweet spot'' that marries
-``need-finding techniques [to] identify ...  programmers' current and future
-pain points'' with tools that ``help [programmers] write safe and correct
-programs.'' We wholeheartedly agree.
+al.~\cite{chasins_pl_2021} describe that by pursuing a joint methodology 
+involving
+both PL and HCI achieves a ``sweet spot'' where need-finding techniques identify 
+current pain points while leading to concrete tools that help programmers write 
+safe, correct programs. We wholeheartedly agree, and adopt such a methodology as 
+central to this research.
 The team behind this proposal is uniquely positioned to advance the
-state of the art in PL+HCI: PI Head recently co-founded
-a new HCI group at the University of Pennsylvania, while PI Pierce has
+state of the art in PL and HCI: PI Head recently co-founded
+a new HCI group at the University of Pennsylvania and specializes in interactive 
+programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
 We propose a comprehensive, interdisciplinary research program
 bringing the combined power of PL and HCI to bear to accelerate PBT's
 transition into practice.
 \begin{itemize}[noitemsep]
-\item Our ongoing study constitutes a first step in laying a
-\emph{foundation} for HCI-informed research on PBT.  We will confirm
+\item We establish a \emph{foundation} for HCI-informed research on PBT, 
+beginning with our ongoing need-finding study. We will confirm
 its findings and further explore PBT's usability with
-two\iflater\bcp{check!}\fi{} survey studies and an observation study
-of PBT users {\em in situ} (\sectionref{sec:foundation}).
+two\iflater\bcp{check!}\fi{} survey studies and observation studies
+of PBT users {\em in situ} designed to lead to concrete tool designs 
+(\sectionref{sec:foundation}).
   \item We will address usability challenges in property \emph{specification} by
   developing tools to \bcp{ugh:}
   automatically derive properties for the common use case of
@@ -153,21 +164,21 @@ specifications of a function under test. For example, a user might
 write the following property of the \lstinline{insert}
 function for an implementation of a binary search tree (BST):
 \begin{lstlisting}
-  prop_insertCorrect x t  =  (isBST t ==> isBST (insert x t))
+  prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
 This property takes only a single
 line to express, yet it can be used to validate a limitless number of
 input-output pairs. Concretely, it is
 a simple function that takes two arguments and returns a
 Boolean value: true if the property is satisfied, and false if it is
-not. The function \texttt{prop\_insertCorrect} checks
+not. The function \verb|prop_insert_correct| checks
 that an insert operation on a binary search tree preserves the
 binary ordering of the tree; it states
 that, given an arbitrary tree \texttt{t} and an integer
 \texttt{x} to insert into that tree, if the original tree
 satisfies the
-binary search tree invariant (``\texttt{isBST t}''), then it should remain
-a BST following the insertion of \texttt{x} (``\texttt{isBST (insert x t)})''.
+binary search tree invariant (``\verb|is_bst t|''), then it should remain
+a BST following the insertion of \verb|x| (``\verb|is_bst (insert x t)|)''.
 
 Given a property like this one, the PBT tool chooses large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
@@ -433,6 +444,8 @@ There are many forms such feedback could take, from code coverage (requested by
 strategies like {\em mutation
   testing}~\cite{papadakis_mutation_2018}.
 
+\todo{Education}
+
 We discuss plans for work that addresses these themes below, \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
 \sectionref{sec:gen}, and
@@ -693,14 +706,14 @@ end
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
 module Set : sig
-  type 'a t ;; val empty : 'a t
+  type 'a t     val empty : 'a t
   val mem   : 'a t -> 'a -> bool
   val add   : 'a t -> 'a -> 'a t
 end
 \end{lstlisting}
   \end{minipage}
   \caption{Some module interfaces we would like to test
-    automatically.\bcp{The ;; is confusing -- is it needed??}}\label{fig:sigs}
+    automatically.}\label{fig:sigs}
 \end{figure}
 
 Model-based testing is trivial in the simplest case (comparing two pure
