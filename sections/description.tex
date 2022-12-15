@@ -501,9 +501,9 @@ toward high-leverage use-cases for PBT. We discuss our plans to teach developers
 about high-leverage scenarios in \sectionref{sec:whento}; in this section, we
 discuss opportunities to expand and improve the space of scenarios where PBT
 shines.  In we improve PBT's applicability to poorly abstracted code
-(\sectionref{sec:outpurprop} ), and we describe tools that automate 
+(\sectionref{sec:outpurprop}), and we describe tools that automate 
 automatically in a specific high-leverage scenario: model-based testing
-(\sectionref{sec:automating} ).  Together, these projects will greatly improve
+(\sectionref{sec:automating}).  Together, these projects will greatly improve
 the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
@@ -674,7 +674,8 @@ programmatic manipulation that enable a host of new approaches to generator
 tooling (\sectionref{sec:reflective}). Reflective generators enable new
 approaches to fuzzing (\sectionref{sec:fuzzing}) and shrinking
 (\sectionref{sec:shrinking}) that reduce developer effort and improve testing
-effectiveness.
+effectiveness.\hg{BCP or AMH, feel free to edit. I was just trying to make it
+more exciting and mention usability}
 
 \subsectionstar{Context: Random Generation is Hard}
 As discussed in the Orientation, PBT relies heavily on {\em random data
@@ -780,15 +781,15 @@ different ways. In {\em Parsing Randomness} we prove that any free generator can
 be interpreted either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
 relationship between generators and parsers.
-\proposecut{Furthermore, since free generators
-are uninterpreted syntax trees, they can be manipulated programmatically. Free
-generators admit a version of a Brzozowski
-derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
-generation. We showed that free generator derivatives enable an algorithm called
-{\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
-generator to inputs that are more likely to be valid with respect to a given
-precondition. This work is an important step towards better automation for
-generators with complex preconditions.}
+% \proposecut{Furthermore, since free generators
+% are uninterpreted syntax trees, they can be manipulated programmatically. Free
+% generators admit a version of a Brzozowski
+% derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
+% generation. We showed that free generator derivatives enable an algorithm called
+% {\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
+% generator to inputs that are more likely to be valid with respect to a given
+% precondition. This work is an important step towards better automation for
+% generators with complex preconditions.}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
 % \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
@@ -896,16 +897,15 @@ fuzzers, to generate random bit-strings that are later parsed into program
 inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
 which has supplanted the original AFL project.)
 
-\begin{wrapfigure}{l}{0.5\textwidth}
-  \centering
-  \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
-  \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
-\end{wrapfigure}
+% \begin{wrapfigure}{l}{0.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
+%   \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
+% \end{wrapfigure}
 
 Our system will start with a setup similar to Crowbar, but with a much greater
 focus on the generators; in particular, we will use reflective generators to
-gain significant testing power. The setup is shown in
-Figure~\sectionref{fig:fuzzing-plan}. We start with a classic fuzzing setup, attempting
+gain significant testing power. We start with a classic fuzzing setup, attempting
 to make the system under test crash by passing it a variety of semi-random
 inputs. Normally, the fuzzer is working against the parser, in the sense that
 the parser's job is to reject invalid inputs and the fuzzer's job is to ``get
