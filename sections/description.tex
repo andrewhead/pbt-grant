@@ -109,48 +109,35 @@ its findings and further explore PBT's usability with
 two\iflater\bcp{check!}\fi{} survey studies and observation studies
 of PBT users {\em in situ} designed to lead to concrete tool designs 
 (\sectionref{sec:foundation}).
-  \item We will address usability challenges in property \emph{specification} by
-  developing tools to \bcp{ugh:}
-  automatically derive properties for the common use case of
-  model-based testing, and we will facilitate specifying
-  poorly abstracted code with a notation for writing and checking
-  temporal properties over logged outputs (\sectionref{sec:spec}).
-  \item We will improve and simplify test-case \emph{generation} with new
-  domain-specific languages\bcp{??} for generators that enable novel
-  algorithms for PBT tasks like generation of precondition-satisfying values,
-  test input mutation, and example-based generator tuning. \bcp{Can we
-  make that more usability-oriented?  And mention the word ``reflective''?}
-  (\sectionref{sec:gen}).
-  \item We will improve \emph{validation} of testing
-  effectiveness by providing
-  users with powerful new ways of interacting with their generators and test
-  suites that give them visibility into the bug-finding power of their tests
-  (\sectionref{sec:val}). \bcp{Again, I want to lean into the idea of
-    usability.}
-  \item We will create resources for PBT \emph{education}, including
-  materials for adding PBT to an undergraduate data structures course,
-  advice to developers on how to identify situations where properties
-  are readily available, and a tool for helping naive users articulate
-  properties (\sectionref{sec:ed}).
+  \item We empower developers to \emph{specify} properties with new approaches 
+to support the key use cases of properties that cross module boundaries and 
+those that represent complex model-based checks (\sectionref{sec:spec}).
+  \item We help developers efficiently define and tune test-case 
+\emph{generators} with novel techniques for generating precondition-satisfying 
+values, test input mutation, and example-based generator tuning, building
+  on an ``reflective'' approach to generation (\sectionref{sec:gen}).
+  \item We support developers in rapidly \emph{validating} testing
+  effectiveness with novel interactive programming tools that help programmers 
+locate the cause of a test failure and understand how to improve their generated 
+data distributions to be more representative and comprehensive 
+(\sectionref{sec:val}).
+  \item We propose an agenda for PBT \emph{education}, grounding this
+  agenda in resources for teaching powerful PBT practices in an undergraduate
+  computer science curriculum, a tool to help students author their
+  first properties, and a comprehensive review of PBT practice
+  to help developers learn about the diversity situations to which they should
+  put properties to work to validate their software
+  (\sectionref{sec:ed}).
 \end{itemize}
-We conclude the proposal with a concrete outline of our work plan
+
+Each of these research efforts involves a complement of PL and HCI research 
+efforts. HCI approaches will be used to concretely define developers' needs, 
+design the user interface to tools, and evaluate their success. PL approaches 
+will be used to develop PBT tools such as domain-specific languages and 
+type-based tools that are powerful and flexible, and to formally validate these 
+tools. We conclude the proposal with a concrete outline of our work plan
 (\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
 proposed work (\sectionref{sec:broader-impacts})
-
-\iflater\bcp{This needs a bit of focusing and toning down at some
-  point.}\fi The projects we undertake will be motivated by
-foundational need-finding research in the software industry,
-including, but not limited to, the aforementioned study with Jane
-Street.\bcp{What ``foundational need-finding research in the software
-  industry'' do we have in mind besides the JS study?}\hg{1.1 and 1.2?} Some projects
-will have a clear PL flavor, focusing on domain-specific languages and
-type-based tools that will make PBT tools more powerful and flexible;
-but we will motivate and evaluate them with techniques from HCI. Other
-projects will focus on the HCI elements of PBT, building better
-interfaces and experiences for developers; yet their implementation
-will draw from our wealth of PL knowledge. In this way, we craft a
-holistic research agenda around PBT that is sure to be both well
-motivated and well founded.
 
 \sectionstar{Orientation: Property-Based Testing}
 Before discussing our motivating study, we briefly explain what PBT is
