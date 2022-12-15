@@ -140,67 +140,62 @@ tools. We conclude the proposal with a concrete outline of our work plan
 proposed work (\sectionref{sec:broader-impacts})
 
 \sectionstar{Orientation: Property-Based Testing}
-Before discussing our motivating study, we briefly explain what PBT is
-and why it is important.
+
+Here, we describe the essence of the PBT approach, highlighting the component 
+tools involved. These tools together form the surface area of technology which 
+the research community has leverage in improving.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
-users write executable functions, usually in the same language as
-their System Under Test, which act as partial
+users write executable functions which act as partial
 specifications of a function under test. For example, a user might
-write the following property of the \lstinline{insert}
-function for an implementation of a binary search tree (BST):
+write the following property for an \lstinline{insert}
+function for a binary search tree (BST):\footnote{The function can be read as follows:%
+Assume an arbitrary tree \texttt{t} and an integer%
+\texttt{x} to insert into that tree. If the original tree%
+is a BST (``\texttt{is\_bst t}''), then it should remain%
+a BST after the insertion of \texttt{x} (``\texttt{is\_bst (insert x t)})''.}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
-This property takes only a single
-line to express, yet it can be used to validate a limitless number of
-input-output pairs. Concretely, it is
-a simple function that takes two arguments and returns a
-Boolean value: true if the property is satisfied, and false if it is
-not. The function \verb|prop_insert_correct| checks
+Like most properties, this one is a simple function which takes in generated 
+test inputs and evaluates to \lstinline{True} if the test passes, and 
+\lstinline{Fales} otherwise.  This function, ``\verb|prop_insert_correct|'', 
+checks
 that an insert operation on a binary search tree preserves the
-binary ordering of the tree; it states
-that, given an arbitrary tree \texttt{t} and an integer
-\texttt{x} to insert into that tree, if the original tree
-satisfies the
-binary search tree invariant (``\verb|is_bst t|''), then it should remain
-a BST following the insertion of \verb|x| (``\verb|is_bst (insert x t)|)''.
+binary ordering of the tree.
 
-Given a property like this one, the PBT tool chooses large number of inputs and
+The value of properties arises in part from their brevity: they often require 
+only a few lines to express, yet can validate unlimited
+input-output pairs.  Given a property like this one, the PBT tool generates a 
+large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
-that causes the property to fail is reported as a {\em counterexample}.  This
-proposal is on property-based {\em random} testing~\cite{hamlet1994random}, in
-which these inputs are chosen randomly.
-There are other approaches, including enumerative test-case
-generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
-checking, but random generation remains the dominant approach in the PBT
-space. Its surprising effectiveness is often attributed to the
-``combinatorial'' nature of larger test cases: bugs can often be
-exposed by test inputs with a specific combination of features,
-independent of whatever other features may be present---for example,
-by any sequence of API calls that includes calls to four particular
-functions in a particular order, even if these calls happens to be
-interleaved with other API calls.  This means that testing with one
-big structure has the effect of testing with exponentially many
-smaller sub-structures. Both practical experience and theoretical
-arguments~\cite{goldstein2021dojudgeatest} suggest that this effect is quite
-powerful---i.e., we can discover small counterexamples by generating
-a few larger test inputs containing combinatorially many diverse
-sub-structures rather than systematically enumerating test inputs
-beginning with the smallest ones.
+that causes the property to fail is reported as a {\em counterexample}.
 
-From the perspective of a user, applying PBT happens in a series of steps:
-(1) Define one or more properties that should be true of the program under
-  test.
-(2) Design (or otherwise obtain) {\em random input generators} for the
-  values that the properties take as input.
-(3) Check the properties with generated inputs, using infrastructure
-  provided by the PBT framework.
-And (4) if counter-examples are found, make sense of them and determine the
-  source of the bug.
+In its consideration of generators, this proposal focuses on {\em random} 
+generation~\cite{hamlet1994random}. This is in contrast to other
+approaches, like enumerative test-case
+generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
+checking. Random generation remains the dominant approach in PBT. Its
+effectiveness is often attributed to the
+``combinatorial'' nature of larger test cases: bugs can be
+exposed by test inputs with a specific combination of features,
+independent of whatever other features may be present. For example,
+a but may be triggered by a sequence of API calls in a particular order, 
+regardless of whether they are
+interleaved with other API calls. The effect is that testing with large random 
+inputs often exposes the same issues as testing with exponentially more
+enumeratively generated inputs.
+
+From the perspective of a developer, applying PBT happens entails the following 
+steps. First, the developer defines one or more properties that should be true 
+of the program under test. Then, they design (or reuse, or tailor) {\em random 
+input generators} for the values that the properties take as input. Then, they 
+check the properties with generated inputs, using test drivers provided by their 
+PBT tools. And finally, if counter-examples are discovered, they make sense of 
+them and determine the source of the bug.
 Each of these steps presents opportunities to improve the user experience of
-PBT, as we shall see below.
+PBT, as we describe in the next section.
 
 \smallskip
 
