@@ -257,9 +257,11 @@ taken place solely at Jane Street, our follow-up studies in
 \sectionref{sec:foundation} will engage with broader groups of developers using 
 PBT to expand and generalize our findings.}
 
-As of December 2022, the full complement of 30 interviews and a
-preliminary round of qualitative analysis have been completed; full-scale 
-analysis will begin in 2023.  A paper describing our findings will be submitted
+As of December 2022, a pilot study has been conducted, analyzed, and presented 
+at HATRA~\cite{goldstein_problems_2022}. Following this pilot study, the full 
+complement of 30 interviews have been conducted at Jane Street, and preliminary 
+round of qualitative analysis have been completed. Full-scale analysis will 
+begin in 2023. Our findings will be disseminated in a paper submitted
 to a top-tier software engineering conference.
 
 \subsectionstar{Framework: Challenges Using PBT} Upon completing
@@ -267,26 +269,25 @@ our analysis, we will contribute a deep, qualitative description of how
 developers use PBT, what they need from it, and how the research community can 
 help improve PBT tools. While full analysis of the data remains
 to be done, several themes have arisen from our initial analysis
-of interview session notes. These form the backbone of the present proposal.
+of interview session notes. These form the backbone of the present proposal. We 
+describe those themes below, referring informants from their study using 
+pseudonyms P1--30.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
 A first set of
-themes revolves around the {\bf specifications} that developers test.
+themes revolves around {\bf specifications} (i.e., properties).
 % and the kinds of programs in which they choose to test them.
 Since
-PBT is often described as a kind of lightweight formal method, one
-might imagine that a central challenge would be coming up with the
-right specifications. Indeed, an earlier pilot study of PBT users in
-Python~\cite{goldstein_problems_2022} that we ran to prepare for the Jane Street
-study\iflater\bcp{Is this the first
-  mention of the pilot study?  If not, move this citation earlier and
-no need for it here.}\fi{}
-concluded just that.
-  But at Jane Street itself
-we actually heard very little about difficulties coming up with
-properties; rather, most participants described applying PBT in
+PBT is often described as a lightweight formal method, one
+might imagine that a common challenge would be coming up with the
+specifications of desired program behavior. Indeed, in our pilot need-finding 
+studies with users of Python's Hypothesis library, users indicated just that.  
+In contrast,
+Jane Street developers on the whole reported
+few difficulties coming up with
+properties. Rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
 available or straightforward to invent. For example, \participant{9} pointed out
 that PBT is particularly easy to apply when one has ``a really good abstraction
