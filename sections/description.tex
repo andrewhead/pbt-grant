@@ -154,14 +154,14 @@ function for a binary search tree (BST):\footnote{The function can be read as
 follows:
 Assume an arbitrary tree \texttt{t} and an integer
 \texttt{x} to insert into that tree. If the original tree
-is a BST (``\texttt{is\_bst t}''), then it should remain
-a BST after the insertion of \texttt{x} (``\texttt{is\_bst (insert x t)})''.}
+is a BST (``\lstinline{is_bst t}''), then it should remain
+a BST after the insertion of \texttt{x} (``\lstinline{is_bst (insert x t)}'').}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
 Like most properties, this one is a simple function which takes in generated 
 test inputs and evaluates to \lstinline{True} if the test passes, and 
-\lstinline{Fales} otherwise.  This function, ``\verb|prop_insert_correct|'', 
+\lstinline{False} otherwise.  This function, ``\verb|prop_insert_correct|'', 
 checks
 that an insert operation on a binary search tree preserves the
 binary ordering of the tree.
