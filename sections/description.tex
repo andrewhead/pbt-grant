@@ -150,10 +150,11 @@ PBT is a form of random testing~\cite{hamlet1994random} where
 users write executable functions which act as partial
 specifications of a function under test. For example, a user might
 write the following property for an \lstinline{insert}
-function for a binary search tree (BST):\footnote{The function can be read as follows:%
-Assume an arbitrary tree \texttt{t} and an integer%
-\texttt{x} to insert into that tree. If the original tree%
-is a BST (``\texttt{is\_bst t}''), then it should remain%
+function for a binary search tree (BST):\footnote{The function can be read as 
+follows:
+Assume an arbitrary tree \texttt{t} and an integer
+\texttt{x} to insert into that tree. If the original tree
+is a BST (``\texttt{is\_bst t}''), then it should remain
 a BST after the insertion of \texttt{x} (``\texttt{is\_bst (insert x t)})''.}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
