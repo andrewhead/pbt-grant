@@ -675,10 +675,10 @@ Generators were regularly cited as one of the most challenging parts of the PBT
 process---the existing tools for random generation are varied and powerful, but
 they are not very usable.  In this section, we present {\em reflective
 generators}, a new abstraction for random generation that exposes levers for
-programmatic manipulation that enable a host of new approaches to generator
+automation that enable a host of new approaches to generator
 tooling (\sectionref{sec:reflective}). Reflective generators enable new
-approaches to fuzzing (\sectionref{sec:fuzzing}) and shrinking
-(\sectionref{sec:shrinking}) that reduce developer effort and improve testing
+approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
+(\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
 effectiveness.\hg{BCP or AMH, feel free to edit. I was just trying to make it
 more exciting and mention usability}
 
@@ -869,101 +869,16 @@ automated approaches to improving generator distributions---and we get
 will see some additional use cases for reflective generators in the
 following sections.
 
-\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
-{\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
-ones behind PBT: they leverage randomized testing to quickly exercise as
-many program behaviors as possible.  One might then expect that the fuzzing and
-PBT share a significant amount of literature, but in reality they do not. Often
-the communities seem to ``talk past'' one another.
-
-We propose that the main thing separating the PBT and fuzzing communities is
-simply a difference of {\em focus}. The fuzzing literature mostly talks about
-fast and automatic ways to find critical (security) vulnerabilities in
-programs---usually manifesting in the form of crash failures.  In contrast, PBT
-researchers want effective ways to test semi-formal logical specifications of
-their programs. Both areas of focus are important: fuzzing captures the ``80\%''
-of cases catching high-profile bugs with minimal programmer effort, and PBT
-gives a level of thoroughness that fuzzing does not claim to match. But there is
-something unsatisfying when things are laid out this way. In particular, while
-fuzzing and PBT focus on different testing problems, they face many of the same
-technological hurdles. Both PBT and fuzzing need fast and effective ways to
-generate random inputs that are valid for the systems that they are testing, and
-neither community has truly settled on the ``right'' way to get there.
-
-There is already some work that attempts to bridge the gap between PBT and
-fuzzing. For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
-uses code coverage as guidance for PBT and the HypoFuzz library uses a
-similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
-are demonstrably powerful, but neither benefits from the years of expertise
-poured into industrial-strength fuzzers; Crowbar
-does~\cite{dolan2017testing}. Crowbar uses
-AFL~\cite{afl-readme}, one of the best-established
-fuzzers, to generate random bit-strings that are later parsed into program
-inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
-which has supplanted the original AFL project.)
-
-% \begin{wrapfigure}{l}{0.5\textwidth}
-%   \centering
-%   \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
-%   \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
-% \end{wrapfigure}
-
-Our system will start with a setup similar to Crowbar, but with a much greater
-focus on the generators; in particular, we will use reflective generators to
-gain significant testing power. We start with a classic fuzzing setup, attempting
-to make the system under test crash by passing it a variety of semi-random
-inputs. Normally, the fuzzer is working against the parser, in the sense that
-the parser's job is to reject invalid inputs and the fuzzer's job is to ``get
-past the parser.'' The CFGs used by grammar-based fuzzers help a bit, but they
-cannot generate inputs satisfying complex context-sensitive constraints. As in
-Crowbar, we avoid this adversarial relationship and subsume grammar-based
-generation with a powerful generator that is powerful enough to satisfy the
-parser by construction; in our case, that generator is reflective.
-
-Why use a reflective generator? First, we should clarify why any kind of monadic
-generator is preferable to grammar-based options. Monadic generators can
-straightforwardly generate context-free structures, and they can often do so
-automatically with the help of type information~\cite{mista2019deriving}. If
-this is all that the precondition requires, then there is no harm in using a
-monadic generator, rather than a grammar-based one. But the beauty of a monadic
-generator is that it can be made far more powerful, incrementally, as the
-developer's testing needs change. The developer can start off thinking that they
-need only consider the structure of their inputs, but they can later add more
-semantic guarantees if they determine that their testing is ineffective.
-
-Focusing on reflective generators specifically, one compelling benefit is that
-their backward interpretation can be used to help seed the fuzzer.  Most fuzzers
-ask for a number of {\em seeds}, input examples that the fuzzer can start from,
-in order to ensure that the fuzzer does not spend ages exploring
-inputs that have no hope of working out. Normally these seeds are easy enough
-for the user to write down, since they are simply program inputs, but now that
-we are asking the fuzzer to generate sequences of choices it becomes much more
-error-prone (and tedious) to produce seeds by hand.  This is one great use for a
-backward interpretation. The user can write down their seeds---either as values
-in the program, or as text that can be parsed by the program's parser---and then
-the reflective generator can reflect on the choices that produce those seeds.
-
-The reflective generator also provides validity-preserving mutation. Guided by
-heuristics, the system can opt to supplement the fuzzer's mutation schedule with
-mutations that are obtained by the reflective generator's validity-preserving
-mutation (which is more targeted than the mutators provided by the fuzzer). We
-expect this to have a significant impact on performance, especially in contexts
-where preconditions are relatively sparse and therefore hard for AFL++ to mutate
-correctly.
-
-Our ultimate goal is a grand unification of PBT and fuzzing generator tooling:
-the fuzzing literature provides battle-tested heuristics for coverage-guided
-generation, the PBT literature provides powerful tools like reflective
-generators for refining generator performance incrementally, and both
-communities benefit from generators with better distributions.
-
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{Harry}
 %
-A more modest application of reflective generators uses them to implement
-validity-preserving {\em shrinking} of values to find smaller counterexamples
-and speed up debugging. On its face, this feels similar to validity-preserving
-mutation: Can we reflect on choices, shrink the choices, and then re-run the
-generator with the smaller choices? Likely yes! But there are complications.
+Reflective generators' ability to run backward means that they can be used as
+part of any algorithm that needs to understand the structure of generated
+inputs.  We therefore propose using them to implement validity-preserving {\em
+shrinking} of values to find smaller counterexamples and speed up debugging
+without any more effort from the user. On its face, this feels similar to
+validity-preserving mutation: Can we reflect on choices, shrink the choices, and
+then re-run the generator with the smaller choices? Likely yes! But there are
+complications.
 
 Shrinkers need to be more careful than mutators to keep shrunk values faithful
 to the original. When mutating, it is often fine if the mutated value is
@@ -993,6 +908,75 @@ be comfortable ignoring it.  Our hope is that eventually, having a reflective
 generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
 simply making counterexamples smaller and easier to understand.
+
+\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
+{\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
+ones behind PBT: they leverage randomized testing to quickly exercise as many
+program behaviors as possible. Fuzzers are compelling because they are
+inherently easy to use. The developer need only point the fuzzer at a binary and
+wait for it to find bugs. But without help, fuzzers are not very good at finding
+bugs in programs with complex preconditions.
+
+There are a rew existing projects that try to get the best of both worlds by
+combining PBT and fuzzing.
+For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
+uses code coverage as guidance for PBT and the HypoFuzz library uses a
+similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
+are demonstrably powerful, but neither benefits from the years of expertise
+poured into industrial-strength fuzzers; Crowbar
+does~\cite{dolan2017testing}. Crowbar uses
+AFL~\cite{afl-readme}, one of the best-established
+fuzzers, to generate random bit-strings that are later parsed into program
+inputs. Crowbar does require more user effort than standard fuzzing techniques,
+but the coverage-guidance means that careful tuning is often not required to get
+good testing performance.
+
+We like the model of Crowbar a lot, but think it does not quite go far enough;
+we intend to replicate a version of Crowbar built on reflective generators that
+is even more powerful.
+We start with a classic fuzzing setup, attempting to make the system under test
+crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
+working against the parser, in the sense that the parser's job is to reject
+invalid inputs and the fuzzer's job is to ``get past the parser.'' Crowbar's
+generators avoid this adversarial relationship and subsume grammar-based
+generation with a powerful generator that is powerful enough to satisfy the
+parser by construction; ours will as well, but with reflective generators.
+
+Why use a reflective generator? First, we should clarify why any kind of monadic
+generator is preferable to grammar-based options. Monadic generators can
+straightforwardly generate context-free structures, and they can often do so
+automatically with the help of type information~\cite{mista2019deriving}. If
+this is all that the precondition requires, then there is no harm in using a
+monadic generator, rather than a grammar-based one. But the beauty of a monadic
+generator is that it can be made far more powerful, incrementally, as the
+developer's testing needs change. The developer can start off thinking that they
+need only consider the structure of their inputs, but they can later add more
+semantic guarantees if they determine that their testing is ineffective.
+
+Focusing on reflective generators specifically, one compelling benefit is that
+their backward interpretation can be used to help seed the fuzzer.  Most fuzzers
+ask for a number of {\em seeds}, input examples that the fuzzer can start from,
+in order to ensure that the fuzzer does not spend ages exploring
+inputs that have no hope of working out. Normally these seeds are easy enough
+for the user to write down, since they are simply program inputs, but now that
+we are asking the fuzzer to generate sequences of choices it becomes much more
+error-prone (and tedious) to produce seeds by hand.  This is one great use for a
+backward interpretation. The user can write down their seeds---either as values
+in the program, or as text that can be parsed by the program's parser---and then
+the reflective generator can reflect on the choices that produce those seeds.
+
+The reflective generator also provides validity-preserving mutation. Guided by
+heuristics, the system can opt to supplement the fuzzer's mutation schedule with
+mutations that are obtained by the reflective generator's validity-preserving
+mutation (which is more targeted than the mutators provided by the fuzzer). We
+expect this to have a significant impact on performance, especially in contexts
+where preconditions are relatively sparse and therefore hard for AFL to mutate
+correctly.
+
+Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
+powerful automation potential of reflective generators with the usability of
+fuzzers. Testers will be able to test properties with complex preconditions
+without giving up the power and simplicity of coverage-guided generation.
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
@@ -1222,13 +1206,15 @@ data distributions, but more directly change them.
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 %
 What should developers do if their property-based tests are testing the wrong
-inputs? Tuning generators is a challenging task,
-often requiring significant trial-and-error through an opaque process of
-changing generator parameters and hoping that the input data distribution will
-be updated in the right way. This process, however, often does not pay off.
-Ideally, developers could describe the kinds of inputs they want directly,
-rather than tweaking generator parameters and hoping it leads to the right kinds
-of input data distributions.
+inputs? Tuning generators is a challenging task, often requiring significant
+trial-and-error through an opaque process of changing generator parameters and
+hoping that the input data distribution will be updated in the right way. This
+process, however, often does not pay off. (Approaches like the one in
+\sectionref{sec:fuzzing} can help, but manual tuning is still useful in cases
+where fuzzing fails to find the developer's intended space of inputs.) Ideally,
+developers could describe the kinds of inputs they want directly, rather than
+tweaking generator parameters and hoping it leads to the right kinds of input
+data distributions.
 
 We will design tools to support the direct tuning of input data distributions
 through manipulation of generated inputs and input data distributions. This
