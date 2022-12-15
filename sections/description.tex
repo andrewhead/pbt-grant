@@ -142,8 +142,8 @@ proposed work (\sectionref{sec:broader-impacts})
 
 \sectionstar{Orientation: Property-Based Testing}
 
-We next describe the basics of the PBT approach, with the aim of highlighting 
-where research has unique leverage in improving tooling, processes, and 
+We next describe the basics of the PBT approach, with the aim of highlighting
+where research has unique leverage in improving tooling, processes, and
 education around PBT.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
@@ -160,7 +160,7 @@ a BST after the insertion of \texttt{x} (``\lstinline{is_bst (insert x t)}'').}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
-As is the case with properties generally, this property is a function which 
+As is the case with properties generally, this property is a function which
 takes in generated
 test inputs and evaluates to \lstinline{True} if the test passes, and
 \lstinline{False} otherwise.  This function, ``\verb|prop_insert_correct|'',
@@ -213,16 +213,16 @@ testing. Wrenn et al.~\cite{wrenn2021using} point out that example-based testing
 of programs like that implement relations (e.g., topological sort, which may
 produce one of a number of potentially correct results) is impossible to do
 faithfully; a property-based specification is a much better choice. PBT is also
-an obvious choice if formal properties have already been written, as is the case 
-with tools like QuickChick~\cite{paraskevopoulou_foundational_2015}, which 
+an obvious choice if formal properties have already been written, as is the case
+with tools like QuickChick~\cite{paraskevopoulou_foundational_2015}, which
 implements PBT in
 the Coq proof assistant. Finally, PBT can act as superior documentation:
 participants in our foundational study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
-With so many potential advantages, it is clear that PBT should be a tool should 
-be a tool that software developers turn to without hesitation for validating 
+With so many potential advantages, it is clear that PBT should be a tool should
+be a tool that software developers turn to without hesitation for validating
 their software. We intend to make it that way.
 
 \iflater\todo{Double-check that we've mentioned all relevant
@@ -233,15 +233,15 @@ their software. We intend to make it that way.
   in the context sections.}
   \fi
 
-\sectionstar{Motivations from a Formative Study of PBT in Industry 
+\sectionstar{Motivations from a Formative Study of PBT in Industry
 \pagebudget{2}}\label{sec:motivation}
 %
 The goals of this proposal are motivated by findings from an on-going
-need-finding study we have been conducting in industry. The purpose of this 
-study was to understand how the research community can make PBT more valuable 
-for software developers. This study has consisted of semistructured interviews 
-with 30 stakeholders in PBT, including both developers who have used PBT and 
-developers and maintainers of PBT tools. The site of the study is Jane Street 
+need-finding study we have been conducting in industry. The purpose of this
+study was to understand how the research community can make PBT more valuable
+for software developers. This study has consisted of semistructured interviews
+with 30 stakeholders in PBT, including both developers who have used PBT and
+developers and maintainers of PBT tools. The site of the study is Jane Street
 Capital. A number of aspects of Jane Street make it
 an attractive setting for such a study.  Most importantly, PBT is
 already well established at Jane Street, so there is a large
@@ -252,25 +252,25 @@ there is a well-engineered PBT tool. This unified
 ecosystem allows us to ensure that developers have access to mature PBT tools,
 experience using them in collaborative settings,
 and awareness of language-level programming abstractions necessary
-to advanced usage.\footnote{Because our primary need-finding study to-date has 
-taken place solely at Jane Street, our follow-up studies in 
-\sectionref{sec:foundation} will engage with broader groups of developers using 
+to advanced usage.\footnote{Because our primary need-finding study to-date has
+taken place solely at Jane Street, our follow-up studies in
+\sectionref{sec:foundation} will engage with broader groups of developers using
 PBT to expand and generalize our findings.}
 
-As of December 2022, a pilot study has been conducted, analyzed, and presented 
-at HATRA~\cite{goldstein_problems_2022}. Following this pilot study, the full 
-complement of 30 interviews has been completed at Jane Street, and a preliminary 
-round of qualitative analysis is underway. Full-scale analysis will 
+As of December 2022, a pilot study has been conducted, analyzed, and presented
+at HATRA~\cite{goldstein_problems_2022}. Following this pilot study, the full
+complement of 30 interviews has been completed at Jane Street, and a preliminary
+round of qualitative analysis is underway. Full-scale analysis will
 begin in 2023. Our findings will be disseminated in a paper submitted
 to a top-tier software engineering conference.
 
 \subsectionstar{Framework: Challenges Using PBT} Upon completing
-our analysis, we will contribute a deep, qualitative description of how 
-developers use PBT, what they need from it, and how the research community can 
+our analysis, we will contribute a deep, qualitative description of how
+developers use PBT, what they need from it, and how the research community can
 help improve PBT tools. While full analysis of the data remains
 to be done, several themes have arisen from our initial analysis
-of interview session notes. These form the backbone of the present proposal. 
-\proposecut{We describe those themes below, referring informants from their study using 
+of interview session notes. These form the backbone of the present proposal.
+\proposecut{We describe those themes below, referring informants from their study using
 pseudonyms P1--30.}
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
@@ -284,8 +284,8 @@ properties).
 Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
-specifications of desired program behavior. Indeed, in our pilot need-finding 
-studies with users of Python's Hypothesis library, users indicated just that.  
+specifications of desired program behavior. Indeed, in our pilot need-finding
+studies with users of Python's Hypothesis library, users indicated just that.
 By contrast, Jane Street developers, on the whole, reported
 few difficulties coming up with
 properties. Rather, most participants described applying PBT in
@@ -352,8 +352,8 @@ described shrinker implementation as an opaque and difficult process.
 Ideally, developers would have tools that make the process of implementing 
 shrinkers fast and simple.
 
-Some more themes from the interview study concerned the \evaltheme{\normalfont 
-\bf validation} of
+Further themes from the interview study concerned the \evaltheme{\normalfont \bf 
+validation} of
 testing effectiveness. The developers' \evaltheme{Evaluation of Effectiveness}
 often featured in our conversations, with some participants asking explicitly
 for better ways to evaluate their generators and properties. There are many
@@ -520,13 +520,12 @@ what kinds of designs will be viable for helping programmers.
 % \bcp{Again, we need to explain the expected contributions---what end
 %   does ``characterizing obstacles'' serve.}
 
-\smallskip
-\hg{Maybe this should get merged into the section heading?}
-Together, the studies described in this section provide a firm foundation many
+% \hg{Maybe this should get merged into the section heading?}
+\proposecut{Together, the studies described in this section provide a firm foundation many
 of the activities in this proposal, and for future research on PBT more
 generally. We will produce a validated and prioritized set of developer needs
 for PBT tools and a detailed set of requirements for how tools should be
-(re)designed to best satisfy the most important of those needs.
+(re)designed to best satisfy the most important of those needs.}
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
 The projects in this section address the \proptheme{specification themes}
@@ -923,7 +922,7 @@ which has supplanted the original AFL project.)
 \begin{wrapfigure}{l}{0.5\textwidth}
   \centering
   \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
-  \caption{Overview of gradually constrained fuzzing.}\label{fig:fuzzing-plan}
+  \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
 \end{wrapfigure}
 
 Our system will start with a setup similar to Crowbar, but with a much greater
@@ -1055,6 +1054,8 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
+\bcp{Compress:}
+
 One of the unique challenges in creating usable property-based testing is
 providing adequate support for evaluating test results. Testing with properties
 is fundamentally different from conventional unit testing tools in many ways.
@@ -1092,6 +1093,17 @@ this work will be a comprehensive, innovative set of design primitives for
 helping developers get work done in the challenge setting of reasoning about
 tests with an overabundance of input-output examples.
 
+\bcp{Integrate:}
+The projects in this section must all be designed in concert with real users
+evaluated in terms of their impact and usability. We will design these tools
+using {\em human-centered design}: we will show prototypes to potential users,
+get feedback, redesign, and repeat, until we are satisfied that our design will
+solve users' problems effectively. When evaluating the designs, we will conduct
+short user studies, comparing a users' experiences with our tools to their
+performance on the same tasks without those tools. Designing and evaluating in
+this way will increase our potential for impact and keep our work grounded in
+the needs of real users.
+
 % \amh{I think I want to organize this section chronologically around the
 % following sequence of tasks: (1) understanding (and debugging) a single input;
 % (2) understanding distributions of inputs; (3) tuning distributions of inputs;
@@ -1106,78 +1118,6 @@ tests with an overabundance of input-output examples.
 % ways of expressing and reviewing tests, and could have
 % potentially transformative impact within interactive programming systems in the
 % long term. (Can we flesh out just how big a field we feel this is?)}
-
-\SUBSECTION{Understanding Failures}{sec:failures}{3}{4}{Other}
-
-With property-based testing, one of the challenges to evaluating test results is
-simply understanding individual inputs, which may be complex and trigger bugs in
-ways that are difficult to understand. We will design interactive tools that
-make it easier for developers to understand the structure of inputs that trigger
-failures, and to understand the nature of those failures. First, we will design
-tools that help develoeprs simplify inputs into ones that are easier to
-nderstand. One method of doing so is through automatic shrinking, a well-known
-technique in the  PBT
-literature~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and an area in
-which we will innovate in this project (see \sectionref{sec:shrinking}).  Though
-even with the advances proposed in this project, shrinking can be opaque, and
-often make suboptimal decisions that an individual developer might be able to
-make better.
-
-Drawing inspiration from approaches in recent HCI literature that have supported
-the interactive reduction of code through iterative, incremental
-experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
-we will design aids for rapid, incremental, interactive shrinking of complex
-inputs into simpler inputs. The key feature we will develop is the ability to
-shrink inputs by pruning the input's contents and structure in an interactive
-object viewer, similar to the kinds of object viewers available in contemporary
-debuggers like in the JetBrains IDE~\cite{tool:jetbrains}. The key idea for
-interactive shrinking will be to point out to developers the \emph{valid} ways
-in which an input can be pruned. These valid options for pruning can be
-collected as metadata for the input as they are generated by a reflective
-generator; in other words, many choices that the generator makes correspond to
-an aspect of the input that could be pruned. These pruning points will be made
-visible in the object viewer. As a developer prunes the input, they will receive
-continuous feedback as to whether it still causes a test to fail or not, to help
-the developer determine whether the simplified input in fact continues to
-trigger the same error. The end result will be that developers will be able to
-reduce complex inputs into simpler ones that trigger failures, which will in
-turn be easier to reason about when locating causes of failure in the code.
-
-% Developers will also be alerted if the execution path
-% through the code has changed as a result of shrinking the input. In some
-% circumstances, this will indicate an undesirable change in the shrunken input,
-% and in other cases, such changes in execution paths may be permissible (e.g., if
-% the change in the input has led to a reduction in the number of cycles through a
-% loop).
-
-% \amh{Could we indicate on top of an object explorer which
-% parts of the structure, if changed, would end up leading to
-% a different test result, or preserving it?}
-% \hg{To a point... You'd run into exponential blowup pretty much immediately, but
-% depending on the scale of the input it could be doable}
-
-% Other related projects:
-% Whyline~\cite{ref:ko2009finding}.
-
-In addition to developing novel interaction techniques for simplifying inputs,
-we will also develop systems for helping developers locate code that, if
-changed, should resolve the failure. Rather than explicitly encoding
-relationships between generated outputs and their dependencies on
-code~\cite{ref:ko2009finding}, we will instead take the approach of helping a
-developer understand where the execution paths of a counterexample diverges from
-a successful yet very similar input. Leveraging the parametric nature of the
-reflective generators developed in \sectionref{sec:reflective}, we will generate
-additional inputs that are very similar to the counterexample that are pass the
-test, assuming that inputs that share most of their structure and concrete data
-will trigger execution paths are also very similar themselves. Then, we will
-execute the program up to the point where the traces of the programs begin to
-diverge. Finally, we will drop the programmer into a debugging environment where
-they can query the state of the program and step through the remainder of the
-execution. PI Head has prior work designing debugging tools that help
-programmers understand trace divergences in an educational
-settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
-bring this technology into professional programming environments where traces
-for similar inputs are abundant by the nature of reflective generators.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Other}
 
@@ -1458,17 +1398,82 @@ with precise equality checks.
 
 % \fi
 
-\bigskip
-\bcp{Could this go at the top of the section (and be shorter)?}
-The projects in this section must all be designed in concert with real users
-evaluated in terms of their impact and usability. We will design these tools
-using {\em human-centered design}: we will show prototypes to potential users,
-get feedback, redesign, and repeat, until we are satisfied that our design will
-solve users' problems effectively. When evaluating the designs, we will conduct
-short user studies, comparing a users' experiences with our tools to their
-performance on the same tasks without those tools. Designing and evaluating in
-this way will increase our potential for impact and keep our work grounded in
-the needs of real users.
+\SUBSECTION{Understanding Failures}{sec:failures}{3}{4}{Other}
+
+\bcp{Harry and I both persistently have trouble understanding what the
+title means.  Can we find a pithier phrase?  Also, the section seems
+much too long -- the most important bits are the first paragraph and
+the last sentence.}
+
+With property-based testing, one of the challenges to evaluating test results is
+simply understanding individual inputs, which may be complex and trigger bugs in
+ways that are difficult to understand. We will design interactive tools that
+make it easier for developers to understand the structure of inputs that trigger
+failures, and to understand the nature of those failures. First, we will design
+tools that help develoeprs simplify inputs into ones that are easier to
+nderstand. One method of doing so is through automatic shrinking, a well-known
+technique in the  PBT
+literature~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and an area in
+which we will innovate in this project (see \sectionref{sec:shrinking}).  Though
+even with the advances proposed in this project, shrinking can be opaque, and
+often make suboptimal decisions that an individual developer might be able to
+make better.
+
+Drawing inspiration from approaches in recent HCI literature that have supported
+the interactive reduction of code through iterative, incremental
+experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
+we will design aids for rapid, incremental, interactive shrinking of complex
+inputs into simpler inputs. The key feature we will develop is the ability to
+shrink inputs by pruning the input's contents and structure in an interactive
+object viewer, similar to the kinds of object viewers available in contemporary
+debuggers like in the JetBrains IDE~\cite{tool:jetbrains}. The key idea for
+interactive shrinking will be to point out to developers the \emph{valid} ways
+in which an input can be pruned. These valid options for pruning can be
+collected as metadata for the input as they are generated by a reflective
+generator; in other words, many choices that the generator makes correspond to
+an aspect of the input that could be pruned. These pruning points will be made
+visible in the object viewer. As a developer prunes the input, they will receive
+continuous feedback as to whether it still causes a test to fail or not, to help
+the developer determine whether the simplified input in fact continues to
+trigger the same error. The end result will be that developers will be able to
+reduce complex inputs into simpler ones that trigger failures, which will in
+turn be easier to reason about when locating causes of failure in the code.
+
+% Developers will also be alerted if the execution path
+% through the code has changed as a result of shrinking the input. In some
+% circumstances, this will indicate an undesirable change in the shrunken input,
+% and in other cases, such changes in execution paths may be permissible (e.g., if
+% the change in the input has led to a reduction in the number of cycles through a
+% loop).
+
+% \amh{Could we indicate on top of an object explorer which
+% parts of the structure, if changed, would end up leading to
+% a different test result, or preserving it?}
+% \hg{To a point... You'd run into exponential blowup pretty much immediately, but
+% depending on the scale of the input it could be doable}
+
+% Other related projects:
+% Whyline~\cite{ref:ko2009finding}.
+
+In addition to developing novel interaction techniques for simplifying inputs,
+we will also develop systems for helping developers locate code that, if
+changed, should resolve the failure. Rather than explicitly encoding
+relationships between generated outputs and their dependencies on
+code~\cite{ref:ko2009finding}, we will instead take the approach of helping a
+developer understand where the execution paths of a counterexample diverges from
+a successful yet very similar input. Leveraging the parametric nature of the
+reflective generators developed in \sectionref{sec:reflective}, we will generate
+additional inputs that are very similar to the counterexample that are pass the
+test, assuming that inputs that share most of their structure and concrete data
+will trigger execution paths are also very similar themselves. Then, we will
+execute the program up to the point where the traces of the programs begin to
+diverge. Finally, we will drop the programmer into a debugging environment where
+they can query the state of the program and step through the remainder of the
+execution. PI Head has prior work designing debugging tools that help
+programmers understand trace divergences in an educational
+settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
+bring this technology into professional programming environments where traces
+for similar inputs are abundant by the nature of reflective generators.
 
 \SECTION{Education}{Advancing PBT in the Broader Culture \pagebudget{1}}{sec:ed}
 
@@ -1716,6 +1721,7 @@ VSCode environment~\cite{ref:head2020composing}.
       that, is it interesting enough to justify the space?  I guess we
     could alternatively include ``(Years X to Y)'' in subsection
     titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi
+   \bcp{squeeze the header lines to the left}
    % \bcp{The timeline needs to be brought into correspondence with our
    %   actual expectations of timing, and explained.  Harry's projects
    %   should end by year 3 latest!  :-)}
