@@ -31,7 +31,7 @@ possible with alternative tools.
 
 PBT's combination of rich, high-level specification with easy, mostly
 automatic validation has proved effective at identifying subtle
-bugs in an impressive variety of settings, including telecommunications 
+bugs in an impressive variety of settings, including telecommunications
 software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
@@ -45,7 +45,7 @@ developers~\cite{ZacPersonalCommunication}.
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
-With all of this momentum, one might wonder if the research community has 
+With all of this momentum, one might wonder if the research community has
 already
 addressed all of the challenges that could limit PBT's adoption
 in the broader software industry, but it
@@ -58,44 +58,45 @@ built their own libraries for it when standard ones were not available in their
 development context (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20}). But we also found
-challenging new research questions where advances in technical foundations and 
-tool design necessary to overcome present usability challenges and expand the 
+challenging new research questions where advances in technical foundations and
+tool design necessary to overcome present usability challenges and expand the
 potential impact of PBT.
 
-Our formative research suggests that a future of \emph{usable property-based 
-testing} depends on research addressing the challenge problems of helping 
+Our formative research suggests that a future of \emph{usable property-based
+testing} depends on research addressing the challenge problems of helping
 developers
 %
 (a) identify situations where a property-based approach is suitable for
 testing,
 %
-(b) specify properties that cross module boundaries,
+(b) specify properties that cross module boundaries,\bcp{Not sure
+  about this one.}
 %
-(c) write random data generators for data structures with complex invariants,
+(c) write random generators for data structures with complex invariants,
 %
-(d) understand whether generated data distributions are sufficiently realistic 
+(d) understand whether generated data distributions are sufficiently realistic
 and comprehensive, and in turn tune the generated data distributions,
 %
 (e) understand individual test failures, and
 %
 (f) learn about effective PBT practice in the first place.
-\amh{This feels redundant with the later bullet points. I'd propose we have this 
-simply state the high-level categories of needs from the project summary, and 
-save the specifics for the bullet points below.}
+\amh{This feels redundant with the later bullet points. I'd propose we have this
+simply state the high-level categories of needs from the project summary, and
+save the specifics for the bullet points below.}\bcp{Agreed.}
 \iflater\bcp{All that needs final tuning.}\fi
 
 Solutions to these challenges require insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
-al.~\cite{chasins_pl_2021} describe that by pursuing a joint methodology 
+al.~\cite{chasins_pl_2021} argue that a methodology
 involving
-both PL and HCI achieves a ``sweet spot'' where need-finding techniques identify 
-current pain points while leading to concrete tools that help programmers write 
-safe, correct programs. We wholeheartedly agree, and adopt such a methodology as 
+both PL and HCI hits a ``sweet spot'' where need-finding techniques identify
+current pain points and lead to concrete tools that help programmers write
+safe, correct programs. We wholeheartedly agree, and such a methodology is
 central to this research.
 The team behind this proposal is uniquely positioned to advance the
 state of the art in PL and HCI: PI Head recently co-founded
-a new HCI group at the University of Pennsylvania and specializes in interactive 
+a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
@@ -103,54 +104,55 @@ We propose a comprehensive, interdisciplinary research program
 bringing the combined power of PL and HCI to bear to accelerate PBT's
 transition into practice.
 \begin{itemize}[noitemsep]
-\item We establish a \emph{foundation} for HCI-informed research on PBT, 
+\item We will establish a \emph{foundation} for HCI-informed research on PBT,
 beginning with our ongoing need-finding study. We will confirm
 its findings and further explore PBT's usability with
 two\iflater\bcp{check!}\fi{} survey studies and observation studies
-of PBT users {\em in situ} designed to lead to concrete tool designs 
+of PBT users {\em in situ} designed to lead to concrete tool designs
 (\sectionref{sec:foundation}).
-  \item We empower developers to \emph{specify} properties with new approaches 
-to support the key use cases of properties that cross module boundaries and 
+  \item We will empower developers to \emph{specify} properties with new approaches
+to support the key use cases of properties that cross module boundaries and
 those that represent complex model-based checks (\sectionref{sec:spec}).
-  \item We help developers efficiently define and tune test-case 
-\emph{generators} with novel techniques for generating precondition-satisfying 
+  \item We will help developers efficiently define and tune test-case
+\emph{generators} with novel techniques for generating precondition-satisfying
 values, test input mutation, and example-based generator tuning, building
   on an ``reflective'' approach to generation (\sectionref{sec:gen}).
-  \item We support developers in rapidly \emph{validating} testing
-  effectiveness with novel interactive programming tools that help programmers 
-locate the cause of a test failure and understand how to improve their generated 
-data distributions to be more representative and comprehensive 
+  \item We will support developers in rapidly \emph{validating} testing
+  effectiveness with novel interactive programming tools that help programmers
+locate the cause of a test failure and understand how to improve their generated
+data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We propose an agenda for PBT \emph{education}, grounding this
-  agenda in resources for teaching powerful PBT practices in an undergraduate
-  computer science curriculum, a tool to help students author their
-  first properties, and a comprehensive review of PBT practice
-  to help developers learn about the diversity situations to which they should
+  \item We will propose an agenda\bcp{weak} for PBT \emph{education}, grounding this
+  agenda in resources for teaching PBT practices in an undergraduate
+  computer science curriculum, a tool to help students author
+  properties, and a comprehensive review of PBT practice
+  to help developers learn about diverse situations to which they should
   put properties to work to validate their software
   (\sectionref{sec:ed}).
 \end{itemize}
 
-Each of these research efforts involves a complement of PL and HCI research 
-efforts. HCI approaches will be used to concretely define developers' needs, 
-design the user interface to tools, and evaluate their success. PL approaches 
-will be used to develop PBT tools such as domain-specific languages and 
-type-based tools that are powerful and flexible, and to formally validate these 
+Each of these efforts will deploy complementary tools from PL
+and HCI research. HCI approaches will be used to concretely define developers' needs,
+design the user interface to tools, and evaluate their success. PL approaches
+will be used to develop PBT tools such as domain-specific languages and
+type-based tools that are powerful and flexible, and to formally validate these
 tools. We conclude the proposal with a concrete outline of our work plan
 (\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
 proposed work (\sectionref{sec:broader-impacts})
 
 \sectionstar{Orientation: Property-Based Testing}
 
-Here, we describe the essence of the PBT approach, highlighting the component 
-tools involved. These tools together form the surface area of technology which 
-the research community has leverage in improving.
+We next describe the essence of the PBT approach, highlighting the
+tools involved. These form the surface area of technologies that
+the research community has leverage in improving.\bcp{Well, we also
+  have leverage in education...}
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
 users write executable functions which act as partial
 specifications of a function under test. For example, a user might
 write the following property for an \lstinline{insert}
-function for a binary search tree (BST):\footnote{The function can be read as 
+function for a binary search tree (BST):\footnote{The function can be read as
 follows:
 Assume an arbitrary tree \texttt{t} and an integer
 \texttt{x} to insert into that tree. If the original tree
@@ -159,41 +161,43 @@ a BST after the insertion of \texttt{x} (``\texttt{is\_bst (insert x t)})''.}
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
-Like most properties, this one is a simple function which takes in generated 
-test inputs and evaluates to \lstinline{True} if the test passes, and 
-\lstinline{Fales} otherwise.  This function, ``\verb|prop_insert_correct|'', 
+Like most properties\bcp{?}, this one is a simple function which takes in generated
+test inputs and evaluates to \lstinline{True} if the test passes, and
+\lstinline{Fales} otherwise.  This function, ``\verb|prop_insert_correct|'',
 checks
 that an insert operation on a binary search tree preserves the
 binary ordering of the tree.
 
-The value of properties arises in part from their brevity: they often require 
+The value of properties arises in part from their brevity\bcp{well,
+  this depends on what you count as ``the property''}: they often require
 only a few lines to express, yet can validate unlimited
-input-output pairs.  Given a property like this one, the PBT tool generates a 
+input-output pairs.  Given a property like this one, the PBT tool generates a
 large number of inputs and
 checks that the property evaluates to \lstinline{True} for each input; any input
 that causes the property to fail is reported as a {\em counterexample}.
 
-In its consideration of generators, this proposal focuses on {\em random} 
-generation~\cite{hamlet1994random}. This is in contrast to other
+This proposal focuses on {\em random}
+generation~\cite{hamlet1994random}, in contrast to other
 approaches, like enumerative test-case
 generation~\cite[etc.]{DBLP:conf/haskell/RuncimanNL08, leancheck} and model
 checking. Random generation remains the dominant approach in PBT. Its
-effectiveness is often attributed to the
+surprising effectiveness is often attributed to the
 ``combinatorial'' nature of larger test cases: bugs can be
 exposed by test inputs with a specific combination of features,
 independent of whatever other features may be present. For example,
-a but may be triggered by a sequence of API calls in a particular order, 
+a bug may be triggered by some particular sequence of API calls in a
+particular order,
 regardless of whether they are
-interleaved with other API calls. The effect is that testing with large random 
+interleaved with other API calls. The upshot is that testing with large random
 inputs often exposes the same issues as testing with exponentially more
 enumeratively generated inputs.
 
-From the perspective of a developer, applying PBT happens entails the following 
-steps. First, the developer defines one or more properties that should be true 
-of the program under test. Then, they design (or reuse, or tailor) {\em random 
-input generators} for the values that the properties take as input. Then, they 
-check the properties with generated inputs, using test drivers provided by their 
-PBT tools. And finally, if counter-examples are discovered, they make sense of 
+From the perspective of a developer, applying PBT happens entails the following
+steps. First, the developer defines one or more properties that should be true
+of the program under test. Then, they design (or reuse, or tailor) {\em random
+input generators} for the values that the properties take as input. Then, they
+check the properties with generated inputs, using test drivers provided by their
+PBT tools. And finally, if counter-examples are discovered, they make sense of
 them and determine the source of the bug.
 Each of these steps presents opportunities to improve the user experience of
 PBT, as we describe in the next section.
