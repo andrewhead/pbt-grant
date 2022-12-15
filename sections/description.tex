@@ -467,7 +467,7 @@ will recruit a broad sample of participants across development contexts
 and by recruiting over social media. Admittedly, this survey seems more
 difficult to ``get right,'' and the design will evolve over time as we gain a
 better understanding of the situations where PBT is most effective
-(\sectionref{sec:whento}\bcp{this got moved}), but if done right this could provide invaluable
+(see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{3}{4}{Other}
@@ -495,17 +495,16 @@ what kinds of designs will be viable for helping programmers.
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
 The projects in this section address the challenges related to 
-\proptheme{specification}
-discussed in the motivation section. One major finding of the study is that
-widening the on-ramp to PBT requires pushing developers toward high-leverage
-use-cases for PBT. We discuss our plans to teach developers about high-leverage
-scenarios in \sectionref{sec:whento}; in this section, we discuss opportunities
-to expand and improve the space of scenarios where PBT shines.  In
-\sectionref{sec:outpurprop} we improve PBT's applicability to poorly abstracted
-code, and in \sectionref{sec:automating} we describe tools that automate 
-automatically in a specific high-leverage scenario: model-based testing.
-Together, these projects will greatly improve the on-ramp to PBT and clarify its
-place in the software industry.
+\proptheme{specification} discussed in the motivation section. One major finding
+of the study is that widening the on-ramp to PBT requires pushing developers
+toward high-leverage use-cases for PBT. We discuss our plans to teach developers
+about high-leverage scenarios in \sectionref{sec:whento}; in this section, we
+discuss opportunities to expand and improve the space of scenarios where PBT
+shines.  In we improve PBT's applicability to poorly abstracted code
+(\sectionref{sec:outpurprop} ), and we describe tools that automate 
+automatically in a specific high-leverage scenario: model-based testing
+(\sectionref{sec:automating} ).  Together, these projects will greatly improve
+the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
 %
@@ -667,16 +666,17 @@ the potential to significantly increase the usability of model-based PBT.
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
 The Jane Street study also highlighted several \gentheme{generation themes}.
-\bcp{Rest of paragraph is weak.}
-Generators were regularly cited
-as one of the most challenging parts of the
-PBT process, and many
-asked for better tools for constructing generators that reliably address
-their testing goals. In this section, we describe a series of projects
-to develop new and better ways to express random data generators that give
-developers more automatic ways to test their code more thoroughly.
+Generators were regularly cited as one of the most challenging parts of the PBT
+process---the existing tools for random generation are varied and powerful, but
+they are not very usable.  In this section, we present {\em reflective
+generators}, a new abstraction for random generation that exposes levers for
+programmatic manipulation that enable a host of new approaches to generator
+tooling (\sectionref{sec:reflective}). Reflective generators enable new
+approaches to fuzzing (\sectionref{sec:fuzzing}) and shrinking
+(\sectionref{sec:shrinking}) that reduce developer effort and improve testing
+effectiveness.
 
-\subsectionstar{Context: Why is Random Generation Hard?}%
+\subsectionstar{Context: Random Generation is Hard}
 As discussed in the Orientation, PBT relies heavily on {\em random data
 generators}. The inputs produced by the generator exercise the developer's
 properties and give confidence that they hold---provided the inputs are
