@@ -278,7 +278,8 @@ pseudonyms P1--30.}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
 \newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
 A first set of
-themes revolves around {\bf specifications} (i.e., properties).
+themes revolves around \proptheme{\normalfont \bf specifications} (i.e., 
+properties).
 % and the kinds of programs in which they choose to test them.
 Since
 PBT is often described as a lightweight formal method, one
@@ -289,62 +290,70 @@ By contrast, Jane Street developers, on the whole, reported
 few difficulties coming up with
 properties. Rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. For example, \participant{9} pointed out
-that PBT is particularly easy to apply when one has ``a really good abstraction
+available or straightforward to invent. For example, participant 
+9~(\participant{9}) pointed out that PBT was particularly easy to apply when one
+has ``a really good abstraction
 with a complicated implementation.''
 Several participants (\participant{3}, \participant{15},
 \participant{20}, \participant{22}), when asked to speculate, guessed
 that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find, and
 where PBT is relatively easy to apply.  This suggests that an effective way to
-approach education and documentation around PBT would be to focus on
-``opportunistic'' applications of PBT as an easy on-ramp.
+improve education and documentation around PBT is to highlight these real-world 
+applications that seem to be a natural fit for PBT.
 
-Our interviews also identified several \proptheme{Opportunities for Better
-Leverage}---situations where PBT is not easy {\em yet}, but could be with a
-little more research effort. For example, \participant{7} spoke about trying to
-test a poorly abstracted program (which are notoriously resistant to PBT) by
-writing properties about output it prints to the terminal; we plan to
-operationalize this approach.
+It also became clear that there were \proptheme{Opportunities for Better
+Leverage} of specifications, or situations where PBT is not easy {\em yet}, but 
+could be with a
+little more research effort. For example, \participant{7} spoke about trying to 
+test a program that lacked a well-defined abstraction---which are notoriously 
+resistant to PBT---by
+writing properties over the output printed to the terminal, rather than the 
+output of a function. We plan to provide better tool support for this approach.
 Furthermore, more than three quarters of study participants had used a
-particular kind of PBT, commonly called
+particular approach to PBT commonly called
 \proptheme{Model-Based Testing}.
 \participant{3}, an author of PBT tools at Jane Street, considered better
 automation and tooling around model-based testing to be one of the most
 significant ways improve PBT and make it easier to pick up and use.
 
-Another set of common themes in the interviews concerned the {\bf generation} of
-random inputs for property-based testing. Many participants spoke
-highly of the \gentheme{Derived Generators} that can be inferred from
+Another set of themes concerned the \gentheme{\normalfont \bf generation} of
+random inputs for PBT. Developers often spoke
+highly of \gentheme{Derived Generators} that can be automatically inferred from
 the OCaml type system (\participant{5} called OCaml's tools for this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
 identified deficiencies both small (e.g., API quirks) and large (e.g.,
 derived generators
-cannot enforce semantic preconditions). When derived generators
+cannot enforce semantic preconditions).
+
+When derived generators
 failed, participants fell back to \gentheme{Bespoke Generators}, which
-are far more flexible but proportionally more time consuming to design and work
-with. For example, \participant{20} found important bugs with a bespoke
-generator for XML documents,
+are far more flexible but proportionally more time-consuming to design and work
+with. For example, \participant{20} successfully used a bespoke
+generator for XML documents to find bugs in their software,
 but reported spending ``at least a day'' writing it.
 Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
-If a generated input is deemed a {\em counterexample} for a property,
-highlighting a bug in the code, it needs to be easy to use that input to
-determine the root cause of the bug. The interviews made clear that
-\gentheme{Shrinking}, the process of finding the smallest possible input that
-provokes a given bug, is a critical part of the PBT process.  \participant{8}
-and \participant{21}, who each needed to implement their own PBT libraries, both
-made sure to include shrinkers in their implementations. Unfortunately,
-shrinkers are often time-consuming to build, and many participants
-(\participant{16}, \participant{20} \participant{21}, \participant{30}) talked
-about it as an opaque or even magical process that they did not understand.
-Ideally, shrinkers would be an invisible part of the PBT process that
-automatically minimized counterexamples for developers.
+If a generated input is determined to be a {\em counterexample} that triggers
+property violation, a developer will wish to inspect that counterexample to find 
+and fix the root cause of the violation. Developers often implemented code for 
+\gentheme{Shrinking} inputs, or taking counterexamples and discovering smaller, 
+simpler inputs that trigger the same bug.  \participant{8}
+and \participant{21}, who each implemented their own PBT libraries, both
+incorporated shrinkers as key components of their libraries. That said, 
+shrinkers need to be customized to particular kinds of data to be most 
+effective, and the reality is that they are time-consuming to build; many 
+developers
+(\participant{16}, \participant{20} \participant{21}, \participant{30}) 
+described shrinker implementation as an opaque and difficult process.
+Ideally, developers would have tools that make the process of implementing 
+shrinkers fast and simple.
 
-Some more themes from the interview study concerned the {\bf validation} of
+Some more themes from the interview study concerned the \evaltheme{\normalfont 
+\bf validation} of
 testing effectiveness. The developers' \evaltheme{Evaluation of Effectiveness}
 often featured in our conversations, with some participants asking explicitly
 for better ways to evaluate their generators and properties. There are many
@@ -359,7 +368,9 @@ analyzed---\participant{14} actually shipped broken code to production because
 their generator missed important input examples. Tools in this space should
 warn developers about under-performing testing without them needing to ask.
 
-Finally, improving the usability of PBT requires a focus on {\bf education}. As
+Finally, improving the usability of PBT requires a focus on 
+\edutheme{\normalfont \bf
+education}.  As
 mentioned above, focusing on \edutheme{High-Leverage Scenarios} should lower the
 barrier to entry for PBT and give developers patterns that they can match when
 deciding if PBT is a good choice for a particular program. Additionally, even in
