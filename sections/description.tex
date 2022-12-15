@@ -131,7 +131,7 @@ proposed work (\sectionref{sec:broader-impacts})
 foundational need-finding research in the software industry,
 including, but not limited to, the aforementioned study with Jane
 Street.\bcp{What ``foundational need-finding research in the software
-  industry'' do we have in mind besides the JS study?} Some projects
+  industry'' do we have in mind besides the JS study?}\hg{1.1 and 1.2?} Some projects
 will have a clear PL flavor, focusing on domain-specific languages and
 type-based tools that will make PBT tools more powerful and flexible;
 but we will motivate and evaluate them with techniques from HCI. Other
@@ -808,7 +808,7 @@ examples~\cite{soremekun2020inputs}; the existing tools successfully generate
 more realistic inputs, but are again limited in the preconditions they can
 satisfy.
 
-\subsectionstar{Context: Monadic Generators}
+\subsectionstar{Context: Monadic and Free Generators}
 \iflater\hg{Not sure I love this transition... I liked it better when this sentence was above}\fi
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language (DSL).
@@ -830,7 +830,6 @@ prevents usage errors (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them the perfect
 candidates for sophisticated manipulations and interesting generalizations.
 
-\subsectionstar{Context: Free Generators}
 In order to improve monadic generation along the dimensions listed
 above, it helps to re-frame generators as {\em parsers of randomness}. A generator
 operates by making a series of random choices, but we can equivalently think of
@@ -859,7 +858,8 @@ This means that a single free generator can be be {\em interpreted} in multiple
 different ways. In {\em Parsing Randomness} we prove that any free generator can
 be interpreted either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
-relationship between generators and parsers. Furthermore, since free generators
+relationship between generators and parsers.
+\proposecut{Furthermore, since free generators
 are uninterpreted syntax trees, they can be manipulated programmatically. Free
 generators admit a version of a Brzozowski
 derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
@@ -867,7 +867,7 @@ generation. We showed that free generator derivatives enable an algorithm called
 {\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
 generator to inputs that are more likely to be valid with respect to a given
 precondition. This work is an important step towards better automation for
-generators with complex preconditions.
+generators with complex preconditions.}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
 % \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
@@ -903,7 +903,8 @@ monadic generators.
 But reflective generators are useful for more than just generation!
 We plan to explore (at least) the following two example applications.
 
-{\em Validity-Preserving Mutation.} Many automated testing algorithms
+{\em Validity-Preserving Mutation.} 
+Many automated testing algorithms
 (especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values to explore
 the behavior of the program in a space ``around'' those values. This can be
 difficult in PBT scenarios, where values are subject to complex validity
@@ -917,9 +918,10 @@ using no BST-specific code beyond the reflective generator itself.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
+  \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant.\bcp{wrap it?}}\label{fig:mutation}
+  BST invariant.}\label{fig:mutation}
+  \hg{I can't seem to wrap it...}
 \end{figure}
 
 {\em Example-Based Tuning.} Earlier we pointed out that good generators
@@ -1848,8 +1850,7 @@ more. \iflater\bcp{I guess we need to write one?}\fi
 \emph{\underline{PI Pierce}}: (NSF 1955565) ``Collaborative Research:
 SHF: Medium: Bringing Python Up to Speed'' (\$437,999, 7/2020--6/2023), with co-PIs Michael Hicks (Maryland, now Amazon) and Emery
 Berger (Amherst).
-{\bf Publications (from Penn):}~\cite{DBLP:conf/esop/GoldsteinHLP21,
-  GoldsteinChoices2022, GoldsteinOOPSLA2022}.
+{\bf Publications (from Penn):}~\cite{DBLP:conf/esop/GoldsteinHLP21,goldstein2022parsing}.
 {\bf Research Products (from Penn):} The {\tt pytest-mutagen} mutation
 testing tool for Python~\cite{pytestmutagen}.
 
