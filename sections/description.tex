@@ -153,7 +153,7 @@ specifications of a function under test. For example, a user might
 write the following property of the \lstinline{insert}
 function for an implementation of a binary search tree (BST):
 \begin{lstlisting}
-  prop_insertCorrect x t  =  (isBST t ==> isBST (insert x t))
+  prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
 This property takes only a single
 line to express, yet it can be used to validate a limitless number of
