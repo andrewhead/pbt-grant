@@ -1025,7 +1025,7 @@ without giving up the power and simplicity of coverage-guided generation.
 Another major challenge in maximizing PBT's usability is giving developers to
 \evaltheme{validate} that their testing is effective.  In this section, we
 describe a sequence of research projects to design and evaluate usable developer
-tooling for property-based testing. These projects will contribute new paradigms
+tooling for PBT. These projects will contribute new paradigms
 for tools that help developers understand program failures involving complex
 inputs (\sectionref{sec:failures}), assess whether their generators are
 generating sufficient, appropriate inputs
@@ -1081,8 +1081,8 @@ the needs of real users.}
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Other}
 %
 In comparison to testing techniques like unit testing, PBT focuses on testing
-distributions of inputs, rather than individual inputs. The success of running
-property-based tests depends on a developer's ability to create a distribution
+distributions of inputs, rather than individual inputs. The success
+PBT depends on a developer's ability to create a distribution
 of input data that is sufficiently realistic and comprehensive. One of the major
 aims of our work is going to be to develop much-needed tooling around
 understanding distributions of input data and more easily changing them. This
@@ -1123,7 +1123,7 @@ challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming environments.
 
 First, the tool will support live, realtime displays of generated values.
-Because property-based tests take some time to run, our first goal is to provide
+Because PBT takes some time to run, our first goal is to provide
 instant, live~\cite{ref:tanimoto1990viva} feedback on the generators. Building
 in the tradition of other live functional programming environments
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}), our environment will provide
@@ -1179,7 +1179,7 @@ prototypes that have shown which lines of code are currently executing in a
 running
 program~\cite{ref:brandt2010rehearse,ref:oney2009firecrystal,ref:burg2013record},
 developer's will be able to see lines of code in their editor colorized on the
-basis of how frequently they have been executed while running the property-based
+basis of how frequently they have been executed while running the
 tests. This will let a developer decide whether their generator is executing the
 paths in the code that they believe are particularly error-prone.
 \iflater
@@ -1196,7 +1196,7 @@ data distributions, but more directly change them..
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 %
-What should developers do if their property-based tests are testing the wrong
+What should developers do if their properties are testing the wrong
 inputs? Tuning generators is a challenging task, often requiring significant
 trial-and-error through an opaque process of changing generator parameters and
 hoping that the input data distribution will be updated in the right way. This
@@ -1229,7 +1229,7 @@ generated.
 A second innovative method is to leverage the technology we have developed for
 reflective generators (Section~\ref{sec:reflective}) to change the underlying
 generators. For some features, as a developer manipulates marks in the data
-distribution visulaizations, those manipulations can be mapped back to choices
+distribution visualizations, those manipulations can be mapped back to choices
 in the generator (e.g., what value to place in a node, or the number of nodes to
 produce, etc.). We envision building tools that show the generator code
 side-by-side with visualizations, and where parameter choices in the generator
@@ -1239,12 +1239,12 @@ expressing that they would like to see more inputs like one that has already
 been generated, or that they would like an input similar to a generated input,
 but different in a way that they have demonstrated. Together, this tool and the
 tool for visualizing generated data distributions will have a synergistic effect
-in improving dewvelopers' ability to understand and ultimately achieve more
-realistic, comprehensive data distributions for their property-based tests.
+in improving developers' ability to understand and ultimately achieve more
+realistic, comprehensive data distributions for their testing.
 
 \SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}{Other}
 %
-After a developer has identified a failure in their property-based tests, they
+After a developer has identified a failure with their tests, they
 often wish to turn that failure into a regression test, to ensure that later
 changes to the code will not reintroduce the failure. One pain point experienced
 by informants in our interview study was that it requires considerable work to
@@ -1267,13 +1267,13 @@ choices, including whether to test for exact output, whether to test
 intermediate results, and how to initialize inputs.
 
 We will develop an interactive tool that assists developers in creating
-regression tests from failed property-based tests. The idea is to first develop
+regression tests from failed tests. The idea is to first develop
 technology for generating sufficiently readable code for regression tests (using
 approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
 in-situ editing assistance along the lines of contemporary interactive
 refactoring tools from the HCI
 literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
-For this unique task of transforming property-based tests into regression tests,
+For this unique task of transforming properties into regression tests,
 our tool will provide the key features of keeping track of the failed input,
 generating starter test code, substituting in correct expected values of the
 output by executing corrected code, and then supporting developers in rapidly
@@ -1366,7 +1366,7 @@ title means.  Can we find a pithier phrase?  Also, the section seems
 much too long -- the most important bits are the first paragraph and
 the last sentence.}
 %
-With property-based testing, one of the challenges to evaluating test results is
+One of the challenges to evaluating PBT results is
 simply understanding individual inputs, which may be complex and trigger bugs in
 ways that are difficult to understand. We will design interactive tools that
 make it easier for developers to understand the structure of inputs that trigger
