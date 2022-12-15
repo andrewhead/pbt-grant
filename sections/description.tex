@@ -62,30 +62,7 @@ challenging new research questions where advances in technical foundations and
 tool design necessary to overcome present usability challenges and expand the
 potential impact of PBT.
 
-Our formative research suggests that a future of \emph{usable property-based
-testing} depends on research addressing the challenge problems of helping
-developers
-%
-(a) identify situations where a property-based approach is suitable for
-testing,
-%
-(b) specify properties that cross module boundaries,\bcp{Not sure
-  about this one.}
-%
-(c) write random generators for data structures with complex invariants,
-%
-(d) understand whether generated data distributions are sufficiently realistic
-and comprehensive, and in turn tune the generated data distributions,
-%
-(e) understand individual test failures, and
-%
-(f) learn about effective PBT practice in the first place.
-\amh{This feels redundant with the later bullet points. I'd propose we have this
-simply state the high-level categories of needs from the project summary, and
-save the specifics for the bullet points below.}\bcp{Agreed.}
-\iflater\bcp{All that needs final tuning.}\fi
-
-Solutions to these challenges require insights from both the
+Addressing usability challenges in PBT requires insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} argue that a methodology
@@ -100,9 +77,9 @@ a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
-We propose a comprehensive, interdisciplinary research program
-bringing the combined power of PL and HCI to bear to accelerate PBT's
-transition into practice.
+We therefore propose a comprehensive, interdisciplinary research program of \emph{usable
+property-based testing}, bringing the combined power of PL and HCI to bear to
+accelerate PBT's transition into practice.
 \begin{itemize}[noitemsep]
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 beginning with our ongoing need-finding study. We will confirm
@@ -111,8 +88,8 @@ two\iflater\bcp{check!}\fi{} survey studies and observation studies
 of PBT users {\em in situ} designed to lead to concrete tool designs
 (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with new approaches
-to support the key use cases of properties that cross module boundaries and
-those that represent complex model-based checks (\sectionref{sec:spec}).
+to support the writing properties over internal program states and
+automating model-based testing (\sectionref{sec:spec}).
   \item We will help developers efficiently define and tune test-case
 \emph{generators} with novel techniques for generating precondition-satisfying
 values, test input mutation, and example-based generator tuning, building
@@ -122,9 +99,9 @@ values, test input mutation, and example-based generator tuning, building
 locate the cause of a test failure and understand how to improve their generated
 data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We will propose an agenda\bcp{weak} for PBT \emph{education}, grounding this
-  agenda in resources for teaching PBT practices in an undergraduate
-  computer science curriculum, a tool to help students author
+  \item We will propose an program for PBT \emph{education} including
+  an introduction to PBT for undergraduate
+  computer science curricula, a tool to help students author
   properties, and a comprehensive review of PBT practice
   to help developers learn about diverse situations to which they should
   put properties to work to validate their software
@@ -233,8 +210,9 @@ their software. We intend to make it that way.
   in the context sections.}
   \fi
 
-\subsectionstar{Motivations from a Formative Study of PBT in Industry
-\pagebudget{2}}\label{sec:motivation}
+\subsectionstar{Motivations from a Formative Study of PBT in 
+Industry\label{sec:motivation}
+\pagebudget{2}}
 %
 The goals of this proposal are motivated by findings from an on-going
 need-finding study we have been conducting in industry. The purpose of this
@@ -270,15 +248,14 @@ developers use PBT, what they need from it, and how the research community can
 help improve PBT tools. While full analysis of the data remains
 to be done, several themes have arisen from our initial analysis
 of interview session notes. These form the backbone of the present proposal.
-\proposecut{We describe those themes below, referring informants from their study using
-pseudonyms P1--30.}
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
 \newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
 A first set of
-themes revolves around {\bf specifications} (i.e., properties).
+themes revolves around \proptheme{\normalfont \bf specifications} (i.e., 
+properties).
 % and the kinds of programs in which they choose to test them.
 Since
 PBT is often described as a lightweight formal method, one
@@ -289,90 +266,99 @@ By contrast, Jane Street developers, on the whole, reported
 few difficulties coming up with
 properties. Rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. For example, \participant{9} pointed out
-that PBT is particularly easy to apply when one has ``a really good abstraction
+available or straightforward to invent. For example, participant 
+9~(\participant{9}) pointed out that PBT was particularly easy to apply when one
+has ``a really good abstraction
 with a complicated implementation.''
 Several participants (\participant{3}, \participant{15},
 \participant{20}, \participant{22}), when asked to speculate, guessed
 that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find, and
 where PBT is relatively easy to apply.  This suggests that an effective way to
-approach education and documentation around PBT would be to focus on
-``opportunistic'' applications of PBT as an easy on-ramp.
+improve education and documentation around PBT is to highlight these real-world 
+applications that seem to be a natural fit for PBT.
 
-Our interviews also identified several \proptheme{Opportunities for Better
-Leverage}---situations where PBT is not easy {\em yet}, but could be with a
-little more research effort. For example, \participant{7} spoke about trying to
-test a poorly abstracted program (which are notoriously resistant to PBT) by
-writing properties about output it prints to the terminal; we plan to
-operationalize this approach.
+It also became clear that there were \proptheme{Opportunities for Better
+Leverage} of specifications, or situations where PBT is not easy {\em yet}, but 
+could be with a
+little more research effort. For example, \participant{7} spoke about trying to 
+test a program that lacked a well-defined abstraction---which are notoriously 
+resistant to PBT---by
+writing properties over the output printed to the terminal, rather than the 
+output of a function. We plan to provide better tool support for this approach.
 Furthermore, more than three quarters of study participants had used a
-particular kind of PBT, commonly called
+particular approach to PBT commonly called
 \proptheme{Model-Based Testing}.
 \participant{3}, an author of PBT tools at Jane Street, considered better
 automation and tooling around model-based testing to be one of the most
 significant ways improve PBT and make it easier to pick up and use.
 
-Another set of common themes in the interviews concerned the {\bf generation} of
-random inputs for property-based testing. Many participants spoke
-highly of the \gentheme{Derived Generators} that can be inferred from
+Another set of themes concerned the \gentheme{\normalfont \bf generation} of
+random inputs for PBT. Developers often spoke
+highly of \gentheme{Derived Generators} that can be automatically inferred from
 the OCaml type system (\participant{5} called OCaml's tools for this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
 identified deficiencies both small (e.g., API quirks) and large (e.g.,
 derived generators
-cannot enforce semantic preconditions). When derived generators
+cannot enforce semantic preconditions).
+
+When derived generators
 failed, participants fell back to \gentheme{Bespoke Generators}, which
-are far more flexible but proportionally more time consuming to design and work
-with. For example, \participant{20} found important bugs with a bespoke
-generator for XML documents,
+are far more flexible but proportionally more time-consuming to design and work
+with. For example, \participant{20} successfully used a bespoke
+generator for XML documents to find bugs in their software,
 but reported spending ``at least a day'' writing it.
 Improving the abstractions available for writing bespoke generators would
 greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
-If a generated input is deemed a {\em counterexample} for a property,
-highlighting a bug in the code, it needs to be easy to use that input to
-determine the root cause of the bug. The interviews made clear that
-\gentheme{Shrinking}, the process of finding the smallest possible input that
-provokes a given bug, is a critical part of the PBT process.  \participant{8}
-and \participant{21}, who each needed to implement their own PBT libraries, both
-made sure to include shrinkers in their implementations. Unfortunately,
-shrinkers are often time-consuming to build, and many participants
-(\participant{16}, \participant{20} \participant{21}, \participant{30}) talked
-about it as an opaque or even magical process that they did not understand.
-Ideally, shrinkers would be an invisible part of the PBT process that
-automatically minimized counterexamples for developers.
+If a generated input is determined to be a {\em counterexample} that triggers
+property violation, a developer will wish to inspect that counterexample to find 
+and fix the root cause of the violation. Developers often implemented code for 
+\gentheme{Shrinking} inputs, or taking counterexamples and discovering smaller, 
+simpler inputs that trigger the same bug.  \participant{8}
+and \participant{21}, who each implemented their own PBT libraries, both
+incorporated shrinkers as key components of their libraries. That said, 
+shrinkers need to be customized to particular kinds of data to be most 
+effective, and the reality is that they are time-consuming to build; many 
+developers
+(\participant{16}, \participant{20} \participant{21}, \participant{30}) 
+described shrinker implementation as an opaque and difficult process.
+Ideally, developers would have tools that make the process of implementing 
+shrinkers fast and simple.
 
-Further themes from the interview study concerned the {\bf validation} of
-testing effectiveness. The developers' \evaltheme{Evaluation of Effectiveness}
-often featured in our conversations, with some participants asking explicitly
-for better ways to evaluate their generators and properties. There are many
-forms such feedback could take, including code coverage (requested by
-\participant{9} and \participant{25}), {\em mutation
-testing}~\cite{papadakis_mutation_2018}, and especially input space coverage
-measurements (requested by \participant{10}, \participant{16}, and
-\participant{16}). Providing good tools that provide this feedback is critical:
-though they asked for better feedback when prompted, many admitted to
-\evaltheme{Implicit Trust in Infrastructure} that they had not thoroughly
-analyzed---\participant{14} actually shipped broken code to production because
-their generator missed important input examples. Tools in this space should
-warn developers about under-performing testing without them needing to ask.
+Further themes from the interview study concerned how developers 
+\evaltheme{\normalfont \bf validated} their tests.
+Developers described their processes for \evaltheme{Evaluating the 
+Effectiveness} of their tests. Many
+desired
+better ways to evaluate their generators and properties, including
+better feedback on code coverage (\participant{9} and \participant{25}), 
+incorporation of mutation
+testing~\cite{papadakis_mutation_2018}, and understanding the space of generated 
+inputs (\participant{10}, \participant{16}, \participant{16}). Problematically, 
+while many developers admitted they would benefit from better tools for 
+evaluating their tests, many seemed to
+\evaltheme{Implicitly Trust the Infrastructure} that they had not thoroughly
+analyzed. \participant{14} actually shipped broken code to production because
+their generator missed important input examples. We propose advances in tools 
+for validation that help developers more clearly understand, and improve, the 
+effectiveness of their tests.
 
-Finally, improving the usability of PBT requires a focus on {\bf education}. As
-mentioned above, focusing on \edutheme{High-Leverage Scenarios} should lower the
-barrier to entry for PBT and give developers patterns that they can match when
-deciding if PBT is a good choice for a particular program. Additionally, even in
-situations where properties are readily available, developers who are less
-experienced than those at Jane Street struggle with \edutheme{Imagining
-Properties}. In our pilot study~\cite{ref:goldstein2022some} in population of
-Python developers, participants (Pilot-\participant{1}, Pilot-\participant{3},
-Pilot-\participant{4}, Pilot-\participant{5}) consistently complained that they
-could not see what properties to test, even when it might have been clear to
-someone with more experience. Developers with all levels of experience
-(including Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
-\participant{11}) also complained about the dearth of \edutheme{Documentation
-and Examples} available for PBT tools.
+Finally, for PBT tools to be more usable, we need progress in
+\edutheme{\normalfont \bf
+education}. Developers need to be informed about the \edutheme{High-Leverage 
+Scenarios} in which PBT should be employed, as we discussed above.
+In our pilot studies, we found that developers with less experience with PBT
+sometimes struggled to \edutheme{Imagine
+Properties}, or understand what properties to test (Pilot-\participant{1}, 
+Pilot-\participant{3},
+Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies 
+(Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
+\participant{11}) reported a dearth of \edutheme{Documentation and Examples} for 
+learning about PBT. Our final aim in this project is to develop curricula, 
+documentation, and tools that fill this educational gap.
 
 We discuss plans for work that addresses these themes below, \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
@@ -481,7 +467,7 @@ will recruit a broad sample of participants across development contexts
 and by recruiting over social media. Admittedly, this survey seems more
 difficult to ``get right,'' and the design will evolve over time as we gain a
 better understanding of the situations where PBT is most effective
-(\sectionref{sec:whento}\bcp{this got moved}), but if done right this could provide invaluable
+(see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{3}{4}{Other}
@@ -506,31 +492,28 @@ observation sessions). These observation sessions will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 what kinds of designs will be viable for helping programmers.
 
-% \bcp{Again, we need to explain the expected contributions---what end
-%   does ``characterizing obstacles'' serve.}
-
-% \hg{Maybe this should get merged into the section heading?}
-\proposecut{Together, the studies described in this section provide a firm foundation many
-of the activities in this proposal, and for future research on PBT more
-generally. We will produce a validated and prioritized set of developer needs
-for PBT tools and a detailed set of requirements for how tools should be
-(re)designed to best satisfy the most important of those needs.}
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
-The projects in this section address the \proptheme{specification themes}
-discussed in the Motivation section.  In \sectionref{sec:outpurprop} we describe
-a plan to significantly expand the scenarios where PBT has leverage, improving
-its applicability to poorly abstracted code. Then, in
-\sectionref{sec:automating} we provide tools to apply PBT automatically in one
-specific scenario: model-based testing.  Together, these projects will greatly
-improve the on-ramp to PBT and clarify its place in the software industry.
+The projects in this section address the challenges related to 
+\proptheme{specification} discussed in the motivation section. One major finding
+of the study is that widening the on-ramp to PBT requires pushing developers
+toward high-leverage use-cases for PBT. We discuss our plans to teach developers
+about high-leverage scenarios in \sectionref{sec:whento}; in this section, we
+discuss opportunities to expand and improve the space of scenarios where PBT
+shines.  In we improve PBT's applicability to poorly abstracted code
+(\sectionref{sec:outpurprop}), and we describe tools that automate 
+automatically in a specific high-leverage scenario: model-based testing
+(\sectionref{sec:automating}).  Together, these projects will greatly improve
+the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
 %
 \bcp{What about swapping this with the modules section, which seems
   better motivated by the JS findings?  (Was the log issue mentioned
-  by multiple people, or just P7?  Or are we extrapolating from other
-  things people said, about abstraction generally?)}%
+  by multiple people, or just P7?  Or are we extrapolating from other things
+  people said, about abstraction generally?)}\hg{I think properties over logs
+  has a bigger potential for impact, RE enabling new specifiction
+  opportunities}%
 %
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{ref:goldstein2022some}) was
@@ -543,30 +526,38 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-One Jane Street developer (\participant{7}) described their experience testing
-a trading system (we'll call it System A) with messy abstraction boundaries. In
-this case, System A was hard to test because it was primarily used as a
-sub-component of a larger System B: System B would take in simple data, and then
-at some point pass a large, complex data structure to System A, which would do
-some work and hand results back to System B. PBT of System A was therefore hard,
-because generating valid examples of the large data structure that System A
-takes as input required deep knowledge of the internals and types of System B
-that the developers of System A did not have access to, and because the
-interface was too complex to write straightforward properties about.
+One Jane Street developer (\participant{7}) described their experience testing a
+trading system (we'll call it \lstinline{Inner}) with messy abstraction
+boundaries. In this case, \lstinline{Inner} was hard to test because it was
+primarily used as a sub-component of a larger system \lstinline{Outer};
+\lstinline{Outer} would take in simple data, and then at some point pass a
+large, complex data structure to \lstinline{Inner}, which would do some work and
+hand results back to \lstinline{Outer}. PBT of \lstinline{Inner} was therefore
+hard, because generating valid examples of the large data structure that
+\lstinline{Inner} takes as input required deep knowledge of the internals and
+types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
+access to, and because the interface was too complex to write straightforward
+properties about.
 
-One might imagine trying to test System A through System B by writing properties
-over intermediate values in System A. One might imagine trying to write and
-test properties like
+We propose novel approach to testing systems like \lstinline{Inner}, that are
+difficult to write properties about because they cannot be fully extracted from
+a larger system.
+At its core, this approach tests
+\lstinline{Inner} through \lstinline{Outer} by
+writing properties over intermediate values in \lstinline{Inner}. Properties like
 \begin{lstlisting}
   sublist_of processed (next (processed))      (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Capacity at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
 which demonstrate that internal variables like \lstinline{processed},
-\lstinline{msg}, and \lstinline{overflow} evolve correctly over time.
-These properties could theoretically be tested without ever running System A on
-its own: we can generate inputs to System B, have System B drive System A, and
-simply monitor the variable values to check the desired properties.
+\lstinline{msg}, and \lstinline{overflow} evolve correctly over time, let the
+developer talk about the behavior of \lstinline{Innner} without talking about
+its external-facing API.
+These properties could theoretically be tested without ever running
+\lstinline{Inner} on its own: we can generate inputs to \lstinline{Outer}, have
+\lstinline{Outer} drive \lstinline{Inner}, and simply monitor the variable
+values to check the desired properties.
 
 The tricky part comes with how to actually implement this testing. One might
 hope to do it through debug assertions, but that quickly becomes untenable.
@@ -574,9 +565,9 @@ Checking the property (1) with debug assertions would require noisy code to
 saves the previous value every time \lstinline{processed} is updated, and the
 programmer would need to use macros or some other kind of meta-programming to
 remove that code when building in release mode. Even worse, there may be no way
-to check properties (2) or (3) at all! Doing so would require making an
+to check properties (2) or (3) at all. Doing so would require making an
 assertion at the ``end'' of the computation, which may not actually be possible
-if System B is driving System A from the outside.
+if \lstinline{Outer} is driving \lstinline{Inner} from the outside.
 
 Instead, we propose a framework for writing properties over {\em logged values}
 that can capture the interesting relationships between past and future variable
@@ -672,23 +663,21 @@ With the prevalence of ML-derived languages used in practice today, and with ML
 modules' similarities to other tools for defining interfaces, this project has
 the potential to significantly increase the usability of model-based PBT.
 
-Section \sectionref{sec:whento}\bcp{This got moved} incorporates the ideas from this section along
-with many more into a comprehensive list of PBT patterns that developers can use
-to decide if PBT is an easy choice for testing their code.
-
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
 The Jane Street study also highlighted several \gentheme{generation themes}.
-\bcp{Rest of paragraph is weak.}
-Generators were regularly cited
-as one of the most challenging parts of the
-PBT process, and many
-asked for better tools for constructing generators that reliably address
-their testing goals. In this section, we describe a series of projects
-to develop new and better ways to express random data generators that give
-developers more automatic ways to test their code more thoroughly.
+Generators were regularly cited as one of the most challenging parts of the PBT
+process---the existing tools for random generation are varied and powerful, but
+they are not very usable.  In this section, we present {\em reflective
+generators}, a new abstraction for random generation that exposes levers for
+programmatic manipulation that enable a host of new approaches to generator
+tooling (\sectionref{sec:reflective}). Reflective generators enable new
+approaches to fuzzing (\sectionref{sec:fuzzing}) and shrinking
+(\sectionref{sec:shrinking}) that reduce developer effort and improve testing
+effectiveness.\hg{BCP or AMH, feel free to edit. I was just trying to make it
+more exciting and mention usability}
 
-\subsectionstar{Context: Why is Random Generation Hard?}%
+\subsectionstar{Context: Random Generation is Hard}
 As discussed in the Orientation, PBT relies heavily on {\em random data
 generators}. The inputs produced by the generator exercise the developer's
 properties and give confidence that they hold---provided the inputs are
@@ -792,15 +781,15 @@ different ways. In {\em Parsing Randomness} we prove that any free generator can
 be interpreted either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
 relationship between generators and parsers.
-\proposecut{Furthermore, since free generators
-are uninterpreted syntax trees, they can be manipulated programmatically. Free
-generators admit a version of a Brzozowski
-derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
-generation. We showed that free generator derivatives enable an algorithm called
-{\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
-generator to inputs that are more likely to be valid with respect to a given
-precondition. This work is an important step towards better automation for
-generators with complex preconditions.}
+% \proposecut{Furthermore, since free generators
+% are uninterpreted syntax trees, they can be manipulated programmatically. Free
+% generators admit a version of a Brzozowski
+% derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
+% generation. We showed that free generator derivatives enable an algorithm called
+% {\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
+% generator to inputs that are more likely to be valid with respect to a given
+% precondition. This work is an important step towards better automation for
+% generators with complex preconditions.}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
 % \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
@@ -908,16 +897,15 @@ fuzzers, to generate random bit-strings that are later parsed into program
 inputs.  (We plan to use AFL++~\cite{fioraldi_afl_2020},
 which has supplanted the original AFL project.)
 
-\begin{wrapfigure}{l}{0.5\textwidth}
-  \centering
-  \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
-  \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
-\end{wrapfigure}
+% \begin{wrapfigure}{l}{0.5\textwidth}
+%   \centering
+%   \includegraphics[width=.4\textwidth]{assets/fuzzing.pdf}
+%   \caption{Overview of gradually constrained fuzzing.\bcp{Remove figure.}}\label{fig:fuzzing-plan}
+% \end{wrapfigure}
 
 Our system will start with a setup similar to Crowbar, but with a much greater
 focus on the generators; in particular, we will use reflective generators to
-gain significant testing power. The setup is shown in
-Figure~\sectionref{fig:fuzzing-plan}. We start with a classic fuzzing setup, attempting
+gain significant testing power. We start with a classic fuzzing setup, attempting
 to make the system under test crash by passing it a variety of semi-random
 inputs. Normally, the fuzzer is working against the parser, in the sense that
 the parser's job is to reject invalid inputs and the fuzzer's job is to ``get
