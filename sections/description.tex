@@ -1022,46 +1022,37 @@ without giving up the power and simplicity of coverage-guided generation.
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
-\bcp{Compress to one paragraph or so:}
+Another major challenge in maximizing PBT's usability is giving developers to
+\evaltheme{validate} that their testing is effective.  In this section, we
+describe a sequence of research projects to design and evaluate usable developer
+tooling for property-based testing. These projects will contribute new paradigms
+for tools that help developers understand program failures involving complex
+inputs (\sectionref{sec:failures}), assess whether their generators are
+generating sufficient, appropriate inputs
+(\sectionref{sec:evaluating_distributions}) and whether those inputs
+sufficiently exercise their code (\sectionref{sec:tuning}), and migrate failed
+property-based tests into regression tests (\sectionref{sec:counter}).  These
+projects will be pursued using human-computer interaction methodology,
+integrating these tools into contemporary development environments for
+functional programming. The result of this work will be a comprehensive,
+innovative set of design primitives for helping developers get work done in the
+challenge setting of reasoning about tests with an overabundance of input-output
+examples.
 
-One of the unique challenges in creating usable property-based testing is
-providing adequate support for evaluating test results. Testing with properties
-is fundamentally different from conventional unit testing tools in many ways.
-First, it becomes a task in and of itself to understand individual inputs. This
-because the inputs are not written by the developer, but rather generated
-automatically, and furthermore, they can be of unbounded structural complexity.
-Second, a developer needs to assess the quality of their tests. The quality of a
-property-based test depends in part on the extent to which it covers execution
-pathways through the code, though it also depends on the quality of the inputs.
-Namely, are the inputs complex enough, and distributed in such a way that they
-are likely to trigger practically important bugs? Third, developers need to
-decide what to do with failed test cases, and may need to spend time migrating
-failed test cases into regression suites. Finally, developers need to make
-difficult decisions around how much computation time to budget for exercising
-the property-based tests.
+\hg{I think all of this can go}
+\proposecut{ First, it becomes a task in and of itself to understand individual
+inputs. This because the inputs are not written by the developer, but rather
+generated automatically, and furthermore, they can be of unbounded structural
+complexity.  Second, a developer needs to assess the quality of their tests. The
+quality of a property-based test depends in part on the extent to which it
+covers execution pathways through the code, though it also depends on the
+quality of the inputs.  Namely, are the inputs complex enough, and distributed
+in such a way that they are likely to trigger practically important bugs? Third,
+developers need to decide what to do with failed test cases, and may need to
+spend time migrating failed test cases into regression suites. Finally,
+developers need to make difficult decisions around how much computation time to
+budget for exercising the property-based tests.
 
-Each of these points of departure from conventional testing methodology
-introduces new challenges into the testing process. And they require new
-approaches to tool design to help developers reason about complex distributions
-of complex inputs. In this section, we describe a sequence of research projects
-we will undertake to bring about usable developer tooling for property-based
-testing. These projects will contribute new paradigms for tools that help
-developers understand program failures involving complex inputs
-(\sectionref{sec:failures}), assess whether their generators are generating
-sufficient, appropriate inputs (\sectionref{sec:evaluating_distributions}) and
-whether those inputs sufficiently exercise their code
-(\sectionref{sec:tuning}), and migrate failed property-based tests into regression
-tests (\sectionref{sec:counter}).
-% and decide on compute budgets for their
-% property-based tests (\sectionref{sec:more}).
-These projects will be pursued
-using human-computer interaction methodology, integrating these tools into
-contemporary development environments for functional programming. The result of
-this work will be a comprehensive, innovative set of design primitives for
-helping developers get work done in the challenge setting of reasoning about
-tests with an overabundance of input-output examples.
-
-\bcp{Integrate:}
 The projects in this section must all be designed in concert with real users
 evaluated in terms of their impact and usability. We will design these tools
 using {\em human-centered design}: we will show prototypes to potential users,
@@ -1070,7 +1061,7 @@ solve users' problems effectively. When evaluating the designs, we will conduct
 short user studies, comparing a users' experiences with our tools to their
 performance on the same tasks without those tools. Designing and evaluating in
 this way will increase our potential for impact and keep our work grounded in
-the needs of real users.
+the needs of real users.}
 
 % \amh{I think I want to organize this section chronologically around the
 % following sequence of tasks: (1) understanding (and debugging) a single input;
@@ -1201,7 +1192,7 @@ the end of the section ends up looking}
 When complete, this project will be the first live tool for generator
 feedback and analysis; in the next section, we take it one step farther to
 consider how interactive tools can help a developer not just understand input
-data distributions, but more directly change them.
+data distributions, but more directly change them..
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 %
