@@ -119,6 +119,8 @@
 \newif\ifdesperateforspace\desperateforspacefalse
 
 \usepackage[inline]{enumitem}
+\usepackage{anyfontsize}
+\newcommand{\headerfont}{\fontsize{11}{13}\selectfont\bf}
 
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
@@ -128,10 +130,14 @@
   \immediate\write\workplanfile{\string\ganttsection{#1}}
 }
 \newcommand{\sectionstar}[1]{\subsection*{#1}}
-\newcommand{\subsectionstar}[1]{\paragraph*{#1}}
+% \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
+\newcommand{\subsectionstar}[1]{
+  \medskip \noindent {\headerfont #1.}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
 \newcommand{\SUBSECTION}[5]{%
-  \subsection{#1}
+  \refstepcounter{subsection}
+  \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
+  % \subsection{#1}
   \label{#2}
   \ifthenelse{\equal{#5}{Harry}}{%
     \edef\FOO{\harrycolor}
