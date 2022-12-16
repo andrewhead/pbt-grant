@@ -99,8 +99,8 @@ data distributions to be more representative and comprehensive
   \item We will develop materials for PBT \emph{education}
   including an undergraduate computer science curriculum centered around PBT, a
   tool to help students author properties, and a comprehensive review of PBT
-  practice to help students and developers learn about diverse situations where
-  PBT is likely to be the most useful (\sectionref{sec:ed}).
+  practice to teach students and developers about situations where
+  PBT is likely to be most useful (\sectionref{sec:ed}).
 \end{itemize}
 
 Each of these efforts will deploy complementary tools from PL
@@ -115,8 +115,8 @@ proposed work (\sectionref{sec:broader-impacts})
 \subsectionstar{Orientation: Property-Based Testing}
 %
 We next describe the basics of the PBT approach, with the aim of highlighting
-where research has unique leverage in improving tooling, processes, and
-education around PBT.
+where research has unique leverage in improving PBT tooling, processes, and
+education.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
@@ -224,11 +224,11 @@ software in OCaml, a mostly functional programming language for which
 there is a well-engineered PBT tool. This unified
 ecosystem allows us to ensure that developers have access to mature PBT tools,
 experience using them in collaborative settings,
-and awareness of language-level programming abstractions necessary
-to advanced usage.\footnote{Because our primary need-finding study to-date has
+and awareness of language-level abstractions necessary
+for advanced usage.\footnote{\proposecut{Because our primary need-finding study to-date has
 taken place solely at Jane Street, our follow-up studies in
 \sectionref{sec:foundation} will engage with broader groups of developers using
-PBT to expand and generalize our findings.}
+PBT to expand and generalize our findings.}\hg{If this is important, it shouldn't be a footnote...}}
 
 As of December 2022, a pilot study has been conducted, analyzed, and presented
 at HATRA~\cite{goldstein_problems_2022}. Following this pilot study, the full
@@ -1035,6 +1035,12 @@ questions like: Are the generated log inputs long enough? Are the even sequences
 realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
 
+\begin{wrapfigure}{r}{0.6\textwidth}
+  \centering
+  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
+  \caption{An envisioned tool for evaluating input data distributions.}\label{fig:gen-vis}
+\end{wrapfigure}
+
 To this end, we will design new interactive tools that provide rapid,
 informative views of input data distributions. The tools will address the
 challenges of visualizing generator distributions using a novel combination of
@@ -1068,12 +1074,6 @@ automatically for the most common data types.
 % the \lstinline{max_by (fun l -> length l.payload)} (the maximum payload length),
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
-
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \centering
-  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating input data distributions.}\label{fig:gen-vis}
-\end{wrapfigure}
 
 Second, the data displays will be easily extensible, providing lightweight hooks
 for customizing aggregate data displays and previews. If
