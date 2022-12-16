@@ -573,7 +573,7 @@ the same code produce the same results.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
 be by existing tooling.
 %
-With this in mind, we propose comprehensive tooling to entirely automate
+With this in mind, we propose comprehensive tooling to automate
 model-based testing for a large class of ML-style software
 {\em modules}~\cite{macqueen_modules_1984}.
 
@@ -584,7 +584,6 @@ module StringFns : sig
   val reverse : string -> string
   val drop_n  : int -> string -> string
   val split   : string -> string * string
-end
 \end{lstlisting}
   \end{minipage}
   \qquad\qquad
@@ -594,9 +593,9 @@ module Set : sig
   type 'a t     val empty : 'a t
   val mem   : 'a t -> 'a -> bool
   val add   : 'a t -> 'a -> 'a t
-end
 \end{lstlisting}
   \end{minipage}
+  \vspace{-4mm}
   \caption{Some module interfaces we would like to test
     automatically.}\label{fig:sigs}
 \end{figure}
@@ -610,8 +609,8 @@ Figure~\ref{fig:sigs}) correctly requires wiring up the functions in the
 signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
-work~\cite{hughes_experiences_2016} to correctly generate graphs of function
-calls that are well-typed and that can be used to compare module implementations.
+work~\cite{hughes_experiences_2016} to correctly generate well-typed sequences of function
+calls that can be used to compare module implementations.
 
 Testing modules gets even hairier when they contain {\em abstract types}, as is
 the case with \lstinline{Set}. Now, some of the types in the signature cannot be
@@ -630,8 +629,8 @@ Finally, so far we have only talked about comparing implementations of the same
 module signature, but what about implementations of {\em related} signatures? In
 theory, it should be possible to automate test harnesses when two modules share
 some subset of behaviors, or when the concrete types that they operate on are
-related in some known way. We plan to work with users to understand the
-important use-cases here and get the automation right.
+related in some known way. We will work with users to understand the
+important use-cases.
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
@@ -821,8 +820,8 @@ Both of these applications have the potential to significantly improve
 testing effectiveness---example-based tuning helps users generate more
 realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
-{\em both} by upgrading our existing generators to reflective ones. We
-will see some additional use cases for reflective generators in the
+{\em both} by upgrading our generators to reflective ones. We
+demonstrate additional use cases for reflective generators in the
 following sections.
 
 \smallskip
@@ -875,7 +874,7 @@ shrinking as magical, but currently the abstraction is too leaky for them to
 be comfortable ignoring it.  Our hope is that eventually, having a reflective
 generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
-simply making counterexamples smaller and easier to understand.
+making counterexamples far easier to understand.
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
@@ -1001,7 +1000,7 @@ sufficiently exercise their code (\sectionref{sec:tuning}), migrate failing
 property-based tests into regression tests (\sectionref{sec:counter}),
 and understand testing-provoked failures involving complex
 inputs (\sectionref{sec:failures}). These
-projects will be pursued using human-computer interaction methodology,
+projects will be pursued using HCI methodology,
 integrating these tools into contemporary interactive development
 environments.
 
@@ -1136,8 +1135,7 @@ work will build on the foundation developed in the prior project
 (\sectionref{sec:evaluating_distributions}). Inspired by recent tools in the PL+HCI literature
 for bidirectional manipulation of programs and their
 outputs~\cite{ref:hempel2019sketch,ref:kery2020mage,ref:omar2012active,ref:omar2021filling},
-we explore the unique affordances of reflective generators in their ability to
-support careful tuning of generators.
+we explore reflective generators' potential to support tuning.
 
 The first, general-purpose method for tuning input data distributions will be to
 define filters on input data by manipulating aggregate data displays.
