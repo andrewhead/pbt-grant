@@ -97,16 +97,11 @@ values, test input mutation, and example-based generator tuning, building
 locate the cause of a test failure and understand how to improve their generated
 data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We will propose a program\bcp{blah}\hg{What's blah about it? I'm not
-  sure I know we're optimizing for}\bcp{``propose a program'' could
-  mean almost anything---doesn't say that we're actually going to
-  build curricular materials} for PBT \emph{education} including
-  an introduction to PBT for undergraduate
-  computer science curricula, a tool to help students author
-  properties, and a comprehensive review of PBT practice
-  to help developers learn about diverse situations to which they should
-  put properties to work to validate their software
-  (\sectionref{sec:ed}).
+  \item We will propose a multifaceted approach to PBT \emph{education}
+  including an undergraduate computer science curriculum centered around PBT, a
+  tool to help students author properties, and a comprehensive review of PBT
+  practice to help students and developers learn about diverse situations where
+  PBT is likely to be the most useful (\sectionref{sec:ed}).
 \end{itemize}
 
 Each of these efforts will deploy complementary tools from PL
@@ -281,18 +276,16 @@ applications that seem to be a natural fit for PBT.
 
 It also became clear that there were \proptheme{Opportunities for Better
 Leverage} of specifications, or situations where PBT is not easy {\em yet}, but
-could be with a
-little more research effort. For example, \participant{7} spoke about trying to
-test a program that lacked a well-defined abstraction---which are notoriously
-resistant to PBT---by
-writing properties over the output printed to the terminal, rather than the
-output of a function. We plan to provide better tool support for this approach.
-Furthermore, more than three quarters of study participants had used a
-particular approach to PBT commonly called
-\proptheme{Model-Based Testing}.
-\participant{3}, an author of PBT tools at Jane Street, considered better
-automation and tooling around model-based testing to be one of the most
-significant ways improve PBT and make it easier to pick up and use.
+could be with a little more research effort. For example, many developers in
+both our pilot studies (Pilot-\participant{4}, Pilot-\participant{5}, and
+Pilot-\participant{6}) and the Jane Street study (\participant{7}) complained
+that PBT was difficult when code was poorly abstracted.  We plan to provide
+better tool support to address this failure mode.  Furthermore, more than three
+quarters of study participants had used a particular approach to PBT commonly
+called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
+at Jane Street, considered better automation and tooling around model-based
+testing to be one of the most significant ways improve PBT and make it easier to
+pick up and use.
 
 Another set of themes concerned the \gentheme{\normalfont \bf generation} of
 random inputs for PBT. Developers often spoke
@@ -496,27 +489,10 @@ automatically in a specific high-leverage scenario: model-based testing
 the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
-%
-% \bcp{What about swapping this with the modules section, which seems
-%   better motivated by the JS findings?  (Was the log issue mentioned
-%   by multiple people, or just P7?  Or are we extrapolating from other things
-%   people said, about abstraction generally?)}\hg{I think properties over logs
-%   has a bigger potential for impact, RE enabling new specifiction
-%   opportunities}%
-% BCP: Fine
-\bcp{Was the log issue mentioned
-   by multiple people, or just P7?  Or are we extrapolating from other things
-   people said, about abstraction generally?  If we can mention more
-   participants, the support seems much more powerful.}
-\hg{Just P7, but lots of people in the pilot talked about spaghetti code too, so
-it's fair to extrapolate. Also FWIW P7 did something sort of like this, just in
-a very ad-hoc way with no LTL}\bcp{Can we say something to suggest we
-heard similar thigngs from others?}
-%
-One common problem raised by Jane Street developers (and even more loudly
-in our earlier pilot study~\cite{ref:goldstein2022some}) was
-that code may sometimes not be abstracted
-in a way that is amenable to testing. Indeed, any kind of
+As discussed in the motivation section, one common problem raised by Jane Street
+developers (and even more loudly in our earlier pilot
+study~\cite{ref:goldstein2022some}) was that code may sometimes not be
+abstracted in a way that is amenable to testing. Indeed, any kind of
 testing of software units---with PBT techniques or otherwise---requires
 ``units'' to test!  But PBT is
 especially sensitive to issues like poorly encapsulated global state, which may
@@ -524,7 +500,7 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-One Jane Street developer (\participant{7}) described their experience testing a
+For example, on Jane Street developer (\participant{7}) described their experience testing a
 trading system (we'll call it \lstinline{Inner}) with messy abstraction
 boundaries. In this case, \lstinline{Inner} was hard to test because it was
 primarily used as a sub-component of a larger system \lstinline{Outer};
@@ -835,13 +811,12 @@ choices {\em while correcting any choices that
 would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
 algorithm is able to mutate a binary search tree, while maintaining validity,
 using no BST-specific code beyond the reflective generator itself.
-
 \begin{figure}[h]
   \centering
-  \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
+  \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
+  \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
   BST invariant.}\label{fig:mutation}
-  \hg{I can't seem to wrap it...}
 \end{figure}
 
 {\em Example-Based Tuning.} Earlier we pointed out that good generators
@@ -1354,11 +1329,6 @@ with precise equality checks.
 
 \SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Other}
 %
-\bcp{Harry and I both persistently have trouble understanding what the
-title means.  Can we find a pithier phrase?  Also, the section seems
-much too long -- the most important bits are the first paragraph and
-the last sentence.}\hg{How's this?}\bcp{Works for me.}
-%
 One of the challenges to evaluating PBT results is
 simply understanding individual inputs, which may be complex and trigger bugs in
 ways that are difficult to understand. We will design interactive tools that
@@ -1495,18 +1465,16 @@ helping developers quickly recognize situations where PBT is a
 natural fit because the properties are obvious!
 
 The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer properties.''  For example:\bcp{These need to be written
-  more intuitively (e.g., like point 2)}
-\begin{enumerate*}[label=(1)]
-\item code that is already formally or semi-formally specified,\bcp{This seems like a non-example?}
-\item ``these two functions (e.g., a parser and a printer) should
-round trip,'' \bcp{add participant numbers??}
-\item pure data structures,
-\item modules with invariants,
-\item related versions of the same code,
-\item programs that may fail catastrophically,
+``no-brainer situations,'' where PBT is an obvious choice. For example:
+\begin{enumerate*}[label=(\arabic{enumi})]
+\item code that is already formally or semi-formally specified,
+\item two functions (e.g., a parser and a printer) that should ``round-trip,''
+\item a pure data structure has obvious algebraic laws,''
+\item a module with a natural invariant,
+\item related versions of the same code (e.g., one fast, one slow; one old, one
+new),
 and
-\item stateful APIs with well-understood contracts\bcp{e.g.?}.
+\item programs that may fail catastrophically.
 \end{enumerate*}
 These patterns cover a range of
 scenarios that real software developers regularly find themselves in, but they
@@ -1517,7 +1485,7 @@ community described in~\sectionref{sec:survey}; we will also mine
 research papers and experience reports in the literature,
 examine open-source software projects, and leverage our connections with various
 PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
-to ensure that we have a comprehensive understanding of the best uses for PBT.
+to ensure that we have a comprehensive understanding of the best uses for PBT
 
 These results will be presented in a survey-style paper (with an
 accompanying talk), tentatively entitled {\em When to Specify It!} in
@@ -1569,7 +1537,7 @@ properties about a given function, and evaluating our tool in the context of the
 main Haskell course, CIS 5520.
 Future iterations will require us to either find tools in other languages used
 commonly at Penn (e.g., Bach~\cite{smith_discovering_2017} in Python) or create
-our own, with the ultimate goal of making specification available to any Penn
+our own, with the ultimate goal of making specification extraction usable by any Penn
 computer science student.
 
 PI Head has extensive experience with designing and developing tools involving
