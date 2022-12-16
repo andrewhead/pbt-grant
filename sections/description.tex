@@ -974,9 +974,8 @@ without giving up the power and simplicity of coverage-guided generation.
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
-Another major challenge in maximizing PBT's usability is giving
-developers the ability to
-\evaltheme{validate} that their testing is effective.  In this section, we
+Another major challenge in maximizing PBT's usability helping developers 
+\evaltheme{validate} that their testing is effective. In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms
 for tools that help developers assess whether their generators are
@@ -985,92 +984,45 @@ generating sufficient and appropriate inputs
 sufficiently exercise their code (\sectionref{sec:tuning}), migrate failing
 property-based tests into regression tests (\sectionref{sec:counter}),
 and understand testing-provoked failures involving complex
-inputs (\sectionref{sec:failures}).  These
+inputs (\sectionref{sec:failures}). These
 projects will be pursued using human-computer interaction methodology,
 integrating these tools into contemporary interactive development
-environments. The result of this work will be an
+environments.
+\proposecut{The result of this work will be an
 innovative set of design primitives for helping developers get work done in the
-challenge setting of reasoning about tests with an overabundance of input-output
-examples. \bcp{That could still be compressed some.}
-
-\hg{I think all of this can go}\bcp{Maybe except for the second- and
-  third-to-last sentences?}
-\proposecut{ First, it becomes a task in and of itself to understand individual
-inputs. This because the inputs are not written by the developer, but rather
-generated automatically, and furthermore, they can be of unbounded structural
-complexity.  Second, a developer needs to assess the quality of their tests. The
-quality of a property-based test depends in part on the extent to which it
-covers execution pathways through the code, though it also depends on the
-quality of the inputs.  Namely, are the inputs complex enough, and distributed
-in such a way that they are likely to trigger practically important bugs? Third,
-developers need to decide what to do with failed test cases, and may need to
-spend time migrating failed test cases into regression suites. Finally,
-developers need to make difficult decisions around how much computation time to
-budget for exercising the property-based tests.
-
-The projects in this section must all be designed in concert with real users
-evaluated in terms of their impact and usability. We will design these tools
-using {\em human-centered design}: we will show prototypes to potential users,
-get feedback, redesign, and repeat, until we are satisfied that our design will
-solve users' problems effectively. When evaluating the designs, we will conduct
-short user studies, comparing a users' experiences with our tools to their
-performance on the same tasks without those tools. Designing and evaluating in
-this way will increase our potential for impact and keep our work grounded in
-the needs of real users.}
-
-% \amh{I think I want to organize this section chronologically around the
-% following sequence of tasks: (1) understanding (and debugging) a single input;
-% (2) understanding distributions of inputs; (3) tuning distributions of inputs;
-% (4) integration of specific inputs into regression tests; (5) supporting good
-% decisions around ``time budgets'' for PBT.}
-% \amh{Some notes on framing from a prior meeting with HG and BCP: When we write
-% about HCI-related parts of the projects, I think the right tack is to describe
-% this as an area of HCI-oriented programming tools that merits additional
-% exploration in tooling of the following types: X, Y, Z.  We will draw
-% inspiration from adjacent areas, though the idea is to establish some of the
-% first work in usable multi-example software testing.  This requires entirely new
-% ways of expressing and reviewing tests, and could have
-% potentially transformative impact within interactive programming systems in the
-% long term. (Can we flesh out just how big a field we feel this is?)}
+challenging setting of reasoning about tests with an overabundance of input-output
+examples.}
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Other}
 %
 In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success
 PBT depends on a developer's ability to create a distribution
-of input data that is sufficiently realistic and comprehensive. One of the major
-aims of our work is going to be to develop much-needed tooling around
-understanding distributions of input data and more easily changing them. This
-was a pain point of participants in our study, many of whom stated that they did
-not know the kinds of input their generators were producing.
+of input data that is sufficiently realistic and comprehensive. We plan
+to develop much-needed tooling around
+understanding distributions of input data and more easily changing them. 
+This was a pain point of participants in our study, many of whom
+did not know the kinds of input their generators were producing.
 
 We draw inspiration from related work in HCI that has sought to better expose
-the shape of input data distributions in the domain of machine learning in the time of models
-that require massive datasets (e.g.,~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and the sequence of values that programs
-take during single executions (e.g.,~\cite{ref:kang2017omnicode}). What is unique
-in our outlook is a focus on helping developers understand distributions of
-complex inputs (e.g., lists, trees, and other algebraic data types). Consider an
+the shape of input data distributions including 
+machine learning datasets
+(e.g.,~\cite{ref:hohman2019gamut} and
+~\cite{ref:hohman2020understanding}) and sequences of program values
+(e.g.,~\cite{ref:kang2017omnicode}).
+PBT poses a unique challenge because values produced by generators are
+programmatically generated and
+can be of unbounded structural
+complexity (e.g., lists, trees, and other algebraic data types).
+Consider an
 example from a participant in our formative study, who wanted to generate
 realistic logs of input data, where each log entry included at least a timestamp
 and an event type. Such values are not trivially plotted in conventional
 visualizations, and it would be prohibitive to review individual examples if the
 logs are sufficiently long. Ideally, a developer would be able to answer
-questions like, are the generated log inputs long enough? Are the even sequences
-realistic?  This setting requires new kinds of views of data, and tight
+questions like: Are the generated log inputs long enough? Are the even sequences
+realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
-
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \centering
-  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating input data distributions.
-  (1) A developer invokes the tool from controls that appear directly
-  next to their property in the editor. They are supported in evaluating the
-  input data distribution with (2) aggregate statistics describing the generated
-  values, (3) visualizations of distributions of key features of the input, and (4)
-  example values, pretty-printed or represented with DOT graphs. The developer can define additional
-  features and views in their functional code.}\label{fig:gen-vis}
-\end{wrapfigure}
 
 To this end, we will design new interactive tools that provide rapid,
 informative views of input data distributions. The tools will address the
@@ -1106,6 +1058,19 @@ automatically for the most common data types.
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
 
+\begin{wrapfigure}{r}{0.6\textwidth}
+  \centering
+  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
+  \caption{An envisioned tool for evaluating input data distributions.%
+  \proposecut{(1) A developer invokes the tool from controls that appear directly
+  next to their property in the editor. They are supported in evaluating the
+  input data distribution with (2) aggregate statistics describing the generated
+  values, (3) visualizations of distributions of key features of the input, and (4)
+  example values, pretty-printed or represented with DOT graphs. The developer can define additional
+  features and views in their functional code.}\hg{If we're going to call out
+  each point in the text, we don't need to do it here too}}\label{fig:gen-vis}
+\end{wrapfigure}
+
 Second, the data displays will be easily extensible, providing lightweight hooks
 for customizing aggregate data displays and previews. If
 there are features that the user notices should be extracted, but that the
@@ -1126,7 +1091,7 @@ in JetBrains~\cite{tool:jetbrains}, and to allow a developer to explore an
 object using a built-in REPL. Additionally, we will produce DOT
 graph~\cite{ellson_graphviz_2002} representations of common kinds of inputs
 (i.e., lists, trees) that will provide an at-a-glance understanding of inputs up
-to dozens or hundreds of elements in length.
+to dozens or hundreds of elements in length (Figure~\ref{fig:gen-vis}.4).
 
 Finally, the tools will provide live feedback on completeness of the input
 distribution in the form of in-situ coverage feedback. Like other HCI research
@@ -1147,7 +1112,7 @@ the end of the section ends up looking}
 When complete, this project will be the first live tool for generator
 feedback and analysis; in the next section, we take it one step farther to
 consider how interactive tools can help a developer not just understand input
-data distributions, but more directly change them..
+data distributions, but more directly change them.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 %
@@ -1316,39 +1281,34 @@ with precise equality checks.
 
 \SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Other}
 %
-One of the challenges to evaluating PBT results is
-simply understanding individual inputs, which may be complex and trigger bugs in
-ways that are difficult to understand. We will design interactive tools that
-make it easier for developers to understand the structure of inputs that trigger
-failures, and to understand the nature of those failures. First, we will design
-tools that help develoeprs simplify inputs into ones that are easier to
-nderstand. One method of doing so is through automatic shrinking, a well-known
-technique in the  PBT
-literature~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and an area in
-which we will innovate in this project (see \sectionref{sec:shrinking}).  Though
-even with the advances proposed in this project, shrinking can be opaque, and
-often make suboptimal decisions that an individual developer might be able to
-make better.
+One of the challenges to evaluating PBT results is understanding what a
+counterexample means and why it triggers a bug.  We will design interactive
+tools to help developers in this process.
 
-Drawing inspiration from approaches in recent HCI literature that have supported
-the interactive reduction of code through iterative, incremental
+First, we will design tools that build on
+shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
+understand counterexamples. Automatic shrinking, even when done via reflective
+shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and 
+shrinkers often make suboptimal decisions that an individual developer might be
+able to make better.
+Drawing inspiration from approaches in recent HCI literature that support
+interactive code reduction through iterative, incremental
 experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
 we will design aids for rapid, incremental, interactive shrinking of complex
 inputs into simpler inputs. The key feature we will develop is the ability to
-shrink inputs by pruning the input's contents and structure in an interactive
+shrink inputs semi-automatically by pruning the input's contents and structure in an interactive
 object viewer, similar to the kinds of object viewers available in contemporary
-debuggers like in the JetBrains IDE~\cite{tool:jetbrains}. The key idea for
-interactive shrinking will be to point out to developers the \emph{valid} ways
-in which an input can be pruned. These valid options for pruning can be
-collected as metadata for the input as they are generated by a reflective
-generator; in other words, many choices that the generator makes correspond to
-an aspect of the input that could be pruned. These pruning points will be made
+debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
+The interactive shrinker will display the \emph{valid} ways
+in which an input can be pruned, but the choice of exactly what to prune will be
+up to the human. We will rely on reflective generators to provide the insights
+into which parts of the structure correspond to choices that can be pruned, and
+these pruning points will be made
 visible in the object viewer. As a developer prunes the input, they will receive
-continuous feedback as to whether it still causes a test to fail or not, to help
-the developer determine whether the simplified input in fact continues to
-trigger the same error. The end result will be that developers will be able to
-reduce complex inputs into simpler ones that trigger failures, which will in
-turn be easier to reason about when locating causes of failure in the code.
+continuous feedback as to whether it still causes a test to fail or not.
+Developers will ultimately be able to
+reduce complex counterexamples into simpler ones that are
+easier to reason about when looking for bugs.
 
 % Developers will also be alerted if the execution path
 % through the code has changed as a result of shrinking the input. In some
@@ -1368,17 +1328,15 @@ turn be easier to reason about when locating causes of failure in the code.
 
 In addition to developing novel interaction techniques for simplifying inputs,
 we will also develop systems for helping developers locate code that, if
-changed, should resolve the failure. Rather than explicitly encoding
+changed, would resolve the failure. Rather than explicitly encoding
 relationships between generated outputs and their dependencies on
-code~\cite{ref:ko2009finding}, we will instead take the approach of helping a
-developer understand where the execution paths of a counterexample diverges from
-a successful yet very similar input. Leveraging the parametric nature of the
-reflective generators developed in \sectionref{sec:reflective}, we will generate
-additional inputs that are very similar to the counterexample that are pass the
-test, assuming that inputs that share most of their structure and concrete data
-will trigger execution paths are also very similar themselves. Then, we will
+code~\cite{ref:ko2009finding}, we will instead help the developer
+understand where the execution paths of a given counterexample diverges from
+successful yet very similar inputs. Leveraging the parametric nature of the
+reflective generators, we will generate inputs in a space ``around'' a
+counterexample and identify which ones no longer cause a failure.  Then, we will
 execute the program up to the point where the traces of the programs begin to
-diverge. Finally, we will drop the programmer into a debugging environment where
+diverge, and we will drop the programmer into a debugging environment where
 they can query the state of the program and step through the remainder of the
 execution. PI Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
@@ -1455,12 +1413,16 @@ The Jane Street study also gives us a solid start on a comprehensive list of
 ``no-brainer situations,'' where PBT is an obvious choice. For
 example:\bcp{I think it would be easier to understand what we're
   saying if we listed the specifications themselves rather than (or in
-  addition to) the situations}
+addition to) the situations}\hg{I worry that will muddy the distinction between
+WTSI and HTSI...}
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item code that is already formally or semi-formally
 specified,\bcp{still don't find this one compelling---when would it
   arise? isn't it kind of tautological?  (a function with a
-  specification has a specification...)}
+specification has a specification...)}\hg{We're looking for cases where
+properties are easy to find, right? Well they're {\em very} easy to find if you
+already have them! This is essentially the QuickChick case---PBT is a great
+choice because you already had to write down the spec for something else}
 \item two functions (e.g., a parser and a printer) that should ``round-trip,''
 \item a pure data structure (sets, maps, etc.) with obvious algebraic laws,
 \item a module with a natural invariant,
