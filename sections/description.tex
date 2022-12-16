@@ -757,16 +757,7 @@ Building on the free generator work described above, we have begun to look at
 yet more powerful generalizations of the standard monadic approach to random
 generation. The most promising of these concerns monadic generators that
 can be run {\em backward}.
-
-\hg{Took a stab}
-Note that early designs and prototypes for this work have already been funded by
-\hg{\dots}---so far, the theory is sound. We have built an early demo
-implementation and written a draft paper that both show promise. Still, many
-details remain to be ironed out, and, while exploratory empirical evaluations
-look promising, more thorough experimentation will be required.
-\bcp{Talk about what's done and what's to
-  be done.}
-
+%
 If a generator parses a sequence of choices into a value, then running the
 generator backward should take a value and produce a sequence of choices that
 would produce that value. With this in mind, we have begun working on {\em reflective
@@ -792,9 +783,9 @@ and for another the choices can be given different structures (bitstrings,
 higher-level choice strings, choice trees, etc.) depending on the needs of the
 caller.
 
-The bidirectional nature of reflective generators makes them
-useful for more than just generation!
-We already know of two other applications...
+The bidirectional nature of reflective generators makes them useful
+for more than just generation!  We have begun exploring two other
+applications...
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
@@ -833,6 +824,18 @@ automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our existing generators to reflective ones. We
 will see some additional use cases for reflective generators in the
 following sections.
+
+\smallskip
+
+{\bf Status.}\bcp{After some agonizing, I decided to try moving it
+  here.  WDYT?}  We began thinking about the design of reflective
+generators in the context of an earlier NSF project (described in
+\sectionref{sec:prior}), built a prototype implementation, and drafted
+a preliminary progress report~\cite{Frohlich2022}.  Many details of
+both theory and implementation remain to be ironed out; in particular,
+while exploratory empirical evaluations look promising, more thorough
+experimentation will be required.
+
 
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
@@ -1379,7 +1382,7 @@ of reasons.  Data structures is often taken early in the curriculum, so habits
 can carry over to other courses even where PBT is not explicitly used. In
 addition, data structures often have ``obvious'' properties that can be a great
 place to start with PBT (e.g., algebraic specifications, inefficient reference
-implementations, see \sectionref{sec:whento} for more discussion).
+implementations, see \sectionref{sec:whento}).
 
 Concretely, we plan to design a model for adding PBT to data structures courses
 and implement this model in the University of Pennsylvania's CIS 1210. We will
@@ -1445,12 +1448,13 @@ The central idea of {\em When to Specify It!} is that developers should focus on
 applying PBT in the highest-leverage scenarios, where properties are
 readily available. But what if, even with properties
 close to hand, an inexperienced developer still has trouble seeing them?
-This was a strong signal in the pilot study\bcp{I have a persistent
+This was a strong signal in the pilot study\iflater\bcp{I have a persistent
   confusion between the way we refer to the two studies that we did
   (HATRA and JS).  It's not a huge deal, but it would be nice to avoid
 confusing readers.}\hg{In this proposal, I've tried to be unambiguous: ``preliminary results''
 mean early results of the JS study, pilot study means before that. Have you seen
-us blur that distinction?} and a great opportunity for new
+us blur that distinction?}\bcp{No, but it would be even better to
+disambiguate more, where possible.}\fi{} and a great opportunity for new
 educational technologies.
 
 We propose an interactive tool to help beginners find the properties in their
