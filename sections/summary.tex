@@ -1,7 +1,5 @@
 \section*{Project Summary}
 
-\iflater\todo{Recheck in GPG}\fi
-
 \paragraph*{Overview}
 Property-based testing (PBT) is an advanced software testing
 methodology where users write executable specifications of their code
@@ -76,9 +74,9 @@ effectiveness of testing.
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To make progress, two mostly disjoint research areas
+To make progress, two distinct---and largely disconnected---research areas
 must be brought to bear.  PBT itself is grounded in domain-specific
-languages and formal methods---traditional PL topics.  Usability, on
+languages and formal methods: traditional PL topics.  Usability, on
 the other hand, is the domain of human-computer interaction.
 %
 This four-year project will combine insights, methods, and tools from
@@ -93,43 +91,49 @@ interaction, programming languages, usability.
 
 \paragraph*{Intellectual Merit}
 The project will advance knowledge along five interconnected axes.
-First, it will establish a firm {\em foundation} for HCI-informed
+%
+First, it will establish a firm {\bf\em foundation} for HCI-informed
 research on PBT, supplementing past and ongoing user studies with
 broader surveys of PBT across the software industry and real-time
-observations of developers using PBT tools.  Second, it will \todo{...}
+observations of developers using PBT tools.
+%
+Second, it will offer developers more usable {\bf\em specification} tools,
+including a language for stating temporal properties over internal
+program states and a tool for automating model-based testing of
+modular abstractions.
+%
+Third, it will explore a novel abstraction for random input {\bf\em
+  generation} that enables a range of use cases---generating inputs
+satisfying validity conditions, mutating inputs to explore the space
+of similar inputs, and manually or automatically tuning a random
+generator's distribution based on examples or on code coverage
+measurements.
+%
+And fourth, it will build new interactive programming tools for rapid
+{\bf\em validation} of the effectiveness of testing, helping programmers
+pin down the causes of failures, and visualize generated data
+distributions to support comprehension and tuning.
 
-
- in specification, generation, and validation
-
-% The statement on intellectual merit should describe the potential of the proposed activity to advance knowledge.
-
- (1) deploy tools from HCI to better
-understand the challenges to wider adoption of PBT, (2) combine PL and
-HCI methods to build solutions, and (3) develop educational materials
-to make PBT concepts and tools accessible to a broad community of
-university students and industrial developers.
-
-\begin{itemize}
-\item Establish a picture of the challenges
-faced by developers when using PBT informed by rigorous user-centered research.
-\item Develop a new abstraction for random data generators, {\em
-  reflective generators}, enabling better (manual or automatic) tuning of test case
-distributions, ...
-\item benchmark suite
-\item Develop a conceptual framework and concrete tools for validating
-the effectiveness of testing (specifics...),
-visualizing and tuning generator distributions,
-interactive tools for shrinking,
-converting counterexamples to readable regression tests
-\item Evaluate our results through further user studies...
-\end{itemize}
+%  (1) deploy tools from HCI to better
+% understand the challenges to wider adoption of PBT, (2) combine PL and
+% HCI methods to build solutions, and (3) develop educational materials
+% to make PBT concepts and tools accessible to a broad community of
+% university students and industrial developers.
 
 \paragraph*{Broader Impacts}
-\begin{itemize}
-\item make software better, more robust, more reliable, more secure(??)
-\item (describe educational projects)
-\item Develop tools that significantly reduce barriers to entry
-\item Work with undergrads, etc.
-\end{itemize}
+A fifth thread, coordinated with the rest and integral to the
+project's aims, will be to develop materials for PBT {\bf\em education}
+in both universities and industry, including an introduction to PBT for
+an undergraduate data structures course, a tool to help students
+author properties, and advice on how programmers can identify
+high-leverage situations where properties are easy to find.
+
+The ultimate goal, through both education and intuitive, freely
+distributed tools, is to make property-based testing a standard option
+on every software developer's testing toolbelt.  Better testing, in
+turn, will lead to software systems of every sort that are more
+robust, more reliable, and less expensive to build.
+
+\bcp{What else?  Working with undergrads, etc., etc.}
 
 % The statement on broader impacts should describe the potential of the proposed activity to benefit society and contribute to the achievement of specific, desired societal outcomes.
