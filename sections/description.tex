@@ -640,20 +640,21 @@ the potential to significantly increase the usability of model-based PBT.
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
-The Jane Street study also highlighted several \gentheme{generation themes}.
+The Jane Street study highlighted several \gentheme{generation themes}.
 Generators were regularly cited as one of the most challenging parts of the PBT
 process---the existing tools for random generation are varied and powerful, but
-they are not very usable.  In this section, we present {\em reflective
+they are not very usable.  In this section, we propose {\em reflective
 generators}, a new abstraction for random generation that exposes levers for
 automation that enable a host of new approaches to generator
 tooling (\sectionref{sec:reflective}). Reflective generators enable new
 approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
 (\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
-effectiveness.\hg{BCP or AMH, feel free to edit. I was just trying to make it
-more exciting and mention usability}
+effectiveness.
+\iflater\bcp{Do any of the later sections also depend on reflective
+  generators?}\fi
 
 \subsectionstar{Context: Random Generation is Hard}
-As discussed in the Orientation, PBT relies heavily on {\em random data
+As discussed in the Orientation section above, PBT relies heavily on {\em random data
 generators}. The inputs produced by the generator exercise the developer's
 properties and give confidence that they hold---provided the inputs are
 interesting enough.
@@ -735,13 +736,13 @@ those choices to produce a value. This perspective has been used in a few
 implementations of PBT
 systems~\cite{maciver2019hypothesis, dolan2017testing}; we made it
 formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
-
-The paper introduces {\em free generators}, which generalize the standard
+%
+This paper introduced {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
 random generation, and enable new algorithms for generation that improve
 generation modulo validity constraints. Free generators are written the same
-way as standard monadic generators, but they are more like generator ``plans''
-or syntax trees.%
+way as standard monadic generators, but in reality they are more like
+generator ``plans'' or syntax trees.%
 \footnote{For experts: Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
@@ -751,9 +752,10 @@ monadic computations syntactically by reifying the monad operations
 is all implemented within the language (no macros or AST
 manipulation). See \cite{goldstein2022parsing} for more details on the
 free generator representation.}
-This means that a single free generator can be be {\em interpreted} in multiple
-different ways. In {\em Parsing Randomness} we prove that any free generator can
-be interpreted either as a standard monadic generator or as a source of
+\proposecut{This means that a single free generator can be be {\em interpreted}
+in multiple ways. In {\em Parsing Randomness} we proved that any free
+generator can be interpreted}
+either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
 relationship between generators and parsers.
 % \proposecut{Furthermore, since free generators
@@ -776,9 +778,10 @@ relationship between generators and parsers.
 % then giving a bit of technical meat, though of course there is not
 % room for much).}
 % \hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
-Continuing on from the free generator work, we have begun to look at even more
+Building on the free generator work described above, we have begun to
+look at yet more
 powerful generalizations of the standard monadic approach to random generation.
-One such project concerns monadic generators that can be run {\em backward}.
+One such project\bcp{are there others that are relevant here?} concerns monadic generators that can be run {\em backward}.
 
 If a generator parses a sequence of choices into a value, then running the
 generator backward should take a value and produce a sequence of choices that
@@ -796,9 +799,9 @@ monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
 but, like free generators, their syntax is still quite close to that of normal
 monadic generators.
-
+%
 But reflective generators are useful for more than just generation!
-We plan to explore (at least) the following two example applications.
+We already know of two other applications...
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
@@ -991,24 +994,27 @@ without giving up the power and simplicity of coverage-guided generation.
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
-Another major challenge in maximizing PBT's usability is giving developers to
+Another major challenge in maximizing PBT's usability is giving
+developers the ability to
 \evaltheme{validate} that their testing is effective.  In this section, we
-describe a sequence of research projects to design and evaluate usable developer
+describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms
-for tools that help developers understand program failures involving complex
-inputs (\sectionref{sec:failures}), assess whether their generators are
-generating sufficient, appropriate inputs
+for tools that help developers assess whether their generators are
+generating sufficient and appropriate inputs
 (\sectionref{sec:evaluating_distributions}) and whether those inputs
-sufficiently exercise their code (\sectionref{sec:tuning}), and migrate failed
-property-based tests into regression tests (\sectionref{sec:counter}).  These
+sufficiently exercise their code (\sectionref{sec:tuning}), migrate failing
+property-based tests into regression tests (\sectionref{sec:counter}),
+and understand testing-provoked failures involving complex
+inputs (\sectionref{sec:failures}).  These
 projects will be pursued using human-computer interaction methodology,
-integrating these tools into contemporary development environments for
-functional programming. The result of this work will be a comprehensive,
+integrating these tools into contemporary interactive development
+environments. The result of this work will be an
 innovative set of design primitives for helping developers get work done in the
 challenge setting of reasoning about tests with an overabundance of input-output
-examples.
+examples. \bcp{That could still be compressed some.}
 
-\hg{I think all of this can go}
+\hg{I think all of this can go}\bcp{Maybe except for the second- and
+  third-to-last sentences?}
 \proposecut{ First, it becomes a task in and of itself to understand individual
 inputs. This because the inputs are not written by the developer, but rather
 generated automatically, and furthermore, they can be of unbounded structural
