@@ -1413,12 +1413,16 @@ The Jane Street study also gives us a solid start on a comprehensive list of
 ``no-brainer situations,'' where PBT is an obvious choice. For
 example:\bcp{I think it would be easier to understand what we're
   saying if we listed the specifications themselves rather than (or in
-  addition to) the situations}
+addition to) the situations}\hg{I worry that will muddy the distinction between
+WTSI and HTSI...}
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item code that is already formally or semi-formally
 specified,\bcp{still don't find this one compelling---when would it
   arise? isn't it kind of tautological?  (a function with a
-  specification has a specification...)}
+specification has a specification...)}\hg{We're looking for cases where
+properties are easy to find, right? Well they're {\em very} easy to find if you
+already have them! This is essentially the QuickChick case---PBT is a great
+choice because you already had to write down the spec for something else}
 \item two functions (e.g., a parser and a printer) that should ``round-trip,''
 \item a pure data structure (sets, maps, etc.) with obvious algebraic laws,
 \item a module with a natural invariant,
