@@ -152,15 +152,23 @@
 \usepackage{pgfgantt}
 \ganttset{bar height=.6}
 \newcommand{\ganttsection}[1]{
-  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}}
+  \gdef\currentganttsection{#1}
+  %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
+  }
 \newcommand{\harrycolor}{dkred}
 \newcommand{\othercolor}{blue}
+\gdef\currentganttsection{}
 \newcommand{\task}[5]{
   \\ \ganttbar
        [bar/.append
           style={fill=#5}]
 %          style={fill=gray}]
-    {\footnotesize #1 (\sectionref{#2})}{#3}{#4} }
+       {\hbox to 3in{{\footnotesize {\em (\currentganttsection)}
+                     \hfill
+                     #1 (\sectionref{#2})}}}
+       {#3}{#4}
+  \gdef\currentganttsection{}
+}
 
   % \makeatletter
 % \newcommand{\SECTION}[1]{\section{#1}
