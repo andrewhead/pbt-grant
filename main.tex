@@ -141,7 +141,11 @@
   \ifthenelse{\equal{#5}{Harry}}{%
     \edef\FOO{\harrycolor}
   }{%
+  \ifthenelse{\equal{#5}{Both}}{%
+    \edef\FOO{\bothcolor}
+  }{%
     \edef\FOO{\othercolor}}
+}
   \immediate\write\workplanfile{%
     \string\task{#1}{#2}{#3}{#4}{
       \FOO}}
@@ -156,8 +160,9 @@
   \gdef\currentganttsection{#1}
   %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
   }
-\newcommand{\harrycolor}{dkred}
-\newcommand{\othercolor}{blue}
+\newcommand{\harrycolor}{nord-frost4}
+\newcommand{\bothcolor}{nord-green}
+\newcommand{\othercolor}{nord-yellow}
 \gdef\currentganttsection{}
 \newcommand{\task}[5]{
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
