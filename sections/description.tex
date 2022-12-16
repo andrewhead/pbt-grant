@@ -751,21 +751,11 @@ monadic computations syntactically by reifying the monad operations
 is all implemented within the language (no macros or AST
 manipulation). See \cite{goldstein2022parsing} for more details on the
 free generator representation.}
-\proposecut{This means that a single free generator can be be {\em interpreted}
-in multiple ways. In {\em Parsing Randomness} we proved that any free
-generator can be interpreted}
+In {\em Parsing Randomness} we proved that any free
+generator can be interpreted
 either as a standard monadic generator or as a source of
 random choice strings with a parser over those strings; this formalizes the
 relationship between generators and parsers.
-% \proposecut{Furthermore, since free generators
-% are uninterpreted syntax trees, they can be manipulated programmatically. Free
-% generators admit a version of a Brzozowski
-% derivative~\cite{brzozowski1964derivatives} that can be used incrementalize
-% generation. We showed that free generator derivatives enable an algorithm called
-% {\em Choice Gradient Sampling}, which uses repeated derivatives to guide a
-% generator to inputs that are more likely to be valid with respect to a given
-% precondition. This work is an important step towards better automation for
-% generators with complex preconditions.}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
 Building on the free generator work described above, we have begun to look at
