@@ -394,7 +394,7 @@ and one to identify potential for adoption of PBT tools
 particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
-\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Other}
+\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{2}{3}{Other}
 %
 Our ongoing Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -830,7 +830,7 @@ automated approaches to improving generator distributions---and we get
 will see some additional use cases for reflective generators in the
 following sections.
 
-\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{Harry}
+\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
 Reflective generators' ability to run backward means that they can be used as
 part of any algorithm that needs to understand the structure of generated
@@ -1002,7 +1002,7 @@ innovative set of design primitives for helping developers get work done in the
 challenging setting of reasoning about tests with an overabundance of input-output
 examples.}
 
-\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{1}{2}{Other}
+\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Other}
 %
 In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success
@@ -1123,7 +1123,7 @@ feedback and analysis; in the next section, we take it one step farther to
 consider how interactive tools can help a developer not just understand input
 data distributions, but more directly change them.
 
-\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
+\SUBSECTION{Tuning Data Distributions}{sec:tuning}{2}{3}{Harry}
 %
 What should developers do if their properties are testing the wrong
 inputs? Tuning generators is a challenging task, often requiring significant
@@ -1171,7 +1171,7 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
-\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{1}{1}{Other}
+\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Other}
 %
 After a developer has identified a failure with their tests, they
 often wish to turn that failure into a regression test, to ensure that later
@@ -1371,7 +1371,7 @@ a
 tool for helping both developers and students write properties
 interactively (\sectionref{sec:interactive}).
 
-\SUBSECTION{PBT for Undergrads}{sec:1210}{1}{2}{Other}
+\SUBSECTION{PBT for Undergrads}{sec:1210}{1}{4}{Both}
 %
 \writeme{Write me.}
 
@@ -1404,7 +1404,7 @@ place to put it) and creating some lecture material explaining it.
 \todo{Prior work~\cite{wrenn2021using,nelson2021automated} Shriram papers?}
 \fi
 
-\SUBSECTION{When to Specify It!}{sec:whento}{2}{3}{Harry}
+\SUBSECTION{When to Specify It!}{sec:whento}{1}{2}{Harry}
 %
 PBT is often described as a lightweight formal method.  One
 might therefore imagine that a central challenge of using PBT would be
@@ -1524,9 +1524,6 @@ environment~\cite{ref:head2020composing}.
 %   \caption{Plan of work.}\label{fig:workplan}
 % \end{figure}
 
-% \todo{Flesh out the chart in PPT; maybe eventually re-draw it in some
-%   nicer form.}
-
 \begin{figure}[ht]
   \centering
 \begin{ganttchart}[
@@ -1560,8 +1557,31 @@ environment~\cite{ref:head2020composing}.
 }\label{fig:workplan}
 \end{figure}
 
-\writeme{Write me.}
+The project will be carried out by two PhD students (and a number of
+undergraduate or masters students) over the course of four years. The work is
+split roughly into two thrusts, one focused on PL techniques and the other on
+HCI, but all projects will include ideas from both areas.
 
+The PL thrust, led by PhD candidate Harrison Goldstein, will take place from
+years 1--3 
+
+In year one, Harrison Goldstein, a current PhD student, will continue his work
+on reflective generators and begin work on {\em When to Specify It!}. At the
+same time, PI Pierce and PI Head will work with Harrison to advise an
+undergraduate or masters project to begin work on a language properties over
+logs. In year two, we will hire a new PhD student, Student 2, to begin work on
+surveys to generalize the Jane Street findings and begin work on a tool to
+evaluate data distributions. Harrison, in the meantime, will finish the
+reflective generators work and {\em When to Specify It!} and begin exploring
+reflective shrinkers and fuzzers.  As the properties for logs work comes to a
+close, we will take on an undergraduate or masters student in HCI to begin work
+on turning counterexamples into regression tests.
+
+to begin implementing a PBT
+curriculum for undergraduates 
+
+
+\writeme{Write me.}
 
 \SIMPLESECTION{Broader Impacts of the Proposed Work \pagebudget{.5}}{sec:broader-impacts}
 
