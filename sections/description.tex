@@ -489,7 +489,7 @@ automatically in a specific high-leverage scenario: model-based testing
 the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
-As discussed in the Motivation section above, a common problem
+As discussed in the motivation section above, a common problem
 raised by Jane Street
 developers (and even more loudly in our earlier pilot
 study~\cite{ref:goldstein2022some}) was that code may sometimes not be
@@ -779,8 +779,17 @@ monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
 but, like free generators, their syntax is still quite close to that of normal
 monadic generators.
-%
-But reflective generators are useful for more than just generation!
+
+Note that the backward direction of reflective generators is different from
+remembering the choices the generator makes as it goes (which is already
+commonly done~\cite{maciver2019hypothesis,hatfield-dodds_hypofuzz_nodate}). For
+one, the generator can reflect on choices for inputs it did not produce itself,
+and for another the choices can be given different structures (bitstrings,
+higher-level choice strings, choice trees, etc.) depending on the needs of the
+caller.
+
+The bidirectional nature of reflective generators makes them 
+useful for more than just generation!
 We already know of two other applications...
 
 {\em Validity-Preserving Mutation.}
@@ -854,7 +863,7 @@ the original. Formalizing sub-classes of well-behaved reflective generators and
 notions of ``shrinker closeness'' will also give valuable insights into other
 applications of reflective generators and shrinkers.
 
-We mentioned in the Motivation section that participants in the study thought of
+We mentioned in the motivation section that participants in the study thought of
 shrinking as magical, but currently the abstraction is too leaky for them to
 be comfortable ignoring it.  Our hope is that eventually, having a reflective
 generator on hand will mean that shrinking, even in the face of complex
@@ -1199,7 +1208,9 @@ generating starter test code, substituting in correct expected values of the
 output by executing corrected code, and then supporting developers in rapidly
 performing likely edits to regression tests by providing suggestions to
 alterations to their code like the ability to generate general property checks
-with precise equality checks.
+with precise equality checks. We hope the results of this work can inform the
+design of other approaches to counterexample extraction, including one that is
+proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
@@ -1632,7 +1643,7 @@ performance measurement (mostly at Amherst) and PBT (mostly at Penn
 and Maryland).  Specific threads of work at Penn included building an early
 version~\cite{Frohlich2022} of the Reflective Generators described in
 \sectionref{sec:reflective}, carrying out the pilot study of PBT in Python
-mentioned in the Motivation section
+mentioned in the motivation section
 above~\cite{goldstein_problems_2022}, and building on the idea of
 freer monads from functional programming to develop ``free
 generators,'' which unify parsing and
