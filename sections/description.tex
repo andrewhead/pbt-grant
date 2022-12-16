@@ -85,8 +85,7 @@ two survey studies and an observation study
 of PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with
   new tools for checking temporal properties over internal program states and
-automating model-based testing of abstractions defined using OCaml's
-module system (\sectionref{sec:spec}).
+for model-based testing of modularized code (\sectionref{sec:spec}).
   \item We will help developers efficiently define and tune test-case
 \emph{generators} with novel techniques for generating precondition-satisfying
 values, test input mutation, and example-based generator tuning, building
@@ -1072,7 +1071,7 @@ automatically for the most common data types.
 \begin{wrapfigure}{r}{0.6\textwidth}
   \centering
   \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating input data distributions.}\label{fig:gen-vis}
+  \caption{An envisioned tool for evaluating data distributions.}\label{fig:gen-vis}
 \end{wrapfigure}
 
 Second, the data displays will be easily extensible, providing lightweight hooks
@@ -1286,9 +1285,9 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Other}
 %
-One of the challenges to evaluating PBT results is understanding what a
-counterexample means and why it triggers a bug.  We will design interactive
-tools to help developers in this process.
+One of the challenges in using PBT is understanding why
+a given counterexample triggers a bug.  We will design interactive
+tools to help in this process.
 
 First, we will design tools that build on
 shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
@@ -1367,26 +1366,29 @@ interactively (\sectionref{sec:interactive}).
 
 \SUBSECTION{PBT for Undergrads}{sec:1210}{1}{4}{Both}
 %
-Education can be a force-multiplier that helps make technologies more usable.
-When tools or techniques become standard in undergraduate curricula, the
-students can go on to help bootstrap adoption of those ideas in industry.  PBT
-would be at home in a number of standard computer science courses--- compilers,
+Education can act as a force multiplier to make technologies more usable.
+When tools or techniques become standards in undergraduate curricula,
+students can go on to help bootstrap adoption of the same ideas in industry.  PBT
+would be a good fit for a number of standard CS courses---compilers,
 functional programming, and even early introduction courses---but we believe the
 most promising place to start will be a data structures course.
-
-Teaching PBT alongside data structures has
-precedent~\cite{wrenn2021using,nelson2021automated}, and is natural for a number
-of reasons.  Data structures is often taken early in the curriculum, so habits
-can carry over to other courses even where PBT is not explicitly used. In
+%
+Teaching PBT alongside data structures has good
+precedent~\cite{wrenn2021using, nelson2021automated}\bcp{what are we
+  going to do that's different from what they did?} and is natural for a number
+of reasons.  The course is often taken early, so habits
+can carry over to other courses. In
 addition, data structures often have ``obvious'' properties that can be a great
-place to start with PBT (e.g., algebraic specifications, inefficient reference
-implementations, see \sectionref{sec:whento}).
-
+place to start with PBT (see \sectionref{sec:whento}).
+%
 Concretely, we plan to design a model for adding PBT to data structures courses
-and implement this model in the University of Pennsylvania's CIS 1210. We will
-add a lecture early in the course on PBT and then make PBT a requirement on
-future homework assignments.  Materials we produce will be made public so other
-universities can copy and adapt our model to their own courses. We will also
+and implement this model in the University of Pennsylvania's CIS 1210,
+Data Structures and Algorithms. We will
+add a single lecture early in the course on PBT and modify  the
+(Java-based) programming assignments to use PBT alongside or instead
+of unit testing.
+Materials we produce will be made public so other
+universities can copy and adapt them to their own courses. We will also
 publish a paper in a computer science education conference that advertises and
 explains our methods.
 

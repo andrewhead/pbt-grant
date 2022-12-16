@@ -86,7 +86,7 @@
 \definecolor{gray}{HTML}{BBBBBB}
 \definecolor{darkgray}{HTML}{555555}
 
-\newif\ifdraft\drafttrue
+\newif\ifdraft\draftfalse
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
 \newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
 \newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
@@ -135,21 +135,21 @@
   \medskip \noindent {\headerfont #1.}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
 \newcommand{\SUBSECTION}[5]{%
-  \refstepcounter{subsection}
+  \refstepcounter{subsection}%
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
-  \label{#2}
+  \label{#2}%
   \ifthenelse{\equal{#5}{Harry}}{%
-    \edef\FOO{\harrycolor}
+    \edef\FOO{\harrycolor}%
   }{%
   \ifthenelse{\equal{#5}{Both}}{%
-    \edef\FOO{\bothcolor}
+    \edef\FOO{\bothcolor}%
   }{%
-    \edef\FOO{\othercolor}}
-}
+    \edef\FOO{\othercolor}}%
+  }%
   \immediate\write\workplanfile{%
     \string\task{#1}{#2}{#3}{#4}{
-      \FOO}}
+      \FOO}}%
 }
 \newcommand{\sectionref}[1]{\S\ref{#1}}
 
