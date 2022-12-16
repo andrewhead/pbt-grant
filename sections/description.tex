@@ -1422,30 +1422,17 @@ helping developers quickly recognize situations where PBT is a
 natural fit because the properties are obvious!
 
 The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer situations,'' where PBT is an obvious choice. For
-example:\bcp{I think it would be easier to understand what we're
-  saying if we listed the specifications themselves rather than (or in
-addition to) the situations}\hg{I worry that will muddy the distinction between
-WTSI and HTSI...}\bcp{The distinction is already muddy!}
+``no-brainer properties.'' For example:
 \begin{enumerate*}[label=(\arabic{enumi})]
-\item code that is already formally or semi-formally
-specified,\bcp{still don't find this one compelling---when would it
-  arise? isn't it kind of tautological?  (a function with a
-specification has a specification...)}\hg{We're looking for cases where
-properties are easy to find, right? Well they're {\em very} easy to find if you
-already have them! This is essentially the QuickChick case---PBT is a great
-choice because you already had to write down the spec for something
-else}\bcp{But how often does this actually happen, in an industrial
-context?  Seems more distracting than helpful.}
-\item two functions (e.g., a parser and a printer) that should ``round-trip,''
-\item a pure data structure (sets, maps, etc.) with obvious algebraic laws,
-\item a module with a natural invariant,
-\item related versions of the same code (e.g., one fast, one slow; one old, one
-new),
+\item ``these two functions (e.g., a parser and a printer) should round-trip,''
+\item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
+\item ``this stateful module should uphold an invariant,''
+\item ``these two programs should behave the same'' (e.g., because one is and optimized
+version of the other),
 and
-\item programs that may fail catastrophically.
+\item ``this program should not crash.''
 \end{enumerate*}
-These patterns cover a range of
+These properties cover a range of
 scenarios that real software developers regularly find themselves in, but they
 are likely not exhaustive. To flesh out the list, we will continue to
 gather examples; specifically, we will include
@@ -1477,18 +1464,23 @@ close to hand, an inexperienced developer still has trouble seeing them?
 This was a strong signal in the pilot study\bcp{I have a persistent
   confusion between the way we refer to the two studies that we did
   (HATRA and JS).  It's not a huge deal, but it would be nice to avoid
-confusing readers.} and a great opportunity for new
+confusing readers.}\hg{In this proposal, I've tried to be unambiguous: ``preliminary results''
+mean early results of the JS study, pilot study means before that. Have you seen
+us blur that distinction?} and a great opportunity for new
 educational technologies.
 
 We propose an interactive tool to help beginners find the properties in their
 code. Prior research has demonstrated that automated tools can extract
 specifications of a program's behavior~\cite[etc.]{ref:ammons2002mining,
-ref:le2018deep, ref:claessen2010quickspec}\bcp{There must be more work on automatically generating
+ref:le2018deep, ref:claessen2010quickspec, smith_discovering_2017},
+\iflater
+\bcp{There must be more work on automatically generating
   specifications, etc...  Need a few more citations if possible.}
-, but such tools have been primarily
+\fi
+but such tools have been primarily
 evaluated in terms of their {\em ability} rather than their {\em
-  usability}---\bcp{needs a gloss explaining what we
-  meant by that}.
+usability}---there is a big difference between successfully extracting a target
+specification and doing so in a way that a developer can predictably use and understand.
 Our tool will support specification extraction in the context of education,
 helping students apply PBT without direct guidance from instructors.
 
