@@ -584,7 +584,6 @@ module StringFns : sig
   val reverse : string -> string
   val drop_n  : int -> string -> string
   val split   : string -> string * string
-end
 \end{lstlisting}
   \end{minipage}
   \qquad\qquad
@@ -594,9 +593,9 @@ module Set : sig
   type 'a t     val empty : 'a t
   val mem   : 'a t -> 'a -> bool
   val add   : 'a t -> 'a -> 'a t
-end
 \end{lstlisting}
   \end{minipage}
+  \vspace{-4mm}
   \caption{Some module interfaces we would like to test
     automatically.}\label{fig:sigs}
 \end{figure}
