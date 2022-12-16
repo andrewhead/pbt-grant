@@ -1,8 +1,5 @@
 \section*{Project Description}
 
-\iflater\todo{Remember to not use any URLs in the project description!
-  (They are encouraged in the references.)}\fi
-
 Testing plays a vital role in modern software development,
 contributing crucially to robustness and overall quality---as well as
 to overall development costs.
@@ -84,7 +81,7 @@ accelerate PBT's transition into practice.
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 beginning with our ongoing need-finding study. We will confirm
 its findings and further explore PBT's usability with
-two\iflater\bcp{check!}\fi{} survey studies and observation studies
+two survey studies and observation studies
 of PBT users {\em in situ} designed to lead to concrete tool designs
 (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with new approaches
@@ -210,7 +207,7 @@ their software. We intend to make it that way.
   in the context sections.}
   \fi
 
-\subsectionstar{Motivations from a Formative Study of PBT in 
+\subsectionstar{Motivations from a Formative Study of PBT in
 Industry\label{sec:motivation}
 \pagebudget{2}}
 %
@@ -254,7 +251,7 @@ of interview session notes. These form the backbone of the present proposal.
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
 \newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
 A first set of
-themes revolves around \proptheme{\normalfont \bf specifications} (i.e., 
+themes revolves around \proptheme{\normalfont \bf specifications} (i.e.,
 properties).
 % and the kinds of programs in which they choose to test them.
 Since
@@ -266,7 +263,7 @@ By contrast, Jane Street developers, on the whole, reported
 few difficulties coming up with
 properties. Rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. For example, participant 
+available or straightforward to invent. For example, participant
 9~(\participant{9}) pointed out that PBT was particularly easy to apply when one
 has ``a really good abstraction
 with a complicated implementation.''
@@ -275,16 +272,16 @@ Several participants (\participant{3}, \participant{15},
 that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find, and
 where PBT is relatively easy to apply.  This suggests that an effective way to
-improve education and documentation around PBT is to highlight these real-world 
+improve education and documentation around PBT is to highlight these real-world
 applications that seem to be a natural fit for PBT.
 
 It also became clear that there were \proptheme{Opportunities for Better
-Leverage} of specifications, or situations where PBT is not easy {\em yet}, but 
+Leverage} of specifications, or situations where PBT is not easy {\em yet}, but
 could be with a
-little more research effort. For example, \participant{7} spoke about trying to 
-test a program that lacked a well-defined abstraction---which are notoriously 
+little more research effort. For example, \participant{7} spoke about trying to
+test a program that lacked a well-defined abstraction---which are notoriously
 resistant to PBT---by
-writing properties over the output printed to the terminal, rather than the 
+writing properties over the output printed to the terminal, rather than the
 output of a function. We plan to provide better tool support for this approach.
 Furthermore, more than three quarters of study participants had used a
 particular approach to PBT commonly called
@@ -314,50 +311,50 @@ greatly improve both the experience of using PBT and its potential for
 bug-finding.
 
 If a generated input is determined to be a {\em counterexample} that triggers
-property violation, a developer will wish to inspect that counterexample to find 
-and fix the root cause of the violation. Developers often implemented code for 
-\gentheme{Shrinking} inputs, or taking counterexamples and discovering smaller, 
+property violation, a developer will wish to inspect that counterexample to find
+and fix the root cause of the violation. Developers often implemented code for
+\gentheme{Shrinking} inputs, or taking counterexamples and discovering smaller,
 simpler inputs that trigger the same bug.  \participant{8}
 and \participant{21}, who each implemented their own PBT libraries, both
-incorporated shrinkers as key components of their libraries. That said, 
-shrinkers need to be customized to particular kinds of data to be most 
-effective, and the reality is that they are time-consuming to build; many 
+incorporated shrinkers as key components of their libraries. That said,
+shrinkers need to be customized to particular kinds of data to be most
+effective, and the reality is that they are time-consuming to build; many
 developers
-(\participant{16}, \participant{20} \participant{21}, \participant{30}) 
+(\participant{16}, \participant{20} \participant{21}, \participant{30})
 described shrinker implementation as an opaque and difficult process.
-Ideally, developers would have tools that make the process of implementing 
+Ideally, developers would have tools that make the process of implementing
 shrinkers fast and simple.
 
-Further themes from the interview study concerned how developers 
+Further themes from the interview study concerned how developers
 \evaltheme{\normalfont \bf validated} their tests.
-Developers described their processes for \evaltheme{Evaluating the 
+Developers described their processes for \evaltheme{Evaluating the
 Effectiveness} of their tests. Many
 desired
 better ways to evaluate their generators and properties, including
-better feedback on code coverage (\participant{9} and \participant{25}), 
+better feedback on code coverage (\participant{9} and \participant{25}),
 incorporation of mutation
-testing~\cite{papadakis_mutation_2018}, and understanding the space of generated 
-inputs (\participant{10}, \participant{16}, \participant{16}). Problematically, 
-while many developers admitted they would benefit from better tools for 
+testing~\cite{papadakis_mutation_2018}, and understanding the space of generated
+inputs (\participant{10}, \participant{16}, \participant{16}). Problematically,
+while many developers admitted they would benefit from better tools for
 evaluating their tests, many seemed to
 \evaltheme{Implicitly Trust the Infrastructure} that they had not thoroughly
 analyzed. \participant{14} actually shipped broken code to production because
-their generator missed important input examples. We propose advances in tools 
-for validation that help developers more clearly understand, and improve, the 
+their generator missed important input examples. We propose advances in tools
+for validation that help developers more clearly understand, and improve, the
 effectiveness of their tests.
 
 Finally, for PBT tools to be more usable, we need progress in
 \edutheme{\normalfont \bf
-education}. Developers need to be informed about the \edutheme{High-Leverage 
+education}. Developers need to be informed about the \edutheme{High-Leverage
 Scenarios} in which PBT should be employed, as we discussed above.
 In our pilot studies, we found that developers with less experience with PBT
 sometimes struggled to \edutheme{Imagine
-Properties}, or understand what properties to test (Pilot-\participant{1}, 
+Properties}, or understand what properties to test (Pilot-\participant{1},
 Pilot-\participant{3},
-Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies 
+Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
 (Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
-\participant{11}) reported a dearth of \edutheme{Documentation and Examples} for 
-learning about PBT. Our final aim in this project is to develop curricula, 
+\participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
+learning about PBT. Our final aim in this project is to develop curricula,
 documentation, and tools that fill this educational gap.
 
 We discuss plans for work that addresses these themes below, \proptheme{specification
@@ -377,13 +374,6 @@ properties as a source of documentation.}
 \bcp{Not sure where is the right place for this discussion (or if
   there will be space)...}
 \fi
-
-% \todo{Debugging doesn't really fit here...}
-\ifdesperateforspace
-\bcp{ We could save a tiny bit of space by grouping all the
-  ``We discuss'' sentences into a paragraph at the end.  But if space
-  is OK, I think it reads well this way.}
-  \fi
 
 \SECTION{Foundation}{Understanding Needs and Opportunities \pagebudget{1}}{sec:foundation}
 
@@ -407,12 +397,7 @@ and one to identify potential for adoption of PBT tools
 particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
-\iflater\bcp{Somewhere, we need to mention the letter of support from
-  JS.  I guess it belongs in the section where we describe potential
-  further collaborations with them.}\fi
-
 \SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Other}
-\iflater\bcp{Plural or singular?}\fi
 %
 Our ongoing Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -494,7 +479,7 @@ what kinds of designs will be viable for helping programmers.
 
 
 \SECTION{Specification}{Widening the On-Ramp \pagebudget{2}}{sec:spec}
-The projects in this section address the challenges related to 
+The projects in this section address the challenges related to
 \proptheme{specification} discussed in the motivation section. One major finding
 of the study is that widening the on-ramp to PBT requires making developers
 aware of high-leverage use-cases for PBT. We discuss our plans to teach developers
@@ -1364,7 +1349,7 @@ with precise equality checks.
 \bcp{Harry and I both persistently have trouble understanding what the
 title means.  Can we find a pithier phrase?  Also, the section seems
 much too long -- the most important bits are the first paragraph and
-the last sentence.}\hg{How's this?}
+the last sentence.}\hg{How's this?}\bcp{Works for me.}
 %
 One of the challenges to evaluating PBT results is
 simply understanding individual inputs, which may be complex and trigger bugs in
@@ -1679,11 +1664,7 @@ VSCode environment~\cite{ref:head2020composing}.
   \gantttitle{Year 4}{1}
   \input{main.workplan}
 \end{ganttchart}
-  \caption{Plan of work.  \iflater\bcp{It's too big probably.  :-(  We can
-      trim it a little by removing the main section headings.  After
-      that, is it interesting enough to justify the space?  I guess we
-    could alternatively include ``(Years X to Y)'' in subsection
-    titles}\bcp{Can squeeze one line at the top by hacking a bit.}\fi
+  \caption{Plan of work.
    \bcp{squeeze the header lines to the left}
    % \bcp{The timeline needs to be brought into correspondence with our
    %   actual expectations of timing, and explained.  Harry's projects
@@ -1736,8 +1717,8 @@ during this project; they, too will benefit from the research
 experience. Each graduate student will have leadership responsibility
 for multiple facets of the project, including co-supervising
 interested undergraduate researchers.  See the Collaboration Plan for
-more. \iflater\bcp{I guess we need to write one?}\fi
-
+amore. \bcp{I guess we need to write one?  And if so we should warn
+  the business office that it's coming -- I'll do that now.}
 
 % The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 % Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
