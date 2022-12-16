@@ -96,7 +96,8 @@ values, test input mutation, and example-based generator tuning, building
 locate the cause of a test failure and understand how to improve their generated
 data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We will propose a program\bcp{blah} for PBT \emph{education} including
+  \item We will propose a program\bcp{blah}\hg{What's blah about it? I'm not
+  sure I know we're optimizing for} for PBT \emph{education} including
   an introduction to PBT for undergraduate
   computer science curricula, a tool to help students author
   properties, and a comprehensive review of PBT practice
@@ -504,6 +505,9 @@ the on-ramp to PBT and clarify its place in the software industry.
    by multiple people, or just P7?  Or are we extrapolating from other things
    people said, about abstraction generally?  If we can mention more
    participants, the support seems much more powerful.}
+\hg{Just P7, but lots of people in the pilot talked about spaghetti code too, so
+it's fair to extrapolate. Also FWIW P7 did something sort of like this, just in
+a very ad-hoc way with no LTL}
 %
 One common problem raised by Jane Street developers (and even more loudly
 in our earlier pilot study~\cite{ref:goldstein2022some}) was
@@ -1524,115 +1528,50 @@ kinds of properties that can be written or a given piece of code.
 % into the definitive guide for the most impactful opportunities to apply PBT.
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
-%
-\bcp{I'm not sure any more that this belongs under Education.  It's
-  pretty researchy, and it's not clear what the pedagogical angle is.
-But maybe it can be revised to fit better here.}
+\hg{NEW! Thoughts? Feel free to just change it.}
+The central idea of {\em When to Specify It!} is that developers should focus on
+applying PBT in the highest-leverage scenarios because those scenarios have the
+most obvious and useful properties. But what if, even when properties are
+readily available, an inexperienced developer still has trouble seeing them?
+This was a strong signal in the pilot study and a great opportunity for new
+educational technologies.
 
-\hg{New framing idea: We know because of pilot (and anecdotally) that imagining
-properties is hard, esp for beginners. Tools exist to suggest properties, but
-they're not usable. We want to make tools like QuickSpec usable for students so
-they can apply PBT on their own without as much hand-holding. Evaluate on its
-ability to suggest properties for the Penn CIS curriculum}
-
-% \bcp{General comment for this section: It all seems good, but it is a bit vague
-% and high level---I feel like technical readers will want a bit more meat.  Could
-% we spice it up with a concrete example?} \amh{Agreed, I think a concrete
-% example would be \emph{great} here. Maybe there is an example we can bring in
-% from the QuickSpec paper~\cite{ref:claessen2010quickspec}}
-
-% \bcp{make it shorter!}
-
-% \amh{Examples of complex properties that might not be
-% straightforward to implement. Algebraic properties of
-% libraries.  Reversing a list twice comes up with the same
-% list.  Properties of regular expressions. Maybe this would
-% be best as an educational tool. For instance, helping
-% students figure out how to test their code. Helping people
-% modularize their existing systems (suggestions to remove
-% depenedencies on Swing so that it is more testable, etc.).}
-
-We also heard from Jane Street developers about a number of scenarios
-where properties were {\em not} obvious but where PBT delivered
-sufficient benefit that it was well worth taking the trouble to
-discover them.  \bcp{Tune this to emphasize the cs-ed context.}  To
-help developers see what to do in such scenarios, we plan to build a
-tool that can work with developers to decide on a set of significant
-properties to test.
-
-Prior research has demonstrated that automated tools can extract
+We propose an interactive tool to help beginners find the properties in their
+code. Prior research has demonstrated that automated tools can extract
 specifications of a program's behavior~\cite{ref:ammons2002mining,
-  ref:le2018deep, ref:claessen2010quickspec}. We are interested here
-in the non-trivial research problem of integrating such techniques
-into usable developer tools. This will involve addressing several
-challenges:
-%
-First, \textit{generated properties should be \underline{important}}. Any non-trivial
-program can be characterized by an overwhelmingly large number of properties,
-many of which describe only incidental aspects of the program's behavior that do
-not need to be tested. How can tools produce those properties that developers
-would want to have tested? We believe that this is a problem that can be best
-solved with a mixed-initiative approach~\cite{ref:allen1999mixed}, where properties
-are determined by judiciously incorporating both developer input and automated
-techniques.
-%
-A developer could guide a specification mining tool to extracting relevant
-properties through mechanisms such as (1) identifying regions of code that
-are likely to lead to an adverse behavior such as an exception or a logical
-error; (2) providing unit test cases that focus on a special case of a
-generalized
-property; and (3) indicating aspects of interest on input and output data during
-exploration in a debugging REPL.
-%
-% Second,
-% \textit{generated properties should be
-% \underline{readable}}.
-% , there are some variants about systems that may be so complex that
-% they require significant comprehension time for users (i.e., those involving a
-% large number of clauses). In such cases, a tool may way to generate simpler
-% variants of properties first, and allow developers to refine them on their own.
-%
-Second, \textit{tools should help developers \underline{revise}
-  properties}. If a generated property is too strict,
-the programmer should be able to mark
-a counterexample that was generated by the PBT tool as spurious. If
-too relaxed, they should be able to provide a
-counterexample that {\em should} be marked as a failure.
-% In each of these cases, the
-% property generator may have generate multiple properties for a developer to
-% review, each of which may satisfy the refinements that a developer has provided.
+ref:le2018deep, ref:claessen2010quickspec}, but such tools have been primarily
+evaluated in terms of their {\em abilities} rather than their {\em usability}.
+Our tool will apply specification extraction in the context of education,
+with the hope of demonstrating that these tools can help students use PBT in
+their own code without direct guidance from instructors.
 
-We will develop this tool as
-a VSCode extension. In our first iterations, we will generate
-candidate properties using QuickSpec~\cite{ref:claessen2010quickspec}, a tool that
-builds on Haskell's QuickCheck library to synthesize a series of plausible
-properties about a given function. Future iterations will include
-techniques from tools like
-\todo{cite other quickspec follow-on}~\cite{smith_discovering_2017}.
-%
-PI Head has extensive experience with designing and developing tools
-involving program
-analysis~\cite{ref:head2018interactive,ref:head2019managing} and
-program synthesis~\cite{ref:head2017writing} and with extending the
-VSCode environment~\cite{ref:head2020composing}.
+The tool will use a mixed-initiative approach~\cite{ref:allen1999mixed}, where
+properties are determined in a ``conversation'' between the student and the
+specification extractor.  The student might guide the extractor through
+mechanisms such as (1) identifying regions of code that are likely to lead to an
+adverse behavior such as an exception or a logical error; (2) providing unit
+test cases that focus on a special case of a generalized property; and (3)
+indicating aspects of interest on input and output data during exploration in a
+debugging REPL.  If a generated property is too strict, the student will able to
+mark a counterexample that was generated by the PBT tool as spurious; if too
+relaxed, they can provide a counterexample that {\em should} be
+marked as a failure.
 
-% I hope to work with the course staff of CIS 1210 to incorporate PBT into the
-% curriculum. The ideal scenario would be to add a PBT thread throughout the
-% course, giving students the tools to specify and test their code as they go.  I
-% plan to follow the lead of others who have done similar things before (e.g., the
-% PL folks at Brown University) to give students the best chance at incorporating
-% PBT into their tool-set.
+We will develop this tool as a VSCode extension, and evaluate it across the
+University of Pennsylvania CIS curriculum.  We will start by generating
+candidate properties using QuickSpec~\cite{ref:claessen2010quickspec}, a tool
+that builds on Haskell's QuickCheck library to synthesize a series of plausible
+properties about a given function, and evaluating our tool in the context of the
+main Haskell course, CIS 5520.
+Future iterations will require us to either find tools in other languages used
+commonly at Penn (e.g., Bach~\cite{smith_discovering_2017} in Python) or create
+our own, with the ultimate goal of making specification available to any Penn
+computer science student.
 
-% There are a few important challenges that need to be considered in order for
-% this to work out.  The curriculum is already quite full, so adding PBT likely
-% means removing something else. I will need to work with the professors currently
-% teaching the course to find room, but I expect that this process will be fairly
-% difficult. It is also possible that adding PBT will actually make parts of the
-% course {\em easier}, especially for students with some knowledge of logic and/or
-% less well-developed unit testing instincts. Honestly I think this is a good
-% thing, as it gives students more ways to succeed and it may re-enforce the value
-% of PBT, but some may find this problematic.
-
+PI Head has extensive experience with designing and developing tools involving
+program analysis~\cite{ref:head2018interactive,ref:head2019managing} and program
+synthesis~\cite{ref:head2017writing} and with extending the VSCode
+environment~\cite{ref:head2020composing}.
 \bcp{There must be more work on automatically generating
   specifications, etc...  Need more citations...}
 
