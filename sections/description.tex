@@ -1494,18 +1494,16 @@ helping developers quickly recognize situations where PBT is a
 natural fit because the properties are obvious!
 
 The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer properties.''  For example:\bcp{These need to be written
-  more intuitively (e.g., like point 2)}
-\begin{enumerate*}[label=(1)]
-\item code that is already formally or semi-formally specified,\bcp{This seems like a non-example?}
-\item ``these two functions (e.g., a parser and a printer) should
-round trip,'' \bcp{add participant numbers??}
-\item pure data structures,
-\item modules with invariants,
-\item related versions of the same code,
-\item programs that may fail catastrophically,
+``no-brainer situations,'' where PBT is an obvious choice. For example:
+\begin{enumerate*}[label=(\arabic{enumi})]
+\item code that is already formally or semi-formally specified,
+\item two functions (e.g., a parser and a printer) that should ``round-trip,''
+\item a pure data structure has obvious algebraic laws,''
+\item a module with a natural invariant,
+\item related versions of the same code (e.g., one fast, one slow; one old, one
+new),
 and
-\item stateful APIs with well-understood contracts\bcp{e.g.?}.
+\item programs that may fail catastrophically.
 \end{enumerate*}
 These patterns cover a range of
 scenarios that real software developers regularly find themselves in, but they
@@ -1568,7 +1566,7 @@ properties about a given function, and evaluating our tool in the context of the
 main Haskell course, CIS 5520.
 Future iterations will require us to either find tools in other languages used
 commonly at Penn (e.g., Bach~\cite{smith_discovering_2017} in Python) or create
-our own, with the ultimate goal of making specification available to any Penn
+our own, with the ultimate goal of making specification extraction usable by any Penn
 computer science student.
 
 PI Head has extensive experience with designing and developing tools involving
