@@ -275,18 +275,16 @@ applications that seem to be a natural fit for PBT.
 
 It also became clear that there were \proptheme{Opportunities for Better
 Leverage} of specifications, or situations where PBT is not easy {\em yet}, but
-could be with a
-little more research effort. For example, \participant{7} spoke about trying to
-test a program that lacked a well-defined abstraction---which are notoriously
-resistant to PBT---by
-writing properties over the output printed to the terminal, rather than the
-output of a function. We plan to provide better tool support for this approach.
-Furthermore, more than three quarters of study participants had used a
-particular approach to PBT commonly called
-\proptheme{Model-Based Testing}.
-\participant{3}, an author of PBT tools at Jane Street, considered better
-automation and tooling around model-based testing to be one of the most
-significant ways improve PBT and make it easier to pick up and use.
+could be with a little more research effort. For example, many developers in
+both our pilot studies (Pilot-\participant{4}, Pilot-\participant{5}, and
+Pilot-\participant{6}) and the Jane Street study (\participant{7}) complained
+that PBT was difficult when code was poorly abstracted.  We plan to provide
+better tool support to address this failure mode.  Furthermore, more than three
+quarters of study participants had used a particular approach to PBT commonly
+called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
+at Jane Street, considered better automation and tooling around model-based
+testing to be one of the most significant ways improve PBT and make it easier to
+pick up and use.
 
 Another set of themes concerned the \gentheme{\normalfont \bf generation} of
 random inputs for PBT. Developers often spoke
@@ -490,27 +488,10 @@ automatically in a specific high-leverage scenario: model-based testing
 the on-ramp to PBT and clarify its place in the software industry.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
-%
-% \bcp{What about swapping this with the modules section, which seems
-%   better motivated by the JS findings?  (Was the log issue mentioned
-%   by multiple people, or just P7?  Or are we extrapolating from other things
-%   people said, about abstraction generally?)}\hg{I think properties over logs
-%   has a bigger potential for impact, RE enabling new specifiction
-%   opportunities}%
-% BCP: Fine
-\bcp{Was the log issue mentioned
-   by multiple people, or just P7?  Or are we extrapolating from other things
-   people said, about abstraction generally?  If we can mention more
-   participants, the support seems much more powerful.}
-\hg{Just P7, but lots of people in the pilot talked about spaghetti code too, so
-it's fair to extrapolate. Also FWIW P7 did something sort of like this, just in
-a very ad-hoc way with no LTL}\bcp{Can we say something to suggest we
-heard similar thigngs from others?}
-%
-One common problem raised by Jane Street developers (and even more loudly
-in our earlier pilot study~\cite{ref:goldstein2022some}) was
-that code may sometimes not be abstracted
-in a way that is amenable to testing. Indeed, any kind of
+As discussed in the motivation section, one common problem raised by Jane Street
+developers (and even more loudly in our earlier pilot
+study~\cite{ref:goldstein2022some}) was that code may sometimes not be
+abstracted in a way that is amenable to testing. Indeed, any kind of
 testing of software units---with PBT techniques or otherwise---requires
 ``units'' to test!  But PBT is
 especially sensitive to issues like poorly encapsulated global state, which may
@@ -518,7 +499,7 @@ impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
 properties or specifications.
 
-One Jane Street developer (\participant{7}) described their experience testing a
+For example, on Jane Street developer (\participant{7}) described their experience testing a
 trading system (we'll call it \lstinline{Inner}) with messy abstraction
 boundaries. In this case, \lstinline{Inner} was hard to test because it was
 primarily used as a sub-component of a larger system \lstinline{Outer};
