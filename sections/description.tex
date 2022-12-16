@@ -643,15 +643,14 @@ the potential to significantly increase the usability of model-based PBT.
 The Jane Street study highlighted several \gentheme{generation themes}.
 Generators were regularly cited as one of the most challenging parts of the PBT
 process---the existing tools for random generation are varied and powerful, but
-they are not very usable.  In this section, we propose {\em reflective
-generators}, a new abstraction for random generation that exposes levers for
+they are not very usable.  In this section, we discuss {\em reflective
+generators}, an abstraction for random generation, currently under development,
+that exposes levers for
 automation that enable a host of new approaches to generator
 tooling (\sectionref{sec:reflective}). Reflective generators enable new
 approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
 (\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
 effectiveness.
-\iflater\bcp{Do any of the later sections also depend on reflective
-  generators?}\fi
 
 \subsectionstar{Context: Random Generation is Hard}
 As discussed in the Orientation section above, PBT relies heavily on {\em random data
@@ -769,23 +768,14 @@ relationship between generators and parsers.
 % generators with complex preconditions.}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{Harry}
-% \bcp{Maybe this is also better described as proposed work?}\hg{Could be, but I
-% worry that enough of the following projects rest on reflective generators that
-% we want to be able to say ``don't worry, we actually have an idea what these
-% will look like''}\bcp{That's fair enough.  I think we can finesse this
-% issue though---e.g., by mentioning that we've been discussing this
-% with Sam and Meng and have some concrete ideas how to proceed (and
-% then giving a bit of technical meat, though of course there is not
-% room for much).}
-% \hg{Fine by me. How do you want to frame the reference to Sam and Meng?}
-Building on the free generator work described above, we have begun to
-look at yet more
-powerful generalizations of the standard monadic approach to random generation.
-One such project\bcp{are there others that are relevant here?} concerns monadic generators that can be run {\em backward}.
+Building on the free generator work described above, we have begun to look at
+yet more powerful generalizations of the standard monadic approach to random
+generation. Our most promising ongoing project concerns monadic generators that
+can be run {\em backward}.
 
 If a generator parses a sequence of choices into a value, then running the
 generator backward should take a value and produce a sequence of choices that
-would produce that value. With this in mind, we propose {\em reflective
+would produce that value. With this in mind, we have been working on {\em reflective
 generators}, an extension of monadic generators that can be run backward to
 ``reflect'' on the choices that they made when producing an input. The machinery
 that makes reflective generators work is quite complex,%
@@ -1185,7 +1175,7 @@ data distributions.
 We will design tools to support the direct tuning of input data distributions
 through manipulation of generated inputs and input data distributions. This
 work will build on the foundation developed in the prior project
-(Section~\ref{sec:evaluating_distributions}). Inspired by recent tools in the PL/HCI literature
+(\sectionref{sec:evaluating_distributions}). Inspired by recent tools in the PL/HCI literature
 for bidirectional manipulation of programs and their
 outputs~\cite{ref:hempel2019sketch,ref:kery2020mage,ref:omar2012active,ref:omar2021filling},
 we explore the unique affordances of reflective generators in their ability to
@@ -1202,7 +1192,7 @@ therefore can only go so far in influencing the kinds of values that are
 generated.
 
 A second innovative method is to leverage the technology we have developed for
-reflective generators (Section~\ref{sec:reflective}) to change the underlying
+reflective generators (\sectionref{sec:reflective}) to change the underlying
 generators. For some features, as a developer manipulates marks in the data
 distribution visualizations, those manipulations can be mapped back to choices
 in the generator (e.g., what value to place in a node, or the number of nodes to
