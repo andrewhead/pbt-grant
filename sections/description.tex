@@ -620,15 +620,15 @@ principles. This process will necessarily involve carving out some subset of
 modules where automation is not possible, but highlighting that subset will
 provide useful context for future work in PBT usability.
 
-\proposecut{%
-Finally, so far we have only talked about comparing implementations of the same
-module signature, but what about implementations of {\em related} signatures? In
-theory, it should be possible to automate test harnesses when two modules share
-some subset of behaviors, or when the concrete types that they operate on are
-related in some known way. We will work with users to understand the
-important use-cases.
-}\amh{Can this be removed? The paragraphs above already feel like the most central parts
-of this idea, punchy, and interesting.}
+% \proposecut{%
+% Finally, so far we have only talked about comparing implementations of the same
+% module signature, but what about implementations of {\em related} signatures? In
+% theory, it should be possible to automate test harnesses when two modules share
+% some subset of behaviors, or when the concrete types that they operate on are
+% related in some known way. We will work with users to understand the
+% important use-cases.
+% }\amh{Can this be removed? The paragraphs above already feel like the most central parts
+% of this idea, punchy, and interesting.}
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
@@ -1008,7 +1008,7 @@ In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success
 PBT depends on a developer's ability to create a distribution
 of input data that is sufficiently realistic and comprehensive. We plan
-to develop much-needed tooling for 
+to develop much-needed tooling for
 understanding distributions of input data and easily changing them.
 % This was a pain point of participants in our study, many of whom
 % did not know the kinds of input their generators were producing.
@@ -1510,7 +1510,9 @@ environment~\cite{ref:head2020composing}.
 %   \caption{Plan of work.}\label{fig:workplan}
 % \end{figure}
 
-\begin{figure}[ht]
+\vspace*{-.3in}
+
+\begin{figure}[h]
   \centering
 \begin{ganttchart}[
       expand chart=\textwidth,
@@ -1728,3 +1730,5 @@ Instructions are here: \url{https://www.nsf.gov/cise/bpc/}
 bpc.net - source materials for NSF BPC plans (they also vet plans).
 
 \fi
+
+\bcp{Remove unneeded sections from this document to avoid confusing PEFS}
