@@ -97,7 +97,7 @@ values, test input mutation, and example-based generator tuning, building
 locate the cause of a test failure and understand how to improve their generated
 data distributions to be more representative and comprehensive
 (\sectionref{sec:val}).
-  \item We will propose a multifaceted approach to PBT \emph{education}
+  \item We will develop materials for PBT \emph{education}
   including an undergraduate computer science curriculum centered around PBT, a
   tool to help students author properties, and a comprehensive review of PBT
   practice to help students and developers learn about diverse situations where
@@ -1465,11 +1465,17 @@ helping developers quickly recognize situations where PBT is a
 natural fit because the properties are obvious!
 
 The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer situations,'' where PBT is an obvious choice. For example:
+``no-brainer situations,'' where PBT is an obvious choice. For
+example:\bcp{I think it would be easier to understand what we're
+  saying if we listed the specifications themselves rather than (or in
+  addition to) the situations}
 \begin{enumerate*}[label=(\arabic{enumi})]
-\item code that is already formally or semi-formally specified,
+\item code that is already formally or semi-formally
+specified,\bcp{still don't find this one compelling---when would it
+  arise? isn't it kind of tautological?  (a function with a
+  specification has a specification...)}
 \item two functions (e.g., a parser and a printer) that should ``round-trip,''
-\item a pure data structure has obvious algebraic laws,''
+\item a pure data structure (sets, maps, etc.) with obvious algebraic laws,
 \item a module with a natural invariant,
 \item related versions of the same code (e.g., one fast, one slow; one old, one
 new),
