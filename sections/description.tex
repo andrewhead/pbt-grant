@@ -81,7 +81,7 @@ accelerate PBT's transition into practice.
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 beginning with our ongoing need-finding study. We will confirm
 its findings and further explore PBT's usability with
-two survey studies and an observation study
+two survey studies and observation studies
 of PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with
   new tools for checking temporal properties over internal program states and
@@ -98,8 +98,8 @@ data distributions to be more representative and comprehensive
   \item We will develop materials for PBT \emph{education}
   including an undergraduate computer science curriculum centered around PBT, a
   tool to help students author properties, and a comprehensive review of PBT
-  practice to help students and developers learn about diverse situations where
-  PBT is likely to be the most useful (\sectionref{sec:ed}).
+  practice to teach students and developers about situations where
+  PBT is likely to be most useful (\sectionref{sec:ed}).
 \end{itemize}
 
 Each of these efforts will deploy complementary tools from PL
@@ -114,8 +114,8 @@ proposed work (\sectionref{sec:broader-impacts})
 \subsectionstar{Orientation: Property-Based Testing}
 %
 We next describe the basics of the PBT approach, with the aim of highlighting
-where research has unique leverage in improving tooling, processes, and
-education around PBT.
+where research has unique leverage in improving PBT tooling, processes, and
+education.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
@@ -223,11 +223,11 @@ software in OCaml, a mostly functional programming language for which
 there is a well-engineered PBT tool. This unified
 ecosystem allows us to ensure that developers have access to mature PBT tools,
 experience using them in collaborative settings,
-and awareness of language-level programming abstractions necessary
-to advanced usage.\footnote{Because our primary need-finding study to-date has
+and awareness of language-level abstractions necessary
+for advanced usage.\footnote{\proposecut{Because our primary need-finding study to-date has
 taken place solely at Jane Street, our follow-up studies in
 \sectionref{sec:foundation} will engage with broader groups of developers using
-PBT to expand and generalize our findings.}
+PBT to expand and generalize our findings.}\hg{If this is important, it shouldn't be a footnote...}}
 
 As of December 2022, a pilot study has been conducted, analyzed, and presented
 at HATRA~\cite{goldstein_problems_2022}. Following this pilot study, the full
@@ -273,10 +273,9 @@ improve education and documentation around PBT is to highlight these real-world
 applications that seem to be a natural fit for PBT.
 
 It also became clear that there were \proptheme{Opportunities for Better
-Leverage} of specifications, or situations where PBT is not easy {\em yet}, but
+Leverage} of specifications, where PBT is not easy {\em yet}, but
 could be with a little more research effort. For example, many developers in
-both our pilot studies (Pilot-\participant{4}, Pilot-\participant{5}, and
-Pilot-\participant{6}) and the Jane Street study (\participant{7}) complained
+both our pilot studies (Pilot-\participant{4--6}) and the Jane Street study (\participant{7}) complained
 that PBT was difficult when code was poorly abstracted.  We plan to provide
 better tool support to address this failure mode.  Furthermore, more than three
 quarters of study participants had used a particular approach to PBT commonly
@@ -420,15 +419,12 @@ be asked to write brief anecdotes elaborating on the
 most severe issues they had.
 
 Respondents will
-be recruited broadly, from three sources. First, we will recruit
+be recruited broadly, from three sources: (1)
 users of Hypothesis, a widely used Python-based PBT
-framework
-(see the attached letter of support).
-Second, we will distribute the survey at Jane Street, hoping to reach
-a broader set of developers than we were able to interview.
-And third, we will recruit users from social media by posting
-survey announcements from the PIs' Twitter and Mastodon
-accounts, various mailing lists, and on discussion boards for conferences like
+framework; (2) Jane Street, reaching
+a broader set of developers than we were able to interview; (3)
+through word of mouth, via announcements on the PIs' Twitter and Mastodon
+accounts, various mailing lists, and discussion boards for conferences like
 ``Yow!'' where we have been invited to speak~\cite{noauthor_when_nodate}.
 % Types and types-announce mailing lists. They are mailing
 % lists for the types programming. We will distribute announcements among
@@ -459,16 +455,16 @@ are participants willing to devote to
 a task like creating a generator or debugging a counterexample when in the
 middle of a programming task? (2) How much space is available on a developer's
 screen (amidst other tools like code editors and terminals) for
-interacting with new
+new
 tools? (3) What are developers' current strategies for solving the
 problems they describe
-(for example, what representations of generated data currently seem most helpful
-for programmers trying to under the distributions of data generated by a
-generator)?.  As a basis for designing tools with a substantial novel interface
+(e.g., what representations of generated data currently seem most helpful
+for programmers trying to understand the distributions of data generated by a
+generator)? As a basis for designing tools with a substantial novel interface
 component (see \sectionref{sec:val}), we will observe developers
 undertaking the respective PBT tasks we
 aim to support, on the order of a small handful of developers (i.e., 2--10
-observation sessions). These observation sessions will allow us to evolve
+observation sessions). These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 what kinds of designs will be viable for helping programmers.
 
@@ -624,12 +620,15 @@ principles. This process will necessarily involve carving out some subset of
 modules where automation is not possible, but highlighting that subset will
 provide useful context for future work in PBT usability.
 
+\proposecut{%
 Finally, so far we have only talked about comparing implementations of the same
 module signature, but what about implementations of {\em related} signatures? In
 theory, it should be possible to automate test harnesses when two modules share
 some subset of behaviors, or when the concrete types that they operate on are
 related in some known way. We will work with users to understand the
 important use-cases.
+}\amh{Can this be removed? The paragraphs above already feel like the most central parts
+of this idea, punchy, and interesting.}
 
 \SECTION{Generation}{Better Tools for Random Inputs \pagebudget{3}}{sec:gen}
 %
@@ -1009,10 +1008,10 @@ In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success
 PBT depends on a developer's ability to create a distribution
 of input data that is sufficiently realistic and comprehensive. We plan
-to develop much-needed tooling around
-understanding distributions of input data and more easily changing them.
-This was a pain point of participants in our study, many of whom
-did not know the kinds of input their generators were producing.
+to develop much-needed tooling for 
+understanding distributions of input data and easily changing them.
+% This was a pain point of participants in our study, many of whom
+% did not know the kinds of input their generators were producing.
 
 We draw inspiration from related work in HCI that has sought to better expose
 the shape of input data distributions including
@@ -1033,6 +1032,12 @@ logs are sufficiently long. Ideally, a developer would be able to answer
 questions like: Are the generated log inputs long enough? Are the even sequences
 realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
+
+\begin{wrapfigure}{r}{0.58\textwidth}
+  \centering
+  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
+  \caption{An envisioned tool for evaluating data distributions.}\label{fig:gen-vis}
+\end{wrapfigure}
 
 To this end, we will design new interactive tools that provide rapid,
 informative views of input data distributions. The tools will address the
@@ -1067,12 +1072,6 @@ automatically for the most common data types.
 % the \lstinline{max_by (fun l -> length l.payload)} (the maximum payload length),
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
-
-\begin{wrapfigure}{r}{0.6\textwidth}
-  \centering
-  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating data distributions.}\label{fig:gen-vis}
-\end{wrapfigure}
 
 Second, the data displays will be easily extensible, providing lightweight hooks
 for customizing aggregate data displays and previews. If
@@ -1125,9 +1124,10 @@ trial-and-error: developers change generator parameters and
 hope that the input data distribution updates in the right way. This
 process, however, often does not pay off. (Approaches like the one in
 \sectionref{sec:fuzzing} can help, but manual tuning is still useful in cases
-where fuzzing fails to find the developer's intended space of inputs.) Ideally,
-developers could describe the kinds of inputs they want directly.
+where fuzzing fails to find the developer's intended space of inputs.)
 
+Ideally,
+developers could describe the kinds of inputs they want directly.
 We will design tools to support the direct tuning of input data distributions
 through manipulation of generated inputs and data distribution visualizations. This
 work will build on the foundation developed in the prior project
