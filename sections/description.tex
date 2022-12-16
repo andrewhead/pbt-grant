@@ -1128,40 +1128,40 @@ data distributions, but more directly change them.
 %
 What should developers do if their properties are testing the wrong
 inputs? Tuning generators is a challenging task, often requiring significant
-trial-and-error through an opaque process of changing generator parameters and
-hoping that the input data distribution will be updated in the right way. This
+trial-and-error: developers change generator parameters and
+hope that the input data distribution updates in the right way. This
 process, however, often does not pay off. (Approaches like the one in
 \sectionref{sec:fuzzing} can help, but manual tuning is still useful in cases
 where fuzzing fails to find the developer's intended space of inputs.) Ideally,
-developers could describe the kinds of inputs they want directly, rather than
-tweaking generator parameters and hoping it leads to the right kinds of input
-data distributions.
+developers could describe the kinds of inputs they want directly.
 
 We will design tools to support the direct tuning of input data distributions
-through manipulation of generated inputs and input data distributions. This
+through manipulation of generated inputs and data distribution visualizations. This
 work will build on the foundation developed in the prior project
-(\sectionref{sec:evaluating_distributions}). Inspired by recent tools in the PL/HCI literature
+(\sectionref{sec:evaluating_distributions}). Inspired by recent tools in the PL+HCI literature
 for bidirectional manipulation of programs and their
 outputs~\cite{ref:hempel2019sketch,ref:kery2020mage,ref:omar2012active,ref:omar2021filling},
 we explore the unique affordances of reflective generators in their ability to
 support careful tuning of generators.
 
 The first, general-purpose method for tuning input data distributions will be to
-define filters on input data through interaction with aggregate data displays.
+define filters on input data by manipulating aggregate data displays.
 For instance, developers will be able to select ranges of values from a bar
 chart showing input data features and then request that all values generated
-within that range are discarded before testing. This is a particularly
-compelling approach for its flexibility, though it is notably coarse-grained;
+within that range are discarded before testing. This approach is flexible,
+though it is notably coarse-grained;
 it does not influence the implementation of the underlying generator, and
 therefore can only go so far in influencing the kinds of values that are
 generated.
 
-A second innovative method is to leverage the technology we have developed for
+A second innovative method is to leverage
 reflective generators (\sectionref{sec:reflective}) to change the underlying
-generators. For some features, as a developer manipulates marks in the data
-distribution visualizations, those manipulations can be mapped back to choices
+generator parameters. Developers will be able to interact with a visualization,
+and then the the reflective generator will map those interactions
+back to choices
 in the generator (e.g., what value to place in a node, or the number of nodes to
-produce, etc.). We envision building tools that show the generator code
+produce, etc.), which can then be made more or less frequently. We envision
+building tools that show the generator code
 side-by-side with visualizations, and where parameter choices in the generator
 can update live as the data distribution is manipulated in the visualizations.
 Furthermore, developers will be able to interact with individual data points,
