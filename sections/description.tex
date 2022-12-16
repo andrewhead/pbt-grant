@@ -788,7 +788,7 @@ and for another the choices can be given different structures (bitstrings,
 higher-level choice strings, choice trees, etc.) depending on the needs of the
 caller.
 
-The bidirectional nature of reflective generators makes them 
+The bidirectional nature of reflective generators makes them
 useful for more than just generation!
 We already know of two other applications...
 
@@ -983,7 +983,7 @@ without giving up the power and simplicity of coverage-guided generation.
 
 \SECTION{Validation}{Understanding Testing Effectiveness \pagebudget{3}}{sec:val}
 
-Another major challenge in maximizing PBT's usability helping developers 
+Another major challenge in maximizing PBT's usability helping developers
 \evaltheme{validate} that their testing is effective. In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms
@@ -1009,12 +1009,12 @@ distributions of inputs, rather than individual inputs. The success
 PBT depends on a developer's ability to create a distribution
 of input data that is sufficiently realistic and comprehensive. We plan
 to develop much-needed tooling around
-understanding distributions of input data and more easily changing them. 
+understanding distributions of input data and more easily changing them.
 This was a pain point of participants in our study, many of whom
 did not know the kinds of input their generators were producing.
 
 We draw inspiration from related work in HCI that has sought to better expose
-the shape of input data distributions including 
+the shape of input data distributions including
 machine learning datasets
 (e.g.,~\cite{ref:hohman2019gamut} and
 ~\cite{ref:hohman2020understanding}) and sequences of program values
@@ -1299,7 +1299,7 @@ tools to help developers in this process.
 First, we will design tools that build on
 shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
 understand counterexamples. Automatic shrinking, even when done via reflective
-shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and 
+shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and
 shrinkers often make suboptimal decisions that an individual developer might be
 able to make better.
 Drawing inspiration from approaches in recent HCI literature that support
@@ -1565,41 +1565,60 @@ environment~\cite{ref:head2020composing}.
 
 \SIMPLESECTION{Broader Impacts of the Proposed Work \pagebudget{.5}}{sec:broader-impacts}
 
-\writeme{Write me.}
-
-\begin{itemize}
-\item more secure and robust software
-\item development of a diverse,globally competitive STEM workforce;
-\item increased economic competitiveness of the United States
-\item improved STEM education and educator development at any level;
-\item mention jessica for the benchmarking project, plus female
-interns; note that Andrew has 2/3 female PhD students and BCP has one
-\item CACM article
-\item increased partnerships between academia, industry, and others
-(JS, Hypothesis)
-\item enhanced infrastructure for research and education (tool
-building).
-\end{itemize}
-
-\paragraph*{Benefits to Society} \todo{increase software reliability,
-  tech industry, ...}
-%
-All the tools we develop will be freely available, making the results
-of our research directly useful to students, industrial software
-engineers, and developers of similar tools targeting different
-languages and programming environments.
-
 \paragraph*{Educational Benefits}
+%
+The most immediate broad impact of the proposed work will be the
+development of educational materials. Educational activities will be
+coordinated with the rest of the work, and they are integral to the
+project's overall goal of making PBT a standard testing methodogy,
+readily available to every industrial developer.
+
 Specific pedagogical threads within the project are described
-in~\sectionref{sec:ed}.  Beyond these, more than
-60\%\iflater\bcp{check}\fi{} of the requested funding will support
-graduate students.  We also plan to work with undergraduate students
-during this project; they, too will benefit from the research
-experience. Each graduate student will have leadership responsibility
-for multiple facets of the project, including co-supervising
-interested undergraduate researchers.  See the Collaboration Plan for
-amore. \bcp{I guess we need to write one?  And if so we should warn
-  the business office that it's coming -- I'll do that now.}
+in~\sectionref{sec:ed}. Beyond these, the majority of the requested
+funding will support graduate students.  We also plan to work with
+undergraduate students during this project; they, too will benefit
+from the research experience. Each graduate student will have
+leadership responsibility for multiple facets of the project,
+including co-supervising interested undergraduate researchers.
+
+Our research group is already relatively diverse---PI Pierce has one
+female Ph.D.{} student (who may, indeed, be interested in this
+project) and PI Head has two---and we will continue pushing to make it
+more so.  Pierce (along with Penn colleagues Zdancewic and Weirich)
+also recently received funding for an NSF REU program that will
+involve eight undergraduates in research, selected specifically with
+an eye to diversity.  See the appendix on Broadening Participation in
+Computing for more details.
+
+\paragraph*{Benefits to Society}
+%
+The project's goals will also be served by open-source distribution of
+all of the tools built during the project.  We hope to engineer these
+to a standard that will make them directly useful to engineers and
+students; more importantly, though, they will serve as models for
+similar tools for other programming languages and environments.
+
+The project also represents an excellent opportunity for collaboration
+between university researchers and industrial advocates of PBT.  Our
+ongoing user study at Jane Street has been carried out with the
+enthusiastic support of their developers and management, and we hope
+to continue using them as a testbed for prototypes of the tools we
+will build.  Similarly, we are in active discussions with the
+developers of the Hypothesis testing tool for Python, who are keenly
+interested in the results of the survey study described in
+\sectionref{sec:survey}.
+
+Longer term, better testing means better software.  As software
+systems have grown to the gigantic scale seen today, good testing
+methodologies and tools (unit testing tools, test-first design
+methods, etc.) have come to play an ever more crucial role.  Adding a
+powerful new testing tool to programmers' arsenals will further boost
+this part of the development process, leading to software of every
+sort that is more robust, more reliable, and less expensive to build.
+
+
+% \proposecut{See the Collaboration Plan for
+% more.}
 
 % The Project Description must contain, as a separate section within the narrative, a section labeled ``Broader
 % Impacts of the Proposed Work". This section should provide a discussion of the broader impacts of the proposed
@@ -1615,8 +1634,6 @@ amore. \bcp{I guess we need to write one?  And if so we should warn
 % States; and enhanced infrastructure for research and education.
 
 \SIMPLESECTION{Results from Prior NSF Support \pagebudget{.5}}{sec:prior}
-
-\bcp{This needs more text from me.  ``...a summary of the results of the completed work, including accomplishments, supported by the award. The results must be separately described under two distinct headings: Intellectual Merit and Broader Impacts;''}
 
 % If any PI or co-PI identified on the project has received NSF funding (including any current
 % funding) in the past five years, in formation on the award(s) is required,
@@ -1639,8 +1656,9 @@ testing frameworks. These were largely tailored to and implemented for
 Python, but applicable in other, similar languages.
 %
 {\bf Intellectual Merit.} The project involved work on both
-performance measurement (mostly at Amherst) and PBT (mostly at Penn
-and Maryland).  Specific threads of work at Penn included building an early
+performance measurement (mostly at Amherst and Maryland) and PBT (mostly at Penn
+and Maryland).  Specific threads of work involving Penn included
+building an early
 version~\cite{Frohlich2022} of the Reflective Generators described in
 \sectionref{sec:reflective}, carrying out the pilot study of PBT in Python
 mentioned in the motivation section
@@ -1663,7 +1681,7 @@ Educational impact has included training both graduate and
 undergraduate students, including a female PhD student at Penn, Jessica
 Shi.
 %
-{\bf Publications (from Penn).} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
+{\bf Publications (involving Penn).} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
   goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
 {\bf Research Products (from Penn).} \cite{pytestmutagen}.
 
