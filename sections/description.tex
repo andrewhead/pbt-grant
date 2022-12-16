@@ -1010,10 +1010,10 @@ In comparison to testing techniques like unit testing, PBT focuses on testing
 distributions of inputs, rather than individual inputs. The success
 PBT depends on a developer's ability to create a distribution
 of input data that is sufficiently realistic and comprehensive. We plan
-to develop much-needed tooling around
-understanding distributions of input data and more easily changing them.
-This was a pain point of participants in our study, many of whom
-did not know the kinds of input their generators were producing.
+to develop much-needed tooling for 
+understanding distributions of input data and easily changing them.
+% This was a pain point of participants in our study, many of whom
+% did not know the kinds of input their generators were producing.
 
 We draw inspiration from related work in HCI that has sought to better expose
 the shape of input data distributions including
@@ -1035,10 +1035,10 @@ questions like: Are the generated log inputs long enough? Are the even sequences
 realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
 
-\begin{wrapfigure}{r}{0.6\textwidth}
+\begin{wrapfigure}{r}{0.58\textwidth}
   \centering
-  \includegraphics[width=0.6\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating input data distributions.}\label{fig:gen-vis}
+  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
+  \caption{An envisioned tool for evaluating data distributions.}\label{fig:gen-vis}
 \end{wrapfigure}
 
 To this end, we will design new interactive tools that provide rapid,
@@ -1126,9 +1126,10 @@ trial-and-error: developers change generator parameters and
 hope that the input data distribution updates in the right way. This
 process, however, often does not pay off. (Approaches like the one in
 \sectionref{sec:fuzzing} can help, but manual tuning is still useful in cases
-where fuzzing fails to find the developer's intended space of inputs.) Ideally,
-developers could describe the kinds of inputs they want directly.
+where fuzzing fails to find the developer's intended space of inputs.)
 
+Ideally,
+developers could describe the kinds of inputs they want directly.
 We will design tools to support the direct tuning of input data distributions
 through manipulation of generated inputs and data distribution visualizations. This
 work will build on the foundation developed in the prior project
