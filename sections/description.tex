@@ -1374,36 +1374,31 @@ interactively (\sectionref{sec:interactive}).
 
 \SUBSECTION{PBT for Undergrads}{sec:1210}{1}{4}{Both}
 %
-\writeme{Write me.}
-
-\begin{itemize}
-\item One great way to increase industrial usage of PBT is to make it
-part of the standard undergraduate curriculum.
-\item There are several places where this could happen---compilers,
-functional programming courses, intro courses---but we believe the
+Education can be a force-multiplier that helps make technologies more usable.
+When tools or techniques become standard in undergraduate curricula, the
+students can go on to help bootstrap adoption of those ideas in industry.  PBT
+would be at home in a number of standard computer science courses--- compilers,
+functional programming, and even early introduction courses---but we believe the
 most promising place to start will be a data structures course.
-(Partly because this has already happened for intro courses---cite
-Brown folks, etc.)
-\item Reasons:
-  \begin{itemize}
-  \item Data structures is often taken early in the curriculum, so
-  habits can carry over to other courses even where PBT is not
-  explicitly used.
-  \item ``Obvious'' properties are often readily available (e.g.,
-  algebraic specifications, inefficient reference implementations)
-  \end{itemize}
-\item Concrete plan:
-\begin{itemize}
-\item Create a model for how to do it by adding PBT to
-the 1210 homework assignments (HW is of course the most important
-place to put it) and creating some lecture material explaining it.
-\item Write a cs-ed paper about how others can do it.
-\end{itemize}
-\end{itemize}
 
-\ifdraft
-\todo{Prior work~\cite{wrenn2021using,nelson2021automated} Shriram papers?}
-\fi
+Teaching PBT alongside data structures has
+precedent~\cite{wrenn2021using,nelson2021automated}, and is natural for a number
+of reasons.  Data structures is often taken early in the curriculum, so habits
+can carry over to other courses even where PBT is not explicitly used. In
+addition, data structures often have ``obvious'' properties that can be a great
+place to start with PBT (e.g., algebraic specifications, inefficient reference
+implementations, see \sectionref{sec:whento} for more discussion).
+
+Concretely, we plan to design a model for adding PBT to data structures courses
+and implement this model in the University of Pennsylvania's CIS 1210. We will
+add a lecture early in the course on PBT and then make PBT a requirement on
+future homework assignments. Students who get stuck may be shown example
+properties in office hours, with the hope that they can extrapolate on that
+pattern moving forward.
+
+Materials we produce will be made public so other universities can copy and
+adapt our model to their own courses. We will also publish a paper in a computer
+science education conference that advertises and explains our methods.
 
 \SUBSECTION{When to Specify It!}{sec:whento}{1}{2}{Harry}
 %
