@@ -1673,26 +1673,46 @@ amore. \bcp{I guess we need to write one?  And if so we should warn
 % support, but any funding awarded by NSF. The following information must be provided:\\
 
 \emph{\underline{PI Pierce}}: (NSF 1955565) ``Collaborative Research:
-SHF: Medium: Bringing Python Up to Speed'' (\$437,999, 7/2020--6/2023), with co-PIs Michael Hicks (Maryland, now Amazon) and Emery
-Berger (Amherst).
-The project aims to dramatically increase the performance and
-correctness of applications written in Python. We are developing both
+SHF: Medium: Bringing Python Up to Speed'' (\$437,999,
+7/2020--6/2023), with co-PIs Michael Hicks (Maryland) and Emery Berger
+(Amherst).
+The project aimed to dramatically increase the performance and
+correctness of applications written in Python by developing novel
+techniques for performance analysis, optimization, run-time systems,
+property-based random testing, concolic execution, and program
+synthesis. It developed both
 novel performance analysis tools and optimizations and novel automatic
-testing frameworks. These are largely tailored to and implemented for
-Python, but applicable in other, similar languages. {\bf Intellectual
-  Merit.} The project involved work on both performance measurement
-(mostly at Amherst) and PBT (mostly at Penn and Maryland).
-Specific threads of work at Penn included an early version~\cite{Frohlich20} of
-the Reflective Generators described in \sectionref{sec:reflective}.
-\todo{...}
-The pilot study of PBT in
-Python~\cite{goldstein_problems_2022} mentioned in the Motivation
-section above was also funded under this grant.
-{\bf Broader Impacts.} \todo{...}
-{\bf Publications (from Penn),}~\cite{DBLP:conf/esop/GoldsteinHLP21,
-  goldstein2022parsing, goldstein_problems_2022}.
-{\bf Research Products (from Penn).} The {\tt pytest-mutagen} mutation
-testing tool for Python~\cite{pytestmutagen}.
+testing frameworks. These were largely tailored to and implemented for
+Python, but applicable in other, similar languages.
+%
+{\bf Intellectual Merit.} The project involved work on both
+performance measurement (mostly at Amherst) and PBT (mostly at Penn
+and Maryland).  Specific threads of work at Penn included building an early
+version~\cite{Frohlich2022} of the Reflective Generators described in
+\sectionref{sec:reflective}, carrying out the pilot study of PBT in Python
+mentioned in the Motivation section
+above~\cite{goldstein_problems_2022}, and building on the idea of
+freer monads from functional programming to develop ``free
+generators,'' which unify parsing and
+generation~\cite{goldstein2022parsing}, presented a principled
+automatic testing framework for application-layer
+protocols~\cite{Li2021:MBToNA}, and developed and released a freely
+available mutation testing framework for Python, called {\tt
+  pytest-mutagen}~\cite{pytestmutagen}, and applied ideas from
+combinatorial testing, a widely studied testing methodology, to modify
+the distributions of random test-case generators so as to find bugs
+with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
+%
+{\bf Broader Impacts.} Project results and open-source software
+products are being iused to increase the
+performance and correctness of Python applications.
+Educational impact has included training both graduate and
+undergraduate students, including a female PhD student at Penn, Jessica
+Shi.
+%
+{\bf Publications (from Penn).} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
+  goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
+{\bf Research Products (from Penn).} \cite{pytestmutagen}.
 
 \emph{\underline{PI Head}} has not previously received NSF support.
 
