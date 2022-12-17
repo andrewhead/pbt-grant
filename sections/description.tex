@@ -1386,17 +1386,20 @@ interactively (\sectionref{sec:interactive}).
 \SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
-coming up with specifications that were worth testing~\cite{ref:goldstein2022some},
+come up with specifications that are worth testing~\cite{ref:goldstein2022some},
 but
-our follow-up interviews at Jane Street suggested that the developers there
-rarely had the same problem. It seemed that the Jane Street developers had
+our follow-up interviews at Jane Street suggest that the developers there
+rarely have the same problem. It seems that the Jane Street developers had
 a tacit
 understanding of ``no-brainer'' situations where PBT was an obvious
 choice---situations where properties were easy to find and where PBT provided
 much more thorough testing than other common techniques---and they limited their
 use of PBT to these situations.
-Clearly, developers do not uniformly have a strong understanding of the
-situations where PBT can and should be used. Thus, PBT education must
+While we would love for developers to also use PBT in high-cost/high-benefit situations,
+where finding properties might take more work but the resulting tests are
+comparatively even more powerful, focusing on the easy cases seems like an
+obvious way to drive adoption.
+Thus, PBT education must
 disseminate this tacit understanding of
 those situations where PBT shines so more developers can get a foot in the door
 and start gaining assurance in their software through PBT.
