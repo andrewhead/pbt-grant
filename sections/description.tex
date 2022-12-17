@@ -482,6 +482,9 @@ poorly abstracted code (\sectionref{sec:outpurprop}) and test systems using
 model-based specifications (\sectionref{sec:automating}).
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
+% With current PBT tools, properties can only be expressed over single modules.
+% This causes problems when code is organized with functionality crossing module
+% boundaries.
 A common problem
 raised by Jane Street
 developers (and even more loudly in the earlier pilot
@@ -568,7 +571,11 @@ still not that convinced by the examples...}\hg{Any idea what is unconvincing?
 Unclear whether I'm just wrong
 that this is an interesting project, or whether I can't manage to communicate
 what's interesting. We'll probably just need to actually do some work on it to
-know for sure}
+know for sure} \amh{For me, one of the challenges is that the example seems so
+specific that it makes me wonder about the generality of the approach. Though I
+know from lots of my own projects that there is important behavior that crosses
+module boundearies. Maybe we can more explicitly state the broad classes of
+systems for which this form of specification would apply?}
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 One finding that has surprised us from the Jane Street study is that
