@@ -472,21 +472,14 @@ the kinds of designs that will help programmers.
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-We next describe our plans to address the challenges relating to
-\proptheme{specification} that were discussed in the Motivation
-section.
-
-A notable finding of the Jane Street study has been that widening the
-on-ramp to PBT requires making developers aware of high-leverage
-use-cases for PBT. Our plans to teach developers about high-leverage
-scenarios are described below in \sectionref{sec:whento}; here,
-we discuss research opportunities that can help expand this space.
-Specifically, we describe plans to improve PBT's applicability to
-poorly abstracted code (\sectionref{sec:outpurprop}) and
-tools that will automate automatically in the specific high-leverage
-scenario of model-based testing (\sectionref{sec:automating}).
-The findings of the Jane Street study suggest that progress in these
-two areas will significantly widen the on-ramp to PBT.
+To widen the on-ramp to using PBT, developers need help envisioning and
+writing \proptheme{specifications}. Developers first need to know when they
+should write properties to test their software. We describe our approach towards
+helping them do so in among our educational agenda~\sectionref{sec:whento}. In
+this section, we describe specific tooling that, once a developer has a property
+in mind, helps them implement it. We envision how tools can help developers
+poorly abstracted code (\sectionref{sec:outpurprop}) and test systems using
+model-based specifications (\sectionref{sec:automating}).
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
 A common problem
