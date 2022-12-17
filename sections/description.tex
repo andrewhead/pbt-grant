@@ -488,91 +488,104 @@ singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
-The projects in this section address the challenges related to
-\proptheme{specification} discussed in the motivation section. One major finding
-of the study is that widening the on-ramp to PBT requires making developers
-aware of high-leverage use-cases for PBT. We discuss our plans to teach developers
-about high-leverage scenarios in \sectionref{sec:whento}; in this section, we
-discuss opportunities to expand and improve the space of scenarios where PBT
-shines.  In we improve PBT's applicability to poorly abstracted code
-(\sectionref{sec:outpurprop}), and we describe tools that automate
-automatically in a specific high-leverage scenario: model-based testing
-(\sectionref{sec:automating}).  Together, these projects will greatly improve
-the on-ramp to PBT and clarify its place in the software industry.
+%
+We next describe our plans to address the challenges relating to
+\proptheme{specification} that were discussed in the Motivation
+section.
+
+A notable finding of the Jane Street study has been that widening the
+on-ramp to PBT requires making developers aware of high-leverage
+use-cases for PBT. Our plans to teach developers about high-leverage
+scenarios are described below in \sectionref{sec:whento}; here,
+we discuss research opportunities that can help expand this space.
+Specificallty, we describe plans to improve PBT's applicability to
+poorly abstracted code (\sectionref{sec:outpurprop}) and
+tools that will automate automatically in the specific high-leverage
+scenario of model-based testing (\sectionref{sec:automating}).
+The findings of the Jane Street study suggest that progress in these
+two areas will significantly widen the on-ramp to PBT.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
-As discussed in the motivation section above, a common problem
+A common problem
 raised by Jane Street
-developers (and even more loudly in our earlier pilot
-study~\cite{ref:goldstein2022some}) was that code may sometimes not be
-abstracted in a way that is amenable to testing. Indeed, any kind of
+developers (and even more loudly in the earlier pilot
+study~\cite{ref:goldstein2022some}) was that code is sometimes not
+organized in a way that is amenable to testing.  Of course, any kind of
 testing of software units---with PBT techniques or otherwise---requires
 ``units'' to test!  But PBT is
 especially sensitive to issues like poorly encapsulated global state, which may
 impact the repeatability of testing, and leaky or confusing
 abstraction boundaries, which make it difficult to cleanly state
-properties or specifications.
+properties.
 
 For example, one developer (\participant{7}) described their experience testing a
-system (we'll call it \lstinline{Inner}) with messy abstraction
-boundaries. In this case, \lstinline{Inner} was hard to test because it was
-primarily used as a sub-component of a larger system \lstinline{Outer};
-\lstinline{Outer} would take in simple data, and then at some point pass a
+system (let's call it \lstinline{Inner}) with messy abstraction
+boundaries. \lstinline{Inner} was hard to test because it was
+used as a sub-component of a larger system \lstinline{Outer}.
+\lstinline{Outer} would take in simple inputs, then at some point pass a
 large, complex data structure to \lstinline{Inner}, which would do some work and
-hand results back to \lstinline{Outer}. PBT of \lstinline{Inner} was therefore
-hard, because generating valid examples of the large data structure that
+hand results back to \lstinline{Outer}. Applying PBT to
+\lstinline{Inner} was
+hard because generating valid examples of the large data structure that
 \lstinline{Inner} takes as input required deep knowledge of the internals and
 types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
 access to, and because the interface was too complex to write straightforward
 properties about.
 
-We propose a novel approach to testing systems like \lstinline{Inner} that are
+We plan to pursue a novel approach to testing systems like
+\lstinline{Inner} that are
 difficult to write properties about because they cannot be fully extracted from
 a larger system.
-At its core, this approach tests
+The idea is to test
 \lstinline{Inner} through \lstinline{Outer} by
-writing properties over intermediate values in \lstinline{Inner}. Properties like
+writing properties over {\em intermediate} values within
+\lstinline{Inner}, for example:\bcp{I find 1 and 2 a bit unintuitive.}
 \begin{lstlisting}
   sublist_of processed (next (processed))      (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Capacity at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
-which demonstrate that internal variables like \lstinline{processed},
-\lstinline{msg}, and \lstinline{overflow} evolve correctly over time, let the
+Such properties check that internal variables like \lstinline{processed},
+\lstinline{msg}, and \lstinline{overflow} evolve correctly over time,
+letting the
 developer talk about the behavior of \lstinline{Innner} without talking about
-its external-facing API.
-These properties could theoretically be tested without ever running
-\lstinline{Inner} on its own: we can generate inputs to \lstinline{Outer}, have
-\lstinline{Outer} drive \lstinline{Inner}, and simply monitor the variable
-values to check the desired properties.
+its \lstinline{Outer}-facing API.
+Moreover, these properties can be tested without ever running
+\lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
+\lstinline{Outer} drive \lstinline{Inner}, and monitor values within
+\lstinline{Inner} values to check the desired properties.
 
-The tricky part comes with how to actually implement this testing. One might
-hope to do it through debug assertions, but that quickly becomes untenable.
-Checking the property (1) with debug assertions would require noisy code to
-saves the previous value every time \lstinline{processed} is updated, and the
-programmer would need to use macros or some other kind of meta-programming to
-remove that code when building in release mode. Even worse, there may be no way
+How can such properties be tested?  One might
+hope to do it through assert statements, but this approach quickly
+becomes quite heavy.
+Checking property (1) with assertions would require nontrivial code to
+save the previous value every time \lstinline{processed} is updated, plus
+macros or some other kind of meta-programming to
+remove that code when building in release mode. Worse, it seems difficult
 to check properties (2) or (3) at all. Doing so would require making an
-assertion at the ``end'' of the computation, which may not actually be possible
-if \lstinline{Outer} is driving \lstinline{Inner} from the outside.
+assertion at the ``end'' of the computation, which may be hard to
+recognize if \lstinline{Outer} is driving \lstinline{Inner} from the
+outside.
 
-Instead, we propose a framework for writing properties over {\em logged values}
-that can capture the interesting relationships between past and future variable
-values that the above properties demand.  Concretely, we will insert lightweight
-logging annotations and provide a language for writing properties over those
+We envision a framework for writing properties over {\em logged values}
+that can capture interesting relationships between their values
+over time.  Concretely, we will support inserting lightweight
+logging annotations in modules like \lstinline{Inner}, and we will
+provide a language for writing temporal properties over those
 logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
 \lstinline{eventually} the property language will need some logical connectives
-that are not standard in PBT.  In particular, we need a temporal logic like {\em
+that are not standard in PBT.  In particular, we need a logic like {\em
 linear temporal logic} (LTL) so that properties can capture a notion of time.
 
-Using LTL with PBT is not unheard of---Quickstrom testing
-framework~\cite{oconnor_quickstrom_2022} has already shown that LTL properties
-can be used for specifying and testing graphical user interfaces---but LTL
-properties at this level of generality have not yet been attempted. We plan to
-compile the user's LTL formulae to properties over traces that respect the
-structure of the log and ignore updates to irrelevant variables. Then, the
+Using LTL with PBT is not unheard of---the Quickstrom testing
+framework~\cite{oconnor_quickstrom_2022} uses LTL properties
+for specifying and testing graphical user interfaces---but LTL
+properties at this level of generality have not been attempted. We plan to
+compile LTL formulae to properties over log traces\proposecut{ that respect the
+structure of the log and ignore updates to irrelevant variables}. Then, the
 developer can provide inputs to some system containing the sub-system under
-test, and the test harness will apply the trace properties in real time. In this
+test; the test harness will check the given trace properties in real
+time. In this
 way, the user can get feedback about the invariants that should hold of the
 intermediate values of their programs, making PBT available in a huge range of
 programs where it was previously too difficult to apply.
