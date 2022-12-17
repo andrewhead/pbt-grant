@@ -499,7 +499,7 @@ automatically in a specific high-leverage scenario: model-based testing
 (\sectionref{sec:automating}).  Together, these projects will greatly improve
 the on-ramp to PBT and clarify its place in the software industry.
 
-\SUBSECTION{Properties Over Logs}{sec:outpurprop}{1}{2}{Harry}
+\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
 As discussed in the motivation section above, a common problem
 raised by Jane Street
 developers (and even more loudly in our earlier pilot
@@ -1529,20 +1529,6 @@ other institutions to adapt into their own curricula.
   \input{main.workplan}
 \end{ganttchart}
   \caption{Plan of work.
-  \amh{Some suggestions follow}
-  \amh{Can we move both ``Generalizing'' and ``Observing'' into Y1--2? As
-  foundations for the other projects, it feels strangte to have them start after
-  some of the new tool work, espcially properties over logs. I think we also
-  want some of these observations to happen before or at least in-tandem with
-  the validation interactive systems.}
-  \amh{I think ``Evaluating Data Distributions'' should be blue, and ``Tuning
-  Data Distributions'' should be gold---if Harry is likely to work on one
-  project, it would be ``Evaluating,'' which feels like a prerequisite to
-  ``Tuning''}
-  \amh{Can we move ``When to Specify It?'' to Y3--4? That way we can have it
-  rely on the results of the survey (as we suggest in the text), and set aside
-  time for a fuller review of the academic literature and open source projects.
-  In that case, we should color the bar yellow.}
    % \bcp{The timeline needs to be brought into correspondence with our
    %   actual expectations of timing, and explained.  Harry's projects
    %   should end by year 3 latest!  :-)}
@@ -1557,43 +1543,39 @@ other institutions to adapt into their own curricula.
 \end{figure}
 
 \noindent
-The work of the project will be carried out by two PhD students (and
-a number of undergraduates or Master's students), over the course
-of four years.  All the work will be collaborative across the group,
-but the specific threads can be roughly divided into two broader
-thrusts, one focused on PL techniques (advised by PI Pierce) and the
-other emphasizing HCI methods and tools (advised by PI Head).
+The work of this project will take place over the course
+of four years (Figure~\ref{fig:workplan}). All projects will constitute
+collaborative efforts with both PIs. Individual projects will align
+more or less with the two themes of PL
+(advised by PI Pierce, highlighted in blue) and HCI methods and tools (advised
+by PI Head, highlighted in yellow). Key personnel for this work will include the
+co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI, and a number of
+advanced undergraudate and Master's students.
 
-The PL thrust, likely led by PhD candidate Harrison Goldstein, will be
-concentrated in years 1--3 (see the blue bars in
-Figure~\ref{fig:workplan}).  This student will first finish the work on
-reflective generators and write the {\em When to Specify It!} survey \amh{See
-note in figure caption suggesting to defer this survey to later, maybe
-post-Harry};
-later on, they will develop reflective shrinkers and fuzzers,
-launch initial efforts in interface design with the first focus problem of
-evaluating data distributions, and advise undergraduates and masters students on
-languages for writing properties over logs and on automation for
-testing ML modules. Goldstein has a proven track record of advising
-and co-advising junior students---e.g.,~\cite{pytestmutagen}. \amh{This sounds
-like an unfeasibly large amount of work for a few years for Harry. I think I
-would instead propose reflective generators, shrinkers, fuzzers, evaluating data
-distributions, and some teaching, and leave it at that.}
+Early efforts will focus on strengthening foundations, strengthening and
+generalizing the findings from our need-finding research to-date. Then, beginning in
+year 1, we will develop PL techniques for which we have strong
+motivation, and which will form the backbone of later interactive systems. This
+includes the development of reflective generators, shrinkers, and fuzzers.
+Initially, these efforts will be led by PhD candidate Harrison Goldstein, who
+has developed the preliminary work in these areas cited in the proposal.
 
-The HCI thrust will likely be the responsibility of a new PhD student,
-hired in year 1 or 2; this thread of work will thus be concentrated in
-years 2--4 (shown in yellow in Figure~\ref{fig:workplan}). This thread
-will include formative HCI research--- surveys to generalize our
-motivating study and observations of PBT in practice---as well as
-human-centered design projects including tools to validate data
-distributions, interactive shrinking and debugging, and interactive
-property specification. The second student will also co-advise an
-undergraduate or Master's project centered around turning
-counterexamples into regression tests.
+HCI-based tool-building will begin in earnest in year 2, once the
+foundations have been established. This will take place in parallel with observations
+of developers undertaking PBT for the particular tasks the tools are meant to
+support. Some of these projects, most notably the ability to tune data
+distrubionts, will require tight coordination between the PL and HCI student.
+Other projects, including tooling for evaluating data distributions and and
+counterexamples as regression tests, are less tightly coupled.
 
-The work on incorporating PBT in the undergraduate curriculum (shown
-in green) will involve both students equally and will evolve over the
-course of the four year project.
+Educational initiatives will take place throughout the project. PBT
+instruction will be incorporated into the data science classroom in the
+first year, and iteratively improved after reviewing course outcomes in each
+successive year. Our efforts to teach developers when to leverage properties will
+occur mostly in the first two years in parallel with our formative
+research. Tool-building for the classroom will take place in the final two
+years, after we have established a strong instructional core for teaching PBT at
+Penn.
 
 \SIMPLESECTION{Broader Impacts of the Proposed Work%
  \pagebudget{.5}}{sec:broader-impacts}
