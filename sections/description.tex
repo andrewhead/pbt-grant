@@ -465,6 +465,9 @@ better understanding of the situations where PBT is most effective
 (see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
+\bcp{Other question we might study is how critical good language
+  support (typeclasses, PPXs, etc.) is for PBT...}
+
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Other}
 %
 Anecdotes related in interviews do not, in and of
@@ -586,9 +589,10 @@ structure of the log and ignore updates to irrelevant variables}. Then, the
 developer can provide inputs to some system containing the sub-system under
 test; the test harness will check the given trace properties in real
 time. In this
-way, the user can get feedback about the invariants that should hold of the
-intermediate values of their programs, making PBT available in a huge range of
-programs where it was previously too difficult to apply.
+way, the user can express properties about invariants that should hold of the
+intermediate values of their programs, making PBT available in many
+situations where it was previously too difficult to apply. \bcp{I'm
+  still not that convinced by the examples...}
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 One finding that has surprised us from the Jane Street study is that
@@ -599,9 +603,13 @@ the same code produce the same results.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
 be by existing tooling.
 %
-With this in mind, we propose comprehensive tooling to automate
-model-based testing for a large class of ML-style software
-{\em modules}~\cite{macqueen_modules_1984}.
+With this in mind, we plan to build comprehensive tooling to automate
+model-based testing for systems built in languages with strong {\em
+  module systems}, like OCaml~\cite{macqueen_modules_1984}.  \bcp{A
+  potential objection is that languages with ML-style module systems
+  are very rare in industry.  We can blunt this objection by talking
+about how our results might transfer to other modularity mechanisms
+like Java interfaces.}
 
 \begin{figure}[t]
   \begin{minipage}{.45\textwidth}
