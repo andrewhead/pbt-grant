@@ -56,66 +56,68 @@ development context (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20}). But we also found
 challenging new research questions where advances in technical foundations and
-tool design necessary to overcome present usability challenges and expand the
-potential impact of PBT.
+tool design seem necessary to overcome present usability challenges and expand the
+potential impact of PBT. \bcp{Last sentence weak.}
 
 Addressing usability challenges in PBT requires insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
-al.~\cite{chasins_pl_2021} argue that a methodology
-involving
-both PL and HCI hits a ``sweet spot'' where need-finding techniques identify
-current pain points and lead to concrete tools that help programmers write
-safe, correct programs. We wholeheartedly agree, and such a methodology is
-central to this research.
-The team behind this proposal is uniquely positioned to advance the
+al.~\cite{chasins_pl_2021} argue that a research methodology
+combining PL and HCI hits a ``sweet spot'' where need-finding techniques identify
+current pain points and motivate concrete tools that help programmers write
+safe, correct programs. We wholeheartedly agree.
+Indeed, the team behind this proposal is uniquely positioned to advance the
 state of the art in PL and HCI: PI Head recently co-founded
 a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
-We propose a comprehensive, interdisciplinary research program on \emph{usable
+We propose here a comprehensive, interdisciplinary research program on
+\emph{usable
 property-based testing}, bringing the combined power of PL and HCI to bear to
 accelerate PBT's transition into practice.
 \begin{itemize}[noitemsep]
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
-beginning with our ongoing need-finding study. We will confirm
-its findings and further explore PBT's usability with
-two survey studies and observation studies
+starting from our ongoing need-finding study. We will confirm
+this study's findings and more deeply explore usability of PBT via
+two survey studies and an observation study
 of PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with
   new tools for checking temporal properties over internal program states and
 for model-based testing of modularized code (\sectionref{sec:spec}).
-  \item We will help developers efficiently define and tune test-case
+  \item We will help developers efficiently define and tune random input
 \emph{generators} with novel techniques for generating precondition-satisfying
-values, test input mutation, and example-based generator tuning, building
-  on a ``reflective'' approach to generation (\sectionref{sec:gen}).
+values, for test input mutation, and for example-based generator
+tuning, all building
+  on a novel ``reflective'' approach to generation (\sectionref{sec:gen}).
   \item We will support developers in rapidly \emph{validating} testing
-  effectiveness with novel interactive programming tools that help programmers
-locate the cause of a test failure and understand how to improve their generated
-data distributions to be more representative and comprehensive
+  effectiveness with novel interactive tools that help
+locate causes of test failures and understand how to improve the
+distribution of randomly generated
+data to be more representative and comprehensive
 (\sectionref{sec:val}).
   \item We will develop materials for PBT \emph{education}
   including an undergraduate computer science curriculum centered around PBT, a
   tool to help students author properties, and a comprehensive review of PBT
-  practice to teach students and developers about situations where
+  practice to help students and developers identify situations where
   PBT is likely to be most useful (\sectionref{sec:ed}).
 \end{itemize}
 
-Each of these efforts will deploy complementary tools from PL
+Success in these efforts will require complementary tools from PL
 and HCI research. HCI approaches will be used to concretely define developers' needs,
 design the user interface to tools, and evaluate their success. PL approaches
-will be used to develop PBT tools such as domain-specific languages and
-type-based tools that are powerful and flexible, and to formally validate these
+will be used to develop \rewrite{tools such as domain-specific languages and
+type-based tools that are powerful and flexible}, and to formally validate these
 tools. We conclude the proposal with a concrete outline of our work plan
-(\sectionref{sec:plan-of-work}) and discussion of the broader impacts of the
-proposed work (\sectionref{sec:broader-impacts})
+(\sectionref{sec:plan-of-work}), a discussion of the broader impacts of the
+proposed work (\sectionref{sec:broader-impacts}), and a summary of our
+prior NSF-supported work.
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
-We next describe the basics of the PBT approach, with the aim of highlighting
-where research has unique leverage in improving PBT tooling, processes, and
-education.
+To set the stage, we next describe the basics of PBT\proposecut{, with
+  the aim of highlighting where research has unique leverage in
+  improving PBT tooling, processes, and education}.
 
 Popularized by QuickCheck~\cite{hughes2007quickcheck} in Haskell,
 PBT is a form of random testing~\cite{hamlet1994random} where
