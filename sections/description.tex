@@ -1395,28 +1395,27 @@ understanding of ``no-brainer'' situations where PBT was an obvious
 choice---situations where properties were easy to find and where PBT provided
 much more thorough testing than other common techniques---and they limited their
 use of PBT to these situations.
-While we would love for developers to also use PBT in high-cost/high-benefit situations,
-where finding properties might take more work but the resulting tests are
-comparatively even more powerful, focusing on the easy cases seems like an
-obvious way to drive adoption.
-Thus, PBT education must
-disseminate this tacit understanding of
-those situations where PBT shines so more developers can get a foot in the door
-and start gaining assurance in their software through PBT.
+While experienced PBT users do also apply it in 
+high-cost / high-benefit situations, we believe
+focusing on easier cases is the best way to drive adoption.
+\proposecut{Thus, PBT education should concentrate on
+disseminating understanding of
+situations where PBT shines, so more developers can get a foot in the door
+and start gaining assurance in their software through PBT.}
 
 We aim to produce authoritative resources that help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
-aspirational title ``When to Specify It!'' (in homage to John Hughes'
-widely-viewed tutorial ``How to Specify It!''). The survey paper will
+aspirational title ``When to Specify It!'' in homage to John Hughes'
+widely-viewed tutorial ``How to Specify It!''. This survey will
 document the range of high-leverage scenarios identified in our formative
-research, minimally including
+research, including cases like
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
 \item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
 \item ``this stateful module should uphold an invariant,''
-\item ``these two programs should behave the same'' (e.g., because one is and optimized
-version of the other),
+\item ``these two programs should behave the same'' (e.g., because one
+is an optimized version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
