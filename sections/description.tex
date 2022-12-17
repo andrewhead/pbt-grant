@@ -55,9 +55,10 @@ built their own libraries for it when standard ones were not available in their
 development context (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20}). But we also found
-challenging new research questions where advances in technical foundations and
-tool design seem necessary to overcome present usability challenges and expand the
-potential impact of PBT. \bcp{Last sentence weak.}
+challenging new research questions: participants discussed usability challenges
+that demand
+advances in technical foundations and
+tool design.\bcp{Last sentence weak.}\hg{Any better?}
 
 Addressing usability challenges in PBT requires insights from both the
 programming languages (PL) and
@@ -106,8 +107,8 @@ data to be more representative and comprehensive
 Success in these efforts will require complementary tools from PL
 and HCI research. HCI approaches will be used to concretely define developers' needs,
 design the user interface to tools, and evaluate their success. PL approaches
-will be used to develop \rewrite{tools such as domain-specific languages and
-type-based tools that are powerful and flexible}, and to formally validate these
+will be used to develop \rewrite{powerful domain-specific languages and type-based automation
+to improve the PBT process}\hg{Better?}, and to formally validate these
 tools. We conclude the proposal with a concrete outline of our work plan
 (\sectionref{sec:plan-of-work}), a discussion of the broader impacts of the
 proposed work (\sectionref{sec:broader-impacts}), and a summary of our
@@ -115,10 +116,6 @@ prior NSF-supported work.
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
-\proposecut{To set the stage, we next describe the basics of PBT, with
-  the aim of highlighting where research has unique leverage in
-  improving PBT tooling, processes, and education}.
-
 Popularized by Haskell's QuickCheck library~\cite{hughes2007quickcheck},
 PBT is a form of testing where
 executable functions act as partial
@@ -138,9 +135,6 @@ test as input and evaluates to \lstinline{True} if the test passes, and
 \lstinline{False} otherwise.  This one, ``\verb|prop_insert_correct|'',
 checks that an insert operation on a binary search tree preserves the
 binary ordering of the tree.
-\proposecut{While properties like this one require
-only a few lines to express, they can validate unlimited
-input-output pairs.}
 Given a property, the PBT tool generates a
 large number of inputs and
 checks that the property yields \lstinline{True} for each one; any input
@@ -150,8 +144,9 @@ This proposal focuses on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would
 also be applicable to alternatives like enumerative test-case
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck} or model
-checking\bcp{model checking is not really a generation method}.
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck} 
+\proposecut{or model
+checking}\bcp{model checking is not really a generation method}.
 The surprising effectiveness of random generation can be attributed to the
 ``combinatorial'' nature of larger test cases---the fact that bugs can often be
 exposed with test inputs that embody a specific combination of features,
@@ -193,15 +188,20 @@ of programs whose correctness conditions are {\em relational} (e.g.,
 topologically sorting a graph, which might correctly
 produce any of a number of possible results) is impossible to do
 faithfully; a property-based specification is a better choice in
-such cases. PBT is also
+such cases.
+\proposecut{PBT is also
 an obvious choice if formal properties have already been written, as is the case
 with tools like QuickChick~\cite{paraskevopoulou_foundational_2015}, which
 implements PBT in
-the Coq proof assistant.\bcp{I am still uncomfortable with making a
+the Coq proof assistant.}\bcp{I am still uncomfortable with making a
   big deal of this point---it seems weak in the industrial setting.
   (Indeed, even using QuickChick we often have to write properties
-  from scratch!)} Finally, the properties required for PBT can also
-serve as documentation:
+from scratch!)}\hg{Fine. I just think it's a shame to leave out one of the most
+powerful use-cases of PBT when discussing its advantages. Would it help to
+change ``formal properties have already been written'' to ``there is already a
+specification, as in an RFC or other formal document'' and then drop the
+QuickChick reference?} Finally, the
+properties required for PBT can also serve as documentation:
 participants in our foundational study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
@@ -231,10 +231,6 @@ ecosystem ensures that developers have access to mature PBT tools,
 experience using them in collaborative settings,
 and awareness of language-level abstractions necessary
 for advanced usage.
-% \footnote{\proposecut{Because our primary need-finding study to-date has
-% taken place solely at Jane Street, our follow-up studies in
-% \sectionref{sec:foundation} will engage with broader groups of developers using
-% PBT to expand and generalize our findings.}\hg{If this is important, it shouldn't be a footnote...}}
 
 As of December 2022, the full complement of thirty interviews has been
 completed at Jane Street, and a preliminary round of qualitative
@@ -265,7 +261,7 @@ Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
 specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein2022some}, some users indicated just that.
+study~\cite{ref:goldstein2022some}, some users indicated just that.
 By contrast, Jane Street developers, on the whole, reported
 few difficulties finding
 properties. Rather, most participants described applying PBT in
@@ -344,9 +340,6 @@ evaluating their tests, many seemed to
 \evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code to production because
 they did not realize their generator had missed important input
 examples.
-\proposecut{We propose advances in tools
-for validation that help developers more clearly understand, and improve, the
-effectiveness of their tests.}
 
 Finally, both of our studies reveal a need for progress
 in PBT
@@ -361,8 +354,6 @@ Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
 (Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
 learning about PBT.
-\proposecut{Our final aim in this project is to develop curricula,
-documentation, and tools that fill this educational gap.}
 
 We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
@@ -422,10 +413,6 @@ software industry as a whole.
 
 \emph{Validation survey}. The main survey we plan to conduct aims to check that
 the things we are learning from Jane Street generalize to other settings.
-\proposecut{Our interview study has revealed
-a number of issues with existing PBT tools, but it is not clear
-how broadly these issues are experienced by developers, or
-their relative severity. To find out,}
 We will
 ask developers which of the issues we have identified are
 ones they have also encountered and the severity of those issues
@@ -501,7 +488,7 @@ on-ramp to PBT requires making developers aware of high-leverage
 use-cases for PBT. Our plans to teach developers about high-leverage
 scenarios are described below in \sectionref{sec:whento}; here,
 we discuss research opportunities that can help expand this space.
-Specificallty, we describe plans to improve PBT's applicability to
+Specifically, we describe plans to improve PBT's applicability to
 poorly abstracted code (\sectionref{sec:outpurprop}) and
 tools that will automate automatically in the specific high-leverage
 scenario of model-based testing (\sectionref{sec:automating}).
@@ -740,7 +727,6 @@ more realistic inputs, but are again limited in the preconditions they can
 satisfy.
 
 \subsectionstar{Context: Monadic and Free Generators}
-\iflater\hg{Not sure I love this transition... I liked it better when this sentence was above}\fi
 The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language (DSL).
 In  Haskell, where PBT was
@@ -869,8 +855,7 @@ following sections.
 
 \smallskip
 
-{\bf Status.}\bcp{After some agonizing, I decided to try moving it
-  here.  WDYT?}  We began thinking about the design of reflective
+{\bf Status.} We began thinking about the design of reflective
 generators in the context of an earlier NSF project (described in
 \sectionref{sec:prior}), built a prototype implementation, and drafted
 a preliminary progress report~\cite{Frohlich2022}.  Many details of
@@ -1150,13 +1135,6 @@ developer's will be able to see lines of code in their editor colorized on the
 basis of how frequently they have been executed while running the
 tests. This will let a developer decide whether their generator is executing the
 paths in the code that they believe are particularly error-prone.
-\iflater
-As the project evolves, and once ``Bringing Fuzzing into Focus'' from
-\sectionref{sec:fuzzing} is complete, we even plan to provide users with
-visualizations of code coverage feedback.
-\hg{This feels weak here, let's see how
-the end of the section ends up looking}
-\fi
 When complete, this project will be the first live tool for generator
 feedback and analysis; in the next section, we take it one step farther to
 consider how interactive tools can help a developer not just understand input
@@ -1395,7 +1373,7 @@ bring this technology into professional programming environments where traces
 for similar inputs are abundant by the nature of reflective generators.
 
 \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
-
+%
 Our goal is to make PBT not only usable but {\em
 used} in settings where it offers benefit; such a goal requires advances in PBT
 \edutheme{education} for
@@ -1426,10 +1404,6 @@ use of PBT to these situations.
 While experienced PBT users do also apply it in
 high-cost / high-benefit situations, we believe
 focusing on easier cases is the best way to drive adoption.
-\proposecut{Thus, PBT education should concentrate on
-disseminating understanding of
-situations where PBT shines, so more developers can get a foot in the door
-and start gaining assurance in their software through PBT.}
 
 We aim to produce authoritative resources that help developers understand
 high-leverage situations for PBT. We will begin with an effort
@@ -1461,13 +1435,7 @@ collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation in blogs and incorporate it into tool
 documentation. Then, we will compose the findings into a talk which we will give
-at a major professional developer conference\proposecut{ in the functional programming community}.
-
-% Clearly it is important to ask {\em How}, but our developer interviews
-% suggest that it may be even more important to have a clear sense of {\em When}
-% to use PBT. Our paper on {\em When to Specify It!} will combine examples from developer
-% interviews with ones from our our years of experience studying and applying PBT
-% into the definitive guide for the most impactful opportunities to apply PBT.
+at a major professional developer conference.
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
 %
@@ -1478,7 +1446,7 @@ programmers compose their first properties in an educational setting.
 
 The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
 tool, where a student and their code editor work together to arrive at a
-meaningful property. Extending prior work on property extration techniques (see for
+meaningful property. Extending prior work on property extraction techniques (see for
 instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
 smith_discovering_2017}), the idea is to help students compose properties that
 are not just accurate descriptors of the system, but significant in reflecting
@@ -1504,7 +1472,7 @@ When tools or techniques become standards in undergraduate curricula,
 students help bootstrap adoption of those tools and techniques in industry. We will
 integrate PBT into some of the earliest coursework that undergraduate students
 take, targeting introductory level data structures
-curriculum. As noted in our formative interviews, testing well-defined data
+curriculum. As noted in \sectionref{sec:whento}, testing well-defined data
 abstractions is one of the high-leverage scenarios for using PBT, making data
 structures a powerful anchor for demonstrating the power of PBT. Building on the
 foundation of recent PBT instruction in data structures
@@ -1575,7 +1543,7 @@ more or less strongly with the themes of PL
 (advised by PI Pierce, highlighted in blue) and HCI methods and tools (advised
 by PI Head, highlighted in yellow). Key personnel for this work will include the
 co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI, and a number of
-advanced undergraudate and Master's students.
+advanced undergraduate and Master's students.
 
 Early efforts will focus on strengthening foundations, strengthening and
 generalizing the findings from our need-finding research to-date. Then, beginning in
@@ -1589,7 +1557,7 @@ HCI-based tool-building will begin in earnest in year 2, once the
 foundations have been established. This will take place in parallel with observations
 of developers undertaking PBT for the particular tasks the tools are meant to
 support. Some of these projects, most notably the ability to tune data
-distrubionts, will require tight coordination between the PL and HCI student.
+distributions, will require tight coordination between the PL and HCI student.
 Other projects, including tooling for evaluating data distributions and and
 counterexamples as regression tests, are less tightly coupled.
 
