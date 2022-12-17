@@ -1007,17 +1007,17 @@ without giving up the power and simplicity of coverage-guided generation.
 Another major challenge in maximizing PBT's usability helping developers
 \evaltheme{validate} that their testing is effective. In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
-tooling for PBT. These projects will contribute new paradigms
-for tools that help developers assess whether their generators are
-generating sufficient and appropriate inputs
-(\sectionref{sec:evaluating_distributions}) and whether those inputs
-sufficiently exercise their code (\sectionref{sec:tuning}), migrate failing
-property-based tests into regression tests (\sectionref{sec:counter}),
-and understand testing-provoked failures involving complex
-inputs (\sectionref{sec:failures}). These
-projects will be pursued using HCI methodology,
-integrating these tools into contemporary interactive development
-environments.
+tooling for PBT. These projects will contribute new paradigms for tools that
+help developers assess whether their generators are generating sufficient and
+appropriate inputs (\sectionref{sec:evaluating_distributions}) and whether those
+inputs sufficiently exercise their code (\sectionref{sec:tuning}), migrate
+failing property-based tests into regression tests (\sectionref{sec:counter}),
+and understand testing-provoked failures involving complex inputs
+(\sectionref{sec:failures}). These projects will be pursued using HCI
+methodology, integrating these tools into contemporary interactive development
+environments. PI Head will guide tool development efforts leveraging his
+experience designing, developing, evaluating, and deploying programming
+environments and tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Other}
 %
@@ -1367,66 +1367,43 @@ for similar inputs are abundant by the nature of reflective generators.
 
 \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
 
-Our goal with this project is to make PBT not only usable but {\em
-  used}; \edutheme{education} will play a crucial role.  This
-section describes three specific threads of activity addressing pedagogical
-challenges in different domains:
+Our goal is to make PBT not only usable but {\em
+used in the settings it should be}; such a goal requires advances in PBT
+\edutheme{education} for
+young and experienced developers alike. In this section, we describe how we will
+advance PBT education by developing:
 course materials for instructors who want to integrate PBT into
 undergraduate data structures courses (\sectionref{sec:1210}),
 %
 guidance for
-industrial developers on how to identify low-hanging fruit (\sectionref{sec:whento}), and
+industry developers on how to identify opportunities to apply PBT (\sectionref{sec:whento}), and
 %
 a
 tool for helping both developers and students write properties
 interactively (\sectionref{sec:interactive}).
 
-\SUBSECTION{PBT for Undergrads}{sec:1210}{1}{4}{Both}
-%
-Education can act as a force multiplier to make technologies more usable.
-When tools or techniques become standards in undergraduate curricula,
-students can go on to help bootstrap adoption of the same ideas in industry.  PBT
-would be a good fit for a number of standard CS courses---compilers,
-functional programming, and even early introduction courses---but we believe the
-most promising place to start will be a data structures course.
-%
-Teaching PBT alongside data structures has good
-precedent~\cite{wrenn2021using, nelson2021automated}\bcp{what are we
-  going to do that's different from what they did?} and is natural for a number
-of reasons.  The course is often taken early, so habits
-can carry over to other courses. In
-addition, data structures often have ``obvious'' properties that can be a great
-place to start with PBT (see \sectionref{sec:whento}).
-%
-Concretely, we plan to design a model for adding PBT to data structures courses
-and implement this model in the University of Pennsylvania's CIS 1210,
-Data Structures and Algorithms. We will
-add a single lecture early in the course on PBT and modify  the
-(Java-based) programming assignments to use PBT alongside or instead
-of unit testing.
-Materials we produce will be made public so other
-universities can copy and adapt them to their own courses. We will also
-publish a paper in a computer science education conference that advertises and
-explains our methods.
 
-\SUBSECTION{When to Specify It!}{sec:whento}{1}{2}{Harry}
+\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
 %
-PBT is often described as a lightweight formal method.  One
-might therefore imagine that a central challenge of using PBT would be
-coming up with specifications. Indeed, a preliminary interview
-study before the larger Jane Street study seemed to indicate just
-that~\cite{ref:goldstein2022some}. But at
-Jane Street we actually heard very little about trouble
-writing
-properties; instead, most participants described applying PBT in scenarios when
-properties were already available or quite easy to imagine. This suggests that,
-while PBT educators should certainly teach developers how to
-write properties, they should concentrate on
-helping developers quickly recognize situations where PBT is a
-natural fit because the properties are obvious!
+Our very first pilot study with users of PBT suggested that one challenge to
+using PBT is the writer's block of coming up with specifications worth testing
+for one's software~\cite{ref:goldstein2022some}. Our follow-up interviews at
+Jane Street showed us that the developers there had developed a tacit
+understanding of ``no-brainer'' situations where PBT was an obvious choice, due
+to the nature of software and the ease of specifying properties. This contrast
+showed us that developers do not uniformly have a strong understanding of the
+situations where PBT can and should be used. A critical role of PBT education is to
+disseminate this tacit understanding of
+those situations where properties should be used because they can be easily
+envisioned and applied, and lead to powerful assurances about the software.
 
-The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer properties.'' For example:
+We aim to produce the authoritative resources that help developers understand
+high-leverage situations to use properties. We will begin with an effort
+tailored to the academic community, where we write a survey paper with the
+aspirational title ``When to Specify It!'' (in homage to John Hughes'
+widely-viewed tutorial ``How to Specify It!''). The survey paper will
+document the range of high-leverage scenarios identified in our formative
+research, minimally including
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
 \item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
@@ -1436,22 +1413,21 @@ version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
-These properties cover a range of
-scenarios that real software developers regularly find themselves in, but they
-are likely not exhaustive. To flesh out the list, we will continue to
-gather examples; specifically, we will include
-questions about natural use-cases on the survey of the Hypothesis user
-community described in~\sectionref{sec:survey}; we will also mine
-research papers and experience reports in the literature,
-examine open-source software projects, and leverage our connections with various
-PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
-to ensure that we have a comprehensive understanding of the best uses for PBT
+This list will be further expanded with our follow-up surveys with broader
+communities of developers~(\sectionref{sec:survey}), a comprehensive
+review of case studies that apper in research papers and experience reports in
+the academic literature, and an examination of open source projects across a
+variety of different software ecosystems using PBT (e.g.,
+QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-These results will be presented in a survey-style paper (with an
-accompanying talk), tentatively entitled {\em When to Specify It!} in
-homage to John Hughes's {\em How to Specify
-  It!}~\cite{HowToSpecifyIt}, a famous tutorial on the many different
-kinds of properties that can be written or a given piece of code.
+Building on the strong foundation of the survey, we will distill the findings
+into media directly tailored for developers. First, we will write up
+approachable developer documentation in partnership with our industry
+collaborators, to be read among the first resources of any developer
+documentation on PBT tools. We will work with our industry collaborators to
+disseminate this documentation in blogs and incorporate it into tool
+documentation. Then, we will compose the findings into a talk which we will give
+at a major professional developer talk in the functional programming community.
 
 % Clearly it is important to ask {\em How}, but our developer interviews
 % suggest that it may be even more important to have a clear sense of {\em When}
@@ -1511,10 +1487,29 @@ Future iterations will require us to either find tools in other languages used
 commonly at Penn (e.g., Bach~\cite{smith_discovering_2017}, in Python) or create
 our own.
 
-PI Head has extensive experience with designing and developing tools involving
-program analysis~\cite{ref:head2018interactive,ref:head2019managing} and program
-synthesis~\cite{ref:head2017writing} and with extending the VSCode
-environment~\cite{ref:head2020composing}.
+\SUBSECTION{PBT for Undergraduate Students}{sec:1210}{1}{4}{Both}
+%
+Education can act as a force multiplier to make technologies more usable.
+When tools or techniques become standards in undergraduate curricula,
+students help bootstrap adoption of those tools and techniques in industry. We will
+integrate PBT into some of the earliest coursework that undergraduate students
+take, targeting introductory level data structures
+curriculum. As noted in our formative interviews, testing well-defined data
+abstractions is one of the high-leverage scenarios for using PBT, making data
+structures a powerful anchor for demonstrating the power of PBT. Building on the
+foundation of recent PBT instruction in data structures
+courses~\cite{wrenn2021using,nelson2021automated}, we will integrate PBT into
+Penn's CIS 1210 course on data structures. We
+will evolve the curriculum to emphasize themes in PBT that have arisen from our
+formative research to help students identify powerful circumstances for
+using PBT, including methods for writing great generators, understanding
+generators, considering properties as documentation, and expanding one's
+thinking around the scenarios where PBT is suitable
+(see~\sectionref{sec:whento}). We will evaluate the impact of these new
+instructional approaches on students' ability to leverage PBT in final projects,
+disseminating our findings in publications at computer science research venues.
+The instructional materials we develop will be made public for instructors at
+other institutions to adapt into their own curricula.
 
 \immediate\closeout\workplanfile
 \SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
