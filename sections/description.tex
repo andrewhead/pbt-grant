@@ -1385,21 +1385,25 @@ interactively (\sectionref{sec:interactive}).
 
 \SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
 %
-Our very first pilot study with users of PBT suggested that one challenge to
-using PBT is the writer's block of coming up with specifications worth testing
-for one's software~\cite{ref:goldstein2022some}. Our follow-up interviews at
-Jane Street showed us that the developers there had developed a tacit
-understanding of ``no-brainer'' situations where PBT was an obvious choice, due
-to the nature of software and the ease of specifying properties. This contrast
-showed us that developers do not uniformly have a strong understanding of the
-situations where PBT can and should be used. A critical role of PBT education is to
+Our first pilot study with users of PBT suggested that developers struggle to
+coming up with specifications that were worth testing~\cite{ref:goldstein2022some},
+but
+our follow-up interviews at Jane Street suggested that the developers there
+rarely had the same problem. It seemed that the Jane Street developers had
+a tacit
+understanding of ``no-brainer'' situations where PBT was an obvious
+choice---situations where properties were easy to find and where PBT provided
+much more thorough testing than other common techniques---and they limited their
+use of PBT to these situations.
+Clearly, developers do not uniformly have a strong understanding of the
+situations where PBT can and should be used. Thus, PBT education must
 disseminate this tacit understanding of
-those situations where properties should be used because they can be easily
-envisioned and applied, and lead to powerful assurances about the software.
+those situations where PBT shines so more developers can get a foot in the door
+and start gaining assurance in their software through PBT.
 
-We aim to produce the authoritative resources that help developers understand
-high-leverage situations to use properties. We will begin with an effort
-tailored to the academic community, where we write a survey paper with the
+We aim to produce authoritative resources that help developers understand
+high-leverage situations for PBT. We will begin with an effort
+tailored to the academic community: a survey paper with the
 aspirational title ``When to Specify It!'' (in homage to John Hughes'
 widely-viewed tutorial ``How to Specify It!''). The survey paper will
 document the range of high-leverage scenarios identified in our formative
@@ -1415,19 +1419,19 @@ and
 \end{enumerate*}
 This list will be further expanded with our follow-up surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
-review of case studies that apper in research papers and experience reports in
+review of case studies that appear in research papers and experience reports in
 the academic literature, and an examination of open source projects across a
 variety of different software ecosystems using PBT (e.g.,
 QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-Building on the strong foundation of the survey, we will distill the findings
+Building on the strong foundation of the survey, we will distill our findings
 into media directly tailored for developers. First, we will write up
 approachable developer documentation in partnership with our industry
 collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation in blogs and incorporate it into tool
 documentation. Then, we will compose the findings into a talk which we will give
-at a major professional developer talk in the functional programming community.
+at a major professional developer conference in the functional programming community.
 
 % Clearly it is important to ask {\em How}, but our developer interviews
 % suggest that it may be even more important to have a clear sense of {\em When}
