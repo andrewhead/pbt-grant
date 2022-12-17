@@ -187,18 +187,13 @@ topologically sorting a graph, which might correctly
 produce any of a number of possible results) is impossible to do
 faithfully; a property-based specification is a better choice in
 such cases.
-\proposecut{PBT is also
-an obvious choice if formal properties have already been written, as is the case
-with tools like QuickChick~\cite{paraskevopoulou_foundational_2015}, which
-implements PBT in
-the Coq proof assistant.}\bcp{I am still uncomfortable with making a
-  big deal of this point---it seems weak in the industrial setting.
-  (Indeed, even using QuickChick we often have to write properties
-from scratch!)}\hg{Fine. I just think it's a shame to leave out one of the most
-powerful use-cases of PBT when discussing its advantages. Would it help to
-change ``formal properties have already been written'' to ``there is already a
-specification, as in an RFC or other reasonably formal document'' and then drop the
-QuickChick reference?}\bcp{Sure.} Finally, the
+PBT is also
+an obvious choice if 
+the developer already has some semi-formal
+specification in mind, for example if they are implementing behavior from an RFC or
+other design document, because provides a clear connection between the
+specified behavior and the implementation.
+Finally, the
 properties required for PBT can also serve as documentation:
 participants in our foundational study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
@@ -527,20 +522,17 @@ a larger system.
 The idea is to test
 \lstinline{Inner} through \lstinline{Outer} by
 writing properties over {\em intermediate} values within
-\lstinline{Inner}, for example:\bcp{I find 1 and 2 a bit unintuitive.}\hg{Not
-sure how to improve them without taking space to explain them. I made a couple
-of things more clear, but I agree they're still not obvious}\bcp{We've
-got a little space to play with now...}
+\lstinline{Inner}, for example:
 \begin{lstlisting}
   prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
-Such properties check that internal variables like \lstinline{processed},
-\lstinline{msg}, and \lstinline{overflow} evolve correctly over time,
-letting the
-developer talk about the behavior of \lstinline{Innner} without talking about
-its \lstinline{Outer}-facing API.
+Such properties might check that the queue of \lstinline{processed} items only
+increases (1), that the \lstinline{overflow} flag is never set if the message is
+of appropriate length (2), that the whole message is eventually processed (3),
+etc.  The critical observation is that the developer can talk about the behavior
+of \lstinline{Innner} without talking about its \lstinline{Outer}-facing API.
 Moreover, these properties can be tested without ever running
 \lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
 \lstinline{Outer} drive \lstinline{Inner}, and monitor values within
@@ -579,7 +571,11 @@ time. In this
 way, the user can express properties about invariants that should hold of the
 intermediate values of their programs, making PBT available in many
 situations where it was previously too difficult to apply. \bcp{I'm
-  still not that convinced by the examples...}
+still not that convinced by the examples...}\hg{Any idea why you're not
+convinced? Unclear whether I'm just wrong
+that this is an interesting project, or whether I can't manage to communicate
+what's interesting. We'll probably just need to actually do some work on it to
+know for sure}
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 One finding that has surprised us from the Jane Street study is that
@@ -592,13 +588,9 @@ be by existing tooling.
 %
 With this in mind, we plan to build comprehensive tooling to automate
 model-based testing for systems built in languages with strong {\em
-  module systems}, like OCaml~\cite{macqueen_modules_1984}.  \bcp{A
-  potential objection is that languages with ML-style module systems
-  are very rare in industry.  We can blunt this objection by talking
-about how our results might transfer to other modularity mechanisms
-like Java interfaces.}
+  module systems}, like OCaml~\cite{macqueen_modules_1984}.
 
-\begin{figure}[t]
+\begin{figure}[h]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
 module StringFns : sig
@@ -616,7 +608,7 @@ module Set : sig
   val add   : 'a t -> 'a -> 'a t
 \end{lstlisting}
   \end{minipage}
-  \vspace{-4mm}
+  \vspace{-2mm}
   \caption{Some module interfaces we would like to test
     automatically.}\label{fig:sigs}
 \end{figure}
@@ -627,9 +619,8 @@ when the code under test is a {\em
   collection} of functions
 organized into a module, things get much more interesting. Testing even a simple
 module requires orchestrating multiple calls to the different functions in
-its signature. For example, testing the module \lstinline{StringFns} (in
-Figure~\ref{fig:sigs}\bcp{Is this the module or the signature?  Seems
-  like we want just the signature.}) requires wiring up the functions in the
+its signature. For example, testing the signature \lstinline{StringFns} (in
+Figure~\ref{fig:sigs}) requires wiring up the functions in the
 signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
@@ -639,7 +630,7 @@ calls that can be used to compare module implementations.
 Testing modules gets even hairier when they contain {\em abstract types}, as is
 the case with \lstinline{Set}. Now some of the types in the signature cannot be
 generated on their own, so they must be built up from scratch (in this case by
-calling \lstinline{create} and \lstinline{add}). The \lstinline{Set} module is
+calling \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
 also {\em polymorphic}, so a type must be chosen for \lstinline{'a} before
 testing. (There is significant work on this
 problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
@@ -647,8 +638,14 @@ To solve these problems, we will take a theoretical approach, breaking down
 modules theoretically and developing automation heuristics from first
 principles. This process will likely involve identifying a subset of
 modules where automation is not possible; highlighting that subset will
-provide useful context for future work in PBT usability.\bcp{Why?}
+provide useful context for future work that might aim to simplify these cases in
+other ways (e.g., by putting a human in the loop).
 
+The work in this project will provide a foundation that others can build on to
+provide similar automation in other languages. Abstract and polymorphic
+signatures are features of many other modularity mechanisms (e.g., Java
+interfaces, Rust traits, Haskell type classes, etc.), so solutions we find in
+OCaml should transfer.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
@@ -1533,7 +1530,8 @@ collaborative efforts involving both PIs, though individual projects will align
 more or less strongly with the themes of PL
 (advised by PI Pierce, highlighted in blue) and HCI methods and tools (advised
 by PI Head, highlighted in yellow). Key personnel for this work will include the
-co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI, and a number of
+co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI,
+and many
 advanced undergraduate and Master's students.
 
 Early efforts will focus on strengthening foundations, strengthening and
