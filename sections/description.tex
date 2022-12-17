@@ -526,10 +526,12 @@ a larger system.
 The idea is to test
 \lstinline{Inner} through \lstinline{Outer} by
 writing properties over {\em intermediate} values within
-\lstinline{Inner}, for example:\bcp{I find 1 and 2 a bit unintuitive.}
+\lstinline{Inner}, for example:\bcp{I find 1 and 2 a bit unintuitive.}\hg{Not
+sure how to improve them without taking space to explain them. I made a couple
+of things more clear, but I agree they're still not obvious}
 \begin{lstlisting}
-  sublist_of processed (next (processed))      (* 1. Processing is monotonic. *)
-  msg.length < 100 ==> never (overflow = true) (* 2. Capacity at least 100 bytes. *)
+  prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
+  msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
 Such properties check that internal variables like \lstinline{processed},
@@ -568,8 +570,7 @@ Using LTL with PBT is not unheard of---the Quickstrom testing
 framework~\cite{oconnor_quickstrom_2022} uses LTL properties
 for specifying and testing graphical user interfaces---but LTL
 properties at this level of generality have not been attempted. We plan to
-compile LTL formulae to properties over log traces\proposecut{ that respect the
-structure of the log and ignore updates to irrelevant variables}. Then, the
+compile LTL formulae to properties over log traces. Then, the
 developer can provide inputs to some system containing the sub-system under
 test; the test harness will check the given trace properties in real
 time. In this
