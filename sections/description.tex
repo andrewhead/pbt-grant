@@ -1370,17 +1370,16 @@ for similar inputs are abundant by the nature of reflective generators.
 Our goal is to make PBT not only usable but {\em
 used} in settings where it offers benefit; such a goal requires advances in PBT
 \edutheme{education} for
-young and experienced developers alike. In this section, we describe
+new and experienced programmers alike. In this section, we describe
 our plans to develop
 course materials for instructors who want to integrate PBT into
 undergraduate data structures courses (\sectionref{sec:1210}),
 %
-guidance for
-industry developers on how to identify opportunities to apply PBT (\sectionref{sec:whento}), and
+tooling to help students write their first properties
+(\sectionref{sec:interactive}),
 %
-a
-tool for helping both developers and students write properties
-interactively (\sectionref{sec:interactive}).
+and course materials for instructors to integrate PBT into
+early-stage computer science curriculum (\sectionref{sec:1210}).
 
 
 \SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
@@ -1443,55 +1442,31 @@ at a major professional developer conference in the functional programming commu
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
 %
-The central idea of {\em When to Specify It!} is that developers should focus on
-applying PBT in the highest-leverage scenarios, where properties are
-readily available. But what if, even with properties
-close to hand, an inexperienced developer still has trouble seeing them?
-This was a strong signal in the pilot study\iflater\bcp{I have a persistent
-  confusion between the way we refer to the two studies that we did
-  (HATRA and JS).  It's not a huge deal, but it would be nice to avoid
-confusing readers.}\hg{In this proposal, I've tried to be unambiguous: ``preliminary results''
-mean early results of the JS study, pilot study means before that. Have you seen
-us blur that distinction?}\bcp{No, but it would be even better to
-disambiguate more, where possible.}\fi{} and a great opportunity for new
-educational technologies.
+Even when a developer knows when properties are useful in the abstract,
+they may still have trouble writing their first properties
+for real projects. We plan to develop prototype interactive tools that help
+programmers compose their first properties in an educational setting.
 
-We propose an interactive tool to help beginners find the properties in their
-code. Prior research has demonstrated that automated tools can extract
-specifications of a program's behavior~\cite[etc.]{ref:ammons2002mining,
-ref:le2018deep, ref:claessen2010quickspec, smith_discovering_2017},
-\iflater
-\bcp{There must be more work on automatically generating
-  specifications, etc...  Need a few more citations if possible.}
-\fi
-but such tools have been primarily
-evaluated in terms of their {\em ability} rather than their {\em
-usability}---there is a big difference between successfully extracting a target
-specification and doing so in a way that a developer can predictably use and understand.
-Our tool will support specification extraction in the context of education,
-helping students apply PBT without direct guidance from instructors.
+The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
+tool, where a student and their code editor work together to arrive at a
+meaningful property. Extending prior work on property extration techniques (see for
+instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
+smith_discovering_2017}), the idea is to help students compose properties that
+are not just accurate descriptors of the system, but significant in reflecting
+important program behavior. We will build an interface on top of a property
+extractor which allows students to write their first properties which supports a
+student by allowing them to (1) identify areas of code likely to lead to adverse behavior;
+(2) providing unit test cases that represent special cases of more general
+properties; and (3) selecting attributes of data types in the source code, or
+of input and output data in a debugging REPL, relevant to the property. These
+features will allow a student to more rapidly map from behaviors they can
+observe or specify in familiar ways, and see how those behaviors are cast into
+the language of their property checker.
 
-The tool we envisage will use a mixed-initiative approach~\cite{ref:allen1999mixed}, where
-properties are arrived at through ``conversation'' between the student and the
-specification extractor.  The student might guide the extractor with
-mechanisms such as (1) identifying regions of code that are likely to lead to an
-adverse behavior such as an exception; (2) providing unit
-test cases that identify a special case of a more general property; or (3)
-indicating features of interest on input and output data in a
-debugging REPL.  If a generated property is too strict, the student will able to
-mark a counterexample that was generated by the PBT tool as spurious; if too
-relaxed, they can provide a counterexample that {\em should} be
-marked as a failure.
-
-We will develop this tool as a VSCode extension and evaluate it in
-undergraduate and masters courses at Penn.  We will start by generating
-candidate properties using QuickSpec~\cite{ref:claessen2010quickspec}, a tool
-that builds on Haskell's QuickCheck library to synthesize a series of plausible
-properties about a given function, and evaluating our tool in the context of the
-main Haskell course, CIS 5520.
-Future iterations will require us to either find tools in other languages used
-commonly at Penn (e.g., Bach~\cite{smith_discovering_2017}, in Python) or create
-our own.
+The tool will be designed to take advantage of the local setting where we can
+test and evolve it. It will built for use in Penn's upper division Haskell
+course (CIS 5520), and implemented therefore on top of Haskell's property
+generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 \SUBSECTION{PBT for Undergraduate Students}{sec:1210}{1}{4}{Both}
 %
