@@ -787,11 +787,14 @@ applications...
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
-(especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values to explore
-the behavior of the program in a space ``around'' those values. This can be
+(especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values
+so as to explore
+the behavior of the program in a space ``around'' those
+values. Mutation can be
 difficult in PBT scenarios, where values are subject to complex validity
 constraints, since mutation often produces invalid values. Reflective
-generators can help: we can (1) reflect on the choices that lead to a particular
+generators can help here: We can (1) reflect on the choices that lead
+to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
 choices {\em while correcting any choices that
 would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this

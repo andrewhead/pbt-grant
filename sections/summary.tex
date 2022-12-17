@@ -2,18 +2,16 @@
 
 \paragraph*{Overview}
 Property-based testing (PBT) is an advanced software testing
-methodology where users write executable specifications of their code
-and an automated test harness checks that they hold for many randomly
-generated test inputs.  Its bug-finding power arises from its ability
-to exercise a wide range of system behaviors---both expected and
-unexpected---with minimal user guidance.
+method where users write executable specifications of their code
+and an automated test harness checks that these properties hold over
+many test inputs, often randomly generated.  The bug-finding power of PBT arises
+from its ability to exercise a wide range of system behaviors---both
+expected and unexpected---with minimal user guidance.
 %
-From its roots in the QuickCheck library in Haskell, PBT has grown
-into a standard tool across the functional programming community, and it
-has begun to make inroads into industrial practice
-% and it is more recently being incorporated into testing processes
-in companies such as Quviq, Galois, and Amazon.\iflater\todo{Who else??}\fi{}
-% ... where it finds lots of bugs!
+From its roots in the Haskell QuickCheck library, PBT has become
+the testing method of choice across much of the functional programming
+community, and it has begun to make inroads into industrial practice
+at companies such as Quviq, Galois, and Amazon.\iflater\todo{Who else??}\fi{}
 %
 The goal of this project is to accelerate this transition
 by identifying and addressing key challenges in
@@ -28,10 +26,10 @@ sometimes frustrated by issues with {\em usability}.
 %
 The study identified usability issues in both of the major components
 of PBT tooling---{\em specification} of properties and {\em
-  generation} of random inputs. Furthermore, it identified challenges
+  generation} of random inputs. Furthermore, it revealed challenges
 around another aspect of PBT that has received less attention in the
-research literature: how programmers can {\em validate} the
-effectiveness of testing.
+research literature: how programmers {\em validate} the
+effectiveness of testing, or fail to.
 
 % At the level of {\em specification}, developers wished for better
 % support for expressing common requirements such as ``this
@@ -74,9 +72,10 @@ effectiveness of testing.
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To make progress, two distinct---and largely disconnected---research areas
+To make PBT more usable, insights from two distinct, indeed largely
+disjoint, research areas
 must be brought to bear.  PBT itself is grounded in domain-specific
-languages and formal methods: traditional PL topics.  Usability, on
+languages and formal methods---traditional PL topics.  Usability, on
 the other hand, is the domain of human-computer interaction.
 %
 This four-year project will combine insights, methods, and tools from
