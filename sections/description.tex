@@ -124,12 +124,11 @@ PBT is a form of testing where
 executable functions act as partial
 specifications of a component under test. For example, a user might
 write the following property for an \lstinline{insert}
-function for a binary search tree (BST):\footnote{\bcp{No need for a footnote.}The function can be read as
-follows:
-Assume an arbitrary tree \texttt{t} and an integer
-\texttt{x} to insert into that tree. If the original tree
-is a BST (``\lstinline{is_bst t}''), then it should remain
-a BST after the insertion of \texttt{x} (``\lstinline{is_bst (insert x t)}'').}
+function for a Binary Search Tree, taking an arbitrary tree \texttt{t}
+and an integer
+\texttt{x} to insert into that tree as parameters. If the original tree
+is a BST, then it should remain
+a BST after the insertion of \texttt{x}:
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
@@ -214,19 +213,18 @@ as well, as we shall see next.
 \subsectionstar{Motivations from a Formative Study of PBT in
 Industry\label{sec:motivation}\pagebudget{2}}
 %
-The work proposed here is motivated by findings from the ongoing
+The work proposed here is motivated by findings from the
 need-finding study we are conducting at Jane Street. The purpose of this
 study is to understand how the research community can make PBT more
-usable. The study data consists of 30 semistructured interviews
-with stakeholders in PBT, including both developers who use PBT and
-developers and maintainers of PBT tools.
+usable. The study data consists of thirty semistructured interviews
+with developers who use PBT and maintainers of PBT tools.
 
 Jane Street is
-an attractive setting for such a study for several reasons.  Most
+an attractive setting for this study for several reasons.  First and most
 importantly, PBT is
 already well established at Jane Street, so there is a large
 population of people with well-informed opinions on its benefits and
-challenges. Additionally, Jane Street famously builds almost all of its
+challenges. Additionally, Jane Street famously builds nearly all of its
 software in OCaml, a mostly functional programming language for which
 there is a well-engineered PBT tool. This unified
 ecosystem ensures that developers have access to mature PBT tools,
@@ -238,7 +236,7 @@ for advanced usage.
 % \sectionref{sec:foundation} will engage with broader groups of developers using
 % PBT to expand and generalize our findings.}\hg{If this is important, it shouldn't be a footnote...}}
 
-As of December 2022, the full complement of 30 interviews has been
+As of December 2022, the full complement of thirty interviews has been
 completed at Jane Street, and a preliminary round of qualitative
 analysis is underway; full-scale analysis will begin in 2023.
 Findings from the study will be disseminated in a paper submitted to a
@@ -248,12 +246,12 @@ full-scale one at Jane Street; this study this was presented at the
 2022 HATRA workshop~\cite{goldstein_problems_2022}
 
 \subsectionstar{Framework: Challenges Using PBT} The final result of
-the ongoing study will be a deep, qualitative description of how
+the ongoing study will be a fine-grained, qualitative description of how
 Jane Street developers use PBT, what they need from it, and how the
 research community can
 help improve PBT tools. While full analysis of the data remains
-to be done, a number themes are already clear in
-the interview session notes. These form the backbone of the present proposal.
+to be done, a number themes are already clear. These form the backbone
+of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
@@ -266,39 +264,38 @@ properties).
 Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
-specifications of desired program behavior. Indeed, in our pilot need-finding
-studies with users of Python's Hypothesis library, users indicated just that.
+specifications of desired program behavior. Indeed, in our earlier pilot
+study~\cite{goldstein2022some}, some users indicated just that.
 By contrast, Jane Street developers, on the whole, reported
-few difficulties coming up with
+few difficulties finding
 properties. Rather, most participants described applying PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
 available or straightforward to invent. For example, participant
-9~(\participant{9}) pointed out that PBT was particularly easy to apply when one
-has ``a really good abstraction
-with a complicated implementation.''
+9~(\participant{9}) said that PBT was particularly easy to apply when one
+has ``a really good abstraction with a complicated implementation.''
 Several participants (\participant{3}, \participant{15},
 \participant{20}, \participant{22}), when asked to speculate, guessed
 that 80--100\% of Jane Street
-developers write programs like this, where properties are easy to find, and
-where PBT is relatively easy to apply.  This suggests that an effective way to
-improve education and documentation around PBT is to highlight these real-world
-applications that seem to be a natural fit for PBT.
+developers write programs like this, where properties are easy to find and
+PBT is relatively easy to apply.  This suggests that an effective way to
+improve education and documentation around PBT would be to highlight
+real-world applications that are a natural fit.
 
-It also became clear that there were \proptheme{Opportunities for Better
+We also heard \proptheme{Opportunities for Better
 Leverage} of specifications, where PBT is not easy {\em yet}, but
-could be with a little more research effort. For example, many developers in
-both our pilot studies (Pilot-\participant{4--6}) and the Jane Street study (\participant{7}) complained
-that PBT was difficult when code was poorly abstracted.  We plan to provide
-better tool support to address this failure mode.  Furthermore, more than three
+could be with a little more research effort. For example, developers in
+both studies (Pilot-\participant{4--6}) and Jane Street (\participant{7}) complained
+that PBT was difficult when code was poorly abstracted.  Further,
+more than three
 quarters of study participants had used a particular approach to PBT commonly
 called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
 at Jane Street, considered better automation and tooling around model-based
-testing to be one of the most significant ways improve PBT and make it easier to
-pick up and use.
+testing to be one of the most significant ways improve PBT usability.
 
-Another set of themes concerned the \gentheme{\normalfont \bf generation} of
-random inputs for PBT. Developers often spoke
-highly of \gentheme{Derived Generators} that can be automatically inferred from
+A different set of themes concerned the \gentheme{\normalfont \bf generation} of
+random inputs for PBT. Developers spoke
+highly of the \gentheme{Derived Generators} that can be automatically
+inferred from
 the OCaml type system (\participant{5} called OCaml's tools for this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
@@ -308,78 +305,82 @@ cannot enforce semantic preconditions).
 
 When derived generators
 failed, participants fell back to \gentheme{Bespoke Generators}, which
-are far more flexible but proportionally more time-consuming to design and work
-with. For example, \participant{20} successfully used a bespoke
-generator for XML documents to find bugs in their software,
+are far more flexible but proportionally more time-consuming to
+build. For example, \participant{20} successfully used a bespoke
+generator for XML documents to find significant bugs in their code,
 but reported spending ``at least a day'' writing it.
-Improving the abstractions available for writing bespoke generators would
-greatly improve both the experience of using PBT and its potential for
-bug-finding.
-
-If a generated input is determined to be a {\em counterexample} that triggers
-property violation, a developer will wish to inspect that counterexample to find
-and fix the root cause of the violation. Developers often implemented code for
-\gentheme{Shrinking} inputs, or taking counterexamples and discovering smaller,
+Improving the abstractions available for authoring bespoke generators would
+greatly improve the usability of PBT.
+%
+When a generated input turns out to be a {\em counterexample} that triggers
+a property violation, the developer will need to inspect that
+counterexample to find
+and fix the root problem. Developers often implemented code for
+\gentheme{Shrinking} counterexamples to discover smaller,
 simpler inputs that trigger the same bug.  \participant{8}
 and \participant{21}, who each implemented their own PBT libraries, both
-incorporated shrinkers as key components of their libraries. That said,
+incorporated shrinkers as key components of their libraries. But
 shrinkers need to be customized to particular kinds of data to be most
-effective, and the reality is that they are time-consuming to build; many
+effective, and they can be time-consuming to build; several
 developers
 (\participant{16}, \participant{20} \participant{21}, \participant{30})
 described shrinker implementation as an opaque and difficult process.
 Ideally, developers would have tools that make the process of implementing
 shrinkers fast and simple.
 
-Further themes from the interview study concerned how developers
-\evaltheme{\normalfont \bf validated} their tests.
-Developers described their processes for \evaltheme{Evaluating the
+A further set of themes concerned
+\evaltheme{\normalfont \bf validation}---the processes developers use
+for \evaltheme{Evaluating the
 Effectiveness} of their tests. Many
 desired
 better ways to evaluate their generators and properties, including
 better feedback on code coverage (\participant{9} and \participant{25}),
 incorporation of mutation
-testing~\cite{papadakis_mutation_2018}, and understanding the space of generated
+testing~\cite{papadakis_mutation_2018}, and help understanding the
+distribution of randomly generated
 inputs (\participant{10}, \participant{16}, \participant{16}). Problematically,
 while many developers admitted they would benefit from better tools for
 evaluating their tests, many seemed to
-\evaltheme{Implicitly Trust the Infrastructure} that they had not thoroughly
-analyzed. \participant{14} actually shipped broken code to production because
-their generator missed important input examples. We propose advances in tools
+\evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code to production because
+they did not realize their generator had missed important input
+examples.
+\proposecut{We propose advances in tools
 for validation that help developers more clearly understand, and improve, the
-effectiveness of their tests.
+effectiveness of their tests.}
 
-Finally, for PBT tools to be more usable, we need progress in
+Finally, both of our studies reveal a need for progress
+in PBT
 \edutheme{\normalfont \bf
 education}. Developers need to be informed about the \edutheme{High-Leverage
-Scenarios} in which PBT should be employed, as we discussed above.
-In our pilot studies, we found that developers with less experience with PBT
+Scenarios} in which PBT should be employed, as discussed above.
+In the pilot study, we found that developers with less experience with PBT
 sometimes struggled to \edutheme{Imagine
-Properties}, or understand what properties to test (Pilot-\participant{1},
+Properties} or to understand what properties to test (Pilot-\participant{1},
 Pilot-\participant{3},
 Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
 (Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
-learning about PBT. Our final aim in this project is to develop curricula,
-documentation, and tools that fill this educational gap.
+learning about PBT.
+\proposecut{Our final aim in this project is to develop curricula,
+documentation, and tools that fill this educational gap.}
 
-We discuss plans for work that addresses these themes below, \proptheme{specification
+We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
 \sectionref{sec:gen},
   \evaltheme{validation themes} in \sectionref{sec:val}, and \edutheme{education
   themes} in \sectionref{sec:ed}.
 
-\iflater
-\amh{Let's foreshadow other findings that
-we will publish that are outside of the scope of this proposal, but which might
-be motivating to other researchers, including: developers could benefit from
-additional automated support for deriving generators from types, effectiveness
-budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
-tests), integration with unit testing frameworks, and exploring the use of
-properties as a source of documentation.}
-\bcp{Not sure where is the right place for this discussion (or if
-  there will be space)...}
-\fi
+% \iflater
+% \amh{Let's foreshadow other findings that
+% we will publish that are outside of the scope of this proposal, but which might
+% be motivating to other researchers, including: developers could benefit from
+% additional automated support for deriving generators from types, effectiveness
+% budget (i.e., deciding how much time to spend on running PBT tests versus fuzz
+% tests), integration with unit testing frameworks, and exploring the use of
+% properties as a source of documentation.}
+% \bcp{Not sure where is the right place for this discussion (or if
+%   there will be space)...}
+% \fi
 
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
@@ -1394,7 +1395,7 @@ understanding of ``no-brainer'' situations where PBT was an obvious
 choice---situations where properties were easy to find and where PBT provided
 much more thorough testing than other common techniques---and they limited their
 use of PBT to these situations.
-While experienced PBT users do also apply it in 
+While experienced PBT users do also apply it in
 high-cost / high-benefit situations, we believe
 focusing on easier cases is the best way to drive adoption.
 \proposecut{Thus, PBT education should concentrate on
