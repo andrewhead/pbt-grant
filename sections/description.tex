@@ -894,11 +894,11 @@ making counterexamples far easier to understand.
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
-ones behind PBT: they leverage randomized testing to quickly exercise as many
-program behaviors as possible. Fuzzers are compelling because they are
+ones behind PBT: they also use randomized testing to quickly exercise many
+program behaviors. Fuzzers are compelling because they are
 inherently easy to use. The developer need only point the fuzzer at a binary and
-wait for it to find bugs. But without help, fuzzers are not very good at finding
-bugs in programs with complex preconditions.
+wait. But without help, fuzzers are not very good at finding
+bugs when properties have complex preconditions.
 
 There are a rew existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
@@ -1358,7 +1358,7 @@ execution. PI Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
 settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
-for similar inputs are abundant by the nature of reflective generators.
+for similar inputs are abundant.
 
 \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
 %
@@ -1411,7 +1411,7 @@ and
 \end{enumerate*}
 This list will be further expanded with our follow-up surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
-review of case studies that appear in research papers and experience reports in
+review of case studies that appear in
 the academic literature, and an examination of open source projects across a
 variety of different software ecosystems using PBT (e.g.,
 QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
@@ -1422,8 +1422,8 @@ approachable developer documentation in partnership with our industry
 collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation in blogs and incorporate it into tool
-documentation. Then, we will compose the findings into a talk which we will give
-at a major professional developer conference.
+manuals. Then, we will present the findings as a talk at a
+major professional developer conference.
 
 \SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
 %
@@ -1510,16 +1510,6 @@ other institutions to adapt into their own curricula.
   \input{main.workplan}
 \end{ganttchart}
   \caption{Plan of work.
-   % \bcp{The timeline needs to be brought into correspondence with our
-   %   actual expectations of timing, and explained.  Harry's projects
-   %   should end by year 3 latest!  :-)}
-   % \hg{How's that?}
-   % \bcp{Hmm---now it looks like there's not much happening in year 4!
-   % Maybe we need to remove this constraint.  Also, there's not much
-   % blue at the moment, and I'm not certain how to talk about the
-   % distinction between the two students' domains of work.  Can we try
-   % to make it more coherent (even at the cost of some accuracy
-   % wrt. our expectations about what you're going to do)?}
 }\label{fig:workplan}
 \end{figure}
 
@@ -1562,7 +1552,8 @@ Penn.
 \SIMPLESECTION{Broader Impacts of the Proposed Work%
  \pagebudget{.5}}{sec:broader-impacts}
 
-\paragraph*{Educational Benefits}
+\noindent{\bf Educational Benefits.}\hg{Feel free to re-format, I just thought
+the paragraph*s were taking too much space}
 %
 The most immediate broad impact of the proposed work will be the
 development of educational materials. Educational activities will be
@@ -1576,7 +1567,8 @@ publicize and communicate the benefits of PBT in the broader computer science
 research community. As part of these efforts, we will write an article on PBT
 for the Communications of the Association for Computing Machinery (CACM).
 
-\paragraph*{Mentoring and Diversity}
+\smallskip
+\noindent{\bf Mentoring and Diversity.}
 %
 The majority of requested funding will support formative research
 experiences and mentoring for graduate students. We
@@ -1593,12 +1585,13 @@ groups (1/3 of Pierce's direct Ph.D. mentees are women, as are 2/3 of PI
 Head's). That said, a particular area of focus going forward will be on increasing representation of
 other underrepresented groups, including Black and Latinx students. Pierce (along with Penn colleagues Zdancewic and Weirich)
 was recently informed that he will likely receive funding for an
-NSF REU program that will involve 24 undergraduates in research (8 per
+NSF REU program that will involve 24 undergraduates (8 per
 year for three years), selected specifically with an eye to diversity;
-some will certainly end up working on this project. See the appendix on Broadening Participation in Computing for more
+some will certainly work on this project. See the appendix on Broadening Participation in Computing for more
 details.
 
-\paragraph*{Benefits to Society}
+\smallskip
+\noindent{\bf Benefits to Society.}
 %
 The project's goals will also be served by open-source distribution of the tools
 built during the project. Key systems will be engineered and documented to a standard
@@ -1615,7 +1608,7 @@ enthusiastic support of their developers and management, and we hope
 to continue using them as a testbed for prototypes of the tools we
 will build.  Similarly, we are in active discussions with the
 developers of the Hypothesis testing tool for Python, who are keenly
-interested in the results of the survey study described in
+interested in the results of the studies in
 \sectionref{sec:survey}.
 
 Longer term, better testing means better software.  As software
