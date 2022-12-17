@@ -633,11 +633,11 @@ Figure~\ref{fig:sigs}\bcp{Is this the module or the signature?  Seems
 signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
-work~\cite{hughes_experiences_2016} to correctly generate well-typed sequences of function
+work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
 calls that can be used to compare module implementations.
 
 Testing modules gets even hairier when they contain {\em abstract types}, as is
-the case with \lstinline{Set}. Now, some of the types in the signature cannot be
+the case with \lstinline{Set}. Now some of the types in the signature cannot be
 generated on their own, so they must be built up from scratch (in this case by
 calling \lstinline{create} and \lstinline{add}). The \lstinline{Set} module is
 also {\em polymorphic}, so a type must be chosen for \lstinline{'a} before
@@ -645,19 +645,10 @@ testing. (There is significant work on this
 problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
 To solve these problems, we will take a theoretical approach, breaking down
 modules theoretically and developing automation heuristics from first
-principles. This process will necessarily involve carving out some subset of
-modules where automation is not possible, but highlighting that subset will
-provide useful context for future work in PBT usability.
+principles. This process will likely involve identifying a subset of
+modules where automation is not possible; highlighting that subset will
+provide useful context for future work in PBT usability.\bcp{Why?}
 
-% \proposecut{%
-% Finally, so far we have only talked about comparing implementations of the same
-% module signature, but what about implementations of {\em related} signatures? In
-% theory, it should be possible to automate test harnesses when two modules share
-% some subset of behaviors, or when the concrete types that they operate on are
-% related in some known way. We will work with users to understand the
-% important use-cases.
-% }\amh{Can this be removed? The paragraphs above already feel like the most central parts
-% of this idea, punchy, and interesting.}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
