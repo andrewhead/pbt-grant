@@ -634,12 +634,15 @@ module Set : sig
     automatically.}\label{fig:sigs}
 \end{figure}
 
-Model-based testing is trivial in the simplest case (comparing two pure
-functions), but if the code under test is a {\em collection} of functions,
-organized into a module, things get more interesting. Testing even a simple
-module requires a complex orchestration of calls to the different functions in
-the module's signature. For example, testing \lstinline{StringFn} (in
-Figure~\ref{fig:sigs}) correctly requires wiring up the functions in the
+Model-based testing is essentially trivial in the simplest case where
+the component under test and the model are both pure functions.  But
+when the code under test is a {\em
+  collection} of functions
+organized into a module, things get much more interesting. Testing even a simple
+module requires orchestrating multiple calls to the different functions in
+its signature. For example, testing the module \lstinline{StringFns} (in
+Figure~\ref{fig:sigs}\bcp{Is this the module or the signature?  Seems
+  like we want just the signature.}) requires wiring up the functions in the
 signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
