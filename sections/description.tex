@@ -1372,24 +1372,27 @@ tool for helping both developers and students write properties
 interactively (\sectionref{sec:interactive}).
 
 
-\SUBSECTION{When to Specify It!}{sec:whento}{1}{2}{Harry}
+\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
 %
-PBT is often described as a lightweight formal method.  One
-might therefore imagine that a central challenge of using PBT would be
-coming up with specifications. Indeed, a preliminary interview
-study before the larger Jane Street study seemed to indicate just
-that~\cite{ref:goldstein2022some}. But at
-Jane Street we actually heard very little about trouble
-writing
-properties; instead, most participants described applying PBT in scenarios when
-properties were already available or quite easy to imagine. This suggests that,
-while PBT educators should certainly teach developers how to
-write properties, they should concentrate on
-helping developers quickly recognize situations where PBT is a
-natural fit because the properties are obvious!
+Our very first pilot study with users of PBT suggested that one challenge to
+using PBT is the writer's block of coming up with specifications worth testing
+for one's software~\cite{ref:goldstein2022some}. Our follow-up interviews at
+Jane Street showed us that the developers there had developed a tacit
+understanding of ``no-brainer'' situations where PBT was an obvious choice, due
+to the nature of software and the ease of specifying properties. This contrast
+showed us that developers do not uniformly have a strong understanding of the
+situations where PBT can and should be used. A critical role of PBT education is to
+disseminate this tacit understanding of
+those situations where properties should be used because they can be easily
+envisioned and applied, and lead to powerful assurances about the software.
 
-The Jane Street study also gives us a solid start on a comprehensive list of
-``no-brainer properties.'' For example:
+We aim to produce the authoritative resources that help developers understand
+high-leverage situations to use properties. We will begin with an effort
+tailored to the academic community, where we write a survey paper with the
+aspirational title ``When to Specify It!'' (in homage to John Hughes'
+widely-viewed tutorial ``How to Specify It!''). The survey paper will
+document the range of high-leverage scenarios identified in our formative
+research, minimally including
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
 \item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
@@ -1399,22 +1402,21 @@ version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
-These properties cover a range of
-scenarios that real software developers regularly find themselves in, but they
-are likely not exhaustive. To flesh out the list, we will continue to
-gather examples; specifically, we will include
-questions about natural use-cases on the survey of the Hypothesis user
-community described in~\sectionref{sec:survey}; we will also mine
-research papers and experience reports in the literature,
-examine open-source software projects, and leverage our connections with various
-PBT communities (QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml, etc.)
-to ensure that we have a comprehensive understanding of the best uses for PBT
+This list will be further expanded with our follow-up surveys with broader
+communities of developers~\sectionref{sec:survey}, a comprehensive
+review of case studies that apper in research papers and experience reports in
+the academic literature, and an examination of open source projects across a
+variety of different software ecosystems using PBT (e.g.,
+QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-These results will be presented in a survey-style paper (with an
-accompanying talk), tentatively entitled {\em When to Specify It!} in
-homage to John Hughes's {\em How to Specify
-  It!}~\cite{HowToSpecifyIt}, a famous tutorial on the many different
-kinds of properties that can be written or a given piece of code.
+Building on the strong foundation of the survey, we will distill the findings
+into media directly tailored for developers. First, we will write up
+approachable developer documentation in partnership with our industry
+collaborators, to be read among the first resources of any developer
+documentation on PBT tools. We will work with our industry collaborators to
+disseminate this documentation in blogs and incorporate it into tool
+documentation. Then, we will compose the findings into a talk which we will give
+at a major professional developer talk in the functional programming community.
 
 % Clearly it is important to ask {\em How}, but our developer interviews
 % suggest that it may be even more important to have a clear sense of {\em When}
