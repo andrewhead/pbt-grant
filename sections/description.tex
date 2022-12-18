@@ -1071,13 +1071,16 @@ semantic guarantees (using the extra flexibility of the monadic
 presentation) if they determine that their testing is
 ineffective. \bcp{Mysterious.}
 
-Focusing on reflective generators specifically, one compelling benefit is that
-their backward interpretation can be used to help seed the fuzzer.  Most fuzzers
-ask for a number of {\em seeds}, input examples that the fuzzer can start from,
-in order to ensure that the fuzzer does not spend ages exploring
-inputs that have no hope of working out. Normally these seeds are easy enough
-for the user to write down, since they are simply program inputs, but now that
-we are asking the fuzzer to generate sequences of choices it becomes much more
+A compelling benefit of reflective generators in this scenario is that
+their backward interpretation can be used to help seed the fuzzer.
+Modern fuzzers often
+ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
+to ensure that the fuzzer does not spend ages exploring
+inputs that have no hope of exercising the interesting parts of the
+system under test. Normally these seeds are easy enough
+for the user to write down, since they are simply program inputs, but if
+we instead ask the fuzzer to generate sequences of {\em choices}, then
+it becomes much more
 error-prone (and tedious) to produce seeds by hand.  This is one great use for a
 backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and then
@@ -1096,7 +1099,9 @@ powerful automation potential of reflective generators with the usability of
 fuzzers. Testers will be able to test properties with complex preconditions
 without giving up the power and simplicity of coverage-guided generation.
 \amh{A statement of this level of concreteness needs to appear in the top of
-this section.} \amh{Also, what is the software we intend to develop?}
+this section.} \amh{Also, what is the software we intend to
+develop?}\bcp{Moving this paragraph to the top sounds good (also
+answering Andrew's question!).}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
@@ -1143,31 +1148,33 @@ this section.} \amh{Also, what is the software we intend to develop?}
 \SECTION{Validation}{Understanding Testing Effectiveness%
  \pagebudget{3}}{sec:val}
 
-Another major challenge in maximizing PBT's usability helping developers
+A final set of challengeas in maximizing PBT's usability lies in
+helping developers
 \evaltheme{validate} that their testing is effective. In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms for tools that
 help developers assess whether their generators are generating sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}) and whether those
 inputs sufficiently exercise their code (\sectionref{sec:tuning}), migrate
-failing property-based tests into regression tests (\sectionref{sec:counter}),
+counterexamples found by property-based tests into conventional regression tests (\sectionref{sec:counter}),
 and understand testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}). These projects will be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
-environments. PI Head will guide tool development efforts leveraging his
-experience designing, developing, evaluating, and deploying programming
+environments. PI Head will guide tool development efforts, leveraging his
+experience designing, developing, evaluating, and deploying novel programming
 environments and tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Other}
 %
-In comparison to testing techniques like unit testing, PBT focuses on testing
-distributions of inputs, rather than individual inputs. The success
-PBT depends on a developer's ability to create a distribution
-of input data that is sufficiently realistic and comprehensive. We plan
-to develop much-needed tooling for
-understanding distributions of input data and easily changing them.
-% This was a pain point of participants in our study, many of whom
-% did not know the kinds of input their generators were producing.
+In comparison to testing techniques like unit testing, PBT draws many
+tests from some
+random {\em distribution} over possible inputs, rather than writing down a few
+concrete individual inputs. The success  of
+PBT thus depends on the quality of this distribution---whether
+most of its probability mass is on tests that are sufficiently
+realistic and diverse. We plan
+to develop tooling for
+understanding distributions of input data and easily tuning them.
 
 We draw inspiration from related work in HCI that has sought to better expose
 the shape of input data distributions including
