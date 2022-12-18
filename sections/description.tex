@@ -757,17 +757,17 @@ see, the constrained nature of monadic generators also makes them perfect
 candidates for sophisticated programmatic manipulation and interesting
 generalizations.
 
-To improve monadic generators, it helps to re-frame generators as {\em
+To further improve monadic generators, it helps to re-frame generators as {\em
   parsers of randomness}. A generator
 operates by making a series of random choices; equivalently, we can think of
 it as being {\em given} some random sequence of choices and simply following
 those choices to produce a value. This shift of perspective has been
 used as the basis for a few implementations of PBT
-tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
+tools~\cite{maciver2019hypothesis, dolan2017testing}; we were the
 first to make it
 formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 %
-This paper introduces {\em free generators}, which generalize the standard
+This paper introduced {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
 random generation, and enable new algorithms that improve
 generation modulo validity constraints. Free generators look very
@@ -782,26 +782,26 @@ monadic computations syntactically by reifying the monad operations
 is all implemented within the language (no macros or AST
 manipulation). See \cite{goldstein2022parsing} for more details on the
 free generator representation.}
-In {\em Parsing Randomness} we prove that any free
+In {\em Parsing Randomness} we proved that any free
 generator can be interpreted
 either as a standard monadic generator or as a source of
-random choice strings plus a parser over those strings, thus formalizing the
+random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Harry}
-Building on the free generator work described above, we have begun looking at
+Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
 %
 If a generator can be seen as parsing a sequence of choices into a
 value, then running the
 generator backward should take that value and produce a sequence of choices that
-would produce it.  With this intuition in mind, we have begun
-exploring a novel class of {\em reflective
+would generate it.  With this in mind, we have identified a
+novel class of {\em reflective
 generators}---an extension of monadic generators that can be run backward to
-``reflect'' on the choices that they might have made when generating a
-given test. The machinery 
-that makes reflective generators work is quite complex,%
+``reflect'' on the choices that they might have made to generate a
+given test. The machinery
+that makes reflective generators work is rather complex,%
 \footnote{Reflective generators are both monads and {\em
     partial profunctors},
 implementing bidirectional programming in the style of Xia et
@@ -810,20 +810,26 @@ related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
-but, like free generators, their syntax is still close to that of normal
+but, like free generators, their syntax remains close to that of normal
 monadic generators.
 
-Note that the backward direction of reflective generators is different from
-remembering the choices the generator makes as it goes (which is already
-commonly done~\cite{maciver2019hypothesis,hatfield-dodds_hypofuzz_nodate}). For
-one, the generator can reflect on choices for inputs it did not produce itself,
-and for another the choices can be given different structures (bit strings,
-higher-level choice strings, choice trees, etc.) depending on the needs of the
-caller.
+Note that the backward direction of a reflective generator is not the
+same as just remembering the choices it makes as it goes (which is
+already done~\cite{maciver2019hypothesis,
+  hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
+generator can reflect on choices for inputs it did not actually
+produce---all that's required is that it {\em could} have produced
+them.  For another, the choices structured in different ways (as bit
+strings, higher-level choice sequences, choice trees, etc.) depending
+on the needs of the caller.\bcp{Harry: That last sentence is a bit
+  mysterious...}
 
-The bidirectional nature of reflective generators makes them useful
-for more than just generation!  We have begun exploring two other
-applications, which we describe next.
+The thing that makes reflective generators interesting is that their
+bidirectional nature makes them useful for more than just generation!
+We are exploring two other applications, which we describe
+next.
+
+\medskip
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
@@ -831,25 +837,29 @@ Many automated testing algorithms
 so as to explore
 the behavior of the program in a space ``around'' those
 values. Mutation can be
-difficult in PBT scenarios, where values are subject to complex validity
-constraints, since mutation often produces invalid values. Reflective
+tricky in PBT scenarios, where values are subject to complex validity
+constraints, since mutation often produces invalid values.\bcp{Harry:
+  Why is this any more the case with PBT than with regular fuzzing?} Reflective
 generators can help here: We can (1) reflect on the choices that lead
 to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
-choices {\em while correcting any choices that
-would lead to an invalid value.} Figure~\ref{fig:mutation} shows the way this
-algorithm is able to mutate a binary search tree, while maintaining validity,
+choices, {\em correcting any that
+would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
+illustrates how this
+algorithm can mutate a binary search tree while maintaining validity,
 using no BST-specific code beyond the reflective generator itself.
-\begin{figure}[h]
+\begin{figure}[t]
   \centering
   \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
   \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant. \amh{Can we add a brief description of the mutation that is
-being performed on this tree? To me, the intention behind the change is not
-obvious. Which of the changes are performed by the ``programmer'', and which are
-automatically propagated?}}\label{fig:mutation}
+  BST invariant. Mutating the root node from 6 to 3 invalidates the
+  4 in the left-hand subtree; the generator 4 with a new random label,
+1, then throws away its left subtree (because 1 is the
+minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 \end{figure}
+
+\medskip
 
 {\em Example-Based Tuning.} Earlier we pointed out that good generators
 produce ``realistic'' inputs; one way to ensure this is to tune the generator so
@@ -866,23 +876,26 @@ testing effectiveness---example-based tuning helps users generate more
 realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our generators to reflective ones. We
-demonstrate additional use cases for reflective generators in the
+will see additional use cases for reflective generators in the
 following sections. \amh{Maybe we should more explicitly indicate that this
 project will provide the enabling technology for more powerful interactive tools
 that we will develop later in the proposal.}
 
 \smallskip
 
-{\bf Status.} We began thinking about the design of reflective
-generators in the context of an earlier NSF project (described in
-\sectionref{sec:prior}), built a prototype implementation, and drafted
-a preliminary progress report~\cite{Frohlich2022}.  Many details of
-both theory and implementation remain to be ironed out; in particular,
-while exploratory empirical evaluations look promising, more thorough
-experimentation will be required. \amh{Is there a way to make this status report
-make the success of this project sound more assured (if we think it is)? Some of
-the later projects in the proposal depend at least in part on this working.}
+{\bf Status.} We began thinking about reflective generators during an
+earlier NSF project (described in \sectionref{sec:prior}), built a
+prototype implementation, and drafted a preliminary progress report
+laying out their basic theory~\cite{Frohlich2022}. Some details of
+both theory and pragmatics remain to be ironed out; in particular,
+while our exploratory performance measurements look promising, more
+thorough empirical evaluation forms part of the work during the first
+year of the proposed project.
 
+% \amh{Is there a way to make this status report make the success of
+% this project sound more assured (if we think it is)? Some of the
+% later projects in the proposal depend at least in part on this
+% working.}\bcp{Tried tweaking the wording a bit.  I think it's OK.}
 
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
@@ -1490,13 +1503,13 @@ of input and output data in a debugging REPL, relevant to the property. These
 features will allow a student to more rapidly map from behaviors they can
 observe or specify in familiar ways, and see how those behaviors are cast into
 the language of their property checker.
-
-The tool will be designed to take advantage of the local setting where we can
-test and evolve it. It will built for use in Penn's upper division Haskell
-course (CIS 5520), and implemented therefore on top of Haskell's property
+%
+The tool will be designed for use in Penn's upper division Haskell
+course (CIS 5520) and therefore implemented on top of
+Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-\SUBSECTION{PBT for Undergraduate Students}{sec:1210}{1}{4}{Both}
+\SUBSECTION{PBT for Undergraduates}{sec:1210}{1}{4}{Both}
 %
 Education can act as a force multiplier to make technologies more usable.
 When tools or techniques become standards in undergraduate curricula,
@@ -1531,7 +1544,7 @@ other institutions to adapt into their own curricula.
 %   \caption{Plan of work.}\label{fig:workplan}
 % \end{figure}
 
-\vspace*{-.3in}
+\vspace*{-.4in}
 
 \begin{figure}[ht]
   \centering
