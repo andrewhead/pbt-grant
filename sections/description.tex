@@ -497,97 +497,169 @@ model-based specifications (\sectionref{sec:automating}).
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
-A common problem
-raised by Jane Street
-developers (and even more loudly in the earlier pilot
-study~\cite{ref:goldstein2022some}) was that code is sometimes not
-organized in a way that is amenable to testing.  Of course, any kind of
-testing of software units---with PBT techniques or otherwise---requires
-``units'' to test!  But PBT is
-especially sensitive to issues like poorly encapsulated global state, which may
-impact the repeatability of testing, and leaky or confusing
-abstraction boundaries, which make it difficult to cleanly state
-properties.
+A common pain point for developers in our formative research
+was that code may not be organized in a way that is conducive to property-based
+testing. As a unit testing technology, PBT requires ``units'' of software to
+test with clear boundaries. As such, PBT cannot easily apply to programs with
+poorly encapsulated global state, or software with leaky or complex abstraction
+boundaries.
 
-For example, one developer (\participant{7}) described their experience testing a
-system (let's call it \lstinline{Inner}) with messy abstraction
-boundaries. \lstinline{Inner} was hard to test because it was
-used as a sub-component of a larger system \lstinline{Outer}.
-\lstinline{Outer} would take in simple inputs, then at some point pass a
-large, complex data structure to \lstinline{Inner}, which would do some work and
-hand results back to \lstinline{Outer}. Applying PBT to
-\lstinline{Inner} was
-hard because generating valid examples of the large data structure that
-\lstinline{Inner} takes as input required deep knowledge of the internals and
-types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
-access to, and because the interface was too complex to write straightforward
-properties about.
+Could there be a class of PBT tools that supports checking properties of
+software in cases where important functionality falls across module boundaries?
+We will explore how a PBT tool can support the definition of properties over
+cross-module event logs. To demonstrate the potential of such a tool, consider
+the case of a developer we interviewed, \participant{7}. P7 was testing
+a system (which we will call ``\lstinline{Inner}'') which exemplified this messy
+abstraction
+boundary. It was particularly difficult to test \lstinline{Inner} because
+its most interesting behavior arose only when interacting with its calling
+component (which we will call ``\lstinline{Outer}'').
+\lstinline{Outer} took in simple inputs, and used these inputs to construct
+complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with
+realistic inputs without the complex apparatus of \lstinline{Outer} that
+produced those inputs. The developer named this as a circumstance where a
+conventional PBT toolset would fail. This example from P7 is but one of many
+situations where important software behavior resides across interacting software
+components. \amh{@Harry, fact check this.}
 
-We plan to pursue a novel approach to testing systems like
-\lstinline{Inner} that are
-difficult to write properties about because they cannot be fully extracted from
-a larger system.
-The idea is to test
-\lstinline{Inner} through \lstinline{Outer} by
-writing properties over {\em intermediate} values within
-\lstinline{Inner}, for example:
+We will develop a tool that allow developers to express properties that reach
+into the state of multiple interacting software components. Take again the
+example of \lstinline{Inner}. A solution to P7's problem could be to drive the
+test through \lstinline{Outer}, and in doing so implicitly test
+\lstinline{Inner}, monitoring runtime values within \lstinline{Inner}. Assuming
+\lstinline{Inner} is a routine that processes a stream of messages with internal
+values including a queue of processed items \lstinline{processed}, and an
+\lstinline{overflow}, properties could include:
+
 \begin{lstlisting}
   prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
-Such properties might check that the queue of \lstinline{processed} items only
-increases (1), that the \lstinline{overflow} flag is never set if the message is
-of appropriate length (2), that the whole message is eventually processed (3),
-etc.  The critical observation is that the developer can talk about the behavior
-of \lstinline{Innner} without talking about its \lstinline{Outer}-facing API.
-Moreover, these properties can be tested without ever running
-\lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
-\lstinline{Outer} drive \lstinline{Inner}, and monitor values within
-\lstinline{Inner} values to check the desired properties.
 
-How can such properties be tested?  One might
-hope to do it through assert statements, but this approach quickly
-becomes quite heavy.
-Checking property (1) with assertions would require nontrivial code to
-save the previous value every time \lstinline{processed} is updated, plus
-macros or some other kind of meta-programming to
-remove that code when building in release mode. Worse, it seems difficult
-to check properties (2) or (3) at all. Doing so would require making an
-assertion at the ``end'' of the computation, which may be hard to
-recognize if \lstinline{Outer} is driving \lstinline{Inner} from the
-outside.
+Is it possible to check such behaviors with built-in assertion statements? We
+posit that an assertion-based approach is non-ideal. On the one hand, assertions
+would require nontrivial code to save previous values for properties like (1)
+above, and likely involves brittle macros or meta-programming to remove such
+auxiliary code at release time. Furthermore, it is difficult to imagine using
+the assertion approach to checking properties (2) or (3) at all, because it
+would require assertions cognizant of the ``end'' of a computation, information
+that may not be available to the assertion statement.  \amh{@Harry, fact check
+this.} \amh{I think I might have better spelled out how this module work, but I
+think there is still some unexplained assumptions about what Inner does that
+could be helpful to spell out.}
 
-We envision a framework for writing properties over {\em logged values}
-that can capture interesting relationships between their values
-over time.  Concretely, we will support inserting lightweight
-logging annotations in modules like \lstinline{Inner}, and we will
-provide a language for writing temporal properties over those
-logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
-\lstinline{eventually} the property language will need some logical connectives
-that are not standard in PBT.  In particular, we need a logic like {\em
-linear temporal logic} (LTL) so that properties can capture a notion of time.
-
-Using LTL with PBT is not unheard of---the Quickstrom testing
+Instead, we propose tooling where properties can be defined over logged values.
+The first key component of the tool is the invocation of
+logging for specific values using lightweight annotations within modules like
+\lstinline{Inner}. The second component is a language for writing temporal
+properties over those capable of capturing concepts like \lstinline{next} or
+\lstinline{never} from the example properties above. Notably, for such temporal
+properties, the property language will require logical connectives not typically
+found in PBT. We propose adapting linear temporal logic (LTL) to capture
+temporality. We will not be the first to use LTL within PBT; the Quickstrom
 framework~\cite{oconnor_quickstrom_2022} uses LTL properties
-for specifying and testing graphical user interfaces---but LTL
-properties at this level of generality have not been attempted. We plan to
-compile LTL formulae to properties over log traces. Then, the
-developer can provide inputs to some system containing the sub-system under
-test; the test harness will check the given trace properties in real
-time. In this
-way, the user can express properties about invariants that should hold of the
-intermediate values of their programs, making PBT available in many
-situations where it was previously too difficult to apply. \bcp{I'm
-still not that convinced by the examples...}\hg{Any idea what is unconvincing?
-Unclear whether I'm just wrong
-that this is an interesting project, or whether I can't manage to communicate
-what's interesting. We'll probably just need to actually do some work on it to
-know for sure} \amh{For me, one of the challenges is that the example seems so
-specific that it makes me wonder about the generality of the approach. Though I
-know from lots of my own projects that there is important behavior that crosses
-module boundearies. Maybe we can more explicitly state the broad classes of
-systems for which this form of specification would apply?}
+for specifying and testing graphical user interfaces. That said, considerable
+finesse will be needed to adapt LTL to properties at the level of generality
+envisioned above; this will be one of the major efforts of the proposed work.
+
+Ultimately, this work will lead to a tool where properties are expressed in a
+property language extended with LTL; the system compiles LTL formulae to
+properties over log traces; the developer provides inputs to an outer system
+\emph{containing} the system(s) of concern; and then the test harness will check
+the given trace properties in real time.
+
+% A common problem
+% raised by Jane Street
+% developers (and even more loudly in the earlier pilot
+% study~\cite{ref:goldstein2022some}) was that code is sometimes not
+% organized in a way that is amenable to testing.  Of course, any kind of
+% testing of software units---with PBT techniques or otherwise---requires
+% ``units'' to test!  But PBT is
+% especially sensitive to issues like poorly encapsulated global state, which may
+% impact the repeatability of testing, and leaky or confusing
+% abstraction boundaries, which make it difficult to cleanly state
+% properties.
+
+% For example, one developer (\participant{7}) described their experience testing a
+% system (let's call it \lstinline{Inner}) with messy abstraction
+% boundaries. \lstinline{Inner} was hard to test because it was
+% used as a sub-component of a larger system \lstinline{Outer}.
+% \lstinline{Outer} would take in simple inputs, then at some point pass a
+% large, complex data structure to \lstinline{Inner}, which would do some work and
+% hand results back to \lstinline{Outer}. Applying PBT to
+% \lstinline{Inner} was
+% hard because generating valid examples of the large data structure that
+% \lstinline{Inner} takes as input required deep knowledge of the internals and
+% types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
+% access to, and because the interface was too complex to write straightforward
+% properties about.
+
+% We plan to pursue a novel approach to testing systems like
+% \lstinline{Inner} that are
+% difficult to write properties about because they cannot be fully extracted from
+% a larger system.
+% The idea is to test
+% \lstinline{Inner} through \lstinline{Outer} by
+% writing properties over {\em intermediate} values within
+% \lstinline{Inner}, for example:
+% \begin{lstlisting}
+%   prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
+%   msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
+%   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
+% \end{lstlisting}
+% Such properties might check that the queue of \lstinline{processed} items only
+% increases (1), that the \lstinline{overflow} flag is never set if the message is
+% of appropriate length (2), that the whole message is eventually processed (3),
+% etc.  The critical observation is that the developer can talk about the behavior
+% of \lstinline{Innner} without talking about its \lstinline{Outer}-facing API.
+% Moreover, these properties can be tested without ever running
+% \lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
+% \lstinline{Outer} drive \lstinline{Inner}, and monitor values within
+% \lstinline{Inner} values to check the desired properties.
+
+% How can such properties be tested?  One might
+% hope to do it through assert statements, but this approach quickly
+% becomes quite heavy.
+% Checking property (1) with assertions would require nontrivial code to
+% save the previous value every time \lstinline{processed} is updated, plus
+% macros or some other kind of meta-programming to
+% remove that code when building in release mode. Worse, it seems difficult
+% to check properties (2) or (3) at all. Doing so would require making an
+% assertion at the ``end'' of the computation, which may be hard to
+% recognize if \lstinline{Outer} is driving \lstinline{Inner} from the
+% outside.
+
+% We envision a framework for writing properties over {\em logged values}
+% that can capture interesting relationships between their values
+% over time.  Concretely, we will support inserting lightweight
+% logging annotations in modules like \lstinline{Inner}, and we will
+% provide a language for writing temporal properties over those
+% logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
+% \lstinline{eventually} the property language will need some logical connectives
+% that are not standard in PBT.  In particular, we need a logic like {\em
+% linear temporal logic} (LTL) so that properties can capture a notion of time.
+
+% Using LTL with PBT is not unheard of---the Quickstrom testing
+% framework~\cite{oconnor_quickstrom_2022} uses LTL properties
+% for specifying and testing graphical user interfaces---but LTL
+% properties at this level of generality have not been attempted. We plan to
+% compile LTL formulae to properties over log traces. Then, the
+% developer can provide inputs to some system containing the sub-system under
+% test; the test harness will check the given trace properties in real
+% time. In this
+% way, the user can express properties about invariants that should hold of the
+% intermediate values of their programs, making PBT available in many
+% situations where it was previously too difficult to apply. \bcp{I'm
+% still not that convinced by the examples...}\hg{Any idea what is unconvincing?
+% Unclear whether I'm just wrong
+% that this is an interesting project, or whether I can't manage to communicate
+% what's interesting. We'll probably just need to actually do some work on it to
+% know for sure} \amh{For me, one of the challenges is that the example seems so
+% specific that it makes me wonder about the generality of the approach. Though I
+% know from lots of my own projects that there is important behavior that crosses
+% module boundearies. Maybe we can more explicitly state the broad classes of
+% systems for which this form of specification would apply?}
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 One finding that has surprised us from the Jane Street study is that
