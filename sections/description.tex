@@ -602,6 +602,20 @@ With this in mind, we plan to build comprehensive tooling to automate
 model-based testing for systems built in languages with strong {\em
   module systems}, like OCaml~\cite{macqueen_modules_1984}.
 
+Model-based testing is essentially trivial in the simplest case where
+the component under test and the model are both pure functions.  But
+when the code under test is a {\em
+  collection} of functions
+organized into a module, things get much more interesting. Testing even a simple
+module requires orchestrating multiple calls to the different functions in
+its signature. For example, testing the signature \lstinline{StringFns} (in
+Figure~\ref{fig:sigs}) requires wiring up the functions in the
+signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
+integer to know how much to drop, \lstinline{split} produces a pair of strings
+that can each be arguments to future function calls, etc. We will build on prior
+work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
+calls that can be used to compare module implementations.
+
 \begin{figure}[h]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
@@ -624,20 +638,6 @@ module Set : sig
   \caption{Some module interfaces we would like to test
     automatically.}\label{fig:sigs}
 \end{figure}
-
-Model-based testing is essentially trivial in the simplest case where
-the component under test and the model are both pure functions.  But
-when the code under test is a {\em
-  collection} of functions
-organized into a module, things get much more interesting. Testing even a simple
-module requires orchestrating multiple calls to the different functions in
-its signature. For example, testing the signature \lstinline{StringFns} (in
-Figure~\ref{fig:sigs}) requires wiring up the functions in the
-signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
-integer to know how much to drop, \lstinline{split} produces a pair of strings
-that can each be arguments to future function calls, etc. We will build on prior
-work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
-calls that can be used to compare module implementations.
 
 Testing modules gets even hairier when they contain {\em abstract types}, as is
 the case with \lstinline{Set}. Now some of the types in the signature cannot be
