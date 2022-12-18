@@ -142,9 +142,7 @@ This proposal focuses on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would
 also be applicable to alternatives like enumerative test-case
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}
-\proposecut{or model
-checking}\bcp{model checking is not really a generation method}.
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}.
 The surprising effectiveness of random generation can be attributed to the
 ``combinatorial'' nature of larger test cases---the fact that bugs can often be
 exposed with test inputs that embody a specific combination of features,
@@ -518,9 +516,8 @@ component (which we will call ``\lstinline{Outer}'').
 complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} that
 produced those inputs. The developer named this as a circumstance where a
-conventional PBT toolset would fail. This example from P7 is but one of many
-situations where important software behavior resides across interacting software
-components. \amh{@Harry, fact check this.}
+PBT is difficult to apply, because the abstraction boundary between the
+components is too fuzzy.
 
 We will develop a tool that allow developers to express properties that reach
 into the state of multiple interacting software components. Take again the
@@ -544,10 +541,7 @@ above, and likely involves brittle macros or meta-programming to remove such
 auxiliary code at release time. Furthermore, it is difficult to imagine using
 the assertion approach to checking properties (2) or (3) at all, because it
 would require assertions cognizant of the ``end'' of a computation, information
-that may not be available to the assertion statement.  \amh{@Harry, fact check
-this.} \amh{I think I might have better spelled out how this module work, but I
-think there is still some unexplained assumptions about what Inner does that
-could be helpful to spell out.}
+that may not be available to the assertion statement.
 
 Instead, we propose tooling where properties can be defined over logged values.
 The first key component of the tool is the invocation of
@@ -682,12 +676,11 @@ organized into a module, things get much more interesting. Testing even a simple
 module requires orchestrating multiple calls to the different functions in
 its signature. For example, testing the signature \lstinline{StringFns} (in
 Figure~\ref{fig:sigs}) requires wiring up the functions in the
-signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
-integer to know how much to drop, \lstinline{split} produces a pair of strings
+signature to satisfy their types: testing \lstinline{drop_n} requires a randomly generated
+integer to know how much to drop, calling \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
-calls that can be used to compare module implementations. \amh{This might not
-matter, though I am having a hard time understanding this example.}
+calls that can be used to compare module implementations.
 
 \begin{figure}[h]
   \begin{minipage}{.45\textwidth}
