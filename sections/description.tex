@@ -101,7 +101,7 @@ data to be more representative and comprehensive
   practice to help students and developers identify situations where
   PBT is likely to be most useful (\sectionref{sec:ed}).
 \end{itemize}
-
+%
 Success in these efforts will require complementary tools from PL
 and HCI research. HCI approaches will be used to concretely define developers' needs,
 design the user interface to tools, and evaluate their success. PL approaches
@@ -412,7 +412,13 @@ other issues they have encountered.
 To provide
 clear usage scenarios to guide research, respondents will
 be asked to write brief anecdotes elaborating on the
-most severe issues they remember.
+most severe issues they remember.  Other questions will assess how
+heavily respondants depend on specific features of their PBT tools
+that may be enabled by their
+ambient programming environment and language (e.g., whether their
+language supports Haskell-like typeclasses or OCaml-style
+metaprogramming, both of which have been used to good effect by
+PBT tools in those languages).
 
 Respondents will
 be recruited broadly, from three sources: (1)
@@ -443,9 +449,6 @@ better understanding of the situations where PBT is most effective
 (see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
-\bcp{Other question we might study is how critical good language
-  support (typeclasses, PPXs, etc.) is for PBT...}
-
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Other}
 %
 Anecdotes related in interviews do not, in and of
@@ -470,26 +473,27 @@ the kinds of designs that will help programmers.
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-To widen the on-ramp to using PBT, developers need help envisioning and
-writing \proptheme{specifications}. Developers first need to know when they
-should write properties to test their software. We describe our approach towards
-helping them do so in among our educational agenda~\sectionref{sec:whento}. In
-this section, we describe specific tooling that, once a developer has a property
-in mind, helps them implement it. We envision how tools can help developers
-poorly abstracted code (\sectionref{sec:outpurprop}) and test systems using
-model-based specifications (\sectionref{sec:automating}).
-\hg{I sort of liked what was here before... See comment}
-% A notable finding of the Jane Street study has been that widening the
-% on-ramp to PBT requires making developers aware of high-leverage
-% use-cases for PBT. Our plans to teach developers about high-leverage
-% scenarios are described below in \sectionref{sec:whento}; here,
-% we discuss research opportunities that can help expand this space.
-% Specifically, we describe plans to improve PBT's applicability to
-% poorly abstracted code (\sectionref{sec:outpurprop}) and
-% tools that will automate automatically in the specific high-leverage
-% scenario of model-based testing (\sectionref{sec:automating}).
-% The findings of the Jane Street study suggest that progress in these
-% two areas will significantly widen the on-ramp to PBT.
+% To widen the on-ramp to using PBT, developers need help envisioning and
+% writing \proptheme{specifications}. Developers first need to know when they
+% should write properties to test their software. We describe our approach towards
+% helping them do so in among our educational agenda~\sectionref{sec:whento}. In
+% this section, we describe specific tooling that, once a developer has a property
+% in mind, helps them implement it. We envision how tools can help developers
+% poorly abstracted code (\sectionref{sec:outpurprop}) and test systems using
+% model-based specifications (\sectionref{sec:automating}).
+% \hg{I sort of liked what was here before... See comment}
+%
+A notable finding of the Jane Street study has been that widening the
+on-ramp to PBT requires making developers aware of high-leverage
+use-cases for PBT. Our plans to teach developers about high-leverage
+scenarios are described below in \sectionref{sec:whento}; here,
+we discuss research opportunities that can help expand this space.
+Specifically, we describe plans to improve PBT's applicability to
+poorly abstracted code (\sectionref{sec:outpurprop}) and
+tools that will automate automatically in the specific high-leverage
+scenario of model-based testing (\sectionref{sec:automating}).
+The findings of the Jane Street study suggest that progress in these
+two areas will significantly widen the on-ramp to PBT.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
 % With current PBT tools, properties can only be expressed over single modules.
@@ -962,7 +966,7 @@ year of the proposed project.
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
 Reflective generators' ability to run backward means that they can be used as
-a tool for analyzing and manipulating the structure of 
+a tool for analyzing and manipulating the structure of
 generated
 inputs.  For example, we can use them to
 implement validity-preserving {\em
@@ -1615,7 +1619,7 @@ other institutions to adapt into their own curricula.
 %   \caption{Plan of work.}\label{fig:workplan}
 % \end{figure}
 
-\vspace*{-.4in}
+% \vspace*{-.4in}
 
 \begin{figure}[ht]
   \centering
@@ -1679,8 +1683,7 @@ Penn.
 \SIMPLESECTION{Broader Impacts of the Proposed Work%
  \pagebudget{.5}}{sec:broader-impacts}
 
-\noindent{\bf Educational Benefits.}\hg{Feel free to re-format, I just thought
-the paragraph*s were taking too much space}
+\noindent{\bf Educational Benefits.}
 %
 The most immediate broad impact of the proposed work will be the
 development of educational materials. Educational activities will be
@@ -1830,18 +1833,3 @@ Shi.
 % based on previously established and/or innovative methods and approaches, but in either case must be well
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
-
-\ifdraft
-\subsubsection*{BPC stuff}
-
-Penn's plan is here: \url{https://docs.google.com/document/d/1HXriYvTZPZhuGBtlvJEgSAsP0ilRt4wChl88NriSTbY/edit#}
-
-More materials are here: \url{https://drive.google.com/drive/folders/1a-yzunRx1mj1uHavtD9cbbPyCsFg3avz?usp=sharing}
-
-Instructions are here: \url{https://www.nsf.gov/cise/bpc/}
-
-bpc.net - source materials for NSF BPC plans (they also vet plans).
-
-\fi
-
-\bcp{Remove unneeded sections from this document to avoid confusing PEFS}
