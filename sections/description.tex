@@ -142,7 +142,7 @@ This proposal focuses on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would
 also be applicable to alternatives like enumerative test-case
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck} 
 \proposecut{or model
 checking}\bcp{model checking is not really a generation method}.
 The surprising effectiveness of random generation can be attributed to the
@@ -188,7 +188,7 @@ produce any of a number of correct results) is impossible to do
 faithfully; a property-based specification is a better choice in
 such cases.
 PBT is also
-an obvious choice if
+an obvious choice if 
 the developer already has some semi-formal
 specification in mind, for example if they are implementing behavior from an RFC or
 other design document, because it provides a clear connection between the
@@ -497,97 +497,77 @@ model-based specifications (\sectionref{sec:automating}).
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
-A common problem
-raised by Jane Street
-developers (and even more loudly in the earlier pilot
-study~\cite{ref:goldstein2022some}) was that code is sometimes not
-organized in a way that is amenable to testing.  Of course, any kind of
-testing of software units---with PBT techniques or otherwise---requires
-``units'' to test!  But PBT is
-especially sensitive to issues like poorly encapsulated global state, which may
-impact the repeatability of testing, and leaky or confusing
-abstraction boundaries, which make it difficult to cleanly state
-properties.
+A common pain point for developers in our formative research
+was that code may not be organized in a way that is conducive to property-based 
+testing. As a unit testing technology, PBT requires ``units'' of software to 
+test with clear boundaries. As such, PBT cannot easily apply to programs with 
+poorly encapsulated global state, or software with leaky or complex abstraction 
+boundaries.
 
-For example, one developer (\participant{7}) described their experience testing a
-system (let's call it \lstinline{Inner}) with messy abstraction
-boundaries. \lstinline{Inner} was hard to test because it was
-used as a sub-component of a larger system \lstinline{Outer}.
-\lstinline{Outer} would take in simple inputs, then at some point pass a
-large, complex data structure to \lstinline{Inner}, which would do some work and
-hand results back to \lstinline{Outer}. Applying PBT to
-\lstinline{Inner} was
-hard because generating valid examples of the large data structure that
-\lstinline{Inner} takes as input required deep knowledge of the internals and
-types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
-access to, and because the interface was too complex to write straightforward
-properties about.
+Could there be a class of PBT tools that supports checking properties of 
+software in cases where important functionality falls across module boundaries?  
+We will explore how a PBT tool can support the definition of properties over 
+cross-module event logs. To demonstrate the potential of such a tool, consider 
+the case of a developer we interviewed, \participant{7}. P7 was testing
+a system (which we will call ``\lstinline{Inner}'') which exemplified this messy 
+abstraction
+boundary. It was particularly difficult to test \lstinline{Inner} because
+its most interesting behavior arose only when interacting with its calling 
+component (which we will call ``\lstinline{Outer}'').
+\lstinline{Outer} took in simple inputs, and used these inputs to construct 
+complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with 
+realistic inputs without the complex apparatus of \lstinline{Outer} that 
+produced those inputs. The developer named this as a circumstance where a 
+conventional PBT toolset would fail. This example from P7 is but one of many 
+situations where important software behavior resides across interacting software 
+components. \amh{@Harry, fact check this.} 
 
-We plan to pursue a novel approach to testing systems like
-\lstinline{Inner} that are
-difficult to write properties about because they cannot be fully extracted from
-a larger system.
-The idea is to test
-\lstinline{Inner} through \lstinline{Outer} by
-writing properties over {\em intermediate} values within
-\lstinline{Inner}, for example:
+We will develop a tool that allow developers to express properties that reach 
+into the state of multiple interacting software components. Take again the 
+example of \lstinline{Inner}. A solution to P7's problem could be to drive the 
+test through \lstinline{Outer}, and in doing so implicitly test 
+\lstinline{Inner}, monitoring runtime values within \lstinline{Inner}. Assuming 
+\lstinline{Inner} is a routine that processes a stream of messages with internal 
+values including a queue of processed items \lstinline{processed}, and an
+\lstinline{overflow}, properties could include:
+
 \begin{lstlisting}
   prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
   msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
 \end{lstlisting}
-Such properties might check that the queue of \lstinline{processed} items only
-increases (1), that the \lstinline{overflow} flag is never set if the message is
-of appropriate length (2), that the whole message is eventually processed (3),
-etc.  The critical observation is that the developer can talk about the behavior
-of \lstinline{Innner} without talking about its \lstinline{Outer}-facing API.
-Moreover, these properties can be tested without ever running
-\lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
-\lstinline{Outer} drive \lstinline{Inner}, and monitor values within
-\lstinline{Inner} values to check the desired properties.
 
-How can such properties be tested?  One might
-hope to do it through assert statements, but this approach quickly
-becomes quite heavy.
-Checking property (1) with assertions would require nontrivial code to
-save the previous value every time \lstinline{processed} is updated, plus
-macros or some other kind of meta-programming to
-remove that code when building in release mode. Worse, it seems difficult
-to check properties (2) or (3) at all. Doing so would require making an
-assertion at the ``end'' of the computation, which may be hard to
-recognize if \lstinline{Outer} is driving \lstinline{Inner} from the
-outside.
+Is it possible to check such behaviors with built-in assertion statements? We 
+posit that an assertion-based approach is non-ideal. On the one hand, assertions
+would require nontrivial code to save previous values for properties like (1) 
+above, and likely involves brittle macros or meta-programming to remove such 
+auxiliary code at release time. Furthermore, it is difficult to imagine using 
+the assertion approach to checking properties (2) or (3) at all, because it 
+would require assertions cognizant of the ``end'' of a computation, information 
+that may not be available to the assertion statement.  \amh{@Harry, fact check 
+this.} \amh{I think I might have better spelled out how this module work, but I 
+think there is still some unexplained assumptions about what Inner does that 
+could be helpful to spell out.}
 
-We envision a framework for writing properties over {\em logged values}
-that can capture interesting relationships between their values
-over time.  Concretely, we will support inserting lightweight
-logging annotations in modules like \lstinline{Inner}, and we will
-provide a language for writing temporal properties over those
-logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
-\lstinline{eventually} the property language will need some logical connectives
-that are not standard in PBT.  In particular, we need a logic like {\em
-linear temporal logic} (LTL) so that properties can capture a notion of time.
-
-Using LTL with PBT is not unheard of---the Quickstrom testing
+Instead, we propose tooling where properties can be defined over logged values.  
+The first key component of the tool is the invocation of
+logging for specific values using lightweight annotations within modules like 
+\lstinline{Inner}. The second component is a language for writing temporal 
+properties over those capable of capturing concepts like \lstinline{next} or 
+\lstinline{never} from the example properties above. Notably, for such temporal 
+properties, the property language will require logical connectives not typically 
+found in PBT. We propose adapting linear temporal logic (LTL) to capture 
+temporality. We will not be the first to use LTL within PBT; the Quickstrom
 framework~\cite{oconnor_quickstrom_2022} uses LTL properties
-for specifying and testing graphical user interfaces---but LTL
-properties at this level of generality have not been attempted. We plan to
-compile LTL formulae to properties over log traces. Then, the
-developer can provide inputs to some system containing the sub-system under
-test; the test harness will check the given trace properties in real
-time. In this
-way, the user can express properties about invariants that should hold of the
-intermediate values of their programs, making PBT available in many
-situations where it was previously too difficult to apply. \bcp{I'm
-still not that convinced by the examples...}\hg{Any idea what is unconvincing?
-Unclear whether I'm just wrong
-that this is an interesting project, or whether I can't manage to communicate
-what's interesting. We'll probably just need to actually do some work on it to
-know for sure} \amh{For me, one of the challenges is that the example seems so
-specific that it makes me wonder about the generality of the approach. Though I
-know from lots of my own projects that there is important behavior that crosses
-module boundearies. Maybe we can more explicitly state the broad classes of
-systems for which this form of specification would apply?}
+for specifying and testing graphical user interfaces. That said, considerable 
+finesse will be needed to adapt LTL to properties at the level of generality 
+envisioned above; this will be one of the major efforts of the proposed work.  
+
+Ultimately, this work will lead to a tool where properties are expressed in a 
+property language extended with LTL; the system compiles LTL formulae to 
+properties over log traces; the developer provides inputs to an outer system 
+\emph{containing} the system(s) of concern; and then the test harness will check 
+the given trace properties in real time.
 
 \SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
 One finding that has surprised us from the Jane Street study is that
@@ -614,7 +594,7 @@ signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
-calls that can be used to compare module implementations. \amh{This might not
+calls that can be used to compare module implementations. \amh{This might not 
 matter, though I am having a hard time understanding this example.}
 
 \begin{figure}[h]
@@ -662,45 +642,40 @@ OCaml should transfer.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
-The Jane Street study also highlighted several \gentheme{generation themes}.
-Indeed, generators were regularly cited as one of the most challenging
-aspects of PBT: the existing tools related to random generation are varied
-and powerful, but
-they are not especially usable.  In this section, we propose {\em reflective
-generators}, an abstraction for random generation that we have been
-experimenting with at Penn, as a way of unbundling generator
-functionality, exposing levers for
-automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}). In particular, reflective
-generators enable new
+The Jane Street study highlighted several \gentheme{generation themes}.
+Generators were regularly cited as one of the most challenging parts of the PBT
+process---the existing tools for random generation are varied and powerful, but
+they are not very usable.  In this section, we discuss {\em reflective
+generators}, an abstraction for random generation, currently under development,
+that exposes levers for
+automation that enable a host of new approaches to generator
+tooling (\sectionref{sec:reflective}). Reflective generators enable new
 approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
 (\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
 effectiveness.
 
-\subsectionstar{Context: Why Random Generation is Hard}
+\subsectionstar{Context: Random Generation is Hard}
 As discussed in the Orientation section above, PBT relies heavily on {\em random data
-generators}.  Checking a property of the system or component under
-test with many randomly generated inputs gives confidence that the property
-holds---provided the inputs are ``interesting enough.''
+generators}. The inputs produced by the generator exercise the developer's
+properties and give confidence that they hold---provided the inputs are
+interesting enough.
 %
 However,
 many properties that developers want to test have {\em preconditions}
-(a.k.a.{} {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that are interesting for testing. This comes up often
+(or {\em validity conditions} or {\em input constraints}) that
+restrict the set of inputs that should be used for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
-the operations being tested. Testing such properties can be problematic, since
+the operations under test. Testing such properties can be problematic, because
 many preconditions are difficult to satisfy randomly; if the developer is not
-careful, they may waste most of their time budget generating and
+careful they may waste most of their testing time generating and
 discarding invalid inputs.
 %
-Of course, some fraction of the testing budget should be spent on
-ill-formed or nonsensical inputs, but not too much, since these will not
-exercise much of its functionality; most tests should be well-formed
-(though perhaps unusual) representatives of the sorts of inputs the
-system is designed to process.
+Worse, even among valid inputs, not all are equally realistic. Often generated inputs
+feel fabricated, since they are not constructed with prior knowledge of the
+kinds of inputs that the program is likely to see.
 %
-Worse, even with validity accounted for, there are
-more insidious ways for generators to under-perform---for example, by
+Worse yet, even with validity and realism accounted for, there are
+other ways for generators to under-perform---for example, by
 generating many overly similar inputs while ignoring large parts of
 the input space.
 
@@ -710,47 +685,44 @@ the input space.
 
 Existing approaches to these issues
 fall on a spectrum from automatic to manual. The automatic approaches use
-various proxies for validity and general ``interestingness'' of
-inputs: some, like {\em
-fuzzers}~\cite{afl-readme}, try to optimize readily available metrics like code
-coverage, others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
-of course some use machine learning to infer proxies for
+proxies for validity and general ``interestingness'' of inputs: some, like {\em
+fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
+coverage, others ask users to provide metrics~\cite{loscher2017targetedpbt}, and
+naturally some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
-are easy to apply and can yield good distribution coverage, but they are rarely
+are easy to apply and can obtain good distribution coverage, but they are rarely
 sufficient for testing properties with complex preconditions. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
 holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
-srivastava2021gramatron}, and for more complex, semantic preconditions,
-SMT-solvers~\cite{dewey2017automated, LuckPOPL,
-steinhofel2022input} can be used to automatically seek out valid
-inputs. These tools are
-much better at satisfying easy to moderately complex properties and
-much less good at very complex or very ``sparse'' properties. The semi-automatic
+srivastava2021gramatron}, and for more complex, semantic preconditions, some
+have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
+steinhofel2022input} to automatically seek out valid inputs. These tools are
+much better at satisfying up to moderately-complex properties, but some are
+still out of reach. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
-examples~\cite{soremekun2020inputs}; these tools can generate
-realistic inputs, but they are again limited in the preconditions they can
+examples~\cite{soremekun2020inputs}; the existing tools successfully generate
+more realistic inputs, but are again limited in the preconditions they can
 satisfy.
 
 \subsectionstar{Context: Monadic and Free Generators}
-The most manual---and most flexible---solutions use hand-built
+The most manual, but also the most flexible, solutions use hand-written
 generators, written in a convenient domain-specific language (DSL).
 In  Haskell, where PBT was
-first popularized, such DSLs are commonly implemented using {\em
+first popularized, many such DSLs are implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
 expressing effectful (in this case, random and stateful) computations
 in a pure, stateless underlying
-language such as Haskell. While monadic DSLs are not actually
-needed to express generators in
-impure languages, some libraries (e.g., in OCaml) still choose to use monadic
-abstractions for their generator DSLs.
+language. While monadic DSLs are not actually necessary to express generators in
+non-pure languages, some libraries (e.g., in OCaml) still use monadic
+abstractions to build their generator DSLs.
 
 Monadic generators can implement random data producers of arbitrary complexity
-(e.g., for Haskell
-programs~\cite{palka_testing_2011}): they are strictly more expressive than
-representations like grammar-based generators.  Yet monadic generators are
+(e.g., it is possible to write a monadic generator for Haskell
+programs~\cite{palka_testing_2011}), so they are often more expressive than
+other representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them perfect
@@ -769,14 +741,14 @@ formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 %
 This paper introduced {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
-random generation, and enable new algorithms that improve
-generation modulo validity constraints. Free generators look very
-similar to standard monadic generators, but under the hood they behave more like
+random generation, and enable new algorithms for generation that improve
+generation modulo validity constraints. Free generators are written the same
+way as standard monadic generators, but in reality they are more like
 generator ``plans'' or syntax trees.%
 \footnote{For experts: Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
-(cf.~Interaction Trees~\cite{old:xia2019interaction}). Freer monads represent
+(cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
 monadic computations syntactically by reifying the monad operations
 (\lstinline{return} and \lstinline{>>=}) as data constructors. Critically, this
 is all implemented within the language (no macros or AST
@@ -1018,8 +990,8 @@ correctly.
 Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
 powerful automation potential of reflective generators with the usability of
 fuzzers. Testers will be able to test properties with complex preconditions
-without giving up the power and simplicity of coverage-guided generation.
-\amh{A statement of this level of concreteness needs to appear in the top of
+without giving up the power and simplicity of coverage-guided generation.  
+\amh{A statement of this level of concreteness needs to appear in the top of 
 this section.} \amh{Also, what is the software we intend to develop?}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
