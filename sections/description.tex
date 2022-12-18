@@ -883,12 +883,12 @@ that we will develop later in the proposal.}
 
 \smallskip
 
-{\bf Status.} We began thinking about reflective generators during an
-earlier NSF project (described in \sectionref{sec:prior}), built a
+{\bf Status.} We began thinking about reflective generators during a
+current NSF project (described in \sectionref{sec:prior}), built a
 prototype implementation, and drafted a preliminary progress report
 laying out their basic theory~\cite{Frohlich2022}. Some details of
 both theory and pragmatics remain to be ironed out; in particular,
-while our exploratory performance measurements look promising, more
+while our exploratory performance measurements look promising, a
 thorough empirical evaluation forms part of the work during the first
 year of the proposed project.
 
@@ -901,58 +901,63 @@ year of the proposed project.
 %
 Reflective generators' ability to run backward means that they can be used as
 part of any algorithm that needs to understand the structure of generated
-inputs.  We therefore propose using them to implement validity-preserving {\em
+inputs.\bcp{Harry: Mysterious.}  For example, we can use them to
+implement validity-preserving {\em
 shrinking} of values to find smaller counterexamples and speed up debugging
-without any more effort from the user. On its face, this feels similar to
-validity-preserving mutation: Can we reflect on choices, shrink the choices, and
+without no effort from the user. On its face, this feels similar to
+validity-preserving mutation: Can we reflect on choices, shrink these
+choices, and
 then re-run the generator with the smaller choices? Likely yes! But there are
 complications.
 
 Shrinkers need to be more careful than mutators to keep shrunk values faithful
-to the original. When mutating, it is often fine if the mutated value is
-accidentally quite different from the original value, since the mutator is
+to the original. When mutating, it is generally fine if the mutated value is
+occasionally quite different from the original, since the mutator is
 trying many values and any that catch a bug are equally good. But a rogue
-shrinker runs the risk of confusing the developer much more than they already
-were. For example, if a reflective shrinker accidentally creates a visually larger
-value, for example, because the relationship between choice sequence length and
-output value size is not monotonic, the shrinker might actually make it more
-difficult to find a bug. Additionally, if a reflective shrinker's shrunk choices
-produce values that are very different from the original, they may fail to
-shrink at all, instead just stepping to values that are no longer
-counterexamples and concluding that the original value is a local minimum.
-\amh{I am not sure I understand this last sentence.}
+shrinker runs the risk of confusing the developer. For example, if a
+reflective shrinker accidentally creates a visually larger
+value---for example, because the relationship between choice sequence length and
+output value size is not monotonic---then shrinking might actually make it more
+difficult to understand a failing test case. Additionally, if a
+reflective shrinker's shrunk choices
+produce values that are very different from the original, they may all
+avoid triggering the bug, misleading the shrinking algorithm into thinking that
+the original value is already as shrunk as possible and causing it to
+report a confusing counterexample.
 
-In order to establish reflective shrinkers as a once-and-for-all\amh{this feels
-too strong; it implies to me there won't be better solutions later} solution to
- preserving-shrinking, we plan to formalize and prove the several
-important
-properties. Specifically, we want to show that, for some class of reflective
+To establish reflective shrinkers as a solution to
+validity preserving-shrinking, several important
+properties need to be established: for some class of reflective
 generators, the associated reflective shrinkers (1) never produce larger values
 with fewer choices and (2) always produce shrunk values that are ``close'' to
 the original. Formalizing sub-classes of well-behaved reflective generators and
-notions of ``shrinker closeness'' will also give valuable insights into other
-applications of reflective generators and shrinkers.
+notions of ``shrinker closeness'' should also yield
+other potential applications of reflective generators and shrinkers.
 
-We mentioned in the motivation section that developers think of
-shrinking as magical, but currently the abstraction is too leaky for them to
-be comfortable ignoring it.  Our hope is that eventually, having a reflective
-generator on hand will mean that shrinking, even in the face of complex
-preconditions, is {\em actually magic}, requiring no developer intervention and
-making counterexamples far easier to understand.
+We mentioned in the Motivation section that developers sometimes think of
+shrinking as ``magical,'' but currently the abstraction is too leaky for them to
+be comfortable ignoring it.\bcp{??}  The promise of the reflective approach
+is that it might make shrinking, even in the face of complex
+preconditions, be {\em actually magic}, requiring no developer
+intervention ever and making counterexamples far easier to understand.
 \amh{Our broader impacts section implies that there will be software coming
 about from the reflective generators and shrinkers work. The above section
 describes only theoretical results. We should briefly describe what kinds of
-software (if any) we think we will develop in these projects.}
+software (if any) we think we will develop in these
+projects.}\bcp{Agreed.  Also, do we need to mention that Hypothesis
+shrinking is already kind of magic in this way?}
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
-{\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
-ones behind PBT: they also use randomized testing to quickly exercise many
-program behaviors. Fuzzers are compelling because they are
+{\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
+similar to the
+ones behind PBT: in particular, they use randomization to exercise many
+program behaviors. Fuzzers are popular because they are both capable and
 inherently easy to use. The developer need only point the fuzzer at an
 executable binary and
-wait. But without help, fuzzers are not very good at finding
+wait. But, without help, fuzzers are not very good at finding
 bugs when properties have complex preconditions. \amh{Can we have a more
-concrete statement of the goal before talking about prior work?}
+concrete statement of the goal before talking about prior
+work?}\bcp{And is there a citation that justifies that claim?}
 
 There are a few existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
