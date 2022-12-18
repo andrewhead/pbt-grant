@@ -1178,13 +1178,14 @@ machine learning datasets
 PBT poses a unique challenge because values produced by generators are
 programmatically generated and
 can be of unbounded structural
-complexity (e.g., lists, trees, and other algebraic data types).
+complexity (e.g., lists, trees, and other algebraic data types,
+sequences of API calls, ...).
 Consider an
 example from a participant in our formative study, who wanted to generate
 realistic logs of input data, where each log entry included at least a timestamp
-and an event type. Such values are not trivially plotted in conventional
+and an event type.\proposecut{Such values are not trivially plotted in conventional
 visualizations, and it would be prohibitive to review individual examples if the
-logs are sufficiently long. Ideally, a developer would be able to answer
+logs are sufficiently long.} Ideally, a developer would be able to answer
 questions like: Are the generated log inputs long enough? Are the even sequences
 realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
@@ -1195,33 +1196,37 @@ developer support for easily defining meaningful views of the data.
   \caption{An envisioned tool for evaluating data distributions.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-To this end, we will design new interactive tools that provide rapid,
+We will design new interactive tools that provide rapid,
 informative views of input data distributions. The tools will address the
 challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming environments.
 
-First, the tool will support live, realtime displays of generated values.
-Because PBT takes some time to run, our first goal is to provide
+First, our tools will support live, realtime displays of generated values.
+Our first goal is to provide
 instant, live~\cite{ref:tanimoto1990viva} feedback on the generators. Building
-in the tradition of other live functional programming environments
-(e.g.,~\cite{tool:lighttable,ref:omar2019live}), our environment will provide
-live feedback on the many inputs associated with the code, rather than a single
-input. As the test runs, our tool will sample inputs output by the generator and
-pipe them into data displays (Figure~\ref{fig:gen-vis}). These data displays
+on the tradition of other live functional programming environments
+(e.g.,~\cite{tool:lighttable,ref:omar2019live}),
+% our environment will provide
+% live feedback summarizing many inputs produced by a generator, rather
+% than a single one; As testing proceeds,
+our environment will sample inputs
+output by the generator and
+pipe them into data displays (Figure~\ref{fig:gen-vis}), which
 will first and foremost show aggregate data views, including aggregate
-statistics (Figure~\ref{fig:gen-vis}.2), and visualizations of the distribution
+statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
 of key features of the data (Figure~\ref{fig:gen-vis}.3). Visualizations will be
 generated according to simple recommendation rules, similarly to other recent
 exploratory data visualization tools from
 HCI~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
 wongsuphasawat_voyager_2017}. Unique to our project, features to visualize will
 be based on awareness of common features of algebraic data types, and extensible
-through lightweight user-written code. Consider the \lstinline{log} type
+through lightweight user-written code. For example, consider the
+\lstinline{log} type
 described above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
 and \lstinline{timestamp}, filters like \lstinline{is_empty}, and even
-aggregators like \lstinline{max_by}. These kinds of features can be generated
-automatically for the most common data types.
+aggregators like \lstinline{max_by}. These kinds of features can be
+generated automatically for common data types.
 % Then the tool will then use
 % lightweight type-based program synthesis to compose and combine these functions
 % to get features. It may choose to show the \lstinline{length} of a log, but also
@@ -1229,65 +1234,61 @@ automatically for the most common data types.
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
 
-Second, the data displays will be easily extensible, providing lightweight hooks
-for customizing aggregate data displays and previews. If
+Second, the data displays will be easily extensible, via lightweight customization hooks. If
 there are features that the user notices should be extracted, but that the
 system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
 write it themselves in companion code alongside their property specifications;
 the interface will automatically load those features into the display.
 
-Third, the interface will make it possible to drill-down into individual inputs.
-In many cases, aggregate statistics will not be enough for understanding whether
-the right kind of inputs are being generated. A developer will be able to access
-sampled inputs from a list of samples. This list of samples can be interactively
-filtered by selecting marks visualizations (e.g., a developer can choose a bar
-for inputs of length ``10'' to preview individual inputs with that length). One
+Third, the interface will make it possible to drill down into
+individual inputs from a list of samples that can be
+filtered by selecting marked visualizations (e.g., choose a bar
+of length ``10'' to preview individual inputs with that length). One
 challenge will be to provide suitable representations of complex inputs that
-will be easy to understand. The most general-purpose solution will be to
-pretty-print solutions, provide interactive object browsers like those available
-in JetBrains~\cite{tool:jetbrains}, and to allow a developer to explore an
+will be easy to understand. Some general solutions might be to
+pretty-print inputs, provide interactive object browsers like those available
+in JetBrains~\cite{tool:jetbrains}, and/or allow a developer to explore an
 object using a built-in REPL. Additionally, we will produce DOT
 graph~\cite{ellson_graphviz_2002} representations of common kinds of inputs
-(i.e., lists, trees) that will provide an at-a-glance understanding of inputs up
-to dozens or hundreds of elements in length (Figure~\ref{fig:gen-vis}.4).
+(i.e., lists, trees) that will provide an at-a-glance understanding of
+larger inputs (Figure~\ref{fig:gen-vis}.4).
 
-Finally, the tools will provide live feedback on completeness of the input
-distribution in the form of in-situ coverage feedback. Like other HCI research
-prototypes that have shown which lines of code are currently executing in a
-running
-program~\cite{ref:brandt2010rehearse,ref:oney2009firecrystal,ref:burg2013record},
-developer's will be able to see lines of code in their editor colorized on the
-basis of how frequently they have been executed while running the
-tests. This will let a developer decide whether their generator is executing the
-paths in the code that they believe are particularly error-prone.
-When complete, this project will be the first live tool for generator
-feedback and analysis; in the next section, we take it one step farther to
-consider how interactive tools can help a developer not just understand input
-data distributions, but more directly change them.
+Finally, our tools will provide live feedback on the input
+distribution in the form of in-situ coverage feedback. Like other HCI
+prototypes that have shown which lines of code are currently
+executing in a running program~\cite{ref:brandt2010rehearse,
+  ref:oney2009firecrystal, ref:burg2013record}, ours will be
+able colorize code in the editor on the basis of
+how frequently each line has been executed while running tests.
+
+The result of these experiments will be the first live tool for generator
+feedback and analysis; in the next section, we take it one step
+farther to consider how interactive tools can help a developer not
+just understand input data distributions, but more directly change
+them.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
 %
-What should developers do if their properties are testing the wrong
-inputs? Tuning generators is a challenging task, often requiring significant
-trial-and-error: developers change generator parameters and
-hope that the input data distribution updates in the right way. This
-process, however, often does not pay off. (Approaches like the one in
-\sectionref{sec:fuzzing} can help, but manual tuning is still useful in cases
-where fuzzing fails to find the developer's intended space of inputs.)
+Tuning generator distributions is a challenging task, often requiring
+significant trial-and-error---changing generator parameters and hoping
+that the input data distribution changes in the right way. Approaches
+like the one in \sectionref{sec:fuzzing} can help, but manual tuning
+is still needed in many cases.
+Developers need higher-level ways to describe the kinds of inputs they.
 
-Ideally,
-developers could describe the kinds of inputs they want directly.
 We will design tools to support the direct tuning of input data distributions
-through manipulation of generated inputs and data distribution visualizations. This
-work will build on the foundation developed in the prior project
-(\sectionref{sec:evaluating_distributions}). Inspired by recent tools in the PL+HCI literature
+through manipulation of generated inputs and data distribution
+visualizations. This work will build on the foundation outlined in
+\sectionref{sec:evaluating_distributions}. Inspired by recent tools in
+the PL+HCI literature
 for bidirectional manipulation of programs and their
-outputs~\cite{ref:hempel2019sketch,ref:kery2020mage,ref:omar2012active,ref:omar2021filling},
+outputs~\cite{ref:hempel2019sketch, ref:kery2020mage,
+  ref:omar2012active, ref:omar2021filling},
 we explore reflective generators' potential to support tuning.
 
 The first, general-purpose method for tuning input data distributions will be to
 define filters on input data by manipulating aggregate data displays.
-For instance, developers will be able to select ranges of values from a bar
+For instance, developers will be able to select a range of values from a bar
 chart showing input data features and then request that all values generated
 within that range are discarded before testing. This approach is flexible,
 though it is notably coarse-grained;
@@ -1295,7 +1296,7 @@ it does not influence the implementation of the underlying generator, and
 therefore can only go so far in influencing the kinds of values that are
 generated.
 
-A second innovative method is to leverage
+A second idea is to leverage
 reflective generators (\sectionref{sec:reflective}) to change the underlying
 generator parameters. Developers will be able to interact with a visualization,
 and then the the reflective generator will map those interactions
@@ -1315,17 +1316,20 @@ realistic, comprehensive data distributions for their testing.
 
 \SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Other}
 %
-After a developer has identified a failure with their tests, they
-often wish to turn that failure into a regression test, to ensure that later
-changes to the code will not reintroduce the failure. One pain point experienced
+% After testing has revealed a counterexample to one of their properties
+% with their tests, the developer may wish to turn that failure into a
+% regression test, to ensure that later
+% changes to the code will not reintroduce the same failure.
+One pain
+point experienced
 by informants in our interview study was that it requires considerable work to
-transform a failure that was already detected by their PBT tools into a
+transform a failure that was detected by their PBT tools into a
 regression test, despite the fact that much of the work involved in doing so
 felt mechanical.
 
 We plan to develop usable tooling for transforming failed PBT tests into single
 regression tests. What is important to note about this project is that creation
-of regression tests is \emph{mostly}, but not entirely mechanical. In reality,
+of regression tests is \emph{mostly}, but not entirely, mechanical. In reality,
 the creation of regression tests will likely require judicious incorporation of
 the developer's input at key decision points. This is particularly the case for
 specifying acceptance criteria. For instance, consider a property that checks
@@ -1333,7 +1337,7 @@ that a list insertion function never produces an empty list. In the event of a
 failure, a developer may want to produce a regression test checking the
 exactness of the result on the failed input (e.g., checking that the insertion
 produced a particular concrete list) rather than simply checking that the output
-list is non-empty. The act of writing regression tests involve several such
+list is non-empty.  Writing a regression test may involve multiple such
 choices, including whether to test for exact output, whether to test
 intermediate results, and how to initialize inputs.
 
@@ -1347,10 +1351,11 @@ literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008re
 For this unique task of transforming properties into regression tests,
 our tool will provide the key features of keeping track of the failed input,
 generating starter test code, substituting in correct expected values of the
-output by executing corrected code, and then supporting developers in rapidly
-performing likely edits to regression tests by providing suggestions to
+output by executing corrected code, and supporting developers in rapidly
+performing likely edits to regression tests by providing suggestions of
 alterations to their code like the ability to generate general property checks
-with precise equality checks. We hope the results of this work can inform the
+with precise equality checks\bcp{??}. We also hope the results of this work
+can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
