@@ -614,7 +614,7 @@ signature to satisfy their types: \lstinline{drop_n} needs a randomly generated
 integer to know how much to drop, \lstinline{split} produces a pair of strings
 that can each be arguments to future function calls, etc. We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
-calls that can be used to compare module implementations. \amh{This might not 
+calls that can be used to compare module implementations. \amh{This might not
 matter, though I am having a hard time understanding this example.}
 
 \begin{figure}[h]
@@ -755,7 +755,7 @@ syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them perfect
 candidates for sophisticated programmatic manipulation and interesting
-generalizations. 
+generalizations.
 
 To improve monadic generators, it helps to re-frame generators as {\em
   parsers of randomness}. A generator
@@ -767,38 +767,40 @@ tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
 first to make it
 formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 %
-This paper introduced {\em free generators}, which generalize the standard
+This paper introduces {\em free generators}, which generalize the standard
 monadic generator abstraction, demonstrate a formal link between parsing and
-random generation, and enable new algorithms for generation that improve
-generation modulo validity constraints. Free generators are written the same
-way as standard monadic generators, but in reality they are more like
+random generation, and enable new algorithms that improve
+generation modulo validity constraints. Free generators look very
+similar to standard monadic generators, but under the hood they behave more like
 generator ``plans'' or syntax trees.%
 \footnote{For experts: Free generators are implemented using {\em freer
 monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
 years to capture the structure of effectful computations
-(cf.~ITrees~\cite{old:xia2019interaction}). Freer monads represent
+(cf.~Interaction Trees~\cite{old:xia2019interaction}). Freer monads represent
 monadic computations syntactically by reifying the monad operations
 (\lstinline{return} and \lstinline{>>=}) as data constructors. Critically, this
 is all implemented within the language (no macros or AST
 manipulation). See \cite{goldstein2022parsing} for more details on the
 free generator representation.}
-In {\em Parsing Randomness} we proved that any free
+In {\em Parsing Randomness} we prove that any free
 generator can be interpreted
 either as a standard monadic generator or as a source of
-random choice strings with a parser over those strings; this formalizes the
+random choice strings plus a parser over those strings, thus formalizing the
 relationship between generators and parsers.
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Harry}
-Building on the free generator work described above, we have begun to look at
-yet more powerful generalizations of the standard monadic approach to random
-generation. The most promising of these concerns monadic generators that
-can be run {\em backward}.
+Building on the free generator work described above, we have begun looking at
+a powerful generalization based on
+monadic generators that can be run {\em backward}.
 %
-If a generator parses a sequence of choices into a value, then running the
-generator backward should take a value and produce a sequence of choices that
-would produce that value. With this in mind, we have begun working on {\em reflective
-generators}, an extension of monadic generators that can be run backward to
-``reflect'' on the choices that they made when producing an input. The machinery
+If a generator can be seen as parsing a sequence of choices into a
+value, then running the
+generator backward should take that value and produce a sequence of choices that
+would produce it.  With this intuition in mind, we have begun
+exploring a novel class of {\em reflective
+generators}---an extension of monadic generators that can be run backward to
+``reflect'' on the choices that they might have made when generating a
+given test. The machinery 
 that makes reflective generators work is quite complex,%
 \footnote{Reflective generators are both monads and {\em
     partial profunctors},
@@ -821,7 +823,7 @@ caller.
 
 The bidirectional nature of reflective generators makes them useful
 for more than just generation!  We have begun exploring two other
-applications.
+applications, which we describe next.
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
@@ -843,9 +845,9 @@ using no BST-specific code beyond the reflective generator itself.
   \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
   \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant. \amh{Can we add a brief description of the mutation that is 
-being performed on this tree? To me, the intention behind the change is not 
-obvious. Which of the changes are performed by the ``programmer'', and which are 
+  BST invariant. \amh{Can we add a brief description of the mutation that is
+being performed on this tree? To me, the intention behind the change is not
+obvious. Which of the changes are performed by the ``programmer'', and which are
 automatically propagated?}}\label{fig:mutation}
 \end{figure}
 
@@ -865,8 +867,8 @@ realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our generators to reflective ones. We
 demonstrate additional use cases for reflective generators in the
-following sections. \amh{Maybe we should more explicitly indicate that this 
-project will provide the enabling technology for more powerful interactive tools 
+following sections. \amh{Maybe we should more explicitly indicate that this
+project will provide the enabling technology for more powerful interactive tools
 that we will develop later in the proposal.}
 
 \smallskip
@@ -877,8 +879,8 @@ generators in the context of an earlier NSF project (described in
 a preliminary progress report~\cite{Frohlich2022}.  Many details of
 both theory and implementation remain to be ironed out; in particular,
 while exploratory empirical evaluations look promising, more thorough
-experimentation will be required. \amh{Is there a way to make this status report 
-make the success of this project sound more assured (if we think it is)? Some of 
+experimentation will be required. \amh{Is there a way to make this status report
+make the success of this project sound more assured (if we think it is)? Some of
 the later projects in the proposal depend at least in part on this working.}
 
 
@@ -904,12 +906,12 @@ output value size is not monotonic, the shrinker might actually make it more
 difficult to find a bug. Additionally, if a reflective shrinker's shrunk choices
 produce values that are very different from the original, they may fail to
 shrink at all, instead just stepping to values that are no longer
-counterexamples and concluding that the original value is a local minimum.  
+counterexamples and concluding that the original value is a local minimum.
 \amh{I am not sure I understand this last sentence.}
 
-In order to establish reflective shrinkers as a once-and-for-all\amh{this feels 
+In order to establish reflective shrinkers as a once-and-for-all\amh{this feels
 too strong; it implies to me there won't be better solutions later} solution to
-validity preserving shrinking, we plan to formalize and prove the several 
+ preserving-shrinking, we plan to formalize and prove the several
 important
 properties. Specifically, we want to show that, for some class of reflective
 generators, the associated reflective shrinkers (1) never produce larger values
@@ -924,19 +926,19 @@ be comfortable ignoring it.  Our hope is that eventually, having a reflective
 generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
 making counterexamples far easier to understand.
-\amh{Our broader impacts section implies that there will be software coming 
-about from the reflective generators and shrinkers work. The above section 
-describes only theoretical results. We should briefly describe what kinds of 
+\amh{Our broader impacts section implies that there will be software coming
+about from the reflective generators and shrinkers work. The above section
+describes only theoretical results. We should briefly describe what kinds of
 software (if any) we think we will develop in these projects.}
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they also use randomized testing to quickly exercise many
 program behaviors. Fuzzers are compelling because they are
-inherently easy to use. The developer need only point the fuzzer at an 
+inherently easy to use. The developer need only point the fuzzer at an
 executable binary and
 wait. But without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions. \amh{Can we have a more 
+bugs when properties have complex preconditions. \amh{Can we have a more
 concrete statement of the goal before talking about prior work?}
 
 There are a few existing projects that try to get the best of both worlds by
@@ -998,8 +1000,8 @@ correctly.
 Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
 powerful automation potential of reflective generators with the usability of
 fuzzers. Testers will be able to test properties with complex preconditions
-without giving up the power and simplicity of coverage-guided generation.  
-\amh{A statement of this level of concreteness needs to appear in the top of 
+without giving up the power and simplicity of coverage-guided generation.
+\amh{A statement of this level of concreteness needs to appear in the top of
 this section.} \amh{Also, what is the software we intend to develop?}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
