@@ -1013,9 +1013,10 @@ program behaviors. Fuzzers are popular because they are both capable and
 inherently easy to use. The developer need only point the fuzzer at an
 executable binary and
 wait. But, without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions. \amh{Can we have a more
-concrete statement of the goal before talking about prior
-work?}\bcp{And is there a citation that justifies that claim?}
+bugs when properties have complex preconditions.
+Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
+powerful automation potential of reflective generators with the usability of
+fuzzers.
 
 There are a few existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
@@ -1038,24 +1039,21 @@ system under test
 crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
 ``working against'' the parser, in the sense that the parser's job is to reject
 invalid inputs and the fuzzer's job is to get past it.  Crowbar's
-generators avoid this adversarial relationship and subsume grammar-based
-generation with a generator that is powerful enough to satisfy the
-parser by construction\bcp{Mysterious}; ours will as well, but using a
-reflective a generator instead of a normal one.
+generators avoid this adversarial relationship because they are
+monadic, and can satisfy parer constraints
+parser by construction; ours will also be monadic, but also {\em reflective}.
 
 Why a reflective generator? First, we should clarify why any kind of monadic
 generator is preferable to grammar-based alternatives. Monadic generators can
-straightforwardly generate context-free structures, and they can often do so
-automatically with the help of type information~\cite{mista2019deriving}. If
-this is all that the precondition requires, then there is no harm in using a
-monadic generator, rather than a grammar-based one.\bcp{The reasoning
-  here feels a bit tangled.} But the beauty of a monadic
+straightforwardly generate context-free structures, so they can generate data
+satisfying a strictly larger set of constraints than grammar-based ones.
+But the beauty of a monadic
 generator is that it can be made far more powerful, incrementally, as the
 developer's testing needs change. They can start off thinking that they
 need only consider the structure of their inputs, but later add more
 semantic guarantees (using the extra flexibility of the monadic
-presentation) if they determine that their testing is
-ineffective. \bcp{Mysterious.}
+presentation) if they find that their generator is wasting too much time
+producing invalid values.
 
 A compelling benefit of reflective generators in this scenario is that
 their backward interpretation can be used to help seed the fuzzer.
@@ -1080,14 +1078,8 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
-powerful automation potential of reflective generators with the usability of
-fuzzers. Testers will be able to test properties with complex preconditions
+With these tools, esters will be able to test properties with complex preconditions
 without giving up the power and simplicity of coverage-guided generation.
-\amh{A statement of this level of concreteness needs to appear in the top of
-this section.} \amh{Also, what is the software we intend to
-develop?}\bcp{Moving this paragraph to the top sounds good (also
-answering Andrew's question!).}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
