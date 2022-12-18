@@ -884,12 +884,12 @@ already done~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
 generator can reflect on choices for inputs it did not actually
 produce---all that's required is that it {\em could} have produced
-them.  For another, the choices structured in different ways (as bit
+them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) depending
-on the needs of the caller.\bcp{Harry: That last sentence is a bit
-  mysterious...}
+on how much information is needed about the dependencies between different
+choices.
 
-The thing that makes reflective generators interesting is that their
+Reflective generators are interesting because
 bidirectional nature makes them useful for more than just generation!
 We are exploring two other applications, which we describe
 next.
@@ -901,10 +901,9 @@ Many automated testing algorithms
 (especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values
 so as to explore
 the behavior of the program in a space ``around'' those
-values. Mutation can be
-tricky in PBT scenarios, where values are subject to complex validity
-constraints, since mutation often produces invalid values.\bcp{Harry:
-  Why is this any more the case with PBT than with regular fuzzing?} Reflective
+values. Unfortunately, mutation can be
+tricky in scenarios where values are subject to complex validity
+constraints, since mutation often produces invalid values. Reflective
 generators can help here: We can (1) reflect on the choices that lead
 to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
@@ -942,9 +941,7 @@ realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our generators to reflective ones. We
 will see additional use cases for reflective generators in the
-following sections. \amh{Maybe we should more explicitly indicate that this
-project will provide the enabling technology for more powerful interactive tools
-that we will develop later in the proposal.}\bcp{Sure.}
+following sections, and discuss tools that leverage them later in the proposal.
 
 \smallskip
 
@@ -965,8 +962,9 @@ year of the proposed project.
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
 Reflective generators' ability to run backward means that they can be used as
-part of any algorithm that needs to understand the structure of generated
-inputs.\bcp{Harry: Mysterious.}  For example, we can use them to
+a tool for analyzing and manipulating the structure of 
+generated
+inputs.  For example, we can use them to
 implement validity-preserving {\em
 shrinking} of values to find smaller counterexamples and speed up debugging
 without no effort from the user. On its face, this feels similar to
@@ -999,18 +997,13 @@ the original. Formalizing sub-classes of well-behaved reflective generators and
 notions of ``shrinker closeness'' should also yield
 other potential applications of reflective generators and shrinkers.
 
-We mentioned in the Motivation section that developers sometimes think of
-shrinking as ``magical,'' but currently the abstraction is too leaky for them to
-be comfortable ignoring it.\bcp{??}  The promise of the reflective approach
-is that it might make shrinking, even in the face of complex
-preconditions, be {\em actually magic}, requiring no developer
-intervention ever and making counterexamples far easier to understand.
-\amh{Our broader impacts section implies that there will be software coming
-about from the reflective generators and shrinkers work. The above section
-describes only theoretical results. We should briefly describe what kinds of
-software (if any) we think we will develop in these
-projects.}\bcp{Agreed.  Also, do we need to mention that Hypothesis
-shrinking is already kind of magic in this way?}
+The shrinking tools that come out of this work will use reflective generators to
+automatically shrink inputs in an validity-preserving way. They will be able to
+shrink values that they did not generate (e.g., counterexamples that come from
+production), and they will give strong guarantees about the subtleties of the
+shrinker behavior. We hope that these tools will mean that developers no longer
+need to be intimidated by the idea of shrinkers: they will simply work in the
+background, simplifying debugging.
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
