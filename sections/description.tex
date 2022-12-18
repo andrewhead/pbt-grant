@@ -923,11 +923,13 @@ software (if any) we think we will develop in these projects.}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
 ones behind PBT: they also use randomized testing to quickly exercise many
 program behaviors. Fuzzers are compelling because they are
-inherently easy to use. The developer need only point the fuzzer at a binary and
+inherently easy to use. The developer need only point the fuzzer at an 
+executable binary and
 wait. But without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions.
+bugs when properties have complex preconditions. \amh{Can we have a more 
+concrete statement of the goal before talking about prior work?}
 
-There are a rew existing projects that try to get the best of both worlds by
+There are a few existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
 For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
 uses code coverage as guidance for PBT and the HypoFuzz library uses a
@@ -986,7 +988,9 @@ correctly.
 Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
 powerful automation potential of reflective generators with the usability of
 fuzzers. Testers will be able to test properties with complex preconditions
-without giving up the power and simplicity of coverage-guided generation.
+without giving up the power and simplicity of coverage-guided generation.  
+\amh{A statement of this level of concreteness needs to appear in the top of 
+this section.} \amh{Also, what is the software we intend to develop?}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
