@@ -811,7 +811,7 @@ caller.
 
 The bidirectional nature of reflective generators makes them useful
 for more than just generation!  We have begun exploring two other
-applications...
+applications.
 
 {\em Validity-Preserving Mutation.}
 Many automated testing algorithms
@@ -833,7 +833,10 @@ using no BST-specific code beyond the reflective generator itself.
   \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
   \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant.}\label{fig:mutation}
+  BST invariant. \amh{Can we add a brief description of the mutation that is 
+being performed on this tree? To me, the intention behind the change is not 
+obvious. Which of the changes are performed by the ``programmer'', and which are 
+automatically propagated?}}\label{fig:mutation}
 \end{figure}
 
 {\em Example-Based Tuning.} Earlier we pointed out that good generators
@@ -852,7 +855,9 @@ realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our generators to reflective ones. We
 demonstrate additional use cases for reflective generators in the
-following sections.
+following sections. \amh{Maybe we should more explicitly indicate that this 
+project will provide the enabling technology for more powerful interactive tools 
+that we will develop later in the proposal.}
 
 \smallskip
 
@@ -862,7 +867,9 @@ generators in the context of an earlier NSF project (described in
 a preliminary progress report~\cite{Frohlich2022}.  Many details of
 both theory and implementation remain to be ironed out; in particular,
 while exploratory empirical evaluations look promising, more thorough
-experimentation will be required.
+experimentation will be required. \amh{Is there a way to make this status report 
+make the success of this project sound more assured (if we think it is)? Some of 
+the later projects in the proposal depend at least in part on this working.}
 
 
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
@@ -885,12 +892,15 @@ were. For example, if a reflective shrinker accidentally creates a visually larg
 value, for example, because the relationship between choice sequence length and
 output value size is not monotonic, the shrinker might actually make it more
 difficult to find a bug. Additionally, if a reflective shrinker's shrunk choices
-produce a values that are very different from the original, they may fail to
+produce values that are very different from the original, they may fail to
 shrink at all, instead just stepping to values that are no longer
-counterexamples and concluding that the original value is a local minimum.
+counterexamples and concluding that the original value is a local minimum.  
+\amh{I am not sure I understand this last sentence.}
 
-In order to establish reflective shrinkers as a once-and-for-all solution to
-validity preserving shrinking, we plan to formalize and prove the above
+In order to establish reflective shrinkers as a once-and-for-all\amh{this feels 
+too strong; it implies to me there won't be better solutions later} solution to
+validity preserving shrinking, we plan to formalize and prove the several 
+important
 properties. Specifically, we want to show that, for some class of reflective
 generators, the associated reflective shrinkers (1) never produce larger values
 with fewer choices and (2) always produce shrunk values that are ``close'' to
@@ -898,12 +908,16 @@ the original. Formalizing sub-classes of well-behaved reflective generators and
 notions of ``shrinker closeness'' will also give valuable insights into other
 applications of reflective generators and shrinkers.
 
-We mentioned in the motivation section that participants in the study thought of
+We mentioned in the motivation section that developers think of
 shrinking as magical, but currently the abstraction is too leaky for them to
 be comfortable ignoring it.  Our hope is that eventually, having a reflective
 generator on hand will mean that shrinking, even in the face of complex
 preconditions, is {\em actually magic}, requiring no developer intervention and
 making counterexamples far easier to understand.
+\amh{Our broader impacts section implies that there will be software coming 
+about from the reflective generators and shrinkers work. The above section 
+describes only theoretical results. We should briefly describe what kinds of 
+software (if any) we think we will develop in these projects.}
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} use principles that are similar to the
