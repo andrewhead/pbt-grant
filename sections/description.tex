@@ -884,12 +884,12 @@ already done~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
 generator can reflect on choices for inputs it did not actually
 produce---all that's required is that it {\em could} have produced
-them.  For another, the choices structured in different ways (as bit
+them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) depending
-on the needs of the caller.\bcp{Harry: That last sentence is a bit
-  mysterious...}
+on how much information is needed about the dependencies between different
+choices.
 
-The thing that makes reflective generators interesting is that their
+Reflective generators are interesting because
 bidirectional nature makes them useful for more than just generation!
 We are exploring two other applications, which we describe
 next.
@@ -901,10 +901,9 @@ Many automated testing algorithms
 (especially fuzzing algorithms~\cite{afl-readme}) {\em mutate} values
 so as to explore
 the behavior of the program in a space ``around'' those
-values. Mutation can be
-tricky in PBT scenarios, where values are subject to complex validity
-constraints, since mutation often produces invalid values.\bcp{Harry:
-  Why is this any more the case with PBT than with regular fuzzing?} Reflective
+values. Unfortunately, mutation can be
+tricky in scenarios where values are subject to complex validity
+constraints, since mutation often produces invalid values. Reflective
 generators can help here: We can (1) reflect on the choices that lead
 to a particular
 value, (2) mutate those choices, and (3) re-run the generator with the new
@@ -942,9 +941,7 @@ realistic inputs, while validity-preserving mutation enables more
 automated approaches to improving generator distributions---and we get
 {\em both} by upgrading our generators to reflective ones. We
 will see additional use cases for reflective generators in the
-following sections. \amh{Maybe we should more explicitly indicate that this
-project will provide the enabling technology for more powerful interactive tools
-that we will develop later in the proposal.}\bcp{Sure.}
+following sections, and discuss tools that leverage them later in the proposal.
 
 \smallskip
 
@@ -965,8 +962,9 @@ year of the proposed project.
 \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
 %
 Reflective generators' ability to run backward means that they can be used as
-part of any algorithm that needs to understand the structure of generated
-inputs.\bcp{Harry: Mysterious.}  For example, we can use them to
+a tool for analyzing and manipulating the structure of 
+generated
+inputs.  For example, we can use them to
 implement validity-preserving {\em
 shrinking} of values to find smaller counterexamples and speed up debugging
 without no effort from the user. On its face, this feels similar to
@@ -999,18 +997,13 @@ the original. Formalizing sub-classes of well-behaved reflective generators and
 notions of ``shrinker closeness'' should also yield
 other potential applications of reflective generators and shrinkers.
 
-We mentioned in the Motivation section that developers sometimes think of
-shrinking as ``magical,'' but currently the abstraction is too leaky for them to
-be comfortable ignoring it.\bcp{??}  The promise of the reflective approach
-is that it might make shrinking, even in the face of complex
-preconditions, be {\em actually magic}, requiring no developer
-intervention ever and making counterexamples far easier to understand.
-\amh{Our broader impacts section implies that there will be software coming
-about from the reflective generators and shrinkers work. The above section
-describes only theoretical results. We should briefly describe what kinds of
-software (if any) we think we will develop in these
-projects.}\bcp{Agreed.  Also, do we need to mention that Hypothesis
-shrinking is already kind of magic in this way?}
+The shrinking tools that come out of this work will use reflective generators to
+automatically shrink inputs in an validity-preserving way. They will be able to
+shrink values that they did not generate (e.g., counterexamples that come from
+production), and they will give strong guarantees about the subtleties of the
+shrinker behavior. We hope that these tools will mean that developers no longer
+need to be intimidated by the idea of shrinkers: they will simply work in the
+background, simplifying debugging.
 
 \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
@@ -1020,9 +1013,10 @@ program behaviors. Fuzzers are popular because they are both capable and
 inherently easy to use. The developer need only point the fuzzer at an
 executable binary and
 wait. But, without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions. \amh{Can we have a more
-concrete statement of the goal before talking about prior
-work?}\bcp{And is there a citation that justifies that claim?}
+bugs when properties have complex preconditions.
+Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
+powerful automation potential of reflective generators with the usability of
+fuzzers.
 
 There are a few existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
@@ -1045,24 +1039,21 @@ system under test
 crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
 ``working against'' the parser, in the sense that the parser's job is to reject
 invalid inputs and the fuzzer's job is to get past it.  Crowbar's
-generators avoid this adversarial relationship and subsume grammar-based
-generation with a generator that is powerful enough to satisfy the
-parser by construction\bcp{Mysterious}; ours will as well, but using a
-reflective a generator instead of a normal one.
+generators avoid this adversarial relationship because they are
+monadic, and can satisfy parer constraints
+parser by construction; ours will also be monadic, but also {\em reflective}.
 
 Why a reflective generator? First, we should clarify why any kind of monadic
 generator is preferable to grammar-based alternatives. Monadic generators can
-straightforwardly generate context-free structures, and they can often do so
-automatically with the help of type information~\cite{mista2019deriving}. If
-this is all that the precondition requires, then there is no harm in using a
-monadic generator, rather than a grammar-based one.\bcp{The reasoning
-  here feels a bit tangled.} But the beauty of a monadic
+straightforwardly generate context-free structures, so they can generate data
+satisfying a strictly larger set of constraints than grammar-based ones.
+But the beauty of a monadic
 generator is that it can be made far more powerful, incrementally, as the
 developer's testing needs change. They can start off thinking that they
 need only consider the structure of their inputs, but later add more
 semantic guarantees (using the extra flexibility of the monadic
-presentation) if they determine that their testing is
-ineffective. \bcp{Mysterious.}
+presentation) if they find that their generator is wasting too much time
+producing invalid values.
 
 A compelling benefit of reflective generators in this scenario is that
 their backward interpretation can be used to help seed the fuzzer.
@@ -1087,14 +1078,8 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
-powerful automation potential of reflective generators with the usability of
-fuzzers. Testers will be able to test properties with complex preconditions
+With these tools, esters will be able to test properties with complex preconditions
 without giving up the power and simplicity of coverage-guided generation.
-\amh{A statement of this level of concreteness needs to appear in the top of
-this section.} \amh{Also, what is the software we intend to
-develop?}\bcp{Moving this paragraph to the top sounds good (also
-answering Andrew's question!).}
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
@@ -1141,7 +1126,7 @@ answering Andrew's question!).}
 \SECTION{Validation}{Understanding Testing Effectiveness%
  \pagebudget{3}}{sec:val}
 
-A final set of challengeas in maximizing PBT's usability lies in
+A final set of challenges in maximizing PBT's usability lies in
 helping developers
 \evaltheme{validate} that their testing is effective. In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
