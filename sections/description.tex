@@ -142,7 +142,7 @@ This proposal focuses on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would
 also be applicable to alternatives like enumerative test-case
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck} 
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}
 \proposecut{or model
 checking}\bcp{model checking is not really a generation method}.
 The surprising effectiveness of random generation can be attributed to the
@@ -188,7 +188,7 @@ produce any of a number of correct results) is impossible to do
 faithfully; a property-based specification is a better choice in
 such cases.
 PBT is also
-an obvious choice if 
+an obvious choice if
 the developer already has some semi-formal
 specification in mind, for example if they are implementing behavior from an RFC or
 other design document, because it provides a clear connection between the
@@ -661,40 +661,45 @@ OCaml should transfer.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
-The Jane Street study highlighted several \gentheme{generation themes}.
-Generators were regularly cited as one of the most challenging parts of the PBT
-process---the existing tools for random generation are varied and powerful, but
-they are not very usable.  In this section, we discuss {\em reflective
-generators}, an abstraction for random generation, currently under development,
-that exposes levers for
-automation that enable a host of new approaches to generator
-tooling (\sectionref{sec:reflective}). Reflective generators enable new
+The Jane Street study also highlighted several \gentheme{generation themes}.
+Indeed, generators were regularly cited as one of the most challenging
+aspects of PBT: the existing tools related to random generation are varied
+and powerful, but
+they are not especially usable.  In this section, we propose {\em reflective
+generators}, an abstraction for random generation that we have been
+experimenting with at Penn, as a way of unbundling generator
+functionality, exposing levers for
+automation that enable a number of new approaches to generator
+tooling (\sectionref{sec:reflective}). In particular, reflective
+generators enable new
 approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
 (\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
 effectiveness.
 
-\subsectionstar{Context: Random Generation is Hard}
+\subsectionstar{Context: Why Random Generation is Hard}
 As discussed in the Orientation section above, PBT relies heavily on {\em random data
-generators}. The inputs produced by the generator exercise the developer's
-properties and give confidence that they hold---provided the inputs are
-interesting enough.
+generators}.  Checking a property of the system or component under
+test with many randomly generated inputs gives confidence that the property
+holds---provided the inputs are ``interesting enough.''
 %
 However,
 many properties that developers want to test have {\em preconditions}
-(or {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that should be used for testing. This comes up often
+(a.k.a.{} {\em validity conditions} or {\em input constraints}) that
+restrict the set of inputs that are interesting for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
-the operations under test. Testing such properties can be problematic, because
+the operations being tested. Testing such properties can be problematic, since
 many preconditions are difficult to satisfy randomly; if the developer is not
-careful they may waste most of their testing time generating and
+careful, they may waste most of their time budget generating and
 discarding invalid inputs.
 %
-Worse, even among valid inputs, not all are equally realistic. Often generated inputs
-feel fabricated, since they are not constructed with prior knowledge of the
-kinds of inputs that the program is likely to see.
+Of course, some fraction of the testing budget should be spent on
+ill-formed or nonsensical inputs, but not too much, since these will not
+exercise much of its functionality; most tests should be well-formed
+(though perhaps unusual) representatives of the sorts of inputs the
+system is designed to process.
 %
-Worse yet, even with validity and realism accounted for, there are
-other ways for generators to under-perform---for example, by
+Worse, even with validity accounted for, there are
+more insidious ways for generators to under-perform---for example, by
 generating many overly similar inputs while ignoring large parts of
 the input space.
 
@@ -704,56 +709,61 @@ the input space.
 
 Existing approaches to these issues
 fall on a spectrum from automatic to manual. The automatic approaches use
-proxies for validity and general ``interestingness'' of inputs: some, like {\em
-fuzzers}~\cite{afl-readme}, optimize readily available metrics like code
-coverage, others ask users to provide metrics~\cite{loscher2017targetedpbt}, and
-naturally some use machine learning to infer proxies for
+various proxies for validity and general ``interestingness'' of
+inputs: some, like {\em
+fuzzers}~\cite{afl-readme}, try to optimize readily available metrics like code
+coverage, others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
+of course some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
-are easy to apply and can obtain good distribution coverage, but they are rarely
+are easy to apply and can yield good distribution coverage, but they are rarely
 sufficient for testing properties with complex preconditions. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
 holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
-srivastava2021gramatron}, and for more complex, semantic preconditions, some
-have proposed using SMT-solvers~\cite{dewey2017automated, LuckPOPL,
-steinhofel2022input} to automatically seek out valid inputs. These tools are
-much better at satisfying up to moderately-complex properties, but some are
-still out of reach. The semi-automatic
+srivastava2021gramatron}, and for more complex, semantic preconditions,
+SMT-solvers~\cite{dewey2017automated, LuckPOPL,
+steinhofel2022input} can be used to automatically seek out valid
+inputs. These tools are
+much better at satisfying easy to moderately complex properties and
+much less good at very complex or very ``sparse'' properties. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
-examples~\cite{soremekun2020inputs}; the existing tools successfully generate
-more realistic inputs, but are again limited in the preconditions they can
+examples~\cite{soremekun2020inputs}; these tools can generate
+realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
 \subsectionstar{Context: Monadic and Free Generators}
-The most manual, but also the most flexible, solutions use hand-written
+The most manual---and most flexible---solutions use hand-built
 generators, written in a convenient domain-specific language (DSL).
 In  Haskell, where PBT was
-first popularized, many such DSLs are implemented using {\em
+first popularized, such DSLs are commonly implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
 expressing effectful (in this case, random and stateful) computations
 in a pure, stateless underlying
-language. While monadic DSLs are not actually necessary to express generators in
-non-pure languages, some libraries (e.g., in OCaml) still use monadic
-abstractions to build their generator DSLs.
+language such as Haskell. While monadic DSLs are not actually
+needed to express generators in
+impure languages, some libraries (e.g., in OCaml) still choose to use monadic
+abstractions for their generator DSLs.
 
 Monadic generators can implement random data producers of arbitrary complexity
-(e.g., it is possible to write a monadic generator for Haskell
-programs~\cite{palka_testing_2011}), so they are often more expressive than
-other representations like grammar-based generators.  Yet monadic generators are
+(e.g., for Haskell
+programs~\cite{palka_testing_2011}): they are strictly more expressive than
+representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around). As we will
-see, the constrained nature of monadic generators also makes them the perfect
-candidates for sophisticated manipulations and interesting generalizations.
+see, the constrained nature of monadic generators also makes them perfect
+candidates for sophisticated programmatic manipulation and interesting
+generalizations. 
 
-In order to improve monadic generation along the dimensions listed
-above, it helps to re-frame generators as {\em parsers of randomness}. A generator
-operates by making a series of random choices, but we can equivalently think of
-it as being provided some random sequence of choices and then simply following
-those choices to produce a value. This perspective has been used in a few
-implementations of PBT
-systems~\cite{maciver2019hypothesis, dolan2017testing}; we made it
+To improve monadic generators, it helps to re-frame generators as {\em
+  parsers of randomness}. A generator
+operates by making a series of random choices; equivalently, we can think of
+it as being {\em given} some random sequence of choices and simply following
+those choices to produce a value. This shift of perspective has been
+used as the basis for a few implementations of PBT
+tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
+first to make it
 formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 %
 This paper introduced {\em free generators}, which generalize the standard
