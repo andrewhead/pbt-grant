@@ -951,7 +951,7 @@ automated approaches to improving generator distributions---and we get
 will see additional use cases for reflective generators in the
 following sections. \amh{Maybe we should more explicitly indicate that this
 project will provide the enabling technology for more powerful interactive tools
-that we will develop later in the proposal.}
+that we will develop later in the proposal.}\bcp{Sure.}
 
 \smallskip
 
@@ -1034,38 +1034,42 @@ work?}\bcp{And is there a citation that justifies that claim?}
 There are a few existing projects that try to get the best of both worlds by
 combining PBT and fuzzing.
 For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
-uses code coverage as guidance for PBT and the HypoFuzz library uses a
+uses code coverage as guidance for PBT, and the HypoFuzz library uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
-poured into industrial-strength fuzzers; Crowbar
+poured into industrial-strength fuzzers; Crowbar, on the other hand,
 does~\cite{dolan2017testing}. Crowbar uses
 AFL~\cite{afl-readme}, one of the best-established
 fuzzers, to generate random bit-strings that are later parsed into program
 inputs. Crowbar does require more user effort than standard fuzzing techniques,
-but the coverage-guidance means that careful tuning is often not required to get
+but the coverage guidance means that careful tuning is often not required to get
 good testing performance.
 
-We like the model of Crowbar a lot, but think it does not quite go far enough;
-we intend to replicate a version of Crowbar built on reflective generators that
-is even more powerful.
-We start with a classic fuzzing setup, attempting to make the system under test
+We admire Crowbar, but think the idea can be pushed further by building
+a variant of Crowbar on reflective generators.
+We will start with a classic fuzzing setup, which tries to make the
+system under test
 crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
-working against the parser, in the sense that the parser's job is to reject
-invalid inputs and the fuzzer's job is to ``get past the parser.'' Crowbar's
+``working against'' the parser, in the sense that the parser's job is to reject
+invalid inputs and the fuzzer's job is to get past it.  Crowbar's
 generators avoid this adversarial relationship and subsume grammar-based
-generation with a powerful generator that is powerful enough to satisfy the
-parser by construction; ours will as well, but with reflective generators.
+generation with a generator that is powerful enough to satisfy the
+parser by construction\bcp{Mysterious}; ours will as well, but using a
+reflective a generator instead of a normal one.
 
-Why use a reflective generator? First, we should clarify why any kind of monadic
-generator is preferable to grammar-based options. Monadic generators can
+Why a reflective generator? First, we should clarify why any kind of monadic
+generator is preferable to grammar-based alternatives. Monadic generators can
 straightforwardly generate context-free structures, and they can often do so
 automatically with the help of type information~\cite{mista2019deriving}. If
 this is all that the precondition requires, then there is no harm in using a
-monadic generator, rather than a grammar-based one. But the beauty of a monadic
+monadic generator, rather than a grammar-based one.\bcp{The reasoning
+  here feels a bit tangled.} But the beauty of a monadic
 generator is that it can be made far more powerful, incrementally, as the
-developer's testing needs change. The developer can start off thinking that they
-need only consider the structure of their inputs, but they can later add more
-semantic guarantees if they determine that their testing is ineffective.
+developer's testing needs change. They can start off thinking that they
+need only consider the structure of their inputs, but later add more
+semantic guarantees (using the extra flexibility of the monadic
+presentation) if they determine that their testing is
+ineffective. \bcp{Mysterious.}
 
 Focusing on reflective generators specifically, one compelling benefit is that
 their backward interpretation can be used to help seed the fuzzer.  Most fuzzers
