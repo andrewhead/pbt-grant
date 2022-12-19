@@ -229,8 +229,8 @@ analysis is underway; full-scale analysis will begin in 2023.
 Findings from the study will be disseminated in a paper submitted to a
 top-tier software engineering conference.  We also carried out a
 smaller pilot study among Hypothesis users to prepare for the
-full-scale one at Jane Street; this study this was presented at the
-2022 HATRA workshop~\cite{goldstein_problems_2022}
+full-scale one at Jane Street; this study was presented at the
+2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
 \subsectionstar{Framework: Challenges Using PBT} The final result of
 the ongoing study will be a fine-grained, qualitative description of how
@@ -252,20 +252,20 @@ Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
 specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{ref:goldstein2022some}, some users indicated just that.
+study~\cite{goldstein_problems_2022}, some users indicated just that.
 By contrast, Jane Street developers, on the whole, reported
-few difficulties finding
-properties. Rather, most participants described applying PBT in
+little difficulty finding
+properties. Rather, most developers applied PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. For example, participant
-9~(\participant{9}) said that PBT was particularly easy to apply when one
+available or straightforward to invent. In participant
+9~(\participant{9})'s words, PBT is particularly easy to apply when one
 has ``a really good abstraction with a complicated implementation.''
-Several participants (\participant{3}, \participant{15},
+Several developers (\participant{3}, \participant{15},
 \participant{20}, \participant{22}), when asked to speculate, guessed
 that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find and
-PBT is relatively easy to apply.  This suggests that an effective way to
-improve education and documentation around PBT would be to highlight
+PBT is relatively easy to apply. This suggests that an effective way to
+improve education and documentation for PBT would be to highlight
 real-world applications that are a natural fit.
 
 We also heard \proptheme{Opportunities for Better
@@ -402,11 +402,11 @@ represent widely experienced pain points and
 (2) characterize the potential benefits of better tools to the
 software industry as a whole.
 
-\emph{Validation survey}. The main survey we plan to conduct aims to check that
+\emph{Validation survey}. The main survey we will conduct checks that
 the things we are learning from Jane Street generalize to other settings.
 We will
-ask developers which of the issues we have identified are
-ones they have also encountered and the severity of those issues
+ask developers which of the issues are
+ones they have also encountered, what the severity of those issues is
 in their experience, and about
 other issues they have encountered.
 To provide
@@ -511,11 +511,11 @@ software in cases where important functionality falls across module boundaries?
 We will explore how a PBT tool can support the definition of properties over
 cross-module event logs. To demonstrate the potential of such a tool, consider
 the case of a developer we interviewed, \participant{7}. P7 was testing
-a system (which we will call ``\lstinline{Inner}'') which exemplified this messy
+a system, which we call ``\lstinline{Inner},'' exemplifying this messy
 abstraction
-boundary. It was particularly difficult to test \lstinline{Inner} because
+boundary. It was difficult to test \lstinline{Inner} because
 its most interesting behavior arose only when interacting with its calling
-component (which we will call ``\lstinline{Outer}'').
+component (which we call ``\lstinline{Outer}'').
 \lstinline{Outer} took in simple inputs, and used these inputs to construct
 complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} that
@@ -1142,9 +1142,13 @@ counterexamples found by property-based tests into conventional regression tests
 and understand testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}). These projects will be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
-environments. PI Head will guide tool development efforts, leveraging his
+environments. The success of tools will be evaluated in usability studies
+comparing developers' effectiveness and efficiency in writing tests for their 
+software, and debugging problems discovered by their test suites.  PI Head will 
+guide tool development efforts, leveraging his
 experience designing, developing, evaluating, and deploying novel programming
-environments and tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
+environments and 
+tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Other}
 %
@@ -1511,7 +1515,8 @@ early-stage computer science curriculum (\sectionref{sec:1210}).
 \SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
-come up with specifications that are worth testing~\cite{ref:goldstein2022some},
+come up with specifications that are worth 
+testing~\cite{goldstein_problems_2022},
 but
 our follow-up interviews at Jane Street suggest that the developers there
 rarely have the same problem. It seems that the Jane Street developers had
