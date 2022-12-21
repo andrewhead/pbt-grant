@@ -4,8 +4,9 @@
 
 % BCP 22: Let's try a different font family:
 \LoadClass[10pt, letterpaper, onecolumn]{article}
+\usepackage{palatino}
 \usepackage{mathpazo}
-\usepackage{microtype}
+% \usepackage{microtype}
 
 \RequirePackage[margin=1in]{geometry}
 \RequirePackage[pdftex,colorlinks,linkcolor=black,citecolor=black,urlcolor=black,filecolor=black]{hyperref}
