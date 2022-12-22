@@ -75,7 +75,8 @@ We propose here a comprehensive, interdisciplinary research program on
 \emph{usable
 property-based testing}, bringing the combined power of PL and HCI to bear to
 accelerate PBT's transition into practice.
-\begin{itemize}[noitemsep]
+% \begin{itemize}[noitemsep]
+\begin{enumerate*}
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 starting from our ongoing need-finding study. We will confirm
 this study's findings and more deeply explore usability of PBT via
@@ -100,7 +101,8 @@ data to be more representative and comprehensive
   tool to help students author properties, and a comprehensive review of PBT
   practice to help students and developers identify situations where
   PBT is likely to be most useful (\sectionref{sec:ed}).
-\end{itemize}
+\end{enumerate*}
+% \end{itemize}
 %
 Success in these efforts will require complementary tools from PL
 and HCI research. HCI approaches will be used to concretely define developers' needs,
@@ -353,7 +355,7 @@ We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:ed}.  To support all of this work,
 \sectionref{sec:foundation} describes plans for a further round of
 studies to deepen our understanding of PBT needs and opportunities
-across a wide range of industrial settings.
+across a range of industrial settings.
 
 % \iflater
 % \amh{Let's foreshadow other findings that
@@ -422,9 +424,9 @@ PBT tools in those languages).
 
 Respondents will
 be recruited broadly, from three sources: (1)
-users of the Hypothesis framework in Python; (2) Jane Street, aiming for
-a broader set of developers than we were able to interview; and (3)
-through word of mouth and via announcements on the PIs' Twitter and Mastodon
+users of the Python Hypothesis framework; (2) Jane Street, aiming for
+a broader set of developers in the interview study; and (3)
+word of mouth and via announcements on the PIs' Twitter and Mastodon
 accounts, various mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke this
 year~\cite{Pierce:Yow22}.
@@ -436,9 +438,10 @@ year~\cite{Pierce:Yow22}.
 
 \emph{Impact survey}. A more speculative survey we hope to conduct
 will investigate
-how broadly PBT may {\em eventually} be able to reach.  To get a sense of this, we
-survey ``proximal'' users of PBT---that is, developers who do not use PBT
-currently, but who experience use cases where PBT methods would be particularly
+how broadly PBT may {\em eventually} be able to reach.  To get a sense
+of this, we will
+survey ``proximal'' users of PBT---developers who do not use PBT
+currently, but who might find it particularly
 useful.  Particular attention will be given to those whose work requires the
 writing of validation code and public APIs with some definition of types. We
 will recruit a broad sample of participants across development contexts
@@ -533,9 +536,9 @@ values including a queue of processed items \lstinline{processed}, and an
 \lstinline{overflow}, properties could include:
 
 \begin{lstlisting}
-  prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
-  msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
-  eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
+prefix_of processed (next (processed))       (* 1 Processing is monotonic *)
+msg.length < 100 ==> never (overflow = true) (* 2 Can process >= 100 bytes *)
+eventually (processed.length = msg.length)   (* 3 whole message processed *)
 \end{lstlisting}
 
 Is it possible to check such behaviors with built-in assertion statements? We
@@ -686,7 +689,7 @@ that can each be arguments to future function calls, etc. We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
 calls that can be used to compare module implementations.
 
-\begin{figure}[h]
+\begin{figure}[t]
   \begin{minipage}{.45\textwidth}
 \begin{lstlisting}
 module StringFns : sig
@@ -723,8 +726,8 @@ modules where automation is not possible; highlighting that subset will
 provide useful context for future work that might aim to simplify these cases in
 other ways (e.g., by putting a human in the loop).
 
-The work in this project will provide a foundation that others can build on to
-provide similar automation in other languages. Abstract and polymorphic
+The work in this project will provide a foundation that others can build on
+in other languages. Abstract and polymorphic
 signatures are features of many other modularity mechanisms (e.g., Java
 interfaces, Rust traits, Haskell type classes, etc.), so solutions we find in
 OCaml should transfer.
@@ -1082,8 +1085,6 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-With these tools, esters will be able to test properties with complex preconditions
-without giving up the power and simplicity of coverage-guided generation.
 
 % \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
