@@ -71,5 +71,5 @@
 \newcommand{\newsection}[1]{%
   \pagenumbering{arabic}
   \renewcommand{\thetoplevelsection}{#1}
-  \renewcommand{\thepage}{#1--\arabic{page}}
+  % \renewcommand{\thepage}{#1--\arabic{page}}
 }

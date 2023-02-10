@@ -1,5 +1,18 @@
 \section*{Project Description}
 
+\todo{GPG: Proposals should identify a computer and information
+  science and engineering grand challenge and an agenda to tackle such
+  a challenge.}
+
+\todo{GPG: proposals should explain why existing CISE core programs
+  for Small and Medium size projects
+  (\$600,000 over three years and \$1,200,000 over four years,
+  respectively) are inadequate to address the grand challenge. A
+  strong rationale must be provided that explains why a budget of this
+  magnitude is required to carry out the proposed work.}
+
+\todo{GPG: The proposal must explicitly identify the participating CISE core programs it covers and make the case for why the challenge is within the scope of one or more of these participating core programs.}
+
 Testing plays a vital role in modern software development,
 contributing crucially to robustness and overall quality---as well as
 to overall development costs.
@@ -375,6 +388,14 @@ across a wide range of industrial settings.
 % \amh{This section is around double its page budget. One reason is that I am
 % probably being too heavy-handed in trying to justify the methodological choices.
 % Help me figure out what to prune!}\bcp{Did some pruning! :-)}
+
+\todo{GPG: Issues of fairness, ethics, accountability, and
+  transparency (FEAT) are important considerations for many core
+  topics in computer and information science and engineering. In
+  projects that generate artifacts ranging from analysis methods to
+  algorithms to systems, or that perform studies involving human
+  subjects, PIs are encouraged to consider the FEAT of the outputs or
+  approaches.  (We should touch on this point somewhere.)}
 
 The final results from the in-progress user study will paint a clear
 picture of the benefits and challenges of PBT in the specific context
@@ -1617,6 +1638,11 @@ other institutions to adapt into their own curricula.
 \immediate\closeout\workplanfile
 \SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
 
+\bcp{I've moved the text that was here to a separate supplemental
+  document, but we'll probably want to say something short in the main
+  project description (either here or, better, toward the top) about
+  synergy and coordination, with a pointer to that document.}
+
 % \begin{figure}[ht]
 %   \centering
 %   \vspace*{-1in}
@@ -1627,64 +1653,6 @@ other institutions to adapt into their own curricula.
 
 % \vspace*{-.4in}
 
-\begin{figure}[t]
-  \centering
- \begin{ganttchart}[
-      expand chart=\textwidth,
-      y unit chart=.4cm,
-      %   vgrid
-    ]{1}{4}
-% \gantttitle{Ongoing}{1}
-  \gantttitle{Year 1}{1}
-  \gantttitle{Year 2}{1}
-  \gantttitle{Year 3}{1}
-  \gantttitle{Year 4}{1}
-  % \\ \ganttbar
-  %      [bar/.append
-  %         style={fill=green}]
-  %      {\hbox to 3in{\bf Foundation \hfill \footnotesize Task}}
-  %      {1}{3}
-  \input{main.workplan}
-\end{ganttchart}
-  \caption{Plan of work.
-}\label{fig:workplan}
-\end{figure}
-
-\noindent
-The work of this project will take place over the course
-of four years (Figure~\ref{fig:workplan}). All projects will constitute
-collaborative efforts involving both PIs, though individual projects will align
-more or less strongly with the themes of PL
-(advised by PI Pierce, highlighted in blue) and HCI (advised
-by PI Head, highlighted in yellow). Key personnel for this work will include the
-co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI,
-and many
-advanced undergraduate and Master's students.
-
-Early efforts will focus on strengthening foundations, strengthening and
-generalizing the findings from our need-finding research to-date. Then, beginning in
-year 1, we will develop PL techniques for which we have strong
-motivation, and which will form the backbone of later interactive systems. This
-includes the development of reflective generators, shrinkers, and fuzzers.
-Initially, these efforts will be led by PhD candidate Harrison Goldstein, who
-has developed the preliminary work in these areas cited in the proposal.
-
-HCI-based tool-building will begin in earnest in year 2, once the
-foundations have been established. This will take place in parallel with observations
-of developers undertaking PBT for the particular tasks the tools are meant to
-support. Some of these projects, most notably the ability to tune data
-distributions, will require tight coordination between the PL and HCI student.
-Other projects, including tooling for evaluating data distributions and and
-counterexamples as regression tests, are less tightly coupled.
-
-Educational initiatives will take place throughout the project. PBT
-instruction will be incorporated into the data science classroom in the
-first year, and iteratively improved after reviewing course outcomes in each
-successive year. Our efforts to teach developers when to leverage properties will
-occur mostly in the first two years in parallel with our formative
-research. Tool-building for the classroom will take place in the final two
-years, after we have established a strong instructional core for teaching PBT at
-Penn.
 
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
@@ -1839,3 +1807,10 @@ Shi.
 % based on previously established and/or innovative methods and approaches, but in either case must be well
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
+
+\ifdraft
+\section*{Other stuff to think about}
+
+\todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
+
+\fi

@@ -1,0 +1,89 @@
+\section*{Management and Coordination Plan \pagebudget{3}}
+
+\todo{GPG: a Large proposal must define the roles of all members of
+  the team and the synergies among them in a Management and
+  Coordination plan (3-page limit, to be submitted as a Supplementary
+  Document). This plan should include: 1) the specific roles of the
+  PI, co-PIs, other senior personnel, and paid consultants at all
+  organizations involved to demonstrate that the project personnel
+  have distinct but complementary expertise; 2) how the project will
+  be managed within or across organizations, including how team
+  coordination will be evaluated; 3) the methods, measures, and/or
+  metrics related to how the team will evaluate technical milestones,
+  and their impact on the project; 4) identification of the specific
+  coordination mechanisms that will enable cross-organization and/or
+  cross-expertise scientific integration and achieve synergy within
+  the team; and 5) pointers to the budget line items that support
+  these management and coordination mechanisms.}
+
+\todo{GPG: The length and level of detail provided in the Plan should
+  be commensurate with the complexity of the proposed project and
+  should include any proposed collaboration with industry and
+  international partners, and any other unpaid collaborators on the
+  project.} 
+
+\todo{Management and Coordination Plans and proposed budgets should
+  demonstrate that key personnel, and especially lead PIs, have
+  allocated adequate time for both their individual technical
+  contributions and the leadership of collaborative activities
+  necessary to realize the synergistic effects of larger-scale
+  research.} 
+
+\noindent
+The work of this project will take place over the course
+of four years (Figure~\ref{fig:workplan}). All projects will constitute
+collaborative efforts involving both PIs, though individual projects will align
+more or less strongly with the themes of PL
+(advised by PI Pierce, highlighted in blue) and HCI (advised
+by PI Head, highlighted in yellow). Key personnel for this work will include the
+co-PIs, one PhD student trained primarily in PL, one trained primarily in HCI,
+and many
+advanced undergraduate and Master's students.
+
+Early efforts will focus on strengthening foundations, strengthening and
+generalizing the findings from our need-finding research to-date. Then, beginning in
+year 1, we will develop PL techniques for which we have strong
+motivation, and which will form the backbone of later interactive systems. This
+includes the development of reflective generators, shrinkers, and fuzzers.
+Initially, these efforts will be led by PhD candidate Harrison Goldstein, who
+has developed the preliminary work in these areas cited in the proposal.
+
+HCI-based tool-building will begin in earnest in year 2, once the
+foundations have been established. This will take place in parallel with observations
+of developers undertaking PBT for the particular tasks the tools are meant to
+support. Some of these projects, most notably the ability to tune data
+distributions, will require tight coordination between the PL and HCI student.
+Other projects, including tooling for evaluating data distributions and and
+counterexamples as regression tests, are less tightly coupled.
+
+Educational initiatives will take place throughout the project. PBT
+instruction will be incorporated into the data science classroom in the
+first year, and iteratively improved after reviewing course outcomes in each
+successive year. Our efforts to teach developers when to leverage properties will
+occur mostly in the first two years in parallel with our formative
+research. Tool-building for the classroom will take place in the final two
+years, after we have established a strong instructional core for teaching PBT at
+Penn.
+
+\begin{figure}[b]
+  \centering
+ \begin{ganttchart}[
+      expand chart=\textwidth,
+      y unit chart=.4cm,
+      %   vgrid
+    ]{1}{4}
+% \gantttitle{Ongoing}{1}
+  \gantttitle{Year 1}{1}
+  \gantttitle{Year 2}{1}
+  \gantttitle{Year 3}{1}
+  \gantttitle{Year 4}{1}
+  % \\ \ganttbar
+  %      [bar/.append
+  %         style={fill=green}]
+  %      {\hbox to 3in{\bf Foundation \hfill \footnotesize Task}}
+  %      {1}{3}
+  \input{main.workplan}
+\end{ganttchart}
+  \caption{Plan of work.
+}\label{fig:workplan}
+\end{figure}
