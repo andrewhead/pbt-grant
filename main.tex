@@ -184,7 +184,8 @@
 }
 \newcommand{\sectionref}[1]{\S\ref{#1}}
 
-\newcommand{\TASK}[4]{%
+\newcommand{\TASK}[4]{}
+\newcommand{\TASKnotneeded}[4]{%
   \ifthenelse{\equal{#2}{#3}}{%
     \edef\FOO{year #2}%
   }{%
@@ -220,7 +221,7 @@
   }
 \gdef\currentganttsection{}
 
-  % \makeatletter
+% \makeatletter
 % \newcommand{\SECTION}[1]{\section{#1}
 %   \g@addto@macro\workplanitems{\ganttsection{#1}}
 % }
