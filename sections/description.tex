@@ -413,7 +413,8 @@ and one to identify potential for adoption of PBT tools
 particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
-\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Andrew}
+\SUBSECTION{Generalizing the Jane Street
+  Findings}{sec:survey}{1}{2}{Andrew}{I am a label}
 %
 The Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -477,7 +478,7 @@ better understanding of the situations where PBT is most effective
 (see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
-\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Andrew}
+\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Andrew}{}
 %
 Anecdotes related in interviews do not, in
 themselves, provide enough information to inform the design of
@@ -501,6 +502,10 @@ undertaking PBT tasks similar to the ones we
 aim to support. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
+
+\SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{Andrew}{}
+
+\todo{Write me Andrew}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
@@ -531,7 +536,7 @@ scenario of model-based testing (\sectionref{sec:automating}).
 The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
-\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Benjamin}
+\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Benjamin}{}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -696,7 +701,7 @@ the given trace properties in real time.
 % module boundearies. Maybe we can more explicitly state the broad classes of
 % systems for which this form of specification would apply?}
 
-\SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Benjamin}
+\SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Benjamin}{}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -770,6 +775,10 @@ should transfer.  \bcp{We are not really promising much here (and not
   giving much detail about what we do promise)... Can we beef it up?
   Maybe add another task?}
 
+\SUBSECTION{Tools for Understanding Properties}{sec:understanding}{2}{5}{Both}{}
+
+\todo{Write me Andrew.}
+
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
 Our Jane Street study also highlighted several \gentheme{generation themes}.
@@ -787,7 +796,7 @@ approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
 (\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
 effectiveness.
 
-\subsectionstar{Context: What Makes Random Generation Hard}
+\subsectionstar{Context: What Makes Random Generation Hard}{}
 As discussed in the Orientation section above, PBT relies heavily on {\em random data
 generators}.  Checking a property of the system or component under
 test with many randomly generated inputs gives confidence that the property
@@ -844,7 +853,7 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
-\subsectionstar{Context: Monadic and Free Generators}
+\subsectionstar{Context: Monadic and Free Generators}{}
 The most manual---and most flexible---solutions use hand-built
 generators, written in a convenient domain-specific language (DSL).
 In  Haskell, where PBT was
@@ -898,7 +907,52 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
-\SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Benjamin}
+\SUBSECTION{Benchmarking Generators}{sec:benchmarks}{1}{2}{Benjamin}{}
+
+\todo{Write me Harry and Benjamin}
+
+\iflater\todo{Make sure this feels different from Leo's CAREER}\fi
+%
+The many papers in the PBT literature demonstrate effectiveness with case
+studies, showing that certain bugs in certain systems are caught more quickly
+with one too over another. For theoretical advances, this is often sufficient
+to demonstrate that the paper is worth publishing, but this kind of evaluation
+can be hard to interpret from the perspective of a would-be user. With all of
+the new approaches to generation that we are proposing in this document, and
+considering our goals around usability, we want to do better.
+
+We will to develop and popularize a robust empirical evaluation framework for
+generators and other PBT techniques. Our first contribution will be an
+infrastructure for easily and extensibly running experiments.  By ``easily,'' we
+mean that we will take on the burden of collecting data and analyzing the
+results, exposing to the user library functions for their particular
+instantiations as needed. We will evaluate a given tool based on (1) the degree
+to which it is able to achieve high code coverage quickly, and (2) the speed
+with which it finds bugs that have been pre-seeded in example programs. By
+``extensibly,'' we mean that in addition to the two languages (Haskell and
+OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
+numerous workloads that we plan to support on release, we will design the
+infrastructure so that users can easily add new things along each dimension.
+
+Our second contribution will codify a library of case-studies and examples as
+{\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
+fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
+organized around the particular challenges that PBT tools face. In particular,
+few of the benchmarks deal with the kinds of complex preconditions that PBT
+tools are built to handle. We want to establish a set of challenging tasks that
+can serve as a north star for future improvements to PBT generators and
+bug-finding strategies (including our own!).
+
+Designs for this project are currently being discussed with Leonidas
+Lampropoulos and his group at the University of Maryland. PI Pierce has a long
+history of successful projects with Prof.
+Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+
+\hg{Is this everything? Probably not...}
+
+\SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Benjamin}{}
+\bcp{I actually wonder whether all three reflective subsections might
+  better be collapsed into a single one...}%
 Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
@@ -1008,7 +1062,7 @@ above).}
 % later projects in the proposal depend at least in part on this
 % working.}\bcp{Tried tweaking the wording a bit.  I think it's OK.}
 
-\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Benjamin}
+\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Benjamin}{}
 %
 Reflective generators' ability to run backward means that they can be used as
 a tool for analyzing and manipulating the structure of
@@ -1055,7 +1109,7 @@ shrinker behavior. We hope that these tools will mean that developers no longer
 need to be intimidated by the idea of shrinkers: they will simply work in the
 background, simplifying debugging.
 
-\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Benjamin}
+\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Benjamin}{}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
 ones behind PBT: in particular, they use randomization to exercise many
@@ -1129,48 +1183,9 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
+\SUBSECTION{Rethinking generator languages}{sec:genlang}{2}{4}{Both}{}
 
-% \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Andrew}
-% \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
-% \bcp{Maybe we should just cut it!}
-% %
-% The many papers in the PBT literature demonstrate effectiveness with case
-% studies, showing that certain bugs in certain systems are caught more quickly
-% with one too over another. For theoretical advances, this is often sufficient
-% to demonstrate that the paper is worth publishing, but this kind of evaluation
-% can be hard to interpret from the perspective of a would-be user. With all of
-% the new approaches to generation that we are proposing in this document, and
-% considering our goals around usability, we want to do better.
-
-% We will to develop and popularize a robust empirical evaluation framework for
-% generators and other PBT techniques. Our first contribution will be an
-% infrastructure for easily and extensibly running experiments.  By ``easily,'' we
-% mean that we will take on the burden of collecting data and analyzing the
-% results, exposing to the user library functions for their particular
-% instantiations as needed. We will evaluate a given tool based on (1) the degree
-% to which it is able to achieve high code coverage quickly, and (2) the speed
-% with which it finds bugs that have been pre-seeded in example programs. By
-% ``extensibly,'' we mean that in addition to the two languages (Haskell and
-% OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-% numerous workloads that we plan to support on release, we will design the
-% infrastructure so that users can easily add new things along each dimension.
-
-% Our second contribution will codify a library of case-studies and examples as
-% {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
-% fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
-% organized around the particular challenges that PBT tools face. In particular,
-% few of the benchmarks deal with the kinds of complex preconditions that PBT
-% tools are built to handle. We want to establish a set of challenging tasks that
-% can serve as a north star for future improvements to PBT generators and
-% bug-finding strategies (including our own!).
-
-% Designs for this project are currently being discussed with Leonidas
-% Lampropoulos and his group at the University of Maryland. PI Pierce has a long
-% history of successful projects with Prof.
-% Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
-% \iflater
-% \hg{Is this everything? Probably not...}
-% \fi
+\todo{Write me Andrew}
 
 \SECTION{Validation}{Understanding Testing Effectiveness%
  \pagebudget{3}}{sec:val}
@@ -1195,7 +1210,7 @@ experience designing, developing, evaluating, and deploying novel programming
 environments and
 tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
-\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Andrew}
+\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Andrew}{}
 %
 In comparison to testing techniques like unit testing, PBT draws many
 tests from some
@@ -1307,7 +1322,7 @@ farther to consider how interactive tools can help a developer not
 just understand input data distributions, but more directly change
 them.
 
-\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Benjamin}
+\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Benjamin}{}
 %
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
@@ -1356,7 +1371,7 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
-\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Andrew}
+\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Andrew}{}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1403,7 +1418,7 @@ design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \ifdraft
-% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}
+% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}
 
 % The informants in our interview study admitted to heuristic
 % approaches to determining how many tests to run. Many set
@@ -1480,7 +1495,7 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \fi
 
-\SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Andrew}
+\SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Andrew}{}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
@@ -1547,36 +1562,27 @@ settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
-\SECTION{HCI}{More HCI stuff}{sec:morehci}
+\SUBSECTION{Dashboards for Tracking Testing}{sec:dashboards}{2}{3}{Andrew}{}
 
-\bcp{Hopefully these can be integrated into other sections / themes?}
-
-\SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{Andrew}
-
-\SUBSECTION{Rethinking generator languages}{sec:genlang}{2}{4}{Both}
-
-\SUBSECTION{Aids for understanding property specifications}{sec:understanding}{2}{5}{Both}
-
-\SUBSECTION{Dashboards for tracking testing}{sec:dashboards}{2}{3}{Andrew}
-
-\SECTION{Integration}{Advancing Open Source PBT Tooling}{sec:platform}
+\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:platform}
 
 \bcp{If we're going to keep this as a top-level theme, we'll need to
   integrate it into the motivation early on (i.e., give it a color,
   talk about how the Jane Street study shows we need it, ...).  Many
-  of the specific items will fit just fine into the sections we've
-  got.  But I wonder whether a top level ``Integration'' theme might
-  be helpful for the story.}
+  of the specific items fit just fine into the sections we've got (and
+  I moved them there).  But I wonder whether a top level ``Diffusion''
+  or ``Integration'' theme might be helpful for the story, and as a
+  catch-all for the rest.  Thoughts?}
 
-\SUBSECTION{Benchmarking Generators}{sec:benchmarks}{1}{2}{Benjamin}
+\SUBSECTION{Reference Implementations}{sec:refkey}{3}{4}{Both}{}
 
-\SUBSECTION{Reference Implementations of Key Algorithms}{sec:refkey}{3}{4}{Both}
+\SUBSECTION{Reflection for Python}{sec:reflpython}{2}{3}{Benjamin}{}
 
-\SUBSECTION{Bringing Reflective Technology to Python}{sec:reflpython}{2}{3}{Benjamin}
+\SUBSECTION{IDE Integrations}{sec:ide}{3}{5}{Andrew}{}
 
-\SUBSECTION{IDE Integrations}{sec:ide}{3}{5}{Andrew}
+(Make sure this doesn't overlap things we've already said.)
 
-\SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Andrew}
+\SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Andrew}{}
 
 Building hooks into tools for extension and research experimentation...
 
@@ -1597,7 +1603,7 @@ and course materials for instructors to integrate PBT into
 early-stage computer science curriculum (\sectionref{sec:1210}).
 
 
-\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Benjamin}
+\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Benjamin}{}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
@@ -1646,7 +1652,7 @@ disseminate this documentation in blogs and incorporate it into tool
 manuals. Then, we will present the findings as a talk at a
 major professional developer conference.
 
-\SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Andrew}
+\SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Andrew}{}
 %
 Even when a developer knows when properties are useful in the abstract,
 they may still have trouble writing their first properties
@@ -1674,7 +1680,7 @@ course (CIS 5520) and therefore implemented on top of
 Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-\SUBSECTION{PBT for Undergraduates}{sec:1210}{1}{4}{Both}
+\SUBSECTION{PBT for Undergraduates}{sec:1210}{1}{4}{Both}{}
 %
 Education can act as a force multiplier to make technologies more usable.
 When tools or techniques become standards in undergraduate curricula,
@@ -1860,7 +1866,7 @@ Shi.
 
 \emph{\underline{PI Head}} has not previously received NSF support.
 
-% \SUBSECTION{Proposed Study}
+% \SUBSECTION{Proposed Study}{}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:
 % objectives for the period of the proposed work and expected significance; relation to longer-term goals of the PI's
 % project; and relation to the present state of knowledge in the field, to work in progress by the PI under other

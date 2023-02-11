@@ -149,7 +149,7 @@
 \newcommand{\subsectionstar}[1]{
   \medskip \noindent {\headerfont #1.}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
-\newcommand{\SUBSECTION}[5]{%
+\newcommand{\SUBSECTION}[6]{%
   \refstepcounter{subsection}%
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
@@ -170,7 +170,7 @@
 }
 \newcommand{\tasksection}[5]{
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
-    {\ganttnewline}
+  \ganttnewline
 %    {\ganttnewline[grid]}
   \ganttbar
        [bar/.append
