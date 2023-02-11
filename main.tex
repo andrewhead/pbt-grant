@@ -1,4 +1,5 @@
 \newif\ifdraft\drafttrue
+\newif\iflast\lastfalse
 
 \documentclass{NSF}
 
@@ -95,6 +96,7 @@
 \newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
 \newcommand{\comment}[1]{{\em #1}}
 \newcommand{\todo}[1]{\ifdraft {\color{nord-red} TODO: #1} \fi}
+\newcommand{\todolast}[1]{\iflast\ifdraft {\color{nord-red} TODO: #1} \fi\fi}
 \newcommand{\writeme}[1]{{\color{blue} #1}}
 \newcommand{\rewrite}[1]{{\ifdraft\color{dkred}\fi #1}}
 % \newcommand{\pagebudget}[1]{(#1 pages)}
@@ -183,7 +185,12 @@
 \newcommand{\sectionref}[1]{\S\ref{#1}}
 
 \newcommand{\TASK}[4]{%
-  \smallskip {\it{Task: #1 (#4).}}
+  \ifthenelse{\equal{#2}{#3}}{%
+    \edef\FOO{year #2}%
+  }{%
+    \edef\FOO{years #2--#3}%
+  }
+  \smallskip {\it{Task: #1 (\FOO, #4).}}
   % \ifthenelse{\equal{#4}{Harry}}{%
   %   \edef\FOO{\harrycolor}%
   % }{%
