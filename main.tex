@@ -122,8 +122,21 @@
 \usepackage{anyfontsize}
 \newcommand{\headerfont}{\fontsize{11}{13}\selectfont\bf}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{ifthen}
+\usepackage{pgfgantt}
+
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
+
+\newcommand{\benjamincolor}{nord-frost4}
+\newcommand{\bothcolor}{nord-purple}
+\newcommand{\andrewcolor}{nord-red}
+\newcommand{\othercolor}{black}
+
 \newcommand{\SIMPLESECTION}[2]{\section{#1}\label{#2}}
 \newcommand{\SECTION}[3]{%
   \SIMPLESECTION{#1: #2}{#3}
@@ -139,33 +152,21 @@
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
   \label{#2}%
-  \ifthenelse{\equal{#5}{Harry}}{%
-    \edef\FOO{\harrycolor}%
+  \ifthenelse{\equal{#5}{Benjamin}}{%
+    \edef\FOO{\benjamincolor}%
+  }{%
+  \ifthenelse{\equal{#5}{Andrew}}{%
+    \edef\FOO{\andrewcolor}%
   }{%
   \ifthenelse{\equal{#5}{Both}}{%
     \edef\FOO{\bothcolor}%
   }{%
     \edef\FOO{\othercolor}}%
-  }%
+  }}%
   \immediate\write\workplanfile{%
-    \string\task{#1}{#2}{#3}{#4}{
-      \FOO}}%
+    \string\tasksection{#1}{#2}{#3}{#4}{\FOO}}%
 }
-\newcommand{\sectionref}[1]{\S\ref{#1}}
-
-\usepackage{ifthen}
-\usepackage{pgfgantt}
-\ganttset{bar height=.6}
-%\ganttset{hgrid style/.style=black}
-\newcommand{\ganttsection}[1]{
-  \gdef\currentganttsection{#1}
-  %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
-  }
-\newcommand{\harrycolor}{nord-frost4}
-\newcommand{\bothcolor}{nord-green}
-\newcommand{\othercolor}{nord-yellow}
-\gdef\currentganttsection{}
-\newcommand{\task}[5]{
+\newcommand{\tasksection}[5]{
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
     {\ganttnewline}
 %    {\ganttnewline[grid]}
@@ -179,6 +180,38 @@
        {#3}{#4}
   \gdef\currentganttsection{}
 }
+\newcommand{\sectionref}[1]{\S\ref{#1}}
+
+\newcommand{\TASK}[4]{%
+  \smallskip {\it{Task: #1 (#4).}}
+  % \ifthenelse{\equal{#4}{Harry}}{%
+  %   \edef\FOO{\harrycolor}%
+  % }{%
+  % \ifthenelse{\equal{#4}{Both}}{%
+  %   \edef\FOO{\bothcolor}%
+  % }{%
+  %   \edef\FOO{\othercolor}}%
+  % }%
+  \immediate\write\workplanfile{%
+    % \string\task{#1 (#4)}{#2}{#3}{\FOO}}%
+    \string\task{#1 (#4)}{#2}{#3}}%
+}
+\newcommand{\task}[3]{
+    {\ganttnewline}
+  \ganttbar
+       [bar/.append
+          style={fill=white}]
+       {\hbox to 3in{\hfill \footnotesize \it #1}}
+       {#2}{#3}
+}
+
+\ganttset{bar height=.6}
+%\ganttset{hgrid style/.style=black}
+\newcommand{\ganttsection}[1]{
+  \gdef\currentganttsection{#1}
+  %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
+  }
+\gdef\currentganttsection{}
 
   % \makeatletter
 % \newcommand{\SECTION}[1]{\section{#1}
@@ -207,6 +240,10 @@
 % \newcommand{\task}[4]{
 %   \ganttbar [bar/.append style={fill=gray}]
 %     {\small #1 (\sectionref{#2})}{#3}{#4} \\ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -275,10 +312,10 @@
 \newpage
 \input{sections/data}		% Data Management Plan (Required)
 
-\newpage\newsection{K}
-\input{sections/coord}
-
 \newpage
 \input{sections/personnel}		% Personnel (Required)
+
+\newpage\newsection{K}
+\input{sections/coord}
 
 \end{document}

@@ -411,7 +411,7 @@ and one to identify potential for adoption of PBT tools
 particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
-\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Other}
+\SUBSECTION{Generalizing the Jane Street Findings}{sec:survey}{1}{2}{Andrew}
 %
 The Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -423,7 +423,8 @@ represent widely experienced pain points and
 (2) characterize the potential benefits of better tools to the
 software industry as a whole.
 
-\emph{Validation survey}. The main survey we will conduct checks that
+\TASK{Validation survey}{1}{2}{Who???} The main survey we will conduct
+checks that
 the things we are learning from Jane Street generalize to other settings.
 We will
 ask developers which of the issues are
@@ -455,7 +456,8 @@ year~\cite{Pierce:Yow22}.
 % a cumulative thousands of programmers with functional
 % programming experience.
 
-\emph{Impact survey}. A more speculative survey we hope to conduct
+\TASK{Impact survey}{1}{2}{who???} A more speculative survey we hope to
+conduct\todo{Promise it!}
 will investigate
 how broadly PBT may {\em eventually} be able to reach.  To get a sense
 of this, we will
@@ -471,7 +473,7 @@ better understanding of the situations where PBT is most effective
 (see \sectionref{sec:whento}), but if done right this could provide invaluable
 feedback to PBT researchers about how far their work could reach.
 
-\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Other}
+\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{3}{Andrew}
 %
 Anecdotes related in interviews do not, in and of
 themselves, generally provide enough information to inform the design of
@@ -517,7 +519,7 @@ scenario of model-based testing (\sectionref{sec:automating}).
 The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
-\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Harry}
+\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{3}{Benjamin}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -681,7 +683,7 @@ the given trace properties in real time.
 % module boundearies. Maybe we can more explicitly state the broad classes of
 % systems for which this form of specification would apply?}
 
-\SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Harry}
+\SUBSECTION{Models for Modules}{sec:automating}{2}{3}{Benjamin}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -879,7 +881,7 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
-\SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Harry}
+\SUBSECTION{Reflective Generators}{sec:reflective}{1}{1}{Benjamin}
 Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
@@ -985,7 +987,7 @@ year of the proposed project.
 % later projects in the proposal depend at least in part on this
 % working.}\bcp{Tried tweaking the wording a bit.  I think it's OK.}
 
-\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Harry}
+\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{2}{2}{Benjamin}
 %
 Reflective generators' ability to run backward means that they can be used as
 a tool for analyzing and manipulating the structure of
@@ -1031,7 +1033,7 @@ shrinker behavior. We hope that these tools will mean that developers no longer
 need to be intimidated by the idea of shrinkers: they will simply work in the
 background, simplifying debugging.
 
-\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Harry}
+\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{Benjamin}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
 ones behind PBT: in particular, they use randomization to exercise many
@@ -1105,7 +1107,7 @@ where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
 
-% \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Other}
+% \SUBSECTION{Benchmarking}{sec:benchmarking}{1}{3}{Andrew}
 % \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
 % \bcp{Maybe we should just cut it!}
 % %
@@ -1170,7 +1172,7 @@ experience designing, developing, evaluating, and deploying novel programming
 environments and
 tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
-\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Other}
+\SUBSECTION{Evaluating Data Distributions}{sec:evaluating_distributions}{2}{3}{Andrew}
 %
 In comparison to testing techniques like unit testing, PBT draws many
 tests from some
@@ -1280,7 +1282,7 @@ farther to consider how interactive tools can help a developer not
 just understand input data distributions, but more directly change
 them.
 
-\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Harry}
+\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{Benjamin}
 %
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
@@ -1327,7 +1329,7 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
-\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Other}
+\SUBSECTION{Counterexamples as Regression Tests}{sec:counter}{2}{2}{Andrew}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1373,7 +1375,7 @@ design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \ifdraft
-% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Other}
+% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}
 
 % The informants in our interview study admitted to heuristic
 % approaches to determining how many tests to run. Many set
@@ -1450,7 +1452,7 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \fi
 
-\SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Other}
+\SUBSECTION{Interactive Shrinking and Debugging}{sec:failures}{3}{4}{Andrew}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
@@ -1532,7 +1534,7 @@ and course materials for instructors to integrate PBT into
 early-stage computer science curriculum (\sectionref{sec:1210}).
 
 
-\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Harry}
+\SUBSECTION{``When to Specify It!''}{sec:whento}{1}{2}{Benjamin}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
@@ -1581,7 +1583,7 @@ disseminate this documentation in blogs and incorporate it into tool
 manuals. Then, we will present the findings as a talk at a
 major professional developer conference.
 
-\SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Other}
+\SUBSECTION{Interactive Property Specification}{sec:interactive}{3}{4}{Andrew}
 %
 Even when a developer knows when properties are useful in the abstract,
 they may still have trouble writing their first properties
