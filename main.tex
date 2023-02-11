@@ -1,4 +1,4 @@
-% https://www.nsf.gov/pubs/policydocs/pappg22_1/pappg_2.jsp#IIB
+\newif\ifdraft\drafttrue
 
 \documentclass{NSF}
 
@@ -86,7 +86,6 @@
 \definecolor{gray}{HTML}{BBBBBB}
 \definecolor{darkgray}{HTML}{555555}
 
-\newif\ifdraft\draftfalse
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
 \newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
 \newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
