@@ -26,6 +26,8 @@
 \definecolor{nord-yellow}{HTML}{ebcb8b}
 \definecolor{nord-green}{HTML}{69894d}
 \definecolor{nord-purple}{HTML}{815679}
+\definecolor{nord-red1}{HTML}{cc7777}
+\definecolor{nord-red4}{HTML}{994444}
 
 \usepackage{listings}
 \lstset{
@@ -134,10 +136,31 @@
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
 
-\newcommand{\benjamincolor}{nord-frost4}
-\newcommand{\bothcolor}{nord-purple}
-\newcommand{\andrewcolor}{nord-red}
-\newcommand{\othercolor}{black}
+\newcommand{\techtransfercolor}{nord-purple}
+\newcommand{\educationcolor}{nord-green}
+\newcommand{\pltheorycolor}{nord-frost1}
+\newcommand{\plpracticecolor}{nord-frost4}
+\newcommand{\hcitheorycolor}{nord-red1}
+\newcommand{\hcipracticecolor}{nord-red4}
+\newcommand{\COLOROF}[1]{%
+  \ifthenelse{\equal{#1}{Tech Transfer}}
+    {\edef\FOO{\techtransfercolor}}
+    {\ifthenelse{\equal{#1}{Education}}
+      {\edef\FOO{\educationcolor}}
+      {\ifthenelse{\equal{#1}{PL Theory}}
+        {\edef\FOO{\pltheorycolor}}
+        {\ifthenelse{\equal{#1}{PL Practice}}
+          {\edef\FOO{\plpracticecolor}}
+          {\ifthenelse{\equal{#1}{HCI Theory}}
+            {\edef\FOO{\hcitheorycolor}}
+            {\ifthenelse{\equal{#1}{HCI Practice}}
+              {\edef\FOO{\hcipracticecolor}}
+              {\edef\FOO{white}}
+}}}}}}
+\newcommand{\colorkey}[1]{%
+  %\COLOROF{#1}%
+  %\FOO = #1%
+}
 
 \newcommand{\SIMPLESECTION}[2]{\section{#1}\label{#2}}
 \newcommand{\SECTION}[3]{%
@@ -149,22 +172,23 @@
 \newcommand{\subsectionstar}[1]{
   \medskip \noindent {\headerfont #1.}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
-\newcommand{\SUBSECTION}[6]{%
+\newcommand{\SUBSECTION}[7]{%
   \refstepcounter{subsection}%
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
   \label{#2}%
-  \ifthenelse{\equal{#5}{Benjamin}}{%
-    \edef\FOO{\benjamincolor}%
-  }{%
-  \ifthenelse{\equal{#5}{Andrew}}{%
-    \edef\FOO{\andrewcolor}%
-  }{%
-  \ifthenelse{\equal{#5}{Both}}{%
-    \edef\FOO{\bothcolor}%
-  }{%
-    \edef\FOO{\othercolor}}%
-  }}%
+  \COLOROF{#5}
+  % \ifthenelse{\equal{#5}{Benjamin}}{%
+  %   \edef\FOO{\benjamincolor}%
+  % }{%
+  % \ifthenelse{\equal{#5}{Andrew}}{%
+  %   \edef\FOO{\andrewcolor}%
+  % }{%
+  % \ifthenelse{\equal{#5}{Both}}{%
+  %   \edef\FOO{\bothcolor}%
+  % }{%
+  %   \edef\FOO{\othercolor}}%
+  % }}%
   \immediate\write\workplanfile{%
     \string\tasksection{#1}{#2}{#3}{#4}{\FOO}}%
 }
