@@ -190,9 +190,9 @@
   %   \edef\FOO{\othercolor}}%
   % }}%
   \immediate\write\workplanfile{%
-    \string\tasksection{#1}{#2}{#3}{#4}{\FOO}}%
+    \string\tasksection{#1}{#2}{#3}{#4}{\FOO}{#5}{#6}{#7}}%
 }
-\newcommand{\tasksection}[5]{
+\newcommand{\tasksectiongantt}[7]{
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
   \ganttnewline
 %    {\ganttnewline[grid]}
@@ -207,6 +207,7 @@
   \gdef\currentganttsection{}
 }
 \newcommand{\sectionref}[1]{\S\ref{#1}}
+\newcommand{\tasksection}{\tasksectiongantt}
 
 \newcommand{\TASK}[4]{}
 \newcommand{\TASKnotneeded}[4]{%
@@ -244,6 +245,15 @@
   %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
   }
 \gdef\currentganttsection{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tasksectionroles}[7]{
+%  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
+  \\
+  XXXXXXXXXXXXXXXXXXXXXXXXX
+}
+
 
 % \makeatletter
 % \newcommand{\SECTION}[1]{\section{#1}
