@@ -419,7 +419,7 @@ particular tasks involved in PBT to guide the design of new algorithms
 and interactive tools (\sectionref{sec:observations}).
 
 \SUBSECTION{Generalizing the Jane Street
-  Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 2}{}{Head}
+  Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
 %
 The Jane Street study has already revealed a number of
 opportunities to improve tools for property-based testing. To identify
@@ -444,7 +444,7 @@ To provide
 clear usage scenarios to guide research, respondents will
 be asked to write brief anecdotes elaborating on the
 most severe issues they remember.  Other questions will assess how
-heavily respondants depend on specific features of their PBT tools
+heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
 ambient programming environment and language (e.g., whether their
 language supports Haskell-like typeclasses or OCaml-style
@@ -484,7 +484,7 @@ better understanding of the situations where PBT is most effective
 feedback to PBT researchers about how far their work could reach.
 
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{4}{HCI
-  Theory}{PhD 2}{}{Who?}
+  Theory}{PhD 1}{}{Who?}
 %
 Anecdotes related in interviews do not, in
 themselves, provide enough information to inform the design of
@@ -509,8 +509,12 @@ aim to support. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
 
+\SUBSECTION{Designing PBT Frameworks}{sec:frameworks}{2}{4}{HCI Theory}{PhD 1}{PhD 3}{Who?}
+
 \SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{HCI
-  Theory}{PhD 4}{}{Who?}
+  Theory}{PhD 4}{PhD 1}{Who?}
+
+\todo{Write me Andrew / Harry}
 
 \todo{Write me Andrew}
 
@@ -544,7 +548,7 @@ The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{2}{PL
-  Practice}{PhD 1}{Undergrad 1}{Who?}
+  Practice}{PhD 2}{Undergrad 1}{Who?}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -924,7 +928,7 @@ random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
 \SUBSECTION{Benchmarking Generators}{sec:benchmarks}{1}{2}{Tech
-  Transfer}{PhD 1}{PhD 2}{Who?}
+  Transfer}{PhD 2}{PhD 1}{Who?}
 
 \todo{Write me Harry and Benjamin}
 
@@ -968,10 +972,10 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 \hg{Is this everything? Probably not...}
 
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{PL
-  Theory}{PhD 1}{}{Who?}
+  Theory}{PhD 2}{}{Who?}
 \bcp{I actually wonder whether all three reflective subsections might
   better be collapsed into a single one...}
-\hg{I don't mind, as long as it doesn't make PhD 1 feel thin}
+\hg{I don't mind, as long as it doesn't make PhD 2 feel thin}
 \hg{Also, BCP can you read the future work of the reflective paper at some
 point and let me know if you think the synthesis angle belongs here
 somewhere?}\bcp{Will do.  Adding it might give us an additonal ``PL
@@ -1085,8 +1089,9 @@ above).}
 % later projects in the proposal depend at least in part on this
 % working.}\bcp{Tried tweaking the wording a bit.  I think it's OK.}
 
-\SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{PL
-  Practice}{PhD 1}{Engineer}{Who?}
+\todo{TRANSITION}
+% \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{PL
+%   Practice}{PhD 2}{Engineer}{Who?}
 %
 Reflective generators' ability to run backward means that they can be used as
 a tool for analyzing and manipulating the structure of
@@ -1133,7 +1138,8 @@ shrinker behavior. We hope that these tools will mean that developers no longer
 need to be intimidated by the idea of shrinkers: they will simply work in the
 background, simplifying debugging.
 
-\SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{PL Practice}{PhD 1}{Engineer}{Who?}
+\todo{TRANSITION}
+% \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{PL Practice}{PhD 2}{Engineer}{Who?}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
 ones behind PBT: in particular, they use randomization to exercise many
@@ -1207,8 +1213,8 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-\SUBSECTION{Making Reflectives Usable}{sec:genlang}{4}{4}{HCI
-  Practice}{PhD 1}{PhD 3}{Who?}
+\SUBSECTION{Making Reflectives Usable}{sec:reflectiveusable}{4}{4}{HCI
+  Practice}{PhD 2}{PhD 3}{Who?}
 
 \todo{Write me Harry (BCP: not sure what this is?)}
 
@@ -1216,17 +1222,12 @@ correctly.
 language. Reflectives are sometimes tricky to write, and we want to make sure
 it's as easy as we can make it.}
 
-\SUBSECTION{Rethinking Generator DSLs}{sec:genlang}{2}{4}{HCI Theory}{PhD
-  2}{PhD 3}{Who?}
+\SUBSECTION{Generator Automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
 
-\todo{Write me Andrew / Harry}
-
-\hg{I don't know where this fits relative to everything else. I was imagining
-this as a bit of a broader project asking about PBT frameworks in general (not
-just generator languages)}
-
-\SECTION{Validation}{Understanding Testing Effectiveness%
+\SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
+
+\todo{Rewrite to fit new section name}
 
 A final set of challenges in maximizing PBT's usability lies in
 helping developers
@@ -1463,6 +1464,80 @@ can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
+
+\SUBSECTION{Interactive Shrinking and
+  Debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Who?}
+%
+One of the challenges in using PBT is understanding why
+a given counterexample triggers a bug.  We will design interactive
+tools to help in this process.
+
+% \TASK{Interactive Shrinking}{3}{4}{who?}
+First, we will design tools that build on
+shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
+understand counterexamples. Automatic shrinking, even when done via reflective
+shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and
+shrinkers often make suboptimal decisions that an individual developer might be
+able to make better.
+Drawing inspiration from approaches in recent HCI literature that support
+interactive code reduction through iterative, incremental
+experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
+we will design aids for rapid, incremental, interactive shrinking of complex
+inputs into simpler inputs. The key feature we will develop is the ability to
+shrink inputs semi-automatically by pruning the input's contents and structure in an interactive
+object viewer, similar to the kinds of object viewers available in contemporary
+debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
+The interactive shrinker will display the \emph{valid} ways
+in which an input can be pruned, but the choice of exactly what to prune will be
+up to the human. We will rely on reflective generators to provide the insights
+into which parts of the structure correspond to choices that can be pruned, and
+these pruning points will be made
+visible in the object viewer. As a developer prunes the input, they will receive
+continuous feedback as to whether it still causes a test to fail or not.
+Developers will ultimately be able to
+reduce complex counterexamples into simpler ones that are
+easier to reason about when looking for bugs.
+
+% Developers will also be alerted if the execution path
+% through the code has changed as a result of shrinking the input. In some
+% circumstances, this will indicate an undesirable change in the shrunken input,
+% and in other cases, such changes in execution paths may be permissible (e.g., if
+% the change in the input has led to a reduction in the number of cycles through a
+% loop).
+
+% \amh{Could we indicate on top of an object explorer which
+% parts of the structure, if changed, would end up leading to
+% a different test result, or preserving it?}
+% \hg{To a point... You'd run into exponential blowup pretty much immediately, but
+% depending on the scale of the input it could be doable}
+
+% Other related projects:
+% Whyline~\cite{ref:ko2009finding}.
+
+% \TASK{Interactive debugging from failing tests}{3}{4}{who?}
+In addition to developing novel interaction techniques for simplifying inputs,
+we will also develop systems for helping developers locate code that, if
+changed, would resolve the failure. Rather than explicitly encoding
+relationships between generated outputs and their dependencies on
+code~\cite{ref:ko2009finding}, we will instead help the developer
+understand where the execution paths of a given counterexample diverges from
+successful yet very similar inputs. Leveraging the parametric nature of the
+reflective generators, we will generate inputs in a space ``around'' a
+counterexample and identify which ones no longer cause a failure.  Then, we will
+execute the program up to the point where the traces of the programs begin to
+diverge, and we will drop the programmer into a debugging environment where
+they can query the state of the program and step through the remainder of the
+execution. PI Head has prior work designing debugging tools that help
+programmers understand trace divergences in an educational
+settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
+bring this technology into professional programming environments where traces
+for similar inputs are abundant.
+
+\SUBSECTION{Dashboards for Long-Running Tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
+3}{Engineer}{Who?}
+
+\hg{I copied a comment into here---can we use any of that writing for this
+section?}
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}{}
 
@@ -1541,75 +1616,11 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 % \fi
 
-\SUBSECTION{Interactive Shrinking and
-  Debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{}{Who?}
-%
-One of the challenges in using PBT is understanding why
-a given counterexample triggers a bug.  We will design interactive
-tools to help in this process.
+\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{3}{5}{Tech
+  Transfer}{PhD 3}{Engineer}{Who?}
 
-% \TASK{Interactive Shrinking}{3}{4}{who?}
-First, we will design tools that build on
-shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
-understand counterexamples. Automatic shrinking, even when done via reflective
-shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and
-shrinkers often make suboptimal decisions that an individual developer might be
-able to make better.
-Drawing inspiration from approaches in recent HCI literature that support
-interactive code reduction through iterative, incremental
-experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
-we will design aids for rapid, incremental, interactive shrinking of complex
-inputs into simpler inputs. The key feature we will develop is the ability to
-shrink inputs semi-automatically by pruning the input's contents and structure in an interactive
-object viewer, similar to the kinds of object viewers available in contemporary
-debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
-The interactive shrinker will display the \emph{valid} ways
-in which an input can be pruned, but the choice of exactly what to prune will be
-up to the human. We will rely on reflective generators to provide the insights
-into which parts of the structure correspond to choices that can be pruned, and
-these pruning points will be made
-visible in the object viewer. As a developer prunes the input, they will receive
-continuous feedback as to whether it still causes a test to fail or not.
-Developers will ultimately be able to
-reduce complex counterexamples into simpler ones that are
-easier to reason about when looking for bugs.
-
-% Developers will also be alerted if the execution path
-% through the code has changed as a result of shrinking the input. In some
-% circumstances, this will indicate an undesirable change in the shrunken input,
-% and in other cases, such changes in execution paths may be permissible (e.g., if
-% the change in the input has led to a reduction in the number of cycles through a
-% loop).
-
-% \amh{Could we indicate on top of an object explorer which
-% parts of the structure, if changed, would end up leading to
-% a different test result, or preserving it?}
-% \hg{To a point... You'd run into exponential blowup pretty much immediately, but
-% depending on the scale of the input it could be doable}
-
-% Other related projects:
-% Whyline~\cite{ref:ko2009finding}.
-
-% \TASK{Interactive debugging from failing tests}{3}{4}{who?}
-In addition to developing novel interaction techniques for simplifying inputs,
-we will also develop systems for helping developers locate code that, if
-changed, would resolve the failure. Rather than explicitly encoding
-relationships between generated outputs and their dependencies on
-code~\cite{ref:ko2009finding}, we will instead help the developer
-understand where the execution paths of a given counterexample diverges from
-successful yet very similar inputs. Leveraging the parametric nature of the
-reflective generators, we will generate inputs in a space ``around'' a
-counterexample and identify which ones no longer cause a failure.  Then, we will
-execute the program up to the point where the traces of the programs begin to
-diverge, and we will drop the programmer into a debugging environment where
-they can query the state of the program and step through the remainder of the
-execution. PI Head has prior work designing debugging tools that help
-programmers understand trace divergences in an educational
-settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
-bring this technology into professional programming environments where traces
-for similar inputs are abundant.
-
-\SUBSECTION{Dashboards for CI/CD}{sec:dashboards}{4}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
+\hg{Name is a placeholder. Tyche is a god of randomness, and I've been waiting
+to use the name forever, but I'm not even a little attached to it}
 
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:platform}
 
@@ -1634,37 +1645,33 @@ the whole architecture for the proposal: it was a nice conceit for a
 smaller project, but this one reaches too far beyond.  The grand
 challenge is better motivation for the whole thing.}
 
-\SUBSECTION{A Minimal Implementation of
-  PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{PhD 1}{Who?}
+\SUBSECTION{Not Just ``Research Software''}{sec:engineersupport}{2}{3}{Tech Transfer}{Engineer}{}{Who?}
+% \SUBSECTION{A Minimal Implementation of
+%   PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{}{Who?}
 
-\SUBSECTION{Reflection in the Wild}{sec:reflpython}{2}{3}{PL Practice}{????}{????}{Who?}
 
+% \SUBSECTION{A Minimal Implementation of
+%   PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{PhD 1}{Who?}
+
+% \SUBSECTION{Reflection in the Wild}{sec:reflpython}{2}{3}{PL
+% Practice}{Engineer}{PhD 2}{Who?}
+
+% \SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech
+% Transfer}{Engineer}{PhD 3}{Who?}
+The engineer will provide support, design input, etc. to the students as they
+produce research artifacts. When the projects are done, the engineer will
+continue to maintain and grow those software projects.
+
+{\em A Minimal Implementation of PBT.}
+
+{\em Reflection in the Wild.}
 \bcp{We can mention Python if needed, but let's try to keep our aims a
 bit broader than just Python.}
 
-\bcp{Who should do it?}
-
-\SUBSECTION{Nurturing the PBT
-  Ecosystem}{sec:reflpython}{2}{3}{Tech Transfer}{Engineer}{PhD 2}{Who?}
-
-\SUBSECTION{IDE Integrations}{sec:ide}{3}{5}{Tech
-  Transfer}{Engineer}{PhD 3}{Who?}
-
-Alternative title: [NAME]: An Editor Extension for PBT
-
-(Make sure this doesn't overlap things we've already said.)
-
-\hg{It feels like putting this in Diffusion undersells it. We want everything we
-build to be integrated into a PBT IDE in a way that users can easily find and
-work with. Is there a way we can get an IDE project into the Specification
-section so we can connect back to these sections later?}\bcp{I like
-your idea for this.}
-
-\SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech Transfer}{Engineer}{PhD 3}{Who?}
-
+{\em Maintaining and Extending Tyche.}
 Building hooks into tools for extension and research experimentation...
 
-\bcp{Who?}
+\SUBSECTION{Nurturing the PBT Ecosystem}{sec:nurturing}{2}{3}{Tech Transfer}{Engineer}{PhD 1}{Who?}
 
 \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
 %
@@ -1734,7 +1741,7 @@ manuals. Then, we will present the findings as a talk at a
 major professional developer conference.
 
 \SUBSECTION{Interactive Property
-  Specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{Engineer}{Who?}
+  Specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
 \bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
 \bcp{When??}
