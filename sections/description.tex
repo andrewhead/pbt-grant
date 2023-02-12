@@ -52,7 +52,8 @@ software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}. With support
-now available in pretty much every major programming language, PBT has
+now available in pretty much every major programming language \hg{But not
+enough! And not consistent}, PBT has
 begun to make significant inroads in the broader software
 industry. For example, the developers of the Hypothesis library for
 Python estimate that it is used by around half a million
@@ -134,6 +135,8 @@ prior NSF-supported work.
 
 \bcp{Somewhere in the intro, I think we should put a snazzy
   infographic of the whole project...}
+\hg{I can give that a try, you know I like snazzy infographics. Once we're
+settled on the story I'll see what I can do}
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
@@ -152,7 +155,9 @@ a BST after the insertion of \texttt{x}:
 \end{lstlisting}
 In general, a property is a function that
 accepts a generated
-test as input and evaluates to \lstinline{True} if the test passes, and
+test as input \hg{``generated test input''? I try to avoid calling the inputs
+``tests''}
+and evaluates to \lstinline{True} if the test passes, and
 \lstinline{False} otherwise.  This one, ``\verb|prop_insert_correct|'',
 checks that an insert operation on a binary search tree preserves the
 binary ordering of the tree.
@@ -766,7 +771,7 @@ problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
 % \TASK{Foundations for testing modules}{2}{2}{Who?}
 To solve these problems, we will take a foundational approach, breaking down
 modules theoretically and developing automation heuristics from first
-principles. This will probably involve identifying a subset of
+principles. This will probably\hg{Blah} involve identifying a subset of
 modules where automation is {\em not} possible; highlighting that subset will
 provide useful context for future work that might aim to simplify these cases in
 other ways (e.g., by putting a human in the loop).
@@ -778,6 +783,11 @@ traits, Haskell type classes, etc.), so solutions we find in OCaml
 should transfer.  \bcp{We are not really promising much here (and not
   giving much detail about what we do promise)... Can we beef it up?
   Maybe add another task?}
+\hg{The first problem is that we just don't stick the landing here. We're
+planning to build a ``turnkey'' solution to MBT, but we get bogged down in
+details and never pop back up. I'm not sure I have any other tasks to suggest...
+have any of our conversations with Ernest raised new design decisions /
+theoretical concerns we haven't considered?}
 
 \SUBSECTION{Explaining Properties}{sec:understanding}{2}{5}{HCI
   Theory}{PhD 4}{}
@@ -959,7 +969,10 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 \SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{PL
   Theory}{PhD 1}{}
 \bcp{I actually wonder whether all three reflective subsections might
-  better be collapsed into a single one...}%
+  better be collapsed into a single one...}
+\hg{I don't mind, as long as it doesn't make PhD 1 feel thin}
+\hg{Also, BCP can you read the future work of the reflective paper at some
+point and let me know if you think the synthesis angle belongs here somewhere?}%
 Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
@@ -1196,10 +1209,18 @@ correctly.
 
 \todo{Write me Harry (BCP: not sure what this is?)}
 
-\SUBSECTION{Rethinking generator DSLs}{sec:genlang}{2}{4}{HCI Theory}{PhD
+\hg{It's usability studies and a potential re-design of the reflectives
+language. Reflectives are sometimes tricky to write, and we want to make sure
+it's as easy as we can make it.}
+
+\SUBSECTION{Rethinking Generator DSLs}{sec:genlang}{2}{4}{HCI Theory}{PhD
   2}{PhD 3}
 
-\todo{Write me Andrew}
+\todo{Write me Andrew / Harry}
+
+\hg{I don't know where this fits relative to everything else. I was imagining
+this as a bit of a broader project asking about PBT frameworks in general (not
+just generator languages)}
 
 \SECTION{Validation}{Understanding Testing Effectiveness%
  \pagebudget{3}}{sec:val}
@@ -1426,12 +1447,15 @@ in-situ editing assistance along the lines of contemporary interactive
 refactoring tools from the HCI
 literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
 For this unique task of transforming properties into regression tests,
-our tool will provide the key features of keeping track of the failed input,
+our tool will \proposecut{provide the key features of}\hg{MINOR: Feel free to disagree,
+but I think phrases like this are a bit of an anti-pattern. I'd rather just say
+the tool will X} keeping track of the failed input,
 generating starter test code, substituting in correct expected values of the
 output by executing corrected code, and supporting developers in rapidly
 performing likely edits to regression tests by providing suggestions of
 alterations to their code like the ability to generate general property checks
-with precise equality checks\bcp{??}. We also hope the results of this work
+with precise equality checks\bcp{??}\hg{I also don't understand what this is
+getting at}. We also hope the results of this work
 can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
@@ -1594,6 +1618,15 @@ for similar inputs are abundant.
   or ``Integration'' theme might be helpful for the story, and as a
   catch-all for the rest.  Thoughts?}
 
+\hg{I think I like the idea of a section where we can talk about what the
+engineer will do without having to shoehorn it into others' projects. E.g., the
+engineer will theoretically be making changes to Hypothesis based on findings
+from Jane Street, reflectives, etc. but it's hard to talk about open-source
+maintainence in those sections. It will be difficult to justify diffusion based
+on the JS study, but it'll be a no-brainer if we justify it from the perspective
+of the ``grand challenge'' of establishing a cohesive, multi-language ecosystem
+for usable PBT}
+
 \SUBSECTION{A Minimal Implementation of
   PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{PhD 1}
 
@@ -1614,7 +1647,12 @@ Alternative title: [NAME]: An Editor Extension for PBT
 
 (Make sure this doesn't overlap things we've already said.)
 
-\SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech Transfer}{Engineer}{???}
+\hg{It feels like putting this in Diffusion undersells it. We want everything we
+build to be integrated into a PBT IDE in a way that users can easily find and
+work with. Is there a way we can get an IDE project into the Specification
+section so we can connect back to these sections later?}
+
+\SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech Transfer}{Engineer}{PhD 3}
 
 Building hooks into tools for extension and research experimentation...
 
