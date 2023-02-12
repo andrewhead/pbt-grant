@@ -129,27 +129,45 @@ advanced undergraduate and Master's students.
 \end{ganttchart}
 \caption{Plan of work.
   Colors:
-  \explaincolor{PL Theory}{\pltheorycolor},
-  \explaincolor{PL Practice}{\plpracticecolor},
-  \explaincolor{HCI Theory}{\hcitheorycolor},
-  \explaincolor{HCI Practice}{\hcipracticecolor},
-  \explaincolor{Tech Transfer}{\techtransfercolor},
-  \explaincolor{Education}{\educationcolor}.
+  % \explaincolor{PL Theory}{\pltheorycolor},
+  % \explaincolor{PL Practice}{\plpracticecolor},
+  % \explaincolor{HCI Theory}{\hcitheorycolor},
+  % \explaincolor{HCI Practice}{\hcipracticecolor},
+  % \explaincolor{Tech Transfer}{\techtransfercolor},
+  % \explaincolor{Education}{\educationcolor}.
+  \explaincolor{Supervised by Pierce}{\piercecolor},
+  \explaincolor{Supervised by Head}{\headcolor},
+  \explaincolor{Co-supervised}{\bothcolor}.
   \todo{Explain the figure!}
   \bcp{The years need to be rethought for all of these!}}
-  \hg{I'm afraid we may have over-indexed on these categories. For one thing,
-  bucketing a project as one thing or another sort of undersells the breadth of
-  some of the projects---there may be interesting theory work in properties over
-  logs or models for modules and interesting practical work in the Explaining
-  Properties thread. It's also not a perfect categorization system anyway, since
-  things like Interactive Property Specification are really both Education and
-  HCI Practice. My suggestion is that we either widen the labels (HCI / PL / Ed)
-  or do away with them entirely and color code by primary owner instead.}
-\bcp{Agreed: The buckets were a good idea, but they are
-  misleading. Let's just make them ``who supervises.''  We could
-  add a column to the textual table if we want.  But maybe it is just
-  getting to be too much information...}
+%   \hg{I'm afraid we may have over-indexed on these categories. For one thing,
+%   bucketing a project as one thing or another sort of undersells the breadth of
+%   some of the projects---there may be interesting theory work in properties over
+%   logs or models for modules and interesting practical work in the Explaining
+%   Properties thread. It's also not a perfect categorization system anyway, since
+%   things like Interactive Property Specification are really both Education and
+%   HCI Practice. My suggestion is that we either widen the labels (HCI / PL / Ed)
+%   or do away with them entirely and color code by primary owner instead.}
+% \bcp{Agreed: The buckets were a good idea, but they are
+%   misleading. Let's just make them ``who supervises.''  We could
+%   add a column to the textual table if we want.  But maybe it is just
+%   getting to be too much information...}
 \label{fig:workplan}
+\end{figure}
+
+\renewcommand{\tasksection}{\tasksectionroles}
+\begin{figure}[tbp]
+\centering
+\begin{tabular}[c]{lllll}
+  Task & Main effort & Supporting effort & Supervisor & Category \\
+  \hline
+  \input{main.workplan}
+\end{tabular}
+\caption{Project tasks and personnel \bcp{If we keep the Category
+    column, we'll need to add some stuff to it, since some things span
+    categories.}\bcp{Note some ???s.} \bcp{(Remember to) add section
+    headers to the table.}}
+\label{fig:roles}
 \end{figure}
 
 Early efforts will focus on strengthening foundations, strengthening and

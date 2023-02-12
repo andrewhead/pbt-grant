@@ -142,6 +142,9 @@
 \newcommand{\plpracticecolor}{nord-frost4}
 \newcommand{\hcitheorycolor}{nord-red1}
 \newcommand{\hcipracticecolor}{nord-red4}
+\newcommand{\piercecolor}{nord-red4}
+\newcommand{\headcolor}{nord-frost4}
+\newcommand{\bothcolor}{nord-purple}
 \newcommand{\COLOROF}[1]{%
   \ifthenelse{\equal{#1}{Tech Transfer}}
     {\edef\FOO{\techtransfercolor}}
@@ -155,8 +158,14 @@
             {\edef\FOO{\hcitheorycolor}}
             {\ifthenelse{\equal{#1}{HCI Practice}}
               {\edef\FOO{\hcipracticecolor}}
-              {\edef\FOO{white}}
-}}}}}}
+              {\ifthenelse{\equal{#1}{Head}}
+                {\edef\FOO{\headcolor}}
+                {\ifthenelse{\equal{#1}{Pierce}}
+                  {\edef\FOO{\piercecolor}}
+                  {\ifthenelse{\equal{#1}{Both}}
+                    {\edef\FOO{\bothcolor}}
+                    {\edef\FOO{white}}
+}}}}}}}}}
 \newcommand{\colorkey}[1]{%
   %\COLOROF{#1}%
   %\FOO = #1%
@@ -164,20 +173,20 @@
 
 \newcommand{\SIMPLESECTION}[2]{\section{#1}\label{#2}}
 \newcommand{\SECTION}[3]{%
-  \SIMPLESECTION{#1: #2}{#3}
-  \immediate\write\workplanfile{\string\ganttsection{#1}}
+  \SIMPLESECTION{#1: #2}{#3}%
+  \immediate\write\workplanfile{\string\ganttsection{#1}\string\relax}
 }
 \newcommand{\sectionstar}[1]{\subsection*{#1}}
 % \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
 \newcommand{\subsectionstar}[1]{
   \medskip \noindent {\headerfont #1.}}
 % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
-\newcommand{\SUBSECTION}[7]{%
+\newcommand{\SUBSECTION}[8]{%
   \refstepcounter{subsection}%
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
   \label{#2}%
-  \COLOROF{#5}
+  \COLOROF{#8}
   % \ifthenelse{\equal{#5}{Benjamin}}{%
   %   \edef\FOO{\benjamincolor}%
   % }{%
@@ -190,9 +199,10 @@
   %   \edef\FOO{\othercolor}}%
   % }}%
   \immediate\write\workplanfile{%
-    \string\tasksection{#1}{#2}{#3}{#4}{\FOO}{#5}{#6}{#7}}%
+    \string\tasksection{#1
+        (\string\sectionref{#2})}{#2}{#3}{#4}{\FOO}{#5}{#6}{#7}{#8}\string\relax}%
 }
-\newcommand{\tasksectiongantt}[7]{
+\newcommand{\tasksectiongantt}[9]{%
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
   \ganttnewline
 %    {\ganttnewline[grid]}
@@ -202,7 +212,7 @@
 %          style={fill=gray}]
        {\hbox to 3in{{\footnotesize {\bf \currentganttsection}
                      \hfill
-                     #1 (\sectionref{#2})}}}
+                     #1}}}
        {#3}{#4}
   \gdef\currentganttsection{}
 }
@@ -240,18 +250,18 @@
 
 \ganttset{bar height=.6}
 %\ganttset{hgrid style/.style=black}
-\newcommand{\ganttsection}[1]{
-  \gdef\currentganttsection{#1}
+\newcommand{\ganttsection}[1]{%
+  \gdef\currentganttsection{#1}%
   %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
   }
 \gdef\currentganttsection{}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\tasksectionroles}[7]{
+\newcommand{\tasksectionroles}[9]{%
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
+  #1 & #7 & #8 & #9 & #6
   \\
-  XXXXXXXXXXXXXXXXXXXXXXXXX
 }
 
 
