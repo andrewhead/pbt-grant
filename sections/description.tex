@@ -860,8 +860,8 @@ functionality, exposing levers for
 automation that enable a number of new approaches to generator
 tooling (\sectionref{sec:reflective}). In particular, reflective
 generators enable new
-approaches to shrinking (\sectionref{sec:shrinking}) and fuzzing
-(\sectionref{sec:fuzzing}) that reduce developer effort and improve testing
+approaches to shrinking and fuzzing
+that reduce developer effort and improve testing
 effectiveness.
 
 \subsectionstar{Context: What Makes Random Generation Hard}{}{}
@@ -1417,7 +1417,7 @@ them.
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
 that the input data distribution changes in the right way. Approaches
-like the one in \sectionref{sec:fuzzing} can help, but manual tuning
+like the one in \sectionref{sec:reflective} can help, but manual tuning
 is still needed in many cases.
 Developers need higher-level ways to describe the kinds of inputs they.
 
@@ -1524,7 +1524,7 @@ tools to help in this process.
 First, we will design tools that build on
 shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
 understand counterexamples. Automatic shrinking, even when done via reflective
-shrinkers as we discuss in \sectionref{sec:shrinking}, can be opaque, and
+shrinkers as we discuss in \sectionref{sec:reflective}, can be opaque, and
 shrinkers often make suboptimal decisions that an individual developer might be
 able to make better.
 Drawing inspiration from approaches in recent HCI literature that support
