@@ -145,27 +145,43 @@
 \newcommand{\piercecolor}{nord-red4}
 \newcommand{\headcolor}{nord-frost4}
 \newcommand{\bothcolor}{nord-purple}
+\newcommand{\phdonecolor}{nord-frost1}
+\newcommand{\phdtwocolor}{nord-frost4}
+\newcommand{\phdthreecolor}{nord-red1}
+\newcommand{\phdfourcolor}{nord-red4}
+\newcommand{\engineercolor}{nord-purple}
+
 \newcommand{\COLOROF}[1]{%
   \ifthenelse{\equal{#1}{Tech Transfer}}
-    {\edef\FOO{\techtransfercolor}}
-    {\ifthenelse{\equal{#1}{Education}}
-      {\edef\FOO{\educationcolor}}
-      {\ifthenelse{\equal{#1}{PL Theory}}
-        {\edef\FOO{\pltheorycolor}}
-        {\ifthenelse{\equal{#1}{PL Practice}}
-          {\edef\FOO{\plpracticecolor}}
-          {\ifthenelse{\equal{#1}{HCI Theory}}
-            {\edef\FOO{\hcitheorycolor}}
-            {\ifthenelse{\equal{#1}{HCI Practice}}
-              {\edef\FOO{\hcipracticecolor}}
-              {\ifthenelse{\equal{#1}{Head}}
-                {\edef\FOO{\headcolor}}
-                {\ifthenelse{\equal{#1}{Pierce}}
-                  {\edef\FOO{\piercecolor}}
-                  {\ifthenelse{\equal{#1}{Both}}
-                    {\edef\FOO{\bothcolor}}
-                    {\edef\FOO{white}}
-}}}}}}}}}
+  {\edef\FOO{\techtransfercolor}}
+  {\ifthenelse{\equal{#1}{Education}}
+  {\edef\FOO{\educationcolor}}
+  {\ifthenelse{\equal{#1}{PL Theory}}
+  {\edef\FOO{\pltheorycolor}}
+  {\ifthenelse{\equal{#1}{PL Practice}}
+  {\edef\FOO{\plpracticecolor}}
+  {\ifthenelse{\equal{#1}{HCI Theory}}
+  {\edef\FOO{\hcitheorycolor}}
+  {\ifthenelse{\equal{#1}{HCI Practice}}
+  {\edef\FOO{\hcipracticecolor}}
+  {\ifthenelse{\equal{#1}{Head}}
+  {\edef\FOO{\headcolor}}
+  {\ifthenelse{\equal{#1}{Pierce}}
+  {\edef\FOO{\piercecolor}}
+  {\ifthenelse{\equal{#1}{Both}}
+  {\edef\FOO{\bothcolor}}
+  {\ifthenelse{\equal{#1}{PhD 1}}
+  {\edef\FOO{\phdonecolor}}
+  {\ifthenelse{\equal{#1}{PhD 2}}
+  {\edef\FOO{\phdtwocolor}}
+  {\ifthenelse{\equal{#1}{PhD 3}}
+  {\edef\FOO{\phdthreecolor}}
+  {\ifthenelse{\equal{#1}{PhD 4}}
+  {\edef\FOO{\phdfourcolor}}
+  {\ifthenelse{\equal{#1}{Engineer}}
+  {\edef\FOO{\engineercolor}}
+  {\edef\FOO{white}}
+}}}}}}}}}}}}}}
 \newcommand{\colorkey}[1]{%
   %\COLOROF{#1}%
   %\FOO = #1%
@@ -186,7 +202,7 @@
   \bigskip \noindent {\headerfont \thesubsection\ \ #1.}
   % \subsection{#1}
   \label{#2}%
-  \COLOROF{#8}
+  \COLOROF{#6}
   % \ifthenelse{\equal{#5}{Benjamin}}{%
   %   \edef\FOO{\benjamincolor}%
   % }{%
