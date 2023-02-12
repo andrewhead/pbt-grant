@@ -509,14 +509,31 @@ aim to support. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
 
-\SUBSECTION{Designing PBT Frameworks}{sec:frameworks}{2}{4}{HCI Theory}{PhD 1}{PhD 3}{Who?}
+\SUBSECTION{Designing PBT Frameworks}{sec:frameworks}{2}{4}{HCI Theory}{PhD
+1}{PhD 3}{Who?}
+
+\todo{Write me someone
+  \begin{itemize}
+    \item There are a lot of design decisions that go into a PBT
+    framework: manual, type-based, or integrated shrinking; how much generator
+    automation?; what should the property language look like?
+    \item Choosing between these options is generally done on principle, based
+    on a framework author's view of what ``should be''---but what is best for
+    users?
+    \item We design studies to understand the pros and cons of these different
+    design decisions in the context of a minimal PBT framework
+  \end{itemize}
+}
 
 \SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{HCI
   Theory}{PhD 4}{PhD 1}{Who?}
 
-\todo{Write me Andrew / Harry}
-
-\todo{Write me Andrew}
+\todo{Write me Andrew
+  \begin{itemize}
+    \item How do people think about PBT?
+    \item Issues of trust, confidence in the system, tradeoffs, etc.
+  \end{itemize}
+}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
@@ -534,6 +551,29 @@ the kinds of designs that will help programmers.
   might think (as we did) that teaching devs to write formal
   specifications is a key challenge for getting PBT out into the
   world.  But this is not what we found when we asked people...''}
+
+\hg{This section is unsatisfying for me. Here's what we have for
+``specification'' threads:
+\begin{itemize}
+  \item Specifications are hard to write:
+  \begin{itemize}
+    \item (E) Interactive property specification
+    \item (E) PBT for undergrads (not purely spec, but at least partly)
+    \item (S) Properties over logs
+  \end{itemize}
+  \item Specifications are hard to read:
+  \begin{itemize}
+    \item (S) Explaining properties
+  \end{itemize}
+  \item Specifications should just be obvious from the program:
+  \begin{itemize}
+    \item (E) When to specify it
+    \item (S) Models for modules
+  \end{itemize}
+\end{itemize}
+Right now they're split between (E)duction and (S)pecification. How can we put
+them together?
+}
 
 A notable finding of the Jane Street study has been that widening the
 on-ramp to PBT requires making developers aware of high-leverage
@@ -797,7 +837,15 @@ theoretical concerns we haven't considered?}
 \SUBSECTION{Explaining Properties}{sec:understanding}{2}{5}{HCI
   Theory}{PhD 4}{}{Who?}
 
-\todo{Write me Andrew.}
+\todo{Write me Andrew.
+  \begin{itemize}
+    \item You run across some properties in a program---what then?
+    \item This has important implications for education, but also for engineers
+    \item Can we maybe use LLMs or some other kind of NLP tools to write
+    properties in plain English?
+    \item ...?
+  \end{itemize}
+}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
