@@ -133,10 +133,12 @@ tools. The proposal concludes with a concrete outline of our work plan
 proposed work (\sectionref{sec:broader-impacts}), and a summary of our
 prior NSF-supported work.
 
+\iflater
 \bcp{Somewhere in the intro, I think we should put a snazzy
   infographic of the whole project...}
 \hg{I can give that a try, you know I like snazzy infographics. Once we're
 settled on the story I'll see what I can do}
+\fi
 
 \subsectionstar{Orientation: Property-Based Testing}
 %
@@ -155,8 +157,8 @@ a BST after the insertion of \texttt{x}:
 \end{lstlisting}
 In general, a property is a function that
 accepts a generated
-test as input \hg{``generated test input''? I try to avoid calling the inputs
-``tests''}
+test as input \iflater\hg{``generated test input''? I try to avoid
+  calling the inputs ``tests''}\fi
 and evaluates to \lstinline{True} if the test passes, and
 \lstinline{False} otherwise.  This one, ``\verb|prop_insert_correct|'',
 checks that an insert operation on a binary search tree preserves the
@@ -381,7 +383,12 @@ We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:ed}.  To support all of this work,
 \sectionref{sec:foundation} describes plans for a further round of
 studies to deepen our understanding of PBT needs and opportunities
-across a wide range of industrial settings.
+across a wide range of industrial settings.  \bcp{Needs a rewrite for
+  the new structure.}
+
+\todo{Somewhere $\leq$ here we need a paragraph talking about how the
+  whole project is organized, with pointers to the collaboration
+  appendix and a sketch of what's found there.}
 
 % \iflater
 % \amh{Let's foreshadow other findings that
@@ -511,7 +518,7 @@ the kinds of designs that will help programmers.
 
 \SUBSECTION{Designing PBT Frameworks}{sec:frameworks}{2}{4}{HCI Theory}{PhD
 1}{PhD 3}{Who?}
-
+%
 \todo{Write me someone
   \begin{itemize}
     \item There are a lot of design decisions that go into a PBT
@@ -527,7 +534,7 @@ the kinds of designs that will help programmers.
 
 \SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{HCI
   Theory}{PhD 4}{PhD 1}{Who?}
-
+%
 \todo{Write me Andrew
   \begin{itemize}
     \item How do people think about PBT?
@@ -588,7 +595,7 @@ The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
 \SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{2}{PL
-  Practice}{PhD 2}{Undergrad 1}{Who?}
+  Practice}{PhD 2}{UGrad/MS 1}{Who?}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -754,7 +761,7 @@ the given trace properties in real time.
 % systems for which this form of specification would apply?}
 
 \SUBSECTION{Models for Modules}{sec:automating}{3}{3}{PL Practice}{PhD
-1}{Undergrad 2}{Who?}
+1}{UGrad/MS 2}{Who?}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -815,8 +822,8 @@ problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
 % \TASK{Foundations for testing modules}{2}{2}{Who?}
 To solve these problems, we will take a foundational approach, breaking down
 modules theoretically and developing automation heuristics from first
-principles. This will probably\hg{Blah}\bcp{Yes.  It would help if we
-  could actually name one or two.} involve identifying a subset of
+principles. This will probably\iflater\hg{Blah}\bcp{Yes.  It would help if we
+  could actually name one or two.}\fi{} involve identifying a subset of
 modules where automation is {\em not} possible; highlighting that subset will
 provide useful context for future work that might aim to simplify these cases in
 other ways (e.g., by putting a human in the loop).
@@ -836,7 +843,7 @@ theoretical concerns we haven't considered?}
 
 \SUBSECTION{Explaining Properties}{sec:understanding}{2}{5}{HCI
   Theory}{PhD 4}{}{Who?}
-
+%
 \todo{Write me Andrew.
   \begin{itemize}
     \item You run across some properties in a program---what then?
@@ -977,8 +984,8 @@ relationship between generators and parsers.
 
 \SUBSECTION{Benchmarking Generators}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Who?}
-
-\todo{Write me Harry and Benjamin}
+%
+\todo{(Re)write me Harry and Benjamin}
 
 \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
 %
@@ -1027,7 +1034,7 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 \hg{Also, BCP can you read the future work of the reflective paper at some
 point and let me know if you think the synthesis angle belongs here
 somewhere?}\bcp{Will do.  Adding it might give us an additonal ``PL
-Theory'' task.}% 
+Theory'' task.}%
 Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
@@ -1263,7 +1270,7 @@ correctly.
 
 \SUBSECTION{Making Reflectives Usable}{sec:reflectiveusable}{4}{4}{HCI
   Practice}{PhD 2}{PhD 3}{Who?}
-
+%
 \todo{Write me Harry (BCP: not sure what this is?)}
 
 \hg{It's usability studies and a potential re-design of the reflectives
@@ -1271,7 +1278,7 @@ language. Reflectives are sometimes tricky to write, and we want to make sure
 it's as easy as we can make it.}
 
 \SUBSECTION{Generator Automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
-
+%
 \todo{Write me someone
   \begin{itemize}
     \item We want to make reflectives usable as their own language, but they're
@@ -1318,7 +1325,7 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
 
 \SUBSECTION{Evaluating Data
   Distributions}{sec:evaluating_distributions}{1}{2}{HCI Practice}{PhD
-  3}{Undergrad 3}{Who?}
+  3}{UGrad/MS 3}{Who?}
 %
 In comparison to testing techniques like unit testing, PBT draws many
 tests from some
@@ -1431,7 +1438,7 @@ just understand input data distributions, but more directly change
 them.
 
 \SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{HCI Practice}{PhD
-3}{Undergrad 4}{Who?}
+3}{UGrad/MS 4}{Who?}
 %
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
@@ -1481,8 +1488,7 @@ in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
 \SUBSECTION{Counterexamples as Regression
-  Tests}{sec:counter}{2}{2}{HCI Practice}{PhD 3}{}{Who?}
-\bcp{Couldn't this equally/better be called PL Practice?}%
+  Tests}{sec:counter}{2}{2}{HCI/PL Practice}{PhD 3}{}{Who?}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1518,15 +1524,16 @@ in-situ editing assistance along the lines of contemporary interactive
 refactoring tools from the HCI
 literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
 For this unique task of transforming properties into regression tests,
-our tool will \proposecut{provide the key features of}\hg{MINOR: Feel free to disagree,
+our tool will \iflater\proposecut{provide the key features
+  of}\hg{MINOR: Feel free to disagree,
 but I think phrases like this are a bit of an anti-pattern. I'd rather just say
-the tool will X} keeping track of the failed input,
+the tool will X}\fi keeping track of the failed input,
 generating starter test code, substituting in correct expected values of the
 output by executing corrected code, and supporting developers in rapidly
 performing likely edits to regression tests by providing suggestions of
 alterations to their code like the ability to generate general property checks
-with precise equality checks\bcp{??}\hg{I also don't understand what this is
-getting at}. We also hope the results of this work
+with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
+getting at}\fi. We also hope the results of this work
 can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
@@ -1602,7 +1609,7 @@ for similar inputs are abundant.
 
 \SUBSECTION{Dashboards for Long-Running Tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
 3}{Engineer}{Who?}
-
+%
 \todo{Write me Andrew?}
 
 \hg{I copied a comment into here---can we use any of that writing for this
@@ -1696,8 +1703,10 @@ section?}
   \end{itemize}
 }
 
-\hg{Name is a placeholder. Tyche is a god of randomness, and I've been waiting
-to use the name forever, but I'm not even a little attached to it}
+\hg{Name is a placeholder. Tyche is a god of randomness, and I've been
+  waiting to use the name forever, but I'm not even a little attached
+  to it} \bcp{I like it!  Probably worth a web search to make sure
+  nobody (in this domain) has snapped it up.}
 
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:platform}
 
@@ -1722,7 +1731,7 @@ the whole architecture for the proposal: it was a nice conceit for a
 smaller project, but this one reaches too far beyond.  The grand
 challenge is better motivation for the whole thing.}
 
-\SUBSECTION{Not Just ``Research Software''}{sec:engineersupport}{2}{3}{Tech
+\SUBSECTION{Getting Beyond Research Software}{sec:engineersupport}{2}{3}{Tech
 Transfer}{Engineer}{}{Who?}
 
 \todo{Write me someone
@@ -1846,9 +1855,9 @@ major professional developer conference.
 
 \SUBSECTION{Interactive Property
   Specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
-\bcp{This is colored ``HCI Practice'' but listed under Education.
+\iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
-\bcp{When??}
+\fi
 %
 Even when a developer knows when properties are useful in the abstract,
 they may still have trouble writing their first properties
@@ -1904,12 +1913,12 @@ other institutions to adapt into their own curricula.
 publish findings in computing education research venues.}
 
 \immediate\closeout\workplanfile
-\SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
+% \SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
 
-\bcp{I've moved the text that was here to a separate supplemental
-  document, but we'll probably want to say something short in the main
-  project description (either here or, better, toward the top) about
-  synergy and coordination, with a pointer to that document.}
+% \bcp{I've moved the text that was here to a separate supplemental
+%   document, but we'll probably want to say something short in the main
+%   project description (either here or, better, toward the top) about
+%   synergy and coordination, with a pointer to that document.}
 
 % \begin{figure}[ht]
 %   \centering
@@ -2076,7 +2085,7 @@ Shi.
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
 
-\ifdraft
+\iflater
 \section*{Stuff to think about once the document stabilizes}
 
 \todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}

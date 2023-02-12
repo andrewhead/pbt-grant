@@ -1,5 +1,5 @@
 \newif\ifdraft\drafttrue
-\newif\iflast\lastfalse
+\newif\iflater\laterfalse
 
 \documentclass{NSF}
 
@@ -98,7 +98,7 @@
 \newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
 \newcommand{\comment}[1]{{\em #1}}
 \newcommand{\todo}[1]{\ifdraft {\color{nord-red} TODO: #1} \fi}
-\newcommand{\todolast}[1]{\iflast\ifdraft {\color{nord-red} TODO: #1} \fi\fi}
+\newcommand{\todolast}[1]{\iflater\ifdraft {\color{nord-red} TODO: #1} \fi\fi}
 \newcommand{\writeme}[1]{{\color{blue} #1}}
 \newcommand{\rewrite}[1]{{\ifdraft\color{dkred}\fi #1}}
 % \newcommand{\pagebudget}[1]{(#1 pages)}
@@ -119,8 +119,6 @@
     }
   \end{center}
 }
-
-\newif\iflater\latertrue
 
 \usepackage[inline]{enumitem}
 \usepackage{anyfontsize}
@@ -276,7 +274,9 @@
 
 \newcommand{\tasksectionroles}[9]{%
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
-  #1 & #7 & #8 & #9 & #6
+  \ifthenelse{\equal{\currentganttsection}{}}{}{{\bf \currentganttsection}\\}%
+  \gdef\currentganttsection{}%
+  \ \ \ #1 & #7 & #8 & #9 & #6
   \\
 }
 

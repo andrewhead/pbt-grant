@@ -32,9 +32,6 @@
 \todo{Webinar: Management and Coordination plan should include
   complementarity of expertise, etc.}
 
-The work of this project will take place over the course
-of five years, summarized in Figure~\ref{fig:workplan}.
-
 All of the major project themes will involve both PIs, with individual
 tasks requiring particular expertise in PL (advised by PI Pierce,
 highlighted in blue), HCI (advised by PI Head, highlighted in red), or
@@ -42,8 +39,27 @@ both (co-advised by both PIs).  \todo{Describe how these are displayed
 in the table}
 
 Key personnel for this work will include the co-PIs, four PhD students
-with varying background and interests, one staff engineer, and many
-advanced undergraduate and Master's students.
+with varying background and interests, one staff engineer, and several
+advanced undergraduate and Master's students.  \iflater\bcp{We don't have any
+  masters students in the charts.}\fi
+%
+Figure~\ref{fig:roles} sketches a potential mapping of collections of
+tasks onto PhD dissertations.  \iflater \bcp{Expand!} \fi
+
+\renewcommand{\tasksection}{\tasksectionroles}
+\begin{figure}[tb]
+\centering
+\begin{tabular}[c]{@{}lllll}
+  {\bf Themes and Tasks} & {\bf Main effort} & {\bf Support}
+  & {\bf Supervisor} & {\bf Category} \\
+  \hline
+  \input{main.workplan}
+\end{tabular}
+\caption{Project tasks and personnel \bcp{If we keep the Category
+    column, we'll need to add some stuff to it, since some things span
+    categories.}\bcp{Note some ???s.} 
+\label{fig:roles}
+\end{figure}
 
 \subsection*{Principal Investigator Roles}
 
@@ -106,7 +122,8 @@ advanced undergraduate and Master's students.
 
 \subsection*{Timeline}
 
-\newcommand{\explaincolor}[2]{{\color{#2}\rule{1em}{1em}} #1}
+\renewcommand{\tasksection}{\tasksectiongantt}
+\newcommand{\explaincolor}[2]{{\color{#2}\rule{1em}{1em}} = #1}
 \begin{figure}[t]
   \centering
  \begin{ganttchart}[
@@ -127,8 +144,7 @@ advanced undergraduate and Master's students.
   %      {1}{3}
   \input{main.workplan}
 \end{ganttchart}
-\caption{Plan of work.
-  Colors:
+\caption{Project timeline.
   % \explaincolor{PL Theory}{\pltheorycolor},
   % \explaincolor{PL Practice}{\plpracticecolor},
   % \explaincolor{HCI Theory}{\hcitheorycolor},
@@ -139,30 +155,25 @@ advanced undergraduate and Master's students.
   \explaincolor{PhD 2}{\phdtwocolor},
   \explaincolor{PhD 3}{\phdthreecolor},
   \explaincolor{PhD 4}{\phdfourcolor},
-  \explaincolor{Research Engineer}{\engineercolor},
+  \explaincolor{Research Engineer}{\engineercolor}.
   % \explaincolor{Supervised by Pierce}{\piercecolor},
   % \explaincolor{Supervised by Head}{\headcolor},
   % \explaincolor{Co-supervised}{\bothcolor}.
   \todo{Explain the figure!}
-  \bcp{The years need to be rethought for all of these!}}
-  \hg{Let's color based on project owner (PhD 1--4, Engineer), rather than advisor?}
+  \bcp{The years need to be rethought for all of these!}  In
+  particular, at the moment this assumes that all four PhD students
+  will arrive in year 1 of the project -- not very realistic.  (I
+  guess we could keep this assumption but cop to it explicitly, but it
+  seems better to push some projects so they finish in year 4 and some
+  so they start in year 2.)}
+  \iflater\bcp{Adjust the colors - reds look bad.}\fi
 \label{fig:workplan}
 \end{figure}
 
-\renewcommand{\tasksection}{\tasksectionroles}
-\begin{figure}[tbp]
-\centering
-\begin{tabular}[c]{lllll}
-  Task & Main effort & Supporting effort & Supervisor & Category \\
-  \hline
-  \input{main.workplan}
-\end{tabular}
-\caption{Project tasks and personnel \bcp{If we keep the Category
-    column, we'll need to add some stuff to it, since some things span
-    categories.}\bcp{Note some ???s.} \bcp{(Remember to) add section
-    headers to the table.}}
-\label{fig:roles}
-\end{figure}
+The work of the project will take place over the course of five years,
+summarized in Figure~\ref{fig:workplan}.
+
+\todo{The following needs to be adjusted to fit the new timeline and people.}
 
 Early efforts will focus on strengthening foundations, strengthening and
 generalizing the findings from our need-finding research to-date. Then, beginning in
