@@ -1278,12 +1278,27 @@ correctly.
 
 \SUBSECTION{Making Reflectives Usable}{sec:reflectiveusable}{4}{4}{HCI
   Practice}{PhD 2}{PhD 3}{Who?}
-%
-\todo{Write me Harry (BCP: not sure what this is?)}
 
-\hg{It's usability studies and a potential re-design of the reflectives
-language. Reflectives are sometimes tricky to write, and we want to make sure
-it's as easy as we can make it.}
+Reflective generators are a powerful abstraction, but they are unavoidably a bit
+more complex than standard QuickCheck generators. The current design of the
+reflective generator language is a best guess at what users will find most
+usable (based on our own experience using it) but guessing is far from enough to
+ensure usability.
+
+We will evaluate and re-design the surface syntax of reflective generators with
+the help of real users.  First, we will recruit a small group of users, teach
+them to use reflective generators via a short introductory ``README,'' and ask
+them to implement a number of PBT generators inspired by both the research
+literature and real-world examples. We will observe the users to identify points
+of friction, interviewing them to ensure a clear understanding of their
+impressions. With this information in hand, we will identify potential changes
+to the API and test those changes with a new group of users. In this way, we
+will ensure that both the problems we tackle and the solutions we settle on are
+relevant to potential users.
+
+Ultimately, we hope that this process results in a much more usable language for
+reflective generators that is simple enough to be used by even non-expert PBT
+practitioners.
 
 \SUBSECTION{Generator Automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
 %
