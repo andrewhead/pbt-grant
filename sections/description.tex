@@ -841,6 +841,14 @@ details and never pop back up. I'm not sure I have any other tasks to suggest...
 have any of our conversations with Ernest raised new design decisions /
 theoretical concerns we haven't considered?}
 
+\iflater
+\bcp{I wonder whether one of the attractions of model-based properties for real-world testing is that they more or less allow one to ignore the issue of "generating structures satisfying preconditions."  That is, if what you're doing to build an "interesting" value of some data structure or internal state of some stateful system is issuing calls through an API, then I would guess in most situations pretty much any sequence of API calls will be legal; some will be more interesting than others, of course, but at least you'll never build a structure that doesn't satisfy the preconditions of your operations -- your whole distribution will always fall within the space of well-formed structures.  (Or, if it observably doesn't, you'll have uncovered a bug.)
+Could this help explain why it seems to be so prevalent, at least at
+Jane Street?  Is there any way one could test whether this sort of
+reasoning is an actual explanation for the observed prevalence?  Is
+any of this worth mentioning here?}
+\fi
+
 \SUBSECTION{Explaining Properties}{sec:understanding}{2}{5}{HCI
   Theory}{PhD 4}{}{Who?}
 %
@@ -2103,5 +2111,9 @@ Shi.
   algorithms to systems, or that perform studies involving human
   subjects, PIs are encouraged to consider the FEAT of the outputs or
   approaches.  (We should touch on this point somewhere.)}
+
+\todo{Does it make sense to include something about separation logic,
+  or more generally about ``generators with difficult preconditions''?
+ Could be speculative, as long as it's not vacuous.}
 
 \fi
