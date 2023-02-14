@@ -104,7 +104,7 @@
 % \newcommand{\pagebudget}[1]{(#1 pages)}
 \newcommand{\pagebudget}[1]{}
 
-\newcommand{\forreaders}[1]{{\color{nord-red} Readers: #1}}
+\newcommand{\forreaders}[1]{{\color{dkgreen} Readers: #1}}
 
 \usepackage{ulem}\normalem
 \newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}}\fi}
@@ -386,6 +386,9 @@
 \input{sections/personnel}		% Personnel (Required)
 
 \newpage\newsection{K}
+\input{sections/reviewers}
+
+\newpage\newsection{L}
 \input{sections/coord}
 
 \end{document}

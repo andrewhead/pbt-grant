@@ -1,8 +1,10 @@
 \section*{Project Description}
 
+\iflater
+
 \todo{GPG: Proposals should identify a computer and information
   science and engineering grand challenge and an agenda to tackle such
-  a challenge.}
+  a challenge.} \bcp{Use the word ``agenda''!}
 
 \todo{GPG: proposals should explain why existing CISE core programs
   for Small and Medium size projects
@@ -14,10 +16,9 @@
 \todo{GPG: The proposal must explicitly identify the participating
   CISE core programs it covers and make the case for why the challenge
   is within the scope of one or more of these participating core
-  programs.}
+  programs.} \bcp{Not exactly sure where/how to do this...?}
 
-\todo{Webinar: Proposals must be clear about why this kind of scale is
-  required for the research to succeed.}
+\fi
 
 Testing plays a vital role in modern software development,
 contributing crucially to robustness, security, and overall software
@@ -97,12 +98,22 @@ a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
+\bcp{Explain why it's grand... :-)  Specifically, explain why the
+  resources of a Large grant are needed to address the challenge (why
+  small or medium grants would not do it).}
+\todo{Webinar: Proposals must be clear about why this kind of scale is
+  required for the research to succeed.}
+
 We propose a comprehensive, interdisciplinary research and engineering
 program on
 \emph{usable
 property-based testing}, bringing to bear the combined power of PL and HCI to
 accelerate PBT's transition into practice.  The project's research,
-engineering, and education activities can be grouped into six main themes:
+engineering, and education activities can be grouped into six main
+themes: \bcp{This already feels too detailed, and we still need to write
+blurbs for all the other tasks we've added in the past few days.  But
+for now I think we should just go ahead and add stuff, and come back
+later to presenting a grander summary.}
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
@@ -136,11 +147,6 @@ efforts. \bcp{More.}
 % \end{enumerate*}
 % \end{itemize}
 \end{enumerate}
-The rest of the Project Description outlines our plans in each of
-these areas in turn and concludes with a discussion of the broader
-impacts of the proposed work (\sectionref{sec:broader-impacts}) and a
-summary of our prior NSF-supported work.
-
 Success in these efforts will require complementary tools from PL and
 HCI research. HCI approaches will be used to concretely define
 developers' needs, design the user interface to tools, and evaluate
@@ -148,7 +154,24 @@ their success. PL approaches will be used to develop powerful
 domain-specific languages and type-based automation to improve the PBT
 process, as well as to formally validate these tools.
 
-\bcp{Talk about the orientation section, }
+The rest of the proposal is structured as follows.  Sections
+\sectionref{sec:orientation} and \sectionref{sec:motivation} supply
+background on PBT and present the preliminary findings from our
+ongoing study at Jane Street that motivate the project.
+%
+Sections \sectionref{sec:foundation} through
+\sectionref{sec:education} then outline our plans in each of the
+themes listed above.  The Project Description concludes with a
+discussion of the broader impacts of the proposed work
+(\sectionref{sec:broader-impacts}) and the results of our prior
+NSF-supported work (\sectionref{sec:prior}).
+
+\todo{A one-paragraph summary of the Coordination and Management
+  appendix -- personnel, tasks, integration, etc. -- with a pointer to
+  that appendix.}
+
+\todo{A one-paragraph summary of the BPC appendix, including the
+  budget items associated with it.}
 
 \iflater
 \bcp{Somewhere in the intro, I think we should put a snazzy
@@ -157,9 +180,13 @@ process, as well as to formally validate these tools.
 settled on the story I'll see what I can do}
 \fi
 
-% \SIMPLESECTION{Orientation}
+\SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
+
+% We begin in this section with some background on PBT and preliminary
+% results from our ongoing study at Jane Street
+
 % \subsectionstar{Property-Based Testing}
-\subsectionstar{Orientation: Property-Based Testing}
+% \subsectionstar{Orientation: Property-Based Testing}
 %
 Popularized by Haskell's QuickCheck library~\cite{hughes2007quickcheck},
 PBT is a form of testing where
@@ -250,8 +277,7 @@ With all these advantages, it seems clear that PBT belongs on every
 software developer's testing toolbelt.  But PBT raises some challenges
 as well, as we shall see next.
 
-\subsectionstar{Motivations from a Formative Study of PBT in
-Industry\label{sec:motivation}\pagebudget{2}}
+\SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
 %
 The work proposed here is motivated by findings from the
 need-finding study we are conducting at Jane Street. The purpose of this
@@ -272,13 +298,13 @@ experience using them in collaborative settings,
 and awareness of language-level abstractions necessary
 for advanced usage.
 
-As of December 2022, the full complement of thirty interviews has been
+As of February 2023, the full complement of thirty interviews has been
 completed at Jane Street, and a preliminary round of qualitative
-analysis is underway; full-scale analysis will begin in 2023.
+analysis is underway; full-scale analysis will begin later in the year.
 Findings from the study will be disseminated in a paper submitted to a
 top-tier software engineering conference.  We also carried out a
 smaller pilot study among Hypothesis users to prepare for the
-full-scale one at Jane Street; this study was presented at the
+full-scale one at Jane Street; its results were presented at the
 2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
 \subsectionstar{Usability Challenges} The final result of
@@ -365,7 +391,10 @@ Ideally, developers would have tools that make the process of implementing
 shrinkers fast and simple.
 
 A further set of themes concerned
-\evaltheme{\normalfont \bf validation}---the processes developers use
+\evaltheme{\normalfont \bf validation}\bcp{Need to figure out how to
+  split this into interaction and diffusion... if the latter is too
+  hard to motivate from the Jane Street study, we can just
+  acknowledge this.}---the processes developers use
 for \evaltheme{Evaluating the
 Effectiveness} of their tests. Many
 desired
@@ -395,6 +424,8 @@ Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
 learning about PBT.
 
+\bcp{Needs a rewrite for the new structure...}%
+%
 We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
 \sectionref{sec:gen},
@@ -402,12 +433,11 @@ We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:ed}.  To support all of this work,
 \sectionref{sec:foundation} describes plans for a further round of
 studies to deepen our understanding of PBT needs and opportunities
-across a wide range of industrial settings.  \bcp{Needs a rewrite for
-  the new structure.}
+across a wide range of industrial settings.
 
-\todo{Somewhere $\leq$ here we need a paragraph talking about how the
-  whole project is organized, with pointers to the collaboration
-  appendix and a sketch of what's found there.}
+\iflater\bcp{Not sure any more how I feel about the colors.  They are
+  not really used in the rest of the document (in particular, we took
+  them out of the Coordination and Management figure)...}\fi
 
 % \iflater
 % \amh{Let's foreshadow other findings that
@@ -1400,9 +1430,11 @@ sequences of API calls, ...).
 Consider an
 example from a participant in our formative study, who wanted to generate
 realistic logs of input data, where each log entry included at least a timestamp
-and an event type.\proposecut{Such values are not trivially plotted in conventional
-visualizations, and it would be prohibitive to review individual examples if the
-logs are sufficiently long.} Ideally, a developer would be able to answer
+and an event type.
+% \proposecut{Such values are not trivially plotted in conventional
+% visualizations, and it would be prohibitive to review individual examples if the
+% logs are sufficiently long.}
+Ideally, a developer would be able to answer
 questions like: Are the generated log inputs long enough? Are the even sequences
 realistic? This setting requires new kinds of views of data, and tight
 developer support for easily defining meaningful views of the data.
@@ -1976,10 +2008,13 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
+\bcp{Needs a good paragraph about tech transfer.}
+
 \noindent{\bf Educational Benefits.}
 %
 The most immediate broad impact of the proposed work will be the
-development of educational materials. Educational activities will be
+development of educational materials.\bcp{Not sure that's true any
+  more---we've got Diffusion now!} Educational activities will be
 coordinated with the rest of the work, and they are integral to the
 project's overall goal of making PBT a standard testing methodology,
 readily available to every industrial developer.  Specific pedagogical
@@ -1995,10 +2030,10 @@ for the Communications of the Association for Computing Machinery (CACM).
 %
 The majority of requested funding will support formative research
 experiences and mentoring for graduate students. We
-also plan to work with undergraduate students during this project;
+also plan to work with undergraduate and masters students during this project;
 they, too will benefit from the research experience. Each graduate
 student will have leadership responsibility for multiple facets of the
-project, including co-supervising interested undergraduate
+project, including co-supervising interested undergraduate and masters
 researchers.
 
 The PIs will recruit students for this project with a mind towards making
