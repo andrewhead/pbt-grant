@@ -1,7 +1,10 @@
 \section*{Project Summary}
 
-\todo{``Overview'' needed?}
-\subsubsection*{Overview}
+% \newcommand{\summarysection}[1]{\subsubsection*{#1}}
+
+\newcommand{\summarysection}[1]{\paragraph*{#1.}}
+
+\summarysection{Overview}
 Property-based testing (PBT) is an advanced software engineering
 methodology where users write executable formal specifications of system
 components
@@ -15,8 +18,8 @@ From its roots in the Haskell QuickCheck library, PBT has become
 the testing method of choice across much of the functional programming
 community; it has also begun to make inroads into industrial practice
 at companies such as Quviq, Galois, Stripe, and
-Amazon. \forreaders{Any other big companies?  Notable open-source
-  projects?}
+Amazon.\footnote{\forreaders{Any other big companies?  Notable open-source
+  projects?}\iflater\bcp{Remove me!}\fi}}
 %
 The goal of this proposal is to accelerate this transition
 by addressing key challenges in
@@ -83,7 +86,7 @@ brought to bear.  PBT itself is grounded in domain-specific languages
 and formal methods---traditional topics in the field of Programming Languages.
 Usability, on the other hand, is the domain of Human-Computer Interaction.
 %
-This four-year project will combine insights, methods, and tools from
+This five-year project will combine insights, methods, and tools from
 PL and HCI to advance the usability of PBT along all three of its
 axes---specification, generation, and validation\iflater\todo{We may
   need to reorder these, depending on what happens with the global
@@ -95,11 +98,11 @@ broad community of software developers.
 \noindent{\bf Keywords:} Programming languages; human-computer
 interaction; property-based testing; usability.
 
-\subsubsection*{Intellectual Merit}
+\summarysection{Intellectual Merit}
 The project will advance knowledge along four interconnected axes.
 %
 First, it will establish a firm {\bf\em foundation} for HCI-informed
-research on PBT, supplementing past and ongoing user studies with
+research on PBT, supplementing our past and ongoing user studies with
 broader surveys of PBT across the software industry and real-time
 observations of developers interacting with PBT.
 %
@@ -119,22 +122,57 @@ And fourth, it will develop new interactive tools for rapid {\bf\em
 down the causes of failures, and for visualizing generated data
 distributions to support comprehension and tuning.
 
+% The project will advance knowledge along four interconnected axes.
+% %
+% First, it will establish a firm {\bf\em foundation} for HCI-informed
+% research on PBT, supplementing past and ongoing user studies with
+% broader surveys of PBT across the software industry and real-time
+% observations of developers interacting with PBT.
+% %
+% Second, it will offer developers more usable {\bf\em specification} tools,
+% including a language for stating temporal properties over internal
+% program states and automation for model-based testing of
+% modular abstractions.
+% %
+% Third, it will explore a novel abstraction for random input {\bf\em
+%   generation} that enables a range of use cases---generating inputs
+% satisfying validity conditions, mutating inputs to explore the space
+% of similar inputs, and manually or automatically tuning a random
+% generator's distribution based on examples or code coverage.
+% %
+% And fourth, it will develop new interactive tools for rapid {\bf\em
+%   validation} of the effectiveness of testing, for helping programmers pin
+% down the causes of failures, and for visualizing generated data
+% distributions to support comprehension and tuning.
+
 %  (1) deploy tools from HCI to better
 % understand the challenges to wider adoption of PBT, (2) combine PL and
 % HCI methods to build solutions, and (3) develop educational materials
 % to make PBT concepts and tools accessible to a broad community of
 % university students and industrial developers.
 
-\subsubsection*{Broader Impacts}
-A fifth thread of activity, coordinated with the rest and integral to the
-project's aims, will be advance {\bf\em education} in PBT in both universities and industry. We will
+\summarysection{Broader Impacts}
+Two further threads of activity, coordinated with the rest and integral to the
+project's aims, will
+%
+be to support the {\bf\em diffusion} of PBT tools and
+methodologies from academia into industry through targeted engineering efforts
+%
+and to advance PBT {\bf\em education} in
+both universities and industry.  We will support and strengthen existing
+open-source PBT tools in popular programming languages and enrich their
+capabilities with re-engineered research products from the four themes described
+above;
+%
+and we will
 develop materials for teaching industry programmers how to identify
 high-leverage situations for using PBT, curricula for teaching mature
 and powerful PBT practices to undergraduate students, and tooling to help
 PBT beginners write their first properties.
 %
 A general-audience article on PBT for CACM will also help broaden the
-reach of PBT.
+reach of PBT.\iflater\bcp{Maybe that last is too detailed for the
+  summary?}\fi
 
 Work on the project will include and elevate undergraduate
 researchers, including some from diverse backgrounds that will be
@@ -145,7 +183,7 @@ research environment.
 The ultimate goal, through education, publications, and open-source
 tools, is to make property-based testing a standard tool on every
 software developer's testing toolbelt.  Better testing, in turn, will
-lead to software systems of every sort that are less expensive, more
+lead to software systems of every description that are less expensive, more
 robust, and more reliable.
 
 
