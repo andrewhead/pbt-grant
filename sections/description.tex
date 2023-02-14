@@ -16,7 +16,9 @@
 \todo{GPG: The proposal must explicitly identify the participating
   CISE core programs it covers and make the case for why the challenge
   is within the scope of one or more of these participating core
-  programs.} \bcp{Not exactly sure where/how to do this...?}
+  programs.} \bcp{I put it in the Project Summary -- it's a bit
+  clunky, but I think it serves.  And no one can say that we didn't
+  satisfy the requirement!}
 
 \fi
 
@@ -70,10 +72,9 @@ Python, for example, estimate its user community at around half a million~\cite{
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
-Given all this momentum, one might wonder if the research community has
-already
-addressed all of the challenges that could limit PBT's adoption
-in the broader software industry.  But the answer seems to be no:
+Given all this momentum, one might wonder whether the research community
+has already discovered and addressed all of the challenges that might limit PBT's adoption
+in the broader software industry.  Sadly, it has not:
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
 at Jane Street Capital, we have found
 consistent enthusiasm for PBT---participants called it it
@@ -82,10 +83,11 @@ built their own libraries for it when standard ones were not available
 (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20})---but participants also described {\em usability} issues
-whose solutions  =require advances in both technical foundations and
-tool design.
+whose solutions require advances in both technical foundations and
+tool design.\iflater\bcp{The last part of that sentence kind of
+  duplicates the first part of the next...}\fi
 
-Addressing these usability challenges will require insights from both the
+Taming these usability challenges demands insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} have argued that a research methodology
@@ -117,9 +119,9 @@ later to presenting a grander summary.}
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
-\item We will establish a \emph{foundation} for HCI-informed research on PBT,
+\item We will establish a solid \emph{foundation} for HCI-informed research on PBT,
 starting from our ongoing need-finding study. We will confirm
-this study's findings and more deeply explore usability of PBT via
+this study's findings and further explore usability of PBT via
 two survey studies and an observation study
 of PBT users {\em in situ} (\sectionref{sec:foundation}).
   \item We will empower developers to \emph{specify} properties with
@@ -152,19 +154,28 @@ HCI research. HCI approaches will be used to concretely define
 developers' needs, design the user interface to tools, and evaluate
 their success. PL approaches will be used to develop powerful
 domain-specific languages and type-based automation to improve the PBT
-process, as well as to formally validate these tools.
+process, as well as to formally validate these tools. \bcp{That
+  paragraph is weak.  Needs to be much stronger on the need for
+  integration across domains, and between research and tech transfer.
+  We should explicitly call out the engineer as critical to the
+  project's success.  We should say why we need four whole PhD
+  students---why can't this agenda be accomplished with fewer.}
 
-The rest of the proposal is structured as follows.  Sections
+\medksip
+
+The rest of this Project Description develops this research and
+tech transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
 background on PBT and present the preliminary findings from our
 ongoing study at Jane Street that motivate the project.
 %
 Sections \sectionref{sec:foundation} through
-\sectionref{sec:education} then outline our plans in each of the
-themes listed above.  The Project Description concludes with a
-discussion of the broader impacts of the proposed work
-(\sectionref{sec:broader-impacts}) and the results of our prior
-NSF-supported work (\sectionref{sec:prior}).
+\sectionref{sec:ed} outline our plans in each of the
+themes listed above.
+Section \sectionref{sec:broader-impacts}
+discusses the Broader Impacts of the project, and
+Section \sectionref{sec:prior} summarizes our prior
+NSF-supported work on PBT.
 
 \todo{A one-paragraph summary of the Coordination and Management
   appendix -- personnel, tasks, integration, etc. -- with a pointer to
@@ -188,10 +199,12 @@ settled on the story I'll see what I can do}
 % \subsectionstar{Property-Based Testing}
 % \subsectionstar{Orientation: Property-Based Testing}
 %
-Popularized by Haskell's QuickCheck library~\cite{hughes2007quickcheck},
-PBT is a form of testing where
+PBT%
+% , famously popularized by Haskell's QuickCheck library
+~\cite{hughes2007quickcheck}
+is a form of software testing where
 executable functions act as partial
-specifications of a component under test. For example, a user might
+specifications of a component under test. For example, a developer might
 write the following property for an \lstinline{insert}
 function for a Binary Search Tree, taking an arbitrary tree \texttt{t}
 and an integer
@@ -246,7 +259,7 @@ we describe in the next section.
 Why go to the trouble of PBT, rather than the more straightforward
 example-based testing that is standard across the software industry?
 First and foremost because a component can be tested be much more
-thoroughly with a property and many automatically generated examples
+thoroughly with a property plus many automatically generated examples
 than with a small number of examples written out by hand.
 % \proposecut{As mentioned
 % previously, PBT has an impressive track-record uncovering bugs that other
@@ -273,7 +286,9 @@ participants in our foundational study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
-With all these advantages, it seems clear that PBT belongs on every
+\iflater\bcp{Talk about why fuzzing is not the answer.}\fi
+
+With all these advantages, one might hope to find PBT on every
 software developer's testing toolbelt.  But PBT raises some challenges
 as well, as we shall see next.
 
@@ -2023,7 +2038,9 @@ threads within the project are described in~\sectionref{sec:ed}.
 As an auxiliary goal around education, broadly construed, we will also work to
 publicize and communicate the benefits of PBT in the broader computer science
 research community. As part of these efforts, we will write an article on PBT
-for the Communications of the Association for Computing Machinery (CACM).
+for the Communications of the Association for Computing Machinery
+(CACM). \iflater\bcp{Mention this article more prominently in the rest
+of the document.}\fi
 
 \smallskip
 \noindent{\bf Mentoring and Diversity.}

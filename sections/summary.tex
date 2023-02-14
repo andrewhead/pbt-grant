@@ -2,13 +2,14 @@
 
 % \newcommand{\summarysection}[1]{\subsubsection*{#1}}
 
-\newcommand{\summarysection}[1]{\paragraph*{#1.}}
+% \newcommand{\summarysection}[1]{\paragraph*{#1.}}
+\newcommand{\summarysection}[1]{\medskip \noindent {\bf #1.} }
 
 \summarysection{Overview}
 Property-based testing (PBT) is an advanced software engineering
 methodology where users write executable formal specifications of system
 components
-and an automated test harness checks these specifications against
+and an automated harness checks these specifications against
 many automatically generated inputs.  The bug-finding power of PBT
 arises from its ability to express rich specifications that
 to exercise a wide range of system behaviors---both
@@ -82,11 +83,14 @@ effectiveness of testing.\hg{Will need to change this sentence to include intera
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To make PBT more usable, two largely disjoint
-research areas must be
-brought to bear.  PBT itself is grounded in domain-specific languages
-and formal methods---traditional topics in the field of Programming Languages.
-Usability, on the other hand, is the domain of Human-Computer Interaction.
+To tame these usability challenges and establish PBT as a mainstream
+testing method, two distinct research areas must be brought to bear.
+On one hand, PBT itself is grounded in domain-specific languages and
+formal methods---topics traditionally associated with Programming
+Languages and included in the Software and Hardware Foundations
+program under CISE-CCF.  Usability, on the other hand, is the domain
+of Human-Computer Interaction; its home is in CISE-IIS's
+Human-Centered Computing program.
 %
 This five-year project will combine insights, methods, and tools from
 PL and HCI to advance the usability of PBT along all three of its
@@ -173,9 +177,11 @@ high-leverage situations for using PBT, curricula for teaching mature
 and powerful PBT practices to undergraduate students, and tooling to help
 PBT beginners write their first properties.
 %
-A general-audience article on PBT for CACM will help broaden the
-its reach.\iflater\bcp{Maybe that last is too detailed for the
-  summary?}\fi
+% \iflater
+% A general-audience article on PBT for CACM will help broaden the
+% its reach.\iflater\bcp{I think that's too detailed for the
+%   summary?}\fi
+% \fi
 
 Work on the project will include and elevate undergraduate
 researchers, including some from diverse backgrounds that will be
