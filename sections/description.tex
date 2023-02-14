@@ -59,7 +59,7 @@ PBT's combination of rich, high-level specifications with mostly
 automatic validation has been shown to be effective at identifying subtle
 bugs in a wide variety of settings, including telecommunications
 software~\cite{arts2006testing}, replicated
-file~\cite{hughes2014mysteries} and key-value
+file~\cite{MysteriesOfDropbox2016} and key-value
 stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
 of other real-world systems~\cite{hughes2016experiences}. With at
 least basic support
@@ -161,9 +161,13 @@ process, as well as to formally validate these tools. \bcp{That
   project's success.  We should say why we need four whole PhD
   students---why can't this agenda be accomplished with fewer.}
 
+\forreaders{Please tell us whether you feel convinced, at this point,
+  that we have articulated a ``grand challenge'' and an agenda to
+  address it.  }
+
 \medksip
 
-The rest of this Project Description develops this research and
+The rest of the Project Description develops this research and
 tech transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
 background on PBT and present the preliminary findings from our
@@ -179,7 +183,9 @@ NSF-supported work on PBT.
 
 \todo{A one-paragraph summary of the Coordination and Management
   appendix -- personnel, tasks, integration, etc. -- with a pointer to
-  that appendix.}
+  that appendix.\forreaders{Please take an especially critical look at
+  that appendix and at what we say about coordination and management
+  here in the main project description.  NSF cares a lot about this!}}
 
 \todo{A one-paragraph summary of the BPC appendix, including the
   budget items associated with it.}
@@ -190,6 +196,9 @@ NSF-supported work on PBT.
 \hg{I can give that a try, you know I like snazzy infographics. Once we're
 settled on the story I'll see what I can do}
 \fi
+
+\todo{GPG: ``Does the plan incorporate a mechanism to assess
+  success?''  We need to talk about this explicitly!}
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
 
@@ -202,13 +211,13 @@ settled on the story I'll see what I can do}
 PBT%
 % , famously popularized by Haskell's QuickCheck library
 ~\cite{hughes2007quickcheck}
-is a form of software testing where
-executable functions act as partial
+is software testing method where
+executable functions are used as partial
 specifications of a component under test. For example, a developer might
 write the following property for an \lstinline{insert}
-function for a Binary Search Tree, taking an arbitrary tree \texttt{t}
+function on binary search trees, taking an arbitrary tree \texttt{t}
 and an integer
-\texttt{x} to insert into that tree as parameters. If the original tree
+\texttt{x} as parameters. If the original tree
 is a BST, then it should remain
 a BST after the insertion of \texttt{x}:
 \begin{lstlisting}
@@ -218,41 +227,43 @@ In general, a property is a function that
 accepts a generated
 test as input \iflater\hg{``generated test input''? I try to avoid
   calling the inputs ``tests''}\fi
-and evaluates to \lstinline{True} if the test passes, and
-\lstinline{False} otherwise.  This one, ``\verb|prop_insert_correct|'',
-checks that an insert operation on a binary search tree preserves the
-binary ordering of the tree.
+and evaluates to \lstinline{True} if the test passes and
+\lstinline{False} otherwise.  
+% This one, ``\verb|prop_insert_correct|'',
+% checks that an insert operation on a binary search tree preserves the
+% binary ordering of the tree.
 Given a property, the PBT tool generates a
 large number of inputs and
 checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported as a {\em counterexample}.
 
-This proposal focuses on {\em random}
-generation~\cite{hamlet1994random}, the dominant approach in PBT,
-though many of our tools would
-also be applicable to alternatives like enumerative test-case
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}.
-The surprising effectiveness of random generation can be attributed to the
-``combinatorial'' nature of larger test cases---the fact that bugs can often be
-exposed with test inputs that embody a specific combination of features,
-independent of whatever other features may be present. For example,
-a bug might be triggered by a particular sequence of API calls in a
-particular order,
-regardless of whether these are
-interleaved with other API calls. As a result, testing with large random
-inputs often exposes issues much faster than exhaustively enumerating
-small inputs.  Techniques like swarm testing~\cite{groce2012swarm} can
-further amplify this effect.
+Our research agenda focuses mostly on {\em random}
+generation~\cite{hamlet1994random}, the dominant approach in PBT
+(though many of our tools would also be applicable to alternatives
+like enumerative test-case
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}).  The
+surprising effectiveness of random generation can be attributed to the
+``combinatorial nature'' of large test cases---the fact that bugs can
+often be exposed by a test input that embodies some specific combination
+of features, independent of whatever other features may be
+present.  For example, a bug might be triggered by a particular
+sequence of API calls in a particular order, even when
+these are interleaved with other API calls. As a result, testing with
+large random inputs often exposes issues much faster than exhaustively
+enumerating small inputs.  Techniques like swarm
+testing~\cite{groce2012swarm} can further amplify this effect.
 
-To apply PBT, the developer first defines one or more properties that
-should be true of the program under test. Then, they write {\em random
-  input generators} for the values that the properties take as input
-(often these can be automatically generated). Next they check the
-properties with generated inputs, using test drivers provided by their
-PBT tools. And finally, if counterexamples are discovered, they make
-sense of them and determine the source of the bug.  Each of these
-steps presents opportunities to improve the user experience of PBT, as
-we describe in the next section.
+To apply PBT to a system or component, the developer first defines one
+or more properties that they expect it should always satisfy. Then
+they supply {\em random input generators} for the values that the
+properties take as input---these are sometimes written by hand, but
+often they can be automatically generated, e.g., from the input
+type. Next, they check their properties against many generated inputs,
+using a test harness provided by their PBT tool. And finally, if
+counterexamples are discovered, they inspect them to determine the
+source of the bug.  Each of these steps presents opportunities\iflater\bcp{weak!}\fi{} to
+improve the user experience of PBT, as we describe in the next
+section.
 
 \smallskip
 
@@ -2184,12 +2195,6 @@ Shi.
 
 \todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
 
-\todo{GPG: Does the plan incorporate a mechanism to assess success?}
-
-\todo{Webinar: Staff support is normal.  Needs to justified not only
-  in the body of the proposal but also carefully called out in the
-  budget justification.}
-
 \todo{GPG: Issues of fairness, ethics, accountability, and
   transparency (FEAT) are important considerations for many core
   topics in computer and information science and engineering. In
@@ -2201,5 +2206,8 @@ Shi.
 \todo{Does it make sense to include something about separation logic,
   or more generally about ``generators with difficult preconditions''?
  Could be speculative, as long as it's not vacuous.}
+
+\bcp{I see quite a few little issues in the citations.  Let's make
+  sure we give that a quick polishing pass.}
 
 \fi
