@@ -20,44 +20,51 @@
   required for the research to succeed.}
 
 Testing plays a vital role in modern software development,
-contributing crucially to robustness and overall quality---as well as
-to overall development costs.
+contributing crucially to robustness, security, and overall software
+quality\iflater\bcp{Would love to expand that a little.  Readers
+  really need to be convinced that testing is important enough to keep
+sinking research money into.}\fi; it also represents
+a significantly fraction of the cost of developing
+software\iflater{Numbers? one more sentence about costs would
+  be good.}\fi{}.
 %
-It comes in many styles---unit testing, integration testing,
+Testing comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
-etc.---supported by many sorts of tools, with yet more advanced tools
+etc.---supported by many sorts of tools, with even more advanced tools
 and techniques continually being developed, studied, and applied.
 
 One such technique, {\em property-based testing} (PBT), has been
 enthusiastically taken up by the functional programming research
-community since its introduction in the Haskell QuickCheck
-library~\cite{ClaessenHughes00}, and is beginning to make
+community since its introduction in Haskell's QuickCheck
+library~\cite{ClaessenHughes00} and is beginning to make
 serious inroads beyond academia.
 %
 PBT is sometimes glossed as ``formal specification without formal
 verification'': a developer characterizes the desired behavior of
-some piece of code at a high level in the form of executable {\em
-  properties}, which are simply Boolean-valued functions. The code is
-then validated against these properties by running it over and over
-with a large number of automatically generated test cases.
+some component in the form of executable {\em
+  properties}, which are simply Boolean-valued
+functions\iflater\bcp{that...}\fi. The code is
+then validated against these properties by running it many times
+with a large number of automatically generated test inputs.
 %
 PBT tools thus give programmers an efficient way of testing their
 code's behavior with a comprehensiveness that is often not
-possible with alternative testing methods.
+possible with alternative testing methods. \iflater\bcp{Why not with
+  fuzzing??}\fi
 
-PBT's combination of rich, high-level specifications with easy, mostly
-automatic validation has shown itself effective at identifying subtle
-bugs in an impressive variety of settings, including telecommunications
+PBT's combination of rich, high-level specifications with mostly
+automatic validation has been shown to be effective at identifying subtle
+bugs in a wide variety of settings, including telecommunications
 software~\cite{arts2006testing}, replicated
 file~\cite{hughes2014mysteries} and key-value
 stores~\cite{Bornholt2021}, automotive software~\cite{arts2015testing}, and a range
-of other real-world systems~\cite{hughes2016experiences}. With support
-now available in pretty much every major programming language \hg{But not
-enough! And not consistent}, PBT has
+of other real-world systems~\cite{hughes2016experiences}. With at
+least basic support
+now available in pretty much every major programming language\iflater \hg{But not
+enough! And not consistent}\fi, PBT has
 begun to make significant inroads in the broader software
-industry. For example, the developers of the Hypothesis library for
-Python estimate that it is used by around half a million
-developers~\cite{ZacPersonalCommunication}.
+industry.  The developers of the Hypothesis PBT library in
+Python, for example, estimate its user community at around half a million~\cite{ZacPersonalCommunication}.
 
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
@@ -67,20 +74,20 @@ already
 addressed all of the challenges that could limit PBT's adoption
 in the broader software industry.  But the answer seems to be no:
 In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
-at Jane Street Capital, we found
+at Jane Street Capital, we have found
 consistent enthusiasm for PBT---participants called it it
 ``obviously valuable'' (Participant \participant{1}),
 built their own libraries for it when standard ones were not available
 (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
 (\participant{20})---but participants also described {\em usability} issues
-that demand advances in technical foundations and
+whose solutions  =require advances in both technical foundations and
 tool design.
 
-Addressing usability challenges in PBT requires insights from both the
+Addressing these usability challenges will require insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
-al.~\cite{chasins_pl_2021} argue that a research methodology
+al.~\cite{chasins_pl_2021} have argued that a research methodology
 combining PL and HCI hits a ``sweet spot'' where need-finding techniques identify
 current pain points and motivate concrete tools that help programmers write
 safe, correct programs. We wholeheartedly agree.
@@ -90,11 +97,14 @@ a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
-We propose here a comprehensive, interdisciplinary research program on
+We propose a comprehensive, interdisciplinary research and engineering
+program on
 \emph{usable
-property-based testing}, bringing the combined power of PL and HCI to bear to
-accelerate PBT's transition into practice.
-\begin{itemize}[noitemsep]
+property-based testing}, bringing to bear the combined power of PL and HCI to
+accelerate PBT's transition into practice.  The project's research,
+engineering, and education activities can be grouped into six main themes:
+\begin{enumerate}[noitemsep]
+% \begin{itemize}[noitemsep]
 % \begin{enumerate*}
 \item We will establish a \emph{foundation} for HCI-informed research on PBT,
 starting from our ongoing need-finding study. We will confirm
@@ -105,33 +115,40 @@ of PBT users {\em in situ} (\sectionref{sec:foundation}).
   new tools for checking temporal properties over internal program states and
 for model-based testing of modularized code (\sectionref{sec:spec}).
   \item We will help developers efficiently define and tune random input
-\emph{generators} with novel techniques for generating precondition-satisfying
-values, for test input mutation, and for example-based generator
-tuning, all building
+\emph{generators} with novel techniques for generating values
+satisfying given preconditions, for test input mutation, and for example-based generator
+tuning---all building
   on a novel ``reflective'' approach to generation (\sectionref{sec:gen}).
-  \item We will support developers in rapidly \emph{validating} testing
-  effectiveness with novel interactive tools that help
-locate causes of test failures and understand how to improve the
-distribution of randomly generated
-data to be more representative and comprehensive
+\item We will build novel tools for {\em interacting} with
+  properties and generators---tools to help developers
+locate the causes of test failures and understand how to improve the
+distributions of randomly generated
+data to be more representative and comprehensive\iflater\bcp{Blah.}\fi{}
 (\sectionref{sec:val}).
+\item We will support the {\em diffusion} of PBT tools and
+methodologies from academia into industry through targeted engineering
+efforts. \bcp{More.}
   \item We will develop materials for PBT \emph{education}
   including an undergraduate computer science curriculum centered around PBT, a
   tool to help students author properties, and a comprehensive review of PBT
   practice to help students and developers identify situations where
   PBT is likely to be most useful (\sectionref{sec:ed}).
 % \end{enumerate*}
-\end{itemize}
-%
-Success in these efforts will require complementary tools from PL
-and HCI research. HCI approaches will be used to concretely define developers' needs,
-design the user interface to tools, and evaluate their success. PL approaches
-will be used to develop powerful domain-specific languages and type-based automation
-to improve the PBT process, as well as to formally validate these
-tools. The proposal concludes with a concrete outline of our work plan
-(\sectionref{sec:plan-of-work}), a discussion of the broader impacts of the
-proposed work (\sectionref{sec:broader-impacts}), and a summary of our
-prior NSF-supported work.
+% \end{itemize}
+\end{enumerate}
+The rest of the Project Description outlines our plans in each of
+these areas in turn and concludes with a discussion of the broader
+impacts of the proposed work (\sectionref{sec:broader-impacts}) and a
+summary of our prior NSF-supported work.
+
+Success in these efforts will require complementary tools from PL and
+HCI research. HCI approaches will be used to concretely define
+developers' needs, design the user interface to tools, and evaluate
+their success. PL approaches will be used to develop powerful
+domain-specific languages and type-based automation to improve the PBT
+process, as well as to formally validate these tools.
+
+\bcp{Talk about the orientation section, }
 
 \iflater
 \bcp{Somewhere in the intro, I think we should put a snazzy
@@ -140,6 +157,8 @@ prior NSF-supported work.
 settled on the story I'll see what I can do}
 \fi
 
+% \SIMPLESECTION{Orientation}
+% \subsectionstar{Property-Based Testing}
 \subsectionstar{Orientation: Property-Based Testing}
 %
 Popularized by Haskell's QuickCheck library~\cite{hughes2007quickcheck},
@@ -262,7 +281,7 @@ smaller pilot study among Hypothesis users to prepare for the
 full-scale one at Jane Street; this study was presented at the
 2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
-\subsectionstar{Framework: Challenges Using PBT} The final result of
+\subsectionstar{Usability Challenges} The final result of
 the ongoing study will be a fine-grained, qualitative description of how
 Jane Street developers use PBT, what they need from it, and how the
 research community can
