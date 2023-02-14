@@ -1,22 +1,25 @@
 \section*{Project Summary}
 
-\todo{Needs a once-over, once the structure stabilizes.}
-
+\todo{``Overview'' needed?}
 \subsubsection*{Overview}
-Property-based testing (PBT) is an advanced software testing
-method where users write executable specifications of their code
-and an automated test harness checks that these properties hold over
-many test inputs, often randomly generated.  The bug-finding power of PBT arises
-from its ability to exercise a wide range of system behaviors---both
+Property-based testing (PBT) is an advanced software engineering
+methodology where users write executable formal specifications of system
+components
+and an automated test harness checks these specifications against
+many automatically generated inputs.  The bug-finding power of PBT
+arises its ability both to work with rich specifications and
+to exercise a wide range of system behaviors---both
 expected and unexpected---with minimal user guidance.
 %
 From its roots in the Haskell QuickCheck library, PBT has become
 the testing method of choice across much of the functional programming
-community, and it has begun to make inroads into industrial practice
-at companies such as Quviq, Galois, Stripe, and Amazon.\iflater\todo{Who else??}\fi{}
+community; it has also begun to make inroads into industrial practice
+at companies such as Quviq, Galois, Stripe, and
+Amazon. \forreaders{Any other big companies?  Notable open-source
+  projects?}
 %
-The goal of this project is to accelerate this transition
-by identifying and addressing key challenges in
+The goal of this proposal is to accelerate this transition
+by addressing key challenges in
 present-day PBT tools.
 
 What are these challenges?
@@ -24,13 +27,13 @@ A need-finding study of PBT at Jane
 Street, a Wall Street firm with a focus on software
 technology as a competitive advantage, found developers enthusiastic
 about its {\em usefulness} but
-sometimes frustrated by issues with {\em usability}.
+sometimes frustrated with its {\em usability}.
 %
-The study identified usability as an issue in both major aspects
+Indeed, the study identified usability as an issue in both major aspects
 of PBT methods---{\em specification} of properties and {\em
-  generation} of random inputs. Furthermore, it revealed challenges
-around another aspect of PBT that has so far received less attention in the
-research literature: how programmers can {\em validate} the
+  generation} of random inputs. Moreover, it revealed challenges
+around another aspect of PBT that has so far received less attention from
+researchers: how programmers can {\em validate} the
 effectiveness of testing.
 
 % At the level of {\em specification}, developers wished for better
@@ -74,15 +77,17 @@ effectiveness of testing.
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To significantly boost the usability of PBT, two largely disjoint
+To make PBT more usable, two largely disjoint
 research areas must be
 brought to bear.  PBT itself is grounded in domain-specific languages
-and formal methods---traditional PL topics.  Usability, on the other
-hand, is the domain of Human-Computer Interaction (HCI).
+and formal methods---traditional topics in the field of Programming Languages.
+Usability, on the other hand, is the domain of Human-Computer Interaction.
 %
 This four-year project will combine insights, methods, and tools from
 PL and HCI to advance the usability of PBT along all three of its
-axes---specification, generation, and validation---and bring it to a
+axes---specification, generation, and validation\iflater\todo{We may
+  need to reorder these, depending on what happens with the global
+  structure.}\fi---and bring it to a
 broad community of software developers.
 
 \smallskip
@@ -128,21 +133,20 @@ high-leverage situations for using PBT, curricula for teaching mature
 and powerful PBT practices to undergraduate students, and tooling to help
 PBT beginners write their first properties.
 %
-A general-audience article on PBT for the Communications of the
-Association for Computing Machinery (CACM) will also help broaden the
+A general-audience article on PBT for CACM will also help broaden the
 reach of PBT.
 
 Work on the project will include and elevate undergraduate
 researchers, including some from diverse backgrounds that will be
 funded through a new NSF-REU. These undergraduates will work
-closely with PIs and Ph.D.{} students in an interconnected and supportive
+closely with the two PIs and four Ph.D.{} students in an interconnected and supportive
 research environment.
 
 The ultimate goal, through education, publications, and open-source
-tools, is to make property-based testing a standard option on every
+tools, is to make property-based testing a standard tool on every
 software developer's testing toolbelt.  Better testing, in turn, will
-lead to software systems of every sort that are more robust, more
-reliable, and less expensive to build.
+lead to software systems of every sort that are less expensive, more
+robust, and more reliable.
 
 
 % The statement on broader impacts should describe the potential of the proposed activity to benefit society and contribute to the achievement of specific, desired societal outcomes.
