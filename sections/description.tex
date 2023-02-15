@@ -879,7 +879,7 @@ the given trace properties in real time.
 % systems for which this form of specification would apply?}
 
 \SUBSECTION{Models for Modules}{sec:automating}{3}{3}{PL Practice}{PhD
-1}{UGrad/MS 2}{Who?}
+2}{UGrad/MS 2}{Who?}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -1396,7 +1396,6 @@ correctly.
 
 \SUBSECTION{Making Reflectives Usable}{sec:reflectiveusable}{4}{4}{HCI
   Practice}{PhD 2}{PhD 3}{Who?}
-
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1835,21 +1834,26 @@ section?}
 
 % \fi
 
-\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{3}{5}{Tech
-  Transfer}{PhD 3}{Engineer}{Who?}
+\newcommand{\tyche}{{\sc Tyche}}
+\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{3}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
+The ideas in this section highlight a clear opportunity for PBT tools that live
+in and take advantage of the programmer's code editor. We have shown tools that
+facilitate more intentional workflows, interact with and improve the
+programmer's generator code, assist in the test-authoring and debugging
+processes, and provide visibility into long-running testing campaigns---all
+without requiring the programmer to context-switch out of their normal workflow.
 
-\todo{Write me someone
-  \begin{itemize}
-    \item All of the things in this section work best in someone's editor
-    \item We want to make Tyche, an IDE for PBT, that incorporates these and
-    more ideas
-  \end{itemize}
-}
+But there is one more step needed to complete the picture: these tools will be
+integrated into a single, extensible IDE for PBT that we call \tyche. The \tyche{}
+extension to Visual Studio Code will include all of the projects from this
+section, providing tools that help programmers through various stages of the PBT
+process. And it will also be a home for new innovations. Future tools that we
+or others in the community see as important improvements to PBT workflow will
+also be included over time.
 
-\hg{Name is a placeholder. Tyche is a god of randomness, and I've been
-  waiting to use the name forever, but I'm not even a little attached
-  to it} \bcp{I like it!  Probably worth a web search to make sure
-  nobody (in this domain) has snapped it up.}
+Ultimately, we think \tyche{} will become an invaluable assistant in the PBT
+process, making it easier for developers to get started and succeed.
+\iflater \hg{This is a weak ending} \fi
 
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:platform}
 
@@ -1947,7 +1951,7 @@ early-stage computer science curriculum (\sectionref{sec:1210}).
 
 
 \SUBSECTION{``When to Specify It!''}{sec:whento}{3}{5}{Education}{PhD
-  2}{PhD 4}{Who?}
+  1}{PhD 4}{Who?}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
