@@ -514,7 +514,7 @@ cast a wider net.
 %
 In this section, we describe three planned studies that aim
 to produce a comprehensive, actionable
-agenda for the latter stages of this project, and beyond: two
+agenda for the latter stages of this project, and beyond.  We propose two
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
 (\sectionref{sec:survey}), plus an observation study to understand
@@ -525,24 +525,25 @@ particular tasks involved in PBT, so as to guide the design of new
 \SUBSECTION{Generalizing the Jane Street
   Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
 %
-The Jane Street study has already revealed a number of
+Preliminary findings from the Jane Street study already reveal a number of
 opportunities to improve tools for property-based testing. To identify
-others and to better understand which of these opportunities are most
-important for the research community to explore, we will conduct two
+others and to better understand which are most
+critical, we will conduct two
 surveys with broader samples of developers. These surveys aim to
-(1) determine which obstacles observed in the interview study
+(1) determine which obstacles observed in the interview
+study\iflater\bcp{sigh: another term :-)}\fi{}
 represent widely experienced pain points and
-(2) characterize the potential benefits of better tools to the
+(2) understand the potential benefits of better tools for the
 software industry as a whole.
 
 % \TASK{Validation survey}{1}{1}{Who?}
-The main survey we will conduct
-will check that
+The main survey
+aims to confirm (or disconfirm!) that
 the things we are learning from Jane Street generalize to other settings.
 We will
-ask developers which of the issues are
-ones they have also encountered, what the severity of those issues is
-in their experience, and about
+ask developers which of the issues we found at Jane Street are
+ones they have also encountered, which are most severe
+in their experience, and what
 other issues they have encountered.
 To provide
 clear usage scenarios to guide research, respondents will
@@ -552,7 +553,7 @@ heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
 ambient programming environment and language (e.g., whether their
 language supports Haskell-like typeclasses or OCaml-style
-metaprogramming, both of which have been used to good effect by
+metaprogramming, both of which are used to good effect by
 PBT tools in those languages).
 
 Respondents will
@@ -570,22 +571,24 @@ year~\cite{Pierce:Yow22}.
 % programming experience.
 
 % \TASK{Impact survey}{2}{2}{Who?}
-A more speculative survey we hope to
-conduct\todo{Promise it!}
-will investigate
+A second, more speculative, survey later in the project will investigate
 how broadly PBT may {\em eventually} be able to reach.  To get a sense
 of this, we will
 survey ``proximal'' users of PBT---developers who do not use PBT
-currently, but who might find it particularly
-useful.  Particular attention will be given to those whose work requires the
-writing of validation code and public APIs with some definition of types. We
-will recruit a broad sample of participants across development contexts
+currently but who might find it particularly
+useful.
+Particular attention will be given to those whose work requires
+writing validation code and public APIs with some definition of types\bcplater{Huh?}. We
+will recruit a broad sample of participants from varied settings
 (professional, open source, educational) by working with our industry contacts
-and by recruiting over social media. Admittedly, this survey seems more
-difficult to ``get right,'' and the design will evolve over time as we gain a
-better understanding of the situations where PBT is most effective
-(see \sectionref{sec:whento}), but if done right this could provide invaluable
-feedback to PBT researchers about how far their work could reach.
+and recruiting over social media.
+%
+\proposecut{This survey will be more
+difficult to ``get right'' than the first, and its design will
+accordingly evolve over time as we gain a
+better understanding of situations where PBT is most effective
+(see \sectionref{sec:whento}), but we believe it can provide invaluable
+feedback to PBT researchers about how far their work can reach.}
 
 \SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{4}{HCI
   Theory}{PhD 1}{}{Who?}
