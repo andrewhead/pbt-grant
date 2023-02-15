@@ -1528,14 +1528,9 @@ generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 
-\todo{Rewrite to fit new section name}
-
-A final set of challenges in maximizing PBT's usability lies in
-helping developers
-\evaltheme{validate} that their testing is effective. In this section, we
+In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
-tooling for PBT. These projects will contribute new paradigms for tools that
-help developers assess whether their generators are generating sufficient and
+tooling for PBT. These projects will contribute new paradigms for assessing whether their generators are generating sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}) and whether those
 inputs sufficiently exercise their code (\sectionref{sec:tuning}), migrate
 counterexamples found by property-based tests into conventional regression tests (\sectionref{sec:counter}),
@@ -1841,6 +1836,15 @@ for similar inputs are abundant.
 %
 \todo{Write me Andrew?}
 
+\begin{itemize}
+  \item Given the random nature of tests, it is not guaranteed that the same
+    software, when tested twice, will have the same results.
+  \item Views that focus on specific, known test cases may then be easier for
+    developers to understand quickly than those reporting summary statistics.
+  \item Or, dashboards should bring together signals from both random samples
+    of inputs, as well as known samples.
+\end{itemize}
+
 \hg{I copied a comment into here---can we use any of that writing for this
 section?}
 % \ifdraft
@@ -1923,6 +1927,8 @@ section?}
 
 \newcommand{\tyche}{{\sc Tyche}}
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{3}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
+\amh{Maybe this belongs at the beginning of this section, and the tools that
+come before would be components of \tyche{}}.
 The ideas in this section highlight a clear opportunity for PBT tools that live
 in and take advantage of the programmer's code editor. We have shown tools that
 facilitate more intentional workflows, interact with and improve the
