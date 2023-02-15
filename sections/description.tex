@@ -657,8 +657,28 @@ the kinds of designs that will help programmers.
 %
 \todo{Write me Andrew
   \begin{itemize}
-    \item How do people think about PBT?
-    \item Issues of trust, confidence in the system, tradeoffs, etc.
+    \item Theories in programming are useful for communicating what is
+      challenging about programming, and for generating ideas for what can be
+      done to overcome those challenges. Consider, for instance, the information
+      foraging theory developed by Burnett, Fleming, and others. This project
+      has led to numerous innovative tool-design efforts to support navigation within code.
+    \item What would a theory of property-based testing look like?
+    \item Constructs would include the specification, the generator, the result,
+      and the system under test, and the programmer's plan.
+    \item The key relationship between constructs would be the interaction
+      between the specification, generator, and the system to generate a result.
+      They use this result to come up with a plan.
+      Complexity in the specification, generator, and system each lead to
+      challenges in developing and executing a plan.
+    \item Key hypotheses relate to how changes in the specification,
+      generator, and system can lead to ability to formulate, execute, and
+      revise a plan. (Write out a couple example hypotheses).
+    \item We will develop a preliminary theory and hypotheses in the first two
+      years, refining it on the basis of findings that come from the
+      interventions (i.e., usability studies) conducted in later years with
+      various PBT tools, existing and experimental.
+    % \item How do people think about PBT?
+    % \item Issues of trust, confidence in the system, tradeoffs, etc.
   \end{itemize}
 }
 
@@ -1434,8 +1454,24 @@ any of this worth mentioning here?}
   \begin{itemize}
     \item You run across some properties in a program---what then?
     \item This has important implications for education, but also for engineers
-    \item Can we maybe use LLMs or some other kind of NLP tools to write
-    properties in plain English?
+    \item For sufficiently simple programs in sufficiently limited subset of
+      languages, it is possible to develop rule-based methods for generating 
+      readable, understandable explanations (PythonTutor, Tutorons)
+    \item Prior work has been done in converting from logics into natural
+      language explanations (work from Sanjit Seshia student), and may also be
+      applicable to the kinds of statements that appear in specifications.
+    \item The key is to help people both understand what might be unfamiliar
+      individual symbols (some PBT frameworks have their own DSL for specifying
+      properties), as well as to understand the idea behind the test. The idea
+      behind the test might best be shown by selecting simple examples of the
+      test case succeeding and similar test cases of it failing next to the
+      property.
+    \item It might be possible to use LLMs as well to provide descriptions of
+      the ``idea'' behind the test; PI Head is investigating this
+      in a parallel project and if it works sufficiently well, can incorporate
+      it into this project (particularly for frameworks like Hypothesis that
+      have properties written in a language like Python that much resembles the
+      code that the models were trained on).
     \item ...?
   \end{itemize}
 }
