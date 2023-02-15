@@ -523,8 +523,8 @@ particular tasks involved in PBT, so as to guide the design of new
 interactive tools
 (\sectionref{sec:observations}).
 
-\SUBSECTION{Generalizing the Jane Street
-  Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
+\SUBSECTION{Generalizability of the Jane Street findings}%
+   {sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
 \discuss{I'd like to make all the task titles more suggestive of the
   actual tasks...}
 %
@@ -596,7 +596,9 @@ feedback to PBT researchers about how far their work can reach.}
 \iflater \hg{We should be more confident with this task---we're asking for
 plenty of money, let's do it.} \fi
 
-\SUBSECTION{Usability of PBT Frameworks}{sec:frameworks}{2}{4}{HCI Theory}{PhD
+% \SUBSECTION{Usability of PBT Frameworks}%
+\SUBSECTION{Dimensions of PBT infrastructure design}%
+  {sec:frameworks}{2}{4}{HCI Theory}{PhD
 1}{PhD 3}{Who?}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
@@ -618,7 +620,7 @@ languages make a positive difference?
 
 To facilitate answering these questions, we will design and implement a minimal,
 modular PBT framework that can be tuned along the dimensions we want
-to study.\iflater\bcp{Can we give a bit more detail about what this
+to study. \iflater\bcp{Can we give a bit more detail about what this
   language will be like?  How is it related to the ``Reference
   implementation'' idea we talk about elsewhere?}\fi
 We will then give users testing tasks and measure the speed, effectiveness, and
@@ -626,7 +628,7 @@ confidence with which they performed their testing. In this way, we will
 generate design recommendations that we can use as evidence to help the
 communities standardize on usable designs.
 
-\SUBSECTION{Observing PBT in Practice}{sec:observations}{2}{4}{HCI
+\SUBSECTION{PBT interaction models}{sec:observations}{2}{4}{HCI
   Theory}{PhD 1}{}{Who?}
 %
 Our higher-level studies will also not answer granular questions that might
@@ -650,7 +652,7 @@ undertaking PBT tasks. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
 
-\SUBSECTION{A Cognitive Theory of PBT}{sec:cogtheory}{3}{5}{HCI
+\SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{3}{5}{HCI
   Theory}{PhD 4}{PhD 1}{Who?}
 %
 \todo{Write me Andrew
@@ -712,7 +714,7 @@ scenario of model-based testing (\sectionref{sec:automating}).
 The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
-\SUBSECTION{Properties Over Logs}{sec:outpurprop}{2}{2}{PL
+\SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{2}{PL
   Practice}{PhD 2}{UGrad/MS 1}{Who?}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
@@ -878,7 +880,7 @@ the given trace properties in real time.
 % module boundearies. Maybe we can more explicitly state the broad classes of
 % systems for which this form of specification would apply?}
 
-\SUBSECTION{Models for Modules}{sec:automating}{3}{3}{PL Practice}{PhD
+\SUBSECTION{Model-based properties for modules}{sec:automating}{3}{3}{PL Practice}{PhD
 2}{UGrad/MS 2}{Who?}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
@@ -967,7 +969,7 @@ reasoning is an actual explanation for the observed prevalence?  Is
 any of this worth mentioning here?}
 \fi
 
-\SUBSECTION{Explaining Properties}{sec:understanding}{2}{5}{HCI
+\SUBSECTION{Automatic explanations for properties}{sec:understanding}{2}{5}{HCI
   Theory}{PhD 4}{}{Who?}
 %
 \todo{Write me Andrew.
@@ -1108,7 +1110,7 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
-\SUBSECTION{Benchmarking Generators}{sec:benchmarks}{1}{2}{Tech
+\SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Who?}
 %
 \todo{(Re)write me Harry and Benjamin}
@@ -1152,7 +1154,7 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 
 \hg{Is this everything? Probably not...}
 
-\SUBSECTION{Reflective Generators}{sec:reflective}{1}{2}{PL
+\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{2}{PL
   Theory}{PhD 2}{}{Who?}
 \bcp{I actually wonder whether all three reflective subsections might
   better be collapsed into a single one...}
@@ -1394,7 +1396,7 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-\SUBSECTION{Making Reflectives Usable}{sec:reflectiveusable}{4}{4}{HCI
+\SUBSECTION{Usabilility of reflective generators}{sec:reflectiveusable}{4}{4}{HCI
   Practice}{PhD 2}{PhD 3}{Who?}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
@@ -1417,7 +1419,7 @@ Ultimately, we hope that this process results in a much more usable language for
 reflective generators that is simple enough to be used by even non-expert PBT
 practitioners.
 
-\SUBSECTION{Generator Automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
 %
 \todo{Write me someone
   \begin{itemize}
@@ -1437,6 +1439,8 @@ practitioners.
     \end{itemize}
   \end{itemize}
 }
+
+\todo{Tweak the title when we understand the content. :-)}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1463,8 +1467,8 @@ experience designing, developing, evaluating, and deploying novel programming
 environments and
 tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
-\SUBSECTION{Evaluating Data
-  Distributions}{sec:evaluating_distributions}{1}{2}{HCI Practice}{PhD
+\SUBSECTION{Evaluating data
+  distributions}{sec:evaluating_distributions}{1}{2}{HCI Practice}{PhD
   3}{UGrad/MS 3}{Who?}
 %
 In comparison to testing techniques like unit testing, PBT draws many
@@ -1579,7 +1583,7 @@ farther to consider how interactive tools can help a developer not
 just understand input data distributions, but more directly change
 them.
 
-\SUBSECTION{Tuning Data Distributions}{sec:tuning}{3}{4}{HCI Practice}{PhD
+\SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI Practice}{PhD
 3}{UGrad/MS 4}{Who?}
 %
 Tuning generator distributions is a challenging task, often requiring
@@ -1629,8 +1633,8 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
-\SUBSECTION{Counterexamples as Regression
-  Tests}{sec:counter}{2}{2}{HCI/PL Practice}{PhD 3}{}{Who?}
+\SUBSECTION{Counterexamples as regression
+  tests}{sec:counter}{2}{2}{HCI/PL Practice}{PhD 3}{}{Who?}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1681,8 +1685,8 @@ design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 
-\SUBSECTION{Interactive Shrinking and
-  Debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Who?}
+\SUBSECTION{Interactive shrinking and
+  debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Who?}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
@@ -1749,7 +1753,7 @@ settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
-\SUBSECTION{Dashboards for Long-Running Tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
+\SUBSECTION{Dashboards for long-running tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
 3}{Engineer}{Who?}
 %
 \todo{Write me Andrew?}
@@ -1878,7 +1882,7 @@ the whole architecture for the proposal: it was a nice conceit for a
 smaller project, but this one reaches too far beyond.  The grand
 challenge is better motivation for the whole thing.}
 
-\SUBSECTION{Nurturing the PBT Ecosystem}{sec:nurturing}{2}{3}{Tech
+\SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{2}{3}{Tech
 Transfer}{Engineer}{PhD 1}{Who?}
 
 \todo{Write me someone
@@ -1891,7 +1895,7 @@ Transfer}{Engineer}{PhD 1}{Who?}
   \end{itemize}
 }
 
-\SUBSECTION{Going Beyond Research Software}{sec:engineersupport}{2}{3}{Tech
+\SUBSECTION{Beyond research software}{sec:engineersupport}{2}{3}{Tech
 Transfer}{Engineer}{}{Who?}
 
 \todo{Write me someone
@@ -2000,8 +2004,8 @@ disseminate this documentation in blogs and incorporate it into tool
 manuals. Then, we will present the findings as a talk at a
 major professional developer conference.
 
-\SUBSECTION{Interactive Property
-  Specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
+\SUBSECTION{Interactive property
+  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
 \iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
 \fi
@@ -2032,7 +2036,7 @@ course (CIS 5520) and therefore implemented on top of
 Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-\SUBSECTION{PBT for Undergraduates}{sec:1210}{1}{5}{Education}{PhD 4}{Engineer}{Who?}
+\SUBSECTION{PBT for undergraduates}{sec:1210}{1}{5}{Education}{PhD 4}{Engineer}{Who?}
 %
 Education can act as a force multiplier to make technologies more usable.
 When tools or techniques become standards in undergraduate curricula,
@@ -2261,3 +2265,9 @@ Shi.
   ideas about how people talk about their work.}
 
 \fi
+
+\todo{Before sending to readers, we should suppress the appendix
+  sections that we don't want them to bother with.}
+
+\forreaders{There are some separate documents beyond the bibliography
+  that we'd love to hear your comments on...}
