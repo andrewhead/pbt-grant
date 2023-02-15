@@ -109,6 +109,8 @@
 
 \usepackage{ulem}\normalem
 \newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}}\fi}
+\newcommand{\proposechange}[2]{\ifdraft{\color{gray} \sout{#1}
+    $\rightarrow$ #2}\else #2\fi}
 
 \newcommand{\jsquote}[2]{%
   \begin{center}

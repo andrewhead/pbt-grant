@@ -108,8 +108,7 @@ published widely on PL topics including PBT.
 
 We propose a comprehensive, interdisciplinary research and engineering
 program on
-\iflater \hg{This isn't the title anymore---remove italics?} \fi
-\emph{usable
+{usable
 property-based testing}, bringing to bear the combined power of PL and HCI to
 accelerate PBT's transition into practice.  The project's research,
 engineering, and education activities can be grouped into six main
@@ -526,6 +525,8 @@ interactive tools
 
 \SUBSECTION{Generalizing the Jane Street
   Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
+\discuss{I'd like to make all the task titles more suggestive of the
+  actual tasks...}
 %
 Preliminary findings from the Jane Street study already reveal a number of
 opportunities to improve tools for property-based testing. To identify
@@ -603,19 +604,23 @@ information to inform the design of effective tools.  We will need a more
 fine-grained understanding of the design trade-offs inherent in PBT frameworks
 in order to extend and improve those frameworks.
 
-Of course, comparing every framework in every language to every other is
-infeasible and unhelpful; instead, we will identify dimensions along which PBT
+Of course, comparing all frameworks in all languages pairwise is
+infeasible and unhelpful; instead, we will identify several major dimensions along which PBT
 frameworks differ and evaluate how differences along those dimensions impact
-usability. For example, some frameworks, like OCaml's quickcheck, lean heavily
-into automating random data generation, whereas Hedgehog in Haskell is designed
+usability. For example, some frameworks, like OCaml's QuickCheck, lean heavily
+into automating random data generation, whereas Haskell's Hedgehog framework is designed
 to be more manual in the hopes of making users more intentional about their
-testing---which of these approaches is preferable? Similarly, some frameworks
-implement properties as basic predicates in the host language, while others have
-a rich language of properties---do property languages actually make a
-difference?
+testing; which of these approaches is preferable? Similarly, some frameworks
+implement properties as \proposechange{basic predicates in the host
+  language}{arbitrary host-language functions}, while others provide
+a rich domain-specific language of properties; do such property
+languages make a positive difference?
 
 To facilitate answering these questions, we will design and implement a minimal,
-modular PBT framework that can be tuned along the dimensions we want to study.
+modular PBT framework that can be tuned along the dimensions we want
+to study.\iflater\bcp{Can we give a bit more detail about what this
+  language will be like?  How is it related to the ``Reference
+  implementation'' idea we talk about elsewhere?}\fi
 We will then give users testing tasks and measure the speed, effectiveness, and
 confidence with which they performed their testing. In this way, we will
 generate design recommendations that we can use as evidence to help the
@@ -640,7 +645,7 @@ generator?
 
 % \TASK{Observation study}{2}{2}{Who?}
 As a basis for designing tools with a substantial novel interface
-component (see \sectionref{sec:val}), we will observe developers 
+component (see \sectionref{sec:val}), we will observe developers
 undertaking PBT tasks. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
@@ -2247,5 +2252,8 @@ Shi.
 
 \bcp{I see quite a few little issues in the citations.  Let's make
   sure we give that a quick polishing pass.}
+
+\bcp{We could / should read some past funded NSF Large proposals for
+  ideas about how people talk about their work.}
 
 \fi
