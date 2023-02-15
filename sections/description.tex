@@ -152,22 +152,24 @@ efforts. \bcp{More.}
 Success in these efforts will require complementary tools from PL and
 HCI research. HCI approaches will be used to concretely define
 developers' needs, design the user interface to tools, and evaluate
-their success. PL approaches will be used to develop powerful
+their success, while PL techniques will be used to develop powerful
 domain-specific languages and type-based automation to improve the PBT
 process, as well as to formally validate these tools. \bcp{That
   paragraph is weak.  Needs to be much stronger on the need for
   integration across domains, and between research and tech transfer.
   We should explicitly call out the engineer as critical to the
-  project's success.  We should say why we need four whole PhD
-  students---why can't this agenda be accomplished with fewer.}
+  project's success.}
+
+\discuss{Why do we need four PhD students---why can't this agenda be
+  accomplished with fewer?  Why do we need an engineer?}
 
 \forreaders{Please tell us whether you feel convinced, at this point,
-  that we have articulated a ``grand challenge'' and an agenda to
+  that we have articulated a compelling ``grand challenge'' and an agenda to
   address it.  }
 
 \medksip
 
-The rest of the Project Description develops this research and
+The rest of this Project Description develops this research and
 tech transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
 background on PBT and present the preliminary findings from our
@@ -183,9 +185,12 @@ NSF-supported work on PBT.
 
 \todo{A one-paragraph summary of the Coordination and Management
   appendix -- personnel, tasks, integration, etc. -- with a pointer to
-  that appendix.\forreaders{Please take an especially critical look at
-  that appendix and at what we say about coordination and management
-  here in the main project description.  NSF cares a lot about this!}}
+  that appendix.}
+
+\forreaders{Please take an especially critical look at the
+  Coordination and Management appendixappendix and at what we say
+  about coordination and management here in the main project
+  description.  NSF cares a lot about this!}
 
 \todo{A one-paragraph summary of the BPC appendix, including the
   budget items associated with it.}
@@ -228,7 +233,7 @@ accepts a generated
 test as input \iflater\hg{``generated test input''? I try to avoid
   calling the inputs ``tests''}\fi
 and evaluates to \lstinline{True} if the test passes and
-\lstinline{False} otherwise.  
+\lstinline{False} otherwise.
 % This one, ``\verb|prop_insert_correct|'',
 % checks that an insert operation on a binary search tree preserves the
 % binary ordering of the tree.
@@ -279,7 +284,7 @@ than with a small number of examples written out by hand.
 % Bornholt2021,arts2015testing,hughes2016experiences}.}
 But
 PBT is more than just thorough---it is also more general than example-based
-testing. Wrenn et al.~\cite{wrenn2021using} point out that example-based testing
+testing. For example, Wrenn et al.~\cite{wrenn2021using} observe that example-based testing
 of programs whose correctness conditions are {\em relational} (e.g.,
 topologically sorting a graph, which might
 produce any of a number of correct results) is impossible to do
@@ -288,12 +293,12 @@ such cases.
 PBT is also
 an obvious choice if
 the developer already has some semi-formal
-specification in mind, for example if they are implementing behavior from an RFC or
-other design document, because it provides a clear connection between the
+specification in mind---for example if they are implementing behavior from an RFC or
+other design document---because it provides a clear connection between the
 specified behavior and the implementation.
 Finally, the
 properties required for PBT can also serve as documentation:
-participants in our foundational study (\participant{5}, \participant{21})
+participants in our need-finding study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
@@ -305,10 +310,11 @@ as well, as we shall see next.
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
 %
-The work proposed here is motivated by findings from the
-need-finding study we are conducting at Jane Street. The purpose of this
-study is to understand how the research community can make PBT more
-usable. The study data consists of thirty semistructured interviews
+Our research agenda is strongly informed by preliminary findings from
+our in-progress need-finding study at Jane Street.  The purpose of this
+study is to understand the usability shortcomings and research
+challenges that must be addressed to boost adoption of PBT in
+industry. The study data consists of thirty semistructured interviews
 with developers who use PBT and maintainers of PBT tools.
 
 Jane Street is
@@ -316,63 +322,67 @@ an attractive setting for this study for several reasons.  First and most
 importantly, PBT is
 already well established at Jane Street, so there is a large
 population of people with well-informed opinions on its benefits and
-challenges. Additionally, Jane Street famously builds nearly all of its
-software in OCaml, a mostly functional programming language for which
-there is a well-engineered PBT tool. This unified
+challenges. Additionally, Jane Street famously builds much of of its
+software in OCaml, a mostly functional programming language with
+a well-engineered PBT library. This unified
 ecosystem ensures that developers have access to mature PBT tools,
 experience using them in collaborative settings,
 and awareness of language-level abstractions necessary
 for advanced usage.
 
 As of February 2023, the full complement of thirty interviews has been
-completed at Jane Street, and a preliminary round of qualitative
+completed at Jane Street and a preliminary round of qualitative
 analysis is underway; full-scale analysis will begin later in the year.
-Findings from the study will be disseminated in a paper submitted to a
+Findings from the study will be disseminated in a submission to a
 top-tier software engineering conference.  We also carried out a
 smaller pilot study among Hypothesis users to prepare for the
 full-scale one at Jane Street; its results were presented at the
 2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
-\subsectionstar{Usability Challenges} The final result of
+\subsectionstar{Usability Challenges} The final product of
 the ongoing study will be a fine-grained, qualitative description of how
 Jane Street developers use PBT, what they need from it, and how the
 research community can
-help improve PBT tools. While full analysis of the data remains
-to be done, a number themes are already clear. These form the backbone
-of the present proposal.
+help improve it.  While full analysis of the data remains
+to be completed, a number themes are already clear, and these form the
+backbone of the present proposal.
 
 \newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
 \newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
 \newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
 \newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
 A first set of
-themes revolves around \proptheme{\normalfont \bf specifications} (i.e.,
-properties).
+themes revolves around \proptheme{\normalfont \bf specifications}, i.e.,
+properties.
 % and the kinds of programs in which they choose to test them.
 Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
 specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein_problems_2022}, some users indicated just that.
-By contrast, Jane Street developers, on the whole, reported
+study~\cite{goldstein_problems_2022}, some respondants indicated just that.
+By contrast, Jane Street developers on the whole reported
 little difficulty finding
 properties. Rather, most developers applied PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. In participant
-9~(\participant{9})'s words, PBT is particularly easy to apply when one
-has ``a really good abstraction with a complicated implementation.''
-Several developers (\participant{3}, \participant{15},
-\participant{20}, \participant{22}), when asked to speculate, guessed
+available or straightforward to invent. In the words of participant~9
+(henceforth \participant{9}), PBT is particularly easy to apply when
+one has ``a really good abstraction with a complicated implementation.''
+When asked to speculate, several developers (\participant{3}, \participant{15},
+\participant{20}, \participant{22}) guessed
 that 80--100\% of Jane Street
 developers write programs like this, where properties are easy to find and
 PBT is relatively easy to apply. This suggests that an effective way to
-improve education and documentation for PBT would be to highlight
-real-world applications that are a natural fit.
+boost PBT in industry would be to provide
+educational materials and documentation that highlight
+real-world applications where it is are a natural
+fit. \iflater\bcp{Readers may wonder why we are leading with education
+in the motivation for a research proposal.  Is this an argument for
+moving the specification section to after generation?}\fi
 
 We also heard \proptheme{Opportunities for Better
 Leverage} of specifications, where PBT is not easy {\em yet}, but
-could be with a little more research effort. For example, developers in
-both studies (Pilot-\participant{4--6}) and Jane Street (\participant{7}) complained
+could be with a bit more research effort. For example, developers in
+both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
 that PBT was difficult when code was poorly abstracted.  Further,
 more than three
 quarters of study participants had used a particular approach to PBT commonly
@@ -407,36 +417,41 @@ and fix the root problem. Developers often implemented code for
 \gentheme{Shrinking} counterexamples to discover smaller,
 simpler inputs that trigger the same bug.  \participant{8}
 and \participant{21}, who each implemented their own PBT libraries, both
-incorporated shrinkers as key components of their libraries. But
+incorporated shrinkers as key components. But
 shrinkers need to be customized to particular kinds of data to be most
 effective, and they can be time-consuming to build; several
 developers
 (\participant{16}, \participant{20} \participant{21}, \participant{30})
-described shrinker implementation as an opaque and difficult process.
-Ideally, developers would have tools that make the process of implementing
-shrinkers fast and simple.
+described constructing shrinker as an opaque and difficult process.
+% Ideally, developers would have tools that make the process of implementing
+% shrinkers fast and simple.
 
-A further set of themes concerned
-\evaltheme{\normalfont \bf validation}\bcp{Need to figure out how to
-  split this into interaction and diffusion... if the latter is too
-  hard to motivate from the Jane Street study, we can just
-  acknowledge this.}---the processes developers use
+A further set of themes concerned the
+\evaltheme{\normalfont \bf interaction} between developers and their
+testing environments---in particular, the processes they use
 for \evaltheme{Evaluating the
 Effectiveness} of their tests. Many
-desired
+wished for
 better ways to evaluate their generators and properties, including
-better feedback on code coverage (\participant{9} and \participant{25}),
-incorporation of mutation
+feedback on code coverage (\participant{9} and \participant{25}),
+mutation
 testing~\cite{papadakis_mutation_2018}, and help understanding the
 distribution of randomly generated
 inputs (\participant{10}, \participant{16}, \participant{16}). Problematically,
 while many developers admitted they would benefit from better tools for
 evaluating their tests, many seemed to
-\evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code to production because
+\evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
 they did not realize their generator had missed important input
 examples.
+\iflater
+\bcp{Need to figure out how to
+  talk about diffusion here... if it is too
+  hard to motivate from the Jane Street study, we can
+  acknowledge this.  Or just leave it out.  (Maybe that's the best?
+  We're not trying to connect absolutely all the dots.)}
+\fi
 
-Finally, both of our studies reveal a need for progress
+Finally, these studies reveal a need for progress
 in PBT
 \edutheme{\normalfont \bf
 education}. Developers need to be informed about the \edutheme{High-Leverage
@@ -446,11 +461,13 @@ sometimes struggled to \edutheme{Imagine
 Properties} or to understand what properties to test (Pilot-\participant{1},
 Pilot-\participant{3},
 Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
-(Pilot-\participant{1}, Pilot-\participant{4}, \participant{3}, and
+(Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
 learning about PBT.
 
-\bcp{Needs a rewrite for the new structure...}%
+\iflater
+\bcp{Needs a rewrite for the new structure... Section 7 is missing!
+  Or maybe we can just drop this paragraph?!}%
 %
 We discuss plans for work that addresses \proptheme{specification
   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
@@ -460,6 +477,7 @@ We discuss plans for work that addresses \proptheme{specification
 \sectionref{sec:foundation} describes plans for a further round of
 studies to deepen our understanding of PBT needs and opportunities
 across a wide range of industrial settings.
+\fi
 
 \iflater\bcp{Not sure any more how I feel about the colors.  They are
   not really used in the rest of the document (in particular, we took
@@ -484,21 +502,25 @@ across a wide range of industrial settings.
 % probably being too heavy-handed in trying to justify the methodological choices.
 % Help me figure out what to prune!}\bcp{Did some pruning! :-)}
 
-The final results from the in-progress user study will paint a clear
+The final results from the Jane Street user study\iflater\bcp{We call
+  it a user study here, a need-finding study above, and I think a
+  foundational study somewhere.  Let's rationalize this.}\fi{} will
+paint a clear
 picture of the benefits and challenges of PBT in the specific context
 of Jane Street and other organizations with similar characteristics.  But to
 fully understand the potential impact of PBT across the software
 industry---and the factors that may limit its adoption---we need to
 cast a wider net.
 %
-In this section, we describe three planned studies, drawing on mixed
-methods in the service of producing a comprehensive and actionable
-agenda for research in this project and beyond: two
+In this section, we describe three planned studies that aim
+to produce a comprehensive, actionable
+agenda for the latter stages of this project, and beyond: two
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
-(\sectionref{sec:survey}), and an observation study to understand
-particular tasks involved in PBT to guide the design of new algorithms
-and interactive tools (\sectionref{sec:observations}).
+(\sectionref{sec:survey}), plus an observation study to understand
+particular tasks involved in PBT, so as to guide the design of new
+\proposecut{algorithms and} interactive tools
+(\sectionref{sec:observations}).
 
 \SUBSECTION{Generalizing the Jane Street
   Findings}{sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}

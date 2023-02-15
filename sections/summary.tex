@@ -26,9 +26,11 @@ The goal of this proposal is to accelerate this transition
 by addressing key challenges in
 present-day PBT tools.
 
-What are these challenges?\hg{I suspect this is where we'll need to come down
+What are these challenges?\iflater\hg{I suspect this is where we'll need to come down
 stronger---these don't really land as ``grand'' challenges. I think we need to
-couch JS and follow-on work as only the beginning}
+couch JS and follow-on work as only the beginning}\bcp{I tried a
+little rewording (reserving ``challenges'' for bigger stuff and using
+``issues'' here), but I didn't like it much.}\fi
 A need-finding study of PBT at Jane
 Street, a Wall Street firm with a focus on software
 technology as a competitive advantage, found developers enthusiastic
@@ -37,10 +39,11 @@ sometimes frustrated with its {\em usability}.
 %
 Indeed, the study identified usability as an issue in both major aspects
 of PBT methods---{\em specification} of properties and {\em
-  generation} of random inputs. Moreover, it revealed challenges
+  generation} of random inputs. Moreover, it revealed other challenges
 around another aspect of PBT that has so far received less attention from
-researchers: how programmers can {\em validate} the
-effectiveness of testing.\hg{Will need to change this sentence to include interaction}
+researchers: how programmers can {\em interact} with their programming
+environment to evaluate the
+effectiveness of testing.
 
 % At the level of {\em specification}, developers wished for better
 % support for expressing common requirements such as ``this
@@ -83,18 +86,19 @@ effectiveness of testing.\hg{Will need to change this sentence to include intera
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To tame these usability challenges and establish PBT as a mainstream
-testing method, two distinct research areas must be brought to bear.
+To tame these usability problems and establish PBT as a mainstream
+testing method, insights from two distinct research areas must be
+brought to bear.
 On one hand, PBT itself is grounded in domain-specific languages and
 formal methods---topics traditionally associated with Programming
 Languages and included in the Software and Hardware Foundations
 program under CISE-CCF.  Usability, on the other hand, is the domain
-of Human-Computer Interaction; its home is in CISE-IIS's
+of Human-Computer Interaction; its center of mass in CISE is IIS's
 Human-Centered Computing program.
 %
 This five-year project will combine insights, methods, and tools from
 PL and HCI to advance the usability of PBT along all three of its
-axes---specification, generation, and validation\iflater\todo{We may
+axes---specification, generation, and interaction\iflater\todo{We may
   need to reorder these, depending on what happens with the global
   structure.}\fi---and bring it to a
 broad community of software developers.
