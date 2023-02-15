@@ -184,8 +184,10 @@
   {\edef\FOO{\phdfourcolor}}
   {\ifthenelse{\equal{#1}{Engineer}}
   {\edef\FOO{\engineercolor}}
+  {\ifthenelse{\equal{#1}{Faculty}}
+  {\edef\FOO{\facultycolor}}
   {\edef\FOO{white}}
-}}}}}}}}}}}}}}
+}}}}}}}}}}}}}}}
 \newcommand{\colorkey}[1]{%
   %\COLOROF{#1}%
   %\FOO = #1%
