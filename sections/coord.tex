@@ -17,16 +17,6 @@
   the team; and 5) pointers to the budget line items that support
   these management and coordination mechanisms.}
 
-\todo{Management and Coordination Plans and proposed budgets should
-  demonstrate that key personnel, and especially lead PIs, have
-  allocated adequate time for both their individual technical
-  contributions and the leadership of collaborative activities
-  necessary to realize the synergistic effects of larger-scale
-  research.}
-
-\todo{One more standard measure of success is publications.  We might
-  as well talk about this.}
-
 \fi
 
 \iflast
@@ -59,6 +49,7 @@ on the tables.  Your feedback is appreciated!}
   whole five years.  Two summer months are allocated to each PI for
   this reason.
   \item Who supervises what.
+  \item Who teaches which courses, when.
   \end{itemize}
 }
 
@@ -173,32 +164,40 @@ settings.}{HCI Systems}
   figure in more detail}
 
 \iflater
-\todo{The following needs to be adjusted to fit the new timeline and people.}
+\bcp{Here's some old test, but I think it needs to be
+  rewritten... it should basically narrate the timeline figure as it
+  now stands, year by year.  Indeed, we could have paragraphs labeled
+  ``Year 1,'' etc.}
 
-Early efforts will focus on strengthening foundations, strengthening and
-generalizing the findings from our need-finding research to-date. Then, beginning in
+Early efforts will focus on strengthening foundations and
+motivations---in particular, strengthening and generalizing the
+findings from our need-finding research to-date. Also beginning in
 year 1, we will develop PL techniques for which we have strong
-motivation, and which will form the backbone of later interactive systems. This
-includes the development of reflective generators, shrinkers, and fuzzers.
-Initially, these efforts will be led by PhD candidate Harrison Goldstein, who
-has developed the preliminary work in these areas cited in the proposal.
+motivation, and which will form the backbone of later interactive
+systems. This includes the development of reflective generators,
+shrinkers, and fuzzers.  \todolast{Not sure whether to include this:
+  Initially, these efforts will be led by PhD candidate Harrison
+  Goldstein, who has developed the preliminary work in these areas
+  cited in the proposal.}
 
 HCI-based tool-building will begin in earnest in year 2, once the
-foundations have been established. This will take place in parallel with observations
-of developers undertaking PBT for the particular tasks the tools are meant to
-support. Some of these projects, most notably the ability to tune data
-distributions, will require tight coordination between the PL and HCI student.
-Other projects, including tooling for evaluating data distributions and and
+foundations have been established. This will take place in parallel
+with observations of developers undertaking PBT for the particular
+tasks the tools are meant to support. Some of these projects, most
+notably the ability to tune data distributions, will require tight
+coordination between the PL and HCI student.  Other projects,
+including tooling for evaluating data distributions and and
 counterexamples as regression tests, are less tightly coupled.
 
 Educational initiatives will take place throughout the project. PBT
-instruction will be incorporated into the data science classroom in the
-first year, and iteratively improved after reviewing course outcomes in each
-successive year. Our efforts to teach developers when to leverage properties will
-occur mostly in the first two years in parallel with our formative
-research. Tool-building for the classroom will take place in the final two
-years, after we have established a strong instructional core for teaching PBT at
-Penn.
+instruction will be incorporated into the data science classroom in
+the first year, and iteratively improved after reviewing course
+outcomes in each successive year. Our efforts to teach developers when
+to leverage properties will occur mostly in the first two
+years\todolater{doesn't match the figure} in
+parallel with our formative research. Tool-building for the classroom
+will take place in the final two years, after we have established a
+strong instructional core for teaching PBT at Penn.
 \fi
 
 \renewcommand{\tasksection}{\tasksectiongantt}
@@ -267,20 +266,61 @@ Penn.
 \label{fig:roles}
 \end{figure}
 
-\subsection*{Mechanics of team management}
+\subsection*{Coordination Mechanisms}
 
-\underconstruction{
-  \begin{itemize}
-  \item The main synchronization mechanism will be weekly group
-  meetings for the entire project team (PIs, PhD students, staff
-  engineer, undergraduates and masters students).
-  \item Slack and email will be used for daily team communications.
-  Git will be used for software development and writing.
-  \end{itemize}
-  }
+The main coordination mechanism for the project will be weekly group
+meetings for the entire project team---PIs, PhD students, staff
+engineer, undergraduates and masters students.
+
+Each PI will also meet weekly with the two PhD students working under
+their primary supervision (Figure~\ref{fig:roles}).
+
+Slack and email will be used for daily team communications.  Git will
+be used for software development and writing.
+
+All team members will have offices in the same building on Penn's
+campus.
+
+Given the cross-disciplinary nature of the project agenda, it will be
+important for all team members to have an appreciation of key methods
+and conceptual tools from both PL and HCI.  The four PhD students will
+be encouraged to take both Penn's core PL theory course (CIS 5000,
+{\em Software Foundations}), and our new PhD-level HCI course (CIS
+5120, {\em Introduction to Human-Computer Interaction}).
+
+\todo{Anything else?}
 
 \subsection*{Success Metrics}
 
-\underconstruction{Harry?}
+One major benefit of
+HCI methodologies is that they are self-validating---tools are built with users
+in the loop and evaluated in user studies before being shipped to the public.
+Each tool-building project we complete will include design justifications and
+evaluation based on user feedback, and many of the more theoretical projects will
+be measured by their ability to support the user-facing tools.
+
+We also plan to verify that our improvements to the ecosystem for PBT
+actually drive increased adoption. For this, we reach for an
+admittedly somewhat arbitrary metric: downloads of our \tyche{} IDE.
+We will list the IDE on the Visual Studio Code extension marketplace,
+with a goal of reaching 60,000 downloads by the end of the project. At
+the time of writing, this would put \tyche{} in the top 10 extensions
+tagged ``Testing'' that are not either full language servers or Large
+Language Model interfaces~\cite{noauthor_testing_nodate}, a lofty but,
+we believe, eminently achievable goal.
+
+Success of our educational efforts will also be measured by uptake: We
+will advertise our PBT course materials in educational circles
+(directly to friends and colleagues and indirectly through a paper
+submitted to the CS in Education conference), aiming to see them used
+by courses in at least 10 universities by the end of the project.
+
+\todolast{Any other educational metrics?  Docs, etc.?}
+
+Finally, the success of the more foundation project threads can, as
+usual, be measured at least partly in publications.  We will target
+top venues in PL, HCI, and Software Engineering, e.g., ICFP, PLDI,
+OOPSLA, ICSE, HCI, and UIST.
+
 
 \clearpage
