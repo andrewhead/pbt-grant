@@ -287,7 +287,7 @@
 %  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
   \ifthenelse{\equal{\currentganttsection}{}}{}{{\bf \currentganttsection}\\}%
   \gdef\currentganttsection{}%
-  \ \ \ #1 & #7 & #8 & #9 & #6
+  \ \ \ #1 & #7 & #8 & #9 % & #6
   \\
 }
 
@@ -391,6 +391,7 @@
 % J. Special Information and Supplementary Documentation
 \newpage\newsection{J}
 \input{sections/bpc}
+
 \newpage
 \input{sections/data}		% Data Management Plan (Required)
 

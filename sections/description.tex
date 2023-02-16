@@ -655,7 +655,7 @@ plenty of money, let's do it.} \fi
 % \SUBSECTION{Usability of PBT Frameworks}%
 \SUBSECTION{Dimensions of PBT infrastructure design}%
   {sec:frameworks}{3}{4}{HCI Theory}{PhD
-1}{PhD 3}{Who?}
+1}{PhD 3}{Head}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
@@ -685,7 +685,7 @@ generate design recommendations that we can use as evidence to help the
 communities standardize on usable designs.
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-   Theory}{PhD 1}{}{Who?}
+   Theory}{PhD 1}{}{Head}
 %
 Our higher-level studies will also not answer granular questions that might
 inform more traditional programming tool design, for example:
@@ -837,7 +837,7 @@ random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
-  Theory}{PhD 2}{}{Who?}
+  Theory}{PhD 2}{}{Pierce}
 \iflater
 \bcp{I actually wonder whether all three reflective subsections might
   better be collapsed into a single one...}
@@ -1081,7 +1081,7 @@ where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
 \SUBSECTION{Usabilility of reflective generators}{sec:reflectiveusable}{2}{3}{HCI
-  Practice}{PhD 2}{PhD 3}{Who?}
+  Practice}{PhD 2}{PhD 3}{Pierce}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1103,7 +1103,7 @@ Ultimately, we hope that this process results in a much more usable language for
 reflective generators that is simple enough to be used by even non-expert PBT
 practitioners.
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Who?}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Pierce}
 %
 \underconstruction{
   \begin{itemize}
@@ -1125,7 +1125,7 @@ practitioners.
 }
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
-  Transfer}{PhD 2}{PhD 1}{Who?}
+  Transfer}{PhD 2}{PhD 1}{Pierce}
 %
 \iflater\todo{(Re)write me Harry and Benjamin}\fi
 
@@ -1186,7 +1186,7 @@ scenario: model-based testing.
 \todo{Also mention explaining properties}
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
-  Practice}{PhD 4}{UGrad/MS 1}{Who?}
+  Practice}{PhD 4}{UGrad/MS 1}{Pierce}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -1260,7 +1260,7 @@ properties over log traces; the developer provides inputs to an outer system
 the given trace properties in real time.
 
 \SUBSECTION{Mixed-initiative property
-  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
+  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Pierce}
 \iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
 \fi
@@ -1292,7 +1292,7 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 \SUBSECTION{Model-based properties for modules}{sec:automating}{3}{4}{PL Practice}{PhD
-4}{UGrad/MS 2}{Who?}
+4}{UGrad/MS 2}{Pierce}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -1381,7 +1381,7 @@ any of this worth mentioning here?}
 \fi
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{3}{5}{HCI
-  Theory}{PhD 4}{}{Who?}
+  Theory}{PhD 4}{}{Pierce}
 %
 \underconstruction{\ifnext \todo{Write me Andrew.} \fi
   \begin{itemize}
@@ -1412,7 +1412,7 @@ any of this worth mentioning here?}
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
 
 \SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Who?}
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Pierce}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1484,7 +1484,7 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI Practice}{PhD
-  3}{UGrad/MS 3}{Who?}
+  3}{UGrad/MS 3}{Head}
 %
 In comparison to testing techniques like unit testing, PBT draws many
 tests from some
@@ -1599,7 +1599,7 @@ just understand input data distributions, but more directly change
 them.
 
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI Practice}{PhD
-3}{UGrad/MS 4}{Who?}
+3}{UGrad/MS 4}{Head}
 %
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
@@ -1650,7 +1650,7 @@ realistic, comprehensive data distributions for their testing.
 
 
 \SUBSECTION{Interactive shrinking and
-  debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Who?}
+  debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Head}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
@@ -1718,7 +1718,7 @@ bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
 \SUBSECTION{Dashboards for long-running tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
-3}{Engineer}{Who?}
+3}{Engineer}{Head}
 %
 \underconstruction{ \iflater\todo{Write me Andrew?}\fi
 \begin{itemize}
@@ -1814,7 +1814,7 @@ section?}\fi
 
 \newcommand{\tyche}{{\sc Tyche}}
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
-  Transfer}{Engineer}{PhD 3}{Who?}
+  Transfer}{Engineer}{PhD 3}{Pierce}
 \amh{Maybe this belongs at the beginning of this section, and the tools that
 come before would be components of \tyche{}}.
 The ideas in this section highlight a clear opportunity for PBT tools that live
@@ -1932,7 +1932,7 @@ Building hooks into tools for extension and research experimentation...
 
 
 \SUBSECTION{``When to Specify
-  It!''}{sec:whento}{3}{3}{Education}{Faculty}{Everyone else}{Both}
+  It!''}{sec:whento}{3}{3}{Education}{Faculty}{Everyone else}{}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
@@ -1982,7 +1982,7 @@ manuals. Then, we will present the findings as a talk at a
 major professional developer conference.
 
 \SUBSECTION{PBT for
-  undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{Faculty}
+  undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
 %
 Education can act as a force multiplier to make technologies more usable.
