@@ -1156,59 +1156,21 @@ practitioners.
 }
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
-%
-% To widen the on-ramp to using PBT, developers need help envisioning and
-% writing \proptheme{specifications}. Developers first need to know when they
-% should write properties to test their software. We describe our approach towards
-% helping them do so in among our educational agenda~\sectionref{sec:whento}. In
-% this section, we describe specific tooling that, once a developer has a property
-% in mind, helps them implement it. We envision how tools can help developers
-% poorly abstracted code (\sectionref{sec:outpurprop}) and test systems using
-% model-based specifications (\sectionref{sec:automating}).
-% \hg{I sort of liked what was here before... See comment}
-%
-\bcp{Maybe this section should begin with a little blurb like, ``One
-  might think (as we did) that teaching devs to write formal
-  specifications is a key challenge for getting PBT out into the
-  world.  But this is not what we found when we asked people...''}
+To widen the on-ramp to using PBT, developers need help envisioning and writing
+specifications. Our pilot study suggested that developers struggle to write
+properties about their programs, sometimes due to poorly abstracted code and
+other times simply because they fail to see what properties are available to
+test. We address the first of these issues in \sectionref{sec:outpurprop} and
+the second in \sectionref{sec:interactive}.
 
-% \iflater
-% \hg{This section is unsatisfying for me. Here's what we have for
-% ``specification'' threads:
-% \begin{itemize}
-%   \item Specifications are hard to write:
-%   \begin{itemize}
-%     \item (E) Interactive property specification
-%     \item (E) PBT for undergrads (not purely spec, but at least partly)
-%     \item (S) Properties over logs
-%   \end{itemize}
-%   \item Specifications are hard to read:
-%   \begin{itemize}
-%     \item (S) Explaining properties
-%   \end{itemize}
-%   \item Specifications should just be obvious from the program:
-%   \begin{itemize}
-%     \item (E) When to specify it
-%     \item (S) Models for modules
-%   \end{itemize}
-% \end{itemize}
-% Right now they're split between (E)duction and (S)pecification. How can we put
-% them together?
-% }
-% \bcp
-% \fi
+That said, a notable finding of the Jane Street study has been that widening the
+on-ramp to PBT may be easier if we can point developers towards particularly
+high-leverage use-cases for PBT. In \sectionref{sec:whento} we discuss our plans
+to catalog and communicate these use-cases for developers. Then, in
+\sectionref{sec:automating} we show a way to automate a specific high-leverage
+scenario: model-based testing.
 
-A notable finding of the Jane Street study has been that widening the
-on-ramp to PBT requires making developers aware of high-leverage
-use-cases for PBT. Our plans to teach developers about high-leverage
-scenarios are described below in \sectionref{sec:whento}; here,
-we discuss research opportunities that can help expand this space.
-Specifically, we describe plans to improve PBT's applicability to
-poorly abstracted code (\sectionref{sec:outpurprop}) and
-tools that will automate automatically in the specific high-leverage
-scenario of model-based testing (\sectionref{sec:automating}).
-The findings of the Jane Street study suggest that progress in these
-two areas will significantly widen the on-ramp to PBT.
+\todo{Also mention explaining properties}
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{2}{PL
   Practice}{PhD 2}{UGrad/MS 1}{Who?}
@@ -1284,97 +1246,87 @@ properties over log traces; the developer provides inputs to an outer system
 \emph{containing} the system(s) of concern; and then the test harness will check
 the given trace properties in real time.
 
-% A common problem
-% raised by Jane Street
-% developers (and even more loudly in the earlier pilot
-% study~\cite{ref:goldstein2022some}) was that code is sometimes not
-% organized in a way that is amenable to testing.  Of course, any kind of
-% testing of software units---with PBT techniques or otherwise---requires
-% ``units'' to test!  But PBT is
-% especially sensitive to issues like poorly encapsulated global state, which may
-% impact the repeatability of testing, and leaky or confusing
-% abstraction boundaries, which make it difficult to cleanly state
-% properties.
+\SUBSECTION{Interactive property
+  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
+\iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
+  That seems confusing.  Maybe move it to Specification?}
+\fi
+%
+Even when a developer knows when properties are useful in the abstract,
+they may still have trouble writing their first properties
+for real projects. We plan to develop prototype interactive tools that help
+programmers compose their first properties in an educational setting.
 
-% For example, one developer (\participant{7}) described their experience testing a
-% system (let's call it \lstinline{Inner}) with messy abstraction
-% boundaries. \lstinline{Inner} was hard to test because it was
-% used as a sub-component of a larger system \lstinline{Outer}.
-% \lstinline{Outer} would take in simple inputs, then at some point pass a
-% large, complex data structure to \lstinline{Inner}, which would do some work and
-% hand results back to \lstinline{Outer}. Applying PBT to
-% \lstinline{Inner} was
-% hard because generating valid examples of the large data structure that
-% \lstinline{Inner} takes as input required deep knowledge of the internals and
-% types of \lstinline{Outer} that the developers of \lstinline{Inner} did not have
-% access to, and because the interface was too complex to write straightforward
-% properties about.
+The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
+tool, where a student and their code editor work together to arrive at a
+meaningful property. Extending prior work on property extraction techniques (see for
+instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
+smith_discovering_2017}), the idea is to help students compose properties that
+are not just accurate descriptors of the system, but significant in reflecting
+important program behavior. We will build an interface on top of a property
+extractor which allows students to write their first properties which supports a
+student by allowing them to (1) identify areas of code likely to lead to adverse behavior;
+(2) providing unit test cases that represent special cases of more general
+properties; and (3) selecting attributes of data types in the source code, or
+of input and output data in a debugging REPL, relevant to the property. These
+features will allow a student to more rapidly map from behaviors they can
+observe or specify in familiar ways, and see how those behaviors are cast into
+the language of their property checker.
+%
+The tool will be designed for use in Penn's upper division Haskell
+course (CIS 5520) and therefore implemented on top of
+Haskell's property
+generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-% We plan to pursue a novel approach to testing systems like
-% \lstinline{Inner} that are
-% difficult to write properties about because they cannot be fully extracted from
-% a larger system.
-% The idea is to test
-% \lstinline{Inner} through \lstinline{Outer} by
-% writing properties over {\em intermediate} values within
-% \lstinline{Inner}, for example:
-% \begin{lstlisting}
-%   prefix_of processed (next (processed))       (* 1. Processing is monotonic. *)
-%   msg.length < 100 ==> never (overflow = true) (* 2. Can process at least 100 bytes. *)
-%   eventually (processed.length = msg.length)   (* 3. The whole message is processed. *)
-% \end{lstlisting}
-% Such properties might check that the queue of \lstinline{processed} items only
-% increases (1), that the \lstinline{overflow} flag is never set if the message is
-% of appropriate length (2), that the whole message is eventually processed (3),
-% etc.  The critical observation is that the developer can talk about the behavior
-% of \lstinline{Innner} without talking about its \lstinline{Outer}-facing API.
-% Moreover, these properties can be tested without ever running
-% \lstinline{Inner} alone: we can generate inputs to \lstinline{Outer}, have
-% \lstinline{Outer} drive \lstinline{Inner}, and monitor values within
-% \lstinline{Inner} values to check the desired properties.
+\SUBSECTION{``When to Specify It!''}{sec:whento}{3}{5}{Education}{PhD
+  1}{PhD 4}{Who?}
+%
+Our first pilot study with users of PBT suggested that developers struggle to
+come up with specifications that are worth
+testing~\cite{goldstein_problems_2022},
+but
+our follow-up interviews at Jane Street suggest that the developers there
+rarely have the same problem. It seems that the Jane Street developers had
+a tacit
+understanding of ``no-brainer'' situations where PBT was an obvious
+choice---situations where properties were easy to find and where PBT provided
+much more thorough testing than other common techniques---and they limited their
+use of PBT to these situations.
+While experienced PBT users do also apply it in
+high-cost / high-benefit situations, we believe
+focusing on easier cases is the best way to drive adoption.
 
-% How can such properties be tested?  One might
-% hope to do it through assert statements, but this approach quickly
-% becomes quite heavy.
-% Checking property (1) with assertions would require nontrivial code to
-% save the previous value every time \lstinline{processed} is updated, plus
-% macros or some other kind of meta-programming to
-% remove that code when building in release mode. Worse, it seems difficult
-% to check properties (2) or (3) at all. Doing so would require making an
-% assertion at the ``end'' of the computation, which may be hard to
-% recognize if \lstinline{Outer} is driving \lstinline{Inner} from the
-% outside.
+We aim to produce authoritative resources that help developers understand
+high-leverage situations for PBT. We will begin with an effort
+tailored to the academic community: a survey paper with the
+aspirational title ``When to Specify It!'' in homage to John Hughes'
+widely-viewed tutorial ``How to Specify It!''. This survey will
+document the range of high-leverage scenarios identified in our formative
+research, including cases like
+\begin{enumerate*}[label=(\arabic{enumi})]
+\item ``these two functions (e.g., a parser and a printer) should round-trip,''
+\item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
+\item ``this stateful module should uphold an invariant,''
+\item ``these two programs should behave the same'' (e.g., because one
+is an optimized version of the other),
+and
+\item ``this program should not crash.''
+\end{enumerate*}
+This list will be further expanded with our follow-up surveys with broader
+communities of developers~(\sectionref{sec:survey}), a comprehensive
+review of case studies that appear in
+the academic literature, and an examination of open source projects across a
+variety of different software ecosystems using PBT (e.g.,
+QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-% We envision a framework for writing properties over {\em logged values}
-% that can capture interesting relationships between their values
-% over time.  Concretely, we will support inserting lightweight
-% logging annotations in modules like \lstinline{Inner}, and we will
-% provide a language for writing temporal properties over those
-% logs. In order to express concepts like \lstinline{next}, \lstinline{never}, and
-% \lstinline{eventually} the property language will need some logical connectives
-% that are not standard in PBT.  In particular, we need a logic like {\em
-% linear temporal logic} (LTL) so that properties can capture a notion of time.
-
-% Using LTL with PBT is not unheard of---the Quickstrom testing
-% framework~\cite{oconnor_quickstrom_2022} uses LTL properties
-% for specifying and testing graphical user interfaces---but LTL
-% properties at this level of generality have not been attempted. We plan to
-% compile LTL formulae to properties over log traces. Then, the
-% developer can provide inputs to some system containing the sub-system under
-% test; the test harness will check the given trace properties in real
-% time. In this
-% way, the user can express properties about invariants that should hold of the
-% intermediate values of their programs, making PBT available in many
-% situations where it was previously too difficult to apply. \bcp{I'm
-% still not that convinced by the examples...}\hg{Any idea what is unconvincing?
-% Unclear whether I'm just wrong
-% that this is an interesting project, or whether I can't manage to communicate
-% what's interesting. We'll probably just need to actually do some work on it to
-% know for sure} \amh{For me, one of the challenges is that the example seems so
-% specific that it makes me wonder about the generality of the approach. Though I
-% know from lots of my own projects that there is important behavior that crosses
-% module boundearies. Maybe we can more explicitly state the broad classes of
-% systems for which this form of specification would apply?}
+Building on the strong foundation of the survey, we will distill our findings
+into media directly tailored for developers. First, we will write up
+approachable developer documentation in partnership with our industry
+collaborators, to be read among the first resources of any developer
+documentation on PBT tools. We will work with our industry collaborators to
+disseminate this documentation in blogs and incorporate it into tool
+manuals. Then, we will present the findings as a talk at a
+major professional developer conference.
 
 \SUBSECTION{Model-based properties for modules}{sec:automating}{3}{3}{PL Practice}{PhD
 2}{UGrad/MS 2}{Who?}
@@ -1494,87 +1446,7 @@ any of this worth mentioning here?}
   \end{itemize}
 }
 
-\SUBSECTION{``When to Specify It!''}{sec:whento}{3}{5}{Education}{PhD
-  1}{PhD 4}{Who?}
-%
-Our first pilot study with users of PBT suggested that developers struggle to
-come up with specifications that are worth
-testing~\cite{goldstein_problems_2022},
-but
-our follow-up interviews at Jane Street suggest that the developers there
-rarely have the same problem. It seems that the Jane Street developers had
-a tacit
-understanding of ``no-brainer'' situations where PBT was an obvious
-choice---situations where properties were easy to find and where PBT provided
-much more thorough testing than other common techniques---and they limited their
-use of PBT to these situations.
-While experienced PBT users do also apply it in
-high-cost / high-benefit situations, we believe
-focusing on easier cases is the best way to drive adoption.
 
-We aim to produce authoritative resources that help developers understand
-high-leverage situations for PBT. We will begin with an effort
-tailored to the academic community: a survey paper with the
-aspirational title ``When to Specify It!'' in homage to John Hughes'
-widely-viewed tutorial ``How to Specify It!''. This survey will
-document the range of high-leverage scenarios identified in our formative
-research, including cases like
-\begin{enumerate*}[label=(\arabic{enumi})]
-\item ``these two functions (e.g., a parser and a printer) should round-trip,''
-\item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
-\item ``this stateful module should uphold an invariant,''
-\item ``these two programs should behave the same'' (e.g., because one
-is an optimized version of the other),
-and
-\item ``this program should not crash.''
-\end{enumerate*}
-This list will be further expanded with our follow-up surveys with broader
-communities of developers~(\sectionref{sec:survey}), a comprehensive
-review of case studies that appear in
-the academic literature, and an examination of open source projects across a
-variety of different software ecosystems using PBT (e.g.,
-QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
-
-Building on the strong foundation of the survey, we will distill our findings
-into media directly tailored for developers. First, we will write up
-approachable developer documentation in partnership with our industry
-collaborators, to be read among the first resources of any developer
-documentation on PBT tools. We will work with our industry collaborators to
-disseminate this documentation in blogs and incorporate it into tool
-manuals. Then, we will present the findings as a talk at a
-major professional developer conference.
-
-\SUBSECTION{Interactive property
-  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
-\iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
-  That seems confusing.  Maybe move it to Specification?}
-\fi
-%
-Even when a developer knows when properties are useful in the abstract,
-they may still have trouble writing their first properties
-for real projects. We plan to develop prototype interactive tools that help
-programmers compose their first properties in an educational setting.
-
-The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
-tool, where a student and their code editor work together to arrive at a
-meaningful property. Extending prior work on property extraction techniques (see for
-instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
-smith_discovering_2017}), the idea is to help students compose properties that
-are not just accurate descriptors of the system, but significant in reflecting
-important program behavior. We will build an interface on top of a property
-extractor which allows students to write their first properties which supports a
-student by allowing them to (1) identify areas of code likely to lead to adverse behavior;
-(2) providing unit test cases that represent special cases of more general
-properties; and (3) selecting attributes of data types in the source code, or
-of input and output data in a debugging REPL, relevant to the property. These
-features will allow a student to more rapidly map from behaviors they can
-observe or specify in familiar ways, and see how those behaviors are cast into
-the language of their property checker.
-%
-The tool will be designed for use in Penn's upper division Haskell
-course (CIS 5520) and therefore implemented on top of
-Haskell's property
-generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
