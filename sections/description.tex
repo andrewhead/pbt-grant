@@ -376,7 +376,12 @@ Since
 PBT is often described as a lightweight formal method, one
 might imagine that a common challenge would be coming up with the
 specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein_problems_2022}, some respondants indicated just that.
+study~\cite{goldstein_problems_2022}, some respondents indicated just that:
+developers with less experience with PBT
+sometimes struggled to \proptheme{Imagine
+Properties} or to understand what properties to test (Pilot-\participant{1},
+Pilot-\participant{3},
+Pilot-\participant{4}, Pilot-\participant{5}).
 By contrast, Jane Street developers on the whole reported
 little difficulty finding
 properties. Rather, most developers applied PBT in
@@ -461,29 +466,20 @@ evaluating their tests, many seemed to
 they did not realize their generator had missed important input
 examples.
 \iflater
-\bcp{Need to figure out how to
-  talk about diffusion here... if it is too
-  hard to motivate from the Jane Street study, we can
-  acknowledge this.  Or just leave it out.  (Maybe that's the best?
-  We're not trying to connect absolutely all the dots.)}
-\hg{I think best to not; we can justify it in plenty of other ways}
+\hg{More themes here, now that we're in infrastructure?}
 \fi
 
-\discuss{Uh oh -- if we delete the Education section, what becomes of
-  these?  Can we rename them Diffusion??}
-Finally, these studies reveal a need for progress
-in PBT
-\edutheme{\normalfont \bf
-education}. Developers need to be informed about the \edutheme{High-Leverage
-Scenarios} in which PBT should be employed, as discussed above.
-In the pilot study, we found that developers with less experience with PBT
-sometimes struggled to \edutheme{Imagine
-Properties} or to understand what properties to test (Pilot-\participant{1},
-Pilot-\participant{3},
-Pilot-\participant{4}, Pilot-\participant{5}). Developers in both studies
+Finally, our experience with these studies and with our prior research suggests
+that significant engineering and pedagogical effort is also needed to ensure
+PBT's broad \edutheme{\normalfont \bf diffusion}.  Developers in both studies
 (Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
-learning about PBT.
+learning about PBT, which limits its adoption. PBT is also not traditionally
+taught in computer science curricula, highlighting opportunities for expanded
+\edutheme{Classroom Education}. Finally, the existing tools for PBT are
+inconsistent and under-maintained; if PBT tools are to become mainstream, we
+must provide \edutheme{Support and Guidance for Open-Source Communities.}
+\discuss{How's this? It's a little forced and under-supported, but I think this is good for now.}
 
 \iflater
 \bcp{Needs a rewrite for the new structure... Section 7 is missing!
