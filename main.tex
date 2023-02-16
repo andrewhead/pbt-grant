@@ -104,12 +104,13 @@
 \newcommand{\rewrite}[1]{{\ifdraft\color{dkred}\fi #1}}
 % \newcommand{\pagebudget}[1]{(#1 pages)}
 \newcommand{\pagebudget}[1]{}
+\newcommand{\underconstruction}[1]{{\color{nord-red} Under construction: #1}}
 
 \newcommand{\forreaders}[1]{{\ifdraft\else\color{dkgreen} Readers: #1\fi}}
 \newcommand{\discuss}[1]{{\color{purple}\bf High priority: #1}}
 
 \usepackage{ulem}\normalem
-\newcommand{\proposecut}[1]{\ifdraft{\color{gray} \sout{#1}}\fi}
+\newcommand{\proposecut}[1]{\iflater\ifdraft{\color{gray} \sout{#1}}\fi\fi}
 \newcommand{\proposechange}[2]{\ifdraft{\color{gray} \sout{#1}
     $\rightarrow$ #2}\else #2\fi}
 

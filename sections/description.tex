@@ -110,8 +110,7 @@ published widely on PL topics including PBT.
 
 We propose a comprehensive, interdisciplinary research and engineering
 program on
-{usable
-property-based testing}, bringing to bear the combined power of PL and HCI to
+{property-based testing}, bringing to bear the combined power of PL and HCI to
 accelerate PBT's transition into practice.  The project's research,
 engineering, and education activities can be grouped into six main
 themes: \bcplater{This already feels too detailed, and we still need to write
@@ -166,6 +165,18 @@ process\proposecut{, as well as to formally validate these tools}. \bcp{That
   integration across domains, and between research and tech transfer.
   We should explicitly call out the engineer as critical to the
   project's success.}
+
+The scale of this project is essential to its success.
+\todo{Why?
+  \begin{itemize}
+  \item Engineer needed to support the research efforts and---even
+  more importantly---to push things out into industry by integrating
+  research results into existing industrial PBT tools like Hypothesis
+  and building a production-quality programming environment with
+  integrated PBT visualization tools.
+  \item Four students...
+  \end{itemize}
+  }
 
 % \todo{
 %   Points that need to be made:
@@ -538,8 +549,38 @@ particular tasks involved in PBT, so as to guide the design of new
 interactive tools
 (\sectionref{sec:observations}).
 
+\SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
+  Theory}{PhD 1}{Everyone}{Head}
+%
+\todo{Write me Andrew
+  \begin{itemize}
+    \item Theories in programming are useful for communicating what is
+      challenging about programming, and for generating ideas for what can be
+      done to overcome those challenges. Consider, for instance, the information
+      foraging theory developed by Burnett, Fleming, and others. This project
+      has led to numerous innovative tool-design efforts to support navigation within code.
+    \item What would a theory of property-based testing look like?
+    \item Constructs would include the specification, the generator, the result,
+      and the system under test, and the programmer's plan.
+    \item The key relationship between constructs would be the interaction
+      between the specification, generator, and the system to generate a result.
+      They use this result to come up with a plan.
+      Complexity in the specification, generator, and system each lead to
+      challenges in developing and executing a plan.
+    \item Key hypotheses relate to how changes in the specification,
+      generator, and system can lead to ability to formulate, execute, and
+      revise a plan. (Write out a couple example hypotheses).
+    \item We will develop a preliminary theory and hypotheses in the first two
+      years, refining it on the basis of findings that come from the
+      interventions (i.e., usability studies) conducted in later years with
+      various PBT tools, existing and experimental.
+    % \item How do people think about PBT?
+    % \item Issues of trust, confidence in the system, tradeoffs, etc.
+  \end{itemize}
+}
+
 \SUBSECTION{Generalizability of the Jane Street findings}%
-   {sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
+   {sec:survey}{2}{3}{HCI Theory}{PhD 1}{}{Head}
 %
 Preliminary findings from the Jane Street study already reveal a number of
 opportunities to improve tools for property-based testing. To identify
@@ -611,7 +652,7 @@ plenty of money, let's do it.} \fi
 
 % \SUBSECTION{Usability of PBT Frameworks}%
 \SUBSECTION{Dimensions of PBT infrastructure design}%
-  {sec:frameworks}{2}{4}{HCI Theory}{PhD
+  {sec:frameworks}{3}{4}{HCI Theory}{PhD
 1}{PhD 3}{Who?}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
@@ -641,8 +682,8 @@ confidence with which they performed their testing. In this way, we will
 generate design recommendations that we can use as evidence to help the
 communities standardize on usable designs.
 
-\SUBSECTION{PBT interaction models}{sec:observations}{2}{4}{HCI
-  Theory}{PhD 1}{}{Who?}
+\SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
+   Theory}{PhD 1}{}{Who?}
 %
 Our higher-level studies will also not answer granular questions that might
 inform more traditional programming tool design, for example:
@@ -664,36 +705,6 @@ component (see \sectionref{sec:val}), we will observe developers
 undertaking PBT tasks. These observations will allow us to evolve
 singular anecdotes from the interviews into a more comprehensive picture of
 the kinds of designs that will help programmers.
-
-\SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{3}{5}{HCI
-  Theory}{PhD 4}{PhD 1}{Who?}
-%
-\todo{Write me Andrew
-  \begin{itemize}
-    \item Theories in programming are useful for communicating what is
-      challenging about programming, and for generating ideas for what can be
-      done to overcome those challenges. Consider, for instance, the information
-      foraging theory developed by Burnett, Fleming, and others. This project
-      has led to numerous innovative tool-design efforts to support navigation within code.
-    \item What would a theory of property-based testing look like?
-    \item Constructs would include the specification, the generator, the result,
-      and the system under test, and the programmer's plan.
-    \item The key relationship between constructs would be the interaction
-      between the specification, generator, and the system to generate a result.
-      They use this result to come up with a plan.
-      Complexity in the specification, generator, and system each lead to
-      challenges in developing and executing a plan.
-    \item Key hypotheses relate to how changes in the specification,
-      generator, and system can lead to ability to formulate, execute, and
-      revise a plan. (Write out a couple example hypotheses).
-    \item We will develop a preliminary theory and hypotheses in the first two
-      years, refining it on the basis of findings that come from the
-      interventions (i.e., usability studies) conducted in later years with
-      various PBT tools, existing and experimental.
-    % \item How do people think about PBT?
-    % \item Issues of trust, confidence in the system, tradeoffs, etc.
-  \end{itemize}
-}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
@@ -823,51 +834,7 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
-\SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
-  Transfer}{PhD 2}{PhD 1}{Who?}
-%
-\todo{(Re)write me Harry and Benjamin}
-
-\iflater\todo{Make sure this feels different from Leo's CAREER}\fi
-%
-The many papers in the PBT literature demonstrate effectiveness with case
-studies, showing that certain bugs in certain systems are caught more quickly
-with one too over another. For theoretical advances, this is often sufficient
-to demonstrate that the paper is worth publishing, but this kind of evaluation
-can be hard to interpret from the perspective of a would-be user. With all of
-the new approaches to generation that we are proposing in this document, and
-considering our goals around usability, we want to do better.
-
-We will to develop and popularize a robust empirical evaluation framework for
-generators and other PBT techniques. Our first contribution will be an
-infrastructure for easily and extensibly running experiments.  By ``easily,'' we
-mean that we will take on the burden of collecting data and analyzing the
-results, exposing to the user library functions for their particular
-instantiations as needed. We will evaluate a given tool based on (1) the degree
-to which it is able to achieve high code coverage quickly, and (2) the speed
-with which it finds bugs that have been pre-seeded in example programs. By
-``extensibly,'' we mean that in addition to the two languages (Haskell and
-OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-numerous workloads that we plan to support on release, we will design the
-infrastructure so that users can easily add new things along each dimension.
-
-Our second contribution will codify a library of case-studies and examples as
-{\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
-fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
-organized around the particular challenges that PBT tools face. In particular,
-few of the benchmarks deal with the kinds of complex preconditions that PBT
-tools are built to handle. We want to establish a set of challenging tasks that
-can serve as a north star for future improvements to PBT generators and
-bug-finding strategies (including our own!).
-
-Designs for this project are currently being discussed with Leonidas
-Lampropoulos and his group at the University of Maryland. PI Pierce has a long
-history of successful projects with Prof.
-Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
-
-\hg{Is this everything? Probably not...}
-
-\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{2}{PL
+\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
   Theory}{PhD 2}{}{Who?}
 \iflater
 \bcp{I actually wonder whether all three reflective subsections might
@@ -1111,7 +1078,7 @@ expect this to have a significant impact on performance, especially in contexts
 where preconditions are relatively sparse and therefore hard for AFL to mutate
 correctly.
 
-\SUBSECTION{Usabilility of reflective generators}{sec:reflectiveusable}{4}{4}{HCI
+\SUBSECTION{Usabilility of reflective generators}{sec:reflectiveusable}{2}{3}{HCI
   Practice}{PhD 2}{PhD 3}{Who?}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
@@ -1134,7 +1101,7 @@ Ultimately, we hope that this process results in a much more usable language for
 reflective generators that is simple enough to be used by even non-expert PBT
 practitioners.
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{4}{PL Theory}{PhD 2}{}{Who?}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Who?}
 %
 \todo{Write me someone
   \begin{itemize}
@@ -1154,6 +1121,50 @@ practitioners.
     \end{itemize}
   \end{itemize}
 }
+
+\SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
+  Transfer}{PhD 2}{PhD 1}{Who?}
+%
+\iflater\todo{(Re)write me Harry and Benjamin}\fi
+
+\iflater\todo{Make sure this feels different from Leo's CAREER}\fi
+%
+The many papers in the PBT literature demonstrate effectiveness with case
+studies, showing that certain bugs in certain systems are caught more quickly
+with one too over another. For theoretical advances, this is often sufficient
+to demonstrate that the paper is worth publishing, but this kind of evaluation
+can be hard to interpret from the perspective of a would-be user. With all of
+the new approaches to generation that we are proposing in this document, and
+considering our goals around usability, we want to do better.
+
+We will to develop and popularize a robust empirical evaluation framework for
+generators and other PBT techniques. Our first contribution will be an
+infrastructure for easily and extensibly running experiments.  By ``easily,'' we
+mean that we will take on the burden of collecting data and analyzing the
+results, exposing to the user library functions for their particular
+instantiations as needed. We will evaluate a given tool based on (1) the degree
+to which it is able to achieve high code coverage quickly, and (2) the speed
+with which it finds bugs that have been pre-seeded in example programs. By
+``extensibly,'' we mean that in addition to the two languages (Haskell and
+OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
+numerous workloads that we plan to support on release, we will design the
+infrastructure so that users can easily add new things along each dimension.
+
+Our second contribution will codify a library of case-studies and examples as
+{\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
+fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
+organized around the particular challenges that PBT tools face. In particular,
+few of the benchmarks deal with the kinds of complex preconditions that PBT
+tools are built to handle. We want to establish a set of challenging tasks that
+can serve as a north star for future improvements to PBT generators and
+bug-finding strategies (including our own!).
+
+Designs for this project are currently being discussed with Leonidas
+Lampropoulos and his group at the University of Maryland. PI Pierce has a long
+history of successful projects with Prof.
+Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+
+\iflater\hg{Is this everything? Probably not...}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
@@ -1210,8 +1221,8 @@ scenario of model-based testing (\sectionref{sec:automating}).
 The findings of the Jane Street study suggest that progress in these
 two areas will significantly widen the on-ramp to PBT.
 
-\SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{2}{PL
-  Practice}{PhD 2}{UGrad/MS 1}{Who?}
+\SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
+  Practice}{PhD 4}{UGrad/MS 1}{Who?}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -1376,8 +1387,8 @@ the given trace properties in real time.
 % module boundearies. Maybe we can more explicitly state the broad classes of
 % systems for which this form of specification would apply?}
 
-\SUBSECTION{Model-based properties for modules}{sec:automating}{3}{3}{PL Practice}{PhD
-2}{UGrad/MS 2}{Who?}
+\SUBSECTION{Model-based properties for modules}{sec:automating}{3}{4}{PL Practice}{PhD
+4}{UGrad/MS 2}{Who?}
 One finding that has surprised us from the Jane Street study is that
 it is {very} common for developers to build (or already to have) a
 {\em model
@@ -1465,7 +1476,7 @@ reasoning is an actual explanation for the observed prevalence?  Is
 any of this worth mentioning here?}
 \fi
 
-\SUBSECTION{Automatic explanations for properties}{sec:understanding}{2}{5}{HCI
+\SUBSECTION{Automatic explanations for properties}{sec:understanding}{3}{5}{HCI
   Theory}{PhD 4}{}{Who?}
 %
 \todo{Write me Andrew.
@@ -1494,8 +1505,8 @@ any of this worth mentioning here?}
   \end{itemize}
 }
 
-\SUBSECTION{``When to Specify It!''}{sec:whento}{3}{5}{Education}{PhD
-  1}{PhD 4}{Who?}
+\SUBSECTION{``When to Specify It!''}{sec:whento}{5}{5}{Education}{PhD
+  4}{Everyone}{Who?}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
@@ -1600,7 +1611,7 @@ environments and
 tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Evaluating data
-  distributions}{sec:evaluating_distributions}{1}{2}{HCI Practice}{PhD
+  distributions}{sec:evaluating_distributions}{2}{3}{HCI Practice}{PhD
   3}{UGrad/MS 3}{Who?}
 %
 In comparison to testing techniques like unit testing, PBT draws many
@@ -1766,7 +1777,7 @@ in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
 \SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{2}{2}{HCI/PL Practice}{PhD 3}{}{Who?}
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 3}{}{Who?}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -1980,7 +1991,7 @@ section?}
 % \fi
 
 \newcommand{\tyche}{{\sc Tyche}}
-\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{3}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
+\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
 \amh{Maybe this belongs at the beginning of this section, and the tools that
 come before would be components of \tyche{}}.
 The ideas in this section highlight a clear opportunity for PBT tools that live
@@ -2025,8 +2036,8 @@ process, making it easier for developers to get started and succeed.
 % smaller project, but this one reaches too far beyond.  The grand
 % challenge is better motivation for the whole thing.}
 
-\SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{2}{3}{Tech
-Transfer}{Engineer}{PhD 1}{Who?}
+\SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
+Transfer}{Engineer}{PhD 1}{Pierce}
 
 \todo{Write me someone
   \begin{itemize}
@@ -2038,15 +2049,15 @@ Transfer}{Engineer}{PhD 1}{Who?}
   \end{itemize}
 }
 
-\SUBSECTION{Beyond research software}{sec:engineersupport}{2}{3}{Tech
-Transfer}{Engineer}{}{Who?}
+\SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
+Transfer}{Engineer}{}{Pierce}
 
-\todo{Write me someone
+\underconstruction{
   \begin{itemize}
     \item The engineer will support the PhD projects with design input and
-    longer-term maintenance
-    \item Ultimate goal is to avoid research software that never actually makes
-    it into widespread usage
+    longer-term maintenance.
+    \item Goal is to avoid the bane of research software that never
+    actually makes it into widespread usage.
   \end{itemize}
 }
 
