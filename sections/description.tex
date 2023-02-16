@@ -995,16 +995,19 @@ following sections, and discuss tools that leverage them later in the proposal.
 \smallskip
 
 We began thinking about the basic concept of reflective generators during a
-currently running NSF project (described in \sectionref{sec:prior}), built a
-prototype implementation, and drafted a preliminary progress report
-laying out their basic theory~\cite{Frohlich2022}. Some significant details of
-both theory and pragmatics remain to be ironed out; in particular,
-while our exploratory performance measurements look promising, a
-thorough empirical evaluation forms part of the work during the first
-year of the proposed project.
-\bcp{The relation between what's done and what's not done is muddy.  I
-think we should just go ahead and say we plan to submit a paper fairly
-soon, talk about what will be in the paper, and talk about what
+currently running NSF project (described in \sectionref{sec:prior});
+to date, we have built a
+prototype implementation and drafted a preliminary progress report
+laying out their basic theory~\cite{Frohlich2022}; we are working now
+on a larger conference submission on these results.  Significant details of
+both theory and pragmatics remain to be investigated, however; in particular,
+while our exploratory performance measurements are promising, a
+thorough empirical evaluation is still needed; this forms part of the work during the first
+year of the current proposal.
+\bcp{The relation between what's done and what's not done could be
+  clearer.  I've just gone ahead and said we plan to submit a paper fairly
+soon; we should say one more sentence about what will be in the paper,
+and we should say more explicitly what
 will not be in the paper but is needed to achieve the goals of the
 present project.}
 
@@ -1227,14 +1230,19 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 \iflater\hg{Is this everything? Probably not...}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
-\underconstruction{We've recently
-  moved some sections around -- this summary needs updating. }%
 To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications. Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to see what properties are available to
 test. We address the first of these issues in \sectionref{sec:outpurprop} and
 the second in \sectionref{sec:interactive}.
+%
+\underconstruction{We've recently
+  moved some sections around -- need to mention them here. }
+%
+In
+\sectionref{sec:counter} we describe a planned tool to help migrate
+counterexamples found by property-based tests into conventional regression tests.
 
 That said, a notable finding of the Jane Street study has been that widening the
 on-ramp to PBT may be easier if we can point developers towards particularly
@@ -1523,16 +1531,17 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 
-\underconstruction{We've
-  moved some sections around -- this summary needs updating. }%
 In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms for assessing whether their generators are generating sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}) and whether those
-inputs sufficiently exercise their code (\sectionref{sec:tuning}), migrate
-counterexamples found by property-based tests into conventional regression tests (\sectionref{sec:counter}),
+inputs sufficiently exercise their code (\sectionref{sec:tuning}),
 and understand testing-provoked failures involving complex inputs
-(\sectionref{sec:failures}). These projects will be pursued using HCI
+(\sectionref{sec:failures}).
+%
+\underconstruction{Mention 6.4 too.}%
+%
+These projects will all be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
 environments. The success of tools will be evaluated in usability studies
 comparing developers' effectiveness and efficiency in writing tests for their
