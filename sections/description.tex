@@ -19,8 +19,8 @@
   programs.} \bcp{I put it in the Project Summary -- it's a bit
   clunky, but I think it serves.  And no one can say that we didn't
   satisfy the requirement!}
-
 \fi
+
 Testing plays a vital role in modern software development,
 contributing crucially to robustness, security, and overall software
 quality\iflater\bcp{Would love to expand that a little.  Readers
@@ -29,6 +29,8 @@ sinking research money into.}\fi; it also represents
 a significantly fraction of the cost of developing
 software\iflater{Numbers? one more sentence about costs would
   be good.}\fi{}.
+
+\discuss{Maybe there are too many tasks???}
 
 \todo{Incorporate something like this (from John):
   \begin{itemize}
@@ -112,9 +114,9 @@ million~\cite{ZacPersonalCommunication}.  \iflater\bcp{There's a book
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
-\amh{This is a deficit-focused pitch---focusing on the problems that need to be 
-solved with PBT---rather than an asset-focused pitch---focusing on how we need 
-new paradigms for PBT. Can we shift the focus of this to stating one big way in 
+\amh{This is a deficit-focused pitch---focusing on the problems that need to be
+solved with PBT---rather than an asset-focused pitch---focusing on how we need
+new paradigms for PBT. Can we shift the focus of this to stating one big way in
 which innovation in PBT is necessary?}
 Given all this momentum, one might wonder whether the research community
 has already discovered and addressed all of the challenges that might limit PBT's adoption
@@ -615,7 +617,7 @@ interactive tools
 % Theories in software engineering include information foraging theory; Ko and
 % Myers' framework for debugging failures, the attention investment model,
 % beacons, and the notion of schemas/plans. The role that theory plays in tool
-% development is that it allows us to reason about what influences user effort, 
+% development is that it allows us to reason about what influences user effort,
 % explicitly indicating constructs that lead to effort spent, and identifies
 % as components that can be improved. Our theory will describe how a system
 % to be adequately assessed, what it means for a system to be inadequately
@@ -1360,7 +1362,7 @@ the given trace properties in real time.
   consider what logic is really appropriate.}
 
 \SUBSECTION{Mixed-initiative property
-  specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Pierce}
+  specification}{sec:interactive}{4}{4}{HCI Practice}{PhD 4}{PhD 3}{Pierce}
 \iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
 \fi
@@ -1480,7 +1482,7 @@ reasoning is an actual explanation for the observed prevalence?  Is
 any of this worth mentioning here?}
 \fi
 
-\SUBSECTION{Automatic explanations for properties}{sec:understanding}{3}{5}{HCI
+\SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 4}{}{Pierce}
 %
 \underconstruction{\ifnext \todo{Write me Andrew.} \fi
@@ -1512,57 +1514,6 @@ any of this worth mentioning here?}
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
 
 \todo{Cf. UIST 2015 paper relavant to this.  Mayur (sp?) et al.}
-
-\SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Pierce}
-%
-% After testing has revealed a counterexample to one of their properties
-% with their tests, the developer may wish to turn that failure into a
-% regression test, to ensure that later
-% changes to the code will not reintroduce the same failure.
-One pain
-point experienced
-by informants in our interviews at Jane Street was that it requires considerable work to
-transform a failure that was detected by their PBT tools into a
-regression test, despite the fact that much of the work involved in doing so
-felt mechanical.
-
-% \TASK{A tool for turning counterexamples into tests}{2}{2}{who?}
-We plan to develop usable tooling for transforming failed PBT tests into single
-regression tests. What is important to note about this project is that creation
-of regression tests is \emph{mostly}, but not entirely, mechanical. In reality,
-the creation of regression tests will likely require judicious incorporation of
-the developer's input at key decision points. This is particularly the case for
-specifying acceptance criteria. For instance, consider a property that checks
-that a list insertion function never produces an empty list. In the event of a
-failure, a developer may want to produce a regression test checking the
-exactness of the result on the failed input (e.g., checking that the insertion
-produced a particular concrete list) rather than simply checking that the output
-list is non-empty.  Writing a regression test may involve multiple such
-choices, including whether to test for exact output, whether to test
-intermediate results, and how to initialize inputs.
-
-We will develop an interactive tool that assists developers in creating
-regression tests from failed tests. The idea is to first develop
-technology for generating sufficiently readable code for regression tests (using
-approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
-in-situ editing assistance along the lines of contemporary interactive
-refactoring tools from the HCI
-literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
-For this unique task of transforming properties into regression tests,
-our tool will \iflater\proposecut{provide the key features
-  of}\hg{MINOR: Feel free to disagree,
-but I think phrases like this are a bit of an anti-pattern. I'd rather just say
-the tool will X}\fi keeping track of the failed input,
-generating starter test code, substituting in correct expected values of the
-output by executing corrected code, and supporting developers in rapidly
-performing likely edits to regression tests by providing suggestions of
-alterations to their code like the ability to generate general property checks
-with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
-getting at}\fi. We also hope the results of this work
-can inform the
-design of other approaches to counterexample extraction, including one that is
-proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1755,7 +1706,7 @@ realistic, comprehensive data distributions for their testing.
 
 
 \SUBSECTION{Interactive shrinking and
-  debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Head}
+  debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 3}{PhD 2}{Head}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
@@ -1822,9 +1773,17 @@ settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
+\iflater
 \SUBSECTION{Dashboards for long-running tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
 3}{Engineer}{Head}
 %
+\discuss{Harry and Benjamin wonder whether this section can be
+  dropped.  It seems (a) smaller than the other tasks and (b) maybe
+  less interesting in the grand scheme?  (We can still do it, and
+  indeed we can mention it in the \tyche{} section, but not give it a
+  whole top-level section.)  We are also a bit past the limit of how
+  many tasks is plausible.}
+
 \underconstruction{ \iflater\todo{Write me Andrew?}\fi
 \begin{itemize}
   \item Given the random nature of tests, it is not guaranteed that the same
@@ -1837,6 +1796,8 @@ for similar inputs are abundant.
 }
 \iflater \hg{I copied a comment into here---can we use any of that writing for this
 section?}\fi
+\fi
+
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}{}
 
@@ -1914,6 +1875,57 @@ section?}\fi
 % % for future testing.
 
 % \fi
+
+\SUBSECTION{Counterexamples as regression
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 3}{}{Head}
+%
+% After testing has revealed a counterexample to one of their properties
+% with their tests, the developer may wish to turn that failure into a
+% regression test, to ensure that later
+% changes to the code will not reintroduce the same failure.
+One pain
+point experienced
+by informants in our interviews at Jane Street was that it requires considerable work to
+transform a failure that was detected by their PBT tools into a
+regression test, despite the fact that much of the work involved in doing so
+felt mechanical.
+
+% \TASK{A tool for turning counterexamples into tests}{2}{2}{who?}
+We plan to develop usable tooling for transforming failed PBT tests into single
+regression tests. What is important to note about this project is that creation
+of regression tests is \emph{mostly}, but not entirely, mechanical. In reality,
+the creation of regression tests will likely require judicious incorporation of
+the developer's input at key decision points. This is particularly the case for
+specifying acceptance criteria. For instance, consider a property that checks
+that a list insertion function never produces an empty list. In the event of a
+failure, a developer may want to produce a regression test checking the
+exactness of the result on the failed input (e.g., checking that the insertion
+produced a particular concrete list) rather than simply checking that the output
+list is non-empty.  Writing a regression test may involve multiple such
+choices, including whether to test for exact output, whether to test
+intermediate results, and how to initialize inputs.
+
+We will develop an interactive tool that assists developers in creating
+regression tests from failed tests. The idea is to first develop
+technology for generating sufficiently readable code for regression tests (using
+approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
+in-situ editing assistance along the lines of contemporary interactive
+refactoring tools from the HCI
+literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
+For this unique task of transforming properties into regression tests,
+our tool will \iflater\proposecut{provide the key features
+  of}\hg{MINOR: Feel free to disagree,
+but I think phrases like this are a bit of an anti-pattern. I'd rather just say
+the tool will X}\fi keeping track of the failed input,
+generating starter test code, substituting in correct expected values of the
+output by executing corrected code, and supporting developers in rapidly
+performing likely edits to regression tests by providing suggestions of
+alterations to their code like the ability to generate general property checks
+with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
+getting at}\fi. We also hope the results of this work
+can inform the
+design of other approaches to counterexample extraction, including one that is
+proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
 
@@ -2041,7 +2053,7 @@ Building hooks into tools for extension and research experimentation...
 
 
 \SUBSECTION{``When to Specify
-  It!''}{sec:whento}{3}{3}{Education}{Faculty}{Everyone else}{}
+  It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
