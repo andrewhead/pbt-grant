@@ -1164,11 +1164,21 @@ practitioners.
 
 \SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Pierce}
 %
+Even with an ergonomic and learnable language for reflective generators, the
+less code the user has to write the better. Our user studies were very clear
+that thinking about generators slows users down and makes PBT more challenging.
+But we should not compromise: any automation should help users obtain {\em high
+quality}, {\em reflective} generators for use throughout the testing process.
+
+As a first step, we will adapt existing tools for type-based generator
+automation to work with reflective generators. These generators are only useful
+for testing scenarios with easily satisfiable preconditions, but they are a good
+starting point for many developers. Beyond that, we consider automation
+techniques that will help developers interactively construct generators that
+maintain complex preconditions.
+
 \underconstruction{
   \begin{itemize}
-    \item We want to make reflectives usable as their own language, but they're
-    also useful as an intermediate language
-    \item There is a lot of potential for automating the process of creating reflectives
     \item Option 1: Automate the backward annotations
     \begin{itemize}
       \item Hoogle+ / synthesis?
