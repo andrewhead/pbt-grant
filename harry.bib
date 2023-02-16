@@ -1961,3 +1961,104 @@
   urldate  = {2023-02-16},
   file     = {Snapshot:/Users/harrison/Zotero/storage/ZLZSS5XQ/search.html:text/html}
 }
+
+@misc{noauthor_lysxia_nodate,
+  title   = {Lysxia - {A} quick tour of generic-random},
+  url     = {https://blog.poisson.chat/posts/2018-01-05-generic-random-tour.html},
+  urldate = {2023-02-16},
+  file    = {Lysxia - A quick tour of generic-random:/Users/harrison/Zotero/storage/9RA2ADBC/2018-01-05-generic-random-tour.html:text/html}
+}
+
+@article{feng_program_2018,
+  title    = {Program synthesis using conflict-driven learning},
+  volume   = {53},
+  issn     = {0362-1340},
+  url      = {https://doi.org/10.1145/3296979.3192382},
+  doi      = {10.1145/3296979.3192382},
+  abstract = {We propose a new conflict-driven program synthesis technique that is capable of learning from past mistakes. Given a spurious program that violates the desired specification, our synthesis algorithm identifies the root cause of the conflict and learns new lemmas that can prevent similar mistakes in the future. Specifically, we introduce the notion of equivalence modulo conflict and show how this idea can be used to learn useful lemmas that allow the synthesizer to prune large parts of the search space. We have implemented a general-purpose CDCL-style program synthesizer called Neo and evaluate it in two different application domains, namely data wrangling in R and functional programming over lists. Our experiments demonstrate the substantial benefits of conflict-driven learning and show that Neo outperforms two state-of-the-art synthesis tools, Morpheus and Deepcoder, that target these respective domains.},
+  number   = {4},
+  urldate  = {2023-02-16},
+  journal  = {ACM SIGPLAN Notices},
+  author   = {Feng, Yu and Martins, Ruben and Bastani, Osbert and Dillig, Isil},
+  month    = jun,
+  year     = {2018},
+  keywords = {automated reasoning, conflict-driven learning, program synthesis},
+  pages    = {420--435},
+  file     = {Full Text PDF:/Users/harrison/Zotero/storage/7URT3I7Q/Feng et al. - 2018 - Program synthesis using conflict-driven learning.pdf:application/pdf}
+}
+
+@inproceedings{huang_reconciling_2020,
+  address   = {New York, NY, USA},
+  series    = {{PLDI} 2020},
+  title     = {Reconciling enumerative and deductive program synthesis},
+  isbn      = {978-1-4503-7613-6},
+  url       = {https://doi.org/10.1145/3385412.3386027},
+  doi       = {10.1145/3385412.3386027},
+  abstract  = {Syntax-guided synthesis (SyGuS) aims to find a program satisfying semantic specification as well as user-provided structural hypotheses. There are two main synthesis approaches: enumerative synthesis, which repeatedly enumerates possible candidate programs and checks their correctness, and deductive synthesis, which leverages a symbolic procedure to construct implementations from specifications. Neither approach is strictly better than the other: automated deductive synthesis is usually very efficient but only works for special grammars or applications; enumerative synthesis is very generally applicable but limited in scalability. In this paper, we propose a cooperative synthesis technique for SyGuS problems with the conditional linear integer arithmetic (CLIA) background theory, as a novel integration of the two approaches, combining the best of the two worlds. The technique exploits several novel divide-and-conquer strategies to split a large synthesis problem to smaller subproblems. The subproblems are solved separately and their solutions are combined to form a final solution. The technique integrates two synthesis engines: a pure deductive component that can efficiently solve some problems, and a height-based enumeration algorithm that can handle arbitrary grammar. We implemented the cooperative synthesis technique, and evaluated it on a wide range of benchmarks. Experiments showed that our technique can solve many challenging synthesis problems not possible before, and tends to be more scalable than state-of-the-art synthesis algorithms.},
+  urldate   = {2023-02-16},
+  booktitle = {Proceedings of the 41st {ACM} {SIGPLAN} {Conference} on {Programming} {Language} {Design} and {Implementation}},
+  publisher = {Association for Computing Machinery},
+  author    = {Huang, Kangjing and Qiu, Xiaokang and Shen, Peiyuan and Wang, Yanjun},
+  month     = jun,
+  year      = {2020},
+  keywords  = {deductive synthesis, divide-and-conquer, enumerative synthesis, syntax-guided synthesis},
+  pages     = {1159--1174},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/3R6LNDQD/Huang et al. - 2020 - Reconciling enumerative and deductive program synt.pdf:application/pdf}
+}
+
+@inproceedings{torlak_growing_2013,
+  address   = {New York, NY, USA},
+  series    = {Onward! 2013},
+  title     = {Growing solver-aided languages with rosette},
+  isbn      = {978-1-4503-2472-4},
+  url       = {https://doi.org/10.1145/2509578.2509586},
+  doi       = {10.1145/2509578.2509586},
+  abstract  = {SAT and SMT solvers have automated a spectrum of programming tasks, including program synthesis, code checking, bug localization, program repair, and programming with oracles. In principle, we obtain all these benefits by translating the program (once) to a constraint system understood by the solver. In practice, however, compiling a language to logical formulas is a tricky process, complicated by having to map the solution back to the program level and extend the language with new solver-aided constructs, such as symbolic holes used in synthesis. This paper introduces ROSETTE, a framework for designing solver-aided languages. ROSETTE is realized as a solver-aided language embedded in Racket, from which it inherits extensive support for meta-programming. Our framework frees designers from having to compile their languages to constraints: new languages, and their solver-aided constructs, are defined by shallow (library-based) or deep (interpreter-based) embedding in ROSETTE itself. We describe three case studies, by ourselves and others, of using ROSETTE to implement languages and synthesizers for web scraping, spatial programming, and superoptimization of bitvector programs.},
+  urldate   = {2023-02-16},
+  booktitle = {Proceedings of the 2013 {ACM} international symposium on {New} ideas, new paradigms, and reflections on programming \& software},
+  publisher = {Association for Computing Machinery},
+  author    = {Torlak, Emina and Bodik, Rastislav},
+  month     = oct,
+  year      = {2013},
+  keywords  = {solver-aided languages},
+  pages     = {135--152},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/MSGK9USA/Torlak and Bodik - 2013 - Growing solver-aided languages with rosette.pdf:application/pdf}
+}
+
+@inproceedings{steinhofel_input_2022,
+  address   = {New York, NY, USA},
+  series    = {{ESEC}/{FSE} 2022},
+  title     = {Input invariants},
+  isbn      = {978-1-4503-9413-0},
+  url       = {https://doi.org/10.1145/3540250.3549139},
+  doi       = {10.1145/3540250.3549139},
+  abstract  = {How can we generate valid system inputs? Grammar-based fuzzers are highly efficient in producing syntactically valid system inputs. However, programs will often reject inputs that are semantically invalid. We introduce ISLa, a declarative specification language for context-sensitive properties of structured system inputs based on context-free grammars. With ISLa, it is possible to specify input constraints like "a variable has to be defined before it is used," "the 'file name' block must be 100 bytes long," or "the number of columns in all CSV rows must be identical." Such constraints go into the ISLa fuzzer, which leverages the power of solvers like Z3 to solve semantic constraints and, on top, handles quantifiers and predicates over grammar structure. We show that a few ISLa constraints suffice to produce 100\% semantically valid inputs while still maintaining input diversity. ISLa can also parse and precisely validate inputs against semantic constraints. ISLa constraints can be mined from existing input samples. For this, our ISLearn prototype uses a catalog of common patterns, instantiates these over input elements, and retains those candidates that hold for the inputs observed and whose instantiations are fully accepted by input-processing programs. The resulting constraints can then again be used for fuzzing and parsing.},
+  urldate   = {2023-02-16},
+  booktitle = {Proceedings of the 30th {ACM} {Joint} {European} {Software} {Engineering} {Conference} and {Symposium} on the {Foundations} of {Software} {Engineering}},
+  publisher = {Association for Computing Machinery},
+  author    = {Steinhöfel, Dominic and Zeller, Andreas},
+  month     = nov,
+  year      = {2022},
+  keywords  = {constraint mining, fuzzing, grammars, specification language},
+  pages     = {583--594},
+  file      = {Full Text PDF:/Users/harrison/Zotero/storage/CQRFYSPF/Steinhöfel and Zeller - 2022 - Input invariants.pdf:application/pdf}
+}
+
+@inproceedings{de_moura_z3_2008,
+  address    = {Berlin, Heidelberg},
+  series     = {Lecture {Notes} in {Computer} {Science}},
+  title      = {Z3: {An} {Efficient} {SMT} {Solver}},
+  isbn       = {978-3-540-78800-3},
+  shorttitle = {Z3},
+  doi        = {10.1007/978-3-540-78800-3_24},
+  abstract   = {Satisfiability Modulo Theories (SMT) problem is a decision problem for logical first order formulas with respect to combinations of background theories such as: arithmetic, bit-vectors, arrays, and uninterpreted functions. Z3 is a new and efficient SMT Solver freely available from Microsoft Research. It is used in various software verification and analysis applications.},
+  language   = {en},
+  booktitle  = {Tools and {Algorithms} for the {Construction} and {Analysis} of {Systems}},
+  publisher  = {Springer},
+  author     = {de Moura, Leonardo and Bjørner, Nikolaj},
+  editor     = {Ramakrishnan, C. R. and Rehof, Jakob},
+  year       = {2008},
+  keywords   = {Bound Model Check, Linear Arithmetic, Predicate Abstraction, Symbolic Execution, Theory Solver},
+  pages      = {337--340},
+  file       = {Full Text PDF:/Users/harrison/Zotero/storage/Z5DRYWPD/de Moura and Bjørner - 2008 - Z3 An Efficient SMT Solver.pdf:application/pdf}
+}

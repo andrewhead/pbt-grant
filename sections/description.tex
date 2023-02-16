@@ -112,6 +112,10 @@ million~\cite{ZacPersonalCommunication}.  \iflater\bcp{There's a book
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
 
+\amh{This is a deficit-focused pitch---focusing on the problems that need to be 
+solved with PBT---rather than an asset-focused pitch---focusing on how we need 
+new paradigms for PBT. Can we shift the focus of this to stating one big way in 
+which innovation in PBT is necessary?}
 Given all this momentum, one might wonder whether the research community
 has already discovered and addressed all of the challenges that might limit PBT's adoption
 in the broader software industry.  Sadly, it has not:
@@ -607,6 +611,16 @@ interactive tools
 
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
   Theory}{PhD 1}{Everyone}{Head}
+%
+% Theories in software engineering include information foraging theory; Ko and
+% Myers' framework for debugging failures, the attention investment model,
+% beacons, and the notion of schemas/plans. The role that theory plays in tool
+% development is that it allows us to reason about what influences user effort, 
+% explicitly indicating constructs that lead to effort spent, and identifies
+% as components that can be improved. Our theory will describe how a system
+% to be adequately assessed, what it means for a system to be inadequately
+% assessed, and how a system comes to be inadequately assessed. We will call
+% the "untested system" theory.
 %
 \underconstruction{\ifnext Write me Andrew\fi
   \begin{itemize}
@@ -1174,27 +1188,34 @@ But we should not compromise: any automation should help users obtain {\em high
 quality}, {\em reflective} generators for use throughout the testing process.
 
 As a first step, we will adapt existing tools for type-based generator
-automation to work with reflective generators. These generators are only useful
-for testing scenarios with easily satisfiable preconditions, but they are a good
-starting point for many developers. Beyond that, we consider automation
-techniques that will help developers interactively construct generators that
-maintain complex preconditions.
+automation to work with reflective generators~\cite{noauthor_lysxia_nodate}.
+These generators are only useful for testing properties with easily satisfiable
+preconditions, but they are a good starting point for many developers. Beyond
+that, we consider automation techniques that will help developers interactively
+construct reflective generators that maintain complex preconditions.
 
-\underconstruction{
-  \begin{itemize}
-    \item Option 1: Automate the backward annotations
-    \begin{itemize}
-      \item Hoogle+ / synthesis?
-      \item Z3?
-    \end{itemize}
-    \item Option 2: Automate the whole darn thing
-    \begin{itemize}
-      \item Infer from the precondition code? Type system?
-      \item Synthesize?
-      \item ???
-    \end{itemize}
-  \end{itemize}
-}
+Some users will have a standard QuickCheck generator that they would like to use
+in situations that require a reflective generator. We plan to assist those
+users with tools that automatically synthesize the backward annotations
+required to make the generator bidirectional. We will experiment with both
+conflict-driven program synthesis~\cite{feng_program_2018} or solver-aided
+synthesis~\cite{torlak_growing_2013} to see which more successfully generates
+annotations for realistic generators. Both approaches have a clearly defined
+notion of success: reflective generators have notions of soundness and
+completeness that can be tested via PBT, so each candidate set of annotations
+can be quickly and efficiently evaluated.
+
+Going one step further, we will also explore techniques that can synthesize an
+entire reflective generator from whole cloth. There are a variety of existing
+tools that try to do this for standard generators: Lampropoulos et al. provides
+two solutions, one based on on inductive relation specifications of
+preconditions~\cite{lampropoulos2017generating} and the other based on an
+extended language for properties~\cite{beginners-luck}, and Steinh\"ofel et al.
+infer a generator from constraints using
+Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}. Unfortunately, each of these
+tools falls short of solving the problem of automated constrained generation in
+general, and none of them include the tools necessary to produce reflective
+generators, so there are significant opportunities to advance this space.
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
