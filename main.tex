@@ -92,6 +92,7 @@
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
 \newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
 \newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
+\newcommand{\bcplater}[1]{\iflater\comm{dkpurple}{BCP}{#1}\fi}
 \newcommand{\hg}[1]{\comm{dkred}{HG}{#1}}
 \newcommand{\harry}[1]{\hg{#1}}
 \newcommand{\jwc}[1]{\comm{dkgreen}{JC}{#1}}
@@ -104,7 +105,7 @@
 % \newcommand{\pagebudget}[1]{(#1 pages)}
 \newcommand{\pagebudget}[1]{}
 
-\newcommand{\forreaders}[1]{{\color{dkgreen} Readers: #1}}
+\newcommand{\forreaders}[1]{{\ifdraft\else\color{dkgreen} Readers: #1\fi}}
 \newcommand{\discuss}[1]{{\color{purple}\bf High priority: #1}}
 
 \usepackage{ulem}\normalem
@@ -366,6 +367,9 @@
 % \bibliographystyle{ACM-Reference-Format}
 \bibliographystyle{IEEEtran}
 
+\newpage\newsection{L}
+\input{sections/coord}
+
 % F. Biographical Sketch(es)
 \newpage\newsection{F}
 \input{sections/bio}
@@ -393,8 +397,5 @@
 
 \newpage\newsection{K}
 \input{sections/reviewers}
-
-\newpage\newsection{L}
-\input{sections/coord}
 
 \end{document}

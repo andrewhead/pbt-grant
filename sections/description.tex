@@ -105,6 +105,8 @@ published widely on PL topics including PBT.
   small or medium grants would not do it).}
 \todo{Webinar: Proposals must be clear about why this kind of scale is
   required for the research to succeed.}
+\discuss{Why do we need four PhD students---why can't this agenda be
+  accomplished with fewer?  Why do we need an engineer?}
 
 We propose a comprehensive, interdisciplinary research and engineering
 program on
@@ -112,7 +114,7 @@ program on
 property-based testing}, bringing to bear the combined power of PL and HCI to
 accelerate PBT's transition into practice.  The project's research,
 engineering, and education activities can be grouped into six main
-themes: \bcp{This already feels too detailed, and we still need to write
+themes: \bcplater{This already feels too detailed, and we still need to write
 blurbs for all the other tasks we've added in the past few days.  But
 for now I think we should just go ahead and add stuff, and come back
 later to presenting a grander summary.}
@@ -148,23 +150,29 @@ comprehensive\iflater\bcp{Blah.}\fi{} (\sectionref{sec:val}).
 methodologies from academia into industry through targeted engineering
 and education efforts---in particular, developing materials for an
 undergraduate computer science curriculum centered around PBT
-(\sectionref{sec:diffusion}).
+(\sectionref{sec:diffusion}).  \bcp{mention other diffusion tasks}
 % \end{enumerate*}
 % \end{itemize}
 \end{enumerate}
-Success in these efforts will require complementary tools from PL and
+\iflater\bcp{Do we need to write explicitly about how education is key not only
+  to the diffusion area?  Or is this fine this way?}\fi
+Success in all these efforts will require complementary tools from PL and
 HCI research. HCI approaches will be used to concretely define
 developers' needs, design the user interface to tools, and evaluate
 their success, while PL techniques will be used to develop powerful
 domain-specific languages and type-based automation to improve the PBT
-process, as well as to formally validate these tools. \bcp{That
+process\proposecut{, as well as to formally validate these tools}. \bcp{That
   paragraph is weak.  Needs to be much stronger on the need for
   integration across domains, and between research and tech transfer.
   We should explicitly call out the engineer as critical to the
   project's success.}
 
-\discuss{Why do we need four PhD students---why can't this agenda be
-  accomplished with fewer?  Why do we need an engineer?}
+% \todo{
+%   Points that need to be made:
+%   \begin{itemize}
+%   \item
+%   \end{itemize}
+% }
 
 \forreaders{Please tell us whether you feel convinced, at this point,
   that we have articulated a compelling ``grand challenge'' and an agenda to
@@ -172,14 +180,14 @@ process, as well as to formally validate these tools. \bcp{That
 
 \medskip
 
-The rest of this Project Description develops this research and
+The rest of this Project Description develops our research and
 tech transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
 background on PBT and present the preliminary findings from our
 ongoing study at Jane Street that motivate the project.
 %
 Sections \sectionref{sec:foundation} through
-\sectionref{sec:ed} outline our plans in each of the
+\sectionref{sec:diffusion} outline our plans in each of the
 themes listed above.
 Section \sectionref{sec:broader-impacts}
 discusses the Broader Impacts of the project, and
@@ -195,9 +203,6 @@ NSF-supported work on PBT.
   about coordination and management here in the main project
   description.  NSF cares a lot about this!}
 
-\todo{A one-paragraph summary of the BPC appendix, including the
-  budget items associated with it.}
-
 \iflater
 \bcp{Somewhere in the intro, I think we should put a snazzy
   infographic of the whole project...}
@@ -205,8 +210,17 @@ NSF-supported work on PBT.
 settled on the story I'll see what I can do}
 \fi
 
+\iflater
 \todo{GPG: ``Does the plan incorporate a mechanism to assess
   success?''  We need to talk about this explicitly!}
+\fi
+
+Our plans for Broadening Participation in Computing, described in an
+accompanying document, are focused in two areas: (1) expansion of an
+existing NSF-supported program that brings undergraduates from
+underrepresented groups to Penn for summer research experiences in
+programming languages, and (2) increasing diversity in the TA roster
+for CIS 1200, Penn's introductory computer science course.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
 
@@ -455,6 +469,8 @@ examples.
 \hg{I think best to not; we can justify it in plenty of other ways}
 \fi
 
+\discuss{Uh oh -- if we delete the Education section, what becomes of
+  these?  Can we rename them Diffusion??}
 Finally, these studies reveal a need for progress
 in PBT
 \edutheme{\normalfont \bf
@@ -528,8 +544,6 @@ interactive tools
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{1}{4}{HCI Theory}{PhD 1}{}{Head}
-\discuss{I'd like to make all the task titles more suggestive of the
-  actual tasks...}
 %
 Preliminary findings from the Jane Street study already reveal a number of
 opportunities to improve tools for property-based testing. To identify
@@ -859,13 +873,15 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{2}{PL
   Theory}{PhD 2}{}{Who?}
+\iflater
 \bcp{I actually wonder whether all three reflective subsections might
   better be collapsed into a single one...}
 \hg{I don't mind, as long as it doesn't make PhD 2 feel thin}
 \hg{Also, BCP can you read the future work of the reflective paper at some
 point and let me know if you think the synthesis angle belongs here
 somewhere?}\bcp{Will do.  Adding it might give us an additonal ``PL
-Theory'' task.}%
+Theory'' task.}\bcp{(After reading...) I like it!}%
+\fi
 Building on the free generator work described above, we are exploring
 a powerful generalization based on
 monadic generators that can be run {\em backward}.
@@ -1160,28 +1176,31 @@ practitioners.
   specifications is a key challenge for getting PBT out into the
   world.  But this is not what we found when we asked people...''}
 
-\hg{This section is unsatisfying for me. Here's what we have for
-``specification'' threads:
-\begin{itemize}
-  \item Specifications are hard to write:
-  \begin{itemize}
-    \item (E) Interactive property specification
-    \item (E) PBT for undergrads (not purely spec, but at least partly)
-    \item (S) Properties over logs
-  \end{itemize}
-  \item Specifications are hard to read:
-  \begin{itemize}
-    \item (S) Explaining properties
-  \end{itemize}
-  \item Specifications should just be obvious from the program:
-  \begin{itemize}
-    \item (E) When to specify it
-    \item (S) Models for modules
-  \end{itemize}
-\end{itemize}
-Right now they're split between (E)duction and (S)pecification. How can we put
-them together?
-}
+% \iflater
+% \hg{This section is unsatisfying for me. Here's what we have for
+% ``specification'' threads:
+% \begin{itemize}
+%   \item Specifications are hard to write:
+%   \begin{itemize}
+%     \item (E) Interactive property specification
+%     \item (E) PBT for undergrads (not purely spec, but at least partly)
+%     \item (S) Properties over logs
+%   \end{itemize}
+%   \item Specifications are hard to read:
+%   \begin{itemize}
+%     \item (S) Explaining properties
+%   \end{itemize}
+%   \item Specifications should just be obvious from the program:
+%   \begin{itemize}
+%     \item (E) When to specify it
+%     \item (S) Models for modules
+%   \end{itemize}
+% \end{itemize}
+% Right now they're split between (E)duction and (S)pecification. How can we put
+% them together?
+% }
+% \bcp
+% \fi
 
 A notable finding of the Jane Street study has been that widening the
 on-ramp to PBT requires making developers aware of high-leverage
@@ -1562,7 +1581,7 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 
-\todo{Tweak the title when we understand the content. :-)}
+\iflater\todo{Tweak the title when we understand the content. :-)}\fi
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1987,28 +2006,28 @@ Ultimately, we think \tyche{} will become an invaluable assistant in the PBT
 process, making it easier for developers to get started and succeed.
 \iflater \hg{This is a weak ending} \fi
 
-\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:platform}
+\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
 
-\bcp{If we're going to keep this as a top-level theme, we'll need to
-  integrate it into the motivation early on (i.e., give it a color,
-  talk about how the Jane Street study shows we need it, ...).  Many
-  of the specific items fit just fine into the sections we've got (and
-  I moved them there).  But I wonder whether a top level ``Diffusion''
-  or ``Integration'' theme might be helpful for the story, and as a
-  catch-all for the rest.  Thoughts?}
+% \bcp{If we're going to keep this as a top-level theme, we'll need to
+%   integrate it into the motivation early on (i.e., give it a color,
+%   talk about how the Jane Street study shows we need it, ...).  Many
+%   of the specific items fit just fine into the sections we've got (and
+%   I moved them there).  But I wonder whether a top level ``Diffusion''
+%   or ``Integration'' theme might be helpful for the story, and as a
+%   catch-all for the rest.  Thoughts?}
 
-\hg{I think I like the idea of a section where we can talk about what the
-engineer will do without having to shoehorn it into others' projects. E.g., the
-engineer will theoretically be making changes to Hypothesis based on findings
-from Jane Street, reflectives, etc. but it's hard to talk about open-source
-maintainence in those sections. It will be difficult to justify diffusion based
-on the JS study, but it'll be a no-brainer if we justify it from the perspective
-of the ``grand challenge'' of establishing a cohesive, multi-language ecosystem
-for usable PBT}\bcp{Yes.  I think as we reshape and scale up the
-overall structure, we need to move away from the JS study as providing
-the whole architecture for the proposal: it was a nice conceit for a
-smaller project, but this one reaches too far beyond.  The grand
-challenge is better motivation for the whole thing.}
+% \hg{I think I like the idea of a section where we can talk about what the
+% engineer will do without having to shoehorn it into others' projects. E.g., the
+% engineer will theoretically be making changes to Hypothesis based on findings
+% from Jane Street, reflectives, etc. but it's hard to talk about open-source
+% maintainence in those sections. It will be difficult to justify diffusion based
+% on the JS study, but it'll be a no-brainer if we justify it from the perspective
+% of the ``grand challenge'' of establishing a cohesive, multi-language ecosystem
+% for usable PBT}\bcp{Yes.  I think as we reshape and scale up the
+% overall structure, we need to move away from the JS study as providing
+% the whole architecture for the proposal: it was a nice conceit for a
+% smaller project, but this one reaches too far beyond.  The grand
+% challenge is better motivation for the whole thing.}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{2}{3}{Tech
 Transfer}{Engineer}{PhD 1}{Who?}
@@ -2082,10 +2101,8 @@ Building hooks into tools for extension and research experimentation...
 % early-stage computer science curriculum (\sectionref{sec:1210}).
 
 
-\SUBSECTION{PBT for undergraduates}{sec:1210}{1}{5}{Education}{PhD 4}{Engineer}{Who?}
-% \SUBSECTION{PBT for
-%   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{Faculty}
-\todo{Fix this again.}
+\SUBSECTION{PBT for
+  undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{Faculty}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
 %
 Education can act as a force multiplier to make technologies more usable.
@@ -2314,10 +2331,9 @@ Shi.
 \bcp{We could / should read some past funded NSF Large proposals for
   ideas about how people talk about their work.}
 
-\fi
+\todo{Remember to turn off all the ``forreaders'' stuff.}
 
-\todo{Before sending to readers, we should suppress the appendix
-  sections that we don't want them to bother with.}
+\fi
 
 \forreaders{There are some separate documents beyond the bibliography
   that we'd love to hear your comments on...}

@@ -4,7 +4,7 @@ ifeq (${USER},bcpierce)
 	cp $(HOME)/common/bib/bcp.bib .
 	chmod a-w bcp.bib
 endif
-	latexmk -quiet -pdf -synctex=1 main
+	latexmk -pdf -synctex=1 main
 #	latexmk -pdf main
 	cp main.pdf temp.pdf
 
