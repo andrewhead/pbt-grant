@@ -1,4 +1,4 @@
-\newif\ifdraft\drafttrue
+\newif\ifdraft\draftfalse
 \newif\iflater\laterfalse
 \newif\ifnext\nextfalse
 
@@ -9,6 +9,7 @@
 \usepackage{url}
 \usepackage{wrapfig}
 \usepackage{tabularx}
+\usepackage{datetime2}
 
 \usepackage{xcolor}
 \definecolor{nord-night1}{HTML}{2e3440}
@@ -329,6 +330,11 @@
 % BCP: This is correct:
 \title{CISE: Large: Taming Property-Based Testing}
 
+\vfil
+\begin{center}
+{\huge \color{red} Draft of \DTMnow}
+\end{center}
+\vfil
 % \bigskip\bigskip\bigskip\bigskip
 % \todo{More title ideas:
 %   \begin{itemize}

@@ -11,3 +11,7 @@ endif
 clean:
 	latexmk -c
 	-rm *.bbl temp.*
+
+export:
+	cp main.pdf ~/pub/draft/pbtgrant.pdf
+	unison eniac -path pub/draft -batch
