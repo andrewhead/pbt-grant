@@ -82,12 +82,17 @@ consistent enthusiasm for PBT---participants called it it
 built their own libraries for it when standard ones were not available
 (\participant{8},
 \participant{21}), and suggested that ``everyone'' at the company should use it
-(\participant{20})---but participants also described {\em usability} issues
-whose solutions require advances in both technical foundations and
-tool design.\iflater\bcp{The last part of that sentence kind of
-  duplicates the first part of the next...}\fi
+(\participant{20})---but participants also described {\em usability} issues that
+limit PBT's impact on the broader software community, and thus on the safety of
+critical software systems.
 
-Taming these usability challenges demands insights from both the
+% Solving these issues
+% requires advances in both technical foundations and
+% tool design.\iflater\bcp{The last part of that sentence kind of
+%   duplicates the first part of the next...}\fi
+
+Taming these usability challenges, and making PBT dominant technique for
+demonstrating software correctness, demands insights from both the
 programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} have argued that a research methodology
@@ -100,6 +105,7 @@ a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
 published widely on PL topics including PBT.
 
+\iflater
 \bcp{Explain why it's grand... :-)  Specifically, explain why the
   resources of a Large grant are needed to address the challenge (why
   small or medium grants would not do it).}
@@ -107,12 +113,14 @@ published widely on PL topics including PBT.
   required for the research to succeed.}
 \discuss{Why do we need four PhD students---why can't this agenda be
   accomplished with fewer?  Why do we need an engineer?}
-Need simultaneous advances in PL / HCI / and SE
+\fi
 
-We propose a comprehensive, interdisciplinary research and engineering
+This project will be a model for how to get from an ``obviously valuable''
+theoretical idea to a vibrant, usability-focused software ecosystem.
+Our comprehensive, interdisciplinary research and engineering
 program on
-{property-based testing}, bringing to bear the combined power of PL and HCI to
-accelerate PBT's transition into practice.  The project's research,
+{property-based testing}, will bring to bear the combined power of PL and HCI to
+accelerate\iflater\hg{bigger word?: finalize? complete?}\fi PBT's transition into practice.  The project's research,
 engineering, and education activities can be grouped into six main
 themes: \bcplater{This already feels too detailed, and we still need to write
 blurbs for all the other tasks we've added in the past few days.  But
@@ -168,30 +176,23 @@ process\proposecut{, as well as to formally validate these tools}. \ifnext\bcp{T
   integration across domains, and between research and tech transfer.
   We should explicitly call out the engineer as critical to the
   project's success.}\fi
-
-The scale of this project is essential to its success.
-\todo{Why?
-  \begin{itemize}
-  \item Four students...
-  \item Engineer needed to support the research efforts and---even
-  more importantly---to push things out into industry by integrating
-  research results into existing industrial PBT tools like Hypothesis
-  and building a production-quality programming environment with
-  integrated PBT visualization tools.
-  \item Pointer to appendix
-  \end{itemize}
-  }
-
-% \todo{
-%   Points that need to be made:
-%   \begin{itemize}
-%   \item
-%   \end{itemize}
-% }
+The scale of this project is essential to its success. Accomplishing this
+interdisciplinary effort will require four PhD students: one expert in
+HCI, one expert in PL, and two with a balance of experience in both areas. The
+full work plan can be found in Appendix~\ref{appendix:coord}, but at a high
+level: one PhD student will build foundational knowledge of usability aspects of
+PBT, two students will develop powerful technologies that support more usable
+and useful workflows, and the final student will leverage those technological
+advances to build a user-focused IDE for PBT. These students will be supported
+by a full-time research engineer who will focus on transferring the PhD students
+ideas into an industrial context. This will involve improving and supporting
+open-source PBT projects with theoretically-informed ideas. None of these
+projects could be done on its own: each feeds into and informs the next,
+ultimately amplifying PBT and improving the overall quality of software.
 
 \forreaders{Please tell us whether you feel convinced, at this point,
   that we have articulated a compelling ``grand challenge'' and an agenda to
-  address it.  }
+  address it.}
 
 \medskip
 
