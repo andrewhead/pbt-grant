@@ -17,12 +17,6 @@
   the team; and 5) pointers to the budget line items that support
   these management and coordination mechanisms.}
 
-\todo{GPG: The length and level of detail provided in the Plan should
-  be commensurate with the complexity of the proposed project and
-  should include any proposed collaboration with industry and
-  international partners, and any other unpaid collaborators on the
-  project.}
-
 \todo{Management and Coordination Plans and proposed budgets should
   demonstrate that key personnel, and especially lead PIs, have
   allocated adequate time for both their individual technical
@@ -30,19 +24,23 @@
   necessary to realize the synergistic effects of larger-scale
   research.}
 
-\todo{Webinar: Management and Coordination plan should include
-  complementarity of expertise, etc.}
+\todo{One more standard measure of success is publications.  We might
+  as well talk about this.}
 
-\todo{Make sure we explain in a few places how much work these studies
-are!}
+\fi
 
+\iflast
+\todo{GPG: The length and level of detail provided in the Plan should
+  be commensurate with the complexity of the proposed project and
+  should include any proposed collaboration with industry and
+  international partners, and any other unpaid collaborators on the
+  project.}
 \fi
 
 Key personnel for this work will include the two co-PIs, four PhD
 students with varying background and interests, one staff engineer,
-and several advanced undergraduate and Master's students.  The work of
+and several undergraduate interns and Master's students.  The work of
 the project will take place over the course of five years.
-
 Figure~\ref{fig:workplan} sketches our envisaged mapping of tasks onto
 PhD dissertations, with a rough timeline indicating a natural ordering
 of the tasks.  Figure~\ref{fig:roles} provides more detail on
@@ -56,18 +54,13 @@ on the tables.  Your feedback is appreciated!}
 \underconstruction{The PIs will supervise everyone else and each other.  Say
   that in more detail.  :-)
   \begin{itemize}
+  \item Complementarity of expertise.
   \item This project will be a main focus for both PIs during the
   whole five years.  Two summer months are allocated to each PI for
   this reason.
-  \item The main synchronization mechanism will be weekly group
-  meetings for the entire project team (PIs, PhD students, staff
-  engineer, undergraduates and masters students).
-  \item Slack and email will be used for daily team communications.
-  Git will be used for software development and writing.
+  \item Who supervises what.
   \end{itemize}
 }
-
-
 
 \subsection*{PhD Student Roles}
 
@@ -82,15 +75,17 @@ on the tables.  Your feedback is appreciated!}
 \iflater\todo{Also, emphasize that this is a best-guess
   thought experiment, not a prediction!}\fi
 
-\ROLE{Ph.D. 1}{Advisor PI Head}{Foundations}{The first Ph.D. student will
-develop foundational knowledge to support the human-centered design and
-development of PBT tools. This work will begin with defining a preliminary
-theory of PBT on the basis of our studies to date, with a set of falsifiable
-hypotheses about how tooling supports PBT. Then, the student will conduct a
-survey to expand and generalize our understanding of barriers, conduct critical
-comparative studies of existing PBT solutions, and assist in the conduct of
-formative observational studies related to tool-building efforts.}{Qualitative
-HCI}
+\ROLE{Ph.D. 1}{Advisor PI Head}{Foundations}{The first Ph.D. student
+  will develop foundational knowledge to support the human-centered
+  design and development of PBT tools. This work will begin with
+  defining a preliminary theory of PBT on the basis of our studies to
+  date, with a set of falsifiable hypotheses about how tooling
+  supports PBT. Then, the student will conduct a survey to expand and
+  generalize our understanding of barriers, conduct critical
+  comparative studies of existing PBT solutions, and assist in the
+  conduct of formative observational studies related to tool-building
+  efforts. \todo{Explain how much work these studies are!}
+}{Qualitative HCI}
 
 \ROLE{Ph.D. 2}{Advisor PI Pierce}{Generation}{The second Ph.D.
 student
@@ -138,7 +133,7 @@ settings.}{HCI Systems}
 
 % \ROLE{PhD 4}{Advisors PI Head and PI Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
 
-\subsection*{Research Engineer}
+\subsection*{Research Engineer Role}
 
 \ROLE{Engineer}{Supervisors PI Head and PI Pierce}{Property-Based Testing in the Wild}{Many of the aforementioned projects include or would benefit from technology transfer activities that bring research ideas into practice. Our staff engineer will assist with this transfer, interfacing with existing open source communities to maintain, improve, and popularize frameworks for PBT in a number of popular programming languages. This will include, but not be limited to: implementing reflective generators in existing frameworks, improving library designs as per recommendations from PhD 2, maintaining the tools produced by PhD 3, etc.}{Engineering}
 
@@ -271,6 +266,18 @@ Penn.
   \iflater\bcp{Check the secondary effort}\fi}
 \label{fig:roles}
 \end{figure}
+
+\subsection*{Mechanics of team management}
+
+\underconstruction{
+  \begin{itemize}
+  \item The main synchronization mechanism will be weekly group
+  meetings for the entire project team (PIs, PhD students, staff
+  engineer, undergraduates and masters students).
+  \item Slack and email will be used for daily team communications.
+  Git will be used for software development and writing.
+  \end{itemize}
+  }
 
 \subsection*{Success Metrics}
 
