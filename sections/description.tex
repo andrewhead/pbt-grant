@@ -149,7 +149,7 @@ comprehensive\iflater\bcp{Blah.}\fi{} (\sectionref{sec:val}).
 methodologies from academia into industry through targeted engineering
 and education efforts---in particular, developing materials for an
 undergraduate computer science curriculum centered around PBT
-(\sectionref{sec:diffusion}).  \bcp{mention other diffusion tasks}
+(\sectionref{sec:diffusion}).  \ifnext\bcp{mention other diffusion tasks}\fi
 % \end{enumerate*}
 % \end{itemize}
 \end{enumerate}
@@ -160,21 +160,22 @@ HCI research. HCI approaches will be used to concretely define
 developers' needs, design the user interface to tools, and evaluate
 their success, while PL techniques will be used to develop powerful
 domain-specific languages and type-based automation to improve the PBT
-process\proposecut{, as well as to formally validate these tools}. \bcp{That
+process\proposecut{, as well as to formally validate these tools}. \ifnext\bcp{That
   paragraph is weak.  Needs to be much stronger on the need for
   integration across domains, and between research and tech transfer.
   We should explicitly call out the engineer as critical to the
-  project's success.}
+  project's success.}\fi
 
 The scale of this project is essential to its success.
 \todo{Why?
   \begin{itemize}
+  \item Four students...
   \item Engineer needed to support the research efforts and---even
   more importantly---to push things out into industry by integrating
   research results into existing industrial PBT tools like Hypothesis
   and building a production-quality programming environment with
   integrated PBT visualization tools.
-  \item Four students...
+  \item Pointer to appendix
   \end{itemize}
   }
 
@@ -204,10 +205,6 @@ Section \sectionref{sec:broader-impacts}
 discusses the Broader Impacts of the project, and
 Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work on PBT.
-
-\todo{A one-paragraph summary of the Coordination and Management
-  appendix -- personnel, tasks, integration, etc. -- with a pointer to
-  that appendix.}
 
 \forreaders{Please take an especially critical look at the
   Coordination and Management appendix and at what we say
@@ -489,8 +486,11 @@ learning about PBT, which limits its adoption. PBT is also not traditionally
 taught in computer science curricula, highlighting opportunities for expanded
 \edutheme{Classroom Education}. Finally, the existing tools for PBT are
 inconsistent and under-maintained; if PBT tools are to become mainstream, we
-must provide \edutheme{Support and Guidance for Open-Source Communities.}
+must provide \edutheme{Support and Guidance for Open-Source
+  Communities.}\ifnext\bcp{Don't like this title.}\fi
+\ifnext
 \discuss{How's this? It's a little forced and under-supported, but I think this is good for now.}
+\fi
 
 \iflater
 \bcp{Needs a rewrite for the new structure... Section 7 is missing!
@@ -552,7 +552,7 @@ interactive tools
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 %
-\todo{Write me Andrew
+\underconstruction{\ifnext Write me Andrew\fi
   \begin{itemize}
     \item Theories in programming are useful for communicating what is
       challenging about programming, and for generating ideas for what can be
@@ -1103,7 +1103,7 @@ practitioners.
 
 \SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Who?}
 %
-\todo{Write me someone
+\underconstruction{
   \begin{itemize}
     \item We want to make reflectives usable as their own language, but they're
     also useful as an intermediate language
@@ -1257,7 +1257,7 @@ properties over log traces; the developer provides inputs to an outer system
 \emph{containing} the system(s) of concern; and then the test harness will check
 the given trace properties in real time.
 
-\SUBSECTION{Interactive property
+\SUBSECTION{Mixed-initiative property
   specification}{sec:interactive}{3}{4}{HCI Practice}{PhD 4}{PhD 3}{Who?}
 \iflater\bcp{This is colored ``HCI Practice'' but listed under Education.
   That seems confusing.  Maybe move it to Specification?}
@@ -1288,56 +1288,6 @@ The tool will be designed for use in Penn's upper division Haskell
 course (CIS 5520) and therefore implemented on top of
 Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
-
-\SUBSECTION{``When to Specify It!''}{sec:whento}{3}{5}{Education}{PhD
-  1}{PhD 4}{Who?}
-%
-Our first pilot study with users of PBT suggested that developers struggle to
-come up with specifications that are worth
-testing~\cite{goldstein_problems_2022},
-but
-our follow-up interviews at Jane Street suggest that the developers there
-rarely have the same problem. It seems that the Jane Street developers had
-a tacit
-understanding of ``no-brainer'' situations where PBT was an obvious
-choice---situations where properties were easy to find and where PBT provided
-much more thorough testing than other common techniques---and they limited their
-use of PBT to these situations.
-While experienced PBT users do also apply it in
-high-cost / high-benefit situations, we believe
-focusing on easier cases is the best way to drive adoption.
-
-We aim to produce authoritative resources that help developers understand
-high-leverage situations for PBT. We will begin with an effort
-tailored to the academic community: a survey paper with the
-aspirational title ``When to Specify It!'' in homage to John Hughes'
-widely-viewed tutorial ``How to Specify It!''. This survey will
-document the range of high-leverage scenarios identified in our formative
-research, including cases like
-\begin{enumerate*}[label=(\arabic{enumi})]
-\item ``these two functions (e.g., a parser and a printer) should round-trip,''
-\item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
-\item ``this stateful module should uphold an invariant,''
-\item ``these two programs should behave the same'' (e.g., because one
-is an optimized version of the other),
-and
-\item ``this program should not crash.''
-\end{enumerate*}
-This list will be further expanded with our follow-up surveys with broader
-communities of developers~(\sectionref{sec:survey}), a comprehensive
-review of case studies that appear in
-the academic literature, and an examination of open source projects across a
-variety of different software ecosystems using PBT (e.g.,
-QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
-
-Building on the strong foundation of the survey, we will distill our findings
-into media directly tailored for developers. First, we will write up
-approachable developer documentation in partnership with our industry
-collaborators, to be read among the first resources of any developer
-documentation on PBT tools. We will work with our industry collaborators to
-disseminate this documentation in blogs and incorporate it into tool
-manuals. Then, we will present the findings as a talk at a
-major professional developer conference.
 
 \SUBSECTION{Model-based properties for modules}{sec:automating}{3}{4}{PL Practice}{PhD
 4}{UGrad/MS 2}{Who?}
@@ -1411,14 +1361,14 @@ The work in this project will provide a basis that others can build on
 in other languages. Abstract and polymorphic signatures are features
 of many other modularity mechanisms (e.g., Java interfaces, Rust
 traits, Haskell type classes, etc.), so solutions we find in OCaml
-should transfer.  \bcp{We are not really promising much here (and not
+should transfer. \ifnext \bcp{We are not really promising much here (and not
   giving much detail about what we do promise)... Can we beef it up?
   Maybe add another task?}
 \hg{The first problem is that we just don't stick the landing here. We're
 planning to build a ``turnkey'' solution to MBT, but we get bogged down in
 details and never pop back up. I'm not sure I have any other tasks to suggest...
 have any of our conversations with Ernest raised new design decisions /
-theoretical concerns we haven't considered?}
+theoretical concerns we haven't considered?} \fi
 
 \iflater
 \bcp{I wonder whether one of the attractions of model-based properties for real-world testing is that they more or less allow one to ignore the issue of "generating structures satisfying preconditions."  That is, if what you're doing to build an "interesting" value of some data structure or internal state of some stateful system is issuing calls through an API, then I would guess in most situations pretty much any sequence of API calls will be legal; some will be more interesting than others, of course, but at least you'll never build a structure that doesn't satisfy the preconditions of your operations -- your whole distribution will always fall within the space of well-formed structures.  (Or, if it observably doesn't, you'll have uncovered a bug.)
@@ -1431,7 +1381,7 @@ any of this worth mentioning here?}
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{3}{5}{HCI
   Theory}{PhD 4}{}{Who?}
 %
-\todo{Write me Andrew.
+\underconstruction{\ifnext \todo{Write me Andrew.} \fi
   \begin{itemize}
     \item You run across some properties in a program---what then?
     \item This has important implications for education, but also for engineers
@@ -1458,6 +1408,57 @@ any of this worth mentioning here?}
 }
 
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
+
+\SUBSECTION{Counterexamples as regression
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Who?}
+%
+% After testing has revealed a counterexample to one of their properties
+% with their tests, the developer may wish to turn that failure into a
+% regression test, to ensure that later
+% changes to the code will not reintroduce the same failure.
+One pain
+point experienced
+by informants in our interviews at Jane Street was that it requires considerable work to
+transform a failure that was detected by their PBT tools into a
+regression test, despite the fact that much of the work involved in doing so
+felt mechanical.
+
+% \TASK{A tool for turning counterexamples into tests}{2}{2}{who?}
+We plan to develop usable tooling for transforming failed PBT tests into single
+regression tests. What is important to note about this project is that creation
+of regression tests is \emph{mostly}, but not entirely, mechanical. In reality,
+the creation of regression tests will likely require judicious incorporation of
+the developer's input at key decision points. This is particularly the case for
+specifying acceptance criteria. For instance, consider a property that checks
+that a list insertion function never produces an empty list. In the event of a
+failure, a developer may want to produce a regression test checking the
+exactness of the result on the failed input (e.g., checking that the insertion
+produced a particular concrete list) rather than simply checking that the output
+list is non-empty.  Writing a regression test may involve multiple such
+choices, including whether to test for exact output, whether to test
+intermediate results, and how to initialize inputs.
+
+We will develop an interactive tool that assists developers in creating
+regression tests from failed tests. The idea is to first develop
+technology for generating sufficiently readable code for regression tests (using
+approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
+in-situ editing assistance along the lines of contemporary interactive
+refactoring tools from the HCI
+literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
+For this unique task of transforming properties into regression tests,
+our tool will \iflater\proposecut{provide the key features
+  of}\hg{MINOR: Feel free to disagree,
+but I think phrases like this are a bit of an anti-pattern. I'd rather just say
+the tool will X}\fi keeping track of the failed input,
+generating starter test code, substituting in correct expected values of the
+output by executing corrected code, and supporting developers in rapidly
+performing likely edits to regression tests by providing suggestions of
+alterations to their code like the ability to generate general property checks
+with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
+getting at}\fi. We also hope the results of this work
+can inform the
+design of other approaches to counterexample extraction, including one that is
+proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1645,57 +1646,6 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
-\SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 3}{}{Who?}
-%
-% After testing has revealed a counterexample to one of their properties
-% with their tests, the developer may wish to turn that failure into a
-% regression test, to ensure that later
-% changes to the code will not reintroduce the same failure.
-One pain
-point experienced
-by informants in our interviews at Jane Street was that it requires considerable work to
-transform a failure that was detected by their PBT tools into a
-regression test, despite the fact that much of the work involved in doing so
-felt mechanical.
-
-% \TASK{A tool for turning counterexamples into tests}{2}{2}{who?}
-We plan to develop usable tooling for transforming failed PBT tests into single
-regression tests. What is important to note about this project is that creation
-of regression tests is \emph{mostly}, but not entirely, mechanical. In reality,
-the creation of regression tests will likely require judicious incorporation of
-the developer's input at key decision points. This is particularly the case for
-specifying acceptance criteria. For instance, consider a property that checks
-that a list insertion function never produces an empty list. In the event of a
-failure, a developer may want to produce a regression test checking the
-exactness of the result on the failed input (e.g., checking that the insertion
-produced a particular concrete list) rather than simply checking that the output
-list is non-empty.  Writing a regression test may involve multiple such
-choices, including whether to test for exact output, whether to test
-intermediate results, and how to initialize inputs.
-
-We will develop an interactive tool that assists developers in creating
-regression tests from failed tests. The idea is to first develop
-technology for generating sufficiently readable code for regression tests (using
-approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
-in-situ editing assistance along the lines of contemporary interactive
-refactoring tools from the HCI
-literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
-For this unique task of transforming properties into regression tests,
-our tool will \iflater\proposecut{provide the key features
-  of}\hg{MINOR: Feel free to disagree,
-but I think phrases like this are a bit of an anti-pattern. I'd rather just say
-the tool will X}\fi keeping track of the failed input,
-generating starter test code, substituting in correct expected values of the
-output by executing corrected code, and supporting developers in rapidly
-performing likely edits to regression tests by providing suggestions of
-alterations to their code like the ability to generate general property checks
-with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
-getting at}\fi. We also hope the results of this work
-can inform the
-design of other approaches to counterexample extraction, including one that is
-proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
-
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{3}{4}{HCI Practice}{PhD 3}{PhD 2}{Who?}
@@ -1768,8 +1718,7 @@ for similar inputs are abundant.
 \SUBSECTION{Dashboards for long-running tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD
 3}{Engineer}{Who?}
 %
-\todo{Write me Andrew?}
-
+\underconstruction{ \iflater\todo{Write me Andrew?}\fi
 \begin{itemize}
   \item Given the random nature of tests, it is not guaranteed that the same
     software, when tested twice, will have the same results.
@@ -1778,9 +1727,9 @@ for similar inputs are abundant.
   \item Or, dashboards should bring together signals from both random samples
     of inputs, as well as known samples.
 \end{itemize}
-
-\hg{I copied a comment into here---can we use any of that writing for this
-section?}
+}
+\iflater \hg{I copied a comment into here---can we use any of that writing for this
+section?}\fi
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}{}
 
@@ -1859,8 +1808,11 @@ section?}
 
 % \fi
 
+\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
+
 \newcommand{\tyche}{{\sc Tyche}}
-\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech Transfer}{PhD 3}{Engineer}{Who?}
+\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
+  Transfer}{Engineer}{PhD 3}{Who?}
 \amh{Maybe this belongs at the beginning of this section, and the tools that
 come before would be components of \tyche{}}.
 The ideas in this section highlight a clear opportunity for PBT tools that live
@@ -1881,8 +1833,6 @@ also be included over time.
 Ultimately, we think \tyche{} will become an invaluable assistant in the PBT
 process, making it easier for developers to get started and succeed.
 \iflater \hg{This is a weak ending} \fi
-
-\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
 
 % \bcp{If we're going to keep this as a top-level theme, we'll need to
 %   integrate it into the motivation early on (i.e., give it a color,
@@ -1908,7 +1858,7 @@ process, making it easier for developers to get started and succeed.
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
 
-\todo{Write me someone
+\underconstruction{\todo{Write me someone}
   \begin{itemize}
     \item Besides supporting the PhD students, we want the engineer to increase
     adoption of PBT broadly by working in the open source community
@@ -1942,6 +1892,7 @@ Transfer}{Engineer}{}{Pierce}
 
 % \SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech
 % Transfer}{Engineer}{PhD 3}{Who?}
+\ifnext
 The engineer will provide support, design input, etc. to the students as they
 produce research artifacts. When the projects are done, the engineer will
 continue to maintain and grow those software projects.
@@ -1959,6 +1910,7 @@ bit broader than just Python.}
 \todo{They support PhD 3 by...}
 
 Building hooks into tools for extension and research experimentation...
+\fi
 
 % \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
 % %
@@ -1976,6 +1928,56 @@ Building hooks into tools for extension and research experimentation...
 % and course materials for instructors to integrate PBT into
 % early-stage computer science curriculum (\sectionref{sec:1210}).
 
+
+\SUBSECTION{``When to Specify
+  It!''}{sec:whento}{3}{3}{Education}{Faculty}{Everyone else}{Both}
+%
+Our first pilot study with users of PBT suggested that developers struggle to
+come up with specifications that are worth
+testing~\cite{goldstein_problems_2022},
+but
+our follow-up interviews at Jane Street suggest that the developers there
+rarely have the same problem. It seems that the Jane Street developers had
+a tacit
+understanding of ``no-brainer'' situations where PBT was an obvious
+choice---situations where properties were easy to find and where PBT provided
+much more thorough testing than other common techniques---and they limited their
+use of PBT to these situations.
+While experienced PBT users do also apply it in
+high-cost / high-benefit situations, we believe
+focusing on easier cases is the best way to drive adoption.
+
+We aim to produce authoritative resources that help developers understand
+high-leverage situations for PBT. We will begin with an effort
+tailored to the academic community: a survey paper with the
+aspirational title ``When to Specify It!'' in homage to John Hughes'
+widely-viewed tutorial ``How to Specify It!''. This survey will
+document the range of high-leverage scenarios identified in our formative
+research, including cases like
+\begin{enumerate*}[label=(\arabic{enumi})]
+\item ``these two functions (e.g., a parser and a printer) should round-trip,''
+\item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
+\item ``this stateful module should uphold an invariant,''
+\item ``these two programs should behave the same'' (e.g., because one
+is an optimized version of the other),
+and
+\item ``this program should not crash.''
+\end{enumerate*}
+This list will be further expanded with our follow-up surveys with broader
+communities of developers~(\sectionref{sec:survey}), a comprehensive
+review of case studies that appear in
+the academic literature, and an examination of open source projects across a
+variety of different software ecosystems using PBT (e.g.,
+QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
+
+Building on the strong foundation of the survey, we will distill our findings
+into media directly tailored for developers. First, we will write up
+approachable developer documentation in partnership with our industry
+collaborators, to be read among the first resources of any developer
+documentation on PBT tools. We will work with our industry collaborators to
+disseminate this documentation in blogs and incorporate it into tool
+manuals. Then, we will present the findings as a talk at a
+major professional developer conference.
 
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{Faculty}
@@ -2028,7 +2030,7 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-\bcp{Needs a good paragraph about tech transfer.}
+\discuss{Needs a good paragraph about tech transfer.}
 
 \noindent{\bf Educational Benefits.}
 %
