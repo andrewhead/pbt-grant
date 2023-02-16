@@ -1,5 +1,9 @@
 \section*{Project Description}
 
+\discuss{Every section (including the introduction, broader impacts,
+  and coordination!) needs to better address how we will measure
+  success...}
+
 \iflater
 
 \todo{GPG: Proposals should identify a computer and information
@@ -21,7 +25,6 @@
   satisfy the requirement!}
 
 \fi
-
 Testing plays a vital role in modern software development,
 contributing crucially to robustness, security, and overall software
 quality\iflater\bcp{Would love to expand that a little.  Readers
@@ -30,7 +33,35 @@ sinking research money into.}\fi; it also represents
 a significantly fraction of the cost of developing
 software\iflater{Numbers? one more sentence about costs would
   be good.}\fi{}.
-%
+
+\todo{Incorporate something like this (from John):
+  \begin{itemize}
+  \item ``Software bugs are
+  notoriously commonplace; a 2002 report for Congress estimated their
+  cost to the US economy at almost \$60 billion per year—around
+  0,6\% of GDP. Software developers
+  devote around half their effort to testing their software, in order
+  to detect and eliminate most bugs before the software is
+  released. The same report estimated that improved techniques for
+  testing could save the US \$22 billion per year.''
+  \item ``In 2002, the National Institute of Standards and Technology
+  estimated the total cost of software errors to be almost \$60 billion
+  per year, in the US alone11. It follows that improved testing
+  techniques have the potential to save society very large sums; the
+  same report estimated that better testing infrastructure could save
+  \$22 billion of those \$60 billion, corresponding to 0.2\% of the
+  entire GDP of the USA at that time. Since then the volume of
+  software, and our dependence on it, has only grown. How much of
+  these savings can be realised using property-based testing is, of
+  course, a matter for speculation—but clearly, the problem PBT
+  addresses, of improving software quality, is critically important to
+  society as a whole."
+  \item The report: \url{https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf}
+  \item Title of the report: The Economic Impacts of Inadequate
+  Infrastructure for Software Testing
+  \end{itemize}
+}
+
 Testing comes in many styles---unit testing, integration testing,
 performance testing, stress testing, accessibility testing,
 etc.---supported by many sorts of tools, with even more advanced tools
@@ -67,7 +98,20 @@ now available in pretty much every major programming language\iflater \hg{But no
 enough! And not consistent}\fi, PBT has
 begun to make significant inroads in the broader software
 industry.  The developers of the Hypothesis PBT library in
-Python, for example, estimate its user community at around half a million~\cite{ZacPersonalCommunication}.
+Python, for example, estimate its user community at around half a
+million~\cite{ZacPersonalCommunication}.  \iflater\bcp{There's a book
+  about ScalaCheck!  Let's try to estimate the size of the user
+  community.  And we should get in touch with those people!}\fi
+
+\todo{More evidence of impact:
+  \begin{itemize}
+  \item In 2010, Koen Claessen and John Hughes received the ACM
+  SIGPLAN ``Most Influential Paper of ICFP 2000'' award for their
+  paper introducing QuickCheck. Today, this paper has over 1500
+  citations on Google Scholar---the most cited ICFP
+  paper ever (by a factor of 2), according to ACM's digital library.
+  \end{itemize}
+}
 
 \newcommand{\participant}[1]{{P#1}}
 % \newcommand{\participant}[1]{{\bf P#1}}
@@ -194,6 +238,15 @@ open-source PBT projects with theoretically informed ideas. None of these
 projects stands on its own; rather, each supports and informs the
 others, together achieving broad and significant impact on software
 development practice.
+
+\underconstruction{Explain how we are going to measure success:
+  \begin{enumerate}
+  \item Many of our individual tasks include user surveys to evaluate
+  their results.
+  \item We will be producing open-source software, so we can measure
+  success by number of downloads.  (Harry?)
+  \end{enumerate}
+}
 
 \forreaders{Please tell us whether you feel convinced, at this point,
   that we have articulated a compelling ``grand challenge'' and an agenda to
@@ -498,7 +551,7 @@ developers will required expanded
 \edutheme{Classroom Education}. Finally, existing tools for PBT are
 inconsistent and under-maintained; if PBT is to become mainstream, we
 need to offer \edutheme{Support and Guidance for Open-Source
-  Communities}\iflater\bcp{Don't like this title}\fi{} that will help our
+  Communities}\iflater\bcp{Don't like this title}\fi{} to help our
 work and ideas permeate the PBT world.
 
 \iflater
@@ -847,6 +900,8 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
+\underconstruction{Add a short summary of the subsections that follow.}
+
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
   Theory}{PhD 2}{}{Pierce}
 \iflater
@@ -949,28 +1004,31 @@ following sections, and discuss tools that leverage them later in the proposal.
 
 \smallskip
 
-{\bf Status.} We began thinking about reflective generators during a
+We began thinking about the basic concept of reflective generators during a
 currently running NSF project (described in \sectionref{sec:prior}), built a
 prototype implementation, and drafted a preliminary progress report
-laying out their basic theory~\cite{Frohlich2022}. Some details of
+laying out their basic theory~\cite{Frohlich2022}. Some significant details of
 both theory and pragmatics remain to be ironed out; in particular,
 while our exploratory performance measurements look promising, a
 thorough empirical evaluation forms part of the work during the first
-year of the proposed project.  \bcp{I suggest (1) moving this
-  paragraph a bit higher in the subsection; adding a transition
-  talking about what concretely is {\em not} yet done or underway, and
-then a couple of tasks (maybe corresponding to the two paragraphs
-above).}
+year of the proposed project.
+\bcp{The relation between what's done and what's not done is muddy.  I
+think we should just go ahead and say we plan to submit a paper fairly
+soon, talk about what will be in the paper, and talk about what
+will not be in the paper but is needed to achieve the goals of the
+present project.}
 
 % \amh{Is there a way to make this status report make the success of
 % this project sound more assured (if we think it is)? Some of the
 % later projects in the proposal depend at least in part on this
 % working.}\bcp{Tried tweaking the wording a bit.  I think it's OK.}
 
-\todo{TRANSITION}
 % \SUBSECTION{Reflective Shrinkers}{sec:shrinking}{3}{4}{PL
 %   Practice}{PhD 2}{Engineer}{Who?}
 %
+\iflater\bcp{Make sure the lowest-level paragraph headers are all
+  formatted the same.}\fi
+\smallskip{\em Reflective shrinkers.}
 Reflective generators' ability to run backward means that they can be used as
 a tool for analyzing and manipulating the structure of
 generated
@@ -1016,7 +1074,7 @@ shrinker behavior. We hope that these tools will mean that developers no longer
 need to be intimidated by the idea of shrinkers: they will simply work in the
 background, simplifying debugging.
 
-\todo{TRANSITION}
+\smallskip{\em Reflective fuzzers.}
 % \SUBSECTION{Reflective Fuzzers}{sec:fuzzing}{2}{3}{PL Practice}{PhD 2}{Engineer}{Who?}
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
@@ -1139,7 +1197,6 @@ practitioners.
   Transfer}{PhD 2}{PhD 1}{Pierce}
 %
 \iflater\todo{(Re)write me Harry and Benjamin}\fi
-
 \iflater\todo{Make sure this feels different from Leo's CAREER}\fi
 %
 The many papers in the PBT literature demonstrate effectiveness with case
@@ -1180,6 +1237,8 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 \iflater\hg{Is this everything? Probably not...}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
+\underconstruction{We've recently
+  moved some sections around -- this summary needs updating. }%
 To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications. Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
@@ -1193,8 +1252,6 @@ high-leverage use-cases for PBT. In \sectionref{sec:whento} we discuss our plans
 to catalog and communicate these use-cases for developers. Then, in
 \sectionref{sec:automating} we show a way to automate a specific high-leverage
 scenario: model-based testing.
-
-\todo{Also mention explaining properties}
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
   Practice}{PhD 4}{UGrad/MS 1}{Pierce}
@@ -1476,6 +1533,8 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 
+\underconstruction{We've
+  moved some sections around -- this summary needs updating. }%
 In this section, we
 describe a sequence of research efforts to design and evaluate usable developer
 tooling for PBT. These projects will contribute new paradigms for assessing whether their generators are generating sufficient and
@@ -1826,7 +1885,7 @@ section?}\fi
 \forreaders{This section collects all the tasks that involve either
   primarily engineering or primarily education.}
 
-\ifnext\todo{Write an introduction.}\fi
+\underconstruction{Needs an introduction.}
 
 \newcommand{\tyche}{{\sc Tyche}}
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
@@ -2048,11 +2107,10 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-\forreaders{This section will open with a paragraph about tech
-  transfer.  This and education (in the broad sense---developers and
-  students) are equal parts of our broad impact story.}
-
-\discuss{Needs a good paragraph about tech transfer.}
+\noindent{\bf Impact on industry.} \underconstruction{This section
+  will open with a paragraph about tech transfer.  This and education
+  (in the broad sense---developers and students) are equal parts of
+  our broad impact story.} \smallskip
 
 \noindent{\bf Educational Benefits.}
 %
@@ -2232,6 +2290,9 @@ Shi.
   ideas about how people talk about their work.}
 
 \todo{Remember to turn off all the ``forreaders'' stuff.}
+
+\todo{Make sure the intro to each section accurately reflects what's
+  in the section, and in which order.}
 
 \fi
 
