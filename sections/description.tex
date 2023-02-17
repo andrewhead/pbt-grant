@@ -149,7 +149,12 @@ Indeed, the team behind this proposal is uniquely positioned to advance the
 state of the art in PL and HCI: PI Head recently co-founded
 a new HCI group at the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has
-published widely on PL topics including PBT.
+published widely on PL topics including PBT.  \todo{John: So, the
+  argument you give for combining PBT and HCI below goes part of the
+  way there. But can’t you point to work you have done *already*, that
+  illustrates the benefits? You did the Jane St study *because* you
+  were collaborating, right? I think you need to highlight that the
+  combination is already yielding results *in the first section*.}
 
 \iflater
 \bcp{Explain why it's grand... :-)  Specifically, explain why the
@@ -584,6 +589,9 @@ across a wide range of industrial settings.
 %   there will be space)...}
 % \fi
 
+\iflater\discuss{Can we come up with a good infographic for the
+  introduction?}\fi
+
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
@@ -614,63 +622,63 @@ interactive tools
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 
-The cornerstone of our efforts to develop a strong foundation for improved PBT 
-is to develop a theory of property-based testing.  Theories of programming have 
-long served a critical role in human-centered software engineering research.  
-Theories provide rich and memorable descriptions of programming processes.  
-Furthermore, they describe constructs and mechanisms in the programming process 
+The cornerstone of our efforts to develop a strong foundation for improved PBT
+is to develop a theory of property-based testing.  Theories of programming have
+long served a critical role in human-centered software engineering research.
+Theories provide rich and memorable descriptions of programming processes.
+Furthermore, they describe constructs and mechanisms in the programming process
 in a way that clarifies opportunities for tooling and training to be improved.
-For instance, the information foraging theory~\cite{ref:lawrance2010programmers} 
-describes how programmers navigate a complex code base in search of behaviors 
+For instance, the information foraging theory~\cite{ref:lawrance2010programmers}
+describes how programmers navigate a complex code base in search of behaviors
 within the code, and implies why programmers sometimes fail in this task. The
-theory has motivated a variety of innovative tools that demonstrably improve the 
-programming experience (e.g.,~\cite{ref:henley2014patchworks}).  Other theories 
-that have inspired advances in the development of programming tools include 
-Blackwell's Attention-Investment model~\cite{ref:blackwell2002first} and Ko and 
-Myers' debugging framework~\cite{ref:ko2005framework}, and Ko's characterization 
-of end-user programming barriers~\cite{ref:ko2004six}. 
+theory has motivated a variety of innovative tools that demonstrably improve the
+programming experience (e.g.,~\cite{ref:henley2014patchworks}).  Other theories
+that have inspired advances in the development of programming tools include
+Blackwell's Attention-Investment model~\cite{ref:blackwell2002first} and Ko and
+Myers' debugging framework~\cite{ref:ko2005framework}, and Ko's characterization
+of end-user programming barriers~\cite{ref:ko2004six}.
 
-Recognizing the power of theory, we will develop a theory of property-based 
-testing as a cornerstone for our research. The initial theory will be developed 
+Recognizing the power of theory, we will develop a theory of property-based
+testing as a cornerstone for our research. The initial theory will be developed
 from the framework we arrived at from the Jane Street study. The theory
-will be validated and refined by conducting contextual inquiries~\cite[Ch.  
-3]{ref:holtzblatt1997contextual}with programmers. We will develop a provisional 
-theory in the first two years.  This theory will help us refine our ideas for 
-tools, and provide a foundation for contextualizing the questionnaires and 
-observations described in the next sections. Our evaluation of the tools in this 
-project provide us with additional evidence to refine the theory, based on 
-whether those evaluations refute or support hypotheses that arise from the 
+will be validated and refined by conducting contextual inquiries~\cite[Ch.
+3]{ref:holtzblatt1997contextual}with programmers. We will develop a provisional
+theory in the first two years.  This theory will help us refine our ideas for
+tools, and provide a foundation for contextualizing the questionnaires and
+observations described in the next sections. Our evaluation of the tools in this
+project provide us with additional evidence to refine the theory, based on
+whether those evaluations refute or support hypotheses that arise from the
 theory.
 
-Here we briefly sketch out a preliminary theory that follows from the Jane 
-Street study. While the theory we develop may look quite different from this, we 
-describe it here to demonstrate the feasibility of doing so, and the predictive 
-potential of such a theory. We call this the \emph{hill-climbing} theory.  
-Namely, PBT takes place following a hill-climbing process. A property-based test 
-is developed through a series of steps. Each of these steps consist of either 
-refining the specifications or refining the generators. In contrast to 
-conventional development, with the climbing perspective, a programmer is 
-constantly adjusting course when a step is too ``steep,'' i.e., when it is not 
-easy to refine the specification or generator. Programmers stop climbing when 
-they feel they cannot make progress. As such, for a programmer to develop a 
-powerful test suite, they need to be supported in incremental, low-cost 
-refinements of both specifications and generators, with the ability to quickly 
+Here we briefly sketch out a preliminary theory that follows from the Jane
+Street study. While the theory we develop may look quite different from this, we
+describe it here to demonstrate the feasibility of doing so, and the predictive
+potential of such a theory. We call this the \emph{hill-climbing} theory.
+Namely, PBT takes place following a hill-climbing process. A property-based test
+is developed through a series of steps. Each of these steps consist of either
+refining the specifications or refining the generators. In contrast to
+conventional development, with the climbing perspective, a programmer is
+constantly adjusting course when a step is too ``steep,'' i.e., when it is not
+easy to refine the specification or generator. Programmers stop climbing when
+they feel they cannot make progress. As such, for a programmer to develop a
+powerful test suite, they need to be supported in incremental, low-cost
+refinements of both specifications and generators, with the ability to quickly
 determine whether they have in fact progressed.
 
 The value of this theory is in part what it implies about PBT tools.
-Namely, tools should make it possible to ``cover a lot of ground,'' i.e., test a 
+Namely, tools should make it possible to ``cover a lot of ground,'' i.e., test a
 large amount of significant program behavior, without a lot of work. They must
-to support rapid progress, because programmers' tend to invest minimal effort 
-investigating paths they consider to be unfruitful in automated testing.  
-Programmers can be aided by either helping them with ``way-finding'' (i.e., 
-teaching them strategies for refining specifications and generators to better 
-test their systems), or with better ``equipment'' (i.e., specification-writing 
-aids and expressive generator authoring tools) that allows them to take longer 
-strides with less effort, and which help them orient to what the ``top'' of the 
-hill is (i.e., how much they can reasonably test given the effort they are 
-willing to spend).  \amh{Maybe develop and write out a couple of example 
-hypotheses.} A preliminary version of this theory will be developed in the first 
-two years of this project, and will continue to be refined on the basis of all 
+to support rapid progress, because programmers' tend to invest minimal effort
+investigating paths they consider to be unfruitful in automated testing.
+Programmers can be aided by either helping them with ``way-finding'' (i.e.,
+teaching them strategies for refining specifications and generators to better
+test their systems), or with better ``equipment'' (i.e., specification-writing
+aids and expressive generator authoring tools) that allows them to take longer
+strides with less effort, and which help them orient to what the ``top'' of the
+hill is (i.e., how much they can reasonably test given the effort they are
+willing to spend).  \amh{Maybe develop and write out a couple of example
+hypotheses.} A preliminary version of this theory will be developed in the first
+two years of this project, and will continue to be refined on the basis of all
 human-centered research conducted in later projects.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
@@ -1245,7 +1253,7 @@ generators, so there are significant opportunities to advance this space.
   Transfer}{PhD 2}{PhD 1}{Pierce}
 %
 \iflater\todo{(Re)write me Harry and Benjamin}\fi
-\iflater\todo{Make sure this feels different from Leo's CAREER}\fi
+\iflater\todo{Make sure this feels different from Leo's CAREER.}\fi
 %
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
@@ -1282,7 +1290,12 @@ Lampropoulos and his group at the University of Maryland. PI Pierce has a long
 history of successful projects with Prof.
 Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
-\iflater\hg{Is this everything? Probably not...}\fi
+\iflater\hg{Is this everything? Probably not...} \bcp{But maybe all we
+  have space for?} 
+
+\bcp{Is there anything
+we can do to guard against reviewers noticing we've published an ICFP
+paper about some of this?}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 To widen the on-ramp to using PBT, developers need help envisioning and writing
@@ -2376,4 +2389,25 @@ Shi.
 \bigskip \forreaders{Don't miss all the supplemental documents beyond
   the bibliography that we'd love to hear your comments on...}
 
-\discuss{Get letters from Leo and Hila.}
+\discuss{Get letters from Leo and Hila.
+  \begin{itemize}
+  \item A letter of collaboration from any entity not receiving funds
+  from the project budget should be provided at the time of submission
+  of the proposal. Such letters should appear on the organization’s
+  letterhead and be signed by the appropriate organizational
+  representative. These letters must not deviate from the restrictions
+  and requirements set forth in the NSF PAPPG Chapter II.D.2.  (Done,
+  I think.)
+  \item Any substantial collaboration with individuals not included in
+  the budget should be described in the Facilities, Equipment and
+  Other Resources section of the proposal (see Chapter II.D.2.g) and
+  documented in a letter of collaboration from each collaborator. Such
+  letters should be provided in the supplementary documentation
+  section of Research.gov and follow the format instructions specified
+  in Chapter II.D.2.i. Collaborative activities that are identified in
+  the budget should follow the instructions in Chapter II.E.3.  (Needs
+  done.)
+  \item We also need to make sure that the appropriate sections of the
+  project description mention the collaborations.
+  \end{itemize}
+}
