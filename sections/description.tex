@@ -1,3 +1,5 @@
+\iflater\discuss{Maybe there are too many tasks???}\fi
+
 \section*{Project Description}
 
 \iflater
@@ -21,6 +23,13 @@
   satisfy the requirement!}
 \fi
 
+\rjmh{ I think the *introduction* needs to
+identify work-in-progress/early results showing early payoff from the
+collaboration. "Bringing this combined expertise together has already
+enabled us to...". I think the reader needs to get (more) excited
+about the combination.
+}
+
 Testing plays a vital role in modern software development,
 contributing crucially to robustness, security, and overall software
 quality\iflater\bcp{Would love to expand that a little.  Readers
@@ -29,8 +38,6 @@ sinking research money into.}\fi; it also represents
 a significantly fraction of the cost of developing
 software\iflater{Numbers? one more sentence about costs would
   be good.}\fi{}.
-
-\discuss{Maybe there are too many tasks???}
 
 \todo{Incorporate something like this (from John):
   \begin{itemize}
@@ -95,8 +102,10 @@ least basic support
 now available in pretty much every major programming language\iflater \hg{But not
 enough! And not consistent}\fi, PBT has
 begun to make significant inroads in the broader software
-industry.  The developers of the Hypothesis PBT library in
-Python, for example, estimate its user community at around half a
+industry, at companies like Quviq, Galois, IOG, Stripe,
+Amazon, and IOG  (which runs the Cardano blockchain and the Ada
+cryptocurrency).  The developers of the Hypothesis PBT library in
+Python estimate its user community at around half a
 million~\cite{ZacPersonalCommunication}.  \iflater\bcp{There's a book
   about ScalaCheck!  Let's try to estimate the size of the user
   community.  And we should get in touch with those people!}\fi
@@ -121,9 +130,9 @@ which innovation in PBT is necessary?}
 Given all this momentum, one might wonder whether the research community
 has already discovered and addressed all of the challenges that might limit PBT's adoption
 in the broader software industry.  Sadly, it has not:
-In an ongoing need-finding study with users of OCaml's QuickCheck testing tool
+in an ongoing need-finding study with users of OCaml's QuickCheck testing tool
 at Jane Street Capital, we have found
-consistent enthusiasm for PBT---participants called it it
+consistent enthusiasm for PBT---participants called it
 ``obviously valuable'' (Participant \participant{1}),
 built their own libraries for it when standard ones were not available
 (\participant{8},
@@ -137,9 +146,8 @@ critical software systems.
 % tool design.\iflater\bcp{The last part of that sentence kind of
 %   duplicates the first part of the next...}\fi
 
-Taming these usability challenges, and making PBT dominant technique for
-demonstrating software correctness, demands insights from both the
-programming languages (PL) and
+Thus, bringing PBT to the people
+demands insights from both the programming languages (PL) and
 human-computer interaction (HCI) communities.  Chasins et
 al.~\cite{chasins_pl_2021} have argued that a research methodology
 combining PL and HCI hits a ``sweet spot'' where need-finding techniques identify
@@ -166,11 +174,36 @@ published widely on PL topics including PBT.  \todo{John: So, the
   accomplished with fewer?  Why do we need an engineer?}
 \fi
 
-We propose a comprehensive, interdisciplinary research and
-engineering program on
+\todo{Why HCI + PL...
+  \begin{itemize}
+  \item The HCI area has developed a deep foundation of theory and methodological practice for investigating and understanding usability of systems in a rigorous and objective way.
+\item
+This foundation informs the current project in three crucial ways:
+\begin{itemize}
+\item
+To give us a clearer understanding of where the adoption challenges are. (As evidenced by the Jane Street study.)
+\item To give us access to decades of understanding of best practices in the design of tools, user interfaces, and programming environments
+\begin{itemize}
+\item
+We intend to employ those particularly in the front-end aspect (the IDE for PBT);
+\item But also in the back-end (to strike the right balance between expressiveness and accessibility in our languages and libraries).
+\item For justification of the back-end language stuff, see the PLIERS paper
+% https://dl-acm-org.proxy.library.upenn.edu/doi/abs/10.1145/3452379
+ which provides a recipe for user-centered language design, and Little Tricky Logic
+% https://users.cs.utah.edu/~blg/resources/talks/vardifest-2022.pdf
+which argues that languages PL people like are often very confusing, and HCI methods can prevent us from designing languages that users won’t understand.
+\end{itemize}
+To provide tools for evaluating what we build that are faster and more direct than just putting things out into the world and waiting to see if users adopt them.
+\end{itemize}
+  \end{itemize}
+}
+
+We propose an interdisciplinary program of research and engineering on
 {property-based testing}, bringing the combined power of PL and HCI to
 bear to accelerate PBT's
-transition into practice.  The planned research,
+transition into practice.
+%
+The planned research,
 engineering, and education activities can be grouped into five main
 themes: \bcplater{This already feels too detailed, and we still need to write
 blurbs for all the other tasks we've added in the past few days.  But
@@ -316,6 +349,15 @@ a BST after the insertion of \texttt{x}:
 \begin{lstlisting}
   prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
 \end{lstlisting}
+\rjmhlater{The example property you give looks like a type check: given a BST as
+input, insert returns a BST as result. The reader may easily think
+such a property is of interest only in dynamically typed
+languages... and that it is a rather trivial property even there. Of
+course, I understand that it really tests that the BST invariant is
+preserved by insert, a deep semantic property, but you are just
+assuming that the reader will remember that binary search trees need
+to satisfy an invariant, and will guess that is_bst checks that
+invariant. Be more explicit to avoid a risk of misunderstanding. }%
 In general, a property is a function that
 accepts a generated
 test as input \iflater\hg{``generated test input''? I try to avoid
@@ -362,7 +404,7 @@ section.
 
 Why go to the trouble of PBT, rather than the more straightforward
 example-based testing that is standard across the software industry?
-First and foremost because a component can be tested be much more
+First and foremost because a component can be tested much more
 thoroughly with a property plus many automatically generated examples
 than with a small number of examples written out by hand.
 % \proposecut{As mentioned
@@ -554,6 +596,16 @@ inconsistent and under-maintained; if PBT is to become mainstream, we
 need to offer \edutheme{Support and Guidance for Open-Source
   Communities}\iflater\bcp{Don't like this title}\fi{} to help our
 work and ideas permeate the PBT world.
+\rjmhlater{"Existing tools for PBT are inconsistent and
+under-maintained"... which tools are you talking about? Some of the 57
+doubtless are. But whether those are the ones where your attention
+should be directed is another question. In any case, whether guidance
+is what is lacking, as opposed to resources, is open to question. But
+fundamentally, "undermaintained" is a description that applies to a
+LOT of open source software... but this is a
+fundamental problem that this project is not going to fix. You need to
+be more precise, and more limited in your goals, to be credible here.
+}
 
 \iflater
 \discuss{How's this? It's a little forced and under-supported, but I think this is good for now.}
@@ -697,7 +749,7 @@ software industry as a whole.
 
 % \TASK{Validation survey}{1}{1}{Who?}
 The main survey
-aims to confirm (or disconfirm!) that
+aims to confirm (or refute!) that
 the things we are learning from Jane Street generalize to other settings.
 We will
 ask developers which of the issues we found at Jane Street are
@@ -1092,7 +1144,7 @@ difficult to understand a failing test case. Additionally, if a
 reflective shrinker's shrunk choices
 produce values that are very different from the original, they may all
 avoid triggering the bug, misleading the shrinking algorithm into thinking that
-the original value is already as shrunk as possible and causing it to
+the original value is already shrunk as far as possible and causing it to
 report a confusing counterexample.
 
 % \TASK{Foundations for reflective shrinking}{2}{2}{Who?}
@@ -1151,7 +1203,7 @@ crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
 invalid inputs and the fuzzer's job is to get past it.  Crowbar's
 generators avoid this adversarial relationship because they are
 monadic, and can satisfy parer constraints
-parser by construction; ours will also be monadic, but also {\em reflective}.
+parser by construction\rjmh{Huh?}; ours will also be monadic, but also {\em reflective}.
 
 Why a reflective generator? First, we should clarify why any kind of monadic
 generator is preferable to grammar-based alternatives. Monadic generators can
@@ -1257,13 +1309,13 @@ generators, so there are significant opportunities to advance this space.
 %
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
-with one too over another. For theoretical advances, this is often sufficient
+with one tool over another. For theoretical advances, this is often sufficient
 to demonstrate that the paper is worth publishing, but this kind of evaluation
 can be hard to interpret from the perspective of a would-be user. With all of
 the new approaches to generation that we are proposing in this document, and
 considering our goals around usability, we want to do better.
 
-We will to develop and popularize a robust empirical evaluation framework for
+We will develop and popularize a robust empirical evaluation framework for
 generators and other PBT techniques. Our first contribution will be an
 infrastructure for easily and extensibly running experiments.  By ``easily,'' we
 mean that we will take on the burden of collecting data and analyzing the
@@ -1291,7 +1343,7 @@ history of successful projects with Prof.
 Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
 \iflater\hg{Is this everything? Probably not...} \bcp{But maybe all we
-  have space for?} 
+  have space for?}
 
 \bcp{Is there anything
 we can do to guard against reviewers noticing we've published an ICFP
@@ -1414,8 +1466,8 @@ instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
 smith_discovering_2017}), the idea is to help students compose properties that
 are not just accurate descriptors of the system, but significant in reflecting
 important program behavior. We will build an interface on top of a property
-extractor which allows students to write their first properties which supports a
-student by allowing them to (1) identify areas of code likely to lead to adverse behavior;
+extractor which helps students write their first properties by allowing them
+to (1) identify areas of code likely to lead to adverse behavior;
 (2) providing unit test cases that represent special cases of more general
 properties; and (3) selecting attributes of data types in the source code, or
 of input and output data in a debugging REPL, relevant to the property. These
@@ -2158,8 +2210,8 @@ approachable developer documentation in partnership with our industry
 collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation in blogs and incorporate it into tool
-manuals. Then, we will present the findings as a talk at a
-major professional developer conference.
+manuals. Then we will package the findings as a talk for one or more
+professional developer conferences.
 
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}

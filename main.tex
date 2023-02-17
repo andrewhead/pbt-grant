@@ -1,4 +1,7 @@
-\newif\ifdraft\draftfalse
+% John's comments
+%  https://docs.google.com/document/d/1Yt-TFaC_TPu9KqcPEg3z1la-GphyhA3u9FZ7fcvG3TI/edit#
+
+\newif\ifdraft\drafttrue
 \newif\iflater\laterfalse
 \newif\ifnext\nexttrue
 \newif\iflast\lastfalse
@@ -96,6 +99,8 @@
 \newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
 \newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
 \newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
+\newcommand{\rjmh}[1]{\comm{nord-green}{RJMH}{#1}}
+\newcommand{\rjmhlater}[1]{\iflater\comm{nord-green}{RJMH}{#1}\fi}
 \newcommand{\bcplater}[1]{\iflater\comm{dkpurple}{BCP}{#1}\fi}
 \newcommand{\hg}[1]{\comm{dkred}{HG}{#1}}
 \newcommand{\harry}[1]{\hg{#1}}
@@ -331,7 +336,7 @@
 \begin{document}
 
 % BCP: This is correct:
-\title{CISE: Large: Taming Property-Based Testing}
+\title{CISE: Large: Property-Based Testing for the People}
 
 \vfil
 \begin{center}
