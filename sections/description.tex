@@ -673,7 +673,7 @@ interactive tools
 
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
   Theory}{PhD 1}{Everyone}{Head}
-
+%
 The cornerstone of our efforts to develop a strong foundation for improved PBT
 is to develop a theory of property-based testing.  Theories of programming have
 long served a critical role in human-centered software engineering research.
@@ -1350,6 +1350,16 @@ we can do to guard against reviewers noticing we've published an ICFP
 paper about some of this?}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
+%
+\rjmhlater{Notice that the problem of formulating properties is an instance of a
+very general problem in automated testing: the 'oracle
+problem'. Whenever test cases are generated, rather than hand-written,
+the oracle problem arises. You should use those words. Metamorphic
+testing was developed specifically as an approach to solving the
+oracle problem, and it has a close relationship to PBT. There's a
+discussion I think in 'How to Specify it!'.
+}
+%
 To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications. Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
@@ -1794,6 +1804,39 @@ realistic, comprehensive data distributions for their testing.
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 3}{PhD 2}{Head}
+%
+\rjmh{I wasn't really convinced by your section on interactive
+shrinking. The shrinking search is often long, involving very many
+tests, and I certainly don't want to be involved in each step. You
+talk about displaying the valid ways a test case can be shrunk, and
+letting the user choose which to apply. The choice is easy: do them
+*all*! The problems with shrinking are two-fold. First, many
+developers don't write shrinkers at all, which results in
+incomprehensible failed tests. But secondly, shrinking stops at a test
+case which is too large to understand. At that point, I find myself
+inspecting the test for any way in which it might perhaps be
+simplified, which the current shrinker hasn't already tried, and then
+I want to automate that step too, and rerun the shrinking process. At
+present I have to do that by modifying the shrink function,
+recompiling the code, and rerunning QuickCheck (or, in the Quviq
+version, restarting the shrinking process for the same test case),
+hopefully shrinking will proceed better from now on. But it would be
+great to be able to make that shrink step, and then continue the
+automatic process directly! My point here is that when shrinking
+works, there's no need to interact with it, but in more complex cases
+it often turns out that custom shrinking steps are needed, so helping
+the shrinking with such a step (and then continuing the automated
+search) is a place where interaction could be invaluable. Of course,
+ideally I want not only to take one custom shrinking step in that
+particular case, but synthesize automation that will try similar steps
+in every shrinking run in the future too!
+
+I also noted that shrinking tries many different steps in general, but
+we have no way of observing *which steps worked*--and perhaps that
+could be used to speed up shrinking automatically. Steps that 'usually
+succeed' could be tried earlier, in an autotuning process. That could
+be interesting.
+}
 %
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
