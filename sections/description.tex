@@ -124,7 +124,7 @@ being developed.
 One such technique, {\em property-based testing} (PBT),
 is sometimes described as ``formal specification without formal
 verification.''  To use PBT, a developer characterizes the desired behavior of
-some component in the form of executable {\em
+a program in the form of executable {\em
   properties}. The code is
 then validated against these properties by running it many times
 with a large number of automatically generated test inputs.
@@ -142,6 +142,8 @@ file~\cite{MysteriesOfDropbox2016} and key-value
 stores~\cite{Bornholt2021}, automotive
 software~\cite{arts2015testing}, and a range of other real-world
 systems~\cite{hughes2016experiences}.
+PBT is used at companies including Amazon, Stripe, Galois, Quviq, and IOG (which
+runs the Cardano blockchain and the Ada cryptocurrency).
 
 PBT took the functional programming community by storm following its
 debut in the Haskell QuickCheck library~\cite{ClaessenHughes00}.  In
@@ -155,34 +157,44 @@ Wikipedia lists QuickCheck variants in 40 programming languages, some
 with several competing libraries (Java alone has
 7!)~\cite{QuickCheckWikipedia}.
 %
-On GitHub, the Hypothesis library in
-Python~\cite{maciver2019hypothesis,HypothesisGithub} has 6.5K
-``stars'' indicating interest from developers; Rust
-quickcheck~\cite{RustQuickcheckGithub} has 2K, ScalaCheck~\cite{ScalaCheckGithub} has 1.8K,
-and Clojure's test.check~\cite{ClojureTest.checkGithub} has 1.1K.
+And these libraries are popular! 
+The developers of the Hypothesis library in
+Python~\cite{maciver2019hypothesis,HypothesisGithub} estimate its user community
+at around half a million~\cite{ZacPersonalCommunication}.  On GitHub,
+Hypothesis has 6.5K ``stars'' from developers; Rust
+quickcheck~\cite{RustQuickcheckGithub} has 2K,
+ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
+test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 %
-By comparison, the latest version of JUnit has 5.6K stars and the
-previous version has 8.4K~\cite{JUnitGithub}.  That is, Python's PBT
-tool has {\em more stars} than the latest incarnation of the most
-popular unit testing framework for Java.  The Hypothesis developers
-estimate its user community at around half a
-million~\cite{ZacPersonalCommunication}.
-%
-PBT is now used at companies including Amazon, Stripe, Galois, Quviq, and
-IOG (which runs the Cardano blockchain and the Ada cryptocurrency).
+By comparison, the latest version of JUnit has 5.6K stars,\footnote{The previous
+version does have a few more: 8.4K.}~\cite{JUnitGithub}--- which means that
+Python's PBT tool has {\em more stars} than the latest incarnation of the
+framework that is widely credited with popularizing unit testing as a technique.
 
-\todolater{More transition needed?}
+One might wonder if this is ``enough'' success for PBT, but there is actually
+significant opportunity for its continued growth. The 500K estimate for
+Hypothesis users is only 3\% of total Python developers~\cn{}, and the list of
+companies using is far from the majority of the software
+industry---fundamentally, PBT is still not a standard software engineering
+technology. And it is not just possible for PBT to grow, it is {\em important}.
+A 2002 study~\cn{} estimated that the total cost of software errors is almost
+\$60 billion per year and suggested that \$22 billion of that could be saved by
+better testing infrastructure; the situation has only gotten worse, with a 2022
+study~\cn{} estimating that poor software quality now costs over \$2 trillion per
+year. Accelerating the growth of PBT stands to have a significant impact on the
+global cost of software bugs.
 
-But the pace of PBT's adoption can be accelerated yet further.
-%
+Our group set out to understand the highest-leverage ways to grow PBT by
+understanding what software developers need from the technology.
 In an ongoing need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---participants called it
 ``obviously valuable'' (Participant \participant{1}), built their own
 libraries for it when standard ones were not available
 (\participant{8}, \participant{21}), and suggested that ``everyone''
 at the company should use it (\participant{20}); however, participants
-also highlighted a range of fundamental {\em usability} challenges.
-\bcp{One more sentence outlining the challenges.}
+also highlighted a key opportunity for improvement---{\em usability}. As with
+many powerful technologies, PBT can be difficult to apply, and developers
+need more support from tooling to help them apply it most effectively.
 
 % \amh{This is a deficit-focused pitch---focusing on the problems that need to be
 % solved with PBT---rather than an asset-focused pitch---focusing on how we need
@@ -206,7 +218,8 @@ also highlighted a range of fundamental {\em usability} challenges.
 % tool design.\iflater\bcp{The last part of that sentence kind of
 %   duplicates the first part of the next...}\fi
 
-Addressing these challenges requires insights from both the
+Improving the usability of PBT
+requires insights from both the
 programming languages (PL) and human-computer interaction (HCI)
 communities.  On one side, PL provides the conceptual background,
 mathematical foundations, and supporting technologies for PBT.  On the
@@ -214,13 +227,19 @@ other, HCI provides a deep foundation of theory and methodological
 practice for investigating and understanding usability of systems in a
 rigorous and objective way, including principled methods for
 identifying problems, rigorous evaluation metrics, and proven
-methodologies for designing tools---including ``front end'' tools like
+methodologies for designing tools. Tools, in this case, includes ``front end'' tools like
 data visualizers and user interfaces for IDE plug-ins, naturally, but
-also to strike the right balance between expressiveness and
-accessibility in ``back end'' components like domain-specific
-languages for properties and
-generators~\cite{PLIERS,Krishnamiurthi.LTL}\todolater{Refs here in
+also ``back end'' components like domain-specific languages for properties and generators---HCI techniques
+help designers 
+to strike the right balance between expressiveness and
+accessibility in their languages~\cite{PLIERS,Krishnamiurthi.LTL}\todolater{Refs here in
   comments}.
+Synergies like this led
+Chasins et al.~\cite{chasins_pl_2021} to argue that a research
+methodology combining PL and HCI hits a ``sweet spot''\bcplater{sweet
+  spot for... what?} where need-finding techniques identify current
+pain points and motivate concrete tools that help programmers write
+safe, correct programs. \proposecut{We wholeheartedly agree.}
 
 % We intend to employ those particularly in the front-end aspect (the IDE for PBT);
 % \item But also in the back-end (to strike the right balance between expressiveness and accessibility in our languages and libraries).
@@ -239,11 +258,7 @@ generators~\cite{PLIERS,Krishnamiurthi.LTL}\todolater{Refs here in
 % domain-specific languages and type-based automation to improve the PBT
 % process\proposecut{, as well as to formally validate these tools}.
 
-Chasins et al.~\cite{chasins_pl_2021} have argued that a research
-methodology combining PL and HCI hits a ``sweet spot''\bcplater{sweet
-  spot for... what?} where need-finding techniques identify current
-pain points and motivate concrete tools that help programmers write
-safe, correct programs. We wholeheartedly agree.  Indeed, the team
+The team
 behind this proposal is uniquely positioned to advance the state of
 the art at the intersection of these areas: PI Head recently
 co-founded a new HCI group at
