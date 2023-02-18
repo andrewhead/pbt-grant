@@ -1,6 +1,46 @@
 \iflater\discuss{Maybe there are too many tasks???}\fi
 
 \section*{Project Description}
+\hg{No idea if this is good, but I'm leaving it here for now:
+\begin{itemize}[noitemsep]
+\item PBT is great
+\begin{itemize}[noitemsep]
+	\item QC most influential and most cited
+	\item It's been used with great success in industry
+	\item Hypothesis has 500k users
+\end{itemize}
+\item We need powerful tools like PBT because software bugs are expensive
+\begin{itemize}[noitemsep]
+	\item Bugs cost (\$60B/year in 2002 money)
+	\item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
+	\item (Really wish we had more modern numbers)
+\end{itemize}
+\item We need to keep pushing to improve testing infrastructure, and there is plenty of room for PBT to grow
+\begin{itemize}[noitemsep]
+	\item The list of companies using it is impressive, but it is still relatively short: PBT has not yet made it into mainstream SE practice
+	\item 500k hypothesis users is only ~3\% of python users
+\end{itemize}
+\item And we know how to push it farther: significantly improved tool support
+\begin{itemize}[noitemsep]
+	\item This tracks with other high-impact FM stories
+	\item JUnit took off because it was built into IDEs (is this true??)
+	\item Interactive theorem proving made a huge change in update of formal verification
+\end{itemize}
+\item To get there, we need to combine PL and HCI
+\begin{itemize}[noitemsep]
+	\item PL provides the background, foundations, and supporting technologies
+	\item HCI provides
+\begin{itemize}[noitemsep]
+		\item Principled ways of identifying problems
+		\item Design methodologies with proven results
+		\item Evaluation metrics that give much faster feedback than just waiting to see if a tool catches on
+\end{itemize}
+	\item This is part of a growing movement (cite Chasins)
+	\item And the ball is already rolling: the bulk of the projects in this proposal are motivated by HCI-style inquiries into PBT
+\end{itemize}
+\item We propose… 
+\end{itemize}
+}
 
 \iflater
 
@@ -700,7 +740,7 @@ of end-user programming barriers~\cite{ref:ko2004six}.
 Recognizing the power of theory, one of the first steps in our
 research will be to develop a theory of property-based
 testing. The starting point
-will be the framework we are developing through the Jane Street study. This
+will be the conceptual framework we are developing through the Jane Street study. This
 will be validated and refined through contextual inquiries~\cite[Ch.
 3]{ref:holtzblatt1997contextual} with programmers, leading to a provisional
 theory during the first two years.  This theory will help us
@@ -746,6 +786,14 @@ hypotheses.}
 % A preliminary version of this theory will be developed in the first
 % two years of this project, and will continue to be refined on the basis of all
 % human-centered research conducted in later projects.
+
+\hg{This is a really interesting theory! It's close to my best guess at a
+model---I think I'd put more emphasis on how programmers pick a path up the
+mountain and what happens when they decide to stop climbing, but it's close.
+That said, and I know we make this clear, but to me it really feels too
+speculative to ``say out loud.'' Is this kind of thing standard when describing
+proposed work on cognitive theories? I worry that some readers (especially PL
+ones) would find it too nebulous.}
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{2}{3}{HCI Theory}{PhD 1}{}{Head}
