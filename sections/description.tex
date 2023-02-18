@@ -2220,28 +2220,6 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \underconstruction{Needs an introduction.}
 
-\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
-  Transfer}{Engineer}{PhD 3}{Pierce}
-\amh{Maybe this belongs at the beginning of this section, and the tools that
-come before would be components of \tyche{}}.
-The ideas in this section highlight a clear opportunity for PBT tools that live
-in and take advantage of the programmer's code editor. We have shown tools that
-facilitate more intentional workflows, interact with and improve the
-programmer's generator code, assist in the test-authoring and debugging
-processes, and provide visibility into long-running testing campaigns---all
-without requiring the programmer to context-switch out of their normal workflow.
-
-But there is one more step needed to complete the picture: these tools will be
-integrated into a single, extensible IDE for PBT that we call \tyche. The \tyche{}
-extension to Visual Studio Code will include all of the projects from this
-section, providing tools that help programmers through various stages of the PBT
-process. And it will also be a home for new innovations. Future tools that we
-or others in the community see as important improvements to PBT workflow will
-also be included over time.
-
-Ultimately, we think \tyche{} will become an invaluable assistant in the PBT
-process, making it easier for developers to get started and succeed.
-\iflater \hg{This is a weak ending} \fi
 
 % \bcp{If we're going to keep this as a top-level theme, we'll need to
 %   integrate it into the motivation early on (i.e., give it a color,
@@ -2264,19 +2242,6 @@ process, making it easier for developers to get started and succeed.
 % smaller project, but this one reaches too far beyond.  The grand
 % challenge is better motivation for the whole thing.}
 
-\SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
-Transfer}{Engineer}{PhD 1}{Pierce}
-
-\underconstruction{\todo{Write me someone}
-  \begin{itemize}
-    \item Besides supporting the PhD students, we want the engineer to increase
-    adoption of PBT broadly by working in the open source community
-    \item Many existing PBT tools are unmaintained or need more support
-    \item We'll also have a number of design recommendations and fresh ideas
-    that should be implemented across many languages and frameworks
-  \end{itemize}
-}
-
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
 
@@ -2284,7 +2249,7 @@ The research projects we have proposed thus far will have the potential to
 dramatically improve the power and usability of PBT systems, but only if those
 systems are attractive to real users. There is an unfortunate tendency for
 research software to remain ``research software,'' missing critical
-documentation that new users need to get started and it lacking a clear
+documentation that new users need to get started and lacking a clear
 maintenance schedule that would give software companies the confidence to adopt.
 To avoid this fate for our projects, PhD students will work closely with our
 research engineer. Projects will be designed with learnability and
@@ -2303,68 +2268,74 @@ projects:
   \item \sectionref{sec:interactive}, \sectionref{sec:counter}: Assisting PhD
   \hg{N} with maintenance of tools for easier property specification.
 \end{itemize}
+Most importantly, the research engineer will help to build and maintain
+\tyche{}, the IDE for PBT designed as part of PhD \hg{N}'s dissertation. We
+describe this effort in more detail in the next section.
 
-\underconstruction{
-  \begin{itemize}
-    \item The engineer will support the PhD projects with design input and
-    longer-term maintenance.
-    \item Goal is to avoid the bane of research software that never
-    actually makes it into widespread usage.
-  \end{itemize}
-}
+\SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech Transfer}{Engineer}{PhD
+3}{Pierce}
+The projects in \sectionref{sec:val} design a wealth of new modes of interaction
+for PBT. These interactions will be valuable for developers on their own, but
+their impact can be significantly magnified if they are integrated together in a
+place that is easily accessible to would-be users. This is the inspiration for
+\tyche{}, an integrated development environment (IDE) for PBT.
 
-% \SUBSECTION{A Minimal Implementation of
-%   PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{}{Who?}
+\tyche{} will include all of the functionality designed in \sectionref{sec:val},
+including tools that facilitate more intentional PBT workflows, interact with
+and improve the programmer's generator code, and assist in the test-authoring
+and debugging processes---all without requiring the programmer to context-switch
+out of their normal workflow. The research engineer will assist in the
+integration process, ensuring that the extension is more than the sum of its
+parts. Indeed, we plan for \tyche{} to live on as a home for further innovation:
+future tools that we or others in the community see as important improvements to
+PBT workflow will also be included over time.
 
+With a strong theoretical grounding and consistent engineering support, \tyche{}
+will provide an efficient pipeline for bringing research on PBT interaction
+models to software developers craving better tools.
 
-% \SUBSECTION{A Minimal Implementation of
-%   PBT}{sec:refkey}{3}{4}{Tech Transfer}{Engineer}{PhD 1}{Who?}
+\SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
+Transfer}{Engineer}{PhD 1}{Pierce}
+The ecosystem of existing open-source PBT tooling is broad and varied. Some
+projects are vibrant and well-maintained, while others, including some with
+great ideas and implementations, do not have the developer bandwidth to address
+user needs. Additionally, different libraries for PBT vary wildly in their
+ideological approaches, as we outline in \sectionref{sec:frameworks}, making
+skill transfer difficult for users. For these reasons, we will allocate
+engineering time focused on supporting and improving open-source libraries for
+PBT.
 
-% \SUBSECTION{Reflection in the Wild}{sec:reflpython}{2}{3}{PL
-% Practice}{Engineer}{PhD 2}{Who?}
+To address the problem of under-maintained software projects, we will simply
+reach out to the maintainers of projects with important outstanding issues and
+ask the maintainers (if any exist) what help they need. We are already in
+contact with Zac Hatfield-Dodds, the main maintainer of Hypothesis, and he has a
+variety of library improvements that could benefit from more developer support.
+Other projects, such as Crowbar in OCaml, various smaller generator libraries in
+Haskell, and the PBT frameworks in Rust seem like high-value libraries worth
+assisting.\hg{Not sure how best to frame this. Maybe the answer is just less
+detail...}
 
-% \SUBSECTION{Extensible Tools}{sec:extensibility}{3}{5}{Tech
-% Transfer}{Engineer}{PhD 3}{Who?}
-\ifnext
-The engineer will provide support, design input, etc. to the students as they
-produce research artifacts. When the projects are done, the engineer will
-continue to maintain and grow those software projects.
+There are two ways we may be able to help solve the problem of skill transfer
+between PBT libraries. Where possible, we hope that the project from
+\sectionref{sec:frameworks} provides us with enough evidence to convince some
+library designers to take a different tack and make their library more like
+others. In that case, we will provide engineering support to ease that
+transition. In other cases, where both approaches have benefits, we will
+generate documentation that helps developers move from one library to another.
 
-{\em A Minimal Implementation of PBT.}
-\todo{They support PhD 1 by...}
+On the topic of documentation: the PBT ecosystem, like every software ecosystem,
+is woefully under-documented. If the research engineer on our team is ever
+waiting for work, they will also help to improve the state of documentation for
+high-value PBT libraries.
 
-{\em Reflection in the Wild.}
-\todo{They support PhD 2 by...}
-
-\bcp{We can mention Python if needed, but let's try to keep our aims a
-bit broader than just Python.}
-
-{\em Maintaining and Extending Tyche.}
-\todo{They support PhD 3 by...}
-
-Building hooks into tools for extension and research experimentation...
-\fi
-
-% \SECTION{Education}{Advancing PBT in the Broader Culture\pagebudget{1}}{sec:ed}
-% %
-% Our goal is to make PBT not only usable but {\em
-% used} in settings where it offers benefit; such a goal requires advances in PBT
-% \edutheme{education} for
-% new and experienced programmers alike. In this section, we describe
-% our plans to develop
-% course materials for instructors who want to integrate PBT into
-% undergraduate data structures courses (\sectionref{sec:1210}),
-% %
-% tooling to help students write their first properties
-% (\sectionref{sec:interactive}),
-% %
-% and course materials for instructors to integrate PBT into
-% early-stage computer science curriculum (\sectionref{sec:1210}).
-
+These activities will all contribute to a more cohesive and consistent PBT
+ecosystem, making PBT an easier choice for both companies and individual
+developers.
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
+\todo{Transition}
 Our first pilot study with users of PBT suggested that developers struggle to
 come up with specifications that are worth
 testing~\cite{goldstein_problems_2022},
@@ -2415,6 +2386,7 @@ professional developer conferences.
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
+\todo{Transition}
 %
 Education can act as a force multiplier to make technologies more usable.
 When tools or techniques become standards in undergraduate curricula,
