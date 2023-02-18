@@ -1595,36 +1595,63 @@ any of this worth mentioning here?}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 4}{}{Pierce}
-%
-\underconstruction{\ifnext \todo{Write me Andrew.} \fi
-  \begin{itemize}
-    \item You run across some properties in a program---what then?
-    \item This has important implications for education, but also for engineers
-    \item For sufficiently simple programs in sufficiently limited subset of
-      languages, it is possible to develop rule-based methods for generating
-      readable, understandable explanations (PythonTutor, Tutorons)
-    \item Prior work has been done in converting from logics into natural
-      language explanations (work from Sanjit Seshia student), and may also be
-      applicable to the kinds of statements that appear in specifications.
-    \item The key is to help people both understand what might be unfamiliar
-      individual symbols (some PBT frameworks have their own DSL for specifying
-      properties), as well as to understand the idea behind the test. The idea
-      behind the test might best be shown by selecting simple examples of the
-      test case succeeding and similar test cases of it failing next to the
-      property.
-    \item It might be possible to use LLMs as well to provide descriptions of
-      the ``idea'' behind the test; PI Head is investigating this
-      in a parallel project and if it works sufficiently well, can incorporate
-      it into this project (particularly for frameworks like Hypothesis that
-      have properties written in a language like Python that much resembles the
-      code that the models were trained on).
-    \item ...?
-  \end{itemize}
-}
+
+As is often the case for code of any kind, the specification of a property may 
+not be self-explanatory. This is particularly the case when those properties are 
+found by programmers who did not write them, and can be exacerbated if the those 
+programmers have never used property-based testing themselves. Can we design 
+tools that help programmers understand property specifications?
+
+We envision several approaches, drawing inspiration from recent HCI research.  
+Prior work has demonstrated the potential of generating meaningful explanations 
+for simple programs, whether those explanations are consist of text 
+explanations~\cite{ref:head2015tutorons,ref:mayer2015user},
+visualizations~\cite{ref:guo2013online}, or 
+counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when 
+programs are short in length, draw mostly from simple syntax, and are 
+structurally simple.  While properties can be rather long, they are often 
+comprised of relatively simple language idioms (i.e., a number of function 
+calls, conjunctions, and implications). For this reason, it may be that these 
+ideas could generalize to helping newcomers to properties understand those 
+properties well enough to understand them generally, and perhaps even make 
+lightweight modifications, without needing to seek out dedicated instruction for 
+the PBT framework.
+
+The first sort of explanation we will provide is at the level of explaining 
+syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons}, 
+synthesized programs~\cite{ref:mayer2015user}, and Hazel 
+code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks 
+require the use of a custom property language. This is the case, for instance, 
+for Haskell's QuickCheck. For users who are familiar with the host language but 
+not the property language, we will design tooltip explanations that explain 
+particular idiomatic constructs including symbols and common structures in 
+property-based tests. Our efforts will focus on understanding the language with 
+which to describe properties to those unfamiliar with property-based testing, 
+and to identify those syntactic anchors in the code that are sensible sites for 
+programmers to access automatic explanations. 
+
+The second sort of explanations will be examples, namely, sampled input-output 
+pairs that can convey the behavior of the program with respect to the property.  
+The advantage of example-based explanations is that a solution to this problem 
+for one PBT framework may generalize to others; while not all frameworks use 
+special property syntax (e.g., Hypothesis), all frameworks have the potential to 
+have rather long properties. Some of the simplest (perhaps smallest) passing 
+inputs will be selected as example inputs. These examples will be perturbed to 
+generate similar negative examples. Example pairs will be shown alongside the 
+code in the editor using editor annotations. This project will dovetail with our 
+project on interactive debugging (\sectionref{sec:failures}) to identify
+test cases that are likely to best ``explain'' intended program behavior.
+
+Given recent trends in computing research, it bears mention that large language 
+models such as GPT3 may merit consideration for generating descriptions of the 
+high-level ``idea'' behind properties; PI Head is investigating similar ideas 
+for understanding generated code in general purpose programming languages. While 
+we intend to explore this to some limited extent, most of our efforts will be 
+spent on the two approaches above involving rule- and example-based 
+explanations, given their applicability to property languages for which there 
+may not yet have been data incorporated into modern large language models.
 
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
-
-\todo{Cf. UIST 2015 paper relavant to this.  Mayur (sp?) et al.}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
