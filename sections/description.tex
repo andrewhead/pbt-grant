@@ -76,40 +76,40 @@ find a place to make this point explicitly.}
 % about the combination.
 % }
 
-\todo{Incorporate something like this (from John):
-  \begin{itemize}
-  \item ``Software bugs are
-  notoriously commonplace; a 2002 report for Congress estimated their
-  cost to the US economy at almost \$60 billion per year—around
-  0,6\% of GDP. Software developers
-  devote around half their effort to testing their software, in order
-  to detect and eliminate most bugs before the software is
-  released. The same report estimated that improved techniques for
-  testing could save the US \$22 billion per year.''
-  \item ``In 2002, the National Institute of Standards and Technology
-  estimated the total cost of software errors to be almost \$60 billion
-  per year, in the US alone11. It follows that improved testing
-  techniques have the potential to save society very large sums; the
-  same report estimated that better testing infrastructure could save
-  \$22 billion of those \$60 billion, corresponding to 0.2\% of the
-  entire GDP of the USA at that time. Since then the volume of
-  software, and our dependence on it, has only grown. How much of
-  these savings can be realised using property-based testing is, of
-  course, a matter for speculation—but clearly, the problem PBT
-  addresses, of improving software quality, is critically important to
-  society as a whole."
-  \item The report: \url{https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf}
-  \item Title of the report: The Economic Impacts of Inadequate
-  Infrastructure for Software Testing
-\item Harry's take: We need powerful tools like PBT because software
-bugs are expensive
-\begin{itemize}[noitemsep]
-        \item Bugs cost (\$60B/year in 2002 money)
-        \item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
-        \item (Really wish we had more modern numbers)
-\end{itemize}
-\end{itemize}
-}
+% \todo{Incorporate something like this (from John):
+%   \begin{itemize}
+%   \item ``Software bugs are
+%   notoriously commonplace; a 2002 report for Congress estimated their
+%   cost to the US economy at almost \$60 billion per year—around
+%   0,6\% of GDP. Software developers
+%   devote around half their effort to testing their software, in order
+%   to detect and eliminate most bugs before the software is
+%   released. The same report estimated that improved techniques for
+%   testing could save the US \$22 billion per year.''
+%   \item ``In 2002, the National Institute of Standards and Technology
+%   estimated the total cost of software errors to be almost \$60 billion
+%   per year, in the US alone11. It follows that improved testing
+%   techniques have the potential to save society very large sums; the
+%   same report estimated that better testing infrastructure could save
+%   \$22 billion of those \$60 billion, corresponding to 0.2\% of the
+%   entire GDP of the USA at that time. Since then the volume of
+%   software, and our dependence on it, has only grown. How much of
+%   these savings can be realised using property-based testing is, of
+%   course, a matter for speculation—but clearly, the problem PBT
+%   addresses, of improving software quality, is critically important to
+%   society as a whole."
+%   \item The report: \url{https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf}
+%   \item Title of the report: The Economic Impacts of Inadequate
+%   Infrastructure for Software Testing
+% \item Harry's take: We need powerful tools like PBT because software
+% bugs are expensive
+% \begin{itemize}[noitemsep]
+%         \item Bugs cost (\$60B/year in 2002 money)
+%         \item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
+%         \item (Really wish we had more modern numbers)
+% \end{itemize}
+% \end{itemize}
+% }
 
 
 \section*{Project Description}
@@ -143,7 +143,7 @@ stores~\cite{Bornholt2021}, automotive
 software~\cite{arts2015testing}, and a range of other real-world
 systems~\cite{hughes2016experiences}.
 PBT is now used at companies including Amazon, Stripe, Galois, Quviq,
-and IOG (which 
+and IOG (which
 runs the Cardano blockchain and the Ada cryptocurrency).
 
 PBT took the functional programming community by storm after its
@@ -204,7 +204,7 @@ libraries for it when standard ones were not available
 at the company should use it (\participant{20}); however, participants
 also highlighted a key opportunity for improvement---{\em usability}. As with
 many powerful technologies, PBT can be difficult to apply, and developers
-need more support from tooling to help them apply it most effectively.
+need tool support to help them apply it most effectively.
 
 % \amh{This is a deficit-focused pitch---focusing on the problems that need to be
 % solved with PBT---rather than an asset-focused pitch---focusing on how we need
@@ -237,19 +237,20 @@ other, HCI provides a deep foundation of theory and methodological
 practice for investigating and understanding usability of systems in a
 rigorous and objective way, including principled methods for
 identifying problems, rigorous evaluation metrics, and proven
-methodologies for designing tools. Tools, in this case, includes ``front end'' tools like
-data visualizers and user interfaces for IDE plug-ins, naturally, but
-also ``back end'' components like domain-specific languages for properties and generators---HCI techniques
-help designers
-to strike the right balance between expressiveness and
-accessibility in their languages~\cite{PLIERS,Krishnamiurthi.LTL}\todolater{Refs here in
-  comments}.
+methodologies for designing tools. Tools, in this case, naturally include
+``front end'' tools like
+data visualizers and user interfaces for IDE plug-ins, but
+also ``back end'' components like domain-specific languages for
+properties and generators, where HCI techniques
+can help designers
+strike the right balance between expressiveness and
+accessibility in their languages~\cite{PLIERS,Krishnamiurthi.LTL}.
 Synergies like this led
 Chasins et al.~\cite{chasins_pl_2021} to argue that a research
-methodology combining PL and HCI hits a ``sweet spot''\bcplater{sweet
-  spot for... what?} where need-finding techniques identify current
+methodology combining PL and HCI hits a ``sweet spot'' where
+need-finding techniques identify current
 pain points and motivate concrete tools that help programmers write
-safe, correct programs. \proposecut{We wholeheartedly agree.}\hg{Can we say
+safe, correct programs. \hg{Can we say
 something about how PL+HCI is a vibrant, emerging research
 area?}\bcp{Mention PLATEAU?}
 
@@ -277,9 +278,8 @@ co-founded a new HCI group at
 the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
 topics including PBT.  Our existing research collaboration has led to
-two published
-papers~\cite{goldstein_problems_2022,ShiPlateau}\todolast{Make sure
-  the PLATEAU paper is in the bib file.} and to the ongoing
+two workshop presentations~\cite{goldstein_problems_2022,ShiPlateau}\todolast{Make sure
+  the PLATEAU paper is in the bib file. url{https://jwshi21.github.io/Plateau.pdf}} and to the ongoing
 study at Jane Street mentioned above, which motivates the bulk of the
 research and technology transfer agenda for this work.
 
@@ -1028,7 +1028,7 @@ system is designed to process.
 %
 Worse, even with validity accounted for, there are
 more insidious ways for generators to under-perform---for example, by
-generating many overly similar inputs while ignoring large parts of
+generating many similar inputs while ignoring large parts of
 the input space.
 
 % The PBT literature partially addresses these concerns, with solutions solving
@@ -2629,12 +2629,7 @@ Shi.
   research sections) needs to explicitly address how we will measure
   success...  Check that we've done this.}
 
-\discuss{What about related work???  Eeek.}
-
-\fi
-
-\bigskip \forreaders{Don't miss all the supplemental documents beyond
-  the bibliography that we'd love to hear your comments on...}
+\discuss{Make sure readers can identify a Related Work section.}
 
 \discuss{Get letters from Leo and Hila.
   \begin{itemize}
@@ -2658,3 +2653,9 @@ Shi.
   project description mention the collaborations.
   \end{itemize}
 }
+
+\fi
+
+\bigskip \forreaders{Don't miss all the supplemental documents beyond
+  the bibliography that we'd love to hear your comments on...}
+
