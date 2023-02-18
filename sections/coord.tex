@@ -1,6 +1,5 @@
 \section*{Management and Coordination Plan \pagebudget{3}}\label{appendix:coord}
 
-
 \iflast
 \todo{Just double check...}
 \todo{GPG: The length and level of detail provided in the Plan should
@@ -25,6 +24,8 @@
   these management and coordination mechanisms.}
 
 \todo{Mention Leo and Hila here.  Make sure we have their letters.}
+
+\discuss{Gotta trim some more words here...}
 \fi
 
 Key personnel for this work will include the two co-PIs, four PhD
@@ -38,8 +39,10 @@ supporting effort and supervision.
 \forreaders{This section needs more text, but we've worked pretty hard
 on the tables.  Your feedback is appreciated!}
 
-\subsection*{Principal Investigator Roles}
+\subsection*{Project Roles}
 
+\paragraph*{Principal Investigators}
+%
 The PIs are well positioned to co-lead an effort whose success
 requires deep contributions from both PL and HCI.  Andrew Head
 recently co-founded a new HCI group at the University of Pennsylvania
@@ -57,11 +60,11 @@ reason.  Formally, PI Head will supervise the two HCI-focused PhD
 students, while PI Pierce will supervise the two PL-related students
 and the engineer.
 
-\subsection*{PhD Student Roles}
-
 \newcommand{\ROLE}[5]{
   \smallskip \noindent {\bf #1, #2.  Project: {\em #3}} \\
-  #4 (Skills: #5)}
+  #4
+% (Skills: #5)
+}
 
 \newcommand{\ROLENOSKILLS}[4]{
   \smallskip \noindent {\bf #1, #2.  Project: {\em #3}} \\
@@ -79,7 +82,7 @@ and the engineer.
   generalize our understanding of barriers, conduct critical
   comparative studies of existing PBT solutions, and assist in the
   conduct of formative observational studies related to tool-building
-  efforts. \underconstruction{Explain how much work these studies are!}
+  efforts. \todolater{Explain how much work these studies are!}
 }{Qualitative HCI}
 
 \ROLE{Ph.D. 2}{Advisor PI Pierce}{Generation}{The second Ph.D.
@@ -110,8 +113,9 @@ specifications to serve as regression tests.}{PL Language Design}
 will design, implement, and evaluate interactive views that provide programmers
 with powerful controls for influencing testing effectiveness. They will first
 develop tools that support the live viewing and analysis of complex
-distributions of generated data. Then, drawing on the reflective generator
-technology developed by Ph.D. 2, they will introduce controls that allow
+distributions of generated data. Then, drawing on the reflective
+generators developed by Ph.D. 2, they will introduce controls that
+allow
 programmers to influence the behavior of generators through direct manipulation
 of generated data. The Ph.D.  student will also design tools that support the
 understanding of individual inputs with novel features for interactive shrinking
@@ -128,9 +132,9 @@ settings.}{HCI Systems}
 
 % \ROLE{PhD 4}{Advisors PI Head and PI Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
 
-\subsection*{Research Engineer Role}
-
-\ROLE{Engineer}{Supervisors PI Head and PI Pierce}{Property-Based Testing in the Wild}{Many of the aforementioned projects include or would benefit from technology transfer activities that bring research ideas into practice. Our staff engineer will assist with this transfer, interfacing with existing open source communities to maintain, improve, and popularize frameworks for PBT in a number of popular programming languages. This will include, but not be limited to: implementing reflective generators in existing frameworks, improving library designs as per recommendations from PhD 2, maintaining the tools produced by PhD 3, etc.}{Engineering}
+\paragraph*{Research Engineer}
+%
+Many of the aforementioned projects include or would benefit from technology transfer activities that bring research ideas into practice. Our staff engineer will assist with this transfer, interfacing with existing open source communities to maintain, improve, and popularize frameworks for PBT in a number of popular programming languages. This will include, but not be limited to: implementing reflective generators in existing frameworks, improving library designs as per recommendations from PhD 2, maintaining the tools produced by PhD 3, etc.
 
 
 
@@ -182,7 +186,7 @@ experiments and begin constructing the \tyche{} IDE.  The latter years
 of the project will introduce additional foundational studies and
 infrastructure-building projects, but will emphasize more and more the
 knowledge- and technology-transfer elements of the project.
-Undergraduate education will be a continuous thread throughout the
+Undergraduate education is a continuous thread throughout the
 project.
 
 % \iflater
