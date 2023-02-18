@@ -5,26 +5,26 @@
 \begin{itemize}[noitemsep]
 \item PBT is great
 \begin{itemize}[noitemsep]
-	\item QC most influential and most cited
-	\item It's been used with great success in industry
-	\item Hypothesis has 500k users
+        \item QC most influential and most cited
+        \item It's been used with great success in industry
+        \item Hypothesis has 500k users
 \end{itemize}
 \item We need powerful tools like PBT because software bugs are expensive
 \begin{itemize}[noitemsep]
-	\item Bugs cost (\$60B/year in 2002 money)
-	\item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
-	\item (Really wish we had more modern numbers)
+        \item Bugs cost (\$60B/year in 2002 money)
+        \item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
+        \item (Really wish we had more modern numbers)
 \end{itemize}
 \item We need to keep pushing to improve testing infrastructure, and there is plenty of room for PBT to grow
 \begin{itemize}[noitemsep]
-	\item The list of companies using it is impressive, but it is still relatively short: PBT has not yet made it into mainstream SE practice
-	\item 500k hypothesis users is only ~3\% of python users
+        \item The list of companies using it is impressive, but it is still relatively short: PBT has not yet made it into mainstream SE practice
+        \item 500k hypothesis users is only ~3\% of python users
 \end{itemize}
 \item And we know how to push it farther: significantly improved tool support
 \begin{itemize}[noitemsep]
-	\item We want to build human-centered, theoretically motivated tools that
-	actually make PBT better for users
-	\item This has worked for other high-impact software correctness stories
+        \item We want to build human-centered, theoretically motivated tools that
+        actually make PBT better for users
+        \item This has worked for other high-impact software correctness stories
   \begin{itemize}[noitemsep]
     \item JUnit took off because it was built into IDEs (is this true??)
     \item Interactive theorem proving made a huge change in update of formal verification
@@ -32,17 +32,17 @@
 \end{itemize}
 \item To get there, we need to combine PL and HCI
 \begin{itemize}[noitemsep]
-	\item PL provides the background, foundations, and supporting technologies
-	\item HCI provides
+        \item PL provides the background, foundations, and supporting technologies
+        \item HCI provides
 \begin{itemize}[noitemsep]
-		\item Principled ways of identifying problems
-		\item Design methodologies with proven results
-		\item Evaluation metrics that give much faster feedback than just waiting to see if a tool catches on
+                \item Principled ways of identifying problems
+                \item Design methodologies with proven results
+                \item Evaluation metrics that give much faster feedback than just waiting to see if a tool catches on
 \end{itemize}
-	\item This is part of a growing movement (cite Chasins)
-	\item And the ball is already rolling: the bulk of the projects in this proposal are motivated by HCI-style inquiries into PBT
+        \item This is part of a growing movement (cite Chasins)
+        \item And the ball is already rolling: the bulk of the projects in this proposal are motivated by HCI-style inquiries into PBT
 \end{itemize}
-\item We propose… 
+\item We propose…
 \end{itemize}
 }
 
@@ -724,9 +724,9 @@ interactive tools
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{1}{2}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 %
-A cornerstone of our efforts to bring PBT to the people 
+A cornerstone of our efforts to bring PBT to the people
 will be a new theory of property-based testing itself.  Theories of
-programming have 
+programming have
 long served a critical role in human-centered software engineering
 research, providing rich and memorable descriptions of programming
 processes and clarifying opportunities to improve tooling and training.
@@ -748,27 +748,33 @@ will be the conceptual framework we are developing through the Jane Street study
 will be validated and refined through contextual inquiries~\cite[Ch.
 3]{ref:holtzblatt1997contextual} with programmers, leading to a provisional
 theory during the first two years.  This theory will help us
-refine our ideas for 
+refine our ideas for
 tools and provide a foundation for contextualizing the questionnaires and
 observations described in the following sections. Our evaluation of
 the tools we build will provide us with additional evidence to further
 refine the theory.
 
-In the rest of this section, we sketch the outlines of a theory that might
-follow from the Jane 
+In the rest of this section, we sketch the outlines of a speculative
+theory that could
+follow from the Jane
 Street study.
-% While the theory we develop may look quite different from this, we
-% describe it here to demonstrate the feasibility of doing so, and the predictive
-% potential of such a theory. 
-We call it the \emph{hill-climbing} theory because
-PBT can be thought of as following a hill-climbing process. A
-property-based test 
-is developed through a series of steps. Each of these steps consist of either
+While the theory we ultimately develop may well look quite different
+from this, we
+describe it here to demonstrate what such a theory might look like and
+suggest some of its predictive
+potential.
+We call it the \emph{hill-climbing} theory because (on this reading)
+PBT can be thought of as following a hill-climbing process: a
+property-based test
+is developed through a series of steps, each consisting of either
 refining the specifications or refining the generators\bcp{I'm
   not very sure I believe that.}. In contrast to
-conventional development, with the climbing perspective, a programmer is
+conventional software development, when operating with this climbing
+perspective, a programmer is
 constantly adjusting course when a step is too ``steep,'' i.e., when it is not
-easy to refine the specification or generator. Programmers stop climbing when
+easy to refine the specification or generator.\bcp{Why would this be?
+(What kinds of refinements are they trying to make?  What determines
+when they are easy or hard?)} Programmers stop climbing when
 they feel they cannot make progress. Accordingly, for a programmer to develop a
 powerful test suite, they need to be supported in incremental, low-cost
 refinements of both specifications and generators, with the ability to quickly
@@ -786,7 +792,7 @@ aids and expressive generator authoring tools) that allows them to take longer
 strides with less effort, and which help them orient to what the ``top'' of the
 hill is (i.e., how much they can reasonably test given the effort they are
 willing to spend).  \amh{Maybe develop and write out a couple of example
-hypotheses.} 
+hypotheses.}
 % A preliminary version of this theory will be developed in the first
 % two years of this project, and will continue to be refined on the basis of all
 % human-centered research conducted in later projects.
@@ -798,6 +804,11 @@ That said, and I know we make this clear, but to me it really feels too
 speculative to ``say out loud.'' Is this kind of thing standard when describing
 proposed work on cognitive theories? I worry that some readers (especially PL
 ones) would find it too nebulous.}
+
+\bcp{I do find it a bit nebulous: Maybe I'm just not thinking about
+  it right, but I am finding it hard to imagine what counts as
+  ``steps'' of refinement of specifications or generators, or
+  (especially) on what basis the programmer decides what is ``up''.}
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{2}{3}{HCI Theory}{PhD 1}{}{Head}
@@ -1648,59 +1659,59 @@ any of this worth mentioning here?}
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 4}{}{Pierce}
 
-As is often the case for code of any kind, the specification of a property may 
-not be self-explanatory. This is particularly the case when those properties are 
-found by programmers who did not write them, and can be exacerbated if the those 
-programmers have never used property-based testing themselves. Can we design 
+As is often the case for code of any kind, the specification of a property may
+not be self-explanatory. This is particularly the case when those properties are
+found by programmers who did not write them, and can be exacerbated if the those
+programmers have never used property-based testing themselves. Can we design
 tools that help programmers understand property specifications?
 
-We envision several approaches, drawing inspiration from recent HCI research.  
-Prior work has demonstrated the potential of generating meaningful explanations 
-for simple programs, whether those explanations are consist of text 
+We envision several approaches, drawing inspiration from recent HCI research.
+Prior work has demonstrated the potential of generating meaningful explanations
+for simple programs, whether those explanations are consist of text
 explanations~\cite{ref:head2015tutorons,ref:mayer2015user},
-visualizations~\cite{ref:guo2013online}, or 
-counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when 
-programs are short in length, draw mostly from simple syntax, and are 
-structurally simple.  While properties can be rather long, they are often 
-comprised of relatively simple language idioms (i.e., a number of function 
-calls, conjunctions, and implications). For this reason, it may be that these 
-ideas could generalize to helping newcomers to properties understand those 
-properties well enough to understand them generally, and perhaps even make 
-lightweight modifications, without needing to seek out dedicated instruction for 
+visualizations~\cite{ref:guo2013online}, or
+counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when
+programs are short in length, draw mostly from simple syntax, and are
+structurally simple.  While properties can be rather long, they are often
+comprised of relatively simple language idioms (i.e., a number of function
+calls, conjunctions, and implications). For this reason, it may be that these
+ideas could generalize to helping newcomers to properties understand those
+properties well enough to understand them generally, and perhaps even make
+lightweight modifications, without needing to seek out dedicated instruction for
 the PBT framework.
 
-The first sort of explanation we will provide is at the level of explaining 
-syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons}, 
-synthesized programs~\cite{ref:mayer2015user}, and Hazel 
-code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks 
-require the use of a custom property language. This is the case, for instance, 
-for Haskell's QuickCheck. For users who are familiar with the host language but 
-not the property language, we will design tooltip explanations that explain 
-particular idiomatic constructs including symbols and common structures in 
-property-based tests. Our efforts will focus on understanding the language with 
-which to describe properties to those unfamiliar with property-based testing, 
-and to identify those syntactic anchors in the code that are sensible sites for 
-programmers to access automatic explanations. 
+The first sort of explanation we will provide is at the level of explaining
+syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
+synthesized programs~\cite{ref:mayer2015user}, and Hazel
+code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks
+require the use of a custom property language. This is the case, for instance,
+for Haskell's QuickCheck. For users who are familiar with the host language but
+not the property language, we will design tooltip explanations that explain
+particular idiomatic constructs including symbols and common structures in
+property-based tests. Our efforts will focus on understanding the language with
+which to describe properties to those unfamiliar with property-based testing,
+and to identify those syntactic anchors in the code that are sensible sites for
+programmers to access automatic explanations.
 
-The second sort of explanations will be examples, namely, sampled input-output 
-pairs that can convey the behavior of the program with respect to the property.  
-The advantage of example-based explanations is that a solution to this problem 
-for one PBT framework may generalize to others; while not all frameworks use 
-special property syntax (e.g., Hypothesis), all frameworks have the potential to 
-have rather long properties. Some of the simplest (perhaps smallest) passing 
-inputs will be selected as example inputs. These examples will be perturbed to 
-generate similar negative examples. Example pairs will be shown alongside the 
-code in the editor using editor annotations. This project will dovetail with our 
+The second sort of explanations will be examples, namely, sampled input-output
+pairs that can convey the behavior of the program with respect to the property.
+The advantage of example-based explanations is that a solution to this problem
+for one PBT framework may generalize to others; while not all frameworks use
+special property syntax (e.g., Hypothesis), all frameworks have the potential to
+have rather long properties. Some of the simplest (perhaps smallest) passing
+inputs will be selected as example inputs. These examples will be perturbed to
+generate similar negative examples. Example pairs will be shown alongside the
+code in the editor using editor annotations. This project will dovetail with our
 project on interactive debugging (\sectionref{sec:failures}) to identify
 test cases that are likely to best ``explain'' intended program behavior.
 
-Given recent trends in computing research, it bears mention that large language 
-models such as GPT3 may merit consideration for generating descriptions of the 
-high-level ``idea'' behind properties; PI Head is investigating similar ideas 
-for understanding generated code in general purpose programming languages. While 
-we intend to explore this to some limited extent, most of our efforts will be 
-spent on the two approaches above involving rule- and example-based 
-explanations, given their applicability to property languages for which there 
+Given recent trends in computing research, it bears mention that large language
+models such as GPT3 may merit consideration for generating descriptions of the
+high-level ``idea'' behind properties; PI Head is investigating similar ideas
+for understanding generated code in general purpose programming languages. While
+we intend to explore this to some limited extent, most of our efforts will be
+spent on the two approaches above involving rule- and example-based
+explanations, given their applicability to property languages for which there
 may not yet have been data incorporated into modern large language models.
 
 \iflater\todo{Tweak the title when we understand the content. :-)}\fi
