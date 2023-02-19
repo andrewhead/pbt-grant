@@ -36,8 +36,9 @@ PhD dissertations, with a rough timeline indicating a natural ordering
 of the tasks.  Figure~\ref{fig:roles} provides more detail on
 supporting effort and supervision.
 
-\forreaders{This section needs more text, but we've worked pretty hard
-on the tables.  Your feedback is appreciated!}
+Since all team members will have offices in the same building on
+Penn's campus, we do not envisage any significant costs specifically
+associated with management and coordination.
 
 \subsection*{Project Roles}
 
@@ -61,7 +62,7 @@ students, while PI Pierce will supervise the two PL-related students
 and the engineer.
 
 \newcommand{\ROLE}[5]{
-  \smallskip \noindent {\bf #1, #2.  Project: {\em #3}} \\
+  \smallskip \noindent {\bf #1, #2.  Project: {\em #3}.}
   #4
 % (Skills: #5)
 }
@@ -73,7 +74,7 @@ and the engineer.
 \iflater\todo{Also, emphasize that this is a best-guess
   thought experiment, not a prediction!}\fi
 
-\ROLE{Ph.D. 1}{Advisor PI Head}{Foundations}{The first Ph.D. student
+\ROLE{Ph.D. 1}{Advisor  Head}{Foundations}{The first Ph.D. student
   will develop foundational knowledge to support the human-centered
   design and development of PBT tools. This work will begin with
   defining a preliminary theory of PBT on the basis of our studies to
@@ -85,7 +86,7 @@ and the engineer.
   efforts. \todolater{Explain how much work these studies are!}
 }{Qualitative HCI}
 
-\ROLE{Ph.D. 2}{Advisor PI Pierce}{Generation}{The second Ph.D.
+\ROLE{Ph.D. 2}{Advisor  Pierce}{Generation}{The second Ph.D.
 student
 will develop the PL theory necessary to enable new classes of powerful PBT
 generation tools. Central to this Ph.D. will be the advancement of work on
@@ -97,7 +98,7 @@ will involve the assessment of the usability of reflective output with the
 assistance of HCI Ph.D. student 1, and the improvement of language design for
 generator automation.}{PL Theory}
 
-\ROLE{Ph.D. 3}{Advisor PI Pierce}{Specification}{The third Ph.D. student
+\ROLE{Ph.D. 3}{Advisor  Pierce}{Specification}{The third Ph.D. student
 will advance programming languages for specification. Their goal will be to
 enhance the expressiveness and understandability of specifications. Their work
 will begin by making specification languages more powerful by supporting
@@ -109,7 +110,7 @@ properties. Their work will conclude with developing technology for for
 converting between property-based specifications into singular test-case
 specifications to serve as regression tests.}{PL Language Design}
 
-\ROLE{Ph.D. 4}{Advisor PI Head}{Interaction}{The fourth Ph.D. student
+\ROLE{Ph.D. 4}{Advisor  Head}{Interaction}{The fourth Ph.D. student
 will design, implement, and evaluate interactive views that provide programmers
 with powerful controls for influencing testing effectiveness. They will first
 develop tools that support the live viewing and analysis of complex
@@ -124,15 +125,15 @@ dashboards suitable for monitoring the outcomes of random PBT tests in
 professional software development
 settings.}{HCI Systems}
 
-% \ROLE{PhD 1}{Advisor PI Pierce}{Reflecting on Random Generation}{This PhD student will focus on reflective generators, a powerful abstraction for producing random data. They will finish developing the theoretical abstraction and then continue by working closely with our staff engineer to implement and evaluate testing tools that rely on reflective generators as a foundation. This student will also work with undergraduate students to implement orthogonal testing tools.}{PL, Some HCI}
+% \ROLE{PhD 1}{Advisor  Pierce}{Reflecting on Random Generation}{This PhD student will focus on reflective generators, a powerful abstraction for producing random data. They will finish developing the theoretical abstraction and then continue by working closely with our staff engineer to implement and evaluate testing tools that rely on reflective generators as a foundation. This student will also work with undergraduate students to implement orthogonal testing tools.}{PL, Some HCI}
 
-% \ROLE{PhD 2}{Advisor PI Head}{Human-Centered Foundations of Property-Based Testing}{This PhD student will develop a robust theory of property-based testing from a user-centered perspective. They will start by finishing ongoing work with Jane Street. Then they will do further foundational studies to understand finer-grained aspects of PBT usability and make recommendations for the design of future PBT tools and curricula.}{HCI, Some PL}
+% \ROLE{PhD 2}{Advisor  Head}{Human-Centered Foundations of Property-Based Testing}{This PhD student will develop a robust theory of property-based testing from a user-centered perspective. They will start by finishing ongoing work with Jane Street. Then they will do further foundational studies to understand finer-grained aspects of PBT usability and make recommendations for the design of future PBT tools and curricula.}{HCI, Some PL}
 
-% \ROLE{PhD 3}{Advisors PI Head and PI Pierce}{"In Your Face" Property-Based Testing}{This PhD student will build tools for PBT that integrate the testing process into a programmer's editing environment. They will use human-centered methods to design and implement tools that users will actually see value in, and they will significantly increase the potential adoption of PBT by putting it easily within reach.}{HCI, PL}
+% \ROLE{PhD 3}{Advisors  Head and  Pierce}{"In Your Face" Property-Based Testing}{This PhD student will build tools for PBT that integrate the testing process into a programmer's editing environment. They will use human-centered methods to design and implement tools that users will actually see value in, and they will significantly increase the potential adoption of PBT by putting it easily within reach.}{HCI, PL}
 
-% \ROLE{PhD 4}{Advisors PI Head and PI Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
+% \ROLE{PhD 4}{Advisors  Head and  Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
 
-\paragraph*{Research Engineer}
+\smallskip\noindent{\bf Research Engineer, Supervisor  Pierce.}
 %
 Many of the aforementioned projects include or would benefit from technology transfer activities that bring research ideas into practice. Our staff engineer will assist with this transfer, interfacing with existing open source communities to maintain, improve, and popularize frameworks for PBT in a number of popular programming languages. This will include, but not be limited to: implementing reflective generators in existing frameworks, improving library designs as per recommendations from PhD 2, maintaining the tools produced by PhD 3, etc.
 
@@ -173,21 +174,20 @@ Figure~\ref{fig:workplan} offers best guesses for natural starting and
 completion time for the various project tasks, colored according to
 which PhD student (or, in a few cases, the engineer or faculty) should
 lead each task.
-
+%
 Two PhD students and the engineer will be recruited during the first
 year, and two more students in the second year.  Work at the beginning
-of the project will focus on deepening our understanding
-of opportunities and challenges for PBT through further user studies,
-on extending and enriching
-our past research work on generators, and on building and
-disseminating tools based on this work.  Starting in the second year,
+of the project will focus on understanding
+opportunities and challenges for PBT through further user studies,
+on extending
+our past research work on generators, and on building starting to
+disseminate tools based on this work.  In the second year,
 we will spin up efforts in specification tools and user-interface
 experiments and begin constructing the \tyche{} IDE.  The latter years
-of the project will introduce additional foundational studies and
-infrastructure-building projects, but will emphasize more and more the
+of the project will introduce further foundational studies and
+infrastructure-building projects; they will emphasize more and more the
 knowledge- and technology-transfer elements of the project.
-Undergraduate education is a continuous thread throughout the
-project.
+Undergraduate education is a continuous thread throughout.
 
 % \iflater
 % \bcp{Here's some old test, but I think it needs to be
@@ -285,7 +285,9 @@ project.
   \hline
   \input{main.workplan}
 \end{tabular}
-\caption{Project tasks and personnel \iflater\bcp{If we keep the Category
+\vspace*{-2ex}
+\caption{Project themes, tasks, and personnel in detail \iflater\bcp{If we keep
+    the Category
     column, we'll need to add some stuff to it, since some things span
     categories.}\fi
   \iflater\bcp{Check the secondary effort}\fi}
@@ -313,20 +315,14 @@ be encouraged to take both Penn's core PL theory course (CIS 5000,
 
 \todolater{Anything else?}
 
-\subsection*{Project Management Budget}
-
-Since all team members will have offices in the same building on
-Penn's campus, we do not envisage any significant costs specifically
-associated with management and coordination.
-
 \subsection*{Success Metrics}
 
 One major benefit of
 HCI methodologies is that they are self-validating---tools are built with users
-in the loop and evaluated in user studies before being shipped to the public.
-Each tool-building project we complete will include design justifications and
-evaluation based on user feedback, and many of the more theoretical projects will
-be measured by their ability to support the user-facing tools.
+in the loop and evaluated in user studies before being shipped.
+Each tool-building project will include design justifications and
+evaluation based on user feedback, and the more theoretical
+projects will be measured by their ability to support user-facing tools.
 
 We also plan to verify that our improvements to the ecosystem for PBT
 actually drive increased adoption. For this, we reach for an
@@ -346,7 +342,7 @@ by courses in at least 10 universities by the end of the project.
 
 \todolast{Any other educational metrics?  Docs, etc.?}
 
-Finally, the success of the more foundation project threads can, as
+Finally, the success of the more foundational threads will, as
 usual, be measured at least partly in publications.  We will target
 top venues in PL, HCI, and Software Engineering, e.g., ICFP, PLDI,
 OOPSLA, ICSE, HCI, and UIST.  \bcplater{And CSEd!}
