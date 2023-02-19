@@ -25,7 +25,7 @@ at companies such as Quviq, Galois, Stripe, Amazon, and IOG.
 %
 The goal of this proposal is to accelerate this transition
 by addressing key challenges in
-present-day PBT tools.
+PBT tools.
 
 What are these challenges? \iflater\hg{I suspect this is where we'll need to come down
 stronger---these don't really land as ``grand'' challenges. I think we need to
@@ -118,22 +118,29 @@ broader surveys of PBT across the software industry, real-time
 observations of developers interacting with PBT, and a novel cognitive
 theory of PBT.
 %
-Second, it will offer developers more usable {\bf\em specification} tools,
-including a language for stating temporal properties over internal
-program states and automation for model-based testing of
-modular abstractions.\bcp{More?}
+Second, it will explore a novel abstraction for random input {\bf\em
+generation} that enables a range of use cases---generating inputs
+satisfying validity conditions, reducing test-cases to smaller ones for easier
+debugging,
+mutating inputs to explore program behavior, and
+and manually or automatically tuning a random
+generator's distribution based on examples or code coverage. We will also
+explore further opportunities for automating the process of input test input
+generation and develop benchmarks for evaluating those and other tools.
 %
-Third, it will explore a novel abstraction for random input {\bf\em
-  generation} that enables a range of use cases---generating inputs
-satisfying validity conditions, mutating inputs to explore the space
-of similar inputs, and manually or automatically tuning a random
-generator's distribution based on examples or code coverage.\bcp{More?}
+Third, it will offer developers more usable {\bf\em specification} tools,
+including a language for stating temporal properties over internal
+program states, mixed-initiative interactions for defining properties,
+automation for model-based testing of
+modular abstractions, and techniques for more easily explaining properties and
+their implications.
 %
 And fourth, it will develop new tools for effective {\bf\em
   interaction} between developers and their tests, including tools for
-evaluating the effectiveness of testing, for helping programmers pin
-down the causes of failures, and for visualizing generated data
-distributions.\bcp{More?}
+visualizing generated data
+distributions, tuning data distributions, simplifying test-cases, and saving
+  failing test-cases as understandable unit tests, culminating in a
+  comprehensive development environment for PBT
 
 % The project will advance knowledge along four interconnected axes.
 % %
@@ -170,19 +177,16 @@ project's aims, will
 %
 be to drive the {\bf\em diffusion} of PBT tools and
 methodologies from academia into industry through targeted engineering effort
-%
-and to advance PBT {\bf\em education} in
-both universities and industry.\bcp{This one doesn't appear as a
-  top-level theme any more...?}  We will support and strengthen existing
+and a broad approach to education.
+We will support and strengthen existing
 open-source PBT tools in popular programming languages and enrich their
 capabilities with re-engineered research products from the four themes described
 above;
 %
 and we will
 develop materials for teaching industry programmers how to identify
-high-leverage situations for using PBT, curricula for teaching mature
-and powerful PBT practices to undergraduate students, and tooling to help
-PBT beginners write their first properties.
+high-leverage situations for using PBT and curricula for teaching mature
+and powerful PBT practices to undergraduate students.
 %
 % \iflater
 % A general-audience article on PBT for CACM will help broaden the
