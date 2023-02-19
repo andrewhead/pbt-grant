@@ -5,13 +5,16 @@
 % \newcommand{\summarysection}[1]{\paragraph*{#1.}}
 \newcommand{\summarysection}[1]{\medskip \noindent {\bf #1.} }
 
+\bcplater{Do we want to try to refocus the summary like we did the
+  intro?  I'd say it's worthwhile, if possible.}
+
 \summarysection{Overview}
 Property-based testing (PBT) is an advanced software engineering
 methodology where users write executable formal specifications of system
 components
 and an automated harness checks these specifications against
 many automatically generated inputs.  The bug-finding power of PBT
-arises from its ability to express rich specifications that
+stems from its ability to express rich specifications that
 exercise a wide range of system behaviors---both
 expected and unexpected---with minimal user guidance.
 %
@@ -32,15 +35,13 @@ little rewording (reserving ``challenges'' for bigger stuff and using
 A need-finding study of PBT at Jane
 Street, a Wall Street trading firm with a focus on software
 technology as a competitive advantage, found developers enthusiastic
-about its {\em usefulness} but
-sometimes\iflater\bcp{could we legitimately drop ``sometimes''? the
-  paragraph would read much better...}\fi{} frustrated with its {\em usability}.
+about its {\em usefulness} but frustrated with its {\em usability}.
 %
 Indeed, the study identified usability as an issue in both major aspects
 of PBT methods---{\em specification} of properties and {\em
   generation} of random inputs. Moreover, it revealed other challenges
 around another aspect of PBT that has so far received less attention from
-researchers: how programmers can {\em interact} with their programming
+researchers: how programmers {\em interact} with their programming
 environment during the testing process.
 
 % At the level of {\em specification}, developers wished for better
@@ -84,7 +85,7 @@ environment during the testing process.
 %  and ``shrinking'' of failing
 % tests to minimal counterexamples,
 
-To tame these challenges and establish PBT as a mainstream
+To address these challenges and establish PBT as a mainstream
 testing method, insights from two distinct research areas must be
 brought to bear.
 On one hand, PBT itself is grounded in domain-specific languages and
@@ -170,7 +171,8 @@ be to drive the {\bf\em diffusion} of PBT tools and
 methodologies from academia into industry through targeted engineering effort
 %
 and to advance PBT {\bf\em education} in
-both universities and industry.  We will support and strengthen existing
+both universities and industry.\bcp{This one doesn't appear as a
+  top-level theme any more...?}  We will support and strengthen existing
 open-source PBT tools in popular programming languages and enrich their
 capabilities with re-engineered research products from the four themes described
 above;
