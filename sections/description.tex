@@ -168,24 +168,23 @@ quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 %
-By comparison, JUnit version 4 (the most popular version) has 8.4K
-stars~\cite{JUnitGithub}---i.e.,
-Python's PBT tool has nearly as many stars as the
-framework that is widely credited with popularizing unit testing as a technique.
+% By comparison, JUnit version 4 (the most popular version) has 8.4K
+% stars~\cite{JUnitGithub}---i.e.,
+% Python's PBT tool has nearly as many stars as the
+% framework that is widely credited with popularizing unit testing as a technique.
 
 % But the pace of PBT's adoption can be accelerated yet further.
 
-One might wonder if this is ``enough'' success for PBT, but there is actually
-significant opportunity for continued growth. The 500K estimate for
-Hypothesis users is only 3\% of total Python developers~\cn{}\bcp{I
-  actually left that point out for a reason: It undercuts our argument
-for potential growth.  After all, Hypothesis already has as many
-users as JUnit, which is presumably topped out in the (similarly
-sized) Java market.}, and the list of
+Moreover, there is still plenty of room
+for growth. The 500K estimate for
+Hypothesis users is only 3\% of total Python developers~\cn{}; by comparison,
+a 2020 estimate from JetBrains~\cite{noauthor_java_nodate} estimates that JUnit,
+the most popular unit testing library in Java, is used by over 60\% of Java developers!
+And the list of
 companies using PBT, while substantial, is very far from whole of the software
-industry. And it is not just possible for PBT to grow, it is {\em
-  important}.\bcp{Weak transition: These numbers don't imply that PBT
-should grow, just that something should.}
+industry.
+This gap represents an gigantic opportunity to increase software quality
+and reduce software costs.
 A 2002 study~\cn{} estimated that the total cost of software errors is almost
 \$60 billion per year and suggested that \$22 billion of that could be saved by
 better testing infrastructure; the situation has only gotten worse, with a 2022
@@ -194,7 +193,7 @@ year. Accelerating the adoption of PBT stands\bcplater{weak} to make a
 significant dent
 in the global cost of software bugs.
 
-Our group set out to understand the highest-leverage ways to grow PBT by
+With this in mind, our group set out to understand the highest-leverage ways to grow PBT by
 understanding what software developers need from the technology.
 In an ongoing need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---participants called it
@@ -250,9 +249,7 @@ Chasins et al.~\cite{chasins_pl_2021} to argue that a research
 methodology combining PL and HCI hits a ``sweet spot'' where
 need-finding techniques identify current
 pain points and motivate concrete tools that help programmers write
-safe, correct programs. \hg{Can we say
-something about how PL+HCI is a vibrant, emerging research
-area?}\bcp{Mention PLATEAU?}
+safe, correct programs.
 
 % We intend to employ those particularly in the front-end aspect (the IDE for PBT);
 % \item But also in the back-end (to strike the right balance between expressiveness and accessibility in our languages and libraries).
@@ -272,8 +269,9 @@ area?}\bcp{Mention PLATEAU?}
 % process\proposecut{, as well as to formally validate these tools}.
 
 The team
-behind this proposal is uniquely positioned to advance the state of
-the art at the intersection of these areas: PI Head recently
+behind this proposal is uniquely positioned to bring PBT into this vibrant area
+of ``PL+HCI'' research and advance the state of
+the art for automated software testing: PI Head recently
 co-founded a new HCI group at
 the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
