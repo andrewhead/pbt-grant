@@ -24,51 +24,6 @@ find a place to make this point explicitly.}
 
 %% https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/cpsq-report-nov-22-1.pdf
 
-% \hg{No idea if this is good, but I'm leaving it here for now:
-% \begin{itemize}[noitemsep]
-% \item PBT is great
-% \begin{itemize}[noitemsep]
-%         \item QC most influential and most cited
-%         \item It's been used with great success in industry
-%         \item Hypothesis has 500k users
-% \end{itemize}
-% \item We need powerful tools like PBT because software bugs are expensive
-% \begin{itemize}[noitemsep]
-%         \item Bugs cost (\$60B/year in 2002 money)
-%         \item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
-%         \item (Really wish we had more modern numbers)
-% \end{itemize}
-% \item We need to keep pushing to improve testing infrastructure, and there is plenty of room for PBT to grow
-% \begin{itemize}[noitemsep]
-%         \item The list of companies using it is impressive, but it is still relatively short: PBT has not yet made it into mainstream SE practice
-%         \item 500k hypothesis users is only ~3\% of python users
-% \end{itemize}
-% \item And we know how to push it farther: significantly improved tool support
-% \begin{itemize}[noitemsep]
-%         \item We want to build human-centered, theoretically motivated tools that
-%         actually make PBT better for users
-%         \item This has worked for other high-impact software correctness stories
-%   \begin{itemize}[noitemsep]
-%     \item JUnit took off because it was built into IDEs (is this true??)
-%     \item Interactive theorem proving made a huge change in update of formal verification
-%   \end{itemize}
-% \end{itemize}
-% \item To get there, we need to combine PL and HCI
-% \begin{itemize}[noitemsep]
-%         \item PL provides the background, foundations, and supporting technologies
-%         \item HCI provides
-% \begin{itemize}[noitemsep]
-%                 \item Principled ways of identifying problems
-%                 \item Design methodologies with proven results
-%                 \item Evaluation metrics that give much faster feedback than just waiting to see if a tool catches on
-% \end{itemize}
-%         \item This is part of a growing movement (cite Chasins)
-%         \item And the ball is already rolling: the bulk of the projects in this proposal are motivated by HCI-style inquiries into PBT
-% \end{itemize}
-% \item We propose…
-% \end{itemize}
-% }
-
 % \rjmh{ I think the *introduction* needs to
 % identify work-in-progress/early results showing early payoff from the
 % collaboration. "Bringing this combined expertise together has already
@@ -162,24 +117,24 @@ with several competing libraries (Java alone has
 And these libraries are popular:
 the developers of the Hypothesis library in
 Python~\cite{maciver2019hypothesis,HypothesisGithub} estimate its user community
-at around half a million~\cite{ZacPersonalCommunication}.  On GitHub,
+at around half a million~\cite{ZacPersonalCommunication,noauthor_python_nodate}.  On GitHub,
 Hypothesis has 6.5K ``stars'' from developers; Rust
 quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
-%
-% By comparison, JUnit version 4 (the most popular version) has 8.4K
-% stars~\cite{JUnitGithub}---i.e.,
-% Python's PBT tool has nearly as many stars as the
-% framework that is widely credited with popularizing unit testing as a technique.
-
-% But the pace of PBT's adoption can be accelerated yet further.
+By comparison, pytest, the main library Python users use to run tests
+(including, often, property-based tests), has 9.6K stars~\cn{}---i.e., Python's
+PBT tool has around 70\% as many stars as Python's entire testing
+infrastructure.
 
 Moreover, there is still plenty of room
-for growth. The 500K estimate for
-Hypothesis users is only 3\% of total Python developers~\cn{}; by comparison,
-a 2020 estimate from JetBrains~\cite{noauthor_java_nodate} estimates that JUnit,
-the most popular unit testing library in Java, is used by over 60\% of Java developers!
+for growth.
+The 500K estimate for
+Hypothesis users is only 4\% of total Python developers; the Hypothesis
+developers estimate that PBT could reach up to 25\%
+and there is also significant opportunity to increase use by existing
+users.
+\hg{Changed this based on Zac's comments. Thoughts?}
 And the list of
 companies using PBT, while substantial, is very far from whole of the software
 industry.
@@ -243,7 +198,8 @@ also ``back end'' components like domain-specific languages for
 properties and generators, where HCI techniques
 can help designers
 strike the right balance between expressiveness and
-accessibility in their languages~\cite{PLIERS,Krishnamiurthi.LTL}.
+accessibility in their languages~\cn{}.
+%\cite{PLIERS,Krishnamiurthi.LTL}
 Synergies like this led
 Chasins et al.~\cite{chasins_pl_2021} to argue that a research
 methodology combining PL and HCI hits a ``sweet spot'' where
@@ -2409,7 +2365,8 @@ development of educational materials. Educational activities will be
 coordinated with the rest of the work, and they are integral to the
 project's overall goal of making PBT a standard testing methodology,
 readily available to every industrial developer.  Specific pedagogical
-threads within the project are described in~\sectionref{sec:ed}.
+threads within the project are described in~\sectionref{sec:diffusion}, though
+many tasks may ultimately influence educational material design.
 
 As an auxiliary goal around education, broadly construed, we will also work to
 publicize and communicate the benefits of PBT in the broader computer science
