@@ -1886,88 +1886,35 @@ realistic, comprehensive data distributions for their testing.
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
 %
-\rjmh{I wasn't really convinced by your section on interactive
-shrinking. The shrinking search is often long, involving very many
-tests, and I certainly don't want to be involved in each step. You
-talk about displaying the valid ways a test case can be shrunk, and
-letting the user choose which to apply. The choice is easy: do them
-*all*! The problems with shrinking are two-fold. First, many
-developers don't write shrinkers at all, which results in
-incomprehensible failed tests. But secondly, shrinking stops at a test
-case which is too large to understand. At that point, I find myself
-inspecting the test for any way in which it might perhaps be
-simplified, which the current shrinker hasn't already tried, and then
-I want to automate that step too, and rerun the shrinking process. At
-present I have to do that by modifying the shrink function,
-recompiling the code, and rerunning QuickCheck (or, in the Quviq
-version, restarting the shrinking process for the same test case),
-hopefully shrinking will proceed better from now on. But it would be
-great to be able to make that shrink step, and then continue the
-automatic process directly! My point here is that when shrinking
-works, there's no need to interact with it, but in more complex cases
-it often turns out that custom shrinking steps are needed, so helping
-the shrinking with such a step (and then continuing the automated
-search) is a place where interaction could be invaluable. Of course,
-ideally I want not only to take one custom shrinking step in that
-particular case, but synthesize automation that will try similar steps
-in every shrinking run in the future too!
-%
-\\
-%
-I also noted that shrinking tries many different steps in general, but
-we have no way of observing *which steps worked*--and perhaps that
-could be used to speed up shrinking automatically. Steps that 'usually
-succeed' could be tried earlier, in an autotuning process. That could
-be interesting.
-}
-%
 One of the challenges in using PBT is understanding why
 a given counterexample triggers a bug.  We will design interactive
 tools to help in this process.
 
-% \TASK{Interactive Shrinking}{3}{4}{who?}
 First, we will design tools that build on
 shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
 understand counterexamples. Automatic shrinking, even when done via reflective
 shrinkers as we discuss in \sectionref{sec:reflective}, can be opaque, and
-shrinkers often make suboptimal decisions that an individual developer might be
-able to make better.
+shrinkers can get stuck at local minima that far from the global minimum.
+But developers can often see shrinking options that the shrinker does not know to consider.
 Drawing inspiration from approaches in recent HCI literature that support
 interactive code reduction through iterative, incremental
 experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
 we will design aids for rapid, incremental, interactive shrinking of complex
 inputs into simpler inputs. The key feature we will develop is the ability to
-shrink inputs semi-automatically by pruning the input's contents and structure in an interactive
+shrink inputs semi-automatically by manipulating the input's contents and structure in an interactive
 object viewer, similar to the kinds of object viewers available in contemporary
 debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
-The interactive shrinker will display the \emph{valid} ways
-in which an input can be pruned, but the choice of exactly what to prune will be
-up to the human. We will rely on reflective generators to provide the insights
-into which parts of the structure correspond to choices that can be pruned, and
-these pruning points will be made
-visible in the object viewer. As a developer prunes the input, they will receive
-continuous feedback as to whether it still causes a test to fail or not.
-Developers will ultimately be able to
-reduce complex counterexamples into simpler ones that are
-easier to reason about when looking for bugs.
 
-% Developers will also be alerted if the execution path
-% through the code has changed as a result of shrinking the input. In some
-% circumstances, this will indicate an undesirable change in the shrunken input,
-% and in other cases, such changes in execution paths may be permissible (e.g., if
-% the change in the input has led to a reduction in the number of cycles through a
-% loop).
+The interactive shrinker may display the valid in which an input can be pruned,
+relying on reflective generators to provide the insights into which parts of the
+structure correspond to valid changes. Alternatively, the developer might change
+the input entirely, for example, noticing some change of inter-dependent parts
+of the structure that shrinking missed.  As a developer manipulates the input,
+automatic shrinking will continuously be re-tried, reducing the input further
+and giving feedback as to whether it still causes a test to fail or not.
+Developers will ultimately be able to reduce complex counterexamples into
+simpler ones that are easier to reason about when looking for bugs.
 
-% \amh{Could we indicate on top of an object explorer which
-% parts of the structure, if changed, would end up leading to
-% a different test result, or preserving it?}
-% \hg{To a point... You'd run into exponential blowup pretty much immediately, but
-% depending on the scale of the input it could be doable}
-
-% Other related projects:
-% Whyline~\cite{ref:ko2009finding}.
-
-% \TASK{Interactive debugging from failing tests}{3}{4}{who?}
 In addition to developing novel interaction techniques for simplifying inputs,
 we will also develop systems for helping developers locate code that, if
 changed, would resolve the failure. Rather than explicitly encoding
@@ -1980,7 +1927,7 @@ by default later this year.  Debugger integration sounds neat, though what I'd
 really love to see would be integration with an rr-style time-travelling
 debugger - annotate the minimal trace with information from other traces!  For
 example, using static and dynamic slicing to show the user where (and what) in
-the trace is responsible for failure…}
+the trace is responsible for failure… -- @Andrew what do you think?}
 Leveraging the parametric nature of the
 reflective generators, we will generate inputs in a space ``around'' a
 counterexample and identify which ones no longer cause a failure.  Then, we will
