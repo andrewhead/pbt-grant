@@ -723,36 +723,43 @@ across a wide range of industrial settings.
   numbers and details).  We've allocated one whole PhD student to this
   aspect of the work.}\fi
 
-The findings from the Jane Street user study\iflater\bcp{We call
+The ultimate findings from the Jane Street user study\iflater\bcp{We call
   it a user study here, a need-finding study above, and I think a
-  foundational study somewhere.  Let's rationalize this.}\fi{} will
-paint a clear
+  foundational study somewhere.  Let's rationalize this.}\fi{} should
+give us a clear
 picture of the benefits and challenges of PBT in the specific context
 of Jane Street and other organizations with similar characteristics.  But to
-fully understand the potential impact of PBT across the software
-industry---and the factors that may limit its adoption---we need to
+fully understand the potential impact of PBT across the whole software
+industry---as well as the factors that may limit its adoption---we need to
 cast a wider net.
 %
-In this section, we describe three planned studies that aim
+In this section, we describe four planned studies that aim
 to produce a comprehensive, actionable
-agenda for the latter stages of this project, and beyond.  We propose two
+agenda for the latter stages of this project and beyond.  We plan two
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
 (\sectionref{sec:survey}), a design study using a minimal PBT
 framework (\sectionref{sec:frameworks}), and an observation study to understand
-particular tasks involved in PBT, so as to guide the design of new
+particular tasks involved in PBT, to guide the design of
 interactive tools
-(\sectionref{sec:observations}); finally, we will distill study findings
-into a cognitive
-theory of property-based testing, as a conceptual foundation for the
+(\sectionref{sec:observations}). Finally, we plan to distill these
+study findings into a cognitive
+theory of property-based testing, a conceptual foundation for the
 design activities elsewhere in the project (\sectionref{sec:cogtheory}).
+
+\bcplater{Not sure exactly how to phrase it, but we need to emphasize
+  (probably repoeatedly) that these studies all require significant
+  effort, and that all of them together will yield enough papers to
+  make up a dissertation.  This will be clear to HCI folks, but not
+  PL folks.}
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{1}{2}{HCI Theory}{PhD 1}{}{Head}
 %
-Preliminary findings from the Jane Street study already reveal a number of
-opportunities to improve tools for property-based testing. To identify
-others and to better understand which are most
+Preliminary findings from the Jane Street study have already revealed
+a number of
+opportunities to improve property-based testing. To identify
+others and better understand which are most
 critical, we will conduct two
 surveys with broader samples of developers. These surveys aim to
 (1) determine which obstacles observed in the interview
@@ -763,32 +770,33 @@ software industry as a whole.
 
 % \TASK{Validation survey}{1}{1}{Who?}
 The main survey
-aims to confirm (or refute!) that
+aims to confirm (or perhaps refute) that
 the things we are learning from Jane Street generalize to other settings.
 We will
 ask developers which of the issues we found at Jane Street are
 ones they have also encountered, which are most severe
-in their experience, and what
+in their experience, and which
 other issues they have encountered.
 To provide
-clear usage scenarios to guide research, respondents will
+clear usage scenarios, respondents will
 be asked to write brief anecdotes elaborating on the
 most severe issues they remember.  Other questions will assess how
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
-ambient programming environment and language (e.g., whether their
+ambient programming environment and language---for example, whether their
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
-PBT tools in those languages).
+PBT tools in those languages.
 
 Respondents will
-be recruited broadly, from three sources: (1)
+be recruited broadly, from three main sources: (1)
 users of the Python Hypothesis framework; (2) Jane Street, aiming for
 a broader set of developers in the interview study; and (3)
 word of mouth and via announcements on the PIs' Twitter and Mastodon
 accounts, various mailing lists, and discussion boards for developer
-conferences---e.g., ``Yow!'', where PI Pierce spoke this
-year~\cite{Pierce:Yow22}.
+conferences---e.g., ``Yow!'', where PI Pierce spoke last
+year~\cite{Pierce:Yow22}.  \bcplater{How many respondants are we
+  aiming for??}
 % Types and types-announce mailing lists. They are mailing
 % lists for the types programming. We will distribute announcements among
 % attendees of conferences like ICFP or ``Yow!'' whom have
@@ -805,7 +813,7 @@ useful.
 \proposecut{Particular attention will be given to those whose work requires
 writing validation code and public APIs with some definition of types\bcp{Huh?}.}
 We
-will recruit a broad sample of participants from varied settings
+will again recruit a broad sample of participants from varied settings
 (professional, open source, educational) by working with our industry contacts
 and recruiting over social media.
 %
@@ -816,7 +824,7 @@ better understanding of situations where PBT is most effective
 (see \sectionref{sec:whento}), but we believe it can provide invaluable
 feedback to PBT researchers about how far their work can reach.}
 \iflater \hg{We should be more confident with this task---we're asking for
-plenty of money, let's do it.} \fi
+plenty of money, let's do it.} \bcp{+1} \fi
 
 % \SUBSECTION{Usability of PBT Frameworks}%
 \SUBSECTION{Dimensions of PBT infrastructure design}%
@@ -826,19 +834,21 @@ plenty of money, let's do it.} \fi
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
 fine-grained understanding of the design trade-offs inherent in PBT frameworks
-in order to extend and improve those frameworks.
-
-Of course, comparing all frameworks in all languages pairwise is infeasible and
-unhelpful; instead, we will systematically review prior art to identify major
+in order to improve those frameworks.  \bcplater{We use ``tool'' and
+  ``framework'' interchangeably here (and I guess elsewhere?).  Are
+  they really synonyms?  Is this confusing?}
+Of course, a pairwise comparison of {\em all} frameworks in {\em all}
+languages would be infeasible and
+unhelpful; rather, we will systematically review prior art to identify major
 dimensions along which PBT frameworks differ. For example, some frameworks, like
 OCaml's QuickCheck, lean heavily into automating random data generation, whereas
-Haskell's Hedgehog framework is designed to be more manual in the hopes of
-making users more intentional about their testing; which of these approaches is
+Haskell's Hedgehog is designed to be more manual in the hopes of
+making users more intentional about their testing... which of these approaches is
 preferable? Similarly, some frameworks implement properties as arbitrary
 host-language functions, while others provide a rich domain-specific language of
-properties; do such property languages make a positive difference?
+properties... do such property languages make a positive difference?
 
-We will then evaluate how differences along those dimensions impact usability in
+We will evaluate how differences along those dimensions impact usability in
 two ways. First, we will design and implement a minimal, modular PBT framework
 that can be tuned along the dimensions we want to study.  \iflater\bcp{Can we
 give a bit more detail about what this language will be like?  How is it related
@@ -847,16 +857,27 @@ then give users testing tasks and measure the speed, effectiveness, and
 confidence with which they performed their testing.  Second, we will compile a
 list of representative testing scenarios and interview expert users on their
 preferences along the different dimensions for those specific tasks. This will
-help us to find potential confounding factors in our other evaluation and add
+help us identify potential confounding factors in our other evaluation and add
 depth to the analysis of how different workloads impact user's preferences.  In
 this way, we will generate design recommendations that we can use as evidence to
-help the communities standardize on usable designs.
+help the community standardize on usable designs.
+
+\bcp{I am not really convinced by this yet.  What are these
+  ``dimensions'' where we are going to choose between alternative A
+  and alternative B?  Integrated vs. external shrinking, sure, but
+  after that, what??  If we can list four or five key dimensions, we
+  should.  If not, maybe drop this task?  (I'm also worried about how
+  easy it's going to be to implement a new PBT tool that embodies all
+  possible combinations of these choices, much less in a ``minimal''
+  way...)}
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
    Theory}{PhD 1}{}{Head}
 %
-Our higher-level studies will also not answer granular questions that might
-inform more traditional programming tool design, for example:
+Our higher-level studies will also not\bcplater{Why not??} answer
+granular questions that might
+inform more traditional programming tool design\bcplater{more
+  traditional than what??}, for example:
 (1) How much time
 are participants willing to devote to
 creating a property or tuning a generator when in the
@@ -867,28 +888,35 @@ new
 tools? and
 (3) What are developers' current strategies for solving the
 problems they describe---e.g., what representations of generated data
-currently seem most helpful
-for programmers trying to understand the distributions of data generated by a
+seem most helpful
+for a programmer trying to understand the distribution of data generated by a
 generator?
 
-As a basis for designing tools with a substantial novel interface component (see
-\sectionref{sec:val}), we will observe developers undertaking PBT tasks. These
-observations will allow us to evolve singular anecdotes from the interviews into
+As a basis for designing tools with novel interfaces (see
+\sectionref{sec:val}), we will observe developers working on PBT tasks. These
+observations will allow us to evolve singular anecdotes from the
+interview study into
 a more comprehensive picture of the kinds of designs that will help programmers.
-Ideally, we want to design tools that give maximum power to those willing to
-invest effort in PBT, but that can also provide value to newer developers ``for
-free.''
+Ideally, we want to design tools that give as much power as possible
+to users willing to
+invest more effort but that also provide significant value ``for
+free'' to new users.
 
-\SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
+\bcplater{This is the one where I am least confident that PL reviewers
+will be able to see where the effort would go in such a study (i.e.,
+why it's a top-level task).}
+
+\SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 %
-A cornerstone of our efforts to bring PBT to the people
+A cornerstone of our efforts to bring usable PBT to more people
 will be a new theory of property-based testing itself.  Theories of
 programming have
 long served a critical role in human-centered software engineering
 research, providing rich and memorable descriptions of programming
 processes and clarifying opportunities to improve tooling and training.
-For instance, the information foraging theory~\cite{ref:lawrance2010programmers}
+For instance, the {\em information foraging
+  theory}~\cite{ref:lawrance2010programmers}
 describes how programmers navigate a complex code base in search of behaviors
 within the code and helps understand why programmers sometimes fail
 in this task. This
@@ -903,21 +931,22 @@ Recognizing the power of theory, one of the first steps in our
 research will be to develop a theory of property-based
 testing. The starting point
 will be the conceptual framework we are developing through the Jane Street study. This
-will be validated and refined through contextual inquiries~\cite[Ch.
-3]{ref:holtzblatt1997contextual} with programmers, leading to a provisional
+will be validated and refined through contextual inquiries with
+programmers~\cite[Ch.~3]{ref:holtzblatt1997contextual}\bcp{explain}, leading to a provisional
 theory during the first two years.  This theory will help us
 refine our ideas for
 tools and provide a foundation for contextualizing the questionnaires and
-observations described in the following sections. Our evaluation of
-the tools we build will provide us with additional evidence to further
+observations described in the following sections. Conversely, evaluations of
+the tools we build will provide additional evidence to further
 refine the theory.
 
-\bcplater{The specifics of the theory that we sketched seem too
+\bcp{The specifics of the theory that Andrew had sketched seem too
   contentious (I think especially PL people will be distracted by
   trying to figure out whether they believe them), but I do think we
   need a short paragraph giving a bit more detailed impression of what
   the elements of such a theory might be like.  E.g., what's its
-  success criterion?}
+  success criterion?  (All of these tasks could use some discussion of
+  success criteria, in fact!)}
 
 % In the rest of this section, we sketch the outlines of a speculative
 % theory that could
