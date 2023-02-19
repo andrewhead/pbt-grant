@@ -487,7 +487,7 @@ With all these advantages, one might hope to find PBT on every
 software developer's testing toolbelt.  But PBT raises some challenges
 as well, as we shall see next.
 
-\SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
+\SIMPLESECTION{Motivation: Formative Studies of PBT in Industry}{sec:motivation}
 %
 Our research agenda is strongly informed by preliminary findings from
 our in-progress need-finding study at Jane Street.  The purpose of this
@@ -526,10 +526,14 @@ help improve it.  While full analysis of the data remains
 to be completed, a number themes are already clear, and these form the
 backbone of the present proposal.
 
-\newcommand{\proptheme}[1]{{\color{nord-orange} \em #1}}
-\newcommand{\gentheme}[1]{{\color{nord-green} \em #1}}
-\newcommand{\evaltheme}[1]{{\color{nord-purple} \em #1}}
-\newcommand{\edutheme}[1]{{\color{nord-frost4} \em #1}}
+\ifthemecolors\bcp{Make the colors here (if we're using them) match
+  the ones in the timeline.  Also, we've got five main sections but
+  only four colors here... is that confusing?  I think so.  Maybe
+  better monochrome...}\fi
+\newcommand{\proptheme}[1]{{\ifthemecolors\color{nord-orange}\fi \em #1}}
+\newcommand{\gentheme}[1]{{\ifthemecolors\color{nord-green}\fi \em #1}}
+\newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
+\newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
 A first set of
 themes revolves around \proptheme{\normalfont \bf specifications}, i.e.,
 properties.
@@ -716,11 +720,14 @@ to produce a comprehensive, actionable
 agenda for the latter stages of this project, and beyond.  We propose two
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
-(\sectionref{sec:survey}), plus an observation study to understand
+(\sectionref{sec:survey}), a design study using a minimal PBT
+framework (\sectionref{sec:frameworks}), and an observation study to understand
 particular tasks involved in PBT, so as to guide the design of new
 interactive tools
-(\sectionref{sec:observations}).
-\todo{Cognitive theory?!}
+(\sectionref{sec:observations}); finally, we will distill study findings
+into a cognitive
+theory of property-based testing, as a conceptual foundation for the
+design activities elsewhere in the project (\sectionref{sec:cogtheory}).
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{1}{2}{HCI Theory}{PhD 1}{}{Head}
@@ -882,62 +889,69 @@ observations described in the following sections. Our evaluation of
 the tools we build will provide us with additional evidence to further
 refine the theory.
 
-In the rest of this section, we sketch the outlines of a speculative
-theory that could
-follow from the Jane
-Street study.
-While the theory we ultimately develop may well look quite different
-from this, we
-describe it here to demonstrate what such a theory might look like and
-suggest some of its predictive
-potential.
-We call it the \emph{hill-climbing} theory because (on this reading)
-PBT can be thought of as following a hill-climbing process: a
-property-based test
-is developed through a series of steps, each consisting of either
-refining the specifications or refining the generators\bcp{I'm
-  not very sure I believe that.}. In contrast to
-conventional software development, when operating with this climbing
-perspective, a programmer is
-constantly adjusting course when a step is too ``steep,'' i.e., when it is not
-easy to refine the specification or generator.\bcp{Why would this be?
-(What kinds of refinements are they trying to make?  What determines
-when they are easy or hard?)} Programmers stop climbing when
-they feel they cannot make progress. Accordingly, for a programmer to develop a
-powerful test suite, they need to be supported in incremental, low-cost
-refinements of both specifications and generators, with the ability to quickly
-determine whether they have in fact progressed.
+\bcplater{The specifics of the theory that we sketched seem too
+  contentious (I think especially PL people will be distracted by
+  trying to figure out whether they believe them), but I do think we
+  need a short paragraph giving a bit more detailed impression of what
+  the elements of such a theory might be like.  E.g., what's its
+  success criterion?}
 
-The value of this theory is in part what it implies about PBT tools.
-Tools should make it possible to ``cover a lot of ground,'' i.e., test a
-large amount of significant program behavior, without a lot of work. They must
-to support rapid progress, because programmers' tend to invest minimal effort
-investigating paths they consider to be unfruitful in automated testing.
-Programmers can be aided by either helping them with ``way-finding'' (i.e.,
-teaching them strategies for refining specifications and generators to better
-test their systems), or with better ``equipment'' (i.e., specification-writing
-aids and expressive generator authoring tools) that allows them to take longer
-strides with less effort, and which help them orient to what the ``top'' of the
-hill is (i.e., how much they can reasonably test given the effort they are
-willing to spend).  \amh{Maybe develop and write out a couple of example
-hypotheses.}
-% A preliminary version of this theory will be developed in the first
-% two years of this project, and will continue to be refined on the basis of all
-% human-centered research conducted in later projects.
+% In the rest of this section, we sketch the outlines of a speculative
+% theory that could
+% follow from the Jane
+% Street study.
+% While the theory we ultimately develop may well look quite different
+% from this, we
+% describe it here to demonstrate what such a theory might look like and
+% suggest some of its predictive
+% potential.
+% We call it the \emph{hill-climbing} theory because (on this reading)
+% PBT can be thought of as following a hill-climbing process: a
+% property-based test
+% is developed through a series of steps, each consisting of either
+% refining the specifications or refining the generators\bcp{I'm
+%   not very sure I believe that.}. In contrast to
+% conventional software development, when operating with this climbing
+% perspective, a programmer is
+% constantly adjusting course when a step is too ``steep,'' i.e., when it is not
+% easy to refine the specification or generator.\bcp{Why would this be?
+% (What kinds of refinements are they trying to make?  What determines
+% when they are easy or hard?)} Programmers stop climbing when
+% they feel they cannot make progress. Accordingly, for a programmer to develop a
+% powerful test suite, they need to be supported in incremental, low-cost
+% refinements of both specifications and generators, with the ability to quickly
+% determine whether they have in fact progressed.
 
-\hg{This is a really interesting theory! It's close to my best guess at a
-model---I think I'd put more emphasis on how programmers pick a path up the
-mountain and what happens when they decide to stop climbing, but it's close.
-That said, and I know we make this clear, but to me it really feels too
-speculative to ``say out loud.'' Is this kind of thing standard when describing
-proposed work on cognitive theories? I worry that some readers (especially PL
-ones) would find it too nebulous.}
+% The value of this theory is in part what it implies about PBT tools.
+% Tools should make it possible to ``cover a lot of ground,'' i.e., test a
+% large amount of significant program behavior, without a lot of work. They must
+% to support rapid progress, because programmers' tend to invest minimal effort
+% investigating paths they consider to be unfruitful in automated testing.
+% Programmers can be aided by either helping them with ``way-finding'' (i.e.,
+% teaching them strategies for refining specifications and generators to better
+% test their systems), or with better ``equipment'' (i.e., specification-writing
+% aids and expressive generator authoring tools) that allows them to take longer
+% strides with less effort, and which help them orient to what the ``top'' of the
+% hill is (i.e., how much they can reasonably test given the effort they are
+% willing to spend).  \amh{Maybe develop and write out a couple of example
+% hypotheses.}
+% % A preliminary version of this theory will be developed in the first
+% % two years of this project, and will continue to be refined on the basis of all
+% % human-centered research conducted in later projects.
 
-\bcp{I do find it a bit nebulous: Maybe I'm just not thinking about
-  it right, but I am finding it hard to imagine what counts as
-  ``steps'' of refinement of specifications or generators, or
-  (especially) on what basis the programmer decides what is ``up''.
-  Propose trimming these couple paragraphs to a couple sentences.}
+% \hg{This is a really interesting theory! It's close to my best guess at a
+% model---I think I'd put more emphasis on how programmers pick a path up the
+% mountain and what happens when they decide to stop climbing, but it's close.
+% That said, and I know we make this clear, but to me it really feels too
+% speculative to ``say out loud.'' Is this kind of thing standard when describing
+% proposed work on cognitive theories? I worry that some readers (especially PL
+% ones) would find it too nebulous.}
+
+% \bcp{I do find it a bit nebulous: Maybe I'm just not thinking about
+%   it right, but I am finding it hard to imagine what counts as
+%   ``steps'' of refinement of specifications or generators, or
+%   (especially) on what basis the programmer decides what is ``up''.
+%   Propose trimming these couple paragraphs to a couple sentences.}
 
 \todolater{Consider moving this to second place in this section, to
   make the timeline look more coherent.}
@@ -957,11 +971,11 @@ functionality, exposing levers for
 automation that enable a number of new approaches to generator
 tooling (\sectionref{sec:reflective}). In particular, reflective
 generators enable new
-approaches to shrinking and fuzzing
+approaches to shrinking (\sectionref{sec:reflective}) and fuzzing
+(\sectionref{sec:reflectivefuzzing})
 that reduce developer effort and improve testing
 effectiveness.
-
-\underconstruction{Add a short summary of the subsections that follow.}
+\underconstruction{Add a short summary of the other subsections.}
 
 \subsectionstar{Context: What Makes Random Generation Hard}{}{}
 As discussed in the Orientation section above, PBT relies heavily on {\em random data
@@ -1189,7 +1203,7 @@ technology.
 
 \SUBSECTION{Fuzzing with reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-
+%
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
 ones behind PBT: in particular, they use randomization to exercise many
@@ -1414,19 +1428,9 @@ other times simply because they fail to see what properties are available to
 test. We address the first of these issues in \sectionref{sec:outpurprop} and
 the second in \sectionref{sec:interactive}.
 %
-\underconstruction{We've recently
-  moved some sections around -- need to mention them here. }
-%
-In
-\sectionref{sec:counter} we describe a planned tool to help migrate
-counterexamples found by property-based tests into conventional regression tests.
-
-That said, a notable finding of the Jane Street study has been that widening the
-on-ramp to PBT may be easier if we can point developers towards particularly
-high-leverage use-cases for PBT. In \sectionref{sec:whento} we discuss our plans
-to catalog and communicate these use-cases for developers. Then, in
-\sectionref{sec:automating} we show a way to automate a specific high-leverage
-scenario: model-based testing.
+In \sectionref{sec:automating} we describe a way to automate a
+specific high-leverage scenario: model-based testing.
+\underconstruction{mention 5.4 too}
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
   Practice}{PhD 4}{UGrad/MS 1}{Pierce}
@@ -1628,7 +1632,7 @@ any of this worth mentioning here?}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 4}{}{Pierce}
-
+%
 As is often the case for code of any kind, the specification of a property may
 not be self-explanatory. This is particularly the case when those properties are
 found by programmers who did not write them, and can be exacerbated if the those
@@ -1697,7 +1701,9 @@ inputs sufficiently exercise their code (\sectionref{sec:tuning}),
 and understand testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-\underconstruction{Mention 6.4 too.}%
+In \sectionref{sec:counter} we describe a planned tool to help migrate
+counterexamples found by property-based tests into conventional
+regression tests.
 %
 These projects will all be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
@@ -1736,7 +1742,7 @@ machine learning datasets
 (e.g.,~\cite{ref:hohman2019gamut} and
 ~\cite{ref:hohman2020understanding}) and sequences of program values
 (e.g.,~\cite{ref:kang2017omnicode}).
-PBT poses a unique challenge because values produced by generators are
+PBT poses a unique challenge because test inputs are
 programmatically generated and
 can be of unbounded structural
 complexity (e.g., lists, trees, and other algebraic data types,
@@ -1749,8 +1755,9 @@ and an event type.
 % visualizations, and it would be prohibitive to review individual examples if the
 % logs are sufficiently long.}
 Ideally, a developer would be able to answer
-questions like: Are the generated log inputs long enough? Are the even sequences
-realistic? This setting requires new kinds of views of data, and tight
+questions like: Are the generated log inputs long enough? Are the
+event sequences
+realistic? This setting requires new kinds of views of data and tight
 developer support for easily defining meaningful views of the data.
 
 % \TASK{Tools for working with data distributions}{2}{3}{who?}
@@ -1846,7 +1853,7 @@ outputs~\cite{ref:hempel2019sketch, ref:kery2020mage,
 we explore reflective generators' potential to support tuning.
 
 % \TASK{Tuning by filtering}{3}{4}{who?}
-The first, general-purpose method for tuning input data distributions will be to
+First, a general method for tuning input data distributions will be to
 define filters on input data by manipulating aggregate data displays.
 For instance, developers will be able to select a range of values from a bar
 chart showing input data features and then request that all values generated
@@ -2139,7 +2146,11 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
   primarily engineering or primarily education.}
 
 \underconstruction{Needs an introduction.}
-
+%
+A notable finding of the Jane Street study has been that widening the
+on-ramp to PBT may be easier if we can point developers towards particularly
+high-leverage use-cases for PBT. In \sectionref{sec:whento} we discuss our plans
+to catalog and communicate these use-cases for developers.
 
 % \bcp{If we're going to keep this as a top-level theme, we'll need to
 %   integrate it into the motivation early on (i.e., give it a color,
@@ -2164,7 +2175,7 @@ proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
-
+%
 The research projects we have proposed thus far will have the potential to
 dramatically improve the power and usability of PBT systems, but only if those
 systems are attractive to real users. There is an unfortunate tendency for
@@ -2355,15 +2366,22 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-\noindent{\bf Impact on industry.} The first area of broad impact from
-the proposed work will be ...  \underconstruction{a paragraph about
-  tech transfer.  This and education (in the broad sense---developers
-  and students) are equal parts of our broad impact story.} \smallskip
+Broad impact is a cornerstone of our research agenda, and many of the
+specific tasks we have described---particularly those grouped under
+the Diffusion heading (\sectionref{sec:diffusion})---are directly
+aimed at broad impacts.  Here we recapitulate those aims and sketch
+our plans for mentoring, diversity, and broadening participation in
+computing.
 
-\noindent{\bf Educational Benefits.}
+\noindent{\bf Impact on industry.} The key area of broad impact from
+the proposed work will be ...  \underconstruction{a paragraph about
+  tech transfer.} \smallskip
+
+\noindent{\bf Educational Impact.}
 %
-The second area of broad impact will be the
-development of educational materials. Educational activities will be
+A second, supportive arena for broad impact will be the
+development of educational materials for both students and
+professional developers. Educational activities will be
 coordinated with the rest of the work, and they are integral to the
 project's overall goal of making PBT a standard testing methodology,
 readily available to every industrial developer.  Specifically pedagogical
@@ -2394,14 +2412,16 @@ researchers.
 The PIs will recruit students for this project with a mind towards making
 the research area reflective of diversity in the US, and Pennsylvania specifically.
 The PIs have had made inroads broadening participation of women in their
-groups (1/3 of Pierce's direct Ph.D. mentees are women, as are 2/3 of PI
-Head's). That said, a particular area of focus going forward will be on increasing representation of
+groups (1/3 of Pierce's direct Ph.D. mentees and 2/3 of PI
+Head's are women). That said, a particular area of focus going forward
+will be on increasing representation of
 other underrepresented groups, including Black and Latinx students. Pierce (along with Penn colleagues Zdancewic and Weirich)
-was recently informed that he will likely receive funding for an
+was recently informed that he will receive funding for an
 NSF REU program that will involve 24 undergraduates (8 per
 year for three years), selected specifically with an eye to diversity;
-some will certainly work on this project. See the appendix on Broadening Participation in Computing for more
-details.
+we plan to add two more per year specifically to work on this
+project. See the Broadening Participation in Computing supplementary
+document for more details.
 
 \smallskip
 \noindent{\bf Benefits to Society.}
@@ -2505,7 +2525,7 @@ Shi.
 
 \smallskip
 
-\emph{\underline{PI Head}} has not previously received NSF support.
+\noindent\emph{\underline{PI Head}} has not previously received NSF support.
 
 % \SUBSECTION{Proposed Study}{}{}
 % The Project Description should provide a clear statement of the work to be undertaken and must include:
