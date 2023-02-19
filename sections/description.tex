@@ -1975,7 +1975,14 @@ changed, would resolve the failure. Rather than explicitly encoding
 relationships between generated outputs and their dependencies on
 code~\cite{ref:ko2009finding}, we will instead help the developer
 understand where the execution paths of a given counterexample diverges from
-successful yet very similar inputs. Leveraging the parametric nature of the
+successful yet very similar inputs.
+\hg{Zac says: Hypothesis has this in the “explain” phase, which will be enabled
+by default later this year.  Debugger integration sounds neat, though what I'd
+really love to see would be integration with an rr-style time-travelling
+debugger - annotate the minimal trace with information from other traces!  For
+example, using static and dynamic slicing to show the user where (and what) in
+the trace is responsible for failure…}
+Leveraging the parametric nature of the
 reflective generators, we will generate inputs in a space ``around'' a
 counterexample and identify which ones no longer cause a failure.  Then, we will
 execute the program up to the point where the traces of the programs begin to
@@ -2215,16 +2222,19 @@ place that is easily accessible to would-be users. This is the inspiration for
 \tyche{} will include all of the functionality designed in \sectionref{sec:val},
 including tools that facilitate more intentional PBT workflows, interact with
 and improve the programmer's generator code, and assist in the test-authoring
-and debugging processes---all without requiring the programmer to context-switch
-out of their normal workflow. The research engineer will assist in the
-integration process, ensuring that the extension is more than the sum of its
-parts. Indeed, we plan for \tyche{} to live on as a home for further innovation:
-future tools that we or others in the community see as important improvements to
-PBT workflow will also be included over time.
+and debugging processes---all integrated into a Visual Studio Code, a popular
+and extensible programming environment.
+While \tyche{} is going to be language-agnostic where possible, the Hypothesis
+developers have even recommended that we try to include a Python-optimized fork of
+\tyche{} into the main Python language extension.
 
-With a strong theoretical grounding and consistent engineering support, \tyche{}
-will provide an efficient pipeline for bringing research on PBT interaction
-models to software developers craving better tools.
+The research engineer will assist in the integration process, ensuring that the
+extension is more than the sum of its parts. Indeed, we plan for \tyche{} to
+live on as a home for further innovation: future tools that we or others in the
+community see as important improvements to PBT workflow will also be included
+over time.  With a strong theoretical grounding and consistent engineering
+support, \tyche{} will provide an efficient pipeline for bringing research on
+PBT interaction models to software developers craving better tools.
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2246,6 +2256,10 @@ Other projects, such as Crowbar in OCaml, various smaller generator libraries in
 Haskell, and the PBT frameworks in Rust seem like high-value libraries worth
 assisting.\hg{Not sure how best to frame this. Maybe the answer is just less
 detail...}
+\discuss{Zac says one way to help OSS is to provide support in writing grant
+applications to companies for funding... Is that an appropriate thing to
+allocate our time to? Seems a bit silly to allocate NSF money to ask for
+industry money, but maybe that does make sense...}
 
 There are two ways we may be able to help solve the problem of skill transfer
 between PBT libraries. Where possible, we hope that the project from
@@ -2442,8 +2456,8 @@ enthusiastic support of their developers and management, and we hope
 to continue using them as a testbed for prototypes of the tools we
 will build.  Similarly, we are in active discussions with the
 developers of the Hypothesis testing tool for Python\todolast{citation?}, who are keenly
-interested in the results of the studies in
-\sectionref{sec:survey}.  We plan to establish connections with the
+interested in the results of this proposal.
+We plan to establish connections with the
 developers and user communities of other popular PBT tools such as
 ScalaCheck\todolast{citation?}.
 
