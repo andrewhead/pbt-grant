@@ -73,35 +73,36 @@ Testing plays a vital role in the robustness, security, and overall
 quality of modern software. It comes in many styles---unit testing,
 integration testing, performance testing, stress testing,
 accessibility testing, penetration testing, etc.---supported by
-diverse tools, with more advanced tools and techniques continually
-being developed.
+diverse tools, with yet more advanced tools and methodologies always on
+the horizon.
 
-One such technique, {\em property-based testing} (PBT),
-is sometimes described as ``formal specification without formal
-verification.''  To use PBT, a developer characterizes the desired behavior of
+One such methodology is {\em property-based testing} (PBT),
+sometimes described as ``formal specification without formal
+verification.''  A developer characterizes the desired
+behavior of
 some piece of code in the form of executable {\em
   properties}. The code is
 then validated against these properties by running it many times
 with a large number of automatically generated test inputs.
 %
-PBT tools thus give programmers an efficient way of testing their
-code's behavior with a comprehensiveness that is often not
-possible with alternative testing methods. \iflater\bcp{Why not with
-  fuzzing??}\fi
+% PBT thus achieves a comprehensiveness that is often not
+% possible with alternative testing methods. \iflater\bcp{Why not with
+%   fuzzing??  Can we say it explicitly, to avoid leaving a question
+%   pending for some readers?}\fi
 %
 This combination of rich, high-level specifications and mostly
-automatic validation has proved effective at identifying
+automatic validation has proven effective at identifying
 subtle bugs in a wide variety of settings, including
 telecommunications software~\cite{arts2006testing}, replicated
-file~\cite{MysteriesOfDropbox2016} and key-value
-stores~\cite{Bornholt2021}, automotive
-software~\cite{arts2015testing}, and a range of other real-world
-systems~\cite{hughes2016experiences}.
-PBT is now used at companies including Amazon, Stripe, Galois, Quviq,
-and IOG (which
-runs the Cardano blockchain and the Ada cryptocurrency).
+file and key-value
+stores~\cite{MysteriesOfDropbox2016,Bornholt2021}, automotive
+software~\cite{arts2015testing}, and other complex
+systems~\cite{hughes2016experiences};
+it is used by companies including Amazon, Volvo, Stripe, Galois,
+and IOG, which
+runs the Cardano blockchain and the Ada cryptocurrency.
 
-PBT took the functional programming community by storm after its
+PBT took the functional programming world by storm following its
 debut in the Haskell QuickCheck library~\cite{ClaessenHughes00}.  In
 2010 the
 QuickCheck authors received the ACM SIGPLAN ``Most Influential Paper of ICFP
@@ -117,48 +118,50 @@ with several competing libraries (Java alone has
 And these libraries are popular:
 the developers of the Hypothesis library in
 Python~\cite{maciver2019hypothesis,HypothesisGithub} estimate its user community
-at around half a million~\cite{ZacPersonalCommunication,noauthor_python_nodate}.  On GitHub,
-Hypothesis has 6.5K ``stars'' from developers; Rust
+at half a million~\cite{ZacPersonalCommunication,noauthor_python_nodate}.  On GitHub,
+Hypothesis has 6.5K ``stars'' from developers, Rust's
 quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
-By comparison, pytest, the main library Python users use to run tests
-(including, often, property-based tests), has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
+By comparison, pytest, the main library Python users use to run
+tests\proposecut{ (including, often, property-based tests)}, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
 PBT tool has around 70\% as many stars as Python's entire testing
 infrastructure.
 
-Moreover, there is still plenty of room
+And there is still plenty of room
 for growth.
 The 500K estimate for
 Hypothesis users is only 4\% of all Python developers; the Hypothesis
 authors estimate that the ``maximum target audience'' for PBT is around
 25\% of the Python
-community (and they believe that there remains significant room for
-improving its usage by existing users).
+community, and that there remains significant room for
+improving its usage by existing users.
 Similarly, the list of
 companies using PBT, while substantial, is very far from whole of the software
 industry.
 These gaps represent a gigantic opportunity to increase software quality
 and reduce software costs.
 A 2002 study~\cn{} estimated that the total cost of software errors is almost
-\$60 billion per year and suggested that \$22 billion of that could be saved by
-better testing infrastructure; the situation has only gotten worse, with a 2022
+\$60 billion per year and suggested that \$22 billion of that could be
+saved through
+better testing infrastructure; since then, the situation has only gotten worse, with a 2022
 study~\cn{} estimating that poor software quality now costs over \$2 trillion per
-year. Accelerating the adoption of PBT stands\bcplater{weak} to make a
+year. Accelerating the adoption of PBT stands to make a
 significant dent
 in the global cost of software bugs.
 
-With this in mind, our group set out to understand the highest-leverage ways to grow PBT by
-understanding what software developers need from the technology.
+Recognizing this opportunity, our group has been working to identify
+high-leverage ways to extend PBT's reach\proposecut{ by
+understanding what software developers need from the technology}.
 In an ongoing need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---participants called it
 ``obviously valuable'' (Participant \participant{1}), built their own
 libraries for it when standard ones were not available
 (\participant{8}, \participant{21}), and suggested that ``everyone''
 at the company should use it (\participant{20}); however, participants
-also highlighted a key opportunity for improvement---{\em usability}. As with
-many powerful technologies, PBT can be difficult to apply, and developers
-need tool support to help them apply it most effectively.
+also highlighted a key opportunity for improvement---{\em usability}. Like
+many powerful tools, PBT can be difficult to apply, and developers
+need support to do so effectively.
 
 % \amh{This is a deficit-focused pitch---focusing on the problems that need to be
 % solved with PBT---rather than an asset-focused pitch---focusing on how we need
@@ -185,26 +188,26 @@ need tool support to help them apply it most effectively.
 Improving the usability of PBT
 requires insights from both the
 programming languages (PL) and human-computer interaction (HCI)
-communities.  On one side, PL provides the conceptual background,
-mathematical foundations, and supporting technologies for PBT.  On the
-other, HCI provides a deep foundation of theory and methodological
-practice for investigating and understanding usability of systems in a
+communities.  On one side, PL provides conceptual background,
+mathematical underpinnings, and established tools for PBT.  On the
+other, HCI provides a deep foundation of theory and
+practice for evaluating usability of systems in a
 rigorous and objective way, including principled methods for
-identifying problems, rigorous evaluation metrics, and proven
-methodologies for designing tools. Tools, in this case, naturally include
-``front end'' tools like
-data visualizers and user interfaces for IDE plug-ins, but
-also ``back end'' components like domain-specific languages for
-properties and generators, where HCI techniques
+identifying problems, rigorous metrics, and proven
+approaches to tool design---where tools, here, naturally include
+``front end'' components like
+data visualizers and IDE plug-ins, but
+also ``back end'' technologies like domain-specific languages for
+properties and generators; for the latter, HCI techniques
 can help designers
 strike the right balance between expressiveness and
-accessibility in their languages~\cite{coblenz_pliers_2021,greenman_little_2022}.
-Synergies like this led
+accessibility~\cite{coblenz_pliers_2021,greenman_little_2022}.
+Synergies like these led
 Chasins et al.~\cite{chasins_pl_2021} to argue that a research
 methodology combining PL and HCI hits a ``sweet spot'' where
 need-finding techniques identify current
-pain points and motivate concrete tools that help programmers write
-safe, correct programs.
+pain points, motivating concrete tools that help programmers write
+safe, correct code.
 
 % We intend to employ those particularly in the front-end aspect (the IDE for PBT);
 % \item But also in the back-end (to strike the right balance between expressiveness and accessibility in our languages and libraries).
@@ -223,28 +226,28 @@ safe, correct programs.
 % domain-specific languages and type-based automation to improve the PBT
 % process\proposecut{, as well as to formally validate these tools}.
 
-The team
-behind this proposal is uniquely positioned to bring PBT into this vibrant area
-of ``PL+HCI'' research and advance the state of
-the art for automated software testing: PI Head recently
+Our team
+is uniquely positioned to bring PBT into this vibrant area
+of ``PL+HCI'' research.  PI Head recently
 co-founded a new HCI group at
 the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
-topics including PBT.  Our existing research collaboration has led to
+topics including PBT.  Our past research collaboration has led to
 two workshop
 presentations~\cite{goldstein_problems_2022,shi_towards_2023}\bcplater{Harry:
 make sure the URL is correct in the latter (from the email we got
 about it)} and to the ongoing
-study at Jane Street mentioned above, which motivates the bulk of the
-research and technology transfer agenda for this work.
+study at Jane Street mentioned above, which strongly informs the
+research and technology transfer agenda for the present proposal.
 
 \smallskip
 
-We propose an interdisciplinary program of research and engineering in
+We propose an interdisciplinary program of research and
+engineering in
 {property-based testing}, bringing the combined power of PL and HCI to
 bear to accelerate PBT's transition into practice.
 %
-The planned research,
+Planned research,
 engineering, and education activities can be grouped into five main
 themes: \bcplater{This already feels too detailed, and we still need to write
 blurbs for all the other tasks we've added in the past few days.  But
@@ -267,23 +270,25 @@ example-based generator tuning---all building on a novel
 %
 \item We will empower developers to \emph{specify} properties with new
 tools for checking temporal properties over internal program states
-and for model-based testing of modularized code and for authoring
-properties, plus a comprehensive review of PBT practice to help
+and for model-based testing of modularized code\proposecut{ and for authoring
+properties}, plus a comprehensive review of PBT practice to help
 students and developers identify situations where PBT is likely to be
-most useful (\sectionref{sec:spec}).
+most useful\bcplater{the latter belongs under diffusion now, I
+  believe} (\sectionref{sec:spec}). 
 %
 \item We will build novel tools for {\em interacting} with properties
-and generators---tools to help developers locate the causes of test
+and generators---helping developers locate the causes of test
 failures and understand how to improve the distributions of randomly
-generated data to be more representative and
-comprehensive\iflater\bcp{Blah.}\fi{} (\sectionref{sec:val}).
+generated data to find bugs more effectively\fi{} (\sectionref{sec:val}).
 %
 \item We will support the {\em diffusion} of PBT tools and
 methodologies from academia into industry through targeted engineering
 and education efforts---in particular, supporting and
-improving open-source PBT projects, building a
+improving open-source PBT projects\bcplater{as John pointed out, we
+  need to be careful with that one...}, building a
 comprehensive IDE for PBT, and developing materials for an
-undergraduate computer science curriculum centered around PBT
+undergraduate computer science curriculum centered around
+PBT\bcplater{``centered around PBT'' is maybe a bit too grandiose...?}
 (\sectionref{sec:diffusion}).  \iflater\bcp{Do we need to write explicitly about how education is key not only
   to the diffusion area?  Or is this fine this way?}\fi
 % \end{enumerate*}
@@ -859,7 +864,7 @@ observations will allow us to evolve singular anecdotes from the interviews into
 a more comprehensive picture of the kinds of designs that will help programmers.
 Ideally, we want to design tools that give maximum power to those willing to
 invest effort in PBT, but that can also provide value to newer developers ``for
-free.'' 
+free.''
 
 \SUBSECTION{Cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
   Theory}{PhD 1}{Everyone}{Head}
