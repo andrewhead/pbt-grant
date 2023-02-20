@@ -419,8 +419,7 @@ subtree.
 % invariant. Be more explicit to avoid a risk of misunderstanding. }%
 In general, such a property is a function that
 accepts a generated
-test as input \iflater\hg{``generated test input''? I try to avoid
-  calling the inputs ``tests''}\fi
+test input
 and evaluates to \lstinline{True} if the test passes and
 \lstinline{False} otherwise.
 % This one, ``\verb|prop_insert_correct|'',
@@ -457,8 +456,8 @@ often they can be automatically generated, e.g., from the type of the
 input. Next, they check their properties against many generated
 inputs, using a test harness provided by their PBT tool. And finally, if
 counterexamples are discovered, they inspect them to determine the
-source of the bug.  Each of these steps presents opportunities\iflater\bcp{weak!}\fi{} to
-improve the user experience of PBT, as we describe in the next
+source of the bug.  Each of these steps can be significantly improved for users,
+as we describe in the next
 section.
 
 \smallskip
