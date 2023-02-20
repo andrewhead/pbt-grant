@@ -1500,25 +1500,25 @@ that may not be available to the assertion statement.
 Instead, we propose tooling where properties can be defined over logged values.
 The first key component of the tool is the invocation of
 logging for specific values using lightweight annotations within modules like
-\lstinline{Inner}. The second component is a language for writing temporal
-properties over those capable of capturing concepts like \lstinline{next} or
-\lstinline{never} from the example properties above. Notably, for such temporal
-properties, the property language will require logical connectives not typically
-found in PBT. We propose adapting linear temporal logic (LTL) to capture
-temporality. We will not be the first to use LTL within PBT; the Quickstrom
-framework~\cite{oconnor_quickstrom_2022} uses LTL properties
-for specifying and testing graphical user interfaces. That said, considerable
-finesse will be needed to adapt LTL to properties at the level of generality
-envisioned above; this will be one of the major efforts of the proposed work.
+\lstinline{Inner}. The second component is a language for writing
+properties over the annotations, capable of capturing concepts like \lstinline{next} or
+\lstinline{never} from the example properties above. This language will need to
+take inspiration from temporal logics, for example linear temporal logic (LTL).
+
+Temporal logics have been used for PBT in prior
+work~\cite{oconnor_quickstrom_2022}, but adapting that work to this situation
+will require considerable finesse. For one thing, the prior work assumes a fixed
+source of logical events, and thus does not have to support arbitrary predicates
+over the kinds of values that may appear in a program trace. For another, LTL is
+known to be quite difficult to use~\cite{greenman_little_2022}; to the extent
+that we can, we hope to simplify the temporal connectives to only those that are
+intuitive for users to actually work with.
 
 Ultimately, this work will lead to a tool where properties are expressed in a
 property language extended with LTL; the system compiles LTL formulae to
 properties over log traces; the developer provides inputs to an outer system
 \emph{containing} the system(s) of concern; and then the test harness will check
 the given trace properties in real time.
-
-\todo{Mention the ``Little Tricky Logics'' paper and say we need to
-  consider what logic is really appropriate.}
 
 \SUBSECTION{Mixed-initiative property
   specification}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
