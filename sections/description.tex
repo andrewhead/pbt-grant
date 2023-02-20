@@ -248,11 +248,13 @@ into practice.
 %
 Planned research,
 engineering, and education activities can be grouped into five main
-themes: \bcplater{This already feels too detailed, and we still need to write
+themes: \iflast\bcplater{This already feels too detailed, and we still need to write
 blurbs for all the other tasks we've added in the past few days.  But
 for now I think we should just go ahead and add stuff, and come back
 later to presenting a grander summary.}
-\hg{How is it looking now? I know this comment is pretty old}
+\hg{How is it looking now? I know this comment is pretty old}\bcp{We
+  should double-check this whole list once the TOC stabilizes (which
+  maybe it has?)}\fi
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
@@ -277,7 +279,7 @@ properties, and assistants that help to explain properties to others
 % properties}, plus a comprehensive review of PBT practice to help
 % students and developers identify situations where PBT is likely to be
 % most useful\bcplater{the latter belongs under diffusion now, I
-%   believe} 
+%   believe}
 %
 \item We will build novel tools for \thread{interacting} with properties
 and generators---helping developers locate the causes of test
@@ -290,7 +292,7 @@ methodologies from academia into industry through targeted engineering
 improving open-source PBT libraries and building a comprehensive IDE for PBT.
 We will also drive diffusion via education, developing materials to teach
 software developers about high-value applications of PBT and materials for
-undergraduate computer science curriculum centered around
+undergraduate\bcp{and masters?!} computer science curriculum centered around
 PBT\bcplater{``centered around PBT'' is maybe a bit too grandiose...?}
 (\sectionref{sec:diffusion}).  \iflater\bcp{Do we need to write explicitly about how education is key not only
 to the diffusion area?  Or is this fine this way?}\hg{I think fine? But I'm not
@@ -428,6 +430,7 @@ checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
 {counterexample}.
 
+\bcpread{Para}%
 The process of designing these properties is non-trivial, and is an example of
 the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
 automated testing where the user needs to define what it means for a program to
@@ -496,6 +499,7 @@ participants in our need-finding study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
+\bcpread{Paragraph}%
 PBT is also often compared to {\em fuzz testing} (or
 ``fuzzing'')~\cite{afl-readme}, which randomly tests software to find
 vulnerabilities. Fuzzing is powerful, and we discuss ideas for bringing PBT and
@@ -563,7 +567,7 @@ to be completed, a number of themes are already clear; these
 % , together
 % with the findings of the preliminary study,
 form the backbone of the present proposal. We describe them below,
-italicizing themes, and
+italicizing themes and
 referring to evidence from participants in the Jane Street study
 (\participant{1--30})
 and the pilot study (Pilot-\participant{1--8}).
@@ -675,18 +679,21 @@ PBT's \thread{diffusion} into the broader community.  Developers in both studies
 (Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
 \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
 learning about PBT.  PBT is also not
-taught in traditional computer science curricula; making more developers
+taught in traditional computer science curricula at the undergraduate
+or masters level; making more developers
 aware of it will required expanded
 \edutheme{Classroom Education}. Finally, existing tools for PBT need continual
-support to meet demands from increasing user-bases; if PBT is to become mainstream, we
+support to meet demands from growing (and increasingly sophisticated)
+user-bases; if PBT is to become mainstream, we
 need to offer \edutheme{Support and Guidance for Open-Source
-Libraries}\hg{BCP feel free to suggest a new name here---I changed ``communities''
-to ``libraries'' but I'm still not attached to the theme}
+Libraries}\hg{BCP feel free to suggest a new name here---I changed
+``communities'' to ``libraries'' but I'm still not attached to the
+theme}\bcp{Tools?  But maybe needs a deeper rethink.}
 to help our
 work and ideas permeate the PBT world.
 
-The work throughout the rest of this proposal is inspired, in part, by these
-motivating themes.
+The overall agenda for this proposal, and many of the specific
+tasks---are inspired by these motivating themes.
 % \iflater
 % \bcp{Needs a rewrite for the new structure... Section 7 is missing!
 %   Or maybe we can just drop this paragraph?!}%
@@ -775,7 +782,7 @@ that may be enabled by their
 ambient programming environment and language, e.g., whether their
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
-PBT tools in those languages. 
+PBT tools in those languages.
 Respondents will
 be recruited broadly, from three main sources: (1)
 users of the Python Hypothesis library; (2) Jane Street, aiming for
@@ -784,7 +791,7 @@ word of mouth and via announcements on the PIs' Twitter and Mastodon
 accounts, various mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke last
 year~\cite{Pierce:Yow22}.
-In line with typical practice in 
+In line with typical practice in
 human factors research surveys in software
 engineering~\cite{ref:robillard2009makes,ref:uddin2015api,ref:murphyhill2019predicts},
 we aim to recruit respondents in the low hundreds (i.e., between 75 and 300
@@ -809,7 +816,9 @@ and recruiting over social media.
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
 fine-grained understanding of the design trade-offs inherent in PBT libraries
-in order to improve those libraries.
+in order to improve those libraries.\discuss{We seem to have standardized
+  on ``libraries'' instead of ``tools'' or ``frameworks,'' but are all
+PBT tools libraries??  I don't think so!  Or at least not obviously so.}
 Of course, a pairwise comparison of {\em all} libraries in {\em all}
 languages would be infeasible and
 unhelpful; rather, we will systematically review prior art to identify major
@@ -841,6 +850,7 @@ depth to the analysis of how different tasks impact user's preferences.  In
 this way, we will generate design recommendations that we can use as evidence to
 help the community standardize on usable designs.
 
+\bcpread{Comments}%
 \bcp{I am not really convinced by this yet.  What are these
   ``dimensions'' where we are going to choose between alternative A
   and alternative B?  Integrated vs. external shrinking, sure, but
@@ -861,6 +871,7 @@ help the community standardize on usable designs.
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
    Theory}{PhD 1}{}{Head}
 %
+\bcpread{2 paras}%
 Our higher-level studies explore larger-scale usability challenges, but in order
 to build usable tools we also need to study the low-level interactions that
 take place between users and their PBT systems. Therefore, we will regularly and
@@ -909,6 +920,7 @@ effort involved in the tasks a little more clear. We can probably go further.}
 \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 %
+\bcpread{Reread}%
 A cornerstone of our efforts to bring usable PBT to more people
 will be a new cognitive theory of PBT itself.  Theories of
 programming have
@@ -930,7 +942,7 @@ Recognizing the power of theory, one of the first steps in our
 research will be to develop a cognitive theory of PBT. The starting point
 will be the conceptual framework we are developing through the Jane Street study. This
 will be validated and refined with evidence from early observation studies we
-conduct undertake in~\sectionref{sec:observations}, leading to a
+described in~\sectionref{sec:observations}, leading to a
 provisional theory in the first two years.
 This theory will help us
 refine our ideas for
@@ -939,6 +951,7 @@ observations described in the following sections. Conversely, evaluations of
 the tools we build will provide additional evidence to further
 refine the theory.
 
+\bcpread{Para}%
 Like prior theories, a successful outcome is a theory that is simple, validated,
 and evocative. The theory will define the constructs involved in PBT,
 including the tasks involved in PBT (e.g., generation, property specification,
@@ -988,7 +1001,7 @@ generators}, an abstraction for random generation that we have been
 experimenting with at Penn, as a way of unbundling generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}). We explore how reflective generators can
+tooling (\sectionref{sec:reflective}). \bcpread{Rest of para}We explore how reflective generators can
 help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}) and design
 a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
@@ -1394,7 +1407,7 @@ the new approaches to generation that we are proposing in this document, and
 considering our goals around usability, we need to do better.
 
 We have begun to experiment with a robust empirical evaluation framework for
-generators and other PBT techniques. We have built preliminary infrastructure 
+generators and other PBT techniques. We have built preliminary infrastructure
 for easily and extensibly running experiments to understand testing
 effectiveness.  By ``easily,'' we mean that we will take on the burden of
 collecting data and analyzing the results, exposing to the user library
@@ -1441,12 +1454,13 @@ To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications.
 Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
-other times simply because they fail to see what properties are available to
+other times simply because they fail to imagine what properties they
+might want to
 test. We address the first of these issues with a new language for writing more
 expressive properties (\sectionref{sec:outpurprop}) and
-the second with mixed-initiative interactions (\sectionref{sec:interactive}).
+the second with mixed-initiative\bcplast{define/gloss} interactions (\sectionref{sec:interactive}).
 %
-Next, we describe a way to automate a specific high-leverage scenario:
+Further, we describe a way to automate a specific high-leverage scenario:
 model-based testing (\sectionref{sec:automating}). Finally, in we discuss plans
 to generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
@@ -1531,17 +1545,19 @@ the given trace properties in real time.
 \SUBSECTION{Mixed-initiative property
   specification}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 %
-Even when a developer knows when properties are useful in the abstract,
-they may still have trouble writing their first properties
-for real projects. We plan to develop prototype interactive tools that help
-programmers compose their first properties in an educational setting.
+Even if a developer believes, in the abstract, that PBT is useful,
+they may still have trouble writing concrete properties
+for real cases that come up in their work. To help build these
+intuitions, we plan to develop
+interactive tools that help programmers compose their first
+properties in an educational setting.
 
 The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
 tool, where a student and their code editor work together to arrive at a
 meaningful property. Extending prior work on property extraction techniques (see for
 instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
 smith_discovering_2017}), the idea is to help students compose properties that
-are not just accurate descriptors of the system, but significant in reflecting
+are not just accurate descriptors of the system, but that describe
 important program behavior. We will build an interface on top of a property
 extractor which helps students write their first properties by allowing them
 to (1) identify areas of code likely to lead to adverse behavior;
@@ -2126,7 +2142,7 @@ build and maintain \tyche, an integrated development environment for PBT
 (\sectionref{sec:ide}). Next, we discuss plans to allocate some engineering time
 to supporting open-source libraries for PBT (\sectionref{sec:nurturing}).  Our
 education-focused activities will include a catalog of high-leverage PBT
-use-cases (\sectionref{sec:whento}) and an undergraduate curriculum
+use-cases (\sectionref{sec:whento}) and an undergraduate\bcp{and masters?!} curriculum
 (\sectionref{sec:1210}).
 
 \discuss{Do we need to make a section for CACM?}
@@ -2278,6 +2294,8 @@ professional developer conferences.
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
+\todo{What about masters students???  Arguably even better opportunity
+  for impact!}
 \todo{Transition}
 %
 Education can act as a force multiplier to make technologies more usable.
@@ -2371,7 +2389,9 @@ for the Communications of the Association for Computing Machinery
 %
 The majority of requested funding will support formative research
 experiences and mentoring for graduate students. We
-also plan to work with undergraduate and masters students during this project;
+also plan to work with undergraduate and masters\bcp{Our work plan is
+  unclear about both undergraduates and masters students -- where are
+  the REPL students?  How many students total?} students during this project;
 they, too will benefit from the research experience. Each graduate
 student will have leadership responsibility for multiple facets of the
 project, including co-supervising interested undergraduate and masters
