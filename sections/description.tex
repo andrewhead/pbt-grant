@@ -555,7 +555,11 @@ help improve it.  While the full analysis of the interview data remains
 to be completed, a number of themes are already clear; these
 % , together
 % with the findings of the preliminary study,
-form the backbone of the present proposal.
+form the backbone of the present proposal. We describe them below,
+italicizing themes, and
+referring to evidence from participants in the Jane Street study
+(\participant{1--30})
+and the pilot study (Pilot-\participant{1--8}).
 
 One set of themes concerned the \thread{generation} of
 random inputs for PBT. Developers spoke
@@ -564,9 +568,12 @@ inferred from
 the OCaml type system (\participant{5} called OCaml's tools for this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
-identified deficiencies both small and large---for example, the fact
+identified deficiencies both small and large, e.g., for example, the fact
 that derived generators
-cannot enforce semantic preconditions like \lstinline{is_bst}.
+cannot enforce semantic preconditions like \lstinline{is_bst}.\amh{Question from
+Elena: is this issue small or
+large?}
+
 
 When derived generators
 failed, participants fell back to \gentheme{Bespoke Generators}, which
@@ -594,7 +601,7 @@ described constructing shrinkers as an opaque and difficult process.
 % shrinkers fast and simple.
 
 A different set of themes
-themes revolves around properties themselves---i.e.,
+themes revolves around properties themselves, i.e.,
 \thread{specifications}.
 % and the kinds of programs in which they choose to test them.
 PBT is often described as a lightweight formal method, and one
@@ -604,14 +611,13 @@ study~\cite{goldstein_problems_2022}, some respondents indicated just that:
 developers with less experience with PBT
 sometimes struggled to \proptheme{Imagine
 Properties} or to understand what properties to test (Pilot-\participant{1},
-Pilot-\participant{3},
-Pilot-\participant{4}, Pilot-\participant{5}).
+Pilot-\participant{3--5}).
 By contrast, Jane Street developers on the whole reported
 little difficulty finding
 properties. Rather, most developers applied PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
 available or straightforward to invent. In the words of
-Participant~9~(\participant{9}), PBT is particularly easy to apply
+\participant{9}, PBT is particularly easy to apply
 when
 one has ``a really good abstraction with a complicated implementation.''
 When asked to speculate, several participants (\participant{3}, \participant{15},
@@ -636,7 +642,7 @@ more than three
 quarters of study participants had used a particular approach to PBT commonly
 called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
 at Jane Street, considered better automation and tooling around model-based
-testing to be one of the most significant ways improve PBT usability.
+testing to be one of the most significant ways to improve PBT usability.
 
 
 A further set of themes concerned the
@@ -760,7 +766,7 @@ be asked to write brief anecdotes elaborating on the
 most severe issues they remember.  Other questions will assess how
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
-ambient programming environment and language---for example, whether their
+ambient programming environment and language, e.g., whether their
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
 PBT tools in those languages.
