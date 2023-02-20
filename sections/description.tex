@@ -1420,30 +1420,30 @@ could do it tastefully...}
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
-%
-\iflater\todo{(Re)write me Harry and Benjamin}\fi
-\iflater\todo{Make sure this feels different from Leo's CAREER.}\fi
-%
 The many papers in the PBT literature demonstrate effectiveness with case
 studies, showing that certain bugs in certain systems are caught more quickly
 with one tool over another. For theoretical advances, this is often sufficient
 to demonstrate that the paper is worth publishing, but this kind of evaluation
 can be hard to interpret from the perspective of a would-be user. With all of
 the new approaches to generation that we are proposing in this document, and
-considering our goals around usability, we want to do better.
+considering our goals around usability, we need to do better.
 
-We will develop and popularize a robust empirical evaluation framework for
-generators and other PBT techniques. Our first contribution will be an
-infrastructure for easily and extensibly running experiments.  By ``easily,'' we
-mean that we will take on the burden of collecting data and analyzing the
-results, exposing to the user library functions for their particular
-instantiations as needed. We will evaluate a given tool based on (1) the degree
-to which it is able to achieve high code coverage quickly, and (2) the speed
-with which it finds bugs that have been pre-seeded in example programs. By
+We have begun to experiment with a robust empirical evaluation framework for
+generators and other PBT techniques. We have built preliminary infrastructure 
+for easily and extensibly running experiments to understand testing
+effectiveness.  By ``easily,'' we mean that we will take on the burden of
+collecting data and analyzing the results, exposing to the user library
+functions for their particular instantiations as needed.  When complete, the
+evaluation framework will be able to evaluate a given tool based on (1) the
+degree to which it is able to achieve high code coverage quickly, and (2) the
+speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
-OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-numerous workloads that we plan to support on release, we will design the
+OCaml/Coq), multiple libraries (QuickCheck, SmallCheck, QuickChick, etc.), and
+numerous workloads that we have currently implemented support for, we will design the
 infrastructure so that users can easily add new things along each dimension.
+Initial observations from this framework have been submitted as an experience
+report to ICFP 2023, but many important features (e.g., coverage measurement) have not yet
+been implemented.
 
 Our second contribution will codify a library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
@@ -1454,17 +1454,11 @@ tools are built to handle. We want to establish a set of challenging tasks that
 can serve as a north star for future improvements to PBT generators and
 bug-finding strategies (including our own!).
 
-Designs for this project are currently being discussed with Leonidas
+Initial work and future
+designs for this project have been discussed Leonidas
 Lampropoulos and his group at the University of Maryland. PI Pierce has a long
 history of successful projects with Prof.
 Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
-
-\iflater\hg{Is this everything? Probably not...} \bcp{But maybe all we
-  have space for?}
-
-\bcp{Is there anything
-we can do to guard against reviewers noticing we've published an ICFP
-paper about some of this?}\fi
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
