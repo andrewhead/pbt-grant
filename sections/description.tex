@@ -968,66 +968,6 @@ brain. But I actually think we're good up to that point...}
   success criterion?  (All of these tasks could use some discussion of
   success criteria, in fact!)} \amh{Is this better?}
 
-% In the rest of this section, we sketch the outlines of a speculative
-% theory that could
-% follow from the Jane
-% Street study.
-% While the theory we ultimately develop may well look quite different
-% from this, we
-% describe it here to demonstrate what such a theory might look like and
-% suggest some of its predictive
-% potential.
-% We call it the \emph{hill-climbing} theory because (on this reading)
-% PBT can be thought of as following a hill-climbing process: a
-% property-based test
-% is developed through a series of steps, each consisting of either
-% refining the specifications or refining the generators\bcp{I'm
-%   not very sure I believe that.}. In contrast to
-% conventional software development, when operating with this climbing
-% perspective, a programmer is
-% constantly adjusting course when a step is too ``steep,'' i.e., when it is not
-% easy to refine the specification or generator.\bcp{Why would this be?
-% (What kinds of refinements are they trying to make?  What determines
-% when they are easy or hard?)} Programmers stop climbing when
-% they feel they cannot make progress. Accordingly, for a programmer to develop a
-% powerful test suite, they need to be supported in incremental, low-cost
-% refinements of both specifications and generators, with the ability to quickly
-% determine whether they have in fact progressed.
-
-% The value of this theory is in part what it implies about PBT tools.
-% Tools should make it possible to ``cover a lot of ground,'' i.e., test a
-% large amount of significant program behavior, without a lot of work. They must
-% to support rapid progress, because programmers' tend to invest minimal effort
-% investigating paths they consider to be unfruitful in automated testing.
-% Programmers can be aided by either helping them with ``way-finding'' (i.e.,
-% teaching them strategies for refining specifications and generators to better
-% test their systems), or with better ``equipment'' (i.e., specification-writing
-% aids and expressive generator authoring tools) that allows them to take longer
-% strides with less effort, and which help them orient to what the ``top'' of the
-% hill is (i.e., how much they can reasonably test given the effort they are
-% willing to spend).  \amh{Maybe develop and write out a couple of example
-% hypotheses.}
-% % A preliminary version of this theory will be developed in the first
-% % two years of this project, and will continue to be refined on the basis of all
-% % human-centered research conducted in later projects.
-
-% \hg{This is a really interesting theory! It's close to my best guess at a
-% model---I think I'd put more emphasis on how programmers pick a path up the
-% mountain and what happens when they decide to stop climbing, but it's close.
-% That said, and I know we make this clear, but to me it really feels too
-% speculative to ``say out loud.'' Is this kind of thing standard when describing
-% proposed work on cognitive theories? I worry that some readers (especially PL
-% ones) would find it too nebulous.}
-
-% \bcp{I do find it a bit nebulous: Maybe I'm just not thinking about
-%   it right, but I am finding it hard to imagine what counts as
-%   ``steps'' of refinement of specifications or generators, or
-%   (especially) on what basis the programmer decides what is ``up''.
-%   Propose trimming these couple paragraphs to a couple sentences.}
-
-\todolater{Consider moving this to second place in this section, to
-  make the timeline look more coherent.}
-
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
 Many of the usability improvements suggested by the Jane Street study centered
@@ -1487,7 +1427,8 @@ the oracle problem arises. You should use those words. Metamorphic
 testing was developed specifically as an approach to solving the
 oracle problem, and it has a close relationship to PBT. There's a
 discussion I think in 'How to Specify it!'.
-}
+}\hg{Maybe we can just call this out in the Orientation section? I don't
+actually think any of our language in this section would benefit from the jargon.}
 %
 To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications. Our pilot study suggested that developers struggle to write
