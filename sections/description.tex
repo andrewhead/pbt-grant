@@ -428,6 +428,13 @@ checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
 {counterexample}.
 
+The process of designing these properties is non-trivial, and is an example of
+the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
+automated testing where the user needs to define what it means for a program to
+be correct. Luckily, prior work catalogs a number of different kinds of
+properties that one might write~\cite{HowToSpecifyIt}, and we address challenges
+with expressing properties in \sectionref{sec:spec}.
+
 Our research agenda focuses mostly on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would also be applicable to alternatives
@@ -1427,11 +1434,12 @@ the oracle problem arises. You should use those words. Metamorphic
 testing was developed specifically as an approach to solving the
 oracle problem, and it has a close relationship to PBT. There's a
 discussion I think in 'How to Specify it!'.
-}\hg{Maybe we can just call this out in the Orientation section? I don't
-actually think any of our language in this section would benefit from the jargon.}
+}\hg{I put a note about this in the orientation. Is that enough? I took a look
+and didn't see any good places to change language in this section.}
 %
 To widen the on-ramp to using PBT, developers need help envisioning and writing
-specifications. Our pilot study suggested that developers struggle to write
+specifications.
+Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to see what properties are available to
 test. We address the first of these issues with a new language for writing more
