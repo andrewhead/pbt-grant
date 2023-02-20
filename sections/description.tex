@@ -903,7 +903,7 @@ effort involved in the tasks a little more clear. We can probably go further.}
   Theory}{PhD 1}{Everyone}{Head}
 %
 A cornerstone of our efforts to bring usable PBT to more people
-will be a new theory of property-based testing itself.  Theories of
+will be a new cognitive theory of PBT itself.  Theories of
 programming have
 long served a critical role in human-centered software engineering
 research, providing rich and memorable descriptions of programming
@@ -920,8 +920,7 @@ Myers' debugging framework~\cite{ref:ko2005framework}, and Ko's characterization
 of end-user programming barriers~\cite{ref:ko2004six}.
 
 Recognizing the power of theory, one of the first steps in our
-research will be to develop a theory of property-based
-testing. The starting point
+research will be to develop a cognitive theory of PBT. The starting point
 will be the conceptual framework we are developing through the Jane Street study. This
 will be validated and refined with evidence from early observation studies we
 conduct undertake in~\sectionref{sec:observations}, leading to a
@@ -947,7 +946,9 @@ tests, and the time their computers spent writing tests. A theory that brings
 these elements together would suggest that for such developers to
 achieve higher assurance, they need faster tests, tooling that takes less time
 to use, or evidence that better assurance is possible with a modicum
-of effort. Our hope is to achieve simplicity in our theory by invoking a
+of effort.\hg{The last one is useful, but the other two seem too obvious. Can we
+add a bit of color that makes them seem less guessable?}
+\proposecut{Our hope is to achieve simplicity in our theory by invoking a
 metaphor, as prior theories have achieved with comparisons to hunter-gatherer
 behavior~\cite{ref:pirolli2003exploring}, stacks of slices of Swiss
 cheese~\cite{ref:ko2005framework}, and a series of physical
@@ -955,7 +956,9 @@ barriers~\cite{ref:ko2004six}. For instance, perhaps the act of automated
 testing reflects the act of hill-climbing towards an often-invisible peak as one
 attempts to achieve high assurance through iterative definition and refinement of
 specifications and input data distributions; consultation of study data will
-allow us to refine such ideas further.
+allow us to refine such ideas further.}\hg{This is where I stopped following.
+The metaphors seem really interesting, but they don't really sit well with my PL
+brain. But I actually think we're good up to that point...}
 
 \bcp{The specifics of the theory that Andrew had sketched seem too
   contentious (I think especially PL people will be distracted by
@@ -1504,10 +1507,10 @@ education (\sectionref{sec:understanding}).
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
-A common pain point for developers in our formative research
-was that code may not be organized in a way that is conducive to property-based
-testing. As a unit testing technology, PBT requires ``units'' of software to
-test with clear boundaries. As such, PBT cannot easily apply to programs with
+A common pain point for developers in our formative research was that code may
+not be organized in a way that is conducive to PBT. As a unit testing
+technology, PBT requires ``units'' of software to test with clear boundaries. As
+such, PBT cannot easily apply to programs with
 poorly encapsulated global state, or software with leaky or complex abstraction
 boundaries.
 
@@ -1705,7 +1708,7 @@ or if we should}
 As is often the case for code of any kind, the specification of a property may
 not be self-explanatory. This is particularly the case when those properties are
 found by programmers who did not write them, and can be exacerbated if the those
-programmers have never used property-based testing themselves. Can we design
+programmers have never used PBT themselves. Can we design
 tools that help programmers understand property specifications?
 
 We envision several approaches, drawing inspiration from recent HCI research.
@@ -1732,7 +1735,7 @@ for Haskell's QuickCheck. For users who are familiar with the host language but
 not the property language, we will design tooltip explanations that explain
 particular idiomatic constructs including symbols and common structures in
 property-based tests. Our efforts will focus on understanding the language with
-which to describe properties to those unfamiliar with property-based testing,
+which to describe properties to those unfamiliar with PBT,
 and to identify those syntactic anchors in the code that are sensible sites for
 programmers to access automatic explanations.
 
