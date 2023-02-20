@@ -923,11 +923,10 @@ programming have
 long served a critical role in human-centered software engineering
 research, providing rich and memorable descriptions of programming
 processes and clarifying opportunities to improve tooling and training.
-For instance, the {\em information foraging
-  theory}~\cite{ref:lawrance2010programmers}
-describes how programmers navigate a complex code base in search of behaviors
-within the code and helps understand why programmers sometimes fail
-in this task. This
+For instance, Lawrance et al.~\cite{ref:lawrance2010programmers} advocate for the use of {\em information foraging
+  theory}~\cite{ref:pirolli2003exploring} to
+describe how programmers navigate complex code bases to search for behaviors
+within that code. This
 theory has motivated a variety of tools that demonstrably improve the
 programming experience (e.g.,~\cite{ref:henley2014patchworks}).  Other theories
 that have inspired advances in programming tools include
@@ -939,14 +938,39 @@ Recognizing the power of theory, one of the first steps in our
 research will be to develop a theory of property-based
 testing. The starting point
 will be the conceptual framework we are developing through the Jane Street study. This
-will be validated and refined through contextual inquiries with
-programmers~\cite[Ch.~3]{ref:holtzblatt1997contextual}\bcp{explain}, leading to a provisional
-theory during the first two years.  This theory will help us
+will be validated and refined with evidence from early observation studies we
+conduct undertake in~\sectionref{sec:observations}, leading to a
+provisional theory in the first two years.
+This theory will help us
 refine our ideas for
 tools and provide a foundation for contextualizing the questionnaires and
 observations described in the following sections. Conversely, evaluations of
 the tools we build will provide additional evidence to further
 refine the theory.
+
+Like prior theories, a successful outcome is a theory that is simple, validated,
+and evocative. The theory will define the constructs involved in PBT,
+including the tasks involved in PBT (e.g., generation, property specification,
+and reviewing test output) and a developer's goals (e.g., developer time, test
+speed, and level of assurance). It will explain tensions between goals (e.g.,
+more assurance often means more developer time). Furthermore, it will identify
+how developers make choices to achieve their goals. For instance, our Jane
+Street interviews showed us that some developers' testing activity
+better resembled satisficing~\cite{ref:brown2004consideration} rather than maximizing
+assurance of a system: these developers limited the time they spent writing
+tests, and the time their computers spent writing tests. A theory that brings
+these elements together would suggest that for such developers to
+achieve higher assurance, they need faster tests, tooling that takes less time
+to use, or evidence that better assurance is possible with a modicum
+of effort. Our hope is to achieve simplicity in our theory by invoking a
+metaphor, as prior theories have achieved with comparisons to hunter-gatherer
+behavior~\cite{ref:pirolli2003exploring}, stacks of slices of Swiss
+cheese~\cite{ref:ko2005framework}, and a series of physical
+barriers~\cite{ref:ko2004six}. For instance, perhaps the act of automated
+testing reflects the act of hill-climbing towards an often-invisible peak as one
+attempts to achieve high assurance through iterative definition and refinement of
+specifications and input data distributions; consultation of study data will
+allow us to refine such ideas further.
 
 \bcp{The specifics of the theory that Andrew had sketched seem too
   contentious (I think especially PL people will be distracted by
@@ -954,7 +978,7 @@ refine the theory.
   need a short paragraph giving a bit more detailed impression of what
   the elements of such a theory might be like.  E.g., what's its
   success criterion?  (All of these tasks could use some discussion of
-  success criteria, in fact!)}
+  success criteria, in fact!)} \amh{Is this better?}
 
 % In the rest of this section, we sketch the outlines of a speculative
 % theory that could
