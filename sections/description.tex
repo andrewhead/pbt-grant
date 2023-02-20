@@ -1492,12 +1492,14 @@ To widen the on-ramp to using PBT, developers need help envisioning and writing
 specifications. Our pilot study suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to see what properties are available to
-test. We address the first of these issues in \sectionref{sec:outpurprop} and
-the second in \sectionref{sec:interactive}.
+test. We address the first of these issues with a new language for writing more
+expressive properties (\sectionref{sec:outpurprop}) and
+the second with mixed-initiative interactions (\sectionref{sec:interactive}).
 %
-In \sectionref{sec:automating} we describe a way to automate a
-specific high-leverage scenario: model-based testing.
-\underconstruction{mention 5.4 too}
+Next, we describe a way to automate a specific high-leverage scenario:
+model-based testing (\sectionref{sec:automating}). Finally, in we discuss plans
+to generate automatic explanations of properties, for documentation and
+education (\sectionref{sec:understanding}).
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
   Practice}{PhD 3}{UGrad/MS 1}{Pierce}
@@ -1768,10 +1770,11 @@ inputs sufficiently exercise their code (\sectionref{sec:tuning}),
 and understand testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-In \sectionref{sec:counter} we describe a planned tool to help migrate
+Finally, we describe a planned tool to help migrate
 counterexamples found by property-based tests into conventional
-regression tests.
+regression tests (\sectionref{sec:counter}).
 %
+
 These projects will all be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
 environments. The success of tools will be evaluated in usability studies
