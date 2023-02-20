@@ -565,7 +565,7 @@ One set of themes concerned the \thread{generation} of
 random inputs for PBT. Developers spoke
 highly of the \gentheme{Derived Generators} that can be automatically
 inferred from
-the OCaml type system (\participant{5} called OCaml's tools for this
+the OCaml type system (\participant{5} called OCaml's implementation of this
 ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
 These generators are already quite good, but they could be better: participants
 identified deficiencies both small and large, the most significant being that
@@ -594,8 +594,6 @@ effective, and they can be time-consuming to build; several
 developers
 (\participant{16}, \participant{20} \participant{21}, \participant{30})
 described constructing shrinkers as an opaque and difficult process.
-% Ideally, developers would have tools that make the process of implementing
-% shrinkers fast and simple.
 
 A different set of themes
 themes revolves around properties themselves, i.e.,
@@ -654,13 +652,13 @@ mutation
 testing~\cite{papadakis_mutation_2018}, and help understanding the
 distribution of randomly generated
 inputs (\participant{10}, \participant{16}, \participant{16}). Problematically,
-while many developers admitted they would benefit from better tools for
-evaluating their tests, many seemed to
+while many developers admitted they would benefit from better ways to
+evaluate their tests, many seemed to
 \evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
 they did not realize their generator had missed important input
 examples.
 Additionally, one participant (\participant{14}) saw significant benefit from
-\evaltheme{Visualizations} and other tools that they had built themselves to
+\evaltheme{Visualizations} they had built themselves to
 understand their testing effectiveness.
 
 Finally, our experience with these studies (and with the products of
@@ -723,7 +721,7 @@ to produce a comprehensive, actionable
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
 (\sectionref{sec:survey}), a design probe using a minimal PBT
-framework (\sectionref{sec:frameworks}), and an observation study to understand
+library (\sectionref{sec:frameworks}), and an observation study to understand
 particular tasks involved in PBT, to guide the design of
 interactive tools
 (\sectionref{sec:observations}). Finally, we plan to distill these
@@ -773,7 +771,7 @@ metaprogramming, both of which are used to good effect by
 PBT tools in those languages. 
 Respondents will
 be recruited broadly, from three main sources: (1)
-users of the Python Hypothesis framework; (2) Jane Street, aiming for
+users of the Python Hypothesis library; (2) Jane Street, aiming for
 a broader set of developers than in the original study; and (3)
 word of mouth and via announcements on the PIs' Twitter and Mastodon
 accounts, various mailing lists, and discussion boards for developer
@@ -797,33 +795,36 @@ will again recruit a broad sample of participants from varied settings
 (professional, open source, educational) by working with our industry contacts
 and recruiting over social media.
 
-% \SUBSECTION{Usability of PBT Frameworks}%
 \SUBSECTION{Dimensions of PBT infrastructure design}%
   {sec:frameworks}{3}{4}{HCI Theory}{PhD
 1}{PhD 4}{Head}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
-fine-grained understanding of the design trade-offs inherent in PBT frameworks
-in order to improve those frameworks.  \bcplater{We use ``tool'' and
-  ``framework'' interchangeably here (and I guess elsewhere?).  Are
-  they really synonyms?  Is this confusing?}
-Of course, a pairwise comparison of {\em all} frameworks in {\em all}
+fine-grained understanding of the design trade-offs inherent in PBT libraries
+in order to improve those libraries.
+Of course, a pairwise comparison of {\em all} libraries in {\em all}
 languages would be infeasible and
 unhelpful; rather, we will systematically review prior art to identify major
-dimensions along which PBT frameworks differ. For example, some frameworks, like
+dimensions along which PBT libraries differ. For example, some libraries, like
 OCaml's QuickCheck, lean heavily into automating random data generation, whereas
 Haskell's Hedgehog is designed to be more manual in the hopes of
 making users more intentional about their testing: which of these approaches is
-preferable? Similarly, some frameworks implement properties as arbitrary
+preferable? Similarly, some libraries implement properties as arbitrary
 host-language functions, while others provide a rich domain-specific language of
 properties: do such property languages make a positive difference?
 
 We will evaluate how differences along those dimensions impact usability in
-two ways. First, we will design and implement a minimal, modular PBT framework
-that can be tuned along the dimensions we want to study.  \iflater\bcp{Can we
+two ways. First, we will design and implement a minimal, modular PBT library
+that can be tuned along the dimensions we want to study.
+\iflater\bcp{Can we
 give a bit more detail about what this language will be like?  How is it related
-to the ``Reference implementation'' idea we talk about elsewhere?}\fi We will
+to the ``Reference implementation'' idea we talk about elsewhere?}
+\hg{We didn't end up talking about a ``reference implementation'' as such. I
+imagined we'd build off something like minithesis
+\url{https://github.com/DRMacIver/minithesis}, but I didn't want to commit to that.}
+\fi
+We will
 then give users testing tasks and measure the speed, effectiveness, and
 confidence with which they performed their testing.  Second, we will compile a
 list of representative testing scenarios and interview expert users on their
@@ -1725,7 +1726,7 @@ the PBT framework.
 The first sort of explanation we will provide is at the level of explaining
 syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
 synthesized programs~\cite{ref:mayer2015user}, and Hazel
-code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks
+code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT libraries
 require the use of a custom property language. This is the case, for instance,
 for Haskell's QuickCheck. For users who are familiar with the host language but
 not the property language, we will design tooltip explanations that explain
@@ -1738,8 +1739,8 @@ programmers to access automatic explanations.
 The second sort of explanations will be examples, namely, sampled input-output
 pairs that can convey the behavior of the program with respect to the property.
 The advantage of example-based explanations is that a solution to this problem
-for one PBT framework may generalize to others; while not all frameworks use
-special property syntax (e.g., Hypothesis), all frameworks have the potential to
+for one PBT framework may generalize to others; while not all libraries use
+special property syntax (e.g., Hypothesis), all libraries have the potential to
 have rather long properties. Some of the simplest (perhaps smallest) passing
 inputs will be selected as example inputs. These examples will be perturbed to
 generate similar negative examples. Example pairs will be shown alongside the
@@ -2250,7 +2251,7 @@ ask the maintainers (if any exist) what help they need. We are already in
 contact with Zac Hatfield-Dodds, the main maintainer of Hypothesis, and he has a
 variety of library improvements that could benefit from more developer support.
 Other projects, such as Crowbar in OCaml, various smaller generator libraries in
-Haskell, and the PBT frameworks in Rust seem like high-value libraries worth
+Haskell, and the PBT libraries in Rust seem like high-value libraries worth
 assisting.\hg{Not sure how best to frame this. Maybe the answer is just less
 detail...}
 
