@@ -1675,6 +1675,16 @@ Could this help explain why it seems to be so prevalent, at least at
 Jane Street?  Is there any way one could test whether this sort of
 reasoning is an actual explanation for the observed prevalence?  Is
 any of this worth mentioning here?}
+\hg{We keep conflating ``model-based'' testing (test against an oracle
+implementation) with ``state-machine'' testing (test by calling a stateful API
+over and over).  It's understandable, since a lot of state-machine testing is
+model-based, but my recollection is that our observations of JS developers
+actually leans toward model-based testing that {\em isn't} state-machine
+testing. That's a thing we should remember to double check for the full
+analysis. But in any case, I think model-based tests are easier to think about
+even when generating inputs from scratch, because you don't have to think about
+logical properties. Not sure if there's any way to squeeze this discussion in,
+or if we should}
 \fi
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
@@ -1987,30 +1997,30 @@ settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
-\iflater
-\SUBSECTION{Dashboards for long-running
-  tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD 4}{Engineer}{Head}
-%
-\discuss{Harry and Benjamin wonder whether this section can be
-  dropped.  It seems (a) smaller than the other tasks and (b) maybe
-  less interesting in the grand scheme?  (We can still do it, and
-  indeed we can mention it in the \tyche{} section, but not give it a
-  whole top-level section.)  We are also a bit past the limit of how
-  many tasks is plausible.}
+% \iflater
+% \SUBSECTION{Dashboards for long-running
+%   tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD 4}{Engineer}{Head}
+% %
+% \discuss{Harry and Benjamin wonder whether this section can be
+%   dropped.  It seems (a) smaller than the other tasks and (b) maybe
+%   less interesting in the grand scheme?  (We can still do it, and
+%   indeed we can mention it in the \tyche{} section, but not give it a
+%   whole top-level section.)  We are also a bit past the limit of how
+%   many tasks is plausible.}
 
-\underconstruction{ \iflater\todo{Write me Andrew?}\fi
-\begin{itemize}
-  \item Given the random nature of tests, it is not guaranteed that the same
-    software, when tested twice, will have the same results.
-  \item Views that focus on specific, known test cases may then be easier for
-    developers to understand quickly than those reporting summary statistics.
-  \item Or, dashboards should bring together signals from both random samples
-    of inputs, as well as known samples.
-\end{itemize}
-}
-\iflater \hg{I copied a comment into here---can we use any of that writing for this
-section?}\fi
-\fi
+% \underconstruction{ \iflater\todo{Write me Andrew?}\fi
+% \begin{itemize}
+%   \item Given the random nature of tests, it is not guaranteed that the same
+%     software, when tested twice, will have the same results.
+%   \item Views that focus on specific, known test cases may then be easier for
+%     developers to understand quickly than those reporting summary statistics.
+%   \item Or, dashboards should bring together signals from both random samples
+%     of inputs, as well as known samples.
+% \end{itemize}
+% }
+% \iflater \hg{I copied a comment into here---can we use any of that writing for this
+% section?}\fi
+% \fi
 
 % \ifdraft
 % \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}{}
@@ -2192,16 +2202,16 @@ Concretely, we expect the research engineer to be involved in the following
 projects:
 \todo{Add titles}
 \begin{itemize}[noitemsep]
-  \item \sectionref{sec:frameworks}: Helping PhD \hg{N} to build and maintain a minimal PBT
+  \item \sectionref{sec:frameworks}: Helping PhD 1 to build and maintain a minimal PBT
   framework for use in comparison studies.
   \item \sectionref{sec:reflective}: Implementing and maintaining versions of
   reflective generators in a number of languages and PBT ecosystems, with the
-  help of PhD \hg{N}.
+  help of PhD 2.
   \item \sectionref{sec:interactive}, \sectionref{sec:counter}: Assisting PhD
-  \hg{N} with maintenance of tools for easier property specification.
+  3 with maintenance of tools for easier property specification.
 \end{itemize}
 Most importantly, the research engineer will help to build and maintain
-\tyche{}, the IDE for PBT designed as part of PhD \hg{N}'s dissertation. We
+\tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
 describe this effort in more detail in the next section.
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
