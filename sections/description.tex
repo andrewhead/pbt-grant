@@ -503,8 +503,6 @@ software developer's toolbelt.  But PBT poses some challenges as well,
 as we shall see next.
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
-\hg{Putting this section on my stack for today. It needs to get reordered and
-polished with new motivation}
 %
 Our research agenda is strongly informed by preliminary findings from
 an in-progress need-finding study at Jane Street Capital.  Our purpose
@@ -536,7 +534,16 @@ smaller pilot study among Hypothesis users to prepare for the
 full-scale one at Jane Street; its results were presented at the
 2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
-\subsectionstar{Usability Challenges} The final product from
+\ifthemecolors\bcp{Make the colors here (if we're using them) match
+  the ones in the timeline.  Also, we've got five main sections but
+  only four colors here... is that confusing?  I think so.  Maybe
+  better monochrome...}\fi
+\newcommand{\proptheme}[1]{{\ifthemecolors\color{nord-orange}\fi \em #1}}
+\newcommand{\gentheme}[1]{{\ifthemecolors\color{nord-green}\fi \em #1}}
+\newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
+\newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
+
+\subsectionstar{Usability Challenges}\hg{Is this section header doing anything?} The final product from
 the ongoing study will be a fine-grained, qualitative description of how
 Jane Street developers use PBT, what they need from it, and how the
 research community can
@@ -546,61 +553,7 @@ to be completed, a number of themes are already clear; these
 % with the findings of the preliminary study,
 form the backbone of the present proposal.
 
-\ifthemecolors\bcp{Make the colors here (if we're using them) match
-  the ones in the timeline.  Also, we've got five main sections but
-  only four colors here... is that confusing?  I think so.  Maybe
-  better monochrome...}\fi
-\newcommand{\proptheme}[1]{{\ifthemecolors\color{nord-orange}\fi \em #1}}
-\newcommand{\gentheme}[1]{{\ifthemecolors\color{nord-green}\fi \em #1}}
-\newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
-\newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
-One set of
-themes revolves around properties themselves---i.e.,
-\proptheme{\normalfont \bf specifications}.
-% and the kinds of programs in which they choose to test them.
-PBT is often described as a lightweight formal method, and one
-might therefore imagine that a common challenge would be coming up with the
-specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein_problems_2022}, some respondents indicated just that:
-developers with less experience with PBT
-sometimes struggled to \proptheme{Imagine
-Properties} or to understand what properties to test (Pilot-\participant{1},
-Pilot-\participant{3},
-Pilot-\participant{4}, Pilot-\participant{5}).
-By contrast, Jane Street developers on the whole reported
-little difficulty finding
-properties. Rather, most developers applied PBT in
-\proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. In the words of
-Participant~9~(\participant{9}), PBT is particularly easy to apply
-when
-one has ``a really good abstraction with a complicated implementation.''
-When asked to speculate, several participants (\participant{3}, \participant{15},
-\participant{20}, \participant{22}) guessed
-that 80--100\% of Jane Street
-developers write programs like this\bcplater{Did anyone really guess
-  100\%??}\hg{Yep! Someone said ``everyone.''}, where properties are easy to find and
-PBT is relatively easy to apply. This suggests that an effective way to
-boost PBT in industry would be to provide
-educational materials and documentation that highlight
-real-world applications where it is a natural
-fit. \iflater\bcp{Readers may wonder why we are leading with education
-in the motivation for a research proposal.  Is this an argument for
-moving the specification section to after generation?}
-\hg{We should reorder this section, now that we've done that, right?}\fi
-
-We also heard \proptheme{Opportunities for Better
-Leverage} of specifications, where PBT is not easy {\em yet} but
-could be with a bit more research effort. For example, developers in
-both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
-that PBT was difficult when code was poorly abstracted.  Further,
-more than three
-quarters of study participants had used a particular approach to PBT commonly
-called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
-at Jane Street, considered better automation and tooling around model-based
-testing to be one of the most significant ways improve PBT usability.
-
-A different set of themes concerned the \gentheme{\normalfont \bf generation} of
+One set of themes concerned the \gentheme{\normalfont \bf generation} of
 random inputs for PBT. Developers spoke
 highly of the \gentheme{Derived Generators} that can be automatically
 inferred from
@@ -635,6 +588,52 @@ developers
 described constructing shrinkers as an opaque and difficult process.
 % Ideally, developers would have tools that make the process of implementing
 % shrinkers fast and simple.
+
+A different set of themes
+themes revolves around properties themselves---i.e.,
+\proptheme{\normalfont \bf specifications}.
+% and the kinds of programs in which they choose to test them.
+PBT is often described as a lightweight formal method, and one
+might therefore imagine that a common challenge would be coming up with the
+specifications of desired program behavior. Indeed, in our earlier pilot
+study~\cite{goldstein_problems_2022}, some respondents indicated just that:
+developers with less experience with PBT
+sometimes struggled to \proptheme{Imagine
+Properties} or to understand what properties to test (Pilot-\participant{1},
+Pilot-\participant{3},
+Pilot-\participant{4}, Pilot-\participant{5}).
+By contrast, Jane Street developers on the whole reported
+little difficulty finding
+properties. Rather, most developers applied PBT in
+\proptheme{High-Leverage Scenarios} where properties were already
+available or straightforward to invent. In the words of
+Participant~9~(\participant{9}), PBT is particularly easy to apply
+when
+one has ``a really good abstraction with a complicated implementation.''
+When asked to speculate, several participants (\participant{3}, \participant{15},
+\participant{20}, \participant{22}) guessed
+that 80--100\% of Jane Street
+developers write programs like this,
+% \bcplater{Did anyone really guess
+%   100\%??}\hg{Yep! Someone said ``everyone.''}
+where properties are easy to find and
+PBT is relatively easy to apply. This suggests that an effective way to
+boost PBT in industry would be to provide
+educational materials and documentation that highlight
+real-world applications where it is a natural
+fit.
+
+We also heard \proptheme{Opportunities for Better
+Leverage} of specifications, where PBT is not easy {\em yet} but
+could be with a bit more research effort. For example, developers in
+both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
+that PBT was difficult when code was poorly abstracted.  Further,
+more than three
+quarters of study participants had used a particular approach to PBT commonly
+called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
+at Jane Street, considered better automation and tooling around model-based
+testing to be one of the most significant ways improve PBT usability.
+
 
 A further set of themes concerned the
 \evaltheme{\normalfont \bf interaction} between developers and their
