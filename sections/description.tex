@@ -1,72 +1,3 @@
-\iflater\discuss{Maybe there are too many tasks???}\fi
-
-\iflater
-
-\todolast{GPG: Proposals should identify a computer and information
-  science and engineering grand challenge and an agenda to tackle such
-  a challenge.} \bcp{Check that we used the word ``agenda'' enough. :-)}
-
-\todo{GPG: proposals should explain why existing CISE core programs
-  for Small and Medium size projects
-  (\$600,000 over three years and \$1,200,000 over four years,
-  respectively) are inadequate to address the grand challenge. A
-  strong rationale must be provided that explains why a budget of this
-  magnitude is required to carry out the proposed work.}\bcp{We should
-find a place to make this point explicitly.}
-
-\todo{GPG: The proposal must explicitly identify the participating
-  CISE core programs it covers and make the case for why the challenge
-  is within the scope of one or more of these participating core
-  programs.} \bcp{I put it in the Project Summary -- it's a bit
-  clunky, but I think it serves.  And no one can say that we didn't
-  satisfy the requirement!}
-\fi
-
-%% https://www.synopsys.com/content/dam/synopsys/sig-assets/reports/cpsq-report-nov-22-1.pdf
-
-% \rjmh{ I think the *introduction* needs to
-% identify work-in-progress/early results showing early payoff from the
-% collaboration. "Bringing this combined expertise together has already
-% enabled us to...". I think the reader needs to get (more) excited
-% about the combination.
-% }
-
-% \todo{Incorporate something like this (from John):
-%   \begin{itemize}
-%   \item ``Software bugs are
-%   notoriously commonplace; a 2002 report for Congress estimated their
-%   cost to the US economy at almost \$60 billion per year—around
-%   0,6\% of GDP. Software developers
-%   devote around half their effort to testing their software, in order
-%   to detect and eliminate most bugs before the software is
-%   released. The same report estimated that improved techniques for
-%   testing could save the US \$22 billion per year.''
-%   \item ``In 2002, the National Institute of Standards and Technology
-%   estimated the total cost of software errors to be almost \$60 billion
-%   per year, in the US alone11. It follows that improved testing
-%   techniques have the potential to save society very large sums; the
-%   same report estimated that better testing infrastructure could save
-%   \$22 billion of those \$60 billion, corresponding to 0.2\% of the
-%   entire GDP of the USA at that time. Since then the volume of
-%   software, and our dependence on it, has only grown. How much of
-%   these savings can be realised using property-based testing is, of
-%   course, a matter for speculation—but clearly, the problem PBT
-%   addresses, of improving software quality, is critically important to
-%   society as a whole."
-%   \item The report: \url{https://www.nist.gov/system/files/documents/director/planning/report02-3.pdf}
-%   \item Title of the report: The Economic Impacts of Inadequate
-%   Infrastructure for Software Testing
-% \item Harry's take: We need powerful tools like PBT because software
-% bugs are expensive
-% \begin{itemize}[noitemsep]
-%         \item Bugs cost (\$60B/year in 2002 money)
-%         \item It has been known since then that improving testing infrastructure is a critical way of driving that cost down
-%         \item (Really wish we had more modern numbers)
-% \end{itemize}
-% \end{itemize}
-% }
-
-
 \section*{Project Description}
 
 Testing plays a vital role in the robustness, security, and overall
@@ -149,9 +80,10 @@ better testing infrastructure; since then, the situation has only gotten worse, 
 study~\cn{} estimating that poor software quality now costs over \$2 trillion per
 year. Accelerating the adoption of PBT stands to make a
 significant dent
-in the global cost of software bugs.
+in the global cost of software bugs.  This is the grand challenge that
+we address in this proposal.
 
-Recognizing this opportunity, our group has been working to identify
+Our group has already begun working to identify
 high-leverage ways to extend PBT's reach.
 In an ongoing need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---participants called it
@@ -328,31 +260,12 @@ The Management and Coordination supplement also summarizes the metrics
 we will use to monitor and measure success for the various project
 tasks.
 
-\forreaders{Please tell us whether you feel convinced, at this point,
-  that we have articulated a compelling ``grand challenge'' and an agenda to
-  address it.}
-
-\forreaders{Also, please take an especially critical look at the
-  Management and Coordination supplement and at what we say
-  about coordination and management here in the main project
-  description.  NSF cares a lot about this!}
-
 Our plans for Broadening Participation in Computing, described in a
 supplemental document, are focused in two areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
 underrepresented groups to Penn for summer research experiences in
 programming languages, and (2) increasing diversity in the TA roster
 for Penn's introductory computer science course.
-
-\iflater
-\bcp{Explain somewhere why it's grand... :-)  Specifically, explain why the
-  resources of a Large grant are needed to address the challenge (why
-  small or medium grants would not do it).}
-\todo{Webinar: Proposals must be clear about why this kind of scale is
-  required for the research to succeed.}
-\discuss{Why do we need four PhD students---why can't this agenda be
-  accomplished with fewer?  Why do we need an engineer?}
-\fi
 
 \medskip
 
@@ -558,7 +471,8 @@ full-scale study at Jane Street; its results were presented at the
 \newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
 \newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
 
-\subsectionstar{Usability Challenges}\hg{Is this section header doing anything?} The final product from
+% \subsectionstar{Usability Challenges}\hg{Is this section header doing anything?}
+The final product from
 the ongoing study will be a fine-grained, qualitative description of how
 Jane Street developers use PBT, what they need from it, and how the
 research community can
@@ -682,14 +596,13 @@ learning about PBT.  PBT is also not
 taught in traditional computer science curricula at the undergraduate
 or masters level; making more developers
 aware of it will required expanded
-\edutheme{Classroom Education}. Finally, existing tools for PBT need continual
+\edutheme{Classroom Education}.
+%
+Finally, existing tools for PBT need continual
 support to meet demands from growing (and increasingly sophisticated)
 user-bases; if PBT is to become mainstream, we
 need to offer \edutheme{Support and Guidance for Open-Source
-Libraries}\hg{BCP feel free to suggest a new name here---I changed
-``communities'' to ``libraries'' but I'm still not attached to the
-theme}\bcp{Tools?  But maybe needs a deeper rethink.}
-to help our
+PBT Frameworks} to help our
 work and ideas permeate the PBT world.
 
 The overall agenda for this proposal, and many of the specific
@@ -715,13 +628,7 @@ tasks---are inspired by these motivating themes.
   numbers and details).  We've allocated one whole PhD student to this
   aspect of the work.}\fi
 
-The ultimate findings from the Jane Street study\iflater\bcp{We call
-  it a user study here, a need-finding study above, and I think a
-  foundational study somewhere.  Let's rationalize this.}\hg{I propose we call
-  it a ``study'' everywhere but the first time we introduce it (where we're more
-  specific, in context, that it's a need-finding study). I propose we save
-  ``user-study'' for tool evaluations and other things that are more
-  traditionally user-studies}\fi{} should
+The ultimate findings from the Jane Street study should
 give us a clear
 picture of the benefits and challenges of PBT in the specific context
 of Jane Street and other organizations with similar characteristics.  But to
@@ -743,11 +650,9 @@ study findings into a cognitive
 theory of property-based testing, a conceptual foundation for the
 design activities elsewhere in the project (\sectionref{sec:cogtheory}).
 
-\bcplater{Not sure exactly how to phrase it, but we need to emphasize
-  (probably repoeatedly) that these studies all require significant
-  effort, and that all of them together will yield enough papers to
-  make up a dissertation.  This will be clear to HCI folks, but not
-  PL folks.}
+To ensure fairness, ethics, accountability, and
+  transparency (FEAT), each of our user studies will go through Penn's
+Institutional Review Board (IRB) review process.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{1}{2}{HCI Theory}{PhD 1}{}{Head}
@@ -812,6 +717,8 @@ and recruiting over social media.
 \SUBSECTION{Dimensions of PBT infrastructure design}%
   {sec:frameworks}{3}{4}{HCI Theory}{PhD
 1}{PhD 4}{Head}
+%
+\discuss{Cut this?}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
@@ -1357,6 +1264,9 @@ practitioners.
 
 \SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Pierce}
 %
+\todo{Does it make sense to include something about separation logic,
+  or more generally about ``generators with difficult preconditions''?
+ Could be speculative, as long as it's not vacuous.}%
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Our user studies were very clear
 that thinking about generators slows users down and makes PBT more challenging.
@@ -1649,23 +1559,23 @@ build on in other languages: abstract and polymorphic signatures are features of
 many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
 type classes, etc.), so solutions we find in OCaml should transfer.
 
-\iflater
-\bcp{I wonder whether one of the attractions of model-based properties for real-world testing is that they more or less allow one to ignore the issue of "generating structures satisfying preconditions."  That is, if what you're doing to build an "interesting" value of some data structure or internal state of some stateful system is issuing calls through an API, then I would guess in most situations pretty much any sequence of API calls will be legal; some will be more interesting than others, of course, but at least you'll never build a structure that doesn't satisfy the preconditions of your operations -- your whole distribution will always fall within the space of well-formed structures.  (Or, if it observably doesn't, you'll have uncovered a bug.)
-Could this help explain why it seems to be so prevalent, at least at
-Jane Street?  Is there any way one could test whether this sort of
-reasoning is an actual explanation for the observed prevalence?  Is
-any of this worth mentioning here?}
-\hg{We keep conflating ``model-based'' testing (test against an oracle
-implementation) with ``state-machine'' testing (test by calling a stateful API
-over and over).  It's understandable, since a lot of state-machine testing is
-model-based, but my recollection is that our observations of JS developers
-actually leans toward model-based testing that {\em isn't} state-machine
-testing. That's a thing we should remember to double check for the full
-analysis. But in any case, I think model-based tests are easier to think about
-even when generating inputs from scratch, because you don't have to think about
-logical properties. Not sure if there's any way to squeeze this discussion in,
-or if we should}
-\fi
+% \iflater
+% \bcp{I wonder whether one of the attractions of model-based properties for real-world testing is that they more or less allow one to ignore the issue of "generating structures satisfying preconditions."  That is, if what you're doing to build an "interesting" value of some data structure or internal state of some stateful system is issuing calls through an API, then I would guess in most situations pretty much any sequence of API calls will be legal; some will be more interesting than others, of course, but at least you'll never build a structure that doesn't satisfy the preconditions of your operations -- your whole distribution will always fall within the space of well-formed structures.  (Or, if it observably doesn't, you'll have uncovered a bug.)
+% Could this help explain why it seems to be so prevalent, at least at
+% Jane Street?  Is there any way one could test whether this sort of
+% reasoning is an actual explanation for the observed prevalence?  Is
+% any of this worth mentioning here?}
+% \hg{We keep conflating ``model-based'' testing (test against an oracle
+% implementation) with ``state-machine'' testing (test by calling a stateful API
+% over and over).  It's understandable, since a lot of state-machine testing is
+% model-based, but my recollection is that our observations of JS developers
+% actually leans toward model-based testing that {\em isn't} state-machine
+% testing. That's a thing we should remember to double check for the full
+% analysis. But in any case, I think model-based tests are easier to think about
+% even when generating inputs from scratch, because you don't have to think about
+% logical properties. Not sure if there's any way to squeeze this discussion in,
+% or if we should}
+% \fi
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{}{Pierce}
@@ -2531,29 +2441,23 @@ Shi.
 % make broader contributions.
 
 \iflater
-\section*{Stuff to think about once the document stabilizes}
+\section*{More todos}
 
 \todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
 
-\todo{GPG: Issues of fairness, ethics, accountability, and
-  transparency (FEAT) are important considerations for many core
-  topics in computer and information science and engineering. In
-  projects that generate artifacts ranging from analysis methods to
-  algorithms to systems, or that perform studies involving human
-  subjects, PIs are encouraged to consider the FEAT of the outputs or
-  approaches.  (We should touch on this point somewhere.)}
-
-\todo{Does it make sense to include something about separation logic,
-  or more generally about ``generators with difficult preconditions''?
- Could be speculative, as long as it's not vacuous.}
+% \todo{GPG: Issues of fairness, ethics, accountability, and
+%   transparency (FEAT) are important considerations for many core
+%   topics in computer and information science and engineering. In
+%   projects that generate artifacts ranging from analysis methods to
+%   algorithms to systems, or that perform studies involving human
+%   subjects, PIs are encouraged to consider the FEAT of the outputs or
+%   approaches.  (We should touch on this point somewhere.)}
 
 \bcp{I see quite a few little issues in the citations.  Let's make
   sure we give that a quick polishing pass.}
 
 \bcp{We could / should read some past funded NSF Large proposals for
   ideas about how people talk about their work.}
-
-\todo{Remember to turn off all the ``forreaders'' stuff.}
 
 \todo{Make sure the intro to each section accurately reflects what's
   in the section, and in which order.}
@@ -2589,5 +2493,3 @@ Shi.
 
 \fi
 
-\bigskip \forreaders{Don't miss all the supplemental documents beyond
-  the bibliography that we'd love to hear your comments on...}
