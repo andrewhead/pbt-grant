@@ -493,11 +493,18 @@ participants in our need-finding study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
-\iflater\bcp{Needs a paragraph talking about why fuzzing is also not
-  the answer.  ``Conversely, if good coverage of the space of
-  potential inputs is important, why not use a standard fuzzer?''
-  (Answer: Fuzzers work best with trivial ``does not crash''
-  properties and with whole systems, not smaller components...)}\fi
+PBT is also often compared to {\em fuzz testing} (or
+``fuzzing'')~\cite{afl-readme}, which randomly tests software to find
+vulnerabilities. Fuzzing is powerful, and we discuss ideas for bringing PBT and
+fuzzing closer together later in the proposal
+(\sectionref{sec:reflectivefuzzing}), but fundamentally modern fuzzers have
+different goals from PBT. In general, fuzzers are run for a long time (hours or
+days), testing the software from the outside in an attempt to find a crash
+error. PBT, on the other hand, is part of the development process; properties
+are run for much less time (on the order of seconds) and are aimed at finding
+logical errors in smaller software components. Both techniques are useful, but
+their approaches are applied in different ways, at different points in the
+development process, to achieve different goals.
 
 With all these advantages, one might hope to find PBT on every
 software developer's toolbelt.  But PBT poses some challenges as well,
