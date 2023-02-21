@@ -72,16 +72,16 @@ companies using PBT, while substantial, is very far from the whole of the softwa
 industry.
 These gaps represent a gigantic opportunity to increase software quality
 and reduce software costs.
-A 2002 study~\cn{}\amh{Missing citations; might need @BCP, I think I am missing
-the email thread from rjmh to complete the reference}\hg{+1} estimated that the total cost of software errors is almost
+A 2002 study~\cite{2002economic} estimated that the total cost of software errors is almost
 \$60 billion per year and suggested that \$22 billion of that could be
 saved through
 better testing infrastructure; since then, the situation has only gotten worse, with a 2022
-study~\cn{} estimating that poor software quality now costs over \$2 trillion per
-year. Accelerating the adoption of PBT stands to make a
+study~\cite{krasner2022cost} estimating that poor software quality now
+costs the U.S.{} over \$2 trillion per
+year. Accelerating the adoption of PBT thus stands to make a
 significant dent
 in the global cost of software bugs.  This is the grand challenge that
-we address in this proposal.
+we address.
 
 Our group has already begun working to identify
 high-leverage ways to extend PBT's reach.
@@ -342,14 +342,11 @@ large number of inputs and
 checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
 {counterexample}.
-
-\bcpread{Para}%
-The process of designing these properties is non-trivial, and is an example of
+%
+Designing these properties is an example of
 the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
 automated testing where the user needs to define what it means for a program to
-be correct. Luckily, prior work catalogs a number of different kinds of
-properties that one might write~\cite{HowToSpecifyIt}, and we address challenges
-with expressing properties in \sectionref{sec:spec}.
+be correct.
 
 Our research agenda focuses mostly on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
@@ -412,18 +409,19 @@ participants in our need-finding study (\participant{5}, \participant{21})
 talked at length about properties being an ideal way to communicate what a
 program is supposed to do.
 
-\bcpread{Paragraph}%
-PBT is also often compared to {\em fuzz testing} (or
-``fuzzing'')~\cite{afl-readme}, which randomly tests software to find
-vulnerabilities. Fuzzing is powerful, and we discuss ideas for bringing PBT and
+PBT is also often compared to {\em fuzz testing}~\cite{afl-readme},
+which randomly tests software to find
+vulnerabilities. We discuss ideas for bringing PBT and
 fuzzing closer together later in the proposal
-(\sectionref{sec:reflectivefuzzing}), but fundamentally modern fuzzers have
-different goals from PBT. In general, fuzzers are run for a long time (hours or
-days), testing the software from the outside in an attempt to find a crash
-error. PBT, on the other hand, is part of the development process; properties
-are run for much less time (on the order of seconds) and are aimed at finding
-logical errors in smaller software components. Both techniques are useful, but
-their approaches are applied in different ways, at different points in the
+(\sectionref{sec:reflectivefuzzing}), but current fuzzers have fundamentally
+different goals from PBT.  In general, fuzzers need to run for a long time (hours or
+days), they are common used to test whole systems ``from the
+outside,'' and the errors they try to provoke manifest as
+crashes. Properties in PBT, on the other hand, can typically be
+checked more quickly (on the order of seconds), they express richer
+constraints on behavior than ``does not crash,'' and they can be used
+to test both whole systems and smaller components.  Both techniques are useful, but
+they are applied in different ways, at different points in the
 development process, to achieve different goals.
 
 With all these advantages, one might hope to find PBT on every
@@ -602,11 +600,11 @@ Finally, existing tools for PBT need continual
 support to meet demands from growing (and increasingly sophisticated)
 user-bases; if PBT is to become mainstream, we
 need to offer \edutheme{Support and Guidance for Open-Source
-PBT Frameworks} to help our
+PBT Frameworks}\iflast\bcp{As John pointed out, it would be good to
+have a more focused way of explaining how we intend to help here.}\fi to help our
 work and ideas permeate the PBT world.
 
-The overall agenda for this proposal, and many of the specific
-tasks---are inspired by these motivating themes.
+
 % \iflater
 % \bcp{Needs a rewrite for the new structure... Section 7 is missing!
 %   Or maybe we can just drop this paragraph?!}%
@@ -649,10 +647,10 @@ interactive tools
 study findings into a cognitive
 theory of property-based testing, a conceptual foundation for the
 design activities elsewhere in the project (\sectionref{sec:cogtheory}).
-
-To ensure fairness, ethics, accountability, and
-  transparency (FEAT), each of our user studies will go through Penn's
-Institutional Review Board (IRB) review process.
+%
+To ensure fairness, ethics, accountability, and transparency (FEAT),
+each of our user studies will be vetted through Penn's Institutional
+Review Board (IRB) review process.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
    {sec:survey}{1}{2}{HCI Theory}{PhD 1}{}{Head}
@@ -718,7 +716,7 @@ and recruiting over social media.
   {sec:frameworks}{3}{4}{HCI Theory}{PhD
 1}{PhD 4}{Head}
 %
-\discuss{Cut this?}
+\discuss{Cut this task?}
 %
 Anecdotes related in interviews do not, in themselves, provide enough
 information to inform the design of effective tools.  We will need a more
@@ -757,42 +755,37 @@ depth to the analysis of how different tasks impact user's preferences.  In
 this way, we will generate design recommendations that we can use as evidence to
 help the community standardize on usable designs.
 
-\bcpread{Comments}%
-\bcp{I am not really convinced by this yet.  What are these
-  ``dimensions'' where we are going to choose between alternative A
-  and alternative B?  Integrated vs. external shrinking, sure, but
-  after that, what??  If we can list four or five key dimensions, we
-  should.  If not, maybe drop this task?  (I'm also worried about how
-  easy it's going to be to implement a new PBT tool that embodies all
-  possible combinations of these choices, much less in a ``minimal''
-  way...)}\hg{I listed three, internal vs external shrinking, maximal vs minimal
-  generator automation, and bespoke property language vs. just write a Boolean
-  function. I imagine we'd find more if we actually did the study... My goal
-  with this project would be to have an empirical basis on which to say ``hey
-  QuickCheck, let's just implement internal shrinking'' and ``hey Hedgehog, you
-  may want to give users better generator automation.'' It's consistently
-  frustrating when a library in one language is strictly better in one way, and
-  one in another language is better in another, and it has nothing to do with
-  the language}
+% \bcp{I am not really convinced by this yet.  What are these
+%   ``dimensions'' where we are going to choose between alternative A
+%   and alternative B?  Integrated vs. external shrinking, sure, but
+%   after that, what??  If we can list four or five key dimensions, we
+%   should.  If not, maybe drop this task?  (I'm also worried about how
+%   easy it's going to be to implement a new PBT tool that embodies all
+%   possible combinations of these choices, much less in a ``minimal''
+%   way...)}\hg{I listed three, internal vs external shrinking, maximal vs minimal
+%   generator automation, and bespoke property language vs. just write a Boolean
+%   function. I imagine we'd find more if we actually did the study... My goal
+%   with this project would be to have an empirical basis on which to say ``hey
+%   QuickCheck, let's just implement internal shrinking'' and ``hey Hedgehog, you
+%   may want to give users better generator automation.'' It's consistently
+%   frustrating when a library in one language is strictly better in one way, and
+%   one in another language is better in another, and it has nothing to do with
+%   the language}
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
    Theory}{PhD 1}{}{Head}
 %
-\bcpread{2 paras}%
-Our higher-level studies explore larger-scale usability challenges, but in order
-to build usable tools we also need to study the low-level interactions that
-take place between users and their PBT systems. Therefore, we will regularly and
-constantly conduct targeted observational studies throughout our efforts to
-design interactive systems (\sectionref{sec:val})
-to ensure we understand
-developers' workflows well enough that we can realistically support them.
+The studies described above explore large-scale usability challenges, but in order
+to build usable tools we also need to study the low-level interactions
+between users and their PBT tooling. We will
+conduct targeted observational studies to validate our efforts to
+design interactive systems (\sectionref{sec:val}).
 
 Understanding user interactions
 is a core activity of HCI research and helps to inform robust interface design.
-Observations can be effort-intensive to plan and perform, particularly when it
-requires arranging observations of authentic users of a system, performing
-authentic tasks. That said, they
-are indispensable for answering questions about tool design that receive only
+Observation studies can require significant effort to plan and
+perform, but they
+are indispensable for answering questions about tool design may that receive only
 speculative answers in interviews and surveys, like:
 (1) How much time
 are participants willing to devote to
@@ -801,14 +794,14 @@ middle of a programming task?
 (2) How much space is available on a developer's
 screen (amidst other tools like code editors and terminals) for
 new
-interfaces? and
+interfaces? or
 (3) What are developers' current strategies for solving the
 problems they describe, e.g., what representations of generated data
 seem most helpful
 for a programmer trying to understand the distribution of data generated by a
 generator?
 
-Observations will allow us to evolve singular anecdotes from the Jane Street study
+These observations will allow us to evolve singular anecdotes from the Jane Street study
 into a more comprehensive picture of the kinds of designs that will help
 programmers.  We can avoid wasting significant time and energy building
 interfaces that are unacceptable to users if we put in this work up front to
@@ -816,20 +809,21 @@ understand user workflows.  We ultimately plan to use this evidence to design to
 that give as much power as possible to users willing to invest more effort
 (i.e., a ``high ceiling'' in the words of Myers et al.~\cite{ref:myers2000past}) but
 that also provide significant value ``for free'' to new users (i.e., a ``low
-threshold'').
+threshold'').   \bcp{We say we should do these studies up front, but
+  the timeline has them in years 4-5!}
 
-\bcplater{This is the one where I am least confident that PL reviewers
-will be able to see where the effort would go in such a study (i.e.,
-why it's a top-level task).}\hg{Any better?}\amh{I tried my hand at this section
-as well. It is now probably too redundant, but might make the importance and
-effort involved in the tasks a little more clear. We can probably go further.}
+% \bcplater{This is the one where I am least confident that PL reviewers
+% will be able to see where the effort would go in such a study (i.e.,
+% why it's a top-level task).}\hg{Any better?}\amh{I tried my hand at this section
+% as well. It is now probably too redundant, but might make the importance and
+% effort involved in the tasks a little more clear. We can probably go further.}
 
 \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
   Theory}{PhD 1}{Everyone}{Head}
 %
-\bcpread{Reread}%
-A cornerstone of our efforts to bring usable PBT to more people
-will be a new cognitive theory of PBT itself.  Theories of
+% A cornerstone of our efforts to bring PBT to people in industry
+% will be a new cognitive theory of PBT itself.
+Theories of
 programming have
 long served a critical role in human-centered software engineering
 research, providing rich and memorable descriptions of programming
@@ -858,42 +852,44 @@ observations described in the following sections. Conversely, evaluations of
 the tools we build will provide additional evidence to further
 refine the theory.
 
-\bcpread{Para}%
-Like prior theories, a successful outcome is a theory that is simple, validated,
-and evocative. The theory will define the constructs involved in PBT,
+A successful outcome of this effort will be a
+theory that is simple, evocative, and validated. The theory will
+define the constructs involved in PBT,
 including the tasks involved in PBT (e.g., generation, property specification,
 and reviewing test output) and a developer's goals (e.g., developer time, test
 speed, and level of assurance). It will explain tensions between goals (e.g.,
 more assurance often means more developer time). Furthermore, it will identify
 how developers make choices to achieve their goals. For instance, our Jane
 Street interviews showed us that some developers' testing activity
-better resembled satisficing~\cite{ref:brown2004consideration} rather than maximizing
-assurance of a system: these developers limited the time they spent writing
-tests, and the time their computers spent writing tests. A theory that brings
+might better be described as
+satisficing~\cite{ref:brown2004consideration} rather than maximizing
+assurance of a system: these developers limited the time they spent
+writing and running tests, although more testing effort might well have
+revealed further bugs or achieved better coverage. A theory that brings
 these elements together would suggest that for such developers to
-achieve higher assurance, they need faster tests, tooling that takes less time
-to use, or evidence that better assurance is possible with a modicum
-of effort.\hg{The last one is useful, but the other two seem too obvious. Can we
-add a bit of color that makes them seem less guessable?}
-\proposecut{Our hope is to achieve simplicity in our theory by invoking a
-metaphor, as prior theories have achieved with comparisons to hunter-gatherer
-behavior~\cite{ref:pirolli2003exploring}, stacks of slices of Swiss
-cheese~\cite{ref:ko2005framework}, and a series of physical
-barriers~\cite{ref:ko2004six}. For instance, perhaps the act of automated
-testing reflects the act of hill-climbing towards an often-invisible peak as one
-attempts to achieve high assurance through iterative definition and refinement of
-specifications and input data distributions; consultation of study data will
-allow us to refine such ideas further.}\hg{This is where I stopped following.
-The metaphors seem really interesting, but they don't really sit well with my PL
-brain. But I actually think we're good up to that point...}
+achieve higher assurance, they would evidence that better assurance is
+possible with only modest effort.
+% \hg{The last one is useful, but the other two seem too obvious. Can we
+% add a bit of color that makes them seem less guessable?}
+% \proposecut{Our hope is to achieve simplicity in our theory by invoking a
+% metaphor, as prior theories have achieved with comparisons to hunter-gatherer
+% behavior~\cite{ref:pirolli2003exploring}, stacks of slices of Swiss
+% cheese~\cite{ref:ko2005framework}, and a series of physical
+% barriers~\cite{ref:ko2004six}. For instance, perhaps the act of automated
+% testing reflects the act of hill-climbing towards an often-invisible peak as one
+% attempts to achieve high assurance through iterative definition and refinement of
+% specifications and input data distributions; consultation of study data will
+% allow us to refine such ideas further.}\hg{This is where I stopped following.
+% The metaphors seem really interesting, but they don't really sit well with my PL
+% brain. But I actually think we're good up to that point...}
 
-\bcp{The specifics of the theory that Andrew had sketched seem too
-  contentious (I think especially PL people will be distracted by
-  trying to figure out whether they believe them), but I do think we
-  need a short paragraph giving a bit more detailed impression of what
-  the elements of such a theory might be like.  E.g., what's its
-  success criterion?  (All of these tasks could use some discussion of
-  success criteria, in fact!)} \amh{Is this better?}
+% \bcp{The specifics of the theory that Andrew had sketched seem too
+%   contentious (I think especially PL people will be distracted by
+%   trying to figure out whether they believe them), but I do think we
+%   need a short paragraph giving a bit more detailed impression of what
+%   the elements of such a theory might be like.  E.g., what's its
+%   success criterion?  (All of these tasks could use some discussion of
+%   success criteria, in fact!)} \amh{Is this better?}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
@@ -908,7 +904,7 @@ generators}, an abstraction for random generation that we have been
 experimenting with at Penn, as a way of unbundling generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}). \bcpread{Rest of para}We explore how reflective generators can
+tooling (\sectionref{sec:reflective}). We explore how reflective generators can
 help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}) and design
 a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
@@ -2440,8 +2436,8 @@ Shi.
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
 
-\iflater
-\section*{More todos}
+\iflast
+\section*{Final checks}
 
 \todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
 
@@ -2462,34 +2458,10 @@ Shi.
 \todo{Make sure the intro to each section accurately reflects what's
   in the section, and in which order.}
 
-\todo{Every section (including the broader impacts and each of the
+\discuss{Every section (including the broader impacts and each of the
   research sections) needs to explicitly address how we will measure
   success...  Check that we've done this.}
 
 \discuss{Make sure readers can identify a Related Work section.}
 
-\discuss{Get letters from Leo and Hila.
-  \begin{itemize}
-  \item A letter of collaboration from any entity not receiving funds
-  from the project budget should be provided at the time of submission
-  of the proposal. Such letters should appear on the organization’s
-  letterhead and be signed by the appropriate organizational
-  representative. These letters must not deviate from the restrictions
-  and requirements set forth in the NSF PAPPG Chapter II.D.2.  (Done,
-  I think.)
-  \item Any substantial collaboration with individuals not included in
-  the budget should be described in the Facilities, Equipment and
-  Other Resources section of the proposal (see Chapter II.D.2.g) and
-  documented in a letter of collaboration from each collaborator. Such
-  letters should be provided in the supplementary documentation
-  section of Research.gov and follow the format instructions specified
-  in Chapter II.D.2.i. Collaborative activities that are identified in
-  the budget should follow the instructions in Chapter II.E.3.  (Needs
-  done.)
-  \item We also need to make sure that the appropriate sections of the
-  project description mention the collaborations.
-  \end{itemize}
-}
-
 \fi
-
