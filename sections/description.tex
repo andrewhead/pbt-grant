@@ -899,13 +899,6 @@ possible with only modest effort.
 Machinery (CACM)}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
-
-\amh{Can we do anything in this section to better highlight specific, concrete tasks
-the lead student would work on? John is worried that in Section 4.1, there are
-no concrete tasks for the lead student to work on, due to its focus on broad and
-challenging open questions.}
-
-%
 Many of the usability improvements suggested by the Jane Street study center
 around test input
 \gentheme{generation}.
@@ -1120,9 +1113,13 @@ about exactly which primitives are ideal for the generator language. The
 iteration in our current paper seems to give users too much power,
 potentially hurting usability (see
 \sectionref{sec:reflectiveusable}), but limiting that power may have unanticipated technical
-implications of. Additionally, reflective generators
-are currently only ergonomic in purely functional languages; how to make them
-easy to use in an imperative language like Python is an open question.
+implications. We will explore a variety of language formulations in the context
+of examples to find an appropriate balance.
+Additionally, reflective generators
+are currently only ergonomic in purely functional languages; we will build on
+prior work~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to
+explore a form for reflective generators that is appropriate in languages like
+Python, Java, and Rust.
 
 Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
 but not obviously optimal. Hypothesis shrinkers reduce the input
@@ -1132,13 +1129,12 @@ sequences that make the
 generator make as few choices as possible, and where each choice is
 ``minimal.''  This is a useful heuristic, but it is not directly
 related to the user's understanding of the size of the shrunk
-inputs. Ideally, we might want
-reflective shrinkers to {\em always} produce inputs that are smaller
-by some natural metric on their type, not on the random choices that
-produced them; this seems to require a stronger and somewhat more
-complex statement about the construction of the generator.bcp{?}
+inputs. Ideally, we'd like some 
+reflective shrinkers to {\em always} produce inputs that are smaller by some
+natural metric on their type, not on the random choices that produced them; we
+will state and properties of a generator that imply this property.
 
-Finally, there are open questions about the relationship between reflective
+Finally, there we will explore the relationship between reflective
 generators, which are implemented in terms of monads, and {\em algebraic
 effects}. Algebraic effects may make it possible to simplify the representation
 of reflective generators, making them more modular and composable.
