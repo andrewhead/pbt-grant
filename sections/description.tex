@@ -690,14 +690,6 @@ ambient programming environment and language, e.g., whether their
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
 PBT tools in those languages.
-Respondents will
-be recruited broadly, from three main sources: (1)
-users of the Python Hypothesis library; (2) Jane Street, aiming for
-a broader set of developers than in the original study; and (3)
-word of mouth and via announcements on the PIs' Twitter and Mastodon
-accounts, various mailing lists, and discussion boards for developer
-conferences---e.g., ``Yow!'', where PI Pierce spoke last
-year~\cite{Pierce:Yow22}.
 \hg{Joe says this doesn't aim high enough. He suggests we try to reach X many
 users of each of the N biggest PBT libraries---like a lot more than 75
 people---and I tend to agree.}\bcp{+1.  X=100?  500?  (Not confident
@@ -709,8 +701,16 @@ have a way to reach their users).}
 In line with typical practice in
 human factors research surveys in software
 engineering~\cite{ref:robillard2009makes,ref:uddin2015api,ref:murphyhill2019predicts},
-we aim to recruit respondents in the low hundreds (i.e., between 75 and 300
-respondents) for each survey.
+we aim to recruit respondents with upwards of around 150 respondents per survey
+(and aspirationally many more).
+Respondents will
+be recruited broadly, from three main sources: (1)
+users of the Python Hypothesis library; (2) Jane Street, aiming for
+a broader set of developers than in the original study; and (3)
+word of mouth and via announcements on the PIs' Twitter and Mastodon
+accounts, various mailing lists, and discussion boards for developer
+conferences---e.g., ``Yow!'', where PI Pierce spoke last
+year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
 A second, more speculative, written survey later in the project will investigate
@@ -733,50 +733,10 @@ and recruiting over social media.
 second figure in the Management and Coordination section.
 } \amh{lgtm!}
 
-\SUBSECTION{Dimensions of PBT infrastructure design}%
-  {sec:frameworks}{3}{4}{HCI Theory}{PhD
-1}{PhD 4}{Head}
+% \SUBSECTION{Dimensions of PBT infrastructure design}%
+%   {sec:frameworks}{3}{4}{HCI Theory}{PhD
+% 1}{PhD 4}{Head}
 %
-\discuss{Cut this task?} \amh{That's fine with me. This can also be easily
-(and I think productively) incorporated into PBT interaction models---i.e., our observational studies could
-involve comparisons between tools that support PBT with different kinds of affordances.}
-%
-Anecdotes related in interviews do not, in themselves, provide enough
-information to inform the design of effective tools.  We will need a more
-fine-grained understanding of the design trade-offs inherent in PBT libraries
-in order to improve those libraries.\discuss{We seem to have standardized
-  on ``libraries'' instead of ``tools'' or ``frameworks,'' but are all
-PBT tools libraries??  I don't think so!  Or at least not obviously so.}
-Of course, a pairwise comparison of {\em all} libraries in {\em all}
-languages would be infeasible and
-unhelpful; rather, we will systematically review prior art to identify major
-dimensions along which PBT libraries differ. For example, some libraries, like
-OCaml's QuickCheck, lean heavily into automating random data generation, whereas
-Haskell's Hedgehog is designed to be more manual in the hopes of
-making users more intentional about their testing: which of these approaches is
-preferable? Similarly, some libraries implement properties as arbitrary
-host-language functions, while others provide a rich domain-specific language of
-properties: do such property languages make a positive difference?
-
-We will evaluate how differences along those dimensions impact usability in
-two ways. First, we will design and implement a minimal, modular PBT library
-that can be tuned along the dimensions we want to study.
-\iflater\bcp{Can we
-give a bit more detail about what this language will be like?  How is it related
-to the ``Reference implementation'' idea we talk about elsewhere?}
-\hg{We didn't end up talking about a ``reference implementation'' as such. I
-imagined we'd build off something like minithesis
-\url{https://github.com/DRMacIver/minithesis}, but I didn't want to commit to that.}
-\fi
-We will
-then give users testing tasks and measure the speed, effectiveness, and
-confidence with which they performed their testing.  Second, we will compile a
-list of representative testing scenarios and interview expert users on their
-preferences along the different dimensions for those specific tasks. This will
-help us identify potential confounding factors in our other evaluation and add
-depth to the analysis of how different tasks impact user's preferences.  In
-this way, we will generate design recommendations that we can use as evidence to
-help the community standardize on usable designs.
 
 % \bcp{I am not really convinced by this yet.  What are these
 %   ``dimensions'' where we are going to choose between alternative A
@@ -798,16 +758,18 @@ help the community standardize on usable designs.
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
    Theory}{PhD 1}{}{Head}
 %
-The studies described above explore large-scale usability challenges, but in order
+Interviews and surveys are adequate for exploring large-scale usability challenges, but in order
 to build usable tools we also need to study the low-level interactions
 between users and their PBT tooling. We will
-conduct targeted observational studies to validate our efforts to
-design interactive systems (\sectionref{sec:val}).
+conduct targeted observational studies to inform the many
+fine-grained design decisions
+involved in language design (\sectionref{sec:reflectiveusable}) and 
+interface design (\sectionref{sec:val}) activities.
 
 Understanding user interactions
 is a core activity of HCI research and helps to inform robust interface design.
-Observation studies can require significant effort to plan and
-perform, but they
+Observation studies often require significant effort to plan and
+perform. That said, they
 are indispensable for answering questions about tool design may that receive only
 speculative answers in interviews and surveys, like:
 (1) How much time
@@ -824,18 +786,93 @@ seem most helpful
 for a programmer trying to understand the distribution of data from a
 generator?
 
-These observations will allow us to evolve singular anecdotes from the Jane Street study
-into a more comprehensive picture of the kinds of designs that will help
-programmers.  We can avoid wasting significant time and energy building
-interfaces that are unacceptable to users if we put in this work up front to
-understand user workflows.  We ultimately plan to use this evidence to design tools
-that give as much power as possible to users willing to invest more effort
-(i.e., a ``high ceiling'' in the words of Myers et al.~\cite{ref:myers2000past}) but
-that also provide significant value ``for free'' to new users (i.e., a ``low
-threshold'').   \bcp{We say we should do these studies up front, but
-  the timeline has them in years 4-5!} \amh{Yes---I think we should be
-  conducting these studies throughout, with a spike in the beginning, and a
-  trickle throughout the rest of the project term.}
+We will conduct two kinds of studies. First, observational studies similar
+to contextual inquiries~\cite[Chapter 3]{ref:holtzblatt1997contextual}, in which
+developers perform PBT in realistic contexts, with their own tools and tasks.
+The output of these studies will be detailed understanding of the task
+structures involved with specific PBT tasks (e.g., writing a generator,
+assessing test results), and most importantly, what steps in those tasks are
+particularly time-consuming and effortful.  These steps are the ones that our
+tooling must address. Recordings and notes from these sessions will
+serve as ``test cases'' against which the likelihood of success of particular
+designs can be measured before implementation.
+
+A second kind of study is a controlled comparison of design alternatives.
+Language design, like the kind we plan to do relating to generator
+(\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
+difficult to inform empirically for the reason that there exist many design choices
+and interactions between them. We plan to identify the most germane patterns of
+variation between modern PBT tools to our efforts (e.g., the definition of properties as inline
+functions versus the use of a DSL, or the use of annotations to steer
+annotation), and perform a select few comparative studies to gain clarity on how various
+choices would impact our design. Following best practices in experiment design
+for programming tools~\cite{ref:ko2015practical}, we will enable meaningful
+comparisons by keeping task design simple, training
+participants to control for variance in prior skill, and triangulating findings
+from a mixture of
+quantitative metrics (e.g., success, task duration, error rate, subjective
+reports of difficulty) and qualitative analysis (e.g., thematic
+analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
+of problematic incidents). Most of these findings will be in service of research projects described elsewhere
+in this proposal. A select few findings may be disseminated in
+publication if of broad interest.
+
+% we will perform
+% comparitive studies of .
+% 
+% These observations will allow us to evolve singular anecdotes from the Jane Street study
+% into a more comprehensive picture of the kinds of designs that will help
+% programmers.  We can avoid wasting significant time and energy building
+% interfaces that are unacceptable to users if we put in this work up front to
+% understand user workflows.  We ultimately plan to use this evidence to design tools
+% that give as much power as possible to users willing to invest more effort
+% (i.e., a ``high ceiling'' in the words of Myers et al.~\cite{ref:myers2000past}) but
+% that also provide significant value ``for free'' to new users (i.e., a ``low
+% threshold'').   \bcp{We say we should do these studies up front, but
+%   the timeline has them in years 4-5!} \amh{Yes---I think we should be
+%   conducting these studies throughout, with a spike in the beginning, and a
+%   trickle throughout the rest of the project term.}
+% 
+% \discuss{Cut this task?} \amh{That's fine with me. This can also be easily
+% (and I think productively) incorporated into PBT interaction models---i.e., our observational studies could
+% involve comparisons between tools that support PBT with different kinds of affordances.}
+% %
+% Anecdotes related in interviews do not, in themselves, provide enough
+% information to inform the design of effective tools.  We will need a more
+% fine-grained understanding of the design trade-offs inherent in PBT libraries
+% in order to improve those libraries.\discuss{We seem to have standardized
+%   on ``libraries'' instead of ``tools'' or ``frameworks,'' but are all
+% PBT tools libraries??  I don't think so!  Or at least not obviously so.}
+% Of course, a pairwise comparison of {\em all} libraries in {\em all}
+% languages would be infeasible and
+% unhelpful; rather, we will systematically review prior art to identify major
+% dimensions along which PBT libraries differ. For example, some libraries, like
+% OCaml's QuickCheck, lean heavily into automating random data generation, whereas
+% Haskell's Hedgehog is designed to be more manual in the hopes of
+% making users more intentional about their testing: which of these approaches is
+% preferable? Similarly, some libraries implement properties as arbitrary
+% host-language functions, while others provide a rich domain-specific language of
+% properties: do such property languages make a positive difference?
+% 
+% We will evaluate how differences along those dimensions impact usability in
+% two ways. First, we will design and implement a minimal, modular PBT library
+% that can be tuned along the dimensions we want to study.
+% \iflater\bcp{Can we
+% give a bit more detail about what this language will be like?  How is it related
+% to the ``Reference implementation'' idea we talk about elsewhere?}
+% \hg{We didn't end up talking about a ``reference implementation'' as such. I
+% imagined we'd build off something like minithesis
+% \url{https://github.com/DRMacIver/minithesis}, but I didn't want to commit to that.}
+% \fi
+% We will
+% then give users testing tasks and measure the speed, effectiveness, and
+% confidence with which they performed their testing.  Second, we will compile a
+% list of representative testing scenarios and interview expert users on their
+% preferences along the different dimensions for those specific tasks. This will
+% help us identify potential confounding factors in our other evaluation and add
+% depth to the analysis of how different tasks impact user's preferences.  In
+% this way, we will generate design recommendations that we can use as evidence to
+% help the community standardize on usable designs.
 
 \publicationtarget{PLATEAU Workshop}
 
