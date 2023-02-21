@@ -1196,32 +1196,39 @@ Modern fuzzers often
 ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
 to ensure that the fuzzer does not spend ages exploring
 inputs that have no hope of getting beyond the parser in the system
-under test and exercising other parts of the system. Normally these seeds are easy enough
-for the user to write down, since they are simply program inputs, but if
-we are instead asking the fuzzer to generate sequences of {\em choices}, then
+under test and exercising other parts of the system. Normally these seeds are easy
+for the user to write down---they are simply example program inputs---but if
+we are instead asking the user to write down
+sequences of {\em
+  choices} that lead to these seeds being {\em generated}\bcp{remind
+  the reader why we are doing that}, then
 it becomes much more
-error-prone (and tedious) to produce seeds by hand.  This is one great use for a
+error-prone (and tedious) to produce seeds by hand\bcp{why not just
+  say infeasible?}.  This is one excellent use for a
 backward interpretation. The user can write down their seeds---either as values
-in the program, or as text that can be parsed by the program's parser---and then
-the reflective generator can reflect on the choices that produce those seeds.
+in the program, or as text that can be parsed by the program's parser---and
+ask the reflective generator to calculate the choices that lead to those seeds.
 
 Reflective generators can also support
 validity-preserving {\em mutation}.
 Fuzzing algorithms operate by
-mutating values
+mutating ``interesting'' values
 so as to explore
 the behavior of the program in a space ``around'' those
-values. Mutation can be
+values. But mutation can be
 tricky in scenarios where values are subject to complex validity
-constraints, since mutation often produces invalid values, but reflective
-generators can help with this: The generator can (1) reflect on the
-choices that lead to a particular
-value, (2) mutate those choices, and (3) re-run the generator (forward) with the new
+constraints, since purely random mutation often produces invalid
+values. Reflective
+generators can help with this by (1) reflecting on the
+choices\bcp{I find this phrase persistently confusing: the RG is
+  reflecting on [thinking about] the input value and {\em producing}
+  the choices that lead to it.} that lead to a particular
+value, (2) mutate those choices, and (3) run the generator forward with the new
 choices, {\em correcting any that
 would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
 illustrates how this
 algorithm can mutate a binary search tree while maintaining validity,
-using no bespoke BST-specific code\proposecut{ beyond the reflective generator itself}.
+using no bespoke BST-specific code.
 \begin{figure}[t]
   \centering
   \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
@@ -1249,8 +1256,7 @@ that Blackwell described.)}\hg{Whatever you think is best}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
-usable (based on our own experience using it) but guessing is far from enough to
-ensure usability.
+usable (based on our own experience), but we can do better than guessing.
 
 We will evaluate and re-design the surface syntax of reflective generators with
 the help of real users.  First, we will recruit a small group of users, teach
@@ -1454,11 +1460,10 @@ known to be quite difficult to use~\cite{greenman_little_2022}; to the extent
 that we can, we hope to simplify the temporal connectives to only those that are
 intuitive for users to actually work with.
 
-Ultimately, this work will lead to a tool where properties are expressed in a
-property language extended with LTL; the system compiles LTL formulae to
-properties over log traces; the developer provides inputs to an outer system
-\emph{containing} the system(s) of concern; and then the test harness will check
-the given trace properties in real time.
+The end goal of this task is a tool that compiles properties written
+in some friendly temporal logic into lower-level properties over log
+traces, which are validated by providing random inputs to an outer
+system \emph{containing} the component(s) of concern.
 
 \publicationtarget{Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
