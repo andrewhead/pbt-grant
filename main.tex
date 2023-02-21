@@ -1,4 +1,4 @@
-\newif\ifdraft\draftfalse
+\newif\ifdraft\drafttrue
 \newif\iflater\latertrue
 \newif\ifnext\nexttrue
 \newif\iflast\lastfalse
@@ -159,8 +159,8 @@
 \usepackage{ifthen}
 \usepackage{pgfgantt}
 
-\newcommand{\publicationtarget}[1]{\smallskip{\em Publication target:} #1.}
-\newcommand{\discussiontarget}[1]{\smallskip{\em Presentation target:} #1.}
+\newcommand{\publicationtarget}[1]{{\em Publication target:} #1.}
+\newcommand{\discussiontarget}[1]{{\em Presentation target:} #1.}
 % \newcommand{\publicationtarget}[1]{\smallbreak\noindent We plan to publish this
 % work at #1.}
 % \newcommand{\discussiontarget}[1]{\smallbreak\noindent We plan to present this
