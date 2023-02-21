@@ -223,7 +223,7 @@ generated test inputs to find bugs more effectively (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
 methodologies from academia into industry through targeted
-engineering---in particular, supporting and 
+engineering---in particular, supporting and
 improving open-source PBT libraries and building a comprehensive IDE for PBT.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
@@ -1135,7 +1135,7 @@ generators.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL Theory}{PhD 2}{}{Pierce}
 %
-\todo{Poor transition---both self-congratulatory and unclear about the
+\todo{Poor transition---too self-congratulatory, and unclear about the
   value of what's done and what's not.  Needs to be worded more deftly.}%
 Our past work on reflective generators shows promising results, but
 their theory is still far from settled.
@@ -1168,9 +1168,9 @@ generators, which are implemented in terms of monads, and {\em algebraic
 effects}. Algebraic effects may make it possible to simplify the representation
 of reflective generators, making them more modular and composable.
 
-Reflective generators offers a powerful foundation enabling a range of
-more practical innovations.  We discuss these in the remainder of
-\sectionref{sec:gen}.
+Beyond theory, reflective generators offer a powerful foundation
+enabling a range of more practical innovations.  We discuss these in
+the remainder of the section.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1179,34 +1179,37 @@ more practical innovations.  We discuss these in the remainder of
 %
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
-ones behind PBT: in particular, they use randomization to exercise many
-program behaviors. Fuzzers are popular because they are both capable and
-inherently easy to use. The developer need only point the fuzzer at an
+ones behind PBT: in particular, they use randomization to exercise a
+range of
+program behaviors. Fuzzers are popular because they are both effective and
+inherently easy to use: the developer need only point the fuzzer at an
 executable binary and
 wait. But, without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions.
-Our ultimate goal is a unification of PBT and fuzzing tooling that combines the
+bugs when properties have complex preconditions\bcp{Do they work at
+  all on components smaller than whole systems??  This is a serious
+  gap in my understanding of the related work context...}.
+Our ultimate goal is a unification of PBT and fuzzing that combines the
 powerful automation potential of reflective generators with the usability of
 fuzzers.
 
-There are a few existing projects that try to get the best of both worlds by
-combining PBT and fuzzing.
-For example, the FuzzChick library in Coq~\cite{OLDlampropoulos19fuzzchick}
-uses code coverage as guidance for PBT, and the HypoFuzz library uses a
+Some existing projects have already worked to
+combine PBT and fuzzing.
+For example, the FuzzChick framework in Coq~\cite{OLDlampropoulos19fuzzchick}
+uses code coverage as guidance for PBT, and HypoFuzz uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
 poured into industrial-strength fuzzers; Crowbar, on the other hand,
 does~\cite{dolan2017testing}. Crowbar uses
 AFL~\cite{afl-readme}, one of the best-established
 fuzzers, to generate random bit-strings that are later parsed into program
-inputs. Crowbar does require more user effort than standard fuzzing techniques,
+inputs. Crowbar does require more user effort\bcp{for what?} than standard fuzzing techniques,
 but the coverage guidance means that careful tuning is often not required to get
 good testing performance.
 
 % \TASK{Build a relective fuzzer}{2}{3}{who?}
-We admire Crowbar, but think the idea can be pushed further by building
-a variant of Crowbar on reflective generators.
-We will start with a classic fuzzing setup, which tries to make the
+We admire Crowbar, and think the idea can be pushed even further by building
+a variant of Crowbar on top of reflective generators.
+The idea of crowbar is to start with a classic fuzzing setup, which tries to make the
 system under test
 crash by passing it a variety of semi-random inputs. But instead of
 the fuzzer
@@ -1222,19 +1225,26 @@ their backward interpretation can be used to help seed the fuzzer.
 Modern fuzzers often
 ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
 to ensure that the fuzzer does not spend ages exploring
-inputs that have no hope of exercising the interesting\amh{Elena comment: ``wish
-there was a more descriptive word'' (than ``interesting''} parts of the
-system under test. Normally these seeds are easy enough
+inputs that have no hope of getting beyond the parser in the system
+under test and exercising other parts of the system. Normally these seeds are easy enough
 for the user to write down, since they are simply program inputs, but if
-we instead ask the fuzzer to generate sequences of {\em choices}, then
+we are instead asking the fuzzer to generate sequences of {\em choices}, then
 it becomes much more
 error-prone (and tedious) to produce seeds by hand.  This is one great use for a
 backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and then
 the reflective generator can reflect on the choices that produce those seeds.
 
-Even more exciting,
-reflective generators can provide
+\bcp{The last couple of paragraphs could use a little rewriting---I
+  don't think readers will be able to follow.  In particular, the
+  switch from fuzzing an input to fuzzing the randomness that led to
+  that input goes by too fast, and then the rest is all a muddle.}
+\bcp{Also, I am persistently confused by the word ``randomness''---I
+  keep wanting to think of it as a single seed such as much be
+  provided to a RNG, but it's actually a sequence or tree of actual
+  random choices.  I think we need another term.}
+
+Reflective generators can also support
 validity-preserving {\em mutation}.
 Fuzzing algorithms operate by
 mutating values
@@ -1242,18 +1252,18 @@ so as to explore
 the behavior of the program in a space ``around'' those
 values. Mutation can be
 tricky in scenarios where values are subject to complex validity
-constraints, since mutation often produces invalid values. Reflective
-generators can help here: The generator can (1) reflect on the choices that lead
-to a particular
-value, (2) mutate those choices, and (3) re-run the generator with the new
+constraints, since mutation often produces invalid values, but reflective
+generators can help with this: The generator can (1) reflect on the
+choices that lead to a particular
+value, (2) mutate those choices, and (3) re-run the generator (forward) with the new
 choices, {\em correcting any that
 would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
 illustrates how this
 algorithm can mutate a binary search tree while maintaining validity,
-using no BST-specific code beyond the reflective generator itself.
+using no bespoke BST-specific code beyond the reflective generator itself.
 \begin{figure}[t]
   \centering
-  \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
+  \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
   \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
   BST invariant. Mutating the root node from 6 to 3 invalidates the
@@ -1262,8 +1272,9 @@ using no BST-specific code beyond the reflective generator itself.
 minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 \end{figure}
 
-Between seed extraction and validity-preserving mutation, reflective generators
-have the potential to significantly improve on existing tools like Crowbar.
+\proposecut{Between seed extraction and validity-preserving mutation,
+  reflective generators have the potential to significantly improve on
+  existing tools like Crowbar.}
 
 \publicationtarget{Programming Language Design and Implementation (PLDI)}
 
@@ -1346,7 +1357,7 @@ generators, so there are significant opportunities to advance this space.
 
 \discuss{Do we want to talk about LLMs? This will make Hila and co sad, but we
 could do it tastefully...} \amh{Elena comment: ``only if you have space; feels
-totally unnecessary.'' Andrew agrees.} 
+totally unnecessary.'' Andrew agrees.}
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1524,7 +1535,7 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 \discuss{Another place to maybe mention LLMs / copilot?} \amh{Elena comment:
-``Eh\ldots{} I don't see its relevance''} 
+``Eh\ldots{} I don't see its relevance''}
 
 \publicationtarget{User Interface and Software Technology (UIST)}
 
@@ -1714,12 +1725,10 @@ understanding distributions of input data and easily tuning them.
   \centering
   \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
   \caption{An envisioned tool for evaluating data distributions. Such a tool
-  would evalate generator source code live (1), yielding summary statistics, (2)
+  would evalate generator source code live (1), showing summary statistics (2),
   aggregate visualizations (3), and views of input instances (4). Iteration
   would be supported with live adjustment of generator code and refinement of
-  filters used in the visualizations. \amh{I added this caption back because we
-  don't refer to the numbers anywhere, and I personally like captions that make
-  very explicit what you should see in the figure.}
+  filters used in the visualizations.
     \todolast{put this near the text that refers to it}}\label{fig:gen-vis}
 \end{wrapfigure}
 
@@ -1876,7 +1885,8 @@ realistic, comprehensive data distributions for their testing.
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 \amh{Would ICFP be a good target for this? UIST would be a great target too, and
 I think would be really excited about this interaction paradigm, so I would
-advocate for that perhaps instead.}
+advocate for that perhaps instead.}\bcp{There is no harm listing more
+than one target, I think.}
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
