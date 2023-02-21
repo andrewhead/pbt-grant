@@ -1661,10 +1661,11 @@ descriptions.
  \pagebudget{3}}{sec:val}
 In this section, we
 describe a sequence of research efforts to design and evaluate novel modes of
-{\em interaction} for PBT. These projects will contribute new paradigms for assessing whether their generators are generating sufficient and
-appropriate inputs (\sectionref{sec:evaluating_distributions}) and whether those
+{\em interaction} for PBT. These projects will contribute new paradigms for (1) assessing whether their generators are generating sufficient and
+appropriate inputs (\sectionref{sec:evaluating_distributions}), (2)
+understanding whether those
 inputs sufficiently exercise their code (\sectionref{sec:tuning}),
-and understand testing-provoked failures involving complex inputs
+and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
 Finally, we describe a planned tool to help migrate
@@ -1674,7 +1675,7 @@ regression tests (\sectionref{sec:counter}).
 
 These projects will all be pursued using HCI
 methodology, integrating these tools into contemporary interactive development
-environments. The success of tools will be evaluated in usability studies
+environments. The success of these tools will be evaluated in usability studies
 comparing developers' effectiveness and efficiency in writing tests for their
 software, and debugging problems discovered by their test suites.  PI Head will
 guide tool development efforts, leveraging his
@@ -1694,12 +1695,16 @@ PBT thus depends on the quality of this distribution---whether
 most of its probability mass is on tests that are sufficiently
 realistic and diverse. We plan
 to develop tooling for
-understanding distributions of input data and easily tuning them.
+understanding distributions of input data and easily tuning them. 
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
   \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating data distributions.
+  \caption{An envisioned tool for evaluating data distributions. Such a tool
+  would evalate generator source code live (1), yielding summary statistics, (2)
+  aggregate visualizations (3), and views of input instances (4). Iteration
+  would be supported with live adjustment of generator code and refinement of
+  filters used in the visualizations.
     \todolast{put this near the text that refers to it}}\label{fig:gen-vis}
 \end{wrapfigure}
 
@@ -1729,7 +1734,8 @@ developer support for easily defining meaningful views of the data.
 
 % \TASK{Tools for working with data distributions}{2}{3}{who?}
 We will design and implement new interactive tools that provide rapid,
-informative views of input data distributions. The tools will address the
+informative views of input data distributions. A vision of one such tool appears
+in Figure~\ref{fig:gen-vis}. The tools will address the
 challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming environments.
 
@@ -1794,7 +1800,7 @@ able colorize code in the editor on the basis of
 how frequently each line has been executed while running tests.
 
 The result of these experiments will be the first live tool for generator
-feedback and analysis; in the next section, we take it one step
+feedback and analysis. In the next section, we take it one step
 farther to consider how interactive tools can help a developer not
 just understand input data distributions, but more directly change
 them.
@@ -1810,7 +1816,7 @@ significant trial-and-error---changing generator parameters and hoping
 that the input data distribution changes in the right way. Approaches
 like the one in \sectionref{sec:reflective} can help, but manual tuning
 is still needed in many cases.
-Developers need higher-level ways to describe the kinds of inputs they.
+Developers need higher-level ways to describe the kinds of inputs they desire.
 
 We will design tools to support the direct tuning of input data distributions
 through manipulation of generated inputs and data distribution
@@ -1865,7 +1871,7 @@ First, we will design tools that build on
 shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
 understand counterexamples. Automatic shrinking, even when done via reflective
 shrinkers as we discuss in \sectionref{sec:reflective}, can be opaque, and
-shrinkers can get stuck at local minima that far from the global minimum.
+shrinkers can get stuck at local minima that are far from the global minimum.
 But developers can often see shrinking options that the shrinker does not know to consider.
 Drawing inspiration from approaches in recent HCI literature that support
 interactive code reduction through iterative, incremental
@@ -2003,7 +2009,8 @@ projects:
 \todo{Add titles}
 \begin{itemize}[noitemsep]
   \item \sectionref{sec:frameworks}: Helping PhD 1 to build and maintain a minimal PBT
-  framework for use in comparison studies.
+    framework for use in comparison studies. \amh{Elena comment: ``after
+    reminding myself of 3.2, I didn't realize this would be necessary.}}
   \item \sectionref{sec:reflective}: Implementing and maintaining versions of
   reflective generators in a number of languages and PBT ecosystems, with the
   help of PhD 2.
@@ -2049,7 +2056,8 @@ The ecosystem of existing open-source PBT tooling is broad and varied. Some
 projects are vibrant and well-maintained, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
 user needs. Additionally, different libraries for PBT vary wildly in their
-ideological approaches, as we outline in \sectionref{sec:frameworks}, making
+ideological approaches (we described a few examples
+in~\sectionref{sec:frameworks}), making
 skill transfer difficult for users. For these reasons, we will allocate
 engineering time focused on supporting and improving open-source libraries for
 PBT.
@@ -2065,8 +2073,8 @@ assisting.\hg{Not sure how best to frame this. Maybe the answer is just less
 detail...}
 
 There are two ways we may be able to help solve the problem of skill transfer
-between PBT libraries. Where possible, we hope that the project from
-\sectionref{sec:frameworks} provides us with enough evidence to convince some
+between PBT libraries. Where possible, we hope that our comparison of PBT
+tools (\sectionref{sec:frameworks}) provides us with enough evidence to convince some
 library designers to take a different tack and make their library more like
 others. In that case, we will provide engineering support to ease that
 transition. In other cases, where both approaches have benefits, we will
@@ -2268,7 +2276,8 @@ that makes them immediately useful to engineers and students: the projects aroun
 improved generation and shrinking, PBT over logs, and evaluating data
 distributions will be particular targets for widespread
 dissemination. The remaining projects will be published under a permissive
-open source license to serve as models for similar tools for other programming languages and environments.
+open source license\amh{Elena comment: ``how is this different than
+``open-source distribution'' mentioned at the top of the paragraph?} to serve as models for similar tools for other programming languages and environments.
 
 The project also represents an excellent opportunity for strengthening
 collaborations between university researchers and industrial advocates of PBT.  Our
@@ -2276,7 +2285,8 @@ ongoing user study at Jane Street has been carried out with the
 enthusiastic support of their developers and management, and we hope
 to continue using them as a testbed for prototypes of the tools we
 will build.  Similarly, we are in active discussions with the
-developers of the Hypothesis, who are keenly
+developers of Hypothesis \amh{Elena: ``overfitting to Jane Street, maybe? Any
+other test beds?''}, who are keenly
 interested in the results of this proposal.\bcplater{Mention Zac's letter,
   either here or elsewhere.  Make sure Hila's and Leo's get mentioned too}
 We plan to establish connections with the
