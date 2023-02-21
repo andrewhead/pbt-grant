@@ -1032,23 +1032,28 @@ either as a standard monadic generator or as a source of
 random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
-\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL Theory}{PhD 2}{}{Pierce}
-Building on the free generator work described above, we are exploring a powerful
+\subsectionstar{Context: Reflective Generators}{}{}
+%
+Building on the free generator ideas described above, we are
+exploring a powerful
 generalization based on monadic generators called {\em reflective generators}.
-We began thinking about the basic concept of reflective generators during a
-currently running NSF project (described in \sectionref{sec:prior}); at the time
-of writing the first paper on reflective generators is under submission to ICFP
-2023.  We briefly describe that work here, and then continue by describing the
-work that remains to be done.
+We began thinking about the basic concept during a nearly complete NSF
+project (see \sectionref{sec:prior}), and we will
+soon be submitting a first paper to ICFP
+2023.
+% We briefly describe that work here, and then continue by describing the
+% work that remains to be done.
 
-Reflective generators are unique because they can be run {\em backward}.
-If a generator can be seen as parsing a sequence of choices into a
-value, then running the
-generator backward should take that value and produce a sequence of choices that
-would generate it; reflective generators can
-``reflect'' on the choices that they might have made to generate a
-given test. The machinery
-that makes reflective generators work is rather complex,%
+What's special about reflective generators is that they can be run
+{\em backward}.
+If running a generator in the usual way can be seen as parsing a
+sequence of choices into a
+value, then running it backward should take that value and produce a
+sequence of choices that
+would generate it---i.e., reflective generators can
+``reflect'' on the choices that they could have made to generate a
+given test. The mathematical machinery
+that makes reflective generators work is somewhat complex,%
 \footnote{\normalsize Reflective generators are both monads and {\em
     partial profunctors},
 implementing bidirectional programming in the style of Xia et
@@ -1057,98 +1062,101 @@ related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
-but, like free generators, their syntax remains close to that of normal
-monadic generators.
+but, like free generators, the syntax that users see remains close to
+that of normal monadic generators.
 
-Note that the backward direction of a reflective generator is not the
-same as just remembering the choices it makes as it goes (which is
-already done~\cite{maciver2019hypothesis,
+Running a reflective generator backward is not simply a matter of
+remembering the choices it made going forwards and replaying them in
+reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
 generator can reflect on choices for inputs it did not actually
 produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) depending
 on how much information is needed about the dependencies between different
-choices.
+choices.\bcp{Mysterious.}
 
-Reflective generators can generate inputs as normal monadic generators do,
-but they have myriad other uses. We outline a few of those uses here:
+Reflective generators have myriad uses. Here are a few...
 
-\smallskip{\em Example-Based Tuning.} Earlier we pointed out that good generators
+% \smallskip
+{\em Example-Based Tuning.} Earlier we pointed out that good
+generators should
 produce ``realistic'' inputs; one way to ensure this is to tune the generator so
 it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
 powerful as monadic generators. We implement a similar algorithm using
-reflective generators: we can (1) reflect on the choices that lead to a
+reflective generators; using it, we can (1) reflect on the choices
+that lead to a
 set of realistic values, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
-generators adequately replicate the algorithm from
-the prior work on a larger class of generators.
+generators approximate the performance of the algorithm
+from~\cite{soremekun2020inputs} but work with a larger class of generators.
 
-\smallskip{\em Reflective shrinkers.}
+% \smallskip
+{\em Reflective shrinkers.}
 Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
-reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implement
+reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging without no effort from the user.
-
-Hypothesis shrinks test inputs by shrinking the randomness that produces those
+%
+Hypothesis shrinks test inputs by shrinking the randomness\bcp{``shrinking the randomness''?} that produces those
 inputs. There are many benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
-randomness requires that the randomness is actually available---in general this
-is not the case. Luckily, we show that reflective generators can be used to
-recover the randomness, and thus use the Hypothesis shrinking algorithm on any
-valid input (not just those that we have the randomness for). We can, for
-example, shrink inputs provided by the user or from a bug report, which is
-incredibly helpful for debugging and would previously have required tedious
-manual shrinker development.
+randomness requires that the randomness is actually available, which
+is not always the case. Reflective generators
+can be used to
+recover the randomness and thus enable the Hypothesis shrinking algorithm on any
+valid input (not just those that we know the randomness for). We can, for
+example, automatically shrink inputs provided by the developer or
+gleaned from bug reports.
 
-\smallskip{\em Other data producers.} Reflective generators are also simply a
-more flexible class of programs than usual monadic generators. Their code can be
-freely ``reinterpreted;'' the same code that makes a random choice can also be
-used to {\em enumerate choices} or make {\em guided choices}. This means that as
-new strategies for guided generation and enumeration become popular, the same
-reflective generators will automatically improve.
+% \smallskip
+{\em Other data producers.} Reflective generators can be freely
+``reinterpreted'': the same code that specifies random choices can
+also be used to {\em enumerate choices} or make {\em guided choices}.
+This means that as new strategies for guided random generation and
+enumeration become available, they can be used to improve reflective
+generators.
 
-\medskip
-
-The work we have done on the theory of reflective generators so far has been
-exciting and encouraging, but there is certainly more work to be done before the
-theory is settled.
-
-There are still open questions
+\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL Theory}{PhD 2}{}{Pierce}
+%
+Our past work on reflective generators is promising, but
+their theory is still far from settled.
+In particular,
+there are open questions
 about exactly which primitives are ideal for the generator language. The
-iteration in our current paper may give users too much power, potentially hurting
-usability (see
-\sectionref{sec:reflectiveusable}), but limiting that power may have important technical
-implications that we are not yet aware of. Additionally, reflective generators
+iteration in our current paper seems to give users too much power,
+potentially hurting usability (see
+\sectionref{sec:reflectiveusable}), but limiting that power may have unanticipated technical
+implications of. Additionally, reflective generators
 are currently only ergonomic in purely functional languages; how to make them
 easy to use in an imperative language like Python is an open question.
 
-Regarding shrinking, the shrinking algorithm provided by Hypothesis is powerful,
-but perhaps not optimal. Hypothesis shrinkers reduce the input randomness to the
-{\em shortlex smallest} choice sequence---that is, they ensure that the
-generator makes as few choices as possible, and they ensure that each choice is
-``minimal'' where possible. This is a nice heuristic, but it is not directly
-related to the user-imagined size of the shrunken inputs. Ideally, we want
-reflective shrinkers to {\em always} produce inputs that are smaller by some
-metric on the data-type itself, which requires a stronger statement about the
-construction of the generator that is theoretically more involved.
+Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
+but not obviously optimal. Hypothesis shrinkers reduce the input
+randomness to the
+{\em shortlex smallest} choice sequence---that is, they favor
+randomness that makes the
+generator make as few choices as possible, and where each choice is
+``minimal.''  This is a decent heuristic, but it is not directly
+related to the user's understanding of the size of the shrunk
+inputs. Ideally, we might want
+reflective shrinkers to {\em always} produce inputs that are smaller
+by some natural metric on their type, not on the randomness that
+produced them; this seems to require a stronger and somewhat more
+complex statement about the construction of the generator.bcp{?}
 
 Finally, there are open questions about the relationship between reflective
 generators, which are implemented in terms of monads, and {\em algebraic
 effects}. Algebraic effects may make it possible to simplify the representation
 of reflective generators, making them more modular and composable.
 
-Reflective generators are a compelling foundation for a new generation of
-generators. In the following sections we discuss other projects centered around
-random generation, many of which rely on reflective generators as an enabling
-technology.
-
-\iflater\bcp{Make sure the lowest-level paragraph headers are all
-  formatted the same.}\fi
+Reflective generators offers a powerful foundation enabling a range of
+more practical innovations.  We discuss these in the remainder of
+\sectionref{sec:gen}.
 
 \publicationtarget{the International Conference on Functional Programming (ICFP)}
 
@@ -1230,7 +1238,7 @@ algorithm can mutate a binary search tree while maintaining validity,
 using no BST-specific code beyond the reflective generator itself.
 \begin{figure}[t]
   \centering
-  \includegraphics[width=.6\textwidth]{assets/mutate-diagram.pdf}
+  \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
   \vspace{-2mm}
   \caption{Validity-preserving mutation of a binary search tree, maintaining the
   BST invariant. Mutating the root node from 6 to 3 invalidates the
@@ -2383,6 +2391,7 @@ Shi.
   research sections) needs to explicitly address how we will measure
   success...  Check that we've done this.}
 
-\discuss{Make sure readers can identify a Related Work section.}
+\iflater\bcp{Make sure the lowest-level paragraph headers are all
+  formatted the same.}\fi
 
 \fi

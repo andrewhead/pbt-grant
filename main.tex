@@ -1,12 +1,12 @@
-% John's comments
-%  https://docs.google.com/document/d/1Yt-TFaC_TPu9KqcPEg3z1la-GphyhA3u9FZ7fcvG3TI/edit#
-
 \newif\ifdraft\drafttrue
 \newif\iflater\latertrue
 \newif\ifnext\nexttrue
 \newif\iflast\lastfalse
 
 \newif\ifthemecolors\themecolorsfalse % colorize section 2?
+
+% John's comments
+%  https://docs.google.com/document/d/1Yt-TFaC_TPu9KqcPEg3z1la-GphyhA3u9FZ7fcvG3TI/edit#
 
 \documentclass{NSF}
 
@@ -155,10 +155,12 @@
 \usepackage{ifthen}
 \usepackage{pgfgantt}
 
-\newcommand{\publicationtarget}[1]{\smallbreak\noindent We plan to publish this
-work at #1.}
-\newcommand{\discussiontarget}[1]{\smallbreak\noindent We plan to present this
-work at #1.}
+\newcommand{\publicationtarget}[1]{\smallskip{\em Publication target:} #1.}
+\newcommand{\discussiontarget}[1]{\smallskip{\em Presentation target:} #1.}
+% \newcommand{\publicationtarget}[1]{\smallbreak\noindent We plan to publish this
+% work at #1.}
+% \newcommand{\discussiontarget}[1]{\smallbreak\noindent We plan to present this
+% work at #1.}
 
 \newwrite\workplanfile
 \immediate\openout\workplanfile=\jobname.workplan
