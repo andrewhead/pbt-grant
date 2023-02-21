@@ -222,18 +222,13 @@ failures and improve the distributions of randomly
 generated test inputs to find bugs more effectively (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
-methodologies from academia into industry through targeted engineering
----in particular, supporting and
+methodologies from academia into industry through targeted
+engineering---in particular, supporting and 
 improving open-source PBT libraries and building a comprehensive IDE for PBT.
-We will also drive diffusion via education, developing materials to teach
-software developers about high-value applications of PBT and materials for
-undergraduate\bcp{and masters?!} computer science curriculum centered around
-PBT\bcplater{``centered around PBT'' is maybe a bit too grandiose...?}
-(\sectionref{sec:diffusion}).  \iflater\bcp{Do we need to write explicitly about how education is key not only
-to the diffusion area?  Or is this fine this way?}\hg{I think fine? But I'm not
-    totally sure} \amh{I think it is fine too, given that I think our strongest
-    efforts to do education fall in the diffusion category (at least the way the
-    proposal currently reads)}\fi
+We will also drive diffusion via education, developing materials for teaching
+software developers about high-value applications of PBT and
+for introducing PBT into undergraduate and masters-level computer science courses
+(\sectionref{sec:diffusion}).
 % \end{enumerate*}
 % \end{itemize}
 \end{enumerate}
@@ -289,11 +284,12 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \iflater\discuss{Can we come up with a good infographic for the
-  introduction?}\fi
+  introduction?  (We made a sketch.)}\fi
 
 \iflater
-\todo{GPG: ``Does the plan incorporate a mechanism to assess
-  success?''  We need to talk about this explicitly!}
+\discuss{GPG: ``Does the plan incorporate a mechanism to assess
+  success?''  We need to talk about this explicitly, in as many places
+  as possible!}
 \fi
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
@@ -725,13 +721,10 @@ will again recruit a broad sample of participants from varied settings
 and recruiting over social media.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
-\bcp{How about
-  \begin{itemize}
-  \item {\em Publication target:} International Conference on Software Engineering (ICSE).
-  \end{itemize}
-?  Or, if we need to save space, we could put this in a final column in the
-second figure in the Management and Coordination section.
-} \amh{lgtm!}
+\bcplast{If we need to save space, we could put these in a final column in the
+second figure in the Management and Coordination section.  But this is
+better if we can manage the space.
+}
 
 % \SUBSECTION{Dimensions of PBT infrastructure design}%
 %   {sec:frameworks}{3}{4}{HCI Theory}{PhD
@@ -1179,7 +1172,9 @@ generators.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL Theory}{PhD 2}{}{Pierce}
 %
-Our past work on reflective generators is promising, but
+\todo{Poor transition---both self-congratulatory and unclear about the
+  value of what's done and what's not.  Needs to be worded more deftly.}%
+Our past work on reflective generators shows promising results, but
 their theory is still far from settled.
 In particular,
 there are open questions
@@ -1750,7 +1745,7 @@ PBT thus depends on the quality of this distribution---whether
 most of its probability mass is on tests that are sufficiently
 realistic and diverse. We plan
 to develop tooling for
-understanding distributions of input data and easily tuning them. 
+understanding distributions of input data and easily tuning them.
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -2080,7 +2075,8 @@ projects:
 \begin{itemize}[noitemsep]
   \item \sectionref{sec:frameworks}: Helping PhD 1 to build and maintain a minimal PBT
     framework for use in comparison studies. \amh{Elena comment: ``after
-    reminding myself of 3.2, I didn't realize this would be necessary.}
+    reminding myself of 3.2, I didn't realize this would be
+    necessary.}\bcp{This section is on the chopping clock anyway?}
   \item \sectionref{sec:reflective}: Implementing and maintaining versions of
   reflective generators in a number of languages and PBT ecosystems, with the
   help of PhD 2.
@@ -2216,9 +2212,9 @@ professional developer conferences.
 
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
-\iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
 \todo{What about masters students???  Arguably even better opportunity
-  for impact!} \amh{I think that's a good idea +1}
+  for impact!  (I changed the intro to promise both ugrad and masters here!)}
+ \amh{I think that's a good idea +1}
 \todo{Transition}
 %
 Education can act as a force multiplier to make technologies more usable.
