@@ -1027,8 +1027,9 @@ sequence of choices into a
 value, then running it backward should take that value and produce a
 sequence of choices that
 would generate it---i.e., reflective generators can
-``reflect'' on the choices that they could have made to generate a
-given test. The mathematical machinery
+``reflect'' on a given test and analyze the choices that they
+could have made to generate it.
+The mathematical machinery
 that makes reflective generators work is somewhat complex,%
 \footnote{\normalsize Reflective generators are both monads and {\em
     partial profunctors},
@@ -1045,32 +1046,29 @@ Running a reflective generator backward is not simply a matter of
 remembering the choices it made going forwards and replaying them in
 reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
-generator can reflect on choices for inputs it did not actually
+generator can reflect on inputs it did not actually
 produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) if increased
 structure reveals information that an analysis algorithm (like the ones
 discussed below) can use.
 
-\bcp{I crunched this to one paragraph.  But is it readable?  Should
-  the headings be boldfaced instead of italic?}%
 Reflective generators have myriad uses. Here are a few.
 %
-{\em Example-Based Tuning.} It is often helpful to start by testing with
+{\bf Example-Based Tuning.} It is often helpful to start by testing with
 ``realistic'' inputs that trigger common-case behavior in the program;
 one way to ensure this is to tune the generator so
 it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
 powerful as monadic generators. We implement a similar algorithm using
-reflective generators; using it, we can (1) reflect on the choices
-that lead to a
-set of realistic values, and (2) run the generator with {\em new choice weights}
+reflective generators; using it, we can (1) reflect on realistic values to
+obtain sets of choices, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
 generators approximate the performance of the algorithm
 from~\cite{soremekun2020inputs} but work with a larger class of generators.
 %
-{\em Reflective shrinkers.}
+{\bf Reflective shrinkers.}
 Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
 reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
@@ -1090,7 +1088,7 @@ valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
 gleaned from bug reports.
 %
-{\em Other data producers.} Reflective generators can be freely
+{\bf Other data producers.} Reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
 This means that as new strategies for guided random generation and
@@ -1197,14 +1195,10 @@ ask the user for a number of {\em seeds}, input examples that the fuzzer can sta
 to ensure that the fuzzer does not spend ages exploring
 inputs that have no hope of getting beyond the parser in the system
 under test and exercising other parts of the system. Normally these seeds are easy
-for the user to write down---they are simply example program inputs---but if
-we are instead asking the user to write down
-sequences of {\em
-  choices} that lead to these seeds being {\em generated}\bcp{remind
-  the reader why we are doing that}, then
-it becomes much more
-error-prone (and tedious) to produce seeds by hand\bcp{why not just
-  say infeasible?}.  This is one excellent use for a
+for the user to write down---they are simply example program inputs---but
+it is infeasible to ask the user to write down the sequences of choices that
+result in their seed values.
+This is one excellent use for a
 backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to calculate the choices that lead to those seeds.
@@ -1219,11 +1213,9 @@ values. But mutation can be
 tricky in scenarios where values are subject to complex validity
 constraints, since purely random mutation often produces invalid
 values. Reflective
-generators can help with this by (1) reflecting on the
-choices\bcp{I find this phrase persistently confusing: the RG is
-  reflecting on [thinking about] the input value and {\em producing}
-  the choices that lead to it.} that lead to a particular
-value, (2) mutate those choices, and (3) run the generator forward with the new
+generators can help with this by (1) reflecting on 
+a particular
+value to obtain a sequence of choices, (2) mutate those choices, and (3) run the generator forward with the new
 choices, {\em correcting any that
 would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
 illustrates how this
@@ -1244,22 +1236,15 @@ minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 
 \SUBSECTION{Usability of reflective generators}{sec:reflectiveusable}{3}{3}{HCI
   Practice}{PhD 2}{PhD 4}{Pierce}
-\hg{Joe wants a citation in this section: Andrew? He suggests cognitive
-dimensions} \amh{I think we should instead cite~\cite{ref:ko2015practical} which
-provides lots of helpful practical guidance on empirically evaluating tools in
-lab studies. Though if we want to evolve the design using internal critique,
-we could use the cognitive dimensions
-framework~\cite{ref:blackwell2003notational}. I would just want to make it clear
-that our evaluations would be preliminary with cognitive dimensions (given what
-I think might be a shared view that you can only go so far with the dimensions
-that Blackwell described.)}\hg{Whatever you think is best}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
 usable (based on our own experience), but we can do better than guessing.
 
 We will evaluate and re-design the surface syntax of reflective generators with
-the help of real users.  First, we will recruit a small group of users, teach
+the help of real users, in a style informed by prior work in the HCI
+literature~\cite{ref:ko2015practical}.
+First, we will recruit a small group of users, teach
 them to use reflective generators via a short introductory ``README,'' and ask
 them to implement a number of PBT generators inspired by both the research
 literature and real-world examples. We will observe the users to identify points
