@@ -1217,7 +1217,8 @@ their backward interpretation can be used to help seed the fuzzer.
 Modern fuzzers often
 ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
 to ensure that the fuzzer does not spend ages exploring
-inputs that have no hope of exercising the interesting parts of the
+inputs that have no hope of exercising the interesting\amh{Elena comment: ``wish
+there was a more descriptive word'' (than ``interesting''} parts of the
 system under test. Normally these seeds are easy enough
 for the user to write down, since they are simply program inputs, but if
 we instead ask the fuzzer to generate sequences of {\em choices}, then
@@ -1293,7 +1294,8 @@ practitioners.
   or more generally about ``generators with difficult preconditions''?
  Could be speculative, as long as it's not vacuous.}%
 Even with an ergonomic and learnable language for reflective generators, the
-less code the user has to write the better. Our user studies were very clear
+less code the user has to write the better. Both of our interview studies
+revealed
 that thinking about generators slows users down and makes PBT more challenging.
 But we should not compromise: any automation should help users obtain {\em high
 quality}, {\em reflective} generators for use throughout the testing process.
@@ -1309,7 +1311,7 @@ Some users will have a standard QuickCheck generator that they would like to use
 in situations that require a reflective generator. We plan to assist those
 users with tools that automatically synthesize the backward annotations
 required to make the generator bidirectional. We will experiment with both
-conflict-driven program synthesis~\cite{feng_program_2018} or solver-aided
+conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
 annotations for realistic generators. Both approaches have a clearly defined
 notion of success: reflective generators have notions of soundness and
@@ -1330,7 +1332,8 @@ generators, so there are significant opportunities to advance this space.
 \hg{Talk about Rosette}
 
 \discuss{Do we want to talk about LLMs? This will make Hila and co sad, but we
-could do it tastefully...}
+could do it tastefully...} \amh{Elena comment: ``only if you have space; feels
+totally unnecessary.'' Andrew agrees.}
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1356,7 +1359,8 @@ speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple libraries (QuickCheck, SmallCheck, QuickChick, etc.), and
 numerous workloads that we have currently implemented support for, we will design the
-infrastructure so that users can easily add new things along each dimension.
+infrastructure so that users can easily add new things\amh{Elena comment: ``can
+you be more specific [than ``things'']?''} along each dimension.
 Initial observations from this framework have been submitted as an experience
 report to ICFP 2023, but many important features (e.g., coverage measurement) have not yet
 been implemented.
@@ -1395,12 +1399,12 @@ model-based testing (\sectionref{sec:automating}). Finally, in we discuss plans
 to generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
 
-\SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
+\SUBSECTION{Properties over program tOur user studies were very clearraces}{sec:outpurprop}{2}{3}{PL
   Practice}{PhD 3}{UGrad/MS 1}{Pierce}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
-A common pain point for developers in our formative research was that code may
+A common pain point for developers in our interview studies was that code may
 not be organized in a way that is conducive to PBT. As a unit testing
 technology, PBT requires ``units'' of software to test with clear boundaries. As
 such, PBT cannot easily apply to programs with
@@ -1422,10 +1426,10 @@ complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} that
 produced those inputs. The developer named this as a circumstance where a
 PBT is difficult to apply, because the abstraction boundary between the
-components is too fuzzy.
+components was too fuzzy.
 
 % \TASK{Tools for testing properties over logged values}{2}{2}{Who?}
-We will develop a tool that allow developers to express properties that reach
+We will develop a tool that allows developers to express properties that reach
 into the state of multiple interacting software components. Take again the
 example of \lstinline{Inner}. A solution to P7's problem could be to drive the
 test through \lstinline{Outer}, and in doing so implicitly test
@@ -1486,8 +1490,9 @@ properties in an educational setting.
 
 The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
 tool, where a student and their code editor work together to arrive at a
-meaningful property. Extending prior work on property extraction techniques (see for
-instance~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
+meaningful property. Extending prior work on property extraction techniques
+(see, for
+instance,~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
 smith_discovering_2017}), the idea is to help students compose properties that
 are not just accurate descriptors of the system, but that describe
 important program behavior. We will build an interface on top of a property
@@ -1505,7 +1510,8 @@ course (CIS 5520) and therefore implemented on top of
 Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-\discuss{Another place to maybe mention LLMs / copilot?}
+\discuss{Another place to maybe mention LLMs / copilot?} \amh{Elena comment:
+``Eh\ldots{} I don't see its relevance''}
 
 \publicationtarget{User Interface and Software Technology (UIST)}
 
@@ -1578,7 +1584,9 @@ human in the loop).
 
 The work in this project will ultimately provide a recipe for automating a
 significant swath of testing situations, massively lowering the barrier to entry
-for PBT in ML-based languages. It will also provide a basis that others can
+for PBT in ML-based\amh{Elena comment: ``this came out of the blue?'' [Andrew
+comment: Maybe
+there is some confusion between ML the language and ML=machine learning?]} languages. It will also provide a basis that others can
 build on in other languages: abstract and polymorphic signatures are features of
 many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
 type classes, etc.), so solutions we find in OCaml should transfer.
@@ -1590,7 +1598,7 @@ type classes, etc.), so solutions we find in OCaml should transfer.
 %
 As is often the case for code of any kind, the specification of a property may
 not be self-explanatory. This is particularly the case when those properties are
-found by programmers who did not write them, and can be exacerbated if the those
+found by programmers who did not write them, and can be exacerbated if those
 programmers have never used PBT themselves. Can we design
 tools that help programmers understand property specifications?
 
@@ -1604,7 +1612,7 @@ programs are short in length, draw mostly from simple syntax, and are
 structurally simple.  While properties can be rather long, they are often
 comprised of relatively simple language idioms (i.e., a number of function
 calls, conjunctions, and implications). For this reason, it may be that these
-ideas could generalize to helping newcomers to properties understand those
+ideas could generalize to helping newcomers understand those
 properties well enough to understand them generally, and perhaps even make
 lightweight modifications, without needing to seek out dedicated instruction for
 the PBT framework.
@@ -1617,7 +1625,7 @@ require the use of a custom property language. This is the case, for instance,
 for Haskell's QuickCheck. For users who are familiar with the host language but
 not the property language, we will design tooltip explanations that explain
 particular idiomatic constructs including symbols and common structures in
-property-based tests. Our efforts will focus on understanding the language with
+property-based tests. Our efforts will focus on developing the language with
 which to describe properties to those unfamiliar with PBT,
 and to identify those syntactic anchors in the code that are sensible sites for
 programmers to access automatic explanations.
@@ -1642,9 +1650,12 @@ for understanding generated code in general purpose programming languages. While
 we intend to explore this to some limited extent, most of our efforts will be
 spent on the two approaches above involving rule- and example-based
 explanations, given their applicability to property languages for which there
-may not yet have been data incorporated into modern large language models.
+may not yet have been data incorporated into modern large language models, and
+in part due to present limitations of LLMs that preclude reliably generation of accurate
+descriptions.
 
-\publicationtarget{PLATEAU Workshop}
+% \publicationtarget{PLATEAU Workshop}
+\publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1953,7 +1964,7 @@ can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
-\publicationtarget{User Interface and Software Technology (UIST)}
+\publicationtarget{Foundations of Software Engineering (FSE)}
 
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
 We acknowledge that research activities alone are not enough to make the
