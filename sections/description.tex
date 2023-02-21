@@ -925,8 +925,6 @@ plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
-\amh{John wants us to note that *the relationships between independently
-generated values* may also be important for generating test cases.}
 As discussed in the Orientation section
 (\sectionref{sec:orientation}), PBT relies heavily on {\em random data
 generators}.  Checking a property for many randomly generated inputs
@@ -984,7 +982,11 @@ what are they, and why are they more powerful? Highlight the power of
 *multi-stage generation*. Note the example of generating a sorted list, which is
 impossible to express via a grammar. John also proposed the examples of
 generating a binary search tree, or a well-typed function application, which
-are good uses of this technology.}
+are good uses of this technology.}\hg{I'm torn on this and the next comment. Of
+course I'd love to put an example! But I estimate I'd need 1/2 page (and at
+least an hour) to give an example that is illustrative and properly explained.
+If we don't show code, and just talk about an example in the abstract, that'd be
+more doable, but I'm not sure if it wouldn't be helpful at that point...}
 
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
@@ -1067,13 +1069,10 @@ discussed below) can use.
 
 Reflective generators have myriad uses. Here are a few...
 
-{\em Example-Based Tuning.} Earlier we pointed out that good
-generators should
-produce ``realistic'' inputs \amh{John takes issue with this and thinks that
-good inputs are often not realistic. Can we soften this assumption?}; one way to ensure this is to tune the generator so
-it produces values that are similar \amh{John takes issue with this, noting that
-often you care more about values that can be found quickly than those that are
-similar to some other input} to some user-supplied values deemed
+{\em Example-Based Tuning.} It is often helpful to start by testing with
+``realistic'' inputs that trigger common-case behavior in the program;
+one way to ensure this is to tune the generator so
+it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
 powerful as monadic generators. We implement a similar algorithm using
