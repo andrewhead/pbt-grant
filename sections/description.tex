@@ -1029,13 +1029,13 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
-\subsectionstar{Context: Monadic and Free Generators}{}{}
-\amh{John says that this section may be too vague for non-specialists. He asks,
+\amh{John says that this section (on monadic and free generators) may be too vague for non-specialists. He asks,
 what are they, and why are they more powerful? Highlight the power of
 *multi-stage generation*. Note the example of generating a sorted list, which is
 impossible to express via a grammar. John also proposed the examples of
 generating a binary search tree, or a well-typed function application, which
 are good uses of this technology.}
+
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
 In Haskell, where PBT was
@@ -1048,45 +1048,25 @@ needed to express generators in
 impure languages, some libraries (e.g., in OCaml) still choose to use monadic
 abstractions for their generator DSLs.
 
+\smallskip
 Monadic generators can implement random data producers of arbitrary complexity
 (e.g., for random Haskell
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
-prevents usage errors (like passing the wrong random seed around). As we will
-see, the constrained nature of monadic generators also makes them perfect
-candidates for sophisticated programmatic manipulation.
+prevents usage errors (like passing the wrong random seed around).
 
 To further improve monadic generators, it helps to re-frame generators as {\em
-  parsers of randomness}. The usual intuition is that a generator
+  parsers of random choices}. The usual intuition is that a generator
 operates by making a series of random choices; equivalently, we can think of
 it as being {\em given} some random sequence of choices and simply following
 those choices to produce a value. This shift of perspective has been
 used as the basis for implementations of PBT
 tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
 first to make it
-formal in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
-%
-This paper introduced {\em free generators}; these generalize the standard
-monadic generator abstraction, demonstrate a formal link between parsing and
-random generation, and enable new algorithms that improve
-generation modulo validity constraints. Free generators look
-similar to standard monadic generators, but under the hood they behave more like
-generator ``plans'' or syntax trees.%
-\footnote{\normalsize For experts: Free generators are implemented using {\em freer
-monads}~\cite{kiselyov2015freer}, which have been used to great effect in recent
-years to capture the structure of effectful computations
-(cf.~Interaction Trees~\cite{old:xia2019interaction}). Freer monads represent
-monadic computations syntactically by reifying the monad operations
-(\lstinline{return} and \lstinline{>>=}) as data constructors. Critically, this
-is all implemented within the language (no macros or AST
-manipulation). See \cite{goldstein2022parsing} for more details on the
-free generator representation.}
-In {\em Parsing Randomness} we proved that any free
-generator can be interpreted
-either as a standard monadic generator or as a source of
-random choice sequences plus a parser over those sequences, thus formalizing the
-relationship between generators and parsers.
+formal using {\em free generators}
+in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
+
 
 \subsectionstar{Context: Reflective Generators}{}{}
 \amh{John *really* wants an example. *Really*! He suggests the sorted list
@@ -1137,7 +1117,6 @@ discussed below) can use.
 
 Reflective generators have myriad uses. Here are a few...
 
-% \smallskip
 {\em Example-Based Tuning.} Earlier we pointed out that good
 generators should
 produce ``realistic'' inputs \amh{John takes issue with this and thinks that
@@ -1155,7 +1134,6 @@ informed by the choices that we saw. Our evaluation shows that reflective
 generators approximate the performance of the algorithm
 from~\cite{soremekun2020inputs} but work with a larger class of generators.
 
-% \smallskip
 {\em Reflective shrinkers.}
 Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
@@ -1168,15 +1146,14 @@ that produce those
 inputs. There are many benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
-randomness requires that the randomness is actually available, which
+random choices requires that the choices is actually available, which
 is not always the case. Reflective generators
 can be used to
-recover the randomness and thus enable the Hypothesis shrinking algorithm on any
-valid input (not just those that we know the randomness for). We can, for
+recover the random choices and thus enable the Hypothesis shrinking algorithm on any
+valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
 gleaned from bug reports.
 
-% \smallskip
 {\em Other data producers.} Reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
@@ -1184,12 +1161,10 @@ This means that as new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
 
-\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL Theory}{PhD 2}{}{Pierce}
-%
-\todo{Poor transition---too self-congratulatory, and unclear about the
-  value of what's done and what's not.  Needs to be worded more deftly.}%
-Our past work on reflective generators shows promising results, but
-their theory is still far from settled.
+\SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
+Theory}{PhD 2}{}{Pierce}
+The work on reflective generators has begun to produce research results, but
+the theory around reflective generators is still far from settled.
 In particular,
 there are open questions
 about exactly which primitives are ideal for the generator language. The
@@ -1204,13 +1179,13 @@ Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
 but not obviously optimal. Hypothesis shrinkers reduce the input
 randomness to the
 {\em shortlex smallest} choice sequence---that is, they favor
-randomness that makes the
+sequences that make the
 generator make as few choices as possible, and where each choice is
-``minimal.''  This is a decent heuristic, but it is not directly
+``minimal.''  This is a useful heuristic, but it is not directly
 related to the user's understanding of the size of the shrunk
 inputs. Ideally, we might want
 reflective shrinkers to {\em always} produce inputs that are smaller
-by some natural metric on their type, not on the randomness that
+by some natural metric on their type, not on the random choices that
 produced them; this seems to require a stronger and somewhat more
 complex statement about the construction of the generator.bcp{?}
 
@@ -1236,9 +1211,8 @@ program behaviors. Fuzzers are popular because they are both effective and
 inherently easy to use: the developer need only point the fuzzer at an
 executable binary and
 wait. But, without help, fuzzers are not very good at finding
-bugs when properties have complex preconditions\bcp{Do they work at
-  all on components smaller than whole systems??  This is a serious
-  gap in my understanding of the related work context...}.
+bugs when certain program paths are hard to reach (e.g., if they require the
+program's input to satisfy some complex precondition).
 Our ultimate goal is a unification of PBT and fuzzing that combines the
 powerful automation potential of reflective generators with the usability of
 fuzzers.
@@ -1250,14 +1224,16 @@ uses code coverage as guidance for PBT, and HypoFuzz uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
 poured into industrial-strength fuzzers; Crowbar, on the other hand,
-does~\cite{dolan2017testing}. Crowbar uses
+does~\cite{dolan2017testing}. Crowbar re-interprets the output of
 AFL~\cite{afl-readme}, one of the best-established
-fuzzers, to generate random bit-strings that are later parsed into program
-inputs. Crowbar does require more user effort\bcp{for what?} than standard fuzzing techniques,
-but the coverage guidance means that careful tuning is often not required to get
-good testing performance.
+fuzzers: instead of letting AFL generate the program input, it instead uses AFL 
+to generate a sequence of choices that a generator then parses to get a program input.
+Reinterpreting the AFL output in this way
+does require the user to write a generator, which is more effort
+than is required for
+standard fuzzing techniques, but the result is a system that is much more likely 
+to achieve thorough testing.
 
-% \TASK{Build a relective fuzzer}{2}{3}{who?}
 We admire Crowbar, and think the idea can be pushed even further by building
 a variant of Crowbar on top of reflective generators.
 The idea of crowbar is to start with a classic fuzzing setup, which tries to make the
@@ -1288,15 +1264,6 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and then
 the reflective generator can reflect on the choices that produce those seeds.
 
-\bcp{The last couple of paragraphs could use a little rewriting---I
-  don't think readers will be able to follow.  In particular, the
-  switch from fuzzing an input to fuzzing the randomness that led to
-  that input goes by too fast, and then the rest is all a muddle.}
-\bcp{Also, I am persistently confused by the word ``randomness''---I
-  keep wanting to think of it as a single seed such as much be
-  provided to a RNG, but it's actually a sequence or tree of actual
-  random choices.  I think we need another term.}
-
 Reflective generators can also support
 validity-preserving {\em mutation}.
 Fuzzing algorithms operate by
@@ -1324,10 +1291,6 @@ using no bespoke BST-specific code beyond the reflective generator itself.
 1, then throws away its left subtree (because 1 is the
 minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 \end{figure}
-
-\proposecut{Between seed extraction and validity-preserving mutation,
-  reflective generators have the potential to significantly improve on
-  existing tools like Crowbar.}
 
 \publicationtarget{Programming Language Design and Implementation (PLDI)}
 
