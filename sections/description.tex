@@ -933,21 +933,23 @@ by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 As discussed in the Orientation section
 (\sectionref{sec:orientation}), PBT relies heavily on {\em random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---provided the inputs are ``interesting enough.''
+gives confidence that it holds---provided the inputs are ``interesting
+enough.''\amh{Elena comment: ``what does that mean?''}
 %
 However,
 many properties that developers want to test have {\em preconditions}
 (a.k.a.\relax{} {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that are interesting for testing. This comes up often
+restrict the set of inputs that are interesting\amh{Elena comment: ``valid?
+appropriate?''} for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
 the operations being tested. Testing such properties can be problematic, since
 many preconditions are difficult to satisfy randomly; if the developer is not
 careful, they may waste most of their time budget generating and
-discarding invalid inputs.
+discarding invalid inputs\amh{Elena comment: ``valid? approrpiate?''}.
 %
 (Of course, some fraction of the testing budget {\em should} be spent on
 ill-formed or nonsensical inputs, but not too much, since these will not
-exercise much of its functionality; most tests should be
+exercise much of the system's functionality; most tests should be
 well-formed---though perhaps unusual---instances of the sorts of inputs the
 system is designed to process.)
 %
@@ -961,7 +963,7 @@ fall on a spectrum from automatic to manual. The automatic approaches use
 various proxies for validity and general ``interestingness'' of
 inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, try to maximize readily available metrics like code
-coverage, others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
+coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
 naturally some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
 are easy to apply and can yield good distribution coverage\bcp{What is
@@ -1001,9 +1003,10 @@ Monadic generators can implement random data producers of arbitrary complexity
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
-prevents usage errors (like passing the wrong random seed around). As we will
+prevents usage errors \amh{Elena comment: ``how?''} (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them perfect
-candidates for sophisticated programmatic manipulation and interesting
+candidates for sophisticated programmatic manipulation and interesting\amh{Elena
+comment: ``what does interesting mean in this context?''}
 generalizations.
 
 To further improve monadic generators, it helps to re-frame generators as {\em
@@ -1104,7 +1107,7 @@ Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
 reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
 validity-preserving {\em shrinking} of values to find smaller counterexamples
-and speed up debugging without no effort from the user.
+and speed up debugging with no additional effort from the user.
 %
 Hypothesis shrinks test inputs by shrinking the randomness\bcp{``shrinking the randomness''?} that produces those
 inputs. There are many benefits to this approach: shrinking can be implemented
@@ -1121,7 +1124,8 @@ gleaned from bug reports.
 % \smallskip
 {\em Other data producers.} Reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
-also be used to {\em enumerate choices} or make {\em guided choices}.
+also be used to {\em enumerate choices} or make {\em guided choices}\amh{Elena
+comment: ``Is this the same thing?'' (as ``new choice weights'')}.
 This means that as new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
