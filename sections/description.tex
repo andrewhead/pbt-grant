@@ -120,10 +120,12 @@ need support to do so effectively.
 % tool design.\iflater\bcp{The last part of that sentence kind of
 %   duplicates the first part of the next...}\fi
 
-Improving the usability of PBT
-requires insights from both the
-programming languages (PL) and human-computer interaction (HCI)
-communities.  On one side, PL provides conceptual background,
+The research advances required to improve the usability of PBT
+will require fundamental insights from
+both the
+programming languages (PL) and human-computer interaction (HCI),
+communities.
+On one side, PL provides conceptual background,
 mathematical underpinnings, and established tools for PBT.  On the
 other, HCI provides a deep foundation of theory and
 practice for evaluating usability of systems in a
@@ -282,6 +284,8 @@ Section \sectionref{sec:broader-impacts}
 discusses the Broader Impacts of the project, and
 Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
+
+\discuss{Mention John and Hila by name}
 
 \iflater\discuss{Can we come up with a good infographic for the
   introduction?  (We made a sketch.)}\fi
@@ -954,6 +958,7 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
+\iflast
 \amh{John says that this section (on monadic and free generators) may be too vague for non-specialists. He asks,
 what are they, and why are they more powerful? Highlight the power of
 *multi-stage generation*. Note the example of generating a sorted list, which is
@@ -964,6 +969,7 @@ course I'd love to put an example! But I estimate I'd need 1/2 page (and at
 least an hour) to give an example that is illustrative and properly explained.
 If we don't show code, and just talk about an example in the abstract, that'd be
 more doable, but I'm not sure if it wouldn't be helpful at that point...}
+\fi
 
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
@@ -998,9 +1004,11 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
 \subsectionstar{Context: Reflective Generators}{}{}
+\iflast
 \amh{John *really* wants an example. *Really*! He suggests the sorted list
 example, which would involve just a small addition to the generator. John thinks
 this will make the discussion much more accessible to readers.}
+\fi
 %
 Building on the free generator ideas described above, we are
 exploring a powerful
@@ -2130,7 +2138,7 @@ using PBT, including methods for writing great generators, understanding
 generators, considering properties as documentation, and expanding one's
 thinking around the scenarios where PBT is suitable
 (see~\sectionref{sec:whento}).
-\hg{Need a sentence about a masters course we'll also add PBT to}
+\hg{Need a sentence about a masters course we'll also add PBT to (masters version of 1210)}
 We will evaluate the impact of these new
 instructional approaches on students' ability to leverage PBT in final projects,
 disseminating our findings in publications at computer science research venues.
