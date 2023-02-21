@@ -715,6 +715,8 @@ will again recruit a broad sample of participants from varied settings
 (professional, open source, educational) by working with our industry contacts
 and recruiting over social media.
 
+\publicationtarget{the International Conference on Software Engineering (ICSE)}
+
 \SUBSECTION{Dimensions of PBT infrastructure design}%
   {sec:frameworks}{3}{4}{HCI Theory}{PhD
 1}{PhD 4}{Head}
@@ -815,11 +817,7 @@ that also provide significant value ``for free'' to new users (i.e., a ``low
 threshold'').   \bcp{We say we should do these studies up front, but
   the timeline has them in years 4-5!}
 
-% \bcplater{This is the one where I am least confident that PL reviewers
-% will be able to see where the effort would go in such a study (i.e.,
-% why it's a top-level task).}\hg{Any better?}\amh{I tried my hand at this section
-% as well. It is now probably too redundant, but might make the importance and
-% effort involved in the tasks a little more clear. We can probably go further.}
+\publicationtarget{the PLATEAU Workshop}
 
 \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
   Theory}{PhD 1}{Everyone}{Head}
@@ -893,6 +891,10 @@ possible with only modest effort.
 %   the elements of such a theory might be like.  E.g., what's its
 %   success criterion?  (All of these tasks could use some discussion of
 %   success criteria, in fact!)} \amh{Is this better?}
+
+\publicationtarget{the Symposium on the Foundations of Software Engineering
+(FSE) and in an article for the Communications of the Association for Computing
+Machinery (CACM)}
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
 %
@@ -1074,11 +1076,10 @@ reflective generators: we can (1) reflect on the choices that lead to a
 set of realistic values, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
 generators adequately replicate the algorithm from
-Soremekun et al. on a larger class of generators.
+the prior work on a larger class of generators.
 
 \smallskip{\em Reflective shrinkers.}
-Reflective generators' ability to run backward means that they can be used for
-more than just input production. They can be used as a tool for analyzing and
+Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
 reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implement
 validity-preserving {\em shrinking} of values to find smaller counterexamples
@@ -1087,12 +1088,14 @@ and speed up debugging without no effort from the user.
 Hypothesis shrinks test inputs by shrinking the randomness that produces those
 inputs. There are many benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
-inputs remain valid with respect to property preconditions. But shrinking the
+inputs remain valid with respect to property preconditions.  But shrinking the
 randomness requires that the randomness is actually available---in general this
 is not the case. Luckily, we show that reflective generators can be used to
 recover the randomness, and thus use the Hypothesis shrinking algorithm on any
 valid input (not just those that we have the randomness for). We can, for
-example, shrink inputs provided by the user or from a bug report.
+example, shrink inputs provided by the user or from a bug report, which is
+incredibly helpful for debugging and would previously have required tedious
+manual shrinker development.
 
 \smallskip{\em Other data producers.} Reflective generators are also simply a
 more flexible class of programs than usual monadic generators. Their code can be
@@ -1107,11 +1110,11 @@ The work we have done on the theory of reflective generators so far has been
 exciting and encouraging, but there is certainly more work to be done before the
 theory is settled.
 
-In the theory of reflective generators themselves, there are open questions
+There are still open questions
 about exactly which primitives are ideal for the generator language. The
-iteration in our current paper is maximally flexible, but that flexibility may
-not be necessary. This may have usability implications (see
-\sectionref{sec:reflectiveusable}), but it may also have important technical
+iteration in our current paper may give users too much power, potentially hurting
+usability (see
+\sectionref{sec:reflectiveusable}), but limiting that power may have important technical
 implications that we are not yet aware of. Additionally, reflective generators
 are currently only ergonomic in purely functional languages; how to make them
 easy to use in an imperative language like Python is an open question.
@@ -1131,13 +1134,15 @@ generators, which are implemented in terms of monads, and {\em algebraic
 effects}. Algebraic effects may make it possible to simplify the representation
 of reflective generators, making them more modular and composable.
 
-Reflective generators are a compelling foundation for a new generation of PBT
+Reflective generators are a compelling foundation for a new generation of
 generators. In the following sections we discuss other projects centered around
 random generation, many of which rely on reflective generators as an enabling
 technology.
 
 \iflater\bcp{Make sure the lowest-level paragraph headers are all
   formatted the same.}\fi
+
+\publicationtarget{the International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Fuzzing with reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
@@ -1173,26 +1178,17 @@ We admire Crowbar, but think the idea can be pushed further by building
 a variant of Crowbar on reflective generators.
 We will start with a classic fuzzing setup, which tries to make the
 system under test
-crash by passing it a variety of semi-random inputs. Normally, the fuzzer is
+crash by passing it a variety of semi-random inputs. But instead of
+the fuzzer
 ``working against'' the parser, in the sense that the parser's job is to reject
-invalid inputs and the fuzzer's job is to get past it.  Crowbar's generators
-avoid this adversarial relationship because they are monadic, and can generate
-inputs that always pass the parser; ours will also be monadic, but also {\em
-reflective}.
+invalid inputs and the fuzzer's job is to get past it, Crowbar's generators are
+monadic, 
+ and can generate
+inputs that always pass the parser. Our generators will be monadic for the same
+reason but also {\em reflective}.
 
-Why a reflective generator? First, any kind of monadic
-generator is preferable to grammar-based alternatives. Monadic generators can
-straightforwardly generate context-free structures, so they can generate data
-satisfying a strictly larger set of constraints than grammar-based ones.
-But the beauty of a monadic
-generator is that it can be made far more powerful, incrementally, as the
-developer's testing needs change. They can start off thinking that they
-need only consider the structure of their inputs, but later add more
-semantic guarantees (using the extra flexibility of the monadic
-presentation) if they find that their generator is wasting too much time
-producing invalid values.
-
-A compelling benefit of reflective generators in this scenario is that
+Why a reflective generator? 
+To start,
 their backward interpretation can be used to help seed the fuzzer.
 Modern fuzzers often
 ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
@@ -1239,8 +1235,11 @@ minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 Between seed extraction and validity-preserving mutation, reflective generators
 have the potential to significantly improve on existing tools like Crowbar.
 
+\publicationtarget{the conference on Programming Language Design and Implementation (PLDI)}
+
 \SUBSECTION{Usability of reflective generators}{sec:reflectiveusable}{3}{3}{HCI
   Practice}{PhD 2}{PhD 4}{Pierce}
+\hg{Joe wants a citation in this section: Andrew? He suggests cognitive dimensions}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1261,6 +1260,8 @@ relevant to potential users.
 Ultimately, we hope that this process results in a much more usable language for
 reflective generators that is simple enough to be used by even non-expert PBT
 practitioners.
+
+\publicationtarget{the workshop on Human Aspects of Types and Reasoning Assistants (HATRA)}
 
 \SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Pierce}
 %
@@ -1306,6 +1307,8 @@ generators, so there are significant opportunities to advance this space.
 \discuss{Do we want to talk about LLMs? This will make Hila and co sad, but we
 could do it tastefully...}
 
+\publicationtarget{the International Conference on Functional Programming (ICFP)}
+
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
 The many papers in the PBT literature demonstrate effectiveness with case
@@ -1347,6 +1350,8 @@ designs for this project have been discussed Leonidas
 Lampropoulos and his group at the University of Maryland. PI Pierce has a long
 history of successful projects with Prof.
 Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+
+\publicationtarget{the International Conference on Functional Programming (ICFP)}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
@@ -1452,6 +1457,8 @@ properties over log traces; the developer provides inputs to an outer system
 \emph{containing} the system(s) of concern; and then the test harness will check
 the given trace properties in real time.
 
+\publicationtarget{the conference on Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
+
 \SUBSECTION{Mixed-initiative property
   specification}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 %
@@ -1484,6 +1491,8 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 \discuss{Another place to maybe mention LLMs / copilot?}
+
+\publicationtarget{the symposium on User Interface and Software Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad/MS 2}{Pierce}
@@ -1559,23 +1568,7 @@ build on in other languages: abstract and polymorphic signatures are features of
 many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
 type classes, etc.), so solutions we find in OCaml should transfer.
 
-% \iflater
-% \bcp{I wonder whether one of the attractions of model-based properties for real-world testing is that they more or less allow one to ignore the issue of "generating structures satisfying preconditions."  That is, if what you're doing to build an "interesting" value of some data structure or internal state of some stateful system is issuing calls through an API, then I would guess in most situations pretty much any sequence of API calls will be legal; some will be more interesting than others, of course, but at least you'll never build a structure that doesn't satisfy the preconditions of your operations -- your whole distribution will always fall within the space of well-formed structures.  (Or, if it observably doesn't, you'll have uncovered a bug.)
-% Could this help explain why it seems to be so prevalent, at least at
-% Jane Street?  Is there any way one could test whether this sort of
-% reasoning is an actual explanation for the observed prevalence?  Is
-% any of this worth mentioning here?}
-% \hg{We keep conflating ``model-based'' testing (test against an oracle
-% implementation) with ``state-machine'' testing (test by calling a stateful API
-% over and over).  It's understandable, since a lot of state-machine testing is
-% model-based, but my recollection is that our observations of JS developers
-% actually leans toward model-based testing that {\em isn't} state-machine
-% testing. That's a thing we should remember to double check for the full
-% analysis. But in any case, I think model-based tests are easier to think about
-% even when generating inputs from scratch, because you don't have to think about
-% logical properties. Not sure if there's any way to squeeze this discussion in,
-% or if we should}
-% \fi
+\publicationtarget{the International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{}{Pierce}
@@ -1634,6 +1627,8 @@ we intend to explore this to some limited extent, most of our efforts will be
 spent on the two approaches above involving rule- and example-based
 explanations, given their applicability to property languages for which there
 may not yet have been data incorporated into modern large language models.
+
+\publicationtarget{the PLATEAU Workshop}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
@@ -1777,6 +1772,8 @@ farther to consider how interactive tools can help a developer not
 just understand input data distributions, but more directly change
 them.
 
+\publicationtarget{the symposium on User Interface and Software Technology (UIST)}
+
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
   Practice}{PhD 4}{UGrad/MS 4}{Head}
 %
@@ -1827,6 +1824,7 @@ tool for visualizing generated data distributions will have a synergistic effect
 in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
+\publicationtarget{the International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
@@ -1885,108 +1883,7 @@ settings~\cite{ref:suzuki2017tracediff}; the work of this project would be to
 bring this technology into professional programming environments where traces
 for similar inputs are abundant.
 
-% \iflater
-% \SUBSECTION{Dashboards for long-running
-%   tests}{sec:dashboards}{4}{5}{Tech Transfer}{PhD 4}{Engineer}{Head}
-% %
-% \discuss{Harry and Benjamin wonder whether this section can be
-%   dropped.  It seems (a) smaller than the other tasks and (b) maybe
-%   less interesting in the grand scheme?  (We can still do it, and
-%   indeed we can mention it in the \tyche{} section, but not give it a
-%   whole top-level section.)  We are also a bit past the limit of how
-%   many tasks is plausible.}
-
-% \underconstruction{ \iflater\todo{Write me Andrew?}\fi
-% \begin{itemize}
-%   \item Given the random nature of tests, it is not guaranteed that the same
-%     software, when tested twice, will have the same results.
-%   \item Views that focus on specific, known test cases may then be easier for
-%     developers to understand quickly than those reporting summary statistics.
-%   \item Or, dashboards should bring together signals from both random samples
-%     of inputs, as well as known samples.
-% \end{itemize}
-% }
-% \iflater \hg{I copied a comment into here---can we use any of that writing for this
-% section?}\fi
-% \fi
-
-% \ifdraft
-% \SUBSECTION{Increasing Assurance with More Tests}{sec:more}{3}{4}{Andrew}{}{}
-
-% The informants in our interview study admitted to heuristic
-% approaches to determining how many tests to run. Many set
-% rigid cutoffs such as one-thousand tests, or one minute's
-% worth of tests. One reason for these heuristics was that
-% developers did not want to lock up their computer's
-% computational resources, or delay their other development
-% tasks, by waiting for their property-based tests to
-% complete. As one of our informants pointed out, this could
-% lead to circumstances where bugs were not discovered until
-% property-based tests were checked into the continuous
-% integration system, when tests were finally conducted at a
-% sufficient volume to generate failing inputs \amh{@HG can
-% you fact check my paraphrase of this informant's input?}\hg{Technically this was
-% a pilot study informant, but I think it's OK}.
-% Unfortunately, when failures are detected in continuous
-% integration, developers no longer have the context to
-% address those problems easily, because they have likely
-% moved on to other tasks.
-
-% We believe that, if appropriately designed, a developer's
-% PBT tools can help developers get the best of both
-% world: they can both increase assurance that their software
-% is correct by running more property-based tests, while not
-% locking up their computer's resources. We propose to extend
-% in-editor testing tools to permit options where developers
-% can configure their PBT test drivers to continue testing
-% software in the background by default, without requiring a
-% developer's explicit input. These tools will scan a
-% developer's environment for property-based tests, divide
-% time proportionally between the various tests, and capture
-% the results in a digested form. To reduce the likelihood of
-% breaking a developer's focus, errors will be marked through
-% subtle annotations in the code (e.g., icons in the line
-% margins) when one has been detected. Developers can also
-% request alerts that can report failures instantaneously,
-% should they wish to address any discovered failures right
-% away.
-
-% \hg{This section needs honing; right now it's just what I wrote in my thesis
-% proposal, and it's too high-level} \amh{Is this a user
-% interface project devoted to figuring out ways of invoking
-% and keeping tabs on long-running tests during solo
-% programming? Or is it a project around proposing better
-% software engineering process that gives the right amount of
-% time to long-running PBT tests?}
-% \hg{Good question. I kind of naively hoped it was a UI project that both helped
-% users invoke and keep tabs of tests in the background AND pushed them towards
-% software engineering processes that gave PBTs appropriate space to operate. But
-% now that I think about it that seems like a lot at once. Honestly I think the
-% cultural shift in SE (potentially backed by some large-scale software tools) is
-% the more impactful angle, but I don't know if we can argue that we know how to /
-% want to do that}
-% \bcp{Delete the section?}
-% \amh{I tried this section again, trying to spell out in more
-% detail my updated conception about what would be useful and
-% magical about this tool. Can someone else take a look at it
-% and make the decision of whether to remove the section?}
-% \hg{I think it's better, but it's still pretty vague and flat. I wish there was
-% a specific example of an interaction that I could say ``oh yeah, why don't I
-% have that?'' As written, it sort of feels like the devil is in the details and
-% we didn't actually give an details}
-
-% % It is likely that PBT tools could play a role in improving this state of
-% % affairs. For example, one could take inspiration from some theorem
-% % provers~\cite{berghofer2004random} and create a system in which properties are
-% % checked locally but in the background, as the programmer works on other things.
-% % This avoids waiting time while potentially being less frustrating than running
-% % in CI, since bugs would likely be found while the programmer still had the code
-% % ``paged in.'' Alternatively, one might design a PBT system with CI in mind,
-% % providing automated features for deferring property failure notifications until
-% % a specified time or turning failing properties into unit tests that can be saved
-% % for future testing.
-
-% \fi
+\publicationtarget{the symposium on User Interface and Software Technology (UIST)}
 
 \SUBSECTION{Counterexamples as regression
   tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Head}
@@ -2039,6 +1936,8 @@ can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
 
+\publicationtarget{the symposium on User Interface and Software Technology (UIST)}
+
 \SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
 We acknowledge that research activities alone are not enough to make the
 broad impact we seek. Thus, we have made plans for increasing the {\em
@@ -2087,6 +1986,8 @@ Most importantly, the research engineer will help to build and maintain
 \tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
 describe this effort in more detail in the next section.
 
+\discussiontarget{a software engineering industry conference}
+
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
 The projects in \sectionref{sec:val} design a wealth of new modes of interaction
@@ -2111,6 +2012,8 @@ community see as important improvements to PBT workflow will also be included
 over time.  With a strong theoretical grounding and consistent engineering
 support, \tyche{} will provide an efficient pipeline for bringing research on
 PBT interaction models to software developers craving better tools.
+
+\discussiontarget{a software engineering industry conference}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2149,6 +2052,8 @@ high-value PBT libraries.
 These activities will all contribute to a more cohesive and consistent PBT
 ecosystem, making PBT an easier choice for both companies and individual
 developers.
+
+\discussiontarget{a software engineering industry conference}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
@@ -2201,6 +2106,8 @@ disseminate this documentation in blogs and incorporate it into tool
 manuals. Then we will package the findings as a talk for one or more
 professional developer conferences.
 
+\publicationtarget{the symposium on Trends in Functional Programming (TFP)}
+
 \SUBSECTION{PBT for
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
@@ -2232,6 +2139,8 @@ other institutions to adapt into their own curricula.
 
 \todo{Add evaluation of new contributions to the curriculum, with plans to
 publish findings in computing education research venues.}
+
+\publicationtarget{Koli Calling}
 
 \immediate\closeout\workplanfile
 % \SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
