@@ -711,7 +711,7 @@ it will give us a critical opportunity to galvanize our findings.
 Respondents will
 be recruited broadly, from groups including:
 (1)
-users of the major PBT frameworks in Python, Java, Haskell, Rust, and Scala; 
+users of the major PBT frameworks in Python, Java, Haskell, Rust, and Scala;
 (2) the students' and PIs' professional networks, including
 Twitter and Mastodon, various mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke last
@@ -767,7 +767,7 @@ to build usable tools we also need to study the low-level interactions
 between users and their PBT tooling. We will
 conduct targeted observational studies to inform the many
 fine-grained design decisions
-involved in language design (\sectionref{sec:reflectiveusable}) and 
+involved in language design (\sectionref{sec:reflectiveusable}) and
 interface design (\sectionref{sec:val}) activities.
 
 Understanding user interactions
@@ -1044,8 +1044,10 @@ strings, higher-level choice sequences, choice trees, etc.) if increased
 structure reveals information that an analysis algorithm (like the ones
 discussed below) can use.
 
-Reflective generators have myriad uses. Here are a few...
-
+\bcp{I crunched this to one paragraph.  But is it readable?  Should
+  the headings be boldfaced instead of italic?}%
+Reflective generators have myriad uses. Here are a few.
+%
 {\em Example-Based Tuning.} It is often helpful to start by testing with
 ``realistic'' inputs that trigger common-case behavior in the program;
 one way to ensure this is to tune the generator so
@@ -1059,7 +1061,7 @@ set of realistic values, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
 generators approximate the performance of the algorithm
 from~\cite{soremekun2020inputs} but work with a larger class of generators.
-
+%
 {\em Reflective shrinkers.}
 Reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
@@ -1079,7 +1081,7 @@ recover the random choices and thus enable the Hypothesis shrinking algorithm on
 valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
 gleaned from bug reports.
-
+%
 {\em Other data producers.} Reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
@@ -1113,7 +1115,7 @@ sequences that make the
 generator make as few choices as possible, and where each choice is
 ``minimal.''  This is a useful heuristic, but it is not directly
 related to the user's understanding of the size of the shrunk
-inputs. Ideally, we'd like some 
+inputs. Ideally, we'd like some
 reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
 will state and properties of a generator that imply this property.
@@ -1155,12 +1157,12 @@ are demonstrably powerful, but neither benefits from the years of expertise
 poured into industrial-strength fuzzers; Crowbar, on the other hand,
 does~\cite{dolan2017testing}. Crowbar re-interprets the output of
 AFL~\cite{afl-readme}, one of the best-established
-fuzzers: instead of letting AFL generate the program input, it instead uses AFL 
+fuzzers: instead of letting AFL generate the program input, it instead uses AFL
 to generate a sequence of choices that a generator then parses to get a program input.
 Reinterpreting the AFL output in this way
 does require the user to write a generator, which is more effort
 than is required for
-standard fuzzing techniques, but the result is a system that is much more likely 
+standard fuzzing techniques, but the result is a system that is much more likely
 to achieve thorough testing.
 
 We admire Crowbar, and think the idea can be pushed even further by building
@@ -1211,7 +1213,7 @@ choices, {\em correcting any that
 would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
 illustrates how this
 algorithm can mutate a binary search tree while maintaining validity,
-using no bespoke BST-specific code beyond the reflective generator itself.
+using no bespoke BST-specific code\proposecut{ beyond the reflective generator itself}.
 \begin{figure}[t]
   \centering
   \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
@@ -1333,7 +1335,7 @@ speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
 numerous workloads that we have currently implemented support for, we will design the
-infrastructure so that users can easily add new 
+infrastructure so that users can easily add new
 languages, frameworks, and workloads.
 Initial observations from this framework have been submitted as an experience
 report to ICFP 2023, but many important features (e.g., coverage measurement) have not yet
@@ -1958,20 +1960,18 @@ maintainability in mind, and upon completion they will be handed off to the
 engineer to grow and maintain.
 
 Concretely, we expect the research engineer to be involved in the following
-projects:
-\begin{itemize}[noitemsep]
-  \item {\bf PBT interaction models}~\sectionref{sec:understanding}: Helping PhD
+projects: {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
   1 to build and maintain a minimal PBT framework for use in comparison studies
   and as a model for future PBT frameworks.
-  \item {\bf Theory of reflective generators}~\sectionref{sec:reflective}:
+  {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
   Implementing and maintaining versions of reflective generators in a number of
   languages and PBT ecosystems, with the help of PhD 2.
-  \item {\bf Mixed-initiative property
-  specification}~\sectionref{sec:interactive}, {\bf Counterexamples as
-  regression tests}~\sectionref{sec:counter}:
+  {\em Mixed-initiative property
+  specification}~(\sectionref{sec:interactive}) and {\em Counterexamples as
+  regression tests}~(\sectionref{sec:counter}):
   Assisting PhD
   3 with maintenance of tools for easier property specification.
-\end{itemize}
+%
 Most importantly, the research engineer will help to build and maintain
 \tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
 describe this effort in more detail in the next section.

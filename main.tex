@@ -1,4 +1,4 @@
-\newif\ifdraft\drafttrue
+\newif\ifdraft\draftfalse
 \newif\iflater\latertrue
 \newif\ifnext\nexttrue
 \newif\iflast\lastfalse
@@ -128,7 +128,7 @@
 \newcommand{\underconstruction}[1]{{\color{nord-red} Under construction: #1}}
 
 \newcommand{\forreaders}[1]{}
-\newcommand{\discuss}[1]{{\color{purple}\bf High priority: #1}}
+\newcommand{\discuss}[1]{\ifdraft{\color{purple}\bf High priority: #1}\fi}
 
 \usepackage{ulem}\normalem
 \newcommand{\proposecut}[1]{\iflater\ifdraft{\color{gray} \sout{#1}}\fi\fi}
