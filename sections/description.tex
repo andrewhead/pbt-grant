@@ -634,10 +634,6 @@ work and ideas permeate the PBT world.
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
-\iflater\todo{Mention how time-consuming these studies are (give some
-  numbers and details).  We've allocated one whole PhD student to this
-  aspect of the work.}\fi
-
 The ultimate findings from the Jane Street study should
 give us a clear
 picture of the benefits and challenges of PBT in the specific context
@@ -982,22 +978,17 @@ by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 As discussed in the Orientation section
 (\sectionref{sec:orientation}), PBT relies heavily on {\em random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---provided the inputs are ``interesting
-enough.''\amh{Elena comment: ``what does that mean?'' (Andrew agrees---can we
-factor out ``interesting'' everywhere that appears? I think I used language in
-the Interaction section like ``realistic and sufficiently diverse'' that might
-fit the bill here.)}
-%
-However,
+gives confidence that it holds---provided the inputs actually trigger a wide
+variety of program behaviors.
+Unfortunately,
 many properties that developers want to test have {\em preconditions}
 (a.k.a.\relax{} {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that are interesting\amh{Elena comment: ``valid?
-appropriate?''} for testing. This comes up often
+restrict the set of inputs that can be used for testing. This comes up often
 when testing data structures with invariants that must hold in order to apply
 the operations being tested. Testing such properties can be problematic, since
 many preconditions are difficult to satisfy randomly; if the developer is not
 careful, they may waste most of their time budget generating and
-discarding invalid inputs\amh{Elena comment: ``valid? approrpiate?''}.
+discarding precondition-failing inputs.
 %
 (Of course, some fraction of the testing budget {\em should} be spent on
 ill-formed or nonsensical inputs, but not too much, since these will not
@@ -1018,8 +1009,7 @@ fuzzers}~\cite{afl-readme}, try to maximize readily available metrics like code
 coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
 naturally some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
-are easy to apply and can yield good distribution coverage\bcp{What is
-``distribution coverage''}, but they are rarely
+are easy to apply and produce diverse sets of inputs, but they are rarely
 sufficient for testing properties with complex preconditions. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
@@ -1055,11 +1045,9 @@ Monadic generators can implement random data producers of arbitrary complexity
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
-prevents usage errors \amh{Elena comment: ``how?''} (like passing the wrong random seed around). As we will
+prevents usage errors (like passing the wrong random seed around). As we will
 see, the constrained nature of monadic generators also makes them perfect
-candidates for sophisticated programmatic manipulation and interesting\amh{Elena
-comment: ``what does interesting mean in this context?''}
-generalizations.
+candidates for sophisticated programmatic manipulation.
 
 To further improve monadic generators, it helps to re-frame generators as {\em
   parsers of randomness}. The usual intuition is that a generator
@@ -1132,9 +1120,9 @@ reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
 generator can reflect on choices for inputs it did not actually
 produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in different ways (as bit
-strings, higher-level choice sequences, choice trees, etc.) depending
-on how much information is needed about the dependencies between different
-choices.\bcp{Mysterious.}
+strings, higher-level choice sequences, choice trees, etc.) if increased
+structure reveals information that an analysis algorithm (like the ones
+discussed below) can use.
 
 Reflective generators have myriad uses. Here are a few...
 
@@ -1161,7 +1149,8 @@ reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging with no additional effort from the user.
 %
-Hypothesis shrinks test inputs by shrinking the randomness\bcp{``shrinking the randomness''?} that produces those
+Hypothesis shrinks test inputs by shrinking the random choices (conceptually, coin flips)
+that produce those
 inputs. There are many benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
@@ -1176,8 +1165,7 @@ gleaned from bug reports.
 % \smallskip
 {\em Other data producers.} Reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
-also be used to {\em enumerate choices} or make {\em guided choices}\amh{Elena
-comment: ``Is this the same thing?'' (as ``new choice weights'')}.
+also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
 This means that as new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
@@ -1337,7 +1325,7 @@ we could use the cognitive dimensions
 framework~\cite{ref:blackwell2003notational}. I would just want to make it clear
 that our evaluations would be preliminary with cognitive dimensions (given what
 I think might be a shared view that you can only go so far with the dimensions
-that Blackwell described.)}
+that Blackwell described.)}\hg{Whatever you think is best}
 Reflective generators are a powerful abstraction, but they are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1657,9 +1645,7 @@ human in the loop).
 
 The work in this project will ultimately provide a recipe for automating a
 significant swath of testing situations, massively lowering the barrier to entry
-for PBT in ML-based\amh{Elena comment: ``this came out of the blue?'' [Andrew
-comment: Maybe
-there is some confusion between ML the language and ML=machine learning?]} languages. It will also provide a basis that others can
+for PBT in OCaml-like languages. It will also provide a basis that others can
 build on in other languages: abstract and polymorphic signatures are features of
 many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
 type classes, etc.), so solutions we find in OCaml should transfer.
