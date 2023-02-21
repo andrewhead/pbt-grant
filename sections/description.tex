@@ -1195,8 +1195,10 @@ monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
 reason but also {\em reflective}.
 
-\amh{John thought this paragraph read like an outline rather than finished text.
-He wasn't sure why this paragraph was here and that it was too vague.}
+% \amh{John thought this paragraph read like an outline rather than finished text.
+% He wasn't sure why this paragraph was here and that it was too vague.}
+% \hg{Joe helped me rewrite this last night, I think his comments were on an
+% earlier version}
 Why a reflective generator?
 To start,
 their backward interpretation can be used to help seed the fuzzer.
@@ -1502,9 +1504,6 @@ course (CIS 5520) and therefore implemented on top of
 Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
-\discuss{Another place to maybe mention LLMs / copilot?} \amh{Elena comment:
-``Eh\ldots{} I don't see its relevance''}
-
 \publicationtarget{User Interface and Software Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
@@ -1585,14 +1584,6 @@ type classes, etc.), so solutions we find in OCaml should transfer.
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{}{Pierce}
-
-\amh{Consider bringing in ideas from John's prior work on generating
-examples:~\cite{ref:gerdes2018understanding}.} \amh{One question that we might
-want to better indicate the nuance around is what to do when there is an
-arbitrary number of examples---how do we choose which ones to show? John used
-heuristics; maybe we can do the same?}
-
-%
 As is often the case for code of any kind, the specification of a property may
 not be self-explanatory. This is particularly the case when those properties are
 found by programmers who did not write them, and can be exacerbated if those
@@ -1627,18 +1618,18 @@ which to describe properties to those unfamiliar with PBT,
 and to identify those syntactic anchors in the code that are sensible sites for
 programmers to access automatic explanations.
 
-\hg{Joe says: Name check expect tests and also Hypothesis examples}
 The second sort of explanations will be examples, namely, sampled input-output
-pairs that can convey the behavior of the program with respect to the property.
-The advantage of example-based explanations is that a solution to this problem
-for one PBT framework may generalize to others; while not all frameworks use
-special property syntax (e.g., Hypothesis), all frameworks have the potential to
-have rather long properties. Some of the simplest (perhaps smallest) passing
-inputs will be selected as example inputs. These examples will be perturbed to
-generate similar negative examples. Example pairs will be shown alongside the
-code in the editor using editor annotations. This project will dovetail with our
-project on interactive debugging (\sectionref{sec:failures}) to identify
-test cases that are likely to best ``explain'' intended program behavior.
+pairs that can convey the behavior of the program with respect to the property;
+we will display these examples next to the code in the editor using editor
+annotations.  The Jane Street study reinforced the idea that programmers like to
+understand programs by example---in fact, Jane Street has a whole testing
+library based on examples~\cite{minsky_testing_nodate}---so examples are a
+natural choice. Deciding exactly which examples to show may be tricky, but prior
+suggests some heuristics that may be of use~\cite{ref:gerdes2018understanding}.
+At the very least, the tool can prioritize simpler inputs via shrinking.  This
+project will dovetail with our project on interactive debugging
+(\sectionref{sec:failures}) to identify test cases that are likely to best
+``explain'' intended program behavior.
 
 Given recent trends in computing research, it bears mention that large language
 models such as GPT3 may merit consideration for generating descriptions of the
@@ -1698,7 +1689,7 @@ understanding distributions of input data and easily tuning them.
   \centering
   \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
   \caption{An envisioned tool for evaluating data distributions. Such a tool
-  would evalate generator source code live (1), showing summary statistics (2),
+  would evaluate generator source code live (1), showing summary statistics (2),
   aggregate visualizations (3), and views of input instances (4). Iteration
   would be supported with live adjustment of generator code and refinement of
   filters used in the visualizations.
@@ -2019,7 +2010,7 @@ Concretely, we expect the research engineer to be involved in the following
 projects:
 \todo{Add titles}
 \begin{itemize}[noitemsep]
-  \item \sectionref{sec:frameworks}: Helping PhD 1 to build and maintain a minimal PBT
+  \item \sectionref{sec:understanding}: Helping PhD 1 to build and maintain a minimal PBT
     framework for use in comparison studies. \amh{Elena comment: ``after
     reminding myself of 3.2, I didn't realize this would be
     necessary.}\bcp{This section is on the chopping clock anyway?}
@@ -2033,7 +2024,7 @@ Most importantly, the research engineer will help to build and maintain
 \tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
 describe this effort in more detail in the next section.
 
-\discussiontarget{a software engineering industry conference}
+\discussiontarget{A software engineering industry conference}
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
@@ -2072,7 +2063,7 @@ events. The PIs would likely need to be heavily involved. Maybe we need to refer
 to this in the management plan. We might need to lean heavily on Jane Street or
 other partners to help us with this.}
 
-\discussiontarget{a software engineering industry conference}
+\discussiontarget{A software engineering industry conference}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
