@@ -1351,7 +1351,7 @@ generators, so there are significant opportunities to advance this space.
 
 \discuss{Do we want to talk about LLMs? This will make Hila and co sad, but we
 could do it tastefully...} \amh{Elena comment: ``only if you have space; feels
-totally unnecessary.'' Andrew agrees.}
+totally unnecessary.'' Andrew agrees.} 
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1529,7 +1529,7 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
 
 \discuss{Another place to maybe mention LLMs / copilot?} \amh{Elena comment:
-``Eh\ldots{} I don't see its relevance''}
+``Eh\ldots{} I don't see its relevance''} 
 
 \publicationtarget{User Interface and Software Technology (UIST)}
 
@@ -1722,7 +1722,9 @@ understanding distributions of input data and easily tuning them.
   would evalate generator source code live (1), yielding summary statistics, (2)
   aggregate visualizations (3), and views of input instances (4). Iteration
   would be supported with live adjustment of generator code and refinement of
-  filters used in the visualizations.
+  filters used in the visualizations. \amh{I added this caption back because we
+  don't refer to the numbers anywhere, and I personally like captions that make
+  very explicit what you should see in the figure.}
     \todolast{put this near the text that refers to it}}\label{fig:gen-vis}
 \end{wrapfigure}
 
@@ -1877,6 +1879,9 @@ in improving developers' ability to understand and ultimately achieve more
 realistic, comprehensive data distributions for their testing.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
+\amh{Would ICFP be a good target for this? UIST would be a great target too, and
+I think would be really excited about this interaction paradigm, so I would
+advocate for that perhaps instead.}
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
@@ -1922,7 +1927,11 @@ by default later this year.  Debugger integration sounds neat, though what I'd
 really love to see would be integration with an rr-style time-travelling
 debugger - annotate the minimal trace with information from other traces!  For
 example, using static and dynamic slicing to show the user where (and what) in
-the trace is responsible for failure… -- @Andrew what do you think?}
+the trace is responsible for failure… -- @Andrew what do you think? \amh{I think
+this is a great idea. I wouldn't advocate for it for a general-purpose
+programming language like Python because slicers are really hard to implement
+for those languages. I'm not sure I understand the time-travelling debugger
+part, maybe I should take a look at Zac's email.}}
 Leveraging the parametric nature of the
 reflective generators, we will generate inputs in a space ``around'' a
 counterexample and identify which ones no longer cause a failure.  Then, we will
@@ -1971,19 +1980,25 @@ regression tests from failed tests. The idea is to first develop
 technology for generating sufficiently readable code for regression tests (using
 approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
 in-situ editing assistance along the lines of contemporary interactive
-refactoring tools from the HCI
+refactoring tools from the HCI take the phrase out entirely
 literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
 For this unique task of transforming properties into regression tests,
 our tool will \iflater\proposecut{provide the key features
   of}\hg{MINOR: Feel free to disagree,
 but I think phrases like this are a bit of an anti-pattern. I'd rather just say
-the tool will X}\fi keeping track of the failed input,
+the tool will X} \amh{I agree that ``key features'' is clunky phrase that I
+wouldn't mind losing. But I think it's really important to help cue when you are
+identifying what is novel about a system---otherwise, it's really easy to miss.
+So I would find some other way to signal this if we take out ``key features''.}\fi keeping track of the failed input,
 generating starter test code, substituting in correct expected values of the
 output by executing corrected code, and supporting developers in rapidly
 performing likely edits to regression tests by providing suggestions of
 alterations to their code like the ability to generate general property checks
 with precise equality checks\iflater\bcp{??}\hg{I also don't understand what this is
-getting at}\fi. We also hope the results of this work
+getting at}\amh{You know how in some test case frameworks there is a diffence
+between `.toBe` and `.toBeEqual` relating to the strictness of comparison?
+That's what I was referring to. Does this have an analog in languages like
+Haskell and, if so, is it convincing at all?}\fi. We also hope the results of this work
 can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis library in Python~\cite{maciver2019hypothesis}.
@@ -2166,7 +2181,7 @@ professional developer conferences.
   undergraduates}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 \iflater\bcp{Should this be led by BCP, or both?  Say explicitly.}\fi
 \todo{What about masters students???  Arguably even better opportunity
-  for impact!}
+  for impact!} \amh{I think that's a good idea +1}
 \todo{Transition}
 %
 Education can act as a force multiplier to make technologies more usable.
