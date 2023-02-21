@@ -975,6 +975,8 @@ plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
+\amh{John wants us to note that *the relationships between independently
+generated values* may also be important for generating test cases.}
 As discussed in the Orientation section
 (\sectionref{sec:orientation}), PBT relies heavily on {\em random data
 generators}.  Checking a property for many randomly generated inputs
@@ -1028,6 +1030,12 @@ realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
 \subsectionstar{Context: Monadic and Free Generators}{}{}
+\amh{John says that this section may be too vague for non-specialists. He asks,
+what are they, and why are they more powerful? Highlight the power of
+*multi-stage generation*. Note the example of generating a sorted list, which is
+impossible to express via a grammar. John also proposed the examples of
+generating a binary search tree, or a well-typed function application, which
+are good uses of this technology.}
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
 In Haskell, where PBT was
@@ -1081,6 +1089,9 @@ random choice sequences plus a parser over those sequences, thus formalizing the
 relationship between generators and parsers.
 
 \subsectionstar{Context: Reflective Generators}{}{}
+\amh{John *really* wants an example. *Really*! He suggests the sorted list
+example, which would involve just a small addition to the generator. John thinks
+this will make the discussion much more accessible to readers.}
 %
 Building on the free generator ideas described above, we are
 exploring a powerful
@@ -1129,8 +1140,11 @@ Reflective generators have myriad uses. Here are a few...
 % \smallskip
 {\em Example-Based Tuning.} Earlier we pointed out that good
 generators should
-produce ``realistic'' inputs; one way to ensure this is to tune the generator so
-it produces values that are similar to some user-supplied values deemed
+produce ``realistic'' inputs \amh{John takes issue with this and thinks that
+good inputs are often not realistic. Can we soften this assumption?}; one way to ensure this is to tune the generator so
+it produces values that are similar \amh{John takes issue with this, noting that
+often you care more about values that can be found quickly than those that are
+similar to some other input} to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
 powerful as monadic generators. We implement a similar algorithm using
@@ -1256,6 +1270,8 @@ monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
 reason but also {\em reflective}.
 
+\amh{John thought this paragraph read like an outline rather than finished text.
+He wasn't sure why this paragraph was here and that it was too vague.}
 Why a reflective generator?
 To start,
 their backward interpretation can be used to help seed the fuzzer.
@@ -1466,7 +1482,7 @@ education (\sectionref{sec:understanding}).
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
 A common pain point for developers in our interview studies was that code may
-not be organized in a way that is conducive to PBT. As a unit testing
+not be organized in a way that is conducive to PBT. When used as a unit testing
 technology, PBT requires ``units'' of software to test with clear boundaries. As
 such, PBT cannot easily apply to programs with
 poorly encapsulated global state, or software with leaky or complex abstraction
@@ -1654,6 +1670,13 @@ type classes, etc.), so solutions we find in OCaml should transfer.
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{}{Pierce}
+
+\amh{Consider bringing in ideas from John's prior work on generating
+examples:~\cite{ref:gerdes2018understanding}.} \amh{One question that we might
+want to better indicate the nuance around is what to do when there is an
+arbitrary number of examples---how do we choose which ones to show? John used
+heuristics; maybe we can do the same?}
+
 %
 As is often the case for code of any kind, the specification of a property may
 not be self-explanatory. This is particularly the case when those properties are
@@ -1945,7 +1968,7 @@ shrink inputs semi-automatically by manipulating the input's contents and struct
 object viewer, similar to the kinds of object viewers available in contemporary
 debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
 
-The interactive shrinker may display the valid in which an input can be pruned,
+The interactive shrinker may display the valid ways in which an input can be pruned,
 relying on reflective generators to provide the insights into which parts of the
 structure correspond to valid changes. Alternatively, the developer might change
 the input entirely, for example, noticing some change of inter-dependent parts
