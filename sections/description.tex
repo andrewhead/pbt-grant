@@ -1798,16 +1798,14 @@ them.
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
   Practice}{PhD 4}{UGrad/MS 4}{Head}
 %
-\hg{Joe says that the live aspect of the vis plugin needs to come through more clearly}
 Tuning generator distributions is a challenging task, often requiring
 significant trial-and-error---changing generator parameters and hoping
 that the input data distribution changes in the right way. Approaches
 like the one in \sectionref{sec:reflective} can help, but manual tuning
 is still needed in many cases.
-Developers need higher-level ways to describe the kinds of inputs they desire.
 
 We will design tools to support the direct tuning of input data distributions
-through manipulation of generated inputs and data distribution
+through manipulation of generated inputs and live data distribution
 visualizations. This work will build on the foundation outlined in
 \sectionref{sec:evaluating_distributions}. Inspired by recent tools in
 the PL+HCI literature
@@ -1816,7 +1814,6 @@ outputs~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling},
 we explore reflective generators' potential to support tuning.
 
-% \TASK{Tuning by filtering}{3}{4}{who?}
 First, a general method for tuning input data distributions will be to
 define filters on input data by manipulating aggregate data displays.
 For instance, developers will be able to select a range of values from a bar
@@ -1827,7 +1824,6 @@ it does not influence the implementation of the underlying generator, and
 therefore can only go so far in influencing the kinds of values that are
 generated.
 
-% \TASK{Tuning by reflection}{3}{4}{who?}
 A second idea is to leverage
 reflective generators (\sectionref{sec:reflective}) to change the underlying
 generator parameters. Developers will be able to interact with a visualization,
