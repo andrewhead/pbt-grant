@@ -29,7 +29,7 @@ PBT.
 
 What are these challenges? 
 In an ongoing need-finding study of PBT at Jane
-Street, a Wall Street trading firm with a focus on software
+Street, a Wall Street trading firm which uses its software
 technology as a competitive advantage, we find developers enthusiastic
 about its {\em usefulness} but frustrated with its {\em usability}.
 %
@@ -104,6 +104,7 @@ broad community of students and software developers.
 interaction; property-based testing; usability.
 
 \summarysection{Intellectual Merit}
+\hg{Joe thinks this could really use a rewrite}
 The project will advance knowledge along four
 \iflater \hg{NIT: We just said three axes above}\bcp{And how do they
   relate to ``themes''??} \fi
@@ -119,7 +120,7 @@ Second, it will explore a novel abstraction for random input \thread{
 generation} that enables a range of use cases---generating inputs
 satisfying validity conditions, reducing test-cases to smaller ones for easier
 debugging,
-mutating inputs to explore program behavior, and
+mutating inputs to explore program behavior,
 and manually or automatically tuning a random
 generator's distribution based on examples or code coverage. We will also
 explore further opportunities for automating the process of input test input
@@ -138,35 +139,6 @@ visualizing generated data
 distributions, tuning data distributions, simplifying test-cases, and saving
   failing test-cases as understandable unit tests, culminating in a
   comprehensive development environment for PBT.
-
-% The project will advance knowledge along four interconnected axes.
-% %
-% First, it will establish a firm {\bf\em foundation} for HCI-informed
-% research on PBT, supplementing past and ongoing user studies with
-% broader surveys of PBT across the software industry and real-time
-% observations of developers interacting with PBT.
-% %
-% Second, it will offer developers more usable {\bf\em specification} tools,
-% including a language for stating temporal properties over internal
-% program states and automation for model-based testing of
-% modular abstractions.
-% %
-% Third, it will explore a novel abstraction for random input {\bf\em
-%   generation} that enables a range of use cases---generating inputs
-% satisfying validity conditions, mutating inputs to explore the space
-% of similar inputs, and manually or automatically tuning a random
-% generator's distribution based on examples or code coverage.
-% %
-% And fourth, it will develop new interactive tools for rapid {\bf\em
-%   validation} of the effectiveness of testing, for helping programmers pin
-% down the causes of failures, and for visualizing generated data
-% distributions to support comprehension and tuning.
-
-%  (1) deploy tools from HCI to better
-% understand the challenges to wider adoption of PBT, (2) combine PL and
-% HCI methods to build solutions, and (3) develop educational materials
-% to make PBT concepts and tools accessible to a broad community of
-% university students and industrial developers.
 
 \summarysection{Broader Impacts}
 A final thread of activity, coordinated with the rest and integral to the
@@ -196,11 +168,11 @@ property-based testing?} \bcp{Not 5000, but definitely MSE courses!}
 
 Work on the project will include and elevate undergraduate
 researchers, including some from diverse backgrounds that will be
-identified and supported through cooperation with a new NSF-REU effort
+identified and supported through cooperation with a recently funded NSF-REU effort
 at Penn. These undergraduates will work closely with the project's two
 PIs, four Ph.D.{} students, and staff engineer.
 
-The ultimate goal, through education, publications, and open-source
+The ultimate goal, to be achieved through education, publications, and open-source
 tools, is to make property-based testing a standard tool on every
 software developer's testing toolbelt.  Better testing, in turn, will
 lead to software systems of every description that are less expensive, more
