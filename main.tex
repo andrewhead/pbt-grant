@@ -16,6 +16,7 @@
 \usepackage{wrapfig}
 \usepackage{tabularx}
 \usepackage{datetime2}
+\usepackage[final]{pdfpages}
 
 \newcommand{\participant}[1]{{P#1}}
 
@@ -428,5 +429,19 @@
 
 \newpage\newsection{K}
 \input{sections/reviewers}
+
+\newpage\newsection{K}
+\input{sections/reviewers}
+
+\newpage
+\section*{Letters of Support}
+
+(To be uploaded to the ``supplementary documentation'' section on
+research.gov.)
+
+\includepdf[pages=-]{assets/Hughes-letter.pdf}
+\includepdf[pages=-]{assets/Lampropoulos-letter.pdf}
+\includepdf[pages=-]{assets/Peleg-letter.pdf}
+ \includepdf[pages=-]{assets/Zac-letter.pdf}
 
 \end{document}
