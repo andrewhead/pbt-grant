@@ -122,7 +122,10 @@ convey that a broad transformation is possible and perhaps a good idea for PBT, 
 better convey this.}\bcp{+1,000,000 for changing to ``user
 experience'' everywhere!!!}\hg{``User experience'' connotes something squishy to
 me---do I like using someting or not---whereas usability feels like {\em can} I
-use it or not. But if this is a change that feels worth making I'm fine being overruled.} Like
+use it or not. But if this is a change that feels worth making I'm
+fine being overruled.}\bcp{To me, ``user experience'' sounds more
+researchy.  If(f) you two feel like reviewers may have the same
+reaction, we should make the change.} Like
 many powerful tools, PBT can be difficult to apply, and developers
 need support to do so effectively.
 
@@ -300,8 +303,8 @@ The Management and Coordination supplement also summarizes the metrics
 we will use to monitor and measure success for the various project
 tasks.
 
-Two PIs is on the small side for a Large NSF proposal; we feel this
-is the right size for this project, for two reasons. First, the PIs
+Two PIs is on the small side for a Large NSF proposal, but  we feel this
+is the right size, for two reasons. First, the PIs
 come from quite distinct areas, so we already span a
 broad swath of CS in terms of perspective and expertise.  Second,
 success with this research agenda depends on a high degree of
@@ -764,7 +767,7 @@ and (3) Jane Street, aiming for
 a broader set of developers than in the original study.
 
 % \TASK{Impact survey}{2}{2}{Who?}
-A second, more speculative, written survey later in the project will investigate
+A second written survey later in the project will investigate
 how broadly PBT may {\em eventually} be able to reach.  To get a sense
 of this, we will
 survey ``proximal'' users of PBT---developers who do not use PBT
@@ -802,12 +805,13 @@ and recruiting over social media.
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
    Theory}{PhD 1}{UGrad 2}{Head}
 %
-Interviews and surveys are adequate for exploring large-scale usability challenges, but in order
+Interviews and surveys are adequate for exploring usability challenges
+at a high level, but in order
 to build usable tools we also need to study the low-level interactions
-between users and their PBT tooling. We will
+between users and their PBT tooling.  We will
 conduct targeted observational studies to inform the many
 fine-grained design decisions
-involved in language design (\sectionref{sec:reflectiveusable}) and
+involved in language design (e.g., \sectionref{sec:reflectiveusable}) and
 interface design (\sectionref{sec:val}) activities.
 
 Understanding user interactions
@@ -822,33 +826,37 @@ creating a property or tuning a generator when in the
 middle of a programming task?
 (2) How much space is available on a developer's
 screen (amidst other tools like code editors and terminals) for
-new
-interfaces? or
+new live
+visualizations? or
 (3) What are developers' current strategies for solving the
 problems they describe, e.g., what representations
 seem most helpful
 for a programmer trying to understand the distribution of data from a
 generator?
 
-We will conduct two kinds of studies. First, observational studies similar
-to contextual inquiries~\cite[Chapter 3]{ref:holtzblatt1997contextual}, in which
+We will conduct two kinds of studies. The first will be observational
+studies in the style of contextual inquiries~\cite[Chapter
+3]{ref:holtzblatt1997contextual}, where
 developers perform PBT in realistic contexts, with their own tools and tasks.
 The output of these studies will be detailed understanding of the task
 structures involved with specific PBT tasks (e.g., writing a generator,
-assessing test results), and most importantly, what steps in those tasks are
-particularly time-consuming and effortful.  These steps are the ones that our
-tooling must address. Recordings and notes from these sessions will
-serve as ``test cases'' against which the likelihood of success of particular
-designs can be measured before implementation.
+assessing test results) and, most importantly, what steps in those tasks are
+particularly time-consuming and effortful.  Recordings and notes from
+these sessions will serve as metrics against which the
+likelihood of success of particular designs can be measured before
+implementation.
 
-A second kind of study is a controlled comparison of design alternatives.
-Language design, like the kind we plan to do relating to generator
+\bcp{Need to finish re-reading this.}
+
+The second kind of study will be controlled comparisons of design alternatives.
+Language design, like the kind we plan to do relating to generators
 (\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
-difficult to inform empirically for the reason that there exist many design choices
+difficult to inform empirically because there are many design choices
 and interactions between them. We plan to identify the most germane patterns of
-variation between modern PBT tools to our efforts (e.g., the definition of properties as inline
+variation between modern PBT tools (e.g., the definition of properties as simple
 functions versus the use of a DSL, or the use of annotations to steer
-annotation), and perform a select few comparative studies to gain clarity on how various
+generation), and perform a select few comparative studies to gain
+clarity on how various
 choices would impact our design. Following best practices in experiment design
 for programming tools~\cite{ref:ko2015practical}, we will enable meaningful
 comparisons by keeping task design simple, training
@@ -941,7 +949,7 @@ generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 PI Pierce is a longtime collaborator of John Hughes, one of the
-QuickCheck creators, who plans to collaborate on the projects
+QuickCheck creators; John plans to collaborate on the projects
 in this section; a letter of collaboration appears in the supplemental
 documents.
 
