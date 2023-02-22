@@ -1601,10 +1601,10 @@ for simple programs, whether consisting of text~\cite{ref:head2015tutorons,ref:m
 visualizations~\cite{ref:guo2013online}, or
 counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when
 programs are short and simple in structure.  While properties can be
-rather long, they are often 
+rather long, they are often
 composed of relatively simple parts (e.g., function
 calls plus conjunctions and implications)\bcp{plus equalities, at
-  least!}.  For this reason, it may be that these 
+  least!}.  For this reason, it may be that these
 ideas could generalize to helping newcomers understand those
 properties well enough to understand them generally\bcp{``understand those
 properties well enough to understand them generally''?}, and perhaps even make
@@ -1637,25 +1637,29 @@ The second sort of explanations will be examples, namely, sampled input-output
 pairs that can convey the behavior of the program with respect to the property;
 we will display these examples next to the code in the editor using editor
 annotations.  The Jane Street study reinforced the idea that programmers like to
-understand programs by example---in fact, Jane Street has a whole testing
-library based on examples~\cite{minsky_testing_nodate}---so examples are a
-natural choice. Deciding exactly which examples to show may be tricky, but prior
-suggests some heuristics that may be of use~\cite{ref:gerdes2018understanding}.
-At the very least, the tool can prioritize simpler inputs via shrinking.  This
-project will dovetail with our project on interactive debugging
-(\sectionref{sec:failures}) to identify test cases that are likely to best
+understand programs by example---in fact, this is the most common
+form of testing at Jane Street~\cite{minsky_testing_nodate}\bcp{and
+everyone else, pretty much!}---so explaining properties with examples is a
+natural choice. Deciding exactly which examples to show may be tricky,
+but prior work
+suggests some heuristics~\cite{ref:gerdes2018understanding}.
+At the very least, the tool can prioritize simpler inputs via shrinking\bcp{??}.  This
+task will dovetail with the task described later
+(\sectionref{sec:failures}) on interactive debugging
+to identify test cases that are likely to best
 ``explain'' intended program behavior.
 
-Given recent trends in computing research, it bears mention that large language
-models such as GPT3 may merit consideration for generating descriptions of the
-high-level ``idea'' behind properties; PI Head is investigating similar ideas
-for understanding generated code in general purpose programming languages. While
+Finally, given recent trends, a natural question is whether large language
+models such as GPT3 may be able to generate high-level descriptions of the
+ideas behind properties; PI Head is investigating similar ideas
+for understanding generated code in general-purpose programming languages.
+\proposecut{While
 we intend to explore this to some limited extent, most of our efforts will be
 spent on the two approaches above involving rule- and example-based
 explanations, given their applicability to property languages for which there
 may not yet have been data incorporated into modern large language models, and
 in part due to present limitations of LLMs that preclude reliably generation of accurate
-descriptions.
+descriptions.}
 
 % \publicationtarget{PLATEAU Workshop}
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
@@ -1664,25 +1668,29 @@ descriptions.
  \pagebudget{3}}{sec:val}
 In this section, we
 describe a sequence of research efforts to design and evaluate novel modes of
-{\em interaction} for PBT. These projects will contribute new paradigms for (1) assessing whether their generators are generating sufficient and
+{\em interaction} for PBT. These projects will contribute new paradigms\bcp{really?} for (1) assessing whether their generators are generating sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}), (2)
 understanding whether those
-inputs sufficiently exercise their code (\sectionref{sec:tuning}),
+inputs sufficiently exercise their code
+(\sectionref{sec:tuning})\bcp{how is (2) different from (1)?},
 and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-Finally, we describe a planned tool to help migrate
+We also describe a planned tool to help migrate
 counterexamples found by property-based tests into conventional
-regression tests (\sectionref{sec:counter}).
+regression tests (\sectionref{sec:counter}).  \bcp{The last, especially,
+sounds like ``Just engineering.''  How do we signal that there is
+research content there?}
 %
 
 These projects will all be pursued using HCI
-methodology, integrating these tools into contemporary interactive development
-environments. The success of these tools will be evaluated in usability studies
-comparing developers' effectiveness and efficiency in writing tests for their
-software, and debugging problems discovered by their test suites.  PI Head will
-guide tool development efforts, leveraging his
-experience designing, developing, evaluating, and deploying novel programming
+methodology: their research products will be integrated into contemporary
+interactive development environments, and their success will be
+evaluated through usability studies
+comparing developers' effectiveness and efficiency in testing (and in debugging problems discovered by testing).  PI Head will
+guide tool development\bcp{again, can we make it sound researchy?},
+leveraging his
+experience developing, evaluating, and deploying novel programming
 environments and
 tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
@@ -1690,18 +1698,23 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 4}{UGrad/MS 3}{Head}
 %
-In comparison to testing techniques like unit testing, PBT draws many
-tests from some
-random {\em distribution} over possible inputs, rather than writing down a few
-concrete individual inputs. The success  of
+Unlike conventional techniques like unit testing, where developers
+directly write concrete test cases,
+PBT automatically draws many tests from some
+{\em distribution} over possible inputs. The success of
 PBT thus depends on the quality of this distribution---whether
-most of its probability mass is on tests that are sufficiently
-realistic and diverse. We plan
-to develop tooling for
+most of its probability mass is on tests that are both sufficiently
+''interesting'' and sufficiently diverse. We will develop
+tools\bcp{again, I wish the focus were on the ideas behind the tools
+  rather than the tools themselves. I suspect this is a cultural
+  difference between PL and HCI, where for a PL person ''building a
+  tool'': means simply realizing some idea that you've already figured
+out in detail (e.g., as a theorem you proved), while for an HCI person
+the tool {\em is} the theorem...} for
 understanding distributions of input data and easily tuning them.
 
 We draw inspiration from related work in HCI that has sought to better expose
-the shape of input data distributions including
+the shape of data distributions including
 machine learning datasets
 (e.g.,~\cite{ref:hohman2019gamut} and
 ~\cite{ref:hohman2020understanding}) and sequences of program values
@@ -1718,10 +1731,11 @@ and an event type.
 % \proposecut{Such values are not trivially plotted in conventional
 % visualizations, and it would be prohibitive to review individual examples if the
 % logs are sufficiently long.}
-Ideally, a developer would be able to answer
-questions like: Are the generated log inputs long enough? Are the
+Ideally, the developer would be able, by examining the generator's
+distribution, to answer
+questions like: Are the generated log inputs long enough? and Are the
 event sequences
-realistic? This setting requires new kinds of views of data and tight
+realistic?  This setting requires new kinds of views of data and tight
 developer support for easily defining meaningful views of the data.
 
 \begin{wrapfigure}{r}{0.58\textwidth}
@@ -1737,36 +1751,40 @@ developer support for easily defining meaningful views of the data.
 
 
 % \TASK{Tools for working with data distributions}{2}{3}{who?}
-We will design and implement new interactive tools that provide rapid,
-informative views of input data distributions. A vision of one such tool appears
-in Figure~\ref{fig:gen-vis}. The tools will address the
+We will design and implement new interactive tools that provide live,
+informative views of input data distributions. A mock-up of one such tool appears
+in Figure~\ref{fig:gen-vis}. These tools will address the
 challenges of visualizing generator distributions using a novel combination of
-tailored, tried-and-true features for interactive programming environments.
+tailored, tried-and-true features for interactive programming
+environments.\bcp{Meaning the features are old and only the
+  way of combining them is novel? }
 
 First, our tools will support live, realtime displays of generated values.
-Our first goal is to provide
-instant, live~\cite{ref:tanimoto1990viva} feedback on the generators. Building
+Our goal will be to provide
+instant, live~\cite{ref:tanimoto1990viva} feedback on generators. Building
 on the tradition of other live functional programming environments
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}),
 % our environment will provide
 % live feedback summarizing many inputs produced by a generator, rather
 % than a single one; As testing proceeds,
-our environment will sample inputs
-output by the generator and
+our environment will sample values
+from the generator and
 pipe them into data displays (Figure~\ref{fig:gen-vis}), which
 will first and foremost show aggregate data views, including aggregate
 statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
 of key features of the data (Figure~\ref{fig:gen-vis}.3). Visualizations will be
-generated according to simple recommendation rules, similarly to other recent
-exploratory data visualization tools from
-HCI~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
+generated according to simple recommendation rules, as in other recent
+exploratory visualization
+tools~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
 wongsuphasawat_voyager_2017}. Unique to our project, features to visualize will
-be based on awareness of common features of algebraic data types, and extensible
-through lightweight user-written code. For example, consider the
+be based on awareness of common features of algebraic data
+types\bcp{what is ``awareness of common features of algebraic data
+  types''?} and extensible
+through lightweight user-provided code. For example, consider the
 \lstinline{log} type
-described above. A developer might be interested in the log's
+from above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
-and \lstinline{timestamp}, filters like \lstinline{is_empty}, and even
+and \lstinline{timestamp}, filters like \lstinline{is_empty}, and
 aggregators like \lstinline{max_by}. These kinds of features can be
 generated automatically for common data types.
 % Then the tool will then use
@@ -1777,10 +1795,11 @@ generated automatically for common data types.
 % dimensional feature).
 
 Second, the data displays will be easily extensible, via lightweight customization hooks. If
-there are features that the user notices should be extracted, but that the
+there are features that the user notices should be extracted but that the
 system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
-write it themselves in companion code alongside their property specifications;
-the interface will automatically load those features into the display.
+provide them alongside their property specifications;
+the interface will automatically load those features into the
+display.
 
 Third, the interface will make it possible to drill down into
 individual inputs from a list of samples that can be
@@ -1789,24 +1808,24 @@ of length ``10'' to preview individual inputs with that length). One
 challenge will be to provide suitable representations of complex inputs that
 will be easy to understand. Some general solutions might be to
 pretty-print inputs, provide interactive object browsers like those available
-in JetBrains~\cite{tool:jetbrains}, and/or allow a developer to explore an
-object using a built-in REPL. Additionally, we will produce DOT
-graph~\cite{ellson_graphviz_2002} representations of common kinds of inputs
-(i.e., lists, trees) that will provide an at-a-glance understanding of
+in JetBrains~\cite{tool:jetbrains}, or allow a developer to explore an
+object using a built-in REPL. Additionally, we will produce
+DOT~\cite{ellson_graphviz_2002} representations of common kinds of
+inputs (i.e., lists, trees) for at-a-glance comprehension of
 larger inputs (Figure~\ref{fig:gen-vis}.4).
 
 Finally, our tools will provide live feedback on the input
 distribution in the form of in-situ coverage feedback. Like other HCI
-prototypes that have shown which lines of code are currently
-executing in a running program~\cite{ref:brandt2010rehearse,
-  ref:oney2009firecrystal, ref:burg2013record}, ours will be
-able colorize code in the editor on the basis of
+prototypes that show which line of code is currently
+executing~\cite{ref:brandt2010rehearse,
+  ref:oney2009firecrystal, ref:burg2013record}, ours will
+colorize code in the editor on the basis of
 how frequently each line has been executed while running tests.
 
-The result of these experiments will be the first live tool for generator
+The result of all this will be the first live tool for generator
 feedback and analysis. In the next section, we take it one step
 farther to consider how interactive tools can help a developer not
-just understand input data distributions, but more directly change
+just understand input data distributions, but directly change
 them.
 
 \publicationtarget{User Interface and Software Technology (UIST)}
