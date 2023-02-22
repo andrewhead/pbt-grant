@@ -1969,10 +1969,10 @@ transform a failure detected by their PBT tools into a
 regression test, even though much of this work
 feels mechanical.
 
-In reality, the work is \emph{mostly}, but not entirely, mechanical. 
+In reality, the work is \emph{mostly}, but not entirely, mechanical.
 Creating good regression tests will require judicious incorporation of
 the developer's input at key decision points, particularly for
-specifying acceptance criteria. For instance, consider a property that checks
+specifying acceptance criteria\bcp{what's that?}. For instance, consider a property that checks
 that a list insertion function never produces an empty list. In the event of a
 failure, a developer may want to produce a regression test checking the
 exactness of the result on the failed input (e.g., checking that the insertion
@@ -1980,7 +1980,7 @@ produced a particular concrete list) rather than simply checking that the output
 list is non-empty.\bcp{I don't get this.  Is the regression test
   supposed to test the {\em in}correct behavior, or the correct
   behavior after the bug is fixed?  Why would we want the former?}
-Writing a regression test may involve multiple such 
+Writing a regression test may involve multiple such
 choices, including whether to test for exact output, whether to test
 intermediate results, and how to initialize inputs.\bcp{Readers may
   have trouble visualizing why we'd need each of these.}
@@ -2004,7 +2004,7 @@ performing likely edits to regression tests.%
 \bcp{Again, I'm worried that (especially for non-HCI reviewers) this
   will read like ``Oh, they want to build a little tool,'' rather
   than, ``This is a research topic that one could write a whole paper
-  about.''} 
+  about.''}
 We also hope the results of this work
 can inform the
 design of other approaches to counterexample extraction, including one that is
@@ -2013,15 +2013,19 @@ proposed for the Hypothesis in Python.\bcp{Going into more detail
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
-\SECTION{Diffusion}{Advancing Open Source PBT Tooling}{sec:diffusion}
-We acknowledge that research activities alone are not enough to make the
-broad impact we seek. Thus, we have made plans for increasing the {\em
-diffusion} of PBT into the software world. This includes both
-engineering and education activities.
+\SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
+The activities described in the previous sections are focused on
+fundamental research to advance understanding of PBT and explore new
+approaches both foundations and tool design.  But research alone is
+not enough to reach the broad impact we seek. Accordingly, our agenda
+includes plans for increasing the {\em diffusion} of PBT into the
+software world through both educational materials and real-world tools
+that embody our findings.
 
-We begin by describing critical activities that will ensure that our theoretical
+We begin by describing activities for ensuring that our foundational
 advances actually have an impact on real users, with the help of a research
-engineer (\sectionref{sec:engineersupport}); part of this effort will be to
+engineer (\sectionref{sec:engineersupport}). A major part of this
+effort will be to
 build and maintain \tyche, an integrated development environment for PBT
 (\sectionref{sec:ide}). Next, we discuss plans to allocate some engineering time
 to supporting open-source frameworks for PBT (\sectionref{sec:nurturing}).  Our
