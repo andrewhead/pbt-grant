@@ -1297,7 +1297,7 @@ Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
 But none of these
 tools fully solves the problem of automated constrained generation in
 general, and none of them include the tools necessary to produce reflective
-generators\proposecut{, so there are significant opportunities to advance this space}.
+generators.
 
 Pushing forward with generator automation could also extend the reach of PBT
 into new domains. Constrained generation is a major difficulty of the
@@ -1591,8 +1591,10 @@ Drawing inspiration from recent HCI research, we envision several approaches.
 Prior work has demonstrated the potential of generating meaningful explanations
 for simple programs, whether consisting of text~\cite{ref:head2015tutorons,ref:mayer2015user},
 visualizations~\cite{ref:guo2013online}, or
-counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when
-programs are short and simple in structure.  While properties can be
+counterexamples~\cite{ref:dantoni2015can}. 
+\proposechange{These techniques tend to work when
+programs are short and simple in structure.
+While properties can be
 rather long, they are often
 composed of relatively simple parts (e.g., function
 calls plus conjunctions and implications)\bcp{plus equalities, at
@@ -1604,7 +1606,11 @@ lightweight modifications, without needing to seek out dedicated instruction for
 the PBT framework.  \bcp{This seems like a longwinded way of saying,
   ``Lots of properties are probably pretty easy to read even for
   non-experts''...?  I.e., these properties don't need much of an
-  explanation.}
+explanation.}}{Since properties are relatively short programs with a predictable
+structure, we expect many of these techniques to generalize, helping newcomers
+understand and modify properties that they encounter.}
+\hg{I think this was just written more defensively than it had to
+be---properties actually are often pretty short and predictable programs.}
 
 The first sort of explanation we will provide is at the level of explaining
 syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
@@ -1624,18 +1630,23 @@ which to describe properties to those unfamiliar with PBT\bcp{how
   would this be different from QuickCheck's DSL?},
 and to identify syntactic anchors in the code that are sensible sites for
 programmers to access automatic explanations.
+\hg{I think BCP is a bit over-skeptical here---QC does actually have a lot of
+property combinators, and they're far from ``discoverable''---but we do need to
+make a stronger case for the interaction modes being novel and/or propose a
+slightly more concrete version of a beginner-friendly property language}
 
 The second sort of explanations will be examples, namely, sampled input-output
 pairs that can convey the behavior of the program with respect to the property;
 we will display these examples next to the code in the editor using editor
 annotations.  The Jane Street study reinforced the idea that programmers like to
-understand programs by example---in fact, this is the most common
-form of testing at Jane Street~\cite{minsky_testing_nodate}\bcp{and
-everyone else, pretty much!}---so explaining properties with examples is a
-natural choice. Deciding exactly which examples to show may be tricky,
-but prior work
+understand programs by example---Jane Street uses a custom framework for
+capturing and testing with examples~\cite{minsky_testing_nodate}---so explaining
+properties with examples is a natural choice. Deciding exactly which examples to
+show may be tricky, but prior work
 suggests some heuristics~\cite{ref:gerdes2018understanding}.
-At the very least, the tool can prioritize simpler inputs via shrinking\bcp{??}.  This
+At the very least, the tool can prioritize simpler inputs by shrinking complex
+examples to smaller ones.
+This
 task will dovetail with the task described later
 (\sectionref{sec:failures}) on interactive debugging
 to identify test cases that are likely to best
@@ -1645,13 +1656,6 @@ Finally, given recent trends, a natural question is whether large language
 models such as GPT3 may be able to generate high-level descriptions of the
 ideas behind properties; PI Head is investigating similar ideas
 for understanding generated code in general-purpose programming languages.
-\proposecut{While
-we intend to explore this to some limited extent, most of our efforts will be
-spent on the two approaches above involving rule- and example-based
-explanations, given their applicability to property languages for which there
-may not yet have been data incorporated into modern large language models, and
-in part due to present limitations of LLMs that preclude reliably generation of accurate
-descriptions.}
 
 % \publicationtarget{PLATEAU Workshop}
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
@@ -1660,27 +1664,29 @@ descriptions.}
  \pagebudget{3}}{sec:val}
 In this section, we
 describe a sequence of research efforts to design and evaluate novel modes of
-{\em interaction} for PBT. These projects will contribute new paradigms\bcp{really?} for (1) assessing whether their generators are generating sufficient and
+{\em interaction} for PBT. These projects will contribute new
+techniques for (1) assessing whether their generators are generating
+sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}), (2)
-understanding whether those
-inputs sufficiently exercise their code
-(\sectionref{sec:tuning})\bcp{how is (2) different from (1)?},
+altering their generators to achieve better distributions
+(\sectionref{sec:tuning}),
 and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
 We also describe a planned tool to help migrate
-counterexamples found by property-based tests into conventional
-regression tests (\sectionref{sec:counter}).  \bcp{The last, especially,
-sounds like ``Just engineering.''  How do we signal that there is
-research content there?}
+counterexamples found by property-based tests into
+regression tests that communicate useful information to future maintainers
+(\sectionref{sec:counter}).
 %
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
 interactive development environments, and their success will be
 evaluated through usability studies
-comparing developers' effectiveness and efficiency in testing (and in debugging problems discovered by testing).  PI Head will
-guide tool development\bcp{again, can we make it sound researchy?},
+comparing developers' effectiveness and efficiency in testing (and in debugging
+problems discovered by testing).  PI Head will guide the user observation,
+empirical evaluation, and
+tool development,
 leveraging his
 experience developing, evaluating, and deploying novel programming
 environments and
@@ -1702,7 +1708,8 @@ tools\bcp{again, I wish the focus were on the ideas behind the tools
   difference between PL and HCI, where for a PL person ''building a
   tool'': means simply realizing some idea that you've already figured
 out in detail (e.g., as a theorem you proved), while for an HCI person
-the tool {\em is} the theorem...} for
+the tool {\em is} the theorem...}
+for
 understanding distributions of input data and easily tuning them.
 
 We draw inspiration from related work in HCI that has sought to better expose
@@ -1768,11 +1775,10 @@ of key features of the data (Figure~\ref{fig:gen-vis}.3). Visualizations will be
 generated according to simple recommendation rules, as in other recent
 exploratory visualization
 tools~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
-wongsuphasawat_voyager_2017}. Unique to our project, features to visualize will
-be based on awareness of common features of algebraic data
-types\bcp{what is ``awareness of common features of algebraic data
-  types''?} and extensible
-through lightweight user-provided code. For example, consider the
+wongsuphasawat_voyager_2017}. Unique to our project, the tool will use a
+combination of type-based automation and
+lightweight user-provided code to extract features to visualize.
+For example, consider the
 \lstinline{log} type
 from above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
