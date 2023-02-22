@@ -1750,17 +1750,6 @@ event sequences
 realistic?  This setting requires new kinds of views of data and tight
 developer support for easily defining meaningful views of the data.
 
-\begin{wrapfigure}{r}{0.58\textwidth}
-  \centering
-  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
-  \caption{An envisioned tool for evaluating data distributions. Such a tool
-  would evaluate generator source code live (1), showing summary statistics (2),
-  aggregate visualizations (3), and views of input instances (4). Iteration
-  would be supported with live adjustment of generator code and refinement of
-  filters used in the visualizations.
-    \todolast{put this near the text that refers to it}}\label{fig:gen-vis}
-\end{wrapfigure}
-
 
 % \TASK{Tools for working with data distributions}{2}{3}{who?}
 We will design and implement new interactive tools that provide live,
@@ -1770,6 +1759,17 @@ challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming
 environments.\bcp{Meaning the features are old and only the
   way of combining them is novel? }
+
+\begin{wrapfigure}{r}{0.58\textwidth}
+  \centering
+  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
+  \caption{A tool for evaluating data distributions, showing
+  generator source code (1), summary statistics (2),
+  aggregate visualizations (3), and views of input instances
+  (4). Iteration would be supported with live adjustment of
+  generator code and refinement of filters used in the
+  visualizations.}\label{fig:gen-vis}
+\end{wrapfigure}
 
 First, our tools will support live, realtime displays of generated values.
 Our goal will be to provide
@@ -1825,7 +1825,7 @@ DOT~\cite{ellson_graphviz_2002} representations of common kinds of
 inputs (i.e., lists, trees) for at-a-glance comprehension of
 larger inputs (Figure~\ref{fig:gen-vis}.4).
 
-Finally, our tools will provide live feedback on the input
+Finally, our tools will provide live feedback on the
 distribution in the form of in-situ coverage feedback. Like other HCI
 prototypes that show which line of code is currently
 executing~\cite{ref:brandt2010rehearse,
@@ -1845,12 +1845,12 @@ them.
   Practice}{PhD 4}{UGrad/MS 4}{Head}
 %
 Tuning generator distributions to produce ``interesting''
-values more often is a challenging task, often requiring
+values more often can be challenging, requiring
 significant trial and error. Approaches
 like the one in \sectionref{sec:reflective} can help, and in simple cases
-heuristics like code coverage are sufficient~\cite{afl-readme},
+heuristics like code coverage are enough~\cite{afl-readme},
 but manual tuning
-is still needed in some cases.
+is still sometimes needed.
 
 We will design and evaluate tools to support the direct tuning of
 input data distributions
@@ -2020,28 +2020,37 @@ The activities described in the previous sections are focused on
 fundamental research to advance understanding of PBT and explore new
 approaches both foundations and tool design.  But research alone is
 not enough to reach the broad impact we seek. Accordingly, our agenda
-includes plans for increasing the {\em diffusion} of PBT into the
-software world through both educational materials and real-world tools
-that embody our findings.
+includes plans for increasing the {\em diffusion} of PBT through both
+educational materials and well engineered tools
+embodying our findings.
 
-We begin by describing activities for ensuring that our foundational
-advances actually have an impact on real users, with the help of a research
+We begin with activities for ensuring that our foundational
+advances have an impact on real users, with the help of a research
 engineer (\sectionref{sec:engineersupport}). A major part of this
-effort will be to
-build and maintain \tyche, an integrated development environment for PBT
-(\sectionref{sec:ide}). Next, we discuss plans to allocate some engineering time
-to supporting open-source frameworks for PBT (\sectionref{sec:nurturing}).  Our
-education-focused activities will include a catalog of high-leverage PBT
-use-cases (\sectionref{sec:whento}) and an undergraduate and masters-level curricula
+effort will be
+building and maintaining \tyche, an integrated development environment for PBT
+(\sectionref{sec:ide}). Next, we discuss plans for helping
+support open-source frameworks for PBT (\sectionref{sec:nurturing}).
+Finally, our
+education-focused activities include a catalog of high-leverage PBT
+use-cases (\sectionref{sec:whento}) and undergraduate- and
+masters-level courseware for PBT
 (\sectionref{sec:1210}).
+
+\bcp{There's a comment somewhere about whether we will pay enough to
+  attract someone good.  I think we should address that explicitly
+  here (our current salary proposal is \$110k, and we should give some
+  evidence that that is a good mainstream level), and also address how
+  we will go about hiring such a person, what qualifications we will
+  ask for, etc.  Basically, show that we've thought about it.}
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
 %
-The research projects we have proposed thus far will have the potential to
-dramatically improve the power and usability of PBT systems, but only if those
-systems are attractive to real users. There is an unfortunate tendency for
-research software to remain ``research software,'' missing critical
+The research projects we have described thus far have the potential to
+dramatically improve the power and usability of PBT, but only
+if their products are attractive to real users. There is an unfortunate tendency for
+research software to remain just that---missing critical
 documentation that new users need to get started and lacking a clear
 maintenance schedule that would give software companies the confidence to adopt.
 To avoid this fate for our projects, PhD students will work closely with our
