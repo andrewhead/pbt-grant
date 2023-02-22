@@ -1567,7 +1567,7 @@ problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.
 
 To address these problems, we will take a foundational approach, breaking down
 modules into their constituent features and developing automation
-heuristics from first 
+heuristics from first
 principles. This will involve identifying a subset of modules, e.g., potentially
 those that use generation-unfriendly types like GADTs, where automation is {\em
 not} possible; highlighting this subset will provide useful context for future
@@ -1576,7 +1576,7 @@ human in the loop).  \bcp{Too big a jump from that to the next sentence.}
 
 The work in this project will ultimately provide a recipe for automating a
 significant swath of module testing situations, massively lowering the
-barrier to entry 
+barrier to entry
 for PBT in languages with OCaml-like module
 systems. It will also
 provide a basis that others can
@@ -1593,34 +1593,44 @@ transfer. \bcp{Why start with OCaml?}
 Like code of any kind, executable properties can
 be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
-tools to programmers in understanding properties?
+tools to help programmers understand properties?
 
-We envision several approaches, drawing inspiration from recent HCI research.
+Drawing inspiration from recent HCI research, we envision several approaches.
 Prior work has demonstrated the potential of generating meaningful explanations
-for simple programs, whether those explanations are consist of text
-explanations~\cite{ref:head2015tutorons,ref:mayer2015user},
+for simple programs, whether consisting of text~\cite{ref:head2015tutorons,ref:mayer2015user},
 visualizations~\cite{ref:guo2013online}, or
 counterexamples~\cite{ref:dantoni2015can}. These techniques tend to work when
-programs are short in length, draw mostly from simple syntax, and are
-structurally simple.  While properties can be rather long, they are often
-comprised of relatively simple language idioms (i.e., a number of function
-calls, conjunctions, and implications). For this reason, it may be that these
+programs are short and simple in structure.  While properties can be
+rather long, they are often 
+composed of relatively simple parts (e.g., function
+calls plus conjunctions and implications)\bcp{plus equalities, at
+  least!}.  For this reason, it may be that these 
 ideas could generalize to helping newcomers understand those
-properties well enough to understand them generally, and perhaps even make
+properties well enough to understand them generally\bcp{``understand those
+properties well enough to understand them generally''?}, and perhaps even make
 lightweight modifications, without needing to seek out dedicated instruction for
-the PBT framework.
+the PBT framework.  \bcp{This seems like a longwinded way of saying,
+  ``Lots of properties are probably pretty easy to read even for
+  non-experts''...?  I.e., these properties don't need much of an
+  explanation.}
 
 The first sort of explanation we will provide is at the level of explaining
 syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
 synthesized programs~\cite{ref:mayer2015user}, and Hazel
 code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks
 require the use of a custom property language. This is the case, for instance,
-for Haskell's QuickCheck. For users who are familiar with the host language but
+for Haskell's QuickCheck.\bcp{You mean things like \lstinline{==>} and
+\lstinline{forall}?  These are really pretty simple---I would be
+surprised to learn that they are much of an obstacle for newcomers.
+Or did you have something else in mind?} For users who are familiar with the host language but
 not the property language, we will design tooltip explanations that explain
 particular idiomatic constructs including symbols and common structures in
-property-based tests. Our efforts will focus on developing the language with
-which to describe properties to those unfamiliar with PBT,
-and to identify those syntactic anchors in the code that are sensible sites for
+property-based tests.\bcp{Where is the research here?  Even if it's
+  useful (which I'm not sure), it seems pretty simple.} Our efforts
+will focus on developing the language with
+which to describe properties to those unfamiliar with PBT\bcp{how
+  would this be different from QuickCheck's DSL?},
+and to identify syntactic anchors in the code that are sensible sites for
 programmers to access automatic explanations.
 
 The second sort of explanations will be examples, namely, sampled input-output
