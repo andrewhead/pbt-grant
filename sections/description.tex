@@ -1191,7 +1191,7 @@ reason but also {\em reflective}.
 % earlier version}
 Why a reflective generator?
 To start,
-their backward interpretation can be used to help seed the fuzzer.
+because its backward interpretation can be used to help seed the fuzzer.
 Modern fuzzers often
 ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
 to ensure that the fuzzer does not spend ages exploring
@@ -1244,6 +1244,7 @@ minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
 
 \SUBSECTION{Usability of reflective generators}{sec:reflectiveusable}{3}{3}{HCI
   Practice}{PhD 2}{PhD 4}{Pierce}
+%
 \hg{Joe wants a citation in this section: Andrew? He suggests cognitive
 dimensions} \amh{I think we should instead cite~\cite{ref:ko2015practical} which
 provides lots of helpful practical guidance on empirically evaluating tools in
@@ -1252,25 +1253,24 @@ we could use the cognitive dimensions
 framework~\cite{ref:blackwell2003notational}. I would just want to make it clear
 that our evaluations would be preliminary with cognitive dimensions (given what
 I think might be a shared view that you can only go so far with the dimensions
-that Blackwell described.)}\hg{Whatever you think is best}
-Reflective generators are a powerful abstraction, but they are unavoidably a bit
+that Blackwell described.)}\hg{Whatever you think is best}\bcp{Andrew,
+can you add this bit?}
+%
+Reflective generators are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
-usable (based on our own experience), but we can do better than guessing.
+usable (based on our own experience), but we can do better than guessing!
 
-We will evaluate and re-design the surface syntax of reflective generators with
-the help of real users.  First, we will recruit a small group of users, teach
+We will evaluate and redesign the surface syntax of reflective generators with
+the help of real users.  We will recruit a small group of users, teach
 them to use reflective generators via a short introductory ``README,'' and ask
-them to implement a number of PBT generators inspired by both the research
-literature and real-world examples. We will observe the users to identify points
-of friction, interviewing them to ensure a clear understanding of their
+them to implement a number of PBT generators inspired by the research
+literature and real-world examples. We will both observe and interview
+the users to identify points of friction and ensure a clear understanding of their
 impressions. With this information in hand, we will identify potential changes
-to the API and test those changes with a new group of users. In this way, we
-will ensure that both the problems we tackle and the solutions we settle on are
-relevant to potential users.
-
-Ultimately, we hope that this process results in a much more usable language for
-reflective generators that is simple enough to be used by even non-expert PBT
+to the API and test those changes with a new group of users.  The
+ultimate measure of success (again, evaluated through user interviews)
+is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
 \publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
@@ -1288,33 +1288,34 @@ As a first step, we will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
 In general, type-based
 generators are only useful for testing properties with easily satisfiable
-preconditions, but they are a good starting point for many developers. Beyond
-that, we consider automation techniques that will help developers interactively
-construct reflective generators that maintain complex preconditions.
+preconditions, but this is a good starting point for many developers. Beyond
+that, we will consider techniques for {\em interactively}
+constructing reflective generators that maintain complex preconditions.
 
-Some users will have a standard QuickCheck generator that they would like to use
-in situations that require a reflective generator. We plan to assist those
-users with tools that automatically synthesize the backward annotations
+Some users may already have a standard QuickCheck-style generator that
+they would like to use
+in situations that require a reflective generator. We will assist those
+users with tools that automatically synthesize backward annotations
 required to make the generator bidirectional. We will experiment with both
 conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
-annotations for realistic generators. Both approaches have a clearly defined
+annotations for realistic generators. \proposecut{Both approaches have a clearly defined
 notion of success: reflective generators have notions of soundness and
 completeness that can be tested via PBT, so each candidate set of annotations
-can be quickly and efficiently evaluated.
+can be quickly and efficiently evaluated.}
 
-Going one step further, we will also explore techniques that can synthesize an
-entire reflective generator from whole cloth. There are a variety of existing
-tools that try to do this for standard generators: Lampropoulos et al. provides
+Going one step further, we will explore techniques that can synthesize an
+entire reflective generator from whole cloth. There are a variety of
+attempts to do this for standard generators: Lampropoulos et al. provides
 two solutions, one based on on inductive relation specifications of
 preconditions~\cite{lampropoulos2017generating} and the other based on an
-extended language for properties~\cite{beginners-luck}, and Steinh\"ofel et al.
+extended language for properties~\cite{beginners-luck}, while Steinh\"ofel et al.
 infer a generator from constraints using
 Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
-Unfortunately, each of these
-tools falls short of solving the problem of automated constrained generation in
+But none of these
+tools fully solves the problem of automated constrained generation in
 general, and none of them include the tools necessary to produce reflective
-generators, so there are significant opportunities to advance this space.
+generators\proposecut{, so there are significant opportunities to advance this space}.
 
 Pushing forward with generator automation could also extend the reach of PBT
 into new domains. Constrained generation is a major difficulty of the
@@ -1329,54 +1330,55 @@ are hard to satisfy.
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
-The many papers in the PBT literature demonstrate effectiveness with case
-studies, showing that certain bugs in certain systems are caught more quickly
-with one tool over another. For theoretical advances, this is often sufficient
-to demonstrate that the paper is worth publishing, but this kind of evaluation
-can be hard to interpret from the perspective of a would-be user. With all of
-the new approaches to generation that we are proposing in this document, and
-considering our goals around usability, we need to do better.
+Most papers in the existing PBT literature use small case studies,
+showing that certain bugs in certain systems
+are caught more quickly with their tool than existing ones. For
+theoretically-oriented work, this may be sufficient
+to demonstrate the interest of an idea, but such evaluations
+are hard to interpret from the perspective of a would-be user.
+We can do better.
 
-We have begun to experiment with a robust empirical evaluation framework for
-generators and other PBT techniques. We have built preliminary infrastructure
+We have begun work on a robust empirical evaluation framework for
+generators and other PBT techniques\bcp{what other techniques?},
+including infrastructure
 for easily and extensibly running experiments to understand testing
 effectiveness.  By ``easily,'' we mean that we will take on the burden of
 collecting data and analyzing the results, exposing to the user framework
-functions for their particular instantiations as needed.  When complete, the
+functions for their particular instantiations as needed.  When complete, this
 evaluation framework will be able to evaluate a given tool based on (1) the
 degree to which it is able to achieve high code coverage quickly, and (2) the
 speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-numerous workloads that we have currently implemented support for, we will design the
+numerous workloads that we currently support, we will design the
 infrastructure so that users can easily add new
 languages, frameworks, and workloads.
-Initial observations from this framework have been submitted as an experience
-report to ICFP 2023, but many important features (e.g., coverage measurement) have not yet
+Some initial comparisons using this framework will soon be submitted as an experience
+report to ICFP 2023, but many crucial features (e.g., coverage measurement) have not yet
 been implemented.
 
-Our second contribution will codify a library of case-studies and examples as
+Our second contribution will codify a substantial library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
 fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
-organized around the particular challenges that PBT tools face. In particular,
+organized around the particular challenges that PBT users face. In particular,
 few of the benchmarks deal with the kinds of complex preconditions that PBT
 tools are built to handle. We want to establish a set of challenging tasks that
-can serve as a north star for future improvements to PBT generators and
+can serve as a polestar for future improvements to PBT generators and
 bug-finding strategies (including our own!).
 
-Initial work and future
-designs for this project have been discussed Leonidas
-Lampropoulos and his group at the University of Maryland. PI Pierce has a long
-history of successful projects with Prof.
-Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+Past and proposed work on this topic are joint with Leonidas
+Lampropoulos and his group at Maryland. PI Pierce has a long history
+of successful projects with Prof.
+Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}. \bcp{mention
+  letter.}
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-To widen the on-ramp to using PBT, developers need help envisioning and writing
+To bring PBT to more people, we need to help developers with envisioning and writing
 specifications.
-Our pilot study suggested that developers struggle to write
+Our pilot study\bcp{Pilot, not JS?  This is too fine a distinction.} suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
 might want to
