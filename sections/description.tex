@@ -1324,8 +1324,7 @@ generators and other PBT techniques\bcp{what other techniques?},
 including infrastructure
 for easily and extensibly running experiments to understand testing
 effectiveness.  By ``easily,'' we mean that we will take on the burden of
-collecting data and analyzing the results, exposing to the user framework
-functions for their particular instantiations as needed.  When complete, this
+collecting data and analyzing the results.  When complete, this
 evaluation framework will be able to evaluate a given tool based on (1) the
 degree to which it is able to achieve high code coverage quickly, and (2) the
 speed with which it finds bugs that have been pre-seeded in example programs. By
@@ -1357,19 +1356,20 @@ Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverag
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-To bring PBT to more people, we need to help developers with envisioning and writing
+To bring PBT to the people, we need to help developers with envisioning and writing
 specifications.
 Our pilot study\bcp{Pilot, not JS?  This is too fine a distinction.} suggested that developers struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
 might want to
-test. We address the first of these issues with a new language for writing more
-expressive properties (\sectionref{sec:outpurprop}) and
-the second with mixed-initiative\bcplast{define/gloss} interactions (\sectionref{sec:interactive}).
+test. We propose to address the first of these issues with a new, more
+expressive\bcp{is its advantage that it is MORE expressive, or
+  DIFFERENTLY expressive?} property language (\sectionref{sec:outpurprop}) and
+the second with mixed-initiative\bcp{define/gloss} interactions (\sectionref{sec:interactive}).
 %
-Further, we describe a way to automate a specific high-leverage scenario:
-model-based testing (\sectionref{sec:automating}). Finally, in we discuss plans
-to generate automatic explanations of properties, for documentation and
+Further, we will automate one specific high-leverage scenario,
+model-based testing (\sectionref{sec:automating}). Finally, we will explore how to
+generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
@@ -1377,44 +1377,49 @@ education (\sectionref{sec:understanding}).
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
-A common pain point for developers in our interview studies was that code may
-not be organized in a way that is conducive to PBT. When used as a unit testing
-technology, PBT requires ``units'' of software to test with clear boundaries. As
-such, PBT cannot easily apply to programs with
-poorly encapsulated global state, or software with leaky or complex abstraction
+A common pain point for developers in our interview studies was that
+their code is not necessarily organized in a way that is conducive to
+PBT.  PBT works best on components with clear boundaries and does not
+easily apply to programs with
+poorly encapsulated global state, or with leaky or complex abstraction
 boundaries.
 
-Could there be a class of PBT tools that supports checking properties of
-software in cases where important functionality falls across module boundaries?
-We will explore how a PBT tool can support the definition of properties over
-cross-module event logs. To demonstrate the potential of such a tool, consider
-the case of a developer we interviewed, \participant{7}. P7 was testing
-a system, which we call ``\lstinline{Inner},'' exemplifying this messy
-abstraction
-boundary. It was difficult to test \lstinline{Inner} because
-its most interesting behavior arose only when interacting with its calling
-component (which we call ``\lstinline{Outer}'').
-\lstinline{Outer} took in simple inputs, and used these inputs to construct
-complex inputs to \lstinline{Inner}. \lstinline{Inner} could not be tested with
-realistic inputs without the complex apparatus of \lstinline{Outer} that
-produced those inputs. The developer named this as a circumstance where a
+To create PBT tools that work in
+cases where important functionality falls across module
+boundaries,\bcp{not clear how this fits with ``does not
+easily apply to programs with
+poorly encapsulated global state, or with leaky or complex abstraction
+boundaries.''}
+we will explore how to define properties over
+cross-module event logs. Consider
+the case of a developer we interviewed: P7 was testing
+a system, let's call it ``\lstinline{Inner},'' that  was difficult to
+test because
+its most interesting behavior arose only when interacting with a particular calling
+component, ``\lstinline{Outer}''.
+\lstinline{Outer} took in simple inputs and used them to construct
+much more complex inputs to \lstinline{Inner}. Thus, \lstinline{Inner}
+could not be tested with
+realistic inputs without the complex apparatus of \lstinline{Outer} to
+produce those inputs.  The developer cited this as a circumstance where a
 PBT is difficult to apply, because the abstraction boundary between the
 components was too fuzzy.
 
 % \TASK{Tools for testing properties over logged values}{2}{2}{Who?}
-We will develop a tool that allows developers to express properties that reach
+We plan to develop a tool that allows developers to express properties that reach
 into the state of multiple interacting software components. Take again the
 example of \lstinline{Inner}. A solution to P7's problem could be to drive the
-test through \lstinline{Outer}, and in doing so implicitly test
-\lstinline{Inner}, monitoring runtime values within \lstinline{Inner}. Assuming
-\lstinline{Inner} is a routine that processes a stream of messages with internal
-values including a queue of processed items \lstinline{processed}, and an
-\lstinline{overflow}, properties could include:
+test through \lstinline{Outer} but write properties about
+\lstinline{Inner} by monitoring the internal values that appear while it
+runs. For example, suppose
+\lstinline{Inner} processes a stream of messages and its internal state
+includes a queue of processed items, \lstinline{processed}, and an
+\lstinline{overflow} flag. Useful properties might include:
 
 \begin{lstlisting}
-prefix_of processed (next (processed))       (* 1 Processing is monotonic *)
-msg.length < 100 ==> never (overflow = true) (* 2 Can process >= 100 bytes *)
-eventually (processed.length = msg.length)   (* 3 whole message processed *)
+prefix_of (processed, next (processed))      (* 1. Processing is monotonic *)
+msg.length < 100 ==> never (overflow = true) (* 2. Can handle 100 bytes    *)
+eventually (processed.length = msg.length)   (* 3. whole message processed *)
 \end{lstlisting}
 
 Is it possible to check such behaviors with built-in assertion statements? We
@@ -2017,13 +2022,16 @@ skill transfer difficult for users. For these reasons, we will allocate
 engineering time focused on supporting and improving open-source frameworks for
 PBT.
 
-To address the problem of under-maintained software projects, we will simply
+To address the problem of under-maintained software projects, we will
 reach out to the maintainers of projects with important outstanding issues and
 ask the maintainers (if any exist) what help they need. We are already in
-contact with Zac Hatfield-Dodds, the main maintainer of Hypothesis, and he has a
+contact with Zac Hatfield-Dodds, the main maintainer of
+Hypothesis\bcp{mention letter}, and he has a
 variety of framework improvements that could benefit from more developer
-support. We expect that a other projects in a variety of languages will be
-important to assist in a similar way.
+support. We expect that other projects in a variety of languages will be
+important to assist in a similar way. \bcp{I wonder if this is going
+  to put people's backs up---might sound like we are offering an
+  engineering service to the whole community...}
 
 There are two ways we may be able to help solve the problem of skill transfer
 between PBT frameworks. Where possible, we hope that our comparison of PBT
@@ -2117,7 +2125,7 @@ generators, considering properties as documentation, and expanding one's
 thinking around the scenarios where PBT is suitable
 (see~\sectionref{sec:whento}).
 We will also include PBT in Penn's CIS 5730, a masters-level software engineering
-course whose students will benefit greatly from exposure to PBT.
+course.
 We will evaluate the impact of these new
 instructional approaches on students' ability to leverage PBT in final projects,
 disseminating our findings in publications at computer science research venues.
