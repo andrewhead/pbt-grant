@@ -285,8 +285,6 @@ discusses the Broader Impacts of the project, and
 Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
-\discuss{Mention John and Hila by name}
-
 \iflater\discuss{Can we come up with a good infographic for the
   introduction?  (We made a sketch.)}\fi
 
@@ -904,6 +902,9 @@ a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
+We are close collaborators with John Hughes, one of the original creators of
+QuickCheck, and he has agreed to collaborate on the projects in this section; a
+letter of collaboration appears in the supplemental documents.
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
 As discussed in the Orientation section
@@ -1280,10 +1281,10 @@ users with tools that automatically synthesize backward annotations
 required to make the generator bidirectional. We will experiment with both
 conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
-annotations for realistic generators. \proposecut{Both approaches have a clearly defined
-notion of success: reflective generators have notions of soundness and
-completeness that can be tested via PBT, so each candidate set of annotations
-can be quickly and efficiently evaluated.}
+annotations for realistic generators.
+We plan to collaborate with professor Hila
+Peleg at the Technion, who has experience with both PBT and program synthesis. A
+letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
 
 Going one step further, we will explore techniques that can synthesize an
 entire reflective generator from whole cloth. There are a variety of
@@ -1347,7 +1348,10 @@ can serve as a polestar for future improvements to PBT generators and
 bug-finding strategies (including our own!).
 
 Past and proposed work on this topic are joint with Leonidas
-Lampropoulos and his group at Maryland. PI Pierce has a long history
+Lampropoulos and his group at Maryland.
+A letter of collaboration
+from Prof.{} Lampropoulos appears in the supplemental documents,
+PI Pierce has a long history
 of successful projects with Prof.
 Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}. \bcp{mention
   letter.}
@@ -2026,10 +2030,13 @@ To address the problem of under-maintained software projects, we will
 reach out to the maintainers of projects with important outstanding issues and
 ask the maintainers (if any exist) what help they need. We are already in
 contact with Zac Hatfield-Dodds, the main maintainer of
-Hypothesis\bcp{mention letter}, and he has a
+Hypothesis, and he has a
 variety of framework improvements that could benefit from more developer
-support. We expect that other projects in a variety of languages will be
-important to assist in a similar way. \bcp{I wonder if this is going
+support; a letter of collaboration from Mr.{} Hatfield-Dodds appears in the
+supplemental documents.
+We expect that a other projects in a variety of languages will be
+important to assist in a similar way.
+\bcp{I wonder if this is going
   to put people's backs up---might sound like we are offering an
   engineering service to the whole community...}
 
