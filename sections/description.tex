@@ -1643,7 +1643,12 @@ programmers to access automatic explanations.
 property combinators, and they're far from ``discoverable''---but we do need to
 make a stronger case for the interaction modes being novel and/or propose a
 slightly more concrete version of a beginner-friendly property language}
-\bcp{Yes, I was channeling a grumpy PL/SE reviewer.}
+\bcp{Yes, I was channeling a grumpy PL/SE reviewer.} \amh{These are all fair
+points. There is some hand-waving here because I'm taking it on faith that
+property languages are sometimes hard to read and are explainable. But I take
+the point that we can make it more convincing by making it more concrete.
+Hopefully I can get to the bottom of this by getting more context and ideas from the two
+of you.}
 
 The second sort of explanations will be examples, namely, sampled input-output
 pairs that can convey the behavior of the program with respect to the property;
@@ -1693,7 +1698,8 @@ may read as ``Just engineering'' to some reviewers.  How do we clarify
 the research content there so that no one can miss it?  E.g., by emphasizing the
 investigate-needs/design/build/evaluate loop? I think addressing this
 point explicitly will help reassure (esp. non-HCI) reviewers.}
-\hg{Is the next paragraph not doing a good enough job here? We could move it up maybe?}
+\hg{Is the next paragraph not doing a good enough job here? We could move it up
+maybe?}\amh{Agreed, let me see what I can do.}
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
@@ -1724,7 +1730,9 @@ tools\bcp{again, I wish the focus were on the ideas behind the tools
   difference between PL and HCI, where for a PL person ''building a
   tool'': means simply realizing some idea that you've already figured
 out in detail (e.g., as a theorem you proved), while for an HCI person
-the tool {\em is} the theorem...}
+the tool {\em is} the theorem...} \amh{This is a challenge in HCI too, and it is
+a bug of the current writing. I think the more I can focus on unique interaction
+primitives and shy away from ``building tools'' the better. I'll try that.}
 for
 understanding distributions of input data and easily tuning them.
 
@@ -1761,7 +1769,9 @@ in Figure~\ref{fig:gen-vis}. These tools will address the
 challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming
 environments.\bcp{Meaning the features are old and only the
-  way of combining them is novel? }
+way of combining them is novel? }\amh{Not really---the tailoring is new! This
+is a good example of where I think I undersell novelty with the writing. Will
+fix.}
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -1932,6 +1942,29 @@ automatic shrinking will continuously be re-tried, reducing the input further
 and giving feedback as to whether it still causes a test to fail or not.
 Developers will ultimately be able to reduce complex counterexamples into
 simpler ones that are easier to reason about when looking for bugs.
+
+% Notes from Andrew
+% Why hypothesis 'explain' won't work:
+% * The existing strategy is not quite right---sometimes the challenge is not
+% due to lines that are always run on failure, but rather the absence of
+% important lines. Still, these challenges can be predicted by a different
+% number of runs through the same control statements. Furthermore, someone may
+% wish to not just know the difference in which lines were run, but to step
+% through execution of them side by side.
+% * A tool like TraceDiff could be used, if integrated into a conventional
+% editor. That said, we expect it would not fit in without novel interaction
+% solutions, particularly because...
+% * We don't know the correct program, so we can't compare the trace to the
+% correct program. Instead, all we have is the traces of other correct
+% executions. It is likely, then, that we have to...
+% * Show multiple inputs stepping through the same code at once.
+% * Highlight control divergences (through simple highlighting). Dump people in
+% the location of the first control divergence and visualize it.
+% * (Maybe) Permit the ability to step backward
+% * Convey this through subtle highlighting, perhaps weighted by the number of
+% inputs that travel particular paths to reveal scent, and highlight paths that
+% are *not* executed. Refine these design choices on the basis of bugs that we
+% learn about by mining repositories.
 
 In addition to developing novel interaction techniques for simplifying inputs,
 we will also develop systems for helping developers locate code that, if
