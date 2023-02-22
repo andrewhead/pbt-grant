@@ -2001,7 +2001,9 @@ exactness of the result on the failed input (e.g., checking that the insertion
 produced a particular concrete list) rather than simply checking that the output
 list is non-empty.\bcp{I don't get this.  Is the regression test
   supposed to test the {\em in}correct behavior, or the correct
-  behavior after the bug is fixed?  Why would we want the former?}
+  behavior after the bug is fixed?  Why would we want the former?} \amh{The
+  correct behavior, though the property may underspecify the intended output
+  versus what the developer would like to have in the test.}
 Writing a regression test may involve multiple such
 choices, including whether to test for exact output, whether to test
 intermediate results, and how to initialize inputs.\bcp{Readers may
@@ -2012,7 +2014,15 @@ regression tests from failed tests. The idea is to first develop
 technology for generating sufficiently readable code for regression
 tests\bcp{I don't have a clear picture of what this would involve.
   Isn't a regression test just ``You poke the system like this and it
-  responds like that''?  Where are the readability challenges?} (using
+responds like that''?  Where are the readability challenges?}\amh{I think it
+is more stylistic questions than any. An automated test case generator might
+produce a test that is technically correct, but ugly. For instance, multiple
+function calls are chained in the same line, rather than split onto multple
+lines. Or test success is evaluated by comparing to a really complex output,
+rather than comparing one particular attribute on that output that you really
+care about. These are types of stylistic choices that may be difficult to encode
+in an automated test case generator / styler, but something that would be pretty
+easy for a person to identify as improvements to the test case.} (using
 approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
 in-situ editing assistance along the lines of contemporary interactive
 refactoring tools from the HCI
@@ -2026,12 +2036,14 @@ performing likely edits to regression tests.%
 \bcp{Again, I'm worried that (especially for non-HCI reviewers) this
   will read like ``Oh, they want to build a little tool,'' rather
   than, ``This is a research topic that one could write a whole paper
-  about.''}
+  about.''}\amh{I need to think about this.}
 We also hope the results of this work
 can inform the
 design of other approaches to counterexample extraction, including one that is
 proposed for the Hypothesis in Python.\bcp{Going into more detail
-  about this bit might help!}
+about this bit might help!}\amh{I'm not sure about this one; I think this is
+based on Harry's communication with Zac. One of us should either turn Zac's
+feedback into something concrete here, or otherwise we should leave it out.}
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
