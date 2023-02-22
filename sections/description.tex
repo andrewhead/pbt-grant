@@ -2122,63 +2122,72 @@ community.
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
-The ecosystem of existing open-source PBT tooling is broad and varied. Some
-projects are vibrant and well-maintained, while others, including some with
+The existing ecosystem of open-source PBT tooling is broad and varied. Some
+projects are vibrant, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
-user needs. Additionally, the existing frameworks have not been designed with
-the benefit of the insights and tools that we will build in this project, so
-there are potentially huge opportunities for improvement.
-Thus, we will allocate engineering time to supporting and improving
-open-source PBT frameworks.
+user needs. Additionally, existing frameworks have not been designed with
+the benefit of the insights and tools that we will build in this
+project, leaving (we believe) large opportunities for improvement.
+Thus, we will allocate a significant part of the engineer's time to
+supporting and improving open-source PBT frameworks.
+%
+To make best use of limited resources, we will choose three existing PBT
+frameworks as targets and use the findings and software products from
+our research to boost their usability and adoption.
 
-We will choose three PBT frameworks or tools and use
-insights from our research to boost their usability and adoption. We will start
+We will start
 with Python's Hypothesis framework, since it is well-established and yet has
 significant room for growth.  We are in contact with Zac Hatfield-Dodds, the
-main maintainer of Hypothesis, and a letter of collaboration from Mr.{}
+main maintainer; a letter of collaboration from Mr.{}
 Hatfield-Dodds appears in the supplemental documents. The Hypothesis team is
-especially excited about integration ideas like reflective generators
+especially excited about integrating ideas like reflective generators
 (\sectionref{sec:reflective}) and interaction modes like distribution
-visualization (\sectionref{fig:gen-vis}) into the framework.
+visualization (\sectionref{fig:gen-vis}) into Python's VCSode environment.
 
-Beyond Hypothesis, we will seek out at two more projects to advance. These
-projects will be chosen based on potential impact: we will prioritize great
-projects that have significant room for growth and that would benefit
-significantly from well-targeted person-hours. Candidates for this include
+Besides Hypothesis, we will seek out two more projects to work with. These
+will be chosen based on potential impact: we will prioritize great
+projects in popular programming languages that have significant room
+for growth. Candidates include
+Scala's ScalaCheck, 
 OCaml's Crowbar, which is not actively maintained but has great ideas and
-low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
-jqwik in Java or proptest in Rust, which are embedded in massive language
-communities that could benefit from increased PBT. Whichever projects we choose,
-we will either take them over if they are unmaintained or work closely with the
-developers to ensure that our input is well-received by the community.
+some attractive low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
+\lstinline{jqwik} in Java or \lstinline{proptest} in Rust, which are
+embedded in massive language
+communities that could benefit from better tools for PBT. Whichever
+projects we choose, we will either take them over (if
+unmaintained) or work closely with their
+developers to ensure that our input is well received by the community.
 
 \discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
-Beyond engineering, we plan to disseminate PBT information via educational materials.
-Our first pilot study with users of PBT suggested that developers struggle to
-come up with specifications that are worth
-testing~\cite{goldstein_problems_2022},
-but
-our follow-up interviews at Jane Street suggest that the developers there
-rarely have the same problem. It seems that the Jane Street developers had
-a tacit
-understanding of ``no-brainer'' situations where PBT was an obvious
-choice---situations where properties were easy to find and where PBT provided
-much more thorough testing than other common techniques---and they limited their
-use of PBT to these situations.
+Besides engineering efforts, we plan to disseminate PBT via
+educational materials.
+% Our first pilot study with users of PBT suggested that developers struggle to
+% come up with specifications that are worth
+% testing~\cite{goldstein_problems_2022},
+% but
+% our follow-up
+Our interviews at Jane Street suggest that the developers there
+% rarely have the same problem. It seems that the Jane Street developers had
+have a tacit
+understanding of several ``no-brainer'' situations where PBT is an obvious
+choice, situations where properties are easy to find and PBT provides
+more thorough testing than other techniques---indeed, many developers
+seem to limit their use of PBT to such situations.
 While experienced PBT users do also apply it in
-high-cost / high-benefit situations, we believe
-focusing on easier cases is the best way to drive adoption.
+high-cost / high-benefit situations, it appears that
+focusing educational efforts on easy cases may be the best way to
+drive adoption.
 
-We aim to produce authoritative resources that help developers understand
+We will produce resources to help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
 aspirational title ``When to Specify It!'' in homage to John Hughes's
 widely-viewed tutorial ``How to Specify It!''. This survey will
-document the range of high-leverage scenarios identified in our formative
+document a  range of high-leverage scenarios identified in our formative
 research, including cases like
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
@@ -2189,50 +2198,58 @@ is an optimized version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
-This list will be further expanded with our follow-up surveys with broader
+This list will be expanded based on follow-up surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
 review of case studies that appear in
 the academic literature, and an examination of open source projects across a
 variety of different software ecosystems using PBT (e.g.,
 QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-Building on the strong foundation of the survey, we will distill our findings
-into media directly tailored for developers. First, we will write up
+We will distill these findings
+into media directly tailored for developers. First, we will write
 approachable developer documentation in partnership with our industry
 collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation and incorporate it into blogs and tool
-manuals. Then we will package the findings as a talk for one or more
+manuals. Finally we will package the findings as a talk for one or more
 professional conferences.
 
-\publicationtarget{Trends in Functional Programming (TFP)}
+\publicationtarget{Trends in Functional Programming (TFP) \bcp{Why
+    TFP?  And more generally: I feel like for 7.1 to 7.4 we could
+    just say at the top of the section that we have budgeted for
+    several trips to speak at developer conferences to disseminate
+    these tools, educational materials, and ideas.}}
 
 \SUBSECTION{Curricula for PBT}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 %
-Education can act as a force multiplier to make technologies more usable.
-When tools or techniques become standards in university curricula,
-students help bootstrap adoption of those tools and techniques in industry. We will
-integrate PBT into some of the earliest coursework that undergraduate students
-take, targeting introductory level data structures
-curriculum, as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
+Education can act as a force multiplier to drive adoption of new
+technologies in industry.
+We will develop materials for 
+integrating PBT into early undergraduate courses---initially targeting
+introductory data structures
+courses---as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
 abstractions is one of the high-leverage scenarios for using PBT, making data
-structures a powerful anchor for demonstrating the power of PBT. Building on the
-foundation of recent PBT instruction in data structures
+structures a powerful anchor for demonstrating the power of PBT. Building on
+recent PBT teaching in data structures
 courses~\cite{wrenn2021using,nelson2021automated}, we will integrate PBT into
-Penn's CIS 1210 course on data structures. We
+Penn's CIS 1210 course on data structures (which PI Pierce regularly teaches). We
 will evolve the curriculum to emphasize themes in PBT that have arisen from our
-formative research to help students identify powerful circumstances for
+formative research, to help students identify good circumstances for
 using PBT, including methods for writing great generators, understanding
 generators, considering properties as documentation, and expanding one's
 thinking around the scenarios where PBT is suitable
 (see~\sectionref{sec:whento}).
+%
 We will also include PBT in Penn's CIS 5730, a masters-level software engineering
 course.
+%
 We will evaluate the impact of these new
 instructional approaches on students' ability to leverage PBT in final projects,
-disseminating our findings in publications at computer science research venues.
-The instructional materials we develop will be made public for instructors at
-other institutions to adapt into their own curricula.
+disseminating our findings in publications at computer science
+education venues.
+%
+The instructional materials we develop will be made available for instructors at
+other institutions to use in their own courses.
 
 \todo{Add evaluation of new contributions to the curriculum, with plans to
 publish findings in computing education research venues.}
@@ -2261,13 +2278,13 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-Broad impact is a cornerstone of our research agenda, and many of the
-specific tasks we have described---particularly those grouped under
-the Diffusion heading (\sectionref{sec:diffusion})---aim to have
-broad impacts.  Here we recapitulate those aims and sketch
-our plans for mentoring, diversity, and broadening participation in
-computing.
+Broad impact is key to our research agenda, and many of the specific
+tasks we have described---particularly those grouped under Diffusion
+(\sectionref{sec:diffusion})---aim for broad impacts.  Here we
+recapitulate those aims and sketch our plans for mentoring, diversity,
+and broadening participation in computing.
 
+\smallskip
 \noindent{\bf Impact on industry.} The key area of broad impact from the
 proposed work will be a significant increase in the use of PBT, and thus an
 increase in industrial software correctness, driven by improved tooling and
@@ -2278,6 +2295,7 @@ tangible impact within the time-frame of the grant.  The specific activities
 amplified by the research engineer are discussed in
 \sectionref{sec:engineersupport} and \sectionref{sec:nurturing}.
 
+\smallskip
 \noindent{\bf Educational Impact.}
 %
 A second, supportive arena for broad impact will be the
@@ -2428,7 +2446,7 @@ Shi.
 %
 {\bf Publications (involving Penn):} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
   goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
-{\bf Research Products (from Penn)} \cite{pytestmutagen}.
+{\bf Research Products (involving Penn)} \cite{pytestmutagen}.
 
 \smallskip
 
