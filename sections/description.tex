@@ -1207,6 +1207,16 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to calculate the choices that lead to those seeds.
 
+\begin{wrapfigure}{l}{.67\textwidth}
+  \centering
+  \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
+  \caption{Validity-preserving mutation of a binary search tree, maintaining the
+  BST invariant. Mutating the root node from 6 to 3 invalidates the
+  4 in the left-hand subtree; the generator 4 with a new random label,
+1, then throws away its left subtree (because 1 is the
+minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
+\end{wrapfigure}
+
 Reflective generators can also support
 validity-preserving {\em mutation}.
 Fuzzing algorithms operate by
@@ -1225,16 +1235,6 @@ would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
 illustrates how this
 algorithm can mutate a binary search tree while maintaining validity,
 using no bespoke BST-specific code.
-\begin{figure}[t]
-  \centering
-  \includegraphics[width=.7\textwidth]{assets/mutate-diagram.pdf}
-  \vspace{-2mm}
-  \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant. Mutating the root node from 6 to 3 invalidates the
-  4 in the left-hand subtree; the generator 4 with a new random label,
-1, then throws away its left subtree (because 1 is the
-minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
-\end{figure}
 
 \publicationtarget{Programming Language Design and Implementation (PLDI)}
 
