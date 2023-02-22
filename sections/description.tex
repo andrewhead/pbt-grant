@@ -109,7 +109,8 @@ also highlighted a key opportunity for improvement---{\em usability}. \amh{Can
 we change this to, say, ``user experience''? I think of usability as
 corresponding to routine improvements to a fixed experience. I think we want to
 convey that a broad transformation is possible and perhaps a good idea for PBT, and ``user experience'' might
-better convey this.} Like
+better convey this.}\bcp{+1,000,000 for changing to ``user
+experience'' everywhere!!!} Like
 many powerful tools, PBT can be difficult to apply, and developers
 need support to do so effectively.
 
@@ -233,7 +234,8 @@ properties, and assistants that help to explain properties to others
 % most useful\bcplater{the latter belongs under diffusion now, I
 %   believe}
 %
-\item We will design novel tools for \thread{interacting} with properties
+\item We will design, prototype, and evaluate novel tools for
+\thread{interacting} with properties
 and generators, leveraging our advances in specification and generation to
 enable new methods of improving the distributions of randomly generated test
 inputs and pinpointing the cause of test failures (\sectionref{sec:val}).
@@ -473,24 +475,29 @@ to boost adoption of PBT in
 industry. The study data consists of thirty semi-structured interviews
 with (1) developers who use PBT and (2) maintainers of PBT tools.
 
-Any need-finding study is necessarily limited to the settings in which it is
-studied. Our choice of Jane Street as a partner was motivated by our desire to
-understand PBT in its deepest usage.
+Our choice of Jane Street as a partner was motivated by our desire to
+understand PBT in a non-academic setting where it is broadly appreciated.
 At Jane Street, PBT is a
-widely-adopted, well-established methodology, so there is a large
+well-established methodology, so there is a large
 population of people with well-informed opinions on its benefits and
 challenges. Additionally, Jane Street builds much of its
 software in OCaml, a functional programming language with
-a well-engineered PBT framework. This enables a unified
-ecosystem where developers have access to mature functional PBT tools,
-use them in collaborative settings,
-and know of language-level abstractions necessary
-for advanced usage. These aspects make Jane Street an ideal place for
-understanding PBT with modern sophisticated tooling
-by users who have incentive to use it to its highest potential. The foundation we have begun
-to build in this one interview study will be
-broadened and strengthened by our research activities in
-\sectionref{sec:foundation}.
+a well-engineered PBT framework.
+%
+This unified
+ecosystem means that developers have access to mature PBT tools,
+experience using them in collaborative settings,
+and awareness of language-level abstractions necessary
+for expert usage of the tools.
+%
+All this makes Jane Street an ideal place for understanding the
+impact---and challenges---of PBT when users who have incentive to use
+it to full potential are provided with state-of-the-art tools.
+%
+(Of course, the findings of any need-finding study are necessarily
+limited to the setting in which it is carried out; the understanding
+gleaned from this one will be broadened and deepened by further
+research activities described in \sectionref{sec:foundation}.)
 
 As of February 2023, the full complement of thirty interviews has been
 completed at Jane Street and a preliminary round of qualitative
@@ -2067,19 +2074,21 @@ masters-level courseware for PBT
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
 %
-The research projects we have described thus far have the potential to
+The research projects described above have the potential to
 dramatically improve the power and usability of PBT, but only
 if their products are attractive to real users. There is an unfortunate tendency for
 research software to remain just that---missing critical
 documentation that new users need to get started and lacking a clear
-maintenance schedule that would give software companies the confidence to adopt.
-To avoid this fate for our projects, PhD students will work closely with our
-research engineer. Projects will be designed with learnability and
-maintainability in mind, and upon completion they will be handed off to the
+maintenance schedule that would give software companies the confidence
+to adopt.\bcp{Do we really want to promise to get into software maintenance?}
+To avoid this fate for our projects, the PhD students will work closely with our
+research engineer.  Projects will be designed with learnability and
+maintainability in mind\bcp{what does that mean concretely?}, and upon
+completion they will be handed off to the
 engineer to grow and maintain.
 
-Concretely, we expect the research engineer to be involved in the following
-projects: {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
+Concretely, we expect the research engineer to be most involved in the following
+projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
   1 to build and maintain a minimal PBT framework for use in comparison studies
   and as a model for future PBT frameworks.
   {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
@@ -2099,21 +2108,26 @@ describe this effort in more detail in the next section.
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
-The projects in \sectionref{sec:val} design a wealth of new modes of interaction
-for PBT. These interactions will be valuable for developers on their own, but
-their impact can be significantly magnified if they are integrated together in a
+The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+for PBT. Their potential impact will be significantly magnified if they are
+integrated together in a
 place that is easily accessible to would-be users. This is the inspiration for
-\tyche{}, an integrated development environment (IDE) for PBT.
+\tyche{}, an integrated development environment (IDE) for PBT.\bcp{Is
+  it an IDE (all by itself), or is it an {\em extension} or {\em
+    plug-in} for users' existing IDE?}
 
 \tyche{} will include all of the functionality designed in \sectionref{sec:val},
-including tools that facilitate more intentional PBT workflows, interact with
-and improve the programmer's generator code, and assist in the test-authoring
+including tools that facilitate more intentional PBT
+workflows\bcp{what's that?}, help developers tune and
+improve generators, and assist in the test-authoring\bcp{sounds like
+  unit testing? and we haven't mentioned properties.}
 and debugging processes---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
 showed that VSCode is the most widely-used IDE, and it has support for every
 language that currently has significant PBT support.\bcplast{All 40 of them?  :-)}
-While \tyche{} is going to be language-agnostic where possible, the Hypothesis
+While \tyche{} is intended to be language-agnostic where possible, the Hypothesis
 developers have even recommended that we try to include a Python-optimized fork of
-\tyche{} into the main Python language extension.
+\tyche{} into the main Python language extension for VSCode. \bcp{What
+would the Python-specific optimizations or features look like?}
 
 The research engineer will assist in the integration process, ensuring that the
 extension is more than the sum of its parts. Indeed, we plan for \tyche{} to
@@ -2123,11 +2137,12 @@ over time.  With a strong theoretical grounding and consistent engineering
 support, \tyche{} will provide an efficient pipeline for bringing research on
 PBT interaction models to developers craving better tools.
 
-We will popularize \tyche{} by giving talks at developer conferences and
+We will popularize \tyche{} through talks at developer
+conferences\bcp{such as...} and
 disseminating information via our contacts in industry and the open source
 community.
 
-\discussiontarget{Software engineering industry conferences}
+\discussiontarget{Software engineering industry conferences\bcp{e.g.?}}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2135,8 +2150,9 @@ The ecosystem of existing open-source PBT tooling is broad and varied. Some
 projects are vibrant and well-maintained, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
 user needs. Additionally, different frameworks for PBT vary wildly in their
-ideological approaches, making
-skill transfer difficult for users. Thus, we will allocate
+ideological approaches\bcp{??}, making
+skill transfer difficult for users\bcp{Do we have any evidence of
+  this?}. Thus, we will allocate
 engineering time to supporting and improving open-source PBT frameworks.
 
 To address the problem of under-maintained software projects, we will
@@ -2156,18 +2172,22 @@ tools (\sectionref{sec:observations}) provides us with enough evidence to convin
 framework designers to take a different tack and make their framework more like
 others. In that case, we will provide engineering support to ease that
 transition. In other cases, where both approaches have benefits, we will
-generate documentation that helps developers move from one framework to another.
+generate documentation that helps developers move from one framework
+to another. \bcp{Again, the reader may not be persuaded (I am not,
+  yet) that this is a real problem.}
 
 On the topic of documentation: the PBT ecosystem, like every software ecosystem,
 is woefully under-documented. If the research engineer on our team is ever
 waiting for work, they will also help to improve the state of documentation for
-high-value PBT frameworks.
+high-value PBT frameworks.  \bcp{That seems like a weak claim.}
 
 These activities will all contribute to a more cohesive and consistent PBT
 ecosystem, making PBT an easier choice for both companies and individual
 developers.
 
-\discussiontarget{a software engineering industry conference}
+\discussiontarget{software engineering industry conferences\bcp{e.g.?}}
+
+\bcp{This seems much too unfocused---sounds like we are saying }
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
