@@ -905,9 +905,10 @@ a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
-We are close collaborators with John Hughes, one of the original creators of
-QuickCheck, and he has agreed to collaborate on the projects in this section; a
-letter of collaboration appears in the supplemental documents.
+PI Pierce is a longtime collaborator of John Hughes, one of the
+QuickCheck creators, who plans to collaborate on the projects
+in this section; a letter of collaboration appears in the supplemental
+documents.
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
 As discussed in the Orientation section
@@ -1442,19 +1443,19 @@ Instead, we propose tooling where properties can be defined over logged values.
 The first key component of the tool is the invocation of
 logging for specific values using lightweight annotations within modules like
 \lstinline{Inner}. The second component is a language for writing
-properties over the annotations, capable of capturing concepts like \lstinline{next} or
+properties over the annotations, capable of capturing concepts like \lstinline{next} and
 \lstinline{never} from the example properties above. This language will need to
 take inspiration from temporal logics, for example linear temporal logic (LTL).
 
 Temporal logics have been used for PBT in prior
 work~\cite{oconnor_quickstrom_2022}, but adapting that work to this situation
-will require considerable finesse. For one thing, the prior work assumes a fixed
+will require some finesse. For one thing, the prior work assumes a fixed
 source of logical events, and thus does not have to support arbitrary predicates
 over the kinds of values that may appear in a program trace. For another, LTL is
-known to be quite difficult to use~\cite{greenman_little_2022}; to the extent
-that we can, we hope to simplify the temporal connectives to only those that are
-intuitive for users to actually work with.
-
+thought by some to be difficult to use~\cite{greenman_little_2022};
+we hope to choose a simplied set of temporal connectives that are
+intuitive for users.
+%
 The end goal of this task is a tool that compiles properties written
 in some friendly temporal logic into lower-level properties over log
 traces, which are validated by providing random inputs to an outer
@@ -1496,33 +1497,39 @@ Haskell's property
 generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
   will QuickSpec be used for, exactly?  I'm not following.}
 
-\publicationtarget{User Interface and Software Technology (UIST)}
+\publicationtarget{User Interface\bcp{s?} and Software Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad/MS 2}{Pierce}
-One finding that has surprised us from the Jane Street study is that
-it is {very} common for developers to build (or already to have) a
+One finding that surprised us in the Jane Street study is that
+it seems to be {very} common for developers to build (or already have) a
 {\em model
-implementation} of the code they are testing and check that the two versions of
-the same code produce the same results.  This is a well-documented approach to
+implementation} of the code they are testing and want to test that
+the two implementations behave the same.  This is a
+well-documented approach to
 PBT~\cite{hughes_experiences_2016}, but it is not supported as well as it could
-be by existing tooling.
+be by existing tooling.\bcp{Emphasize the foundational problems
+  here (and everywhere :-)---this is not just engineering!}
 %
-With this in mind, we plan to build comprehensive tooling to automate
-model-based testing for systems built in languages with strong {\em
-  module systems}, like OCaml~\cite{macqueen_modules_1984}.
+With this in mind, we plan to build a tool to automate
+model-based testing for systems written in languages with strong {\em
+  module systems}, like OCaml~\cite{macqueen_modules_1984}.\bcp{Only
+  OCaml?  There are plenty of other languages with strong module
+  systems...}
 
-Model-based testing is essentially trivial in the simplest case where
+Model-based testing is almost trivial in the case where
 the component under test and the model are both pure functions.  But
 when the code under test is a {\em
   collection} of functions
 organized into a module, things get much more interesting. Testing even a simple
 module requires orchestrating multiple calls to the different functions in
-its signature. For example, testing the signature \lstinline{StringFns} (in
-Figure~\ref{fig:sigs}) requires wiring up the functions in the
-signature to satisfy their types: testing \lstinline{drop_n} requires a randomly generated
-integer to know how much to drop, calling \lstinline{split} produces a pair of strings
-that can each be arguments to future function calls, etc. We will build on prior
+its signature. For example, testing the signature \lstinline{StringFns} in
+Figure~\ref{fig:sigs} requires wiring together calls the functions in the
+signature in a well typed way---e.g., testing \lstinline{drop_n}
+requires a randomly generated
+integer to know how much to drop\bcp{``know how much to drop''?}, calling \lstinline{split} produces a pair of strings
+that can each be arguments to future function calls, etc.\bcp{Could be
+clearer.} We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
 calls that can be used to compare module implementations.
 
@@ -1551,36 +1558,42 @@ module Set : sig
 
 Testing modules gets even hairier when they contain {\em abstract types}, as is
 the case with \lstinline{Set}. Now some of the types in the signature cannot be
-generated on their own, so they must be built up from scratch (in this case by
-calling \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
-also {\em polymorphic}, so a type must be chosen for \lstinline{'a} before
-testing. (There is significant work on this
-problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.)
+generated on their own, but must be obtained by
+calling other functions in the signature (e.g., \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
+also {\em polymorphic}, so a concrete instance must be chosen for
+the element type \lstinline{'a} before
+testing; there is one significant piece of work on this
+problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.
 
-To solve these problems, we will take a foundational approach, breaking down
-modules theoretically and developing automation heuristics from first
+To address these problems, we will take a foundational approach, breaking down
+modules into their constituent features and developing automation
+heuristics from first 
 principles. This will involve identifying a subset of modules, e.g., potentially
 those that use generation-unfriendly types like GADTs, where automation is {\em
-not} possible; highlighting that subset will provide useful context for future
+not} possible; highlighting this subset will provide useful context for future
 work that might aim to simplify these cases in other ways (e.g., by putting a
-human in the loop).
+human in the loop).  \bcp{Too big a jump from that to the next sentence.}
 
 The work in this project will ultimately provide a recipe for automating a
-significant swath of testing situations, massively lowering the barrier to entry
-for PBT in OCaml-like languages. It will also provide a basis that others can
+significant swath of module testing situations, massively lowering the
+barrier to entry 
+for PBT in languages with OCaml-like module
+systems. It will also
+provide a basis that others can
 build on in other languages: abstract and polymorphic signatures are features of
 many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
-type classes, etc.), so solutions we find in OCaml should transfer.
+type classes, etc.), so solutions we develop for OCaml should
+transfer. \bcp{Why start with OCaml?}
 
-\publicationtarget{International Conference on Functional Programming (ICFP)}
+\publicationtarget{International Conference on Functional Programming
+  (ICFP) and/or Principles of Programming Languages (POPL)}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{}{Pierce}
-As is often the case for code of any kind, the specification of a property may
-not be self-explanatory. This is particularly the case when those properties are
-found by programmers who did not write them, and can be exacerbated if those
-programmers have never used PBT themselves. Can we design
-tools that help programmers understand property specifications?
+Like code of any kind, executable properties can
+be hard to understand, particularly by programmers who did not write
+them and perhaps have never used PBT themselves. Can we design
+tools to programmers in understanding properties?
 
 We envision several approaches, drawing inspiration from recent HCI research.
 Prior work has demonstrated the potential of generating meaningful explanations
@@ -2086,7 +2099,7 @@ focusing on easier cases is the best way to drive adoption.
 We aim to produce authoritative resources that help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
-aspirational title ``When to Specify It!'' in homage to John Hughes'
+aspirational title ``When to Specify It!'' in homage to John Hughes's
 widely-viewed tutorial ``How to Specify It!''. This survey will
 document the range of high-leverage scenarios identified in our formative
 research, including cases like
