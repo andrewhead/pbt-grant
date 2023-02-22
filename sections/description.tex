@@ -2084,11 +2084,11 @@ if their products are attractive to real users. There is an unfortunate tendency
 research software to remain just that---missing critical
 documentation that new users need to get started and lacking a clear
 maintenance schedule that would give software companies the confidence
-to adopt.\bcp{Do we really want to promise to get into software maintenance?}
+to adopt.
 To avoid this fate for our projects, the PhD students will work closely with our
-research engineer.  Projects will be designed with learnability and
-maintainability in mind\bcp{what does that mean concretely?}, and upon
-completion they will be handed off to the
+research engineer. The code for those projects will be designed with learnability and
+maintainability in mind, and upon
+completion it will be handed off to the
 engineer to grow and maintain.
 
 Concretely, we expect the research engineer to be most involved in the following
@@ -2116,22 +2116,18 @@ The projects in \sectionref{sec:val} will explore a wealth of new modes of inter
 for PBT. Their potential impact will be significantly magnified if they are
 integrated together in a
 place that is easily accessible to would-be users. This is the inspiration for
-\tyche{}, an integrated development environment (IDE) for PBT.\bcp{Is
-  it an IDE (all by itself), or is it an {\em extension} or {\em
-    plug-in} for users' existing IDE?}
+\tyche{}, an integrated development environment (IDE) extension for PBT.
 
 \tyche{} will include all of the functionality designed in \sectionref{sec:val},
-including tools that facilitate more intentional PBT
-workflows\bcp{what's that?}, help developers tune and
-improve generators, and assist in the test-authoring\bcp{sounds like
-  unit testing? and we haven't mentioned properties.}
+including tools that facilitate guided PBT
+workflows, help developers tune and
+improve generators, and assist in the property-authoring
 and debugging processes---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
 showed that VSCode is the most widely-used IDE, and it has support for every
-language that currently has significant PBT support.\bcplast{All 40 of them?  :-)}
+language that currently has significant PBT support.
 While \tyche{} is intended to be language-agnostic where possible, the Hypothesis
-developers have even recommended that we try to include a Python-optimized fork of
-\tyche{} into the main Python language extension for VSCode. \bcp{What
-would the Python-specific optimizations or features look like?}
+developers have even recommended that we try to include a fork of
+\tyche{} into the main Python language extension for VSCode.
 
 The research engineer will assist in the integration process, ensuring that the
 extension is more than the sum of its parts. Indeed, we plan for \tyche{} to
@@ -2142,11 +2138,11 @@ support, \tyche{} will provide an efficient pipeline for bringing research on
 PBT interaction models to developers craving better tools.
 
 We will popularize \tyche{} through talks at developer
-conferences\bcp{such as...} and
+conferences and
 disseminating information via our contacts in industry and the open source
 community.
 
-\discussiontarget{Software engineering industry conferences\bcp{e.g.?}}
+\discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2154,9 +2150,11 @@ The ecosystem of existing open-source PBT tooling is broad and varied. Some
 projects are vibrant and well-maintained, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
 user needs. Additionally, different frameworks for PBT vary wildly in their
-ideological approaches\bcp{??}, making
-skill transfer difficult for users\bcp{Do we have any evidence of
-  this?}. Thus, we will allocate
+approaches to property languages, generator languages, and other design
+decisions around workflows---our early work in \sectionref{sec:benchmarks} has
+been an eye-opening look into how difficult it can be to transfer ideas from one
+framework to another.
+Thus, we will allocate
 engineering time to supporting and improving open-source PBT frameworks.
 
 To address the problem of under-maintained software projects, we will
@@ -2180,18 +2178,16 @@ generate documentation that helps developers move from one framework
 to another. \bcp{Again, the reader may not be persuaded (I am not,
   yet) that this is a real problem.}
 
-On the topic of documentation: the PBT ecosystem, like every software ecosystem,
-is woefully under-documented. If the research engineer on our team is ever
-waiting for work, they will also help to improve the state of documentation for
-high-value PBT frameworks.  \bcp{That seems like a weak claim.}
+% On the topic of documentation: the PBT ecosystem, like every software ecosystem,
+% is woefully under-documented. If the research engineer on our team is ever
+% waiting for work, they will also help to improve the state of documentation for
+% high-value PBT frameworks.  \bcp{That seems like a weak claim.}
 
 These activities will all contribute to a more cohesive and consistent PBT
 ecosystem, making PBT an easier choice for both companies and individual
 developers.
 
-\discussiontarget{software engineering industry conferences\bcp{e.g.?}}
-
-\bcp{This seems much too unfocused---sounds like we are saying }
+\discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
