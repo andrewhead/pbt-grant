@@ -68,6 +68,10 @@ tests, has 9.6K stars~\cite{PytestGitHub}%
 ---i.e., Python's
 PBT tool has around 70\% as many stars as Python's entire testing
 infrastructure.
+\amh{Maybe we should end this paragraph with a statement that ``stars'' are not
+a perfect indicator of adoption, though they clearly convey that these tools
+resonate with the broader developer community. I myself tend to be skeptical of
+motivations that come from GitHub stars :-).}
 
 And there is still plenty of room
 for growth.
@@ -76,7 +80,7 @@ Hypothesis users is only 4\% of all Python developers; the Hypothesis
 authors estimate that the ``addressable market'' for PBT is around
 25\% of the Python
 community, and that there remains significant room for
-improving its usage by existing users.
+improving its usage by existing users.\amh{citation?}
 Similarly, the list of
 companies using PBT, while substantial, is very far from the whole of the software
 industry.
@@ -96,12 +100,16 @@ we address.
 Our group has already begun working to identify
 high-leverage ways to extend PBT's reach.
 In an ongoing need-finding study with PBT users at Jane Street
-Capital, we found consistent enthusiasm---participants called it
+Capital, we found consistent enthusiasm---developers called it
 ``obviously valuable'' (Participant \participant{1}), built their own
 frameworks for it when standard ones were not available
 (\participant{8}, \participant{21}), and suggested that ``everyone''
-at the company should use it (\participant{20}); however, participants
-also highlighted a key opportunity for improvement---{\em usability}. Like
+at the company should use it (\participant{20}); however, developers
+also highlighted a key opportunity for improvement---{\em usability}. \amh{Can
+we change this to, say, ``user experience''? I think of usability as
+corresponding to routine improvements to a fixed experience. I think we want to
+convey that a broad transformation is possible and perhaps a good idea for PBT, and ``user experience'' might
+better convey this.} Like
 many powerful tools, PBT can be difficult to apply, and developers
 need support to do so effectively.
 
@@ -205,7 +213,7 @@ later to presenting a grander summary.}
 \item We will establish a solid \thread{foundation} for HCI-informed research on PBT,
 starting from our ongoing need-finding study. We will confirm
 this study's findings and further explore usability of PBT via
-two survey studies and an observation study
+two survey studies and observation studies
 of PBT users {\em in situ} (\sectionref{sec:foundation}).
 %
 \item We will help developers efficiently define and tune random input
@@ -215,7 +223,7 @@ example-based generator tuning---all building on a novel
 ``reflective'' approach to generation (\sectionref{sec:gen}).
 %
 \item We will empower developers to \thread{specify} properties with new
-languages for expressing properties, tools simplify the process of authoring
+languages for expressing properties, tools that simplify the process of authoring
 properties, and assistants that help to explain properties to others
 (\sectionref{sec:spec}).
 % tools for checking temporal properties over internal program states
@@ -225,10 +233,10 @@ properties, and assistants that help to explain properties to others
 % most useful\bcplater{the latter belongs under diffusion now, I
 %   believe}
 %
-\item We will build novel tools for \thread{interacting} with properties
-and generators---helping developers locate the causes of test
-failures and improve the distributions of randomly
-generated test inputs to find bugs more effectively (\sectionref{sec:val}).
+\item We will design novel tools for \thread{interacting} with properties
+and generators, leveraging our advances in specification and generation to
+enable new methods of improving the distributions of randomly generated test
+inputs and pinpointing the cause of test failures (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
 methodologies from academia into industry through targeted
@@ -237,7 +245,10 @@ improving open-source PBT frameworks and building a comprehensive IDE for PBT.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
 for introducing PBT into undergraduate and masters-level computer science courses
-(\sectionref{sec:diffusion}).
+(\sectionref{sec:diffusion}). \amh{Our diffusion efforts will also amplify
+future research efforts through the creation and dissemination of reference
+implementations for others to build on, and an extensible development
+environment that future HCI researchers can extend with new PBT affordances.}
 % \end{enumerate*}
 % \end{itemize}
 \end{enumerate}
@@ -256,7 +267,7 @@ develop a clear foundational understanding of
 PBT from the perspective of usability and human factors, two students
 will develop ``back end'' technologies to support usable
 PBT workflows, and a final student will leverage these technological
-advances to develop ``front end'' IDE support. The
+advances to design and develop ``front end'' IDE support. The
 research engineer will focus on transferring the
 products of this research into an industrial context, supporting and enriching
 existing open-source PBT projects with theoretically informed ideas
@@ -274,7 +285,10 @@ supplemental document, are focused in two areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
 underrepresented groups to Penn for summer research experiences in
 programming languages, and (2) increasing diversity in the TA roster
-for Penn's introductory computer science course.
+for Penn's introductory computer science course.\amh{This latter goal sounds
+random. We should make it make more sense by mentioning that PI Pierce is a lead
+for this course; and that this course is the entry point for students who will go on
+to develop specialties in PL and HCI.}
 
 \begin{wrapfigure}{r}{.63\textwidth}
   \centering
@@ -459,18 +473,24 @@ to boost adoption of PBT in
 industry. The study data consists of thirty semi-structured interviews
 with (1) developers who use PBT and (2) maintainers of PBT tools.
 
-Jane Street is
-an attractive setting for several reasons.  First and most
-importantly, PBT is
-already well established there, so there is a large
+Any need-finding study is necessarily limited to the settings in which it is
+studied. Our choice of Jane Street as a partner was motivated by our desire to
+understand PBT in its deepest usage.
+At Jane Street, PBT is a
+widely-adopted, well-established methodology, so there is a large
 population of people with well-informed opinions on its benefits and
-challenges. Additionally, Jane Street famously builds much of its
+challenges. Additionally, Jane Street builds much of its
 software in OCaml, a functional programming language with
-a well-engineered PBT framework. This unified
-ecosystem ensures that developers have access to mature PBT tools,
-experience using them in collaborative settings,
-and awareness of language-level abstractions necessary
-for advanced usage.
+a well-engineered PBT framework. This enables a unified
+ecosystem where developers have access to mature functional PBT tools,
+use them in collaborative settings,
+and know of language-level abstractions necessary
+for advanced usage. These aspects make Jane Street an ideal place for
+understanding PBT with modern sophisticated tooling
+by users who have incentive to use it to its highest potential. The foundation we have begun
+to build in this one interview study will be
+broadened and strengthened by our research activities in
+\sectionref{sec:foundation}.
 
 As of February 2023, the full complement of thirty interviews has been
 completed at Jane Street and a preliminary round of qualitative
