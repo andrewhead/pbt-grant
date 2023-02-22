@@ -26,7 +26,9 @@ would help readability quite a bit.}
 I never use input to refer to anything else. This has been my style guide for a
 while, esp in the reflectives work where test inputs are both inputs and
 outputs. I think ``test case'' is really only marginally clearer, since many
-unit-testing frameworks call each unit test a test case.}
+unit-testing frameworks call each unit test a test case.}\bcp{But
+that's exactly what we're talking about, right?  A generator generates
+many test cases, whereas a unit test just exercises one.}
 %
 % PBT thus achieves a comprehensiveness that is often not
 % possible with alternative testing methods. \iflater\bcp{Why not with
@@ -211,13 +213,9 @@ into practice.
 %
 Planned research,
 engineering, and education activities can be grouped into five main
-themes: \iflast\bcplater{This already feels too detailed, and we still need to write
-blurbs for all the other tasks we've added in the past few days.  But
-for now I think we should just go ahead and add stuff, and come back
-later to presenting a grander summary.}
-\hg{How is it looking now? I know this comment is pretty old}\bcp{We
+themes: \bcp{We
   should double-check this whole list once the TOC stabilizes (which
-  maybe it has?)}\fi
+  maybe it has?)}
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
@@ -297,10 +295,8 @@ supplemental document, are focused in two areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
 underrepresented groups to Penn for summer research experiences in
 programming languages, and (2) increasing diversity in the TA roster
-for Penn's introductory computer science course.\amh{This latter goal sounds
-random. We should make it make more sense by mentioning that PI Pierce is a lead
-for this course; and that this course is the entry point for students who will go on
-to develop specialties in PL and HCI.}
+for Penn's introductory computer science course, which PI Pierce
+co-teaches.
 
 \begin{wrapfigure}{r}{.63\textwidth}
   \centering
@@ -777,10 +773,6 @@ will again recruit a broad sample of participants from varied settings
 and recruiting over social media.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
-\bcplast{If we need to save space, we could put these in a final column in the
-second figure in the Management and Coordination section.  But this is
-better if we can manage the space.
-}
 
 % \SUBSECTION{Dimensions of PBT infrastructure design}%
 %   {sec:frameworks}{3}{4}{HCI Theory}{PhD
@@ -1693,13 +1685,13 @@ counterexamples found by property-based tests into
 regression tests that communicate useful information to future maintainers
 (\sectionref{sec:counter}).
 %
-\bcp{The last, especially,
-may read as ``Just engineering'' to some reviewers.  How do we clarify
-the research content there so that no one can miss it?  E.g., by emphasizing the
-investigate-needs/design/build/evaluate loop? I think addressing this
-point explicitly will help reassure (esp. non-HCI) reviewers.}
-\hg{Is the next paragraph not doing a good enough job here? We could move it up
-maybe?}\amh{Agreed, let me see what I can do.}
+% \bcp{The last, especially,
+% may read as ``Just engineering'' to some reviewers.  How do we clarify
+% the research content there so that no one can miss it?  E.g., by emphasizing the
+% investigate-needs/design/build/evaluate loop? I think addressing this
+% point explicitly will help reassure (esp. non-HCI) reviewers.}
+% \hg{Is the next paragraph not doing a good enough job here? We could move it
+% up maybe?} \amh{Agreed, let me see what I can do.}
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
@@ -1984,11 +1976,7 @@ diverge and drop the programmer into a debugging environment where
 they can query the state of the program and step through the remainder of the
 execution. PI Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
-setting~\cite{ref:suzuki2017tracediff}\proposecut{; the work of this project would be to
-bring this technology into professional programming environments where traces
-for similar inputs are abundant.\bcp{Does that mean that this task is
-  primarily engineering?  Or are there conceptual challenges that we
-could underscore?}}
+setting~\cite{ref:suzuki2017tracediff}.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
@@ -2095,6 +2083,7 @@ masters-level courseware for PBT
 and who have offered to coach us through hiring (my friend did offer that).
   Qualifications are roughly 2-3 years out of college, experience with
   open-source projects, and polyglot.}
+\bcp{Perfect.}
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
@@ -2167,63 +2156,72 @@ community.
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
-The ecosystem of existing open-source PBT tooling is broad and varied. Some
-projects are vibrant and well-maintained, while others, including some with
+The existing ecosystem of open-source PBT tooling is broad and varied. Some
+projects are vibrant, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
-user needs. Additionally, the existing frameworks have not been designed with
-the benefit of the insights and tools that we will build in this project, so
-there are potentially huge opportunities for improvement.
-Thus, we will allocate engineering time to supporting and improving
-open-source PBT frameworks.
+user needs. Additionally, existing frameworks have not been designed with
+the benefit of the insights and tools that we will build in this
+project, leaving (we believe) large opportunities for improvement.
+Thus, we will allocate a significant part of the engineer's time to
+supporting and improving open-source PBT frameworks.
+%
+To make best use of limited resources, we will choose three existing PBT
+frameworks as targets and use the findings and software products from
+our research to boost their usability and adoption.
 
-We will choose three PBT frameworks or tools and use
-insights from our research to boost their usability and adoption. We will start
+We will start
 with Python's Hypothesis framework, since it is well-established and yet has
 significant room for growth.  We are in contact with Zac Hatfield-Dodds, the
-main maintainer of Hypothesis, and a letter of collaboration from Mr.{}
+main maintainer; a letter of collaboration from Mr.{}
 Hatfield-Dodds appears in the supplemental documents. The Hypothesis team is
-especially excited about integration ideas like reflective generators
+especially excited about integrating ideas like reflective generators
 (\sectionref{sec:reflective}) and interaction modes like distribution
-visualization (\sectionref{fig:gen-vis}) into the framework.
+visualization (\sectionref{fig:gen-vis}) into Python's VCSode environment.
 
-Beyond Hypothesis, we will seek out at two more projects to advance. These
-projects will be chosen based on potential impact: we will prioritize great
-projects that have significant room for growth and that would benefit
-significantly from well-targeted person-hours. Candidates for this include
+Besides Hypothesis, we will seek out two more projects to work with. These
+will be chosen based on potential impact: we will prioritize great
+projects in popular programming languages that have significant room
+for growth. Candidates include
+Scala's ScalaCheck,
 OCaml's Crowbar, which is not actively maintained but has great ideas and
-low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
-jqwik in Java or proptest in Rust, which are embedded in massive language
-communities that could benefit from increased PBT. Whichever projects we choose,
-we will either take them over if they are unmaintained or work closely with the
-developers to ensure that our input is well-received by the community.
+some attractive low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
+\lstinline{jqwik} in Java or \lstinline{proptest} in Rust, which are
+embedded in massive language
+communities that could benefit from better tools for PBT. Whichever
+projects we choose, we will either take them over (if
+unmaintained) or work closely with their
+developers to ensure that our input is well received by the community.
 
 \discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
-Beyond engineering, we plan to disseminate PBT information via educational materials.
-Our first pilot study with users of PBT suggested that developers struggle to
-come up with specifications that are worth
-testing~\cite{goldstein_problems_2022},
-but
-our follow-up interviews at Jane Street suggest that the developers there
-rarely have the same problem. It seems that the Jane Street developers had
-a tacit
-understanding of ``no-brainer'' situations where PBT was an obvious
-choice---situations where properties were easy to find and where PBT provided
-much more thorough testing than other common techniques---and they limited their
-use of PBT to these situations.
+Besides engineering efforts, we plan to disseminate PBT via
+educational materials.
+% Our first pilot study with users of PBT suggested that developers struggle to
+% come up with specifications that are worth
+% testing~\cite{goldstein_problems_2022},
+% but
+% our follow-up
+Our interviews at Jane Street suggest that the developers there
+% rarely have the same problem. It seems that the Jane Street developers had
+have a tacit
+understanding of several ``no-brainer'' situations where PBT is an obvious
+choice, situations where properties are easy to find and PBT provides
+more thorough testing than other techniques---indeed, many developers
+seem to limit their use of PBT to such situations.
 While experienced PBT users do also apply it in
-high-cost / high-benefit situations, we believe
-focusing on easier cases is the best way to drive adoption.
+high-cost / high-benefit situations, it appears that
+focusing educational efforts on easy cases may be the best way to
+drive adoption.
 
-We aim to produce authoritative resources that help developers understand
+We will produce resources to help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
 aspirational title ``When to Specify It!'' in homage to John Hughes's
 widely-viewed tutorial ``How to Specify It!''. This survey will
-document the range of high-leverage scenarios identified in our formative
+document a  range of high-leverage scenarios identified in our formative
 research, including cases like
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
@@ -2234,50 +2232,61 @@ is an optimized version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
-This list will be further expanded with our follow-up surveys with broader
+This list will be expanded based on follow-up surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
 review of case studies that appear in
 the academic literature, and an examination of open source projects across a
 variety of different software ecosystems using PBT (e.g.,
 QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
 
-Building on the strong foundation of the survey, we will distill our findings
-into media directly tailored for developers. First, we will write up
+We will distill these findings
+into media directly tailored for developers. First, we will write
 approachable developer documentation in partnership with our industry
 collaborators, to be read among the first resources of any developer
 documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation and incorporate it into blogs and tool
-manuals. Then we will package the findings as a talk for one or more
+manuals. Finally we will package the findings as a talk for one or more
 professional conferences.
 
-\publicationtarget{Trends in Functional Programming (TFP)}
+\publicationtarget{Trends in Functional Programming (TFP) \bcp{Why
+    TFP?  And more generally: I feel like for 7.1 to 7.4 we could
+    just say at the top of the section that we have budgeted for
+    several trips to speak at developer conferences to disseminate
+    these tools, educational materials, and ideas.}}
 
 \SUBSECTION{Curricula for PBT}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 %
-Education can act as a force multiplier to make technologies more usable.
-When tools or techniques become standards in university curricula,
-students help bootstrap adoption of those tools and techniques in industry. We will
-integrate PBT into some of the earliest coursework that undergraduate students
-take, targeting introductory level data structures
-curriculum, as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
+Education can act as a force multiplier to drive adoption of new
+technologies in industry.
+We will develop materials for
+integrating PBT into early undergraduate courses---initially targeting
+introductory data structures
+courses---as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
 abstractions is one of the high-leverage scenarios for using PBT, making data
-structures a powerful anchor for demonstrating the power of PBT. Building on the
-foundation of recent PBT instruction in data structures
+structures a powerful anchor for demonstrating the power of PBT.
+%
+Building on
+recent PBT teaching in data structures
 courses~\cite{wrenn2021using,nelson2021automated}, we will integrate PBT into
-Penn's CIS 1210 course on data structures. We
-will evolve the curriculum to emphasize themes in PBT that have arisen from our
-formative research to help students identify powerful circumstances for
-using PBT, including methods for writing great generators, understanding
-generators, considering properties as documentation, and expanding one's
-thinking around the scenarios where PBT is suitable
+Penn's CIS 1210 course on data structures (which PI Pierce regularly teaches).
+%
+We
+will evolve the CIS 1200 curriculum to emphasize themes in PBT from our
+formative research---good circumstances for
+using PBT, methods for writing useful generators, properties as
+documentation, and scenarios where PBT is suitable
 (see~\sectionref{sec:whento}).
+%
 We will also include PBT in Penn's CIS 5730, a masters-level software engineering
 course.
+%
 We will evaluate the impact of these new
 instructional approaches on students' ability to leverage PBT in final projects,
-disseminating our findings in publications at computer science research venues.
-The instructional materials we develop will be made public for instructors at
-other institutions to adapt into their own curricula.
+disseminating our findings in publications at computer science
+education venues.
+%
+The instructional materials we develop will be made available for instructors at
+other institutions to use in their own courses.
 
 \todo{Add evaluation of new contributions to the curriculum, with plans to
 publish findings in computing education research venues.}
@@ -2306,49 +2315,50 @@ publish findings in computing education research venues.}
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-Broad impact is a cornerstone of our research agenda, and many of the
-specific tasks we have described---particularly those grouped under
-the Diffusion heading (\sectionref{sec:diffusion})---aim to have
-broad impacts.  Here we recapitulate those aims and sketch
-our plans for mentoring, diversity, and broadening participation in
-computing.
+Broad impact is central to our research agenda, and many of the specific
+tasks we have described---particularly those grouped under Diffusion
+(\sectionref{sec:diffusion})---aim for broad impacts.  Here we
+recapitulate those aims and sketch our plans for mentoring, diversity,
+and broadening participation in computing.
 
-\noindent{\bf Impact on industry.} The key area of broad impact from the
-proposed work will be a significant increase in the use of PBT, and thus an
-increase in industrial software correctness, driven by improved tooling and
-usability. This will obviously rely on the theoretical advances made by this
-work, and, since theoretical advances alone can be slow to reach real-world
-users, we also will work with a research engineer to bridge that gap achieve
-tangible impact within the time-frame of the grant.  The specific activities
-amplified by the research engineer are discussed in
+\smallskip
+\noindent{\bf Impact on industry.} The main broad impact from the
+proposed work will be a significant increase in the use of PBT across
+the software industry within the time frame of the grant, driven
+by more powerful and usable tools. Specifically, the research engineer will work to
+bridge the gap between the foundational insights and prototype tools
+coming from the four PhD students and the needs and priorities of
+industrial developers.
+Specific activities led or amplified by the research engineer are discussed in
 \sectionref{sec:engineersupport} and \sectionref{sec:nurturing}.
 
+\smallskip
 \noindent{\bf Educational Impact.}
 %
-A second, supportive arena for broad impact will be the
+A second, supporting arena for broad impact will be the
 development of educational materials for both students and
 professional developers. Educational activities will be
 coordinated with the rest of the work, and they are integral to the
-project's overall goal of making PBT a standard testing methodology,
-readily available to every industrial developer.  Specifically pedagogical
+project's overall goal of making PBT a standard testing methodology.
+Specific pedagogical
 threads within the project are described in \sectionref{sec:whento} and \sectionref{sec:1210}, but the
 tasks in \sectionref{sec:foundation}, \sectionref{sec:reflectiveusable},
 \sectionref{sec:interactive}, \sectionref{sec:understanding}, and
 \sectionref{sec:evaluating_distributions} will also influence education. The
 work in \sectionref{sec:1210} in will generate course materials that we will
-share publicly, as well as a paper in a conference or journal that is focused on
-computer science education.
+share publicly; we will also report our experiences in a paper for a
+CS-ed-focused conference or journal.
 
 An ancillary educational goal is to
 publicize and communicate the benefits of PBT to the broader computer science
-research community. As part of these efforts, we will write an article on PBT
+{\em research} community. As part of these efforts, we will write an article on PBT
 for the Communications of the Association for Computing Machinery
 (CACM).
 
 \smallskip
 \noindent{\bf Mentoring and Diversity.}
 %
-The majority of requested funding will support formative research
+The majority of the requested funding will support formative research
 experiences and mentoring for graduate students. We
 also plan to work with undergraduate and masters\bcp{Our work plan is
   unclear about both undergraduates and masters students -- where are
@@ -2362,49 +2372,52 @@ project, including co-supervising interested undergraduate and masters
 researchers.
 
 The PIs will recruit students for this project with a mind towards making
-the research area reflective of diversity in the US, and Pennsylvania specifically.
-The PIs have had made inroads broadening participation of women in their
+the research area reflective of diversity in the US and Pennsylvania.
+The PIs have already made inroads broadening participation of women in their
 groups (1/3 of Pierce's direct Ph.D. mentees and 2/3 of PI
 Head's are women). That said, a particular area of focus going forward
-will be on increasing representation of
-other underrepresented groups, including Black and Latinx students. Pierce (along with Penn colleagues Zdancewic and Weirich)
+will be increasing representation of
+other underrepresented groups, including Black and Latinx
+students. Pierce (along with Penn colleagues Zdancewic and Weirich)
 was recently informed that he will receive funding for an
 NSF REU program that will involve 24 undergraduates (8 per
 year for three years), selected specifically with an eye to diversity;
-we plan to add two more per year specifically to work on this
-project. See the Broadening Participation in Computing supplementary
+for the present project, we are requesting funds to add two more per
+year specifically to work on PBT topics, many of which are well suited
+to undergraduate interns. See the Broadening Participation in Computing supplementary
 document for more details.
 
 \smallskip
 \noindent{\bf Benefits to Society.}
 %
-The project's goals will also be served by open-source distribution of the tools
+The project's goals will also be advanced by open-source distribution of tools
 built during the project. Key systems will be engineered and documented to a standard
-that makes them immediately useful to engineers and students: the projects around
+that makes them immediately useful to engineers and students; the projects around
 improved generation and shrinking, PBT over logs, and evaluating data
 distributions will be particular targets for widespread
 dissemination. The remaining projects will be published under a permissive
-open source license to serve as models for similar tools for other programming languages and environments.
+open source license to serve as models for similar tools in other
+programming languages and environments.
 
-The project also represents an excellent opportunity for strengthening
+This project also presents excellent opportunities for strengthening
 collaborations between university researchers and industrial advocates of PBT.  Our
 ongoing user study at Jane Street has been carried out with the
 enthusiastic support of their developers and management, and we hope
-to continue using them as a testbed for prototypes of the tools we
+to continue using Jane Street as a testbed for prototypes of the tools we
 will build.  Similarly, we are in active discussions with the
 developers of Hypothesis, who are keenly
 interested in the results of this proposal.
 We plan to establish connections with the
-developers and user communities of other popular PBT tools in languages like
+developers and user communities of popular PBT tools in languages like
 Java, Rust, and Scala.
 
 Longer term, better testing means better software.  As software
 systems have grown to the gigantic scale seen today, good testing
 methodologies and tools (unit testing tools, test-first design
 methods, etc.) have come to play an ever more crucial role.  Adding a
-powerful new testing tool to programmers' arsenals will further boost
-this part of the development process, leading to software of every
-sort that is more robust, more reliable, and less expensive to build.
+powerful new testing tool to programmers' toolbelts will further streamline
+this aspect of the development process, leading to software of every
+sort that is more robust, more reliable, and less expensive.
 
 
 % \proposecut{See the Collaboration Plan for
@@ -2473,7 +2486,7 @@ Shi.
 %
 {\bf Publications (involving Penn):} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
   goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
-{\bf Research Products (from Penn)} \cite{pytestmutagen}.
+{\bf Research Products (involving Penn)} \cite{pytestmutagen}.
 
 \smallskip
 
@@ -2496,25 +2509,6 @@ Shi.
 \iflast
 \section*{Final checks}
 
-\todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
-
-% \todo{GPG: Issues of fairness, ethics, accountability, and
-%   transparency (FEAT) are important considerations for many core
-%   topics in computer and information science and engineering. In
-%   projects that generate artifacts ranging from analysis methods to
-%   algorithms to systems, or that perform studies involving human
-%   subjects, PIs are encouraged to consider the FEAT of the outputs or
-%   approaches.  (We should touch on this point somewhere.)}
-
-\bcp{I see quite a few little issues in the citations.  Let's make
-  sure we give that a quick polishing pass.}
-
-\bcp{We could / should read some past funded NSF Large proposals for
-  ideas about how people talk about their work.}
-
-\todo{Make sure the intro to each section accurately reflects what's
-  in the section, and in which order.}
-
 \discuss{Every section (including the broader impacts and each of the
   research sections) needs to explicitly address how we will measure
   success...  Check that we've done this.}
@@ -2536,5 +2530,8 @@ Shi.
 \bcp{We should just give it a once over and bring it up to usual
   scholarly standards.  I don't think we will be dinged if we omit
   some page numbers, etc.}
+
+\bcp{We could / should read some past funded NSF Large proposals for
+  ideas about how people talk about their work.}
 
 \fi
