@@ -1671,8 +1671,10 @@ and (3) understanding testing-provoked failures involving complex inputs
 We also describe a planned tool to help migrate
 counterexamples found by property-based tests into conventional
 regression tests (\sectionref{sec:counter}).  \bcp{The last, especially,
-sounds like ``Just engineering.''  How do we signal that there is
-research content there?}
+may read as ``Just engineering'' to some reviewers.  How do we clarify
+that there is important research content there?  E.g., by emphasizing the
+investigate-needs/design/build/evaluate loop? I think addressing this
+point explicitly will help reassure (esp. non-HCI) reviewers.}
 %
 
 These projects will all be pursued using HCI
@@ -1825,21 +1827,22 @@ them.
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
   Practice}{PhD 4}{UGrad/MS 4}{Head}
 %
-Tuning generator distributions is a challenging task, often requiring
-significant trial-and-error---changing generator parameters and hoping
-that the input data distribution changes in the right way. Approaches
+Tuning generator distributions to produce ``interesting''
+values more often is a challenging task, often requiring
+significant trial and error. Approaches
 like the one in \sectionref{sec:reflective} can help, but manual tuning
-is still needed in many cases.
+is still needed in some cases.
 
-We will design tools to support the direct tuning of input data distributions
+We will design and evaluate tools to support the direct tuning of
+input data distributions 
 through manipulation of generated inputs and live data distribution
-visualizations. This work will build on the foundation outlined in
+visualizations, building on the foundation outlined in
 \sectionref{sec:evaluating_distributions}. Inspired by recent tools in
 the PL+HCI literature
 for bidirectional manipulation of programs and their
 outputs~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling},
-we explore reflective generators' potential to support tuning.
+we will explore reflective generators' potential to support tuning.
 
 First, a general method for tuning input data distributions will be to
 define filters on input data by manipulating aggregate data displays.
