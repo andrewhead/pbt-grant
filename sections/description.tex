@@ -272,9 +272,9 @@ for Penn's introductory computer science course.
 \begin{wrapfigure}{r}{.63\textwidth}
   \centering
   \includegraphics[width=.6\textwidth]{assets/overview.pdf}
-  \caption{An overview of the proposed research agenda. Four PhD students
-  work on critical research in PBT, supported by a research engineer and the PIs
-  to achieve maximum impact.}
+  \caption{Overview of the proposed research. Four PhD students
+  will advance the state of the art on four interconnected axes, supported by a
+  research engineer and the PIs for maximum impact.}
 \end{wrapfigure}
 
 \medskip
@@ -1465,34 +1465,36 @@ system \emph{containing} the component(s) of concern.
 \SUBSECTION{Mixed-initiative property
   specification}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 %
-Even if a developer believes, in the abstract, that PBT is useful,
-they may still have trouble writing concrete properties
+Even if a developer believes, in the abstract, that PBT should useful
+to them, they may still have trouble writing concrete properties
 for real cases that come up in their work. To help build these
-intuitions, we plan to develop
-interactive tools that help programmers compose their first
+intuitions, we will develop
+interactive tools to help programmers compose their first
 properties in an educational setting.
 
-The vision of this work is to provide a mixed-initiative~\cite{ref:allen1999mixed}
+We envisage a mixed-initiative~\cite{ref:allen1999mixed}
 tool, where a student and their code editor work together to arrive at a
 meaningful property. Extending prior work on property extraction techniques
-(see, for
-instance,~\cite{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
-smith_discovering_2017}), the idea is to help students compose properties that
-are not just accurate descriptors of the system, but that describe
-important program behavior. We will build an interface on top of a property
-extractor which helps students write their first properties by allowing them
-to (1) identify areas of code likely to lead to adverse behavior;
-(2) providing unit test cases that represent special cases of more general
-properties; and (3) selecting attributes of data types in the source code, or
-of input and output data in a debugging REPL, relevant to the property. These
-features will allow a student to more rapidly map from behaviors they can
+\cite[etc.]{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
+smith_discovering_2017}, the idea is to help students compose properties that
+are not just {\em accurate} partial descriptions of correct system behavior, but
+that describe {\em important} aspects of behavior. We will build
+on a property
+extractor that helps students write their first properties by allowing them
+to (1) identify areas of code likely to lead to adverse behavior,
+(2) provide unit test cases that represent special cases of more general
+properties, and (3) select attributes of data types in the source code, or
+of input and output relevant data in a debugging REPL.\bcp{Having
+  trouble imagining what the previous sentence actually means.} This
+will allow a student to more rapidly map from behaviors they can
 observe or specify in familiar ways, and see how those behaviors are cast into
-the language of their property checker.
+the language of their property checker.\bcp{Ditto.}
 %
-The tool will be designed for use in Penn's upper division Haskell
-course (CIS 5520) and therefore implemented on top of
+The tool will be deployed in Penn's upper division Haskell
+course (CIS 5520) and will therefore be implemented on top of
 Haskell's property
-generator tool, QuickSpec~\cite{ref:claessen2010quickspec}.
+generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
+  will QuickSpec be used for, exactly?  I'm not following.}
 
 \publicationtarget{User Interface and Software Technology (UIST)}
 
