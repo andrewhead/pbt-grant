@@ -26,7 +26,9 @@ would help readability quite a bit.}
 I never use input to refer to anything else. This has been my style guide for a
 while, esp in the reflectives work where test inputs are both inputs and
 outputs. I think ``test case'' is really only marginally clearer, since many
-unit-testing frameworks call each unit test a test case.}
+unit-testing frameworks call each unit test a test case.}\bcp{But
+that's exactly what we're talking about, right?  A generator generates
+many test cases, whereas a unit test just exercises one.}
 %
 % PBT thus achieves a comprehensiveness that is often not
 % possible with alternative testing methods. \iflater\bcp{Why not with
@@ -211,13 +213,9 @@ into practice.
 %
 Planned research,
 engineering, and education activities can be grouped into five main
-themes: \iflast\bcplater{This already feels too detailed, and we still need to write
-blurbs for all the other tasks we've added in the past few days.  But
-for now I think we should just go ahead and add stuff, and come back
-later to presenting a grander summary.}
-\hg{How is it looking now? I know this comment is pretty old}\bcp{We
+themes: \bcp{We
   should double-check this whole list once the TOC stabilizes (which
-  maybe it has?)}\fi
+  maybe it has?)}
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
@@ -297,10 +295,8 @@ supplemental document, are focused in two areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
 underrepresented groups to Penn for summer research experiences in
 programming languages, and (2) increasing diversity in the TA roster
-for Penn's introductory computer science course.\amh{This latter goal sounds
-random. We should make it make more sense by mentioning that PI Pierce is a lead
-for this course; and that this course is the entry point for students who will go on
-to develop specialties in PL and HCI.}
+for Penn's introductory computer science course, which PI Pierce
+co-teaches.
 
 \begin{wrapfigure}{r}{.63\textwidth}
   \centering
@@ -777,10 +773,6 @@ will again recruit a broad sample of participants from varied settings
 and recruiting over social media.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
-\bcplast{If we need to save space, we could put these in a final column in the
-second figure in the Management and Coordination section.  But this is
-better if we can manage the space.
-}
 
 % \SUBSECTION{Dimensions of PBT infrastructure design}%
 %   {sec:frameworks}{3}{4}{HCI Theory}{PhD
@@ -1688,12 +1680,12 @@ counterexamples found by property-based tests into
 regression tests that communicate useful information to future maintainers
 (\sectionref{sec:counter}).
 %
-\bcp{The last, especially,
-may read as ``Just engineering'' to some reviewers.  How do we clarify
-the research content there so that no one can miss it?  E.g., by emphasizing the
-investigate-needs/design/build/evaluate loop? I think addressing this
-point explicitly will help reassure (esp. non-HCI) reviewers.}
-\hg{Is the next paragraph not doing a good enough job here? We could move it up maybe?}
+% \bcp{The last, especially,
+% may read as ``Just engineering'' to some reviewers.  How do we clarify
+% the research content there so that no one can miss it?  E.g., by emphasizing the
+% investigate-needs/design/build/evaluate loop? I think addressing this
+% point explicitly will help reassure (esp. non-HCI) reviewers.}
+% \hg{Is the next paragraph not doing a good enough job here? We could move it up maybe?}
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
@@ -1951,11 +1943,7 @@ diverge and drop the programmer into a debugging environment where
 they can query the state of the program and step through the remainder of the
 execution. PI Head has prior work designing debugging tools that help
 programmers understand trace divergences in an educational
-setting~\cite{ref:suzuki2017tracediff}\proposecut{; the work of this project would be to
-bring this technology into professional programming environments where traces
-for similar inputs are abundant.\bcp{Does that mean that this task is
-  primarily engineering?  Or are there conceptual challenges that we
-could underscore?}}
+setting~\cite{ref:suzuki2017tracediff}.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
@@ -2062,6 +2050,7 @@ masters-level courseware for PBT
 and who have offered to coach us through hiring (my friend did offer that).
   Qualifications are roughly 2-3 years out of college, experience with
   open-source projects, and polyglot.}
+\bcp{Perfect.}
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
@@ -2487,25 +2476,6 @@ Shi.
 \iflast
 \section*{Final checks}
 
-\todo{GPG: To increase the diversity of the reviewer pool, CISE actively encourages each proposer to include a list of suggested reviewers (including email addresses and organizational affiliations) whom they believe are especially well qualified to review the proposal and are not conflicted with project personnel. Suggestions for reviewers from groups underrepresented in computing are especially encouraged. Proposers should follow the guidance in PAPPG Chapter II.D.1.}
-
-% \todo{GPG: Issues of fairness, ethics, accountability, and
-%   transparency (FEAT) are important considerations for many core
-%   topics in computer and information science and engineering. In
-%   projects that generate artifacts ranging from analysis methods to
-%   algorithms to systems, or that perform studies involving human
-%   subjects, PIs are encouraged to consider the FEAT of the outputs or
-%   approaches.  (We should touch on this point somewhere.)}
-
-\bcp{I see quite a few little issues in the citations.  Let's make
-  sure we give that a quick polishing pass.}
-
-\bcp{We could / should read some past funded NSF Large proposals for
-  ideas about how people talk about their work.}
-
-\todo{Make sure the intro to each section accurately reflects what's
-  in the section, and in which order.}
-
 \discuss{Every section (including the broader impacts and each of the
   research sections) needs to explicitly address how we will measure
   success...  Check that we've done this.}
@@ -2527,5 +2497,8 @@ Shi.
 \bcp{We should just give it a once over and bring it up to usual
   scholarly standards.  I don't think we will be dinged if we omit
   some page numbers, etc.}
+
+\bcp{We could / should read some past funded NSF Large proposals for
+  ideas about how people talk about their work.}
 
 \fi
