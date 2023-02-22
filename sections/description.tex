@@ -656,10 +656,10 @@ aware of it will required expanded
 %
 Finally, existing tools for PBT need continual
 support to meet demands from growing (and increasingly sophisticated)
-user-bases; if PBT is to become mainstream, we
-need to offer \edutheme{Support and Guidance for Open-Source
-PBT Frameworks}\iflast\bcp{As John pointed out, it would be good to
-have a more focused way of explaining how we intend to help here.}\fi to help our
+user-bases; if PBT is to become mainstream, we should look for high-value
+ways to improve
+\edutheme{Open-Source
+PBT Frameworks} with the insights and tools we develop, to help our
 work and ideas permeate the PBT world.
 
 
@@ -1003,19 +1003,6 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
-\iflast
-\amh{John says that this section (on monadic and free generators) may be too vague for non-specialists. He asks,
-what are they, and why are they more powerful? Highlight the power of
-*multi-stage generation*. Note the example of generating a sorted list, which is
-impossible to express via a grammar. John also proposed the examples of
-generating a binary search tree, or a well-typed function application, which
-are good uses of this technology.}\hg{I'm torn on this and the next comment. Of
-course I'd love to put an example! But I estimate I'd need 1/2 page (and at
-least an hour) to give an example that is illustrative and properly explained.
-If we don't show code, and just talk about an example in the abstract, that'd be
-more doable, but I'm not sure if it wouldn't be helpful at that point...}
-\fi
-
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
 In Haskell, where PBT was
@@ -1049,12 +1036,6 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
 \subsectionstar{Context: Reflective Generators}{}{}
-\iflast
-\amh{John *really* wants an example. *Really*! He suggests the sorted list
-example, which would involve just a small addition to the generator. John thinks
-this will make the discussion much more accessible to readers.}
-\fi
-%
 Building on the free generator ideas described above, we are
 exploring a powerful
 generalization based on monadic generators called {\em reflective generators}.
