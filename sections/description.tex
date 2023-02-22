@@ -22,6 +22,11 @@ remember, and it leads us into some tangled situations here and there
 (I am sometimes puzzled what we mean).  Could
 we use a more neutral term like ``test case''?  I really think it
 would help readability quite a bit.}
+\hg{I always write ``test input'' unless it's totally obvious from context, and
+I never use input to refer to anything else. This has been my style guide for a
+while, esp in the reflectives work where test inputs are both inputs and
+outputs. I think ``test case'' is really only marginally clearer, since many
+unit-testing frameworks call each unit test a test case.}
 %
 % PBT thus achieves a comprehensiveness that is often not
 % possible with alternative testing methods. \iflater\bcp{Why not with
@@ -71,7 +76,10 @@ infrastructure.
 \amh{Maybe we should end this paragraph with a statement that ``stars'' are not
 a perfect indicator of adoption, though they clearly convey that these tools
 resonate with the broader developer community. I myself tend to be skeptical of
-motivations that come from GitHub stars :-).}
+motivations that come from GitHub stars :-).}\hg{There's a paper we can cite
+that makes a good argument that stars are a useful metric; I'll try to find it
+again. In any case, it seems like a shame to interrupt the flow here with too
+much waffling, so maybe we can put it in a footnote or just quietly put the citation?}
 
 And there is still plenty of room
 for growth.
@@ -80,7 +88,7 @@ Hypothesis users is only 4\% of all Python developers; the Hypothesis
 authors estimate that the ``addressable market'' for PBT is around
 25\% of the Python
 community, and that there remains significant room for
-improving its usage by existing users.\amh{citation?}
+improving its usage by existing users~\cite{ZacPersonalCommunication,noauthor_python_nodate}.
 Similarly, the list of
 companies using PBT, while substantial, is very far from the whole of the software
 industry.
@@ -109,7 +117,10 @@ also highlighted a key opportunity for improvement---{\em usability}. \amh{Can
 we change this to, say, ``user experience''? I think of usability as
 corresponding to routine improvements to a fixed experience. I think we want to
 convey that a broad transformation is possible and perhaps a good idea for PBT, and ``user experience'' might
-better convey this.} Like
+better convey this.}\bcp{+1,000,000 for changing to ``user
+experience'' everywhere!!!}\hg{``User experience'' connotes something squishy to
+me---do I like using someting or not---whereas usability feels like {\em can} I
+use it or not. But if this is a change that feels worth making I'm fine being overruled.} Like
 many powerful tools, PBT can be difficult to apply, and developers
 need support to do so effectively.
 
@@ -233,7 +244,8 @@ properties, and assistants that help to explain properties to others
 % most useful\bcplater{the latter belongs under diffusion now, I
 %   believe}
 %
-\item We will design novel tools for \thread{interacting} with properties
+\item We will design, prototype, and evaluate novel tools for
+\thread{interacting} with properties
 and generators, leveraging our advances in specification and generation to
 enable new methods of improving the distributions of randomly generated test
 inputs and pinpointing the cause of test failures (\sectionref{sec:val}).
@@ -473,24 +485,29 @@ to boost adoption of PBT in
 industry. The study data consists of thirty semi-structured interviews
 with (1) developers who use PBT and (2) maintainers of PBT tools.
 
-Any need-finding study is necessarily limited to the settings in which it is
-studied. Our choice of Jane Street as a partner was motivated by our desire to
-understand PBT in its deepest usage.
+Our choice of Jane Street as a partner was motivated by our desire to
+understand PBT in a non-academic setting where it is broadly appreciated.
 At Jane Street, PBT is a
-widely-adopted, well-established methodology, so there is a large
+well-established methodology, so there is a large
 population of people with well-informed opinions on its benefits and
 challenges. Additionally, Jane Street builds much of its
 software in OCaml, a functional programming language with
-a well-engineered PBT framework. This enables a unified
-ecosystem where developers have access to mature functional PBT tools,
-use them in collaborative settings,
-and know of language-level abstractions necessary
-for advanced usage. These aspects make Jane Street an ideal place for
-understanding PBT with modern sophisticated tooling
-by users who have incentive to use it to its highest potential. The foundation we have begun
-to build in this one interview study will be
-broadened and strengthened by our research activities in
-\sectionref{sec:foundation}.
+a well-engineered PBT framework.
+%
+This unified
+ecosystem means that developers have access to mature PBT tools,
+experience using them in collaborative settings,
+and awareness of language-level abstractions necessary
+for expert usage of the tools.
+%
+All this makes Jane Street an ideal place for understanding the
+impact---and challenges---of PBT when users who have incentive to use
+it to full potential are provided with state-of-the-art tools.
+%
+(Of course, the findings of any need-finding study are necessarily
+limited to the setting in which it is carried out; the understanding
+gleaned from this one will be broadened and deepened by further
+research activities described in \sectionref{sec:foundation}.)
 
 As of February 2023, the full complement of thirty interviews has been
 completed at Jane Street and a preliminary round of qualitative
@@ -639,10 +656,10 @@ aware of it will required expanded
 %
 Finally, existing tools for PBT need continual
 support to meet demands from growing (and increasingly sophisticated)
-user-bases; if PBT is to become mainstream, we
-need to offer \edutheme{Support and Guidance for Open-Source
-PBT Frameworks}\iflast\bcp{As John pointed out, it would be good to
-have a more focused way of explaining how we intend to help here.}\fi to help our
+user-bases; if PBT is to become mainstream, we should look for high-value
+ways to improve
+\edutheme{Open-Source
+PBT Frameworks} with the insights and tools we develop, to help our
 work and ideas permeate the PBT world.
 
 
@@ -696,7 +713,7 @@ each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
-   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{}{Head}
+   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{UGrad/MS 1}{Head}
 %
 Preliminary findings from the Jane Street study have already revealed
 a number of
@@ -788,7 +805,7 @@ better if we can manage the space.
 %   the language}
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-   Theory}{PhD 1}{}{Head}
+   Theory}{PhD 1}{UGrad/MS 2}{Head}
 %
 Interviews and surveys are adequate for exploring large-scale usability challenges, but in order
 to build usable tools we also need to study the low-level interactions
@@ -986,19 +1003,6 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
 satisfy.
 
-\iflast
-\amh{John says that this section (on monadic and free generators) may be too vague for non-specialists. He asks,
-what are they, and why are they more powerful? Highlight the power of
-*multi-stage generation*. Note the example of generating a sorted list, which is
-impossible to express via a grammar. John also proposed the examples of
-generating a binary search tree, or a well-typed function application, which
-are good uses of this technology.}\hg{I'm torn on this and the next comment. Of
-course I'd love to put an example! But I estimate I'd need 1/2 page (and at
-least an hour) to give an example that is illustrative and properly explained.
-If we don't show code, and just talk about an example in the abstract, that'd be
-more doable, but I'm not sure if it wouldn't be helpful at that point...}
-\fi
-
 The most manual---and most flexible---solutions use hand-built
 generators, written in a custom-designed domain-specific language (DSL).
 In Haskell, where PBT was
@@ -1032,12 +1036,6 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
 \subsectionstar{Context: Reflective Generators}{}{}
-\iflast
-\amh{John *really* wants an example. *Really*! He suggests the sorted list
-example, which would involve just a small addition to the generator. John thinks
-this will make the discussion much more accessible to readers.}
-\fi
-%
 Building on the free generator ideas described above, we are
 exploring a powerful
 generalization based on monadic generators called {\em reflective generators}.
@@ -1124,7 +1122,7 @@ enumeration become available, they can be used to improve reflective
 generators.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
-Theory}{PhD 2}{}{Pierce}
+Theory}{PhD 2}{UGrad/MS 3}{Pierce}
 The work on reflective generators has begun to produce research results, but
 the theory around reflective generators is still far from settled.
 In particular,
@@ -1284,7 +1282,7 @@ practitioners.
 
 \publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{}{Pierce}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{UGrad/MS 4}{Pierce}
 %
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Both of our interview studies
@@ -1404,7 +1402,7 @@ generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
-  Practice}{PhD 3}{UGrad/MS 1}{Pierce}
+  Practice}{PhD 3}{UGrad/MS 5}{Pierce}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -1519,7 +1517,7 @@ generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
-  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad/MS 2}{Pierce}
+  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad/MS 6}{Pierce}
 One finding that surprised us in the Jane Street study is that
 it seems to be {very} common for developers to build (or already have) a
 {\em model
@@ -1608,7 +1606,7 @@ transfer.
   (ICFP) and/or Principles of Programming Languages (POPL)}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
-  Theory}{PhD 3}{}{Pierce}
+  Theory}{PhD 3}{UGrad/MS 7}{Pierce}
 Like code of any kind, executable properties can
 be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
@@ -1619,25 +1617,9 @@ Prior work has demonstrated the potential of generating meaningful explanations
 for simple programs, whether consisting of text~\cite{ref:head2015tutorons,ref:mayer2015user},
 visualizations~\cite{ref:guo2013online}, or
 counterexamples~\cite{ref:dantoni2015can}.
-\proposechange{These techniques tend to work when
-programs are short and simple in structure.
-While properties can be
-rather long, they are often
-composed of relatively simple parts (e.g., function
-calls plus conjunctions and implications)\bcp{plus equalities, at
-  least!}.  For this reason, it may be that these
-ideas could generalize to helping newcomers understand those
-properties well enough to understand them generally\bcp{``understand those
-properties well enough to understand them generally''?}, and perhaps even make
-lightweight modifications, without needing to seek out dedicated instruction for
-the PBT framework.  \bcp{This seems like a longwinded way of saying,
-  ``Lots of properties are probably pretty easy to read even for
-  non-experts''...?  I.e., these properties don't need much of an
-explanation.}}{Since properties are relatively short programs with predictable
+Since properties are relatively short programs with predictable
 structure, we expect many of these techniques to generalize, helping newcomers
-understand and modify properties that they encounter.}
-\hg{I think this was just written more defensively than it had to
-be---properties actually are often pretty short and predictable programs.}
+understand and modify properties that they encounter.
 
 The first sort of explanation we will provide is at the level of explaining
 syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
@@ -1711,6 +1693,7 @@ may read as ``Just engineering'' to some reviewers.  How do we clarify
 the research content there so that no one can miss it?  E.g., by emphasizing the
 investigate-needs/design/build/evaluate loop? I think addressing this
 point explicitly will help reassure (esp. non-HCI) reviewers.}
+\hg{Is the next paragraph not doing a good enough job here? We could move it up maybe?}
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
@@ -1727,7 +1710,7 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
-  Practice}{PhD 4}{UGrad/MS 3}{Head}
+  Practice}{PhD 4}{UGrad/MS 8}{Head}
 %
 Unlike conventional techniques like unit testing, where developers
 directly write concrete test cases,
@@ -1862,7 +1845,7 @@ them.
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
-  Practice}{PhD 4}{UGrad/MS 4}{Head}
+  Practice}{PhD 4}{UGrad/MS 9}{Head}
 %
 Tuning generator distributions to produce ``interesting''
 values more often can be challenging, requiring
@@ -1977,7 +1960,7 @@ could underscore?}}
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{}{Head}
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{UGrad/MS 10}{Head}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -2075,23 +2058,29 @@ masters-level courseware for PBT
   evidence that that is a good mainstream level), and also address how
   we will go about hiring such a person, what qualifications we will
   ask for, etc.  Basically, show that we've thought about it.}
+\hg{We can say we have industry contacts who helped us decide on a salary
+and who have offered to coach us through hiring (my friend did offer that).
+  Qualifications are roughly 2-3 years out of college, experience with
+  open-source projects, and polyglot.}
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
 %
-The research projects we have described thus far have the potential to
+The research projects described above have the potential to
 dramatically improve the power and usability of PBT, but only
 if their products are attractive to real users. There is an unfortunate tendency for
 research software to remain just that---missing critical
 documentation that new users need to get started and lacking a clear
-maintenance schedule that would give software companies the confidence to adopt.
-To avoid this fate for our projects, PhD students will work closely with our
-research engineer. Projects will be designed with learnability and
-maintainability in mind, and upon completion they will be handed off to the
+maintenance schedule that would give software companies the confidence
+to adopt.
+To avoid this fate for our projects, the PhD students will work closely with our
+research engineer. The code for those projects will be designed with learnability and
+maintainability in mind, and upon
+completion it will be handed off to the
 engineer to grow and maintain.
 
-Concretely, we expect the research engineer to be involved in the following
-projects: {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
+Concretely, we expect the research engineer to be most involved in the following
+projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
   1 to build and maintain a minimal PBT framework for use in comparison studies
   and as a model for future PBT frameworks.
   {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
@@ -2111,21 +2100,22 @@ describe this effort in more detail in the next section.
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
-The projects in \sectionref{sec:val} design a wealth of new modes of interaction
-for PBT. These interactions will be valuable for developers on their own, but
-their impact can be significantly magnified if they are integrated together in a
+The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+for PBT. Their potential impact will be significantly magnified if they are
+integrated together in a
 place that is easily accessible to would-be users. This is the inspiration for
-\tyche{}, an integrated development environment (IDE) for PBT.
+\tyche{}, an integrated development environment (IDE) extension for PBT.
 
 \tyche{} will include all of the functionality designed in \sectionref{sec:val},
-including tools that facilitate more intentional PBT workflows, interact with
-and improve the programmer's generator code, and assist in the test-authoring
+including tools that facilitate guided PBT
+workflows, help developers tune and
+improve generators, and assist in the property-authoring
 and debugging processes---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
 showed that VSCode is the most widely-used IDE, and it has support for every
-language that currently has significant PBT support.\bcplast{All 40 of them?  :-)}
-While \tyche{} is going to be language-agnostic where possible, the Hypothesis
-developers have even recommended that we try to include a Python-optimized fork of
-\tyche{} into the main Python language extension.
+language that currently has significant PBT support.
+While \tyche{} is intended to be language-agnostic where possible, the Hypothesis
+developers have even recommended that we try to include a fork of
+\tyche{} into the main Python language extension for VSCode.
 
 The research engineer will assist in the integration process, ensuring that the
 extension is more than the sum of its parts. Indeed, we plan for \tyche{} to
@@ -2135,7 +2125,8 @@ over time.  With a strong theoretical grounding and consistent engineering
 support, \tyche{} will provide an efficient pipeline for bringing research on
 PBT interaction models to developers craving better tools.
 
-We will popularize \tyche{} by giving talks at developer conferences and
+We will popularize \tyche{} through talks at developer
+conferences and
 disseminating information via our contacts in industry and the open source
 community.
 
@@ -2146,40 +2137,34 @@ Transfer}{Engineer}{PhD 1}{Pierce}
 The ecosystem of existing open-source PBT tooling is broad and varied. Some
 projects are vibrant and well-maintained, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
-user needs. Additionally, different frameworks for PBT vary wildly in their
-ideological approaches, making
-skill transfer difficult for users. Thus, we will allocate
-engineering time to supporting and improving open-source PBT frameworks.
+user needs. Additionally, the existing frameworks have not been designed with
+the benefit of the insights and tools that we will build in this project, so
+there are potentially huge opportunities for improvement.
+Thus, we will allocate engineering time to supporting and improving
+open-source PBT frameworks.
 
-To address the problem of under-maintained software projects, we will
-reach out to the maintainers of projects with important outstanding issues and
-ask the maintainers (if any exist) what help they need. We are already in
-contact with Zac Hatfield-Dodds, the main maintainer of
-Hypothesis, and he has a
-variety of framework improvements that could benefit from more developer
-support; a letter of collaboration from Mr.{} Hatfield-Dodds appears in the
-supplemental documents. We expect to reach out to other maintainers
-for similar collaboration if we find high-leverage ways to improve
-the state of PBT in other languages.
+We will choose three PBT frameworks or tools and use
+insights from our research to boost their usability and adoption. We will start
+with Python's Hypothesis framework, since it is well-established and yet has
+significant room for growth.  We are in contact with Zac Hatfield-Dodds, the
+main maintainer of Hypothesis, and a letter of collaboration from Mr.{}
+Hatfield-Dodds appears in the supplemental documents. The Hypothesis team is
+especially excited about integration ideas like reflective generators
+(\sectionref{sec:reflective}) and interaction modes like distribution
+visualization (\sectionref{fig:gen-vis}) into the framework.
 
-There are two ways we may be able to help solve the problem of skill transfer
-between PBT frameworks. Where possible, we hope that our comparison of PBT
-tools (\sectionref{sec:observations}) provides us with enough evidence to convince some
-framework designers to take a different tack and make their framework more like
-others. In that case, we will provide engineering support to ease that
-transition. In other cases, where both approaches have benefits, we will
-generate documentation that helps developers move from one framework to another.
+Beyond Hypothesis, we will seek out at two more projects to advance. These
+projects will be chosen based on potential impact: we will prioritize great
+projects that have significant room for growth and that would benefit
+significantly from well-targeted person-hours. Candidates for this include
+OCaml's Crowbar, which is not actively maintained but has great ideas and
+low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
+jqwik in Java or proptest in Rust, which are embedded in massive language
+communities that could benefit from increased PBT. Whichever projects we choose,
+we will either take them over if they are unmaintained or work closely with the
+developers to ensure that our input is well-received by the community.
 
-On the topic of documentation: the PBT ecosystem, like every software ecosystem,
-is woefully under-documented. If the research engineer on our team is ever
-waiting for work, they will also help to improve the state of documentation for
-high-value PBT frameworks.
-
-These activities will all contribute to a more cohesive and consistent PBT
-ecosystem, making PBT an easier choice for both companies and individual
-developers.
-
-\discussiontarget{a software engineering industry conference}
+\discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
@@ -2334,7 +2319,10 @@ The majority of requested funding will support formative research
 experiences and mentoring for graduate students. We
 also plan to work with undergraduate and masters\bcp{Our work plan is
   unclear about both undergraduates and masters students -- where are
-  the REPL students?  How many students total?} students during this project;
+  the REPL students?  How many students total?}
+  \hg{I added a bunch more undergrads to the work plan; what else do we have to
+  say here?}
+  students during this project;
 they, too will benefit from the research experience. Each graduate
 student will have leadership responsibility for multiple facets of the
 project, including co-supervising interested undergraduate and masters
@@ -2371,13 +2359,11 @@ ongoing user study at Jane Street has been carried out with the
 enthusiastic support of their developers and management, and we hope
 to continue using them as a testbed for prototypes of the tools we
 will build.  Similarly, we are in active discussions with the
-developers of Hypothesis \amh{Elena: ``overfitting to Jane Street, maybe? Any
-other test beds?''}, who are keenly
-interested in the results of this proposal.\bcplater{Mention Zac's letter,
-  either here or elsewhere.  Make sure Hila's and Leo's get mentioned too}
+developers of Hypothesis, who are keenly
+interested in the results of this proposal.
 We plan to establish connections with the
-developers and user communities of other popular PBT tools such as
-ScalaCheck\todolast{citation?}.
+developers and user communities of other popular PBT tools in languages like
+Java, Rust, and Scala.
 
 Longer term, better testing means better software.  As software
 systems have grown to the gigantic scale seen today, good testing
