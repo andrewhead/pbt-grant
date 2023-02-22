@@ -2149,43 +2149,32 @@ Transfer}{Engineer}{PhD 1}{Pierce}
 The ecosystem of existing open-source PBT tooling is broad and varied. Some
 projects are vibrant and well-maintained, while others, including some with
 great ideas and implementations, do not have the developer bandwidth to address
-user needs. Additionally, different frameworks for PBT vary wildly in their
-approaches to property languages, generator languages, and other design
-decisions around workflows---our early work in \sectionref{sec:benchmarks} has
-been an eye-opening look into how difficult it can be to transfer ideas from one
-framework to another.
-Thus, we will allocate
-engineering time to supporting and improving open-source PBT frameworks.
+user needs. Additionally, the existing frameworks have not been designed with
+the benefit of the insights and tools that we will build in this project, so
+there are potentially huge opportunities for improvement.
+Thus, we will allocate engineering time to supporting and improving
+open-source PBT frameworks.
 
-To address the problem of under-maintained software projects, we will
-reach out to the maintainers of projects with important outstanding issues and
-ask the maintainers (if any exist) what help they need. We are already in
-contact with Zac Hatfield-Dodds, the main maintainer of
-Hypothesis, and he has a
-variety of framework improvements that could benefit from more developer
-support; a letter of collaboration from Mr.{} Hatfield-Dodds appears in the
-supplemental documents. We expect to reach out to other maintainers
-for similar collaborations, looking for high-leverage ways to improve
-the state of PBT in other languages.
+We will choose three PBT frameworks or tools and use
+insights from our research to boost their usability and adoption. We will start
+with Python's Hypothesis framework, since it is well-established and yet has
+significant room for growth.  We are in contact with Zac Hatfield-Dodds, the
+main maintainer of Hypothesis, and a letter of collaboration from Mr.{}
+Hatfield-Dodds appears in the supplemental documents. The Hypothesis team is
+especially excited about integration ideas like reflective generators
+(\sectionref{sec:reflective}) and interaction modes like distribution
+visualization (\sectionref{fig:gen-vis}) into the framework.
 
-There are two ways we may be able to help solve the problem of skill transfer
-between PBT frameworks. Where possible, we hope that our comparison of PBT
-tools (\sectionref{sec:observations}) provides us with enough evidence to convince some
-framework designers to take a different tack and make their framework more like
-others. In that case, we will provide engineering support to ease that
-transition. In other cases, where both approaches have benefits, we will
-generate documentation that helps developers move from one framework
-to another. \bcp{Again, the reader may not be persuaded (I am not,
-  yet) that this is a real problem.}
-
-% On the topic of documentation: the PBT ecosystem, like every software ecosystem,
-% is woefully under-documented. If the research engineer on our team is ever
-% waiting for work, they will also help to improve the state of documentation for
-% high-value PBT frameworks.  \bcp{That seems like a weak claim.}
-
-These activities will all contribute to a more cohesive and consistent PBT
-ecosystem, making PBT an easier choice for both companies and individual
-developers.
+Beyond Hypothesis, we will seek out at two more projects to advance. These
+projects will be chosen based on potential impact: we will prioritize great
+projects that have significant room for growth and that would benefit
+significantly from well-targeted person-hours. Candidates for this include
+OCaml's Crowbar, which is not actively maintained but has great ideas and
+low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects like
+jqwik in Java or proptest in Rust, which are embedded in massive language
+communities that could benefit from increased PBT. Whichever projects we choose,
+we will either take them over if they are unmaintained or work closely with the
+developers to ensure that our input is well-received by the community.
 
 \discussiontarget{Software engineering industry conferences}
 
