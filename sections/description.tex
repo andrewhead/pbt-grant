@@ -712,7 +712,7 @@ each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
-   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{UGrad/MS 1}{Head}
+   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{UGrad 1}{Head}
 %
 Preliminary findings from the Jane Street study have already revealed
 a number of
@@ -800,7 +800,7 @@ and recruiting over social media.
 %   the language}
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-   Theory}{PhD 1}{UGrad/MS 2}{Head}
+   Theory}{PhD 1}{UGrad 2}{Head}
 %
 Interviews and surveys are adequate for exploring large-scale usability challenges, but in order
 to build usable tools we also need to study the low-level interactions
@@ -1117,7 +1117,7 @@ enumeration become available, they can be used to improve reflective
 generators.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
-Theory}{PhD 2}{UGrad/MS 3}{Pierce}
+Theory}{PhD 2}{UGrad 3}{Pierce}
 The work on reflective generators has begun to produce research results, but
 the theory around reflective generators is still far from settled.
 In particular,
@@ -1277,7 +1277,7 @@ practitioners.
 
 \publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{UGrad/MS 4}{Pierce}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{UGrad 4}{Pierce}
 %
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Both of our interview studies
@@ -1397,7 +1397,7 @@ generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
-  Practice}{PhD 3}{UGrad/MS 5}{Pierce}
+  Practice}{PhD 3}{UGrad 5}{Pierce}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -1512,7 +1512,7 @@ generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
-  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad/MS 6}{Pierce}
+  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad 6}{Pierce}
 One finding that surprised us in the Jane Street study is that
 it seems to be {very} common for developers to build (or already have) a
 {\em model
@@ -1601,7 +1601,7 @@ transfer.
   (ICFP) and/or Principles of Programming Languages (POPL)}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
-  Theory}{PhD 3}{UGrad/MS 7}{Pierce}
+  Theory}{PhD 3}{UGrad 7}{Pierce}
 Like code of any kind, executable properties can
 be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
@@ -1638,7 +1638,12 @@ programmers to access automatic explanations.
 property combinators, and they're far from ``discoverable''---but we do need to
 make a stronger case for the interaction modes being novel and/or propose a
 slightly more concrete version of a beginner-friendly property language}
-\bcp{Yes, I was channeling a grumpy PL/SE reviewer.}
+\bcp{Yes, I was channeling a grumpy PL/SE reviewer.} \amh{These are all fair
+points. There is some hand-waving here because I'm taking it on faith that
+property languages are sometimes hard to read and are explainable. But I take
+the point that we can make it more convincing by making it more concrete.
+Hopefully I can get to the bottom of this by getting more context and ideas from the two
+of you.}
 
 The second sort of explanations will be examples, namely, sampled input-output
 pairs that can convey the behavior of the program with respect to the property;
@@ -1688,7 +1693,8 @@ regression tests that communicate useful information to future maintainers
 % the research content there so that no one can miss it?  E.g., by emphasizing the
 % investigate-needs/design/build/evaluate loop? I think addressing this
 % point explicitly will help reassure (esp. non-HCI) reviewers.}
-% \hg{Is the next paragraph not doing a good enough job here? We could move it up maybe?}
+% \hg{Is the next paragraph not doing a good enough job here? We could move it
+% up maybe?} \amh{Agreed, let me see what I can do.}
 
 These projects will all be pursued using HCI
 methodology: their research products will be integrated into contemporary
@@ -1705,7 +1711,7 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
-  Practice}{PhD 4}{UGrad/MS 8}{Head}
+  Practice}{PhD 4}{UGrad 8}{Head}
 %
 Unlike conventional techniques like unit testing, where developers
 directly write concrete test cases,
@@ -1719,7 +1725,9 @@ tools\bcp{again, I wish the focus were on the ideas behind the tools
   difference between PL and HCI, where for a PL person ''building a
   tool'': means simply realizing some idea that you've already figured
 out in detail (e.g., as a theorem you proved), while for an HCI person
-the tool {\em is} the theorem...}
+the tool {\em is} the theorem...} \amh{This is a challenge in HCI too, and it is
+a bug of the current writing. I think the more I can focus on unique interaction
+primitives and shy away from ``building tools'' the better. I'll try that.}
 for
 understanding distributions of input data and easily tuning them.
 
@@ -1756,7 +1764,9 @@ in Figure~\ref{fig:gen-vis}. These tools will address the
 challenges of visualizing generator distributions using a novel combination of
 tailored, tried-and-true features for interactive programming
 environments.\bcp{Meaning the features are old and only the
-  way of combining them is novel? }
+way of combining them is novel? }\amh{Not really---the tailoring is new! This
+is a good example of where I think I undersell novelty with the writing. Will
+fix.}
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -1840,7 +1850,7 @@ them.
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
-  Practice}{PhD 4}{UGrad/MS 9}{Head}
+  Practice}{PhD 4}{UGrad 9}{Head}
 %
 Tuning generator distributions to produce ``interesting''
 values more often can be challenging, requiring
@@ -1928,6 +1938,29 @@ and giving feedback as to whether it still causes a test to fail or not.
 Developers will ultimately be able to reduce complex counterexamples into
 simpler ones that are easier to reason about when looking for bugs.
 
+% Notes from Andrew
+% Why hypothesis 'explain' won't work:
+% * The existing strategy is not quite right---sometimes the challenge is not
+% due to lines that are always run on failure, but rather the absence of
+% important lines. Still, these challenges can be predicted by a different
+% number of runs through the same control statements. Furthermore, someone may
+% wish to not just know the difference in which lines were run, but to step
+% through execution of them side by side.
+% * A tool like TraceDiff could be used, if integrated into a conventional
+% editor. That said, we expect it would not fit in without novel interaction
+% solutions, particularly because...
+% * We don't know the correct program, so we can't compare the trace to the
+% correct program. Instead, all we have is the traces of other correct
+% executions. It is likely, then, that we have to...
+% * Show multiple inputs stepping through the same code at once.
+% * Highlight control divergences (through simple highlighting). Dump people in
+% the location of the first control divergence and visualize it.
+% * (Maybe) Permit the ability to step backward
+% * Convey this through subtle highlighting, perhaps weighted by the number of
+% inputs that travel particular paths to reveal scent, and highlight paths that
+% are *not* executed. Refine these design choices on the basis of bugs that we
+% learn about by mining repositories.
+
 In addition to developing novel interaction techniques for simplifying inputs,
 we will also develop systems for helping developers locate code that, if
 changed, would resolve the failure. Rather than explicitly encoding
@@ -1951,7 +1984,7 @@ setting~\cite{ref:suzuki2017tracediff}.
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{UGrad/MS 10}{Head}
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{UGrad 10}{Head}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -2043,6 +2076,11 @@ use-cases (\sectionref{sec:whento}) and undergraduate- and
 masters-level courseware for PBT
 (\sectionref{sec:1210}).
 
+In addition to code and educational materials, the projects in this section will
+also result in a number of engineering-focused talks. We will bring these talks
+to industry conference like {\em Yow! Lambda Jam}, {\em Strangeloop}, and {\em
+Lambda World}.
+
 \bcp{There's a comment somewhere about whether we will pay enough to
   attract someone good.  I think we should address that explicitly
   here (our current salary proposal is \$110k, and we should give some
@@ -2054,6 +2092,7 @@ and who have offered to coach us through hiring (my friend did offer that).
   Qualifications are roughly 2-3 years out of college, experience with
   open-source projects, and polyglot.}
 \bcp{Perfect.}
+\hg{OK, where do I put it? Here seems wrong}
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
@@ -2088,8 +2127,6 @@ Most importantly, the research engineer will help to build and maintain
 \tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
 describe this effort in more detail in the next section.
 
-\discussiontarget{A software engineering industry conference}
-
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
 The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
@@ -2121,8 +2158,6 @@ We will popularize \tyche{} through talks at developer
 conferences and
 disseminating information via our contacts in industry and the open source
 community.
-
-\discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2161,8 +2196,6 @@ communities that could benefit from better tools for PBT. Whichever
 projects we choose, we will either take them over (if
 unmaintained) or work closely with their
 developers to ensure that our input is well received by the community.
-
-\discussiontarget{Software engineering industry conferences}
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
@@ -2217,12 +2250,6 @@ documentation on PBT tools. We will work with our industry collaborators to
 disseminate this documentation and incorporate it into blogs and tool
 manuals. Finally we will package the findings as a talk for one or more
 professional conferences.
-
-\publicationtarget{Trends in Functional Programming (TFP) \bcp{Why
-    TFP?  And more generally: I feel like for 7.1 to 7.4 we could
-    just say at the top of the section that we have budgeted for
-    several trips to speak at developer conferences to disseminate
-    these tools, educational materials, and ideas.}}
 
 \SUBSECTION{Curricula for PBT}{sec:1210}{1}{5}{Education}{Faculty}{Engineer}{}
 %
@@ -2330,12 +2357,10 @@ for the Communications of the Association for Computing Machinery
 %
 The majority of the requested funding will support formative research
 experiences and mentoring for graduate students. We
-also plan to work with undergraduate and masters\bcp{Our work plan is
-  unclear about both undergraduates and masters students -- where are
-  the REPL students?  How many students total?}
-  \hg{I added a bunch more undergrads to the work plan; what else do we have to
-  say here?}
-  students during this project;
+also plan to work with 10 undergraduate students via an
+REU program (more in the next paragraph) along with other
+undergraduate and masters
+students working for credit;
 they, too will benefit from the research experience. Each graduate
 student will have leadership responsibility for multiple facets of the
 project, including co-supervising interested undergraduate and masters
