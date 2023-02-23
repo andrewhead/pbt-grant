@@ -1864,35 +1864,39 @@ understand failures.
 
 Our first effort will be to design interactive input shrinkers. Typical
 automated shrinking approaches
-(e.g.,~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and our own techniques
+(e.g.,~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and our own
+proposed techniques
 in \sectionref{sec:reflective}) can get stuck at local minima far from the
-global minimum, without realistic options for users to get them ``unstuck.'' But
-developers can see shrinking options that a shrinker does not know about.  Could
+global minimum, without realistic ways for users to get them unstuck. But
+developers can see shrinking options that a shrinker may not.  Could
 interaction help a developer shrink a stubbornly large input?
 
-Inspiration can be taken from HCI research on incremental code simplification
+We can take inspiration here from HCI research on incremental code simplification
 (e.g.,~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope}),
-but it is not enough: new solutions are needed when the target of simplification
-is a structure with recursion and many data fields. We therefore will study an
-interactive shrinking paradigm suited for PBT. We propose a semi-automatic
-interaction where a developer performing some simplifications manually in an
-interactive
+but it is not enough: new ideas are needed when the target of simplification
+is code with recursion and/or manipulating complex data. We propose a semi-automatic
+interaction paradigm where a developer performs some simplifications
+manually in an interactive
 object viewer (like those in modern debuggers like JetBrains
-IDE~\cite{tool:jetbrains}), and a shrinker attempts
-simplifications in the time between. Key innovations in an interactive shrinker
-would include: (1) displaying
+IDE~\cite{tool:jetbrains}) while a shrinker attempts further
+simplifications in the background. Key mechanisms
+would include (1) displaying
 the valid ways an input can be pruned,
-relying on reflective generators to understand which parts of the
-structure can be changed while adhering to preconditions; and (2) automated
-shrinking after each  action to suggest a small number of divergent shrinking
-decisions a developer may wish to try next.
+using reflective generators to understand which parts of the
+structure can be changed while maintaining preconditions\bcp{are preconditions
+  really about ``parts'' of the structure?}, and (2) automated
+shrinking after each action to suggest a small number of divergent shrinking
+decisions a developer may wish to try next.\bcp{A PBT expert may
+  wonder what that means...}
 
-New opportunities also arise to help developers find the root cause of
-failures in a PBT setting. One current approach is implemented by Hypothesis'
+We also see opportunities to help developers find the root causes of
+failures in a PBT setting. A current approach is implemented by Hypothesis'
 \texttt{explain} module, which points users to lines that are always run by
-failed tests, but never by successful tests. Better solutions are possible; we
-found this technique does not identify the fault in Hypothesis' quick start
-documentation. Could a tool highlight divergences in other more useful ways? PI
+failed tests, but never by successful tests. But we
+found this technique does not actually identify the fault discussed in
+Hypothesis' Quick Start
+documentation!\bcp{Not sure I get the point of referring to H's QS
+  docs...?  I tried a bit of rewriting, but.} Could a tool highlight divergences in other more useful ways? PI
 Head was on the team that designed views of trace divergences for student
 programmers debugging failed submissions versus a reference
 program~\cite{ref:suzuki2017tracediff}.  Such a technique is not quite right for
