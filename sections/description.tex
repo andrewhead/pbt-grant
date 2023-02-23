@@ -1861,79 +1861,54 @@ and/or User Interface Software and Technology (UIST)}
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
 %
 As in any form of testing, one of the challenges in PBT is understanding why
-a given counterexample triggers a bug.  We will design interactive
-tools to help.
+a given counterexample triggers a failure. We will explore new interactions that 
+take advantage of the machinery available from PBT tooling to help programmers 
+understand failures.
 
-First, we will design tools that build on
-shrinkers~\cite{hughes_quickcheck_2007,arts_shrinking_2014} to help developers
-understand counterexamples. Automatic shrinking, even when done via reflective
-shrinkers as we discuss in \sectionref{sec:reflective}, can be opaque, and
-shrinkers can get stuck at local minima that are far from the global minimum.
-But developers can often see shrinking options that the shrinker does not know to consider.
-Drawing inspiration from approaches in recent HCI literature that support
-interactive code reduction through iterative, incremental
-experimentation~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope},
-we will experiment with aids for rapid, incremental, interactive
-shrinking of complex
-inputs into simpler ones. The key feature we will develop is the ability to
-shrink inputs semi-automatically by manipulating them in an interactive
-object viewer, similar to the viewers available in contemporary
-debuggers like in the JetBrains IDE~\cite{tool:jetbrains}.
+Our first effort will be to design interactive input shrinkers. Typical 
+automated shrinking approaches 
+(e.g.,~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and our own techniques 
+in \sectionref{sec:reflective}) can get stuck at local minima that far from the 
+global minimum, without realistic options for users to get them ``unstuck.'' But 
+developers can often see shrinking options that a shrinker does not know about.  
+Could interaction help a developer shrink a stubbornly large input?
 
-An interactive shrinker can display the valid ways in which an input
-can be pruned,
-relying on reflective generators to provide the insights into which parts of the
-structure correspond to changes that do not break program preconditions.
-Alternatively, the developer might change
-the input entirely, for example, noticing some change of inter-dependent parts
-of the structure that shrinking missed.  As a developer manipulates the input,
-automatic shrinking will continuously be re-tried, reducing the input further
-and giving feedback as to whether it still causes a test to fail or not.
-Developers will ultimately be able to reduce complex counterexamples into
-simpler ones that are easier to reason about when looking for bugs.
+The challenge is similar to that for our other interaction projects: inputs 
+often have structure and many data fields. This requires interactions that are 
+perhaps reminiscent of, but divergent from other interactive tools for 
+incremental code simplification
+(e.g.,~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope}).
+We believe that a solution is semi-automatic, involving a developer performing 
+some simplifications manually in an interactive
+object viewer (like those in modern debuggers like JetBrains 
+IDE~\cite{tool:jetbrains}), and a shrinker attempting as many additional 
+simplifications as it can in the time between. More specifically,
+key innovations in an interactive shrinker would include: (1) displaying
+the valid ways an input can be pruned,
+relying on reflective generators to understand which parts of the
+structure can be changed while adhering to test preconditions; and (2) the 
+real-time performance of shrinking following each developer action, providing 
+alternatives representing different, perhaps conflicting, shrinking decisions to 
+a developer as suggested edits on the object.
 
-% Notes from Andrew
-% Why hypothesis 'explain' won't work:
-% * The existing strategy is not quite right---sometimes the challenge is not
-% due to lines that are always run on failure, but rather the absence of
-% important lines. Still, these challenges can be predicted by a different
-% number of runs through the same control statements. Furthermore, someone may
-% wish to not just know the difference in which lines were run, but to step
-% through execution of them side by side.
-% * A tool like TraceDiff could be used, if integrated into a conventional
-% editor. That said, we expect it would not fit in without novel interaction
-% solutions, particularly because...
-% * We don't know the correct program, so we can't compare the trace to the
-% correct program. Instead, all we have is the traces of other correct
-% executions. It is likely, then, that we have to...
-% * Show multiple inputs stepping through the same code at once.
-% * Highlight control divergences (through simple highlighting). Dump people in
-% the location of the first control divergence and visualize it.
-% * (Maybe) Permit the ability to step backward
-% * Convey this through subtle highlighting, perhaps weighted by the number of
-% inputs that travel particular paths to reveal scent, and highlight paths that
-% are *not* executed. Refine these design choices on the basis of bugs that we
-% learn about by mining repositories.
-
-In addition to developing novel interaction techniques for simplifying inputs,
-we will also develop systems for helping developers locate code that, if
-changed, would resolve the failure. Rather than explicitly encoding
-relationships between generated test inputs\bcp{inputs generated by the
-  generator?  outputs generated from those inputs by the SUT?}
-\hg{I don't know Ko's work enough to grok this. @Andrew?}
-and their dependencies on
-code~\cite{ref:ko2009finding}, we will instead help the developer
-understand where the execution path for a given counterexample diverges from
-similar, successful inputs.
-Leveraging
-reflective generators, we will generate inputs in a space ``around'' a
-counterexample and identify which ones no longer cause a failure.  Then, we will
-execute the program up to the point where the traces begin to
-diverge and drop the programmer into a debugging environment where
-they can query the state of the program and step through the remainder of the
-execution. PI Head has prior work designing debugging tools that help
-programmers understand trace divergences in an educational
-setting~\cite{ref:suzuki2017tracediff}.
+New opportunities also present for helping developers trace to the root cause of 
+a failure in the code with PBT. One current approach is embodied by the 
+Hypothesis \texttt{explain} module, which points users to lines that are always 
+run by failed tests, but never by successful tests. Better solutions are 
+possible; we found this technique does not identify the fault in Hypothesis' 
+quick start documentation. Could a tool highlight other kinds of useful 
+divergences between failed and successful tests? PI Head was on the team that 
+designed views of trace divergences for student programmers debugging failed 
+submissions versus a reference program~\cite{ref:suzuki2017tracediff}. Such a 
+technique is not quite right for PBT, where is no correct program to compare to.  
+We plan to develop innovative trace divergence views that, specifically: (1) 
+point programmers to control decisions that vary between a failure-inducing 
+input and a set of very similar success-inducing ones (using the reflective 
+generator framework to assess similarity); (2) show what lines will be executed 
+next following the control decision by the gamut of comparison inputs; (3) 
+support rapid navigation between control decisions in the case of greatly 
+diverging traces. Such innovations in debugging, we believe, are necessary to 
+provide general-purpose support to using trace divergences to debug.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
