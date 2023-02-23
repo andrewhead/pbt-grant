@@ -1585,64 +1585,56 @@ transfer.
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{REPL 7}{Pierce}
-Like code of any kind, executable properties can
+Like any code, properties can
 be hard to understand, particularly by programmers who did not write
-them and perhaps have never used PBT themselves. Can we design
+them and novices. Can we design
 tools to help programmers understand properties?
 
-We will explore how to design useful in-situ explanations of properties.  The
-end goal is to produce explanations that could be viewed as just a few lines in
-small tooltips and inline annotations in the editor and which make the meaning
-of an opaque property clear upon quick inspection. However, this task involves
-several research challenges. A first challenge is to simply address the right
-aspects of complexity that can arise properties. At the minimum, properties can
+We will explore how to design useful in-situ explanations of properties, for example
+explanations that could be viewed as just a few lines in
+tooltips and inline annotations in the editor and which clarify the meaning
+of an opaque property. However, this task involves
+several research challenges.
+
+A first challenge is to simply address the right
+aspects of complexity; at the minimum, properties can
 be confusing because of their use of complex data (e.g., binary search trees,
 even logs), structural complexity (as is the cases for properties involving many
-predicates), and use of specialized syntax (as happens for advanced properties
+predicates), or use of specialized syntax (as happens for advanced properties
 incorporating specialized operators in frameworks like QuickSpec). We know all
-of these manifest in some properties, though which ones will developers
-frequently need help understanding? We will characterize complexity as it arises
-in the properties developers write today by conducting a content
+of these manifest in some properties, but the frequencies are unclear.
+We will characterize complexity as it arises
+in the properties developers write by conducting a content
 analysis~\cite{ref:krippendorff2018content} of code bases using PBT.
 
 A second challenge is understanding how to generate explanations that will help
-a programmer understand properties at-a-glance. Our main question will be which
-of several approaches can serve developers best. A first approach is to generate
+a programmer understand properties at-a-glance. Several approaches may work well
+here.
+{\bf Input-Output Examples.} A first approach is to generate
 example input-output pairs demonstrating the behavior that a property tests.
 This approach is motivated by other recent efforts to generate input-output
 examples for instructional
-purposes (e.g.,~\cite{ref:gerdes2018understanding,ref:dantoni2015can}). Our task
-has an interesting refinement relative to prior work: we are focused on
-generating understandable inputs with potential complex structure. We will
-explore the use of our advanced generator and shrinker techniques to generate
-both positive examples and negative (i.e., failing) examples of the property.
-First we will generate minimal positive examples with our generators and
-shrinkers. Then, we will attempt to generate very similar negative examples that
-can be used for comparison by sampling from among inputs that do not pass the
-input preconditions (by perturbing positive examples or altering parameters of
-reflective generators), keeping those that violate the property. These positive
-examples and (if available) negative examples would be shown, alongside
-corresponding outputs, in compact stringified form as demonstrations of the
-property.
-
-Another comparison approach to explanation is to generate plain language
-explanations. PI Head has prior work developing rule-based textual explainers of
-DSLs like CSS selectors and Unix commands~\cite{ref:head2015tutorons}. A similar
-approach might work in this context for explaining particularly complex
-properties involving PBT less-commonly-used property combinators of libraries
-like QuickCheck, or for properties involving tangled chains of connectives like
-implications and conjunctions. The challenge in this research is understanding
+purposes (e.g.,~\cite{ref:gerdes2018understanding,ref:dantoni2015can}).
+We will leverage reflective generators and shrinkers to generate
+generating understandable inputs with potential complex structure, finding
+both positive examples and negative (i.e., failing) examples of program's behavior.
+{\bf Plain Language Explanations.} PI Head has prior work developing rule-based textual explainers of
+DSLs like CSS selectors and Unix commands~\cite{ref:head2015tutorons}; a similar
+approach might work in this context.
+The challenge in this research is understanding
 patterns of textual explanations that both ``speak the language'' of a reader,
-and which can be reliably generated from static analysis of the code. A yet
-third approach would be to incorporate large language models which have recently
+and which can be reliably generated from static analysis of the code.
+{\bf Large Language Models.} Large language models have recently
 seen strides in being able to explain arbitrary source code; PI Head is
 exploring such technologies for general-purpose programming languages, and this
 approach may work well for frameworks like Hypothesis where properties are
-written as Python functions. The contributions of all the above efforts will be
-a characterization of complexity as it manifests in property specifications,
+written as Python functions.
+
+The above efforts will contribute
+a characterization of complexity in property specifications,
 techniques for generating readable examples and text descriptions for
-properties, and a head-to-head comparison of the most promising ideas in
-usability studies comparing their effects on comprehending properties.
+properties, and comparisons of these techniques in
+usability studies.
 
 % \publicationtarget{PLATEAU Workshop}
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
