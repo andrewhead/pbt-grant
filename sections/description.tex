@@ -54,9 +54,9 @@ Hypothesis has 6.5K ``stars'' from developers (indicating enthusiasm)~\cite{borg
 quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
-By comparison, pytest, the main framework Python users use to run
+By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
-PBT tool has around 70\% as many stars as Python's entire testing
+PBT tool has $\sim$70\% as many stars as Python's entire testing
 infrastructure.
 
 And there is still plenty of room
@@ -172,7 +172,7 @@ topics including PBT.  Our past research collaboration has led to
 two workshop
 presentations~\cite{goldstein_problems_2022,shi_towards_2023} and to the ongoing
 study at Jane Street mentioned above, which informs the
-research and technology transfer agenda for the present proposal.
+research and technology transfer agenda for this proposal.
 
 \smallskip
 
@@ -207,8 +207,8 @@ benchmarking these and other advances in tools for generation (\sectionref{sec:g
 % ``reflective'' approach to generation (\sectionref{sec:gen}).
 %
 \item We will empower developers to \thread{specify} properties with new
-languages for expressing properties, tools that simplify the process of authoring
-properties, and assistants that help to explain properties to others
+languages for expressing properties, tools that simplify authoring
+properties, and assistants that help explain properties to others
 (\sectionref{sec:spec}).
 % tools for checking temporal properties over internal program states
 % and for model-based testing of modularized code\proposecut{ and for authoring
@@ -456,11 +456,11 @@ with (1) developers who use PBT and (2) maintainers of PBT tools.
 
 Our choice of Jane Street as a partner was motivated by our desire to
 understand PBT in a non-academic setting where it is broadly appreciated.
-At Jane Street, PBT is a
-well-established methodology, so there is a large
+At Jane Street, PBT is an
+established methodology, so there is a large
 population of people with well-informed opinions on its benefits and
 challenges. Additionally, Jane Street builds much of its
-software in OCaml, a functional programming language with
+software in OCaml, a functional language with
 a well-engineered PBT framework.
 %
 This unified
@@ -475,8 +475,8 @@ it to full potential are provided with state-of-the-art tools.
 %
 (Of course, the findings of any need-finding study are necessarily
 limited to the setting in which it is carried out; the understanding
-gleaned from this one will be broadened and deepened by further
-research activities described in \sectionref{sec:foundation}.)
+gleaned from this one will be deepened by further
+research activities described in~\sectionref{sec:foundation}.)
 
 As of February 2023, the full complement of thirty interviews has been
 completed at Jane Street and a preliminary round of qualitative
@@ -592,7 +592,7 @@ testing to be one of the most significant ways to improve PBT usability.
 
 A further set of themes concerned the
 \thread{interaction} between developers and their
-testing environments---especially the processes they use
+testing environments---especially their strategies
 for \evaltheme{Evaluating the
 Effectiveness} of their tests. Many
 wished for
@@ -601,12 +601,11 @@ feedback on code coverage (\participant{9} and \participant{25}),
 mutation
 testing~\cite{papadakis_mutation_2018}, and help understanding the
 distribution of randomly generated
-inputs (\participant{10}, \participant{16}, \participant{16}). Problematically,
+inputs (\participant{10}, \participant{16}, \participant{16}). Worryingly,
 while many developers admitted they would benefit from better ways to
 evaluate their tests, many seemed to
 \evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
-they did not realize their generator had missed important input
-examples.
+they did not realize their generator had missed important cases.
 Additionally, one participant (\participant{14}) saw significant benefit from
 \evaltheme{Visualizations} they had built themselves to
 understand their testing effectiveness.
@@ -694,7 +693,7 @@ surveys with broader samples of developers. These surveys aim to
 study
 represent widely experienced pain points and
 (2) understand the potential benefits of better tools for the
-software industry as a whole.
+software industry.
 
 % \TASK{Validation survey}{1}{1}{Who?}
 The main survey
@@ -1011,10 +1010,9 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 Building on the free generator ideas described above, we are
 exploring a powerful
 generalization based on monadic generators called {\em reflective generators}.
-We began thinking about the basic concept during a nearly complete NSF
+We began thinking about the basic concept during a past NSF
 project (see \sectionref{sec:prior}), and we will
-soon be submitting a first paper to ICFP
-2023.
+submit a first paper to ICFP 2023.
 % We briefly describe that work here, and then continue by describing the
 % work that remains to be done.
 
@@ -1393,7 +1391,7 @@ Rather than write properties that are tied to the structure of the program,
 we will explore
 how to define properties over user-defined
 event logs. Consider
-the case of a developer we interviewed: P7 was testing
+the case of P7, who was testing
 a system, let's call it ``\lstinline{Inner},'' that  was difficult to
 test because
 its most interesting behavior arose only when interacting with a particular calling
@@ -1407,7 +1405,7 @@ PBT is difficult to apply, because the abstraction boundary between the
 components was too fuzzy.
 
 % \TASK{Tools for testing properties over logged values}{2}{2}{Who?}
-We plan to develop a tool that allows developers to express properties that reach
+We will develop a tool that allows developers to express properties that reach
 into the state of multiple interacting software components. Take again the
 example of \lstinline{Inner}. A solution to P7's problem could be to drive the
 test through \lstinline{Outer} but write properties about
@@ -2258,7 +2256,7 @@ tasks in \sectionref{sec:foundation}, \sectionref{sec:reflectiveusable},
 \sectionref{sec:evaluating_distributions} will also influence education. The
 work in \sectionref{sec:1210} will generate course materials that we will
 share publicly; we will also report our experiences in a paper for a
-CS-ed-focused conference or journal.
+CS-ed-focused conference.
 
 An ancillary educational goal is to
 publicize and communicate the benefits of PBT to the broader computer science
