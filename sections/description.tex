@@ -273,15 +273,14 @@ projects stands on its own; rather, each supports and informs the
 others to achieve both conceptual advances and significant
 impact on software development practice.
 %
-The Management and Coordination supplement also summarizes the metrics
-we will use to monitor and measure success for the various project
-tasks.
+Publication targets and other success metrics are discussed in each
+section below.
 
 Two PIs is on the small side for a Large NSF proposal, but  we feel this
 is the right size, for two reasons. First, the PIs
 come from quite distinct areas, so we already span a
 broad swath of CS in terms of perspective and expertise.  Second,
-success with this research agenda depends on a high degree of
+our success will depend on a high degree of
 interaction and cross-fertilization between PL and HCI; this is much
 easier with fewer PIs.
 
@@ -308,12 +307,6 @@ Section \sectionref{sec:broader-impacts}
 discusses the Broader Impacts of the project, and
 Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
-
-\iflater
-\discuss{GPG: ``Does the plan incorporate a mechanism to assess
-  success?''  We need to talk about this explicitly, in as many places
-  as possible!}
-\fi
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
 
@@ -689,7 +682,7 @@ each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
 \SUBSECTION{Generalizability of the Jane Street findings}%
-   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{UGrad 1}{Head}
+   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{REPL 1}{Head}
 %
 Preliminary findings from the Jane Street study have already revealed
 a number of
@@ -777,7 +770,7 @@ and recruiting over social media.
 %   the language}
 
 \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-   Theory}{PhD 1}{UGrad 2}{Head}
+   Theory}{PhD 1}{REPL 2}{Head}
 %
 Interviews and surveys are adequate for exploring usability challenges
 at a high level, but in order
@@ -1103,7 +1096,7 @@ enumeration become available, they can be used to improve reflective
 generators.
 
 \SUBSECTION{Theory of reflective generators}{sec:reflective}{1}{1}{PL
-Theory}{PhD 2}{UGrad 3}{Pierce}
+Theory}{PhD 2}{REPL 3}{Pierce}
 The work on reflective generators has begun to produce research results, but
 the theory around reflective generators is still far from settled.
 In particular,
@@ -1263,7 +1256,7 @@ practitioners.
 
 \publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{UGrad 4}{Pierce}
+\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{REPL 4}{Pierce}
 %
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Both of our interview studies
@@ -1387,7 +1380,7 @@ tools described in \sectionref{sec:val} and
 \sectionref{sec:diffusion}, and directly in terms of publications.
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
-  Practice}{PhD 3}{UGrad 5}{Pierce}
+  Practice}{PhD 3}{REPL 5}{Pierce}
 % With current PBT tools, properties can only be expressed over single modules.
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
@@ -1502,7 +1495,7 @@ generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Model-based properties for
-  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{UGrad 6}{Pierce}
+  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
 One finding that surprised us in the Jane Street study is that
 it seems to be {very} common for developers to build (or already have) a
 {\em model
@@ -1591,7 +1584,7 @@ transfer.
   (ICFP) and/or Principles of Programming Languages (POPL)}
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
-  Theory}{PhD 3}{UGrad 7}{Pierce}
+  Theory}{PhD 3}{REPL 7}{Pierce}
 Like code of any kind, executable properties can
 be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
@@ -1696,7 +1689,7 @@ tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
-  Practice}{PhD 4}{UGrad 8}{Head}
+  Practice}{PhD 4}{REPL 8}{Head}
 %
 Unlike conventional techniques like unit testing, where developers
 directly write concrete test cases,
@@ -1835,7 +1828,7 @@ them.
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
-  Practice}{PhD 4}{UGrad 9}{Head}
+  Practice}{PhD 4}{REPL 9}{Head}
 %
 Tuning generator distributions to produce ``interesting''
 values more often can be challenging, requiring
@@ -1969,7 +1962,7 @@ setting~\cite{ref:suzuki2017tracediff}.
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Counterexamples as regression
-  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{UGrad 10}{Head}
+  tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{REPL 10}{Head}
 %
 % After testing has revealed a counterexample to one of their properties
 % with their tests, the developer may wish to turn that failure into a
@@ -2066,19 +2059,6 @@ also result in a number of engineering-focused talks. We will bring these talks
 to industry conference like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
-\bcp{There's a comment somewhere about whether we will pay enough to
-  attract someone good.  I think we should address that explicitly
-  here (our current salary proposal is \$110k, and we should give some
-  evidence that that is a good mainstream level), and also address how
-  we will go about hiring such a person, what qualifications we will
-  ask for, etc.  Basically, show that we've thought about it.}
-\hg{We can say we have industry contacts who helped us decide on a salary
-and who have offered to coach us through hiring (my friend did offer that).
-  Qualifications are roughly 2-3 years out of college, experience with
-  open-source projects, and polyglot.}
-\bcp{Perfect.}
-\hg{OK, where do I put it? Here seems wrong}
-
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
 Transfer}{Engineer}{}{Pierce}
 %
@@ -2142,8 +2122,19 @@ PBT interaction models to developers craving better tools.
 We will popularize \tyche{} through talks at developer
 conferences and by
 disseminating information via our contacts in industry and the open source
-community. We aim for \tyche{} to reach 60,000 downloads by the end of the
-project, driven, in part, by our connections in the developer tool community.
+community.
+%
+% We will list the IDE on the Visual Studio Code extension marketplace,
+% with a goal of reaching 60,000 downloads by the end of the project.
+We aim for \tyche{} to reach 60,000 downloads by the end of the
+project. At
+the time of writing, this would put \tyche{} in the top 10 extensions
+tagged ``Testing'' in the Visual Studio Code extension marketplace
+that are not either full language servers or Large
+Language Model interfaces~\cite{noauthor_testing_nodate}.
+
+% We aim for \tyche{} to reach 60,000 downloads by the end of the
+% project, driven, in part, by our connections in the developer tool community.
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2273,9 +2264,6 @@ education venues.
 %
 The instructional materials we develop will be made available for instructors at
 other institutions to use in their own courses.
-
-\todo{Add evaluation of new contributions to the curriculum, with plans to
-publish findings in computing education research venues.}
 
 \publicationtarget{Koli Calling International Conference on Computing Education Research}
 
@@ -2493,13 +2481,6 @@ Shi.
 \iflast
 \section*{Final checks}
 
-\discuss{Every section (including the broader impacts and each of the
-  research sections) needs to explicitly address how we will measure
-  success...  Check that we've done this.}
-
-\iflater\bcp{Make sure the lowest-level paragraph headers are all
-  formatted the same.}\fi
-
 \todo{GPG: Each reference must include the names of all authors (in
   the same sequence in which they appear in the publication), the
   article and journal title, book title, volume number, page numbers,
@@ -2515,7 +2496,5 @@ Shi.
   scholarly standards.  I don't think we will be dinged if we omit
   some page numbers, etc.}
 
-\bcp{We could / should read some past funded NSF Large proposals for
-  ideas about how people talk about their work.}
 
 \fi

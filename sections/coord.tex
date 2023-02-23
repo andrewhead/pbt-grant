@@ -1,16 +1,16 @@
 \section*{Management and Coordination Plan \pagebudget{3}}\label{appendix:coord}
 
-\amh{John question: we probably want a dependable partner like Jane Street. If
-so, how do we mitigate the risk of Jane Street changing their
-priorities mid-project? Can we say anything about how we might build bridges to
-other partners to increase our likelihood of having partners who are invested in
-getting better PBT tools to developers?}
+% \amh{John question: we probably want a dependable partner like Jane Street. If
+% so, how do we mitigate the risk of Jane Street changing their
+% priorities mid-project? Can we say anything about how we might build bridges to
+% other partners to increase our likelihood of having partners who are invested in
+% getting better PBT tools to developers?}
 
-\amh{Is there anything we can do to clearly state project milestones? John was
-interested in seeing something like this (thinking the bars in the Gantt chart
-were perhaps too implicit.}
-\bcp{Agreed.  It would be great to explicitly articulate some (3?)
-  overall project milestones.}
+% \amh{Is there anything we can do to clearly state project milestones? John was
+% interested in seeing something like this (thinking the bars in the Gantt chart
+% were perhaps too implicit.}
+% \bcp{Agreed.  It would be great to explicitly articulate some (3?)
+%   overall project milestones.}
 
 % \iflast
 % \todo{GPG: a Large proposal must define the roles of all members of
@@ -29,15 +29,10 @@ were perhaps too implicit.}
 %   the team; and 5) pointers to the budget line items that support
 %   these management and coordination mechanisms.}
 
-\todo{Mention Leo and Hila and Zac here.}
-
-\todo{We talk about four undergrad / MS students here (but not
-  elsewhere), and we don't talk about the two REPL students.  Needs
-  harmonized.}
-
 Key personnel for this work will include the two co-PIs, four PhD
 students with varying backgrounds and interests, one staff engineer,
-and several undergraduate interns. We will include other undergraduate and
+and 10 funded undergraduate interns hosted through the summer REPL
+program (see the BPC supplement). We will include other undergraduate and
 masters students in research for course credit as opportunities present themselves.
 Figure~\ref{fig:workplan} sketches our envisaged mapping of tasks onto
 PhD dissertations, with a rough timeline showing a natural ordering
@@ -59,9 +54,10 @@ and specializes in interactive programming environments, while
 Benjamin Pierce has published widely on PL topics---including, for the
 past several years, the theory and practice of PBT.  Head and Pierce
 already have an established collaboration, with two jointly supervised
-PhD students (Harrison Goldstein, who is leading the Jane Street
-interview study, and Jessica Shi, who is developing a project around
-user interfaces for proof assistants).
+PhD students.
+%  (Harrison Goldstein, who is leading the Jane Street
+% interview study, and Jessica Shi, who is developing a project around
+% user interfaces for proof assistants)
 
 The proposed project will be a main focus for both PIs during the
 whole five years.  Two summer months are allocated to each PI for this
@@ -148,11 +144,12 @@ engineer will lead these tech transfer activities, including
 re-implementing reflective generators in existing PBT frameworks,
 improving library designs as per recommendations from PhD 2,
 maintaining the tools produced by PhD 3, etc.  They will also assist
-with implementation-oriented research activities led by the four PhD
-students. We consulted with an industry hiring manager to budget for a
+with implementation-oriented research activities, in particular
+\tyche. We consulted with an industry hiring manager to budget for a
 competitive salary for this engineer; they have agreed to assist us with
 best-practices for interviewing. We will look for a developer 2-3 years
-out of college with experience with open source and variety of programming languages.
+out of college with experience with open source and multiple
+programming languages.
 
 
 % \begin{figure}[tbp]
@@ -323,9 +320,15 @@ be encouraged to take both Penn's core PL theory course (CIS 5000,
 {\em Software Foundations}), and our new PhD-level HCI course (CIS
 5120, {\em Introduction to Human-Computer Interaction}).
 
-\todolater{Anything else?}
-\todolater{Yes: We need to explicitly say ``how team
-  coordination will be evaluated''...}
+Four unfunded external collaborators---John Hughes, Hila Peleg,
+Leonidas Lampropoulos, and Zac Hatfield-Dodds---will assist with
+various project activities, as described in the Project Description.
+Letters of collaboration can be found in the Supplemental Documents.
+
+One measure of success in team coordination will be co-ownership of
+project tasks and co-authorship on publications---concretely, the
+majority of papers should include at least a ``PL author''
+and an ``HCI author.''
 
 \subsection*{Success Metrics}
 
@@ -335,29 +338,21 @@ in the loop and evaluated in user studies before being shipped.
 Each tool-building project will include design justifications and
 evaluation based on user feedback, and the more theoretical
 projects will be measured by their ability to support user-facing tools.
-
+%
 We also plan to verify that our improvements to the ecosystem for PBT
-actually drive increased adoption. For this, we will reach for an
-admittedly somewhat arbitrary metric: downloads of our \tyche{} IDE.
-We will list the IDE on the Visual Studio Code extension marketplace,
-with a goal of reaching 60,000 downloads by the end of the project. At
-the time of writing, this would put \tyche{} in the top 10 extensions
-tagged ``Testing'' that are not either full language servers or Large
-Language Model interfaces~\cite{noauthor_testing_nodate}, a lofty but,
-we believe, eminently achievable goal.
-
+actually drive increased adoption, measured by
+downloads of our \tyche{} IDE as described in~\sectionref{sec:ide}.
+%
 Success of our educational efforts will also be measured by uptake: We
 will advertise our PBT course materials in educational circles
 (directly to colleagues and indirectly through a paper
 submitted to the CS in Education conference), aiming to see them used
 by at least 10 universities by the end of the project.
-
+%
 Finally, the
 success of especially the more foundational threads will, as usual, be measured
 partly in publications.  We will target top venues in PL (e.g., ICFP, PLDI,
 OOPSLA, and POPL), HCI (e.g., CHI, UIST, and VL/HCC), Software Engineering
 (e.g., ICSE and FSE), and CS Education (Koli Calling).
-
-\todolater{Gotta get it onto three pages.}
 
 \clearpage
