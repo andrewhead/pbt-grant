@@ -15,20 +15,7 @@ some piece of code in the form of executable {\em
   properties}. The code is
 then validated against these properties by running it many times
 with a large number of automatically generated test
-inputs.\bcp{There's a persistent potential confusion through the whole
-text around the word ``input''---we mean ``input to the SUT, i.e.,
-{\em output} of the generator,'' but this may be hard for readers to
-remember, and it leads us into some tangled situations here and there
-(I am sometimes puzzled what we mean).  Could
-we use a more neutral term like ``test case''?  I really think it
-would help readability quite a bit.}
-\hg{I always write ``test input'' unless it's totally obvious from context, and
-I never use input to refer to anything else. This has been my style guide for a
-while, esp in the reflectives work where test inputs are both inputs and
-outputs. I think ``test case'' is really only marginally clearer, since many
-unit-testing frameworks call each unit test a test case.}\bcp{But
-that's exactly what we're talking about, right?  A generator generates
-many test cases, whereas a unit test just exercises one.}
+inputs.
 %
 % PBT thus achieves a comprehensiveness that is often not
 % possible with alternative testing methods. \iflater\bcp{Why not with
@@ -64,7 +51,7 @@ And these frameworks are popular:
 the developers of the Hypothesis framework in
 Python~\cite{maciver2019hypothesis,HypothesisGithub} estimate its user community
 at half a million~\cite{ZacPersonalCommunication,noauthor_python_nodate}.  On GitHub,
-Hypothesis has 6.5K ``stars'' from developers, Rust's
+Hypothesis has 6.5K ``stars'' from developers (indicating enthusiasm), Rust's
 quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
@@ -694,7 +681,7 @@ In this section, we describe four planned studies that aim
 to produce a comprehensive, actionable
 {\em foundation} for the latter stages of this project and beyond. Building a
 rigorous foundation, with methods motivated by the HCI literature, is hard work,
-but it will significantly increase the change that future projects achieve their goals.
+but it will significantly increase the chance that future projects achieve their goals.
 We plan two
 written surveys, one to assess the generality of these needs and obstacles
 and one to identify potential for adoption of PBT tools
@@ -948,6 +935,10 @@ a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
+Success for these enabling technologies will be measured both by the success of
+the tools built on them in \sectionref{sec:val} and \sectionref{sec:diffusion}
+and by top-tier publications, including performance evaluations and/or
+user studies as appropriate.
 PI Pierce is a longtime collaborator of John Hughes, one of the
 QuickCheck creators; John plans to collaborate on the projects
 in this section; a letter of collaboration appears in the supplemental
@@ -1403,6 +1394,10 @@ Further, we will automate one specific high-leverage scenario,
 model-based testing (\sectionref{sec:automating}). Finally, we will explore how to
 generate automatic explanations of properties, for documentation and
 education (\sectionref{sec:understanding}).
+%
+Success in these tasks will again be measured indirectly, through the
+tools described in \sectionref{sec:val} and
+\sectionref{sec:diffusion}, and directly in terms of publications.
 
 \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
   Practice}{PhD 3}{UGrad 5}{Pierce}
@@ -2086,8 +2081,8 @@ masters-level courseware for PBT
 
 In addition to code and educational materials, the projects in this section will
 also result in a number of engineering-focused talks. We will bring these talks
-to industry conference like {\em Yow! Lambda Jam}, {\em Strangeloop}, and {\em
-Lambda World}.
+to industry conference like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
+``Lambda World.''
 
 \bcp{There's a comment somewhere about whether we will pay enough to
   attract someone good.  I think we should address that explicitly
@@ -2163,9 +2158,10 @@ support, \tyche{} will provide an efficient pipeline for bringing research on
 PBT interaction models to developers craving better tools.
 
 We will popularize \tyche{} through talks at developer
-conferences and
+conferences and by
 disseminating information via our contacts in industry and the open source
-community.
+community. We aim for \tyche{} to reach 60,000 downloads by the end of the
+project, driven, in part, by our connections in the developer tool community.
 
 \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 Transfer}{Engineer}{PhD 1}{Pierce}
@@ -2190,6 +2186,9 @@ Hatfield-Dodds appears in the supplemental documents. The Hypothesis team is
 especially excited about integrating ideas like reflective generators
 (\sectionref{sec:reflective}) and interaction modes like distribution
 visualization (\sectionref{fig:gen-vis}) into Python's VCSode environment.
+The success of this collaboration will be measured by the Hypothesis team's
+willingness to include our tools in future releases and promote them to the
+community.
 
 Besides Hypothesis, we will seek out two more projects to work with. These
 will be chosen based on potential impact: we will prioritize great
