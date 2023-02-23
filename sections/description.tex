@@ -1810,42 +1810,38 @@ understanding distributions of complex input data.
 \SUBSECTION{Tuning data distributions}{sec:tuning}{3}{4}{HCI
   Practice}{PhD 4}{REPL 9}{Head}
 %
-Tuning generator distributions to produce ``interesting''
+Tuning generators to produce ``interesting''
 values more often can be challenging, requiring
-significant trial and error. Approaches
-like the one in \sectionref{sec:reflective} can help, and in simple cases
-heuristics like code coverage are enough~\cite{afl-readme},
-but manual tuning
-is still sometimes needed.
+significant trial and error. Purely automated approaches
+like those we describe in \sectionref{sec:reflective} provide part of the 
+solution, as do code coverage-based generation techniques 
+(e.g.~\cite{afl-readme}). That said,
+even these techniques often fall short of the kinds of inputs a developer would 
+wish to produce.
 
-We will design and evaluate tools to support the direct tuning of
-input data distributions
-through manipulation of generated inputs and live data distribution
-visualizations, building on the foundation outlined in
-\sectionref{sec:evaluating_distributions}. Inspired by recent tools in
-the PL+HCI literature
-for bidirectional manipulation of programs and their
-outputs~\cite{ref:hempel2019sketch, ref:kery2020mage,
-  ref:omar2012active, ref:omar2021filling},
-we will explore reflective generators' potential to support tuning.
-
-One simple way of tuning input data distributions is to
-define filters on input data by manipulating aggregate data displays.
-For instance, developers could to select a range of values from a bar
-chart showing input data features and request that all values in
-this range be discarded before testing. This approach is flexible,
-but coarse-grained;
-it does not influence the implementation of the underlying generator, and
-therefore can only go so far in shaping the values that are
-generated.  It may also lead to inefficiency, if too many values are
-generated from the underlying distribution only to be discarded by the
+Building on our work in \sectionref{sec:reflective}), we envision new
+ways of specifying desired distributions through interaction. A first innovation 
+is supporting tuning by manipulating the visualizations described 
+in~\sectionref{sec:evaluating_distributions}. For instance, developers could
+select a range of values from a bar
+chart showing input data features and request that inputs shown in
+the range be discarded before testing. This interaction achieves a vision of 
+bidirectionality for PBT programming that has been successful in other areas of 
+programming in recent research~\cite{ref:hempel2019sketch, ref:kery2020mage,
+  ref:omar2012active, ref:omar2021filling}.
+The approach is flexible, though notably coarse-grained;
+it does not influence the underlying generator, so it
+can only go so far in shaping the generated values.  It may also lead to 
+inefficiency, if too many values are
+generated from the distribution only to be discarded by the
 filter.
 
-A more sophisticated idea is to leverage
-reflective generators (\sectionref{sec:reflective}) to change the underlying
-generator parameters. Developers will be able to interact with a visualization,
-and the the reflective generator will map those interactions
-back to choices
+Therefore, we will additional design interactions that leverage the unique 
+ability of reflective generators
+(\sectionref{sec:reflective}) to change the underlying
+generator parameters. As developers interact with a visualization,
+the reflective generator will map interactions
+to choices
 in the generator.  The generator code will be displayed
 side-by-side with visualizations of the distribution, and the user
 will be able to manipulate both sides.
