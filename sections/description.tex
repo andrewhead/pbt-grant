@@ -29,7 +29,7 @@ telecommunications software~\cite{arts2006testing}, replicated
 file and key-value
 stores~\cite{MysteriesOfDropbox2016,Bornholt2021}, automotive
 software~\cite{arts2015testing}, and other complex
-systems~\cite{hughes2016experiences}.
+systems~\cite{hughes_experiences_2016}.
 It is used by companies including Amazon, Volvo, Stripe, Galois,
 and IOG, which
 runs the Cardano blockchain and the Ada cryptocurrency.
@@ -318,7 +318,7 @@ NSF-supported work.
 %
 PBT%
 % , famously popularized by Haskell's QuickCheck library
-~\cite{hughes2007quickcheck}
+~\cite{hughes_quickcheck_2007}
 is software testing method where
 executable functions are used as partial
 specifications of a component under test. For example, a developer might
@@ -966,8 +966,8 @@ conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
 holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
 srivastava2021gramatron}, and for more complex, semantic preconditions,
-SMT-solvers~\cite{dewey2017automated, LuckPOPL,
-steinhofel2022input} can be used to automatically seek out valid
+SMT-solvers~\cite{dewey2017automated, beginners-luck,
+steinhofel_input_2022} can be used to automatically seek out valid
 inputs. These tools are
 much better at satisfying easy to moderately complex properties but
 much worse at very complex or ``sparse'' properties. The semi-automatic
@@ -1156,7 +1156,7 @@ fuzzers.
 
 Some existing projects have already worked to
 combine PBT and fuzzing.
-For example, the FuzzChick framework in Coq~\cite{OLDlampropoulos19fuzzchick}
+For example, the FuzzChick framework in Coq~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}
 uses code coverage as guidance for PBT, and HypoFuzz uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
@@ -1289,7 +1289,7 @@ Going one step further, we will explore techniques that can synthesize an
 entire reflective generator from whole cloth. There are a variety of
 attempts to do this for standard generators: Lampropoulos et al. provides
 two solutions, one based on on inductive relation specifications of
-preconditions~\cite{lampropoulos2017generating} and the other based on an
+preconditions~\cite{Lampropoulos&18} and the other based on an
 extended language for properties~\cite{beginners-luck}, while Steinh\"ofel et al.
 infer a generator from constraints using
 Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
@@ -1352,7 +1352,7 @@ A letter of collaboration
 from Prof.{} Lampropoulos appears in the supplemental documents, and
 PI Pierce has a long history
 of successful projects with Prof.
-Lampropoulos~\cite[etc.]{LuckPOPL,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1667,15 +1667,15 @@ PBT tool into the source code for a unit test they would wish to maintain
 
 Each of these projects will be developed following an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
-In this style of research, contributions come in the form of insights into task 
-structure arising from close observational interviews; the creation of novel 
-interaction primitives that map closely to these tasks; the refinement of 
-technical methods (like those from \sectionref{sec:gen} and 
-\sectionref{sec:spec}) to support proof-of-concept implementation; and the 
-lessons for interaction and algorithm design that arise from their evaluation 
-with human users. Success is evaluated as the interactions' ability to reduce 
+In this style of research, contributions come in the form of insights into task
+structure arising from close observational interviews; the creation of novel
+interaction primitives that map closely to these tasks; the refinement of
+technical methods (like those from \sectionref{sec:gen} and
+\sectionref{sec:spec}) to support proof-of-concept implementation; and the
+lessons for interaction and algorithm design that arise from their evaluation
+with human users. Success is evaluated as the interactions' ability to reduce
 testing and debugging time and increase effectiveness.
-PI Head has extensive experience with this style of work (see, for 
+PI Head has extensive experience with this style of work (see, for
 instance,~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}).
 
 \SUBSECTION{Evaluating data
@@ -1987,7 +1987,7 @@ easy for a person to identify as improvements to the test case.} (using
 approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
 in-situ editing assistance along the lines of contemporary interactive
 refactoring tools from the HCI
-literature~\cite{ref:head2018interactive,ref:barik2016quick,ref:murphyhill2008refactoring,ref:lee2013draganddrop}.
+literature~\cite{ref:head2018interactive,ref:barik2016quick,murphy2008refactoring,ref:lee2013draganddrop}.
 For this specialized task of transforming properties into regression tests,
 our tool will provide a few key features:
 keeping track of the failed input,
