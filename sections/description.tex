@@ -966,8 +966,8 @@ conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
 holler2012fuzzing, veggalam2016ifuzzer, wang2019superion,
 srivastava2021gramatron}, and for more complex, semantic preconditions,
-SMT-solvers~\cite{dewey2017automated, LuckPOPL,
-steinhofel2022input} can be used to automatically seek out valid
+SMT-solvers~\cite{dewey2017automated, beginners-luck,
+steinhofel_input_2022} can be used to automatically seek out valid
 inputs. These tools are
 much better at satisfying easy to moderately complex properties but
 much worse at very complex or ``sparse'' properties. The semi-automatic
@@ -1289,7 +1289,7 @@ Going one step further, we will explore techniques that can synthesize an
 entire reflective generator from whole cloth. There are a variety of
 attempts to do this for standard generators: Lampropoulos et al. provides
 two solutions, one based on on inductive relation specifications of
-preconditions~\cite{lampropoulos2017generating} and the other based on an
+preconditions~\cite{Lampropoulos&18} and the other based on an
 extended language for properties~\cite{beginners-luck}, while Steinh\"ofel et al.
 infer a generator from constraints using
 Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
@@ -1352,7 +1352,7 @@ A letter of collaboration
 from Prof.{} Lampropoulos appears in the supplemental documents, and
 PI Pierce has a long history
 of successful projects with Prof.
-Lampropoulos~\cite[etc.]{LuckPOPL,goldstein2021dojudgeatest,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
+Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
@@ -1683,34 +1683,28 @@ instance,~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing
   Practice}{PhD 4}{REPL 8}{Head}
 %
 Unlike conventional techniques like unit testing, where developers
-directly write concrete test cases,
-PBT automatically draws many tests from some
-{\em distribution} over possible inputs. The success of
+write concrete test cases,
+PBT automatically generates tests by drawing inputs from some
+automatically generated distribution. The success of
 PBT thus depends on the quality of this distribution---whether
 most of its probability mass is on tests that are both sufficiently
-''interesting'' and sufficiently diverse. We will develop
-tools\bcp{again, I wish the focus were on the ideas behind the tools
-  rather than the tools themselves. I suspect this is a cultural
-  difference between PL and HCI, where for a PL person ''building a
-  tool'': means simply realizing some idea that you've already figured
-out in detail (e.g., as a theorem you proved), while for an HCI person
-the tool {\em is} the theorem...} \amh{This is a challenge in HCI too, and it is
-a bug of the current writing. I think the more I can focus on unique interaction
-primitives and shy away from ``building tools'' the better. I'll try that.}
-for
-understanding distributions of input data and easily tuning them.
+''interesting'' and sufficiently diverse.
 
-We draw inspiration from related work in HCI that has sought to better expose
-the shape of data distributions including
-machine learning datasets
-(e.g.,~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and sequences of program values
-(e.g.,~\cite{ref:kang2017omnicode}).
-PBT poses a unique challenge because test inputs are
+The challenge is that it is by no means easy for a developer to determine if a 
+distribution is a ``good'' distribution. One common strategy is to inspect a 
+small number of inputs by hand; though this strategy obviously leaves developers 
+without an understanding of the breadth of what is tested by the tests.
+Despite advances in HCI in visualizing input data distributions generally,
+(e.g., for machine learning model training~\cite{ref:hohman2019gamut} and
+~\cite{ref:hohman2020understanding}) and visualizing program sequences of 
+program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting 
+solution for the PBT case. We aim to remedy that.
+
+More concretely, PBT poses the unique challenge that test inputs are
 programmatically generated and
 can be of unbounded structural
-complexity (e.g., lists, trees, and other algebraic data types,
-sequences of API calls, ...).
+complexity (e.g., lists, trees, other algebraic data types,
+sequences of API calls).
 Consider an
 example from a participant in our formative study, who wanted to generate
 realistic logs of input data, where each log entry included at least a timestamp
@@ -1725,17 +1719,11 @@ event sequences
 realistic?  This setting requires new kinds of views of data and tight
 developer support for easily defining meaningful views of the data.
 
-
-% \TASK{Tools for working with data distributions}{2}{3}{who?}
-We will design and implement new interactive tools that provide live,
-informative views of input data distributions. A mock-up of one such tool appears
-in Figure~\ref{fig:gen-vis}. These tools will address the
-challenges of visualizing generator distributions using a novel combination of
-tailored, tried-and-true features for interactive programming
-environments.\bcp{Meaning the features are old and only the
-way of combining them is novel? }\amh{Not really---the tailoring is new! This
-is a good example of where I think I undersell novelty with the writing. Will
-fix.}
+Our research efforts will focus on developing the interaction primitives 
+necessary, and the integration of these primitives, to support rapid 
+understanding of generated PBT data. We anticipate making several innovations to 
+bring this about. A mockup of these innovations appears in 
+Figure~\ref{fig:gen-vis}.
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -1748,26 +1736,25 @@ fix.}
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-First, our tools will support live, realtime displays of generated values.
-Our goal will be to provide
-instant, live~\cite{ref:tanimoto1990viva} feedback on generators. Building
-on the tradition of other live functional programming environments
+The first research innovation will be the design of live displays of generated 
+values. We believe a key requirement will be for these displays to be 
+live~\cite{ref:tanimoto1990viva} and real-time. Noting the success of other 
+recent live functional programming environments in industry and the lab
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}),
-% our environment will provide
-% live feedback summarizing many inputs produced by a generator, rather
-% than a single one; As testing proceeds,
-our environment will sample values
+our environment will incorporate liveness, sampling values
 from the generator and
-pipe them into data displays (Figure~\ref{fig:gen-vis}), which
+piping them into data displays. These displays will fill
 will first and foremost show aggregate data views, including aggregate
 statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
-of key features of the data (Figure~\ref{fig:gen-vis}.3). Visualizations will be
-generated according to simple recommendation rules, as in other recent
-exploratory visualization
-tools~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
-wongsuphasawat_voyager_2017}. Unique to our project, the tool will use a
-combination of type-based automation and
-lightweight user-provided code to extract features to visualize.
+of important summary features of the data (Figure~\ref{fig:gen-vis}.3). The 
+visualizations will be updated real-time, reflecting values as they are tested 
+to allow developers to halt tests upon seeing partial results. Visualizations 
+will be
+generated according to recommendation rules, as drawn from related work in the 
+visualization field~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
+wongsuphasawat_voyager_2017}. Unique to our setting, the tool will leverage
+type-based automation and lightweight user-defined functions to extract features 
+to visualize.
 For example, consider the
 \lstinline{log} type
 from above. A developer might be interested in the log's
@@ -1782,39 +1769,41 @@ generated automatically for common data types.
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
 
-Second, the data displays will be easily extensible, via lightweight customization hooks. If
-there are features that the user notices should be extracted but that the
-system cannot come up with itself (e.g., \lstinline{ids_unique}) the user can
-provide them alongside their property specifications;
+A second innovation will be environmental support for rapid customization with 
+user-defined functions.  If
+there are features that the developer notices should be extracted but that the
+system cannot come up with itself (e.g., \lstinline{ids_unique}), the developer 
+can
+write them alongside their property specifications;
 the interface will automatically load those features into the
 display.
 
-Third, the interface will make it possible to drill down into
+A third innovation will be interaction primitives for drilling down into
 individual inputs from a list of samples that can be
 filtered by selecting marked visualizations (e.g., choose a bar
-of length ``10'' to preview individual inputs with that length). One
-challenge will be to provide suitable representations of complex inputs that
+of length ``10'' to preview individual inputs with that length). Prior HCI tools 
+(e.g.,~\cite{ref:hohman2019gamut})
+provide this feature generally. What is unique in our domain is to provide 
+suitable representations of complex inputs that
 will be easy to understand. Some general solutions might be to
 pretty-print inputs, provide interactive object browsers like those available
-in JetBrains~\cite{tool:jetbrains}, or allow a developer to explore an
-object using a built-in REPL. Additionally, we will produce
+in JetBrains~\cite{tool:jetbrains}, to allow a developer to explore an
+object using a built-in REPL, and to produce
 DOT~\cite{ellson_graphviz_2002} representations of common kinds of
 inputs (i.e., lists, trees) for at-a-glance comprehension of
-larger inputs (Figure~\ref{fig:gen-vis}.4).
+larger inputs (Figure~\ref{fig:gen-vis}.4). We will try multiple approaches, and 
+compare their effectiveness in pilot studies.
 
-Finally, our tools will provide live feedback on the
-distribution in the form of in-situ coverage feedback. Like other HCI
-prototypes that show which line of code is currently
+A fourth innovation is the synchronization of above views with
+live feedback on what code is exercised by the tests. Building on the design 
+pattern whereby a tool show which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
-  ref:oney2009firecrystal, ref:burg2013record}, ours will
-colorize code in the editor on the basis of
-how frequently each line has been executed while running tests.
-
-The result of all this will be the first live tool for generator
-feedback and analysis. In the next section, we take it one step
-farther to consider how interactive tools can help a developer not
-just understand input data distributions, but directly change
-them.
+  ref:oney2009firecrystal, ref:burg2013record}, our tools will
+colorize code to show
+how frequently each line is executed while running tests, both in aggregate and 
+for individual tests. Altogether, the above activities will be a set of 
+interrelated interaction primitives that serve as building blocks for
+understanding distributions of complex input data.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
