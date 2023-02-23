@@ -821,7 +821,7 @@ that interact in complex ways. We plan to identify the most
 significant patterns of
 variation between modern PBT tools (e.g., defining properties as simple
 functions vs. via DSLs, or using types to steer
-generation vs. manual generators), and perform a small number of comparative studies to gain
+generation vs.{} fully manual generators), and perform a small number of comparative studies to gain
 clarity on how various
 choices would impact our design. Following best practices in experiment design
 for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
@@ -1896,18 +1896,19 @@ found this technique does not actually identify the fault discussed in
 Hypothesis' Quick Start
 documentation!\bcp{Not sure I get the point of referring to H's QS
   docs...?  I tried a bit of rewriting, but.} Could a tool highlight divergences in other more useful ways? PI
-Head was on the team that designed views of trace divergences for student
+Head was part of a team that designed views of trace divergences for student
 programmers debugging failed submissions versus a reference
-program~\cite{ref:suzuki2017tracediff}.  Such a technique is not quite right for
-PBT, where is no correct program to compare to.  Instead, innovative approaches
-are needed that show divergences in a way that: (1) point programmers to control
+program~\cite{ref:suzuki2017tracediff}, but this technique is not
+quite right for
+PBT, where is no correct program to compare to.  Instead,
+we need to show divergences in a way that (1) points programmers to control
 decisions that vary between a failure-inducing input and a set of very similar
 success-inducing ones (using the reflective generator framework to assess
-similarity); (2) show what lines will be executed next following the control
-decision by the gamut of comparison inputs; (3) support rapid navigation between
+similarity); (2) shows what lines will be executed next following the control
+decision by the gamut of comparison inputs\bcp{??}; and (3) supports rapid
+navigation between
 control decisions in the case of greatly diverging traces. We will iteratively
-design, implement, and evaluate such interaction primitives for finding
-faults.
+design, implement, and evaluate a tool supporting such interactions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
