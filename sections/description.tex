@@ -1986,8 +1986,8 @@ to adopt.
 To avoid this fate for our projects, the PhD students will work closely with our
 research engineer. The code for those projects will be designed with learnability and
 maintainability in mind, and upon
-completion it will be handed off to the
-engineer to grow and maintain.\amh{I think we want the target to be the broader developer community rather than the research engineer, if we want this project to live on after 5 years. Can we indicate a desire to transition this to joint ownership with Jane Street, or the Hypothesis team?}
+completion it will be handed off to appropriate owners
+in the open source community.
 
 Concretely, we expect the research engineer to be most involved in the following
 projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
@@ -2013,23 +2013,25 @@ for PBT. Their potential impact will be significantly magnified if they are
 integrated into a system
 that is easily accessible to would-be users. This is the inspiration for
 \tyche{}, an integrated development environment (IDE) extension for PBT.
-\amh{This said ``Tyche will include all the features''. I'm hedging to reflect the reality that in studies, we usually find that some of the ideas we work on are ready for prime time, and others aren't. I think this revision buys us more flexibility.}
 \tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
 % including tools that facilitate guided PBT
 % workflows, help developers tune and
 % improve generators, and assist in the property-authoring
 % and debugging processes
 % ---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
-\tyche{} will be developed as a Visual Studio Code extension, taking
-advantage of VSCode's status as the most widely used editor according
-to a 2022 survey~\cite{noauthor_stack_nodate} and its support for
-every language with mature PBT tooling.
-Efforts will be taken to make \tyche{} especially effective for one widely-used PBT framework---we anticipate Hypothesis as such a target. Feature implementation will be made as language-agnostic as possible to allow other language communities to ``plug in'' their PBT frameworks into the same powerful feature set.
-% While \tyche{} is intended to be language-agnostic where possible,
-% the Hypothesis
-% developers have even recommended that we try to include a fork of
-% \tyche{} into the main Python language extension for VSCode.
-\amh{I like the point about the Python language extension, but I left it out for space.}
+\tyche{} will be developed as a Visual Studio Code extension, taking advantage
+of VSCode's status as the most widely used editor according to a 2022
+survey~\cite{noauthor_stack_nodate} and its support for every language
+with mature PBT tooling.
+To maintain focus, we will concentrate our Efforts on making \tyche{} especially effective for one
+widely used
+PBT framework---probably Hypothesis, since
+its developers
+have expressed interest in including
+\tyche{} in the main Python language extension for VSCode.
+But we will make the code of \tyche{} language-agnostic wherever
+possible, to allow other
+language communities to use it with their PBT frameworks.
 
 The research engineer will lead feature integration, ensuring features come together into a
 seamless whole. They will also develop \tyche{} to serve as a platform for
