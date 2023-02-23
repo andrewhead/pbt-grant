@@ -1923,21 +1923,20 @@ One pain
 point reported
 by informants in our Jane Street interviews is that it requires
 considerable work to
-transform a counterexample detected by their PBT tools into a
+transform a (repaired) counterexample detected by their PBT tools into a
 regression test, even though much of this work
 feels mechanical.
 
-Much of this work could be automated away. After all, a counterexample
+Much of this work could be automated away. After all, a repaired
+counterexample 
 is just an input to some component plus (as specified in the property) 
-the expected output that, at the moment, the component is failing to
-produce.\bcp{There's a problem here, I think (as I'm realizing while
-  trying to untangle the wording): How do we know the expected output?}
-In theory, a PBT counterexample could be transformed into a
-3-statement unit test. 
-In practice, there are numerous circumstances when this is not desirable.
-Consider these cases: (1) an input may be so large it belongs in an external
+a way of checking that the produced output matches expectations.
+In theory, this should easily be transformable into a unit test. 
+In practice, there are numerous issues to deal with.
+Consider: (1) an input may be so large it belongs in an external
 file; (2) an input may be passed through so many operations that a tester wishes
 they were split up into independent lines, and perhaps even tested individually;
+or
 (3) a developer may wish to remove a precondition check from a property
 (consider the left side of \texttt{prop\_insert\_correct} in
 \sectionref{sec:orientation}).
