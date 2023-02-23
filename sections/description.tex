@@ -1590,65 +1590,59 @@ be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
 tools to help programmers understand properties?
 
-Drawing inspiration from recent HCI research, we envision several approaches.
-Prior work has demonstrated the potential of generating meaningful explanations
-for simple programs, whether consisting of text~\cite{ref:head2015tutorons,ref:mayer2015user},
-visualizations~\cite{ref:guo2013online}, or
-counterexamples~\cite{ref:dantoni2015can}.
-Since properties are relatively short programs with predictable
-structure, we expect many of these techniques to generalize, helping newcomers
-understand and modify properties that they encounter.
+We will explore how to design useful in-situ explanations of properties.  The 
+end goal is to produce explanations that could be viewed as just a few lines in 
+small tooltips and inline annotations in the editor and which make the meaning 
+of an opaque property clear upon quick inspection. However, this task involves 
+several research challenges. A first challenge is to simply address the right 
+aspects of complexity that can arise properties. At the minimum, properties can 
+be confusing because of their use of complex data (e.g., binary search trees, 
+even logs), structural complexity (as is the cases for properties involving many 
+predicates), and use of specialized syntax (as happens for advanced properties 
+incorporating specialized operators in frameworks like QuickSpec). We know all 
+of these manifest in some properties, though which ones will developers 
+frequently need help understanding? We will characterize complexity as it arises 
+in the properties developers write today by conducting a content 
+analysis~\cite{ref:krippendorff2018content} of code bases using PBT.
 
-The first sort of explanation we will provide is at the level of explaining
-syntax, similar to that proposed for Unix commands~\cite{ref:head2015tutorons},
-synthesized programs~\cite{ref:mayer2015user}, and Hazel
-code~\cite{ref:potter2022contextualized} in prior work. Commonly, PBT frameworks
-require the use of a custom property language. This is the case, for instance,
-for Haskell's QuickCheck.\bcp{You mean things like \lstinline{==>} and
-\lstinline{forall}?  These are really pretty simple---I would be
-surprised to learn that they are much of an obstacle for newcomers.
-Or did you have something else in mind?} For users who are familiar with the host language but
-not the property language, we will design tooltip explanations that explain
-particular idiomatic constructs including symbols and common structures in
-property-based tests.\bcp{Where is the research here?  Even if it's
-  useful (which I'm not sure), it seems pretty simple.} Our efforts
-will focus on developing the language with
-which to describe properties to those unfamiliar with PBT\bcp{how
-  would this be different from QuickCheck's DSL?},
-and to identify syntactic anchors in the code that are sensible sites for
-programmers to access automatic explanations.
-\hg{I think BCP is a bit over-skeptical here---QC does actually have a lot of
-property combinators, and they're far from ``discoverable''---but we do need to
-make a stronger case for the interaction modes being novel and/or propose a
-slightly more concrete version of a beginner-friendly property language}
-\bcp{Yes, I was channeling a grumpy PL/SE reviewer.} \amh{These are all fair
-points. There is some hand-waving here because I'm taking it on faith that
-property languages are sometimes hard to read and are explainable. But I take
-the point that we can make it more convincing by making it more concrete.
-Hopefully I can get to the bottom of this by getting more context and ideas from the two
-of you.}
+A second challenge is understanding how to generate explanations that will help 
+a programmer understand properties at-a-glance. Our main question will be which 
+of several approaches can serve developers best. A first approach is to generate 
+example input-output pairs demonstrating the behavior that a property tests.  
+This approach is motivated by other recent efforts to generate input-output 
+examples for instructional
+purposes (e.g.,~\cite{ref:gerdes2018understanding,ref:dantoni2015can}). Our task 
+has an interesting refinement relative to prior work: we are focused on 
+generating understandable inputs with potential complex structure. We will
+explore the use of our advanced generator and shrinker techniques to generate 
+both positive examples and negative (i.e., failing) examples of the property.  
+First we will generate minimal positive examples with our generators and 
+shrinkers. Then, we will attempt to generate very similar negative examples that 
+can be used for comparison by sampling from among inputs that do not pass the 
+input preconditions (by perturbing positive examples or altering parameters of 
+reflective generators), keeping those that violate the property. These positive 
+examples and (if available) negative examples would be shown, alongside 
+corresponding outputs, in compact stringified form as demonstrations of the 
+property.
 
-The second sort of explanations will be examples, namely, sampled input-output
-pairs that can convey the behavior of the program with respect to the property;
-we will display these examples next to the code in the editor using editor
-annotations.  The Jane Street study reinforced the idea that programmers like to
-understand programs by example---Jane Street uses a custom framework for
-capturing and testing with examples~\cite{minsky_testing_nodate}---so explaining
-properties with examples is a natural choice. Deciding exactly which examples to
-show may be tricky, but prior work
-suggests some heuristics~\cite{ref:gerdes2018understanding}.
-At the very least, the tool can prioritize simpler inputs by shrinking complex
-examples to smaller ones.
-This
-task will dovetail with the task described later
-(\sectionref{sec:failures}) on interactive debugging
-to identify test cases that are likely to best
-``explain'' intended program behavior.
-
-Finally, given recent trends, a natural question is whether large language
-models such as GPT3 may be able to generate high-level descriptions of the
-ideas behind properties; PI Head is investigating similar ideas
-for understanding generated code in general-purpose programming languages.
+Another comparison approach to explanation is to generate plain language 
+explanations. PI Head has prior work developing rule-based textual explainers of 
+DSLs like CSS selectors and Unix commands~\cite{ref:head2015tutorons}. A similar 
+approach might work in this context for explaining particularly complex 
+properties involving PBT less-commonly-used property combinators of libraries 
+like QuickCheck, or for properties involving tangled chains of connectives like 
+implications and conjunctions. The challenge in this research is understanding 
+patterns of textual explanations that both ``speak the language'' of a reader, 
+and which can be reliably generated from static analysis of the code. A yet 
+third approach would be to incorporate large language models which have recently 
+seen strides in being able to explain arbitrary source code; PI Head is 
+exploring such technologies for general-purpose programming languages, and this 
+approach may work well for frameworks like Hypothesis where properties are 
+written as Python functions. The contributions of all the above efforts will be 
+a characterization of complexity as it manifests in property specifications, 
+techniques for generating readable examples and text descriptions for 
+properties, and a head-to-head comparison of the most promising ideas in 
+usability studies comparing their effects on comprehending properties.
 
 % \publicationtarget{PLATEAU Workshop}
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
@@ -1666,9 +1660,9 @@ altering their generators to achieve better distributions
 and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-We also describe a planned tool to help migrate
-counterexamples found by property-based tests into
-regression tests that communicate useful information to future maintainers
+We also describe our plans to design mixed-initiative~\cite{ref:allen1999mixed} 
+interactions by which a developer could tailor a raw counterexample output by a 
+PBT tool into the source code for a unit test they would wish to maintain
 (\sectionref{sec:counter}).
 %
 % \bcp{The last, especially,
@@ -1679,18 +1673,17 @@ regression tests that communicate useful information to future maintainers
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
 
-These projects will all be pursued using HCI
-methodology: their research products will be integrated into contemporary
-interactive development environments, and their success will be
-evaluated through usability studies
-comparing developers' effectiveness and efficiency in testing (and in debugging
-problems discovered by testing).  PI Head will guide the user observation,
-tool development, and
-empirical evaluation,
-leveraging his
-experience developing, evaluating, and deploying novel programming
-environments and
-tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
+Each of these projects will be developed following an 
+artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
+In this style of research, contributions come in the form of insights into task 
+structure arising from close observational interviews; the creation of novel 
+interaction primitives that map closely to these tasks; the refinement of 
+technical methods (like those from \sectionref{sec:gen} and 
+\sectionref{sec:spec}) to support proof-of-concept implementation; and the 
+lessons for interaction and algorithm design that arise from their evaluation 
+with human users.  PI Head has extensive experience with this style of work 
+(see, for 
+instance,~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}).
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
