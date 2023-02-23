@@ -1925,10 +1925,10 @@ regression test, even though much of this work
 feels mechanical.
 
 Much of this work could be automated away. After all, a repaired
-counterexample 
-is just an input to some component plus (as specified in the property) 
+counterexample
+is just an input to some component plus (as specified in the property)
 a way of checking that the produced output matches expectations.
-In theory, this should easily be transformable into a unit test. 
+In theory, this should easily be transformable into a unit test.
 In practice, there are numerous issues to deal with.
 Consider: (1) an input may be so large it belongs in an external
 file; (2) an input may be passed through so many operations that a tester wishes
@@ -1948,9 +1948,8 @@ We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow
 that supports developers in creating unit tests from
 counterexamples. In this flow, a developer's
 editor creates a provisional unit test. The developer is
-guided through a sequence of decisions centered around inputs,
-operators\bcp{what operators?}, and
-outputs, corresponding to different ways they may wish to ``write out'' the test
+guided through a sequence of decisions corresponding to different ways
+they may wish to ``write out'' the test
 case.  Each decision results in a re-rendered test (e.g., where inputs are
 moved to a file, operations are split up, etc.)  As with PI Head's prior work
 with similar tools~\cite{ref:head2018interactive}, innovations in this work come
@@ -1975,14 +1974,14 @@ We begin with activities for ensuring that our foundational
 advances have an impact on real users, with the help of a research
 engineer (\sectionref{sec:engineersupport}). A major part of this
 effort will be
-building and maintaining \tyche, an integrated development environment for PBT
+building and promoting \tyche, an integrated development environment for PBT
 (\sectionref{sec:ide}). Next, we discuss plans to
 support open-source frameworks for PBT (\sectionref{sec:nurturing}).
 Finally, our
 education-focused activities include developing a catalog of high-leverage PBT
 use-cases (\sectionref{sec:whento}) and undergraduate- and
-masters-level courseware for PBT
-(\sectionref{sec:1210}).\amh{``Courseware'' is an unfamiliar term to me, and it makes me think we're going to make a MOOC (or something that involves software). Can we use a more familiar term? How about curriculum?}
+masters-level course materials for PBT
+(\sectionref{sec:1210}).
 
 In addition to code and educational materials, the projects in this section will
 also result in a number of engineering-focused talks. We will bring these talks
