@@ -10,6 +10,7 @@ endif
 	$(MAKE) docs
 
 docs:
+	-mkdir parts
 	cp main.pdf parts/AllPIProvidedDocuments.pdf
 	pdfjam main.pdf 2-2 --outfile parts/Parts-ProjectSummary.pdf
 	pdfjam main.pdf 3-22 --outfile parts/Parts-ProjectDescription.pdf

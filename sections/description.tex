@@ -141,7 +141,7 @@ accessibility~\cite{coblenz_pliers_2021,greenman_little_2022}.
 Synergies like these led
 Chasins et al.~\cite{chasins_pl_2021} to argue that a research
 methodology combining PL and HCI hits a ``sweet spot'' where
-need-finding techniques identify current
+need-finding techniques identify
 pain points, motivating concrete tools that help programmers write
 safe, correct code.
 
@@ -368,7 +368,7 @@ be correct.
 Our research agenda focuses mostly on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would also be applicable to alternatives
-like enumerative test-case
+like enumerative
 generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}.  The
 surprising effectiveness of random generation can be attributed to the
 ``combinatorial nature'' of large test cases---the fact that bugs can
@@ -431,8 +431,8 @@ vulnerabilities. We discuss ideas for bringing PBT and
 fuzzing closer together later in the proposal
 (\sectionref{sec:reflectivefuzzing}), but current fuzzers have fundamentally
 different goals from PBT.  In general, fuzzers need to run for a long time (hours or
-days), they are common used to test whole systems ``from the
-outside,'' and the errors they try to provoke manifest as
+days), they are commonly used to test whole systems ``from the
+outside'' by provoking
 crashes. Properties in PBT, on the other hand, can typically be
 checked more quickly (on the order of seconds), they express richer
 constraints on behavior than ``does not crash,'' and they can be used
