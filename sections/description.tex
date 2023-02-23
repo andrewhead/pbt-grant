@@ -1590,21 +1590,20 @@ be hard to understand, particularly by programmers who did not write
 them and perhaps have never used PBT themselves. Can we design
 tools to help programmers understand properties?
 
-We will explore the design of usable, useful in-situ explanations of properties.  
-The end goal is to produce explanations that could be viewed as just a few lines 
-in compact tooltips and as annotations within the editor and make the meaning of 
-an opaque property clear upon quick inspection to a developer. However, this is 
-quite a challenge task. A first challenge is to simply address the right aspects 
-of complexity that arise in a property. At the minimum, properties can be 
-confusing because of their use of complex data (e.g., binary search trees, even 
-logs), their structural complexity (as is the cases for properties involving 
-many predicates), and their use of specialized syntax (as happens for some 
-advanced properties in QuickSpec that incorporate advanced operators). We know 
-each of these manifest in some properties, though which ones will developers 
-consistently need help understanding? We will conduct a content 
-analysis~\cite{ref:krippendorff2018content} of code bases using
-PBT to characterize complexity as it arises in the properties developers write 
-today.
+We will explore how to design useful in-situ explanations of properties.  The 
+end goal is to produce explanations that could be viewed as just a few lines in 
+small tooltips and inline annotations in the editor and which make the meaning 
+of an opaque property clear upon quick inspection. However, this task involves 
+several research challenges. A first challenge is to simply address the right 
+aspects of complexity that can arise properties. At the minimum, properties can 
+be confusing because of their use of complex data (e.g., binary search trees, 
+even logs), structural complexity (as is the cases for properties involving many 
+predicates), and use of specialized syntax (as happens for advanced properties 
+incorporating specialized operators in frameworks like QuickSpec). We know all 
+of these manifest in some properties, though which ones will developers 
+frequently need help understanding? We will characterize complexity as it arises 
+in the properties developers write today by conducting a content 
+analysis~\cite{ref:krippendorff2018content} of code bases using PBT.
 
 A second challenge is understanding how to generate explanations that will help 
 a programmer understand properties at-a-glance. Our main question will be which 
