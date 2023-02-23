@@ -1997,7 +1997,7 @@ To avoid this fate for our projects, the PhD students will work closely with our
 research engineer. The code for those projects will be designed with learnability and
 maintainability in mind, and upon
 completion it will be handed off to the
-engineer to grow and maintain.
+engineer to grow and maintain.\amh{I think we want the target to be the broader developer community rather than the research engineer, if we want this project to live on after 5 years. Can we indicate a desire to transition this to joint ownership with Jane Street, or the Hypothesis team?}
 
 Concretely, we expect the research engineer to be most involved in the following
 projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
@@ -2009,8 +2009,8 @@ projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping
   {\em Mixed-initiative property
   specification}~(\sectionref{sec:interactive}) and {\em Counterexamples as
   regression tests}~(\sectionref{sec:counter}):
-  Assisting PhD
-  3 with maintenance of tools for easier property specification.
+  Assisting PhDs
+  3 and 4 with maintenance of tools for easier property specification.
 %
 Most importantly, the research engineer will help to build and maintain
 \tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
@@ -2020,37 +2020,41 @@ describe this effort in more detail in the next section.
   Transfer}{Engineer}{PhD 4}{Pierce}
 The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
 for PBT. Their potential impact will be significantly magnified if they are
-integrated together in a
-place that is easily accessible to would-be users. This is the inspiration for
+integrated into a system
+that is easily accessible to would-be users. This is the inspiration for
 \tyche{}, an integrated development environment (IDE) extension for PBT.
 
-\tyche{} will include all of the functionality designed in \sectionref{sec:val},
-including tools that facilitate guided PBT
-workflows, help developers tune and
-improve generators, and assist in the property-authoring
-and debugging processes---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
-showed that VSCode is the most widely-used IDE, and it has support for every
-language that currently has significant PBT support.
-While \tyche{} is intended to be language-agnostic where possible, the Hypothesis
-developers have even recommended that we try to include a fork of
-\tyche{} into the main Python language extension for VSCode.
+\amh{This said ``Tyche will include all the features''. I'm hedging to reflect the reality that in studies, we usually find that some of the ideas we work on are ready for prime time, and others aren't. I think this revision buys us more flexibility.}
+\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
+% including tools that facilitate guided PBT
+% workflows, help developers tune and
+% improve generators, and assist in the property-authoring
+% and debugging processes
+% ---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
+\tyche{} will be developed as a Visual Studio Code extension, taking advantage of its status as the most widely used editor according to a 2022 survey~\cite{noauthor_stack_nodate}, and its language support for every language that currently has mature PBT support.
+\amh{I rewrote this because I thought it's unrealistic to develop something that works well for all of PBT. I think we should try to do one framework really well, and introduce flexibility where we can.}
+Efforts will be taken to make \tyche{} especially effective for one widely-used PBT framework---we anticipate Hypothesis as such a target. Feature implementation will be made as language-agnostic as possible to allow other language communities to ``plug in'' their PBT frameworks into the same powerful feature set.
+% While \tyche{} is intended to be language-agnostic where possible,
+% the Hypothesis
+% developers have even recommended that we try to include a fork of
+% \tyche{} into the main Python language extension for VSCode.
+\amh{I like the point about the Python language extension, but I left it out for space.}
 
-The research engineer will assist in the integration process, ensuring that the
-extension is more than the sum of its parts. Indeed, we plan for \tyche{} to
-live on as a home for further innovation: future tools that we or others in the
-community see as important improvements to PBT workflow will also be included
-over time.  With a strong theoretical grounding and consistent engineering
-support, \tyche{} will provide an efficient pipeline for bringing research on
-PBT interaction models to developers craving better tools.
+The research engineer lead feature integration, ensuring features come together into a
+seamless whole. They will also develop \tyche{} to serve as a platform for
+further innovation as it will have been for our own: extension points will be added
+for others to create and evaluate techniques for understanding and creating properties and generators.
+In this way, \tyche{} will provide a pipeline for bringing research on
+PBT algorithms and interaction models to developers craving better tools.
 
-We will popularize \tyche{} through talks at developer
+We will make \tyche{} known to the developer community through talks at developer
 conferences and by
 disseminating information via our contacts in industry and the open source
 community.
 %
 % We will list the IDE on the Visual Studio Code extension marketplace,
 % with a goal of reaching 60,000 downloads by the end of the project.
-We aim for \tyche{} to reach 60,000 downloads by the end of the
+Our aspirational goal is for \tyche{} to reach 60,000 downloads by the end of the
 project. At
 the time of writing, this would put \tyche{} in the top 10 extensions
 tagged ``Testing'' in the Visual Studio Code extension marketplace
@@ -2073,7 +2077,8 @@ supporting and improving open-source PBT frameworks.
 %
 To make best use of limited resources, we will choose three existing PBT
 frameworks as targets and use the findings and software products from
-our research to boost their usability and adoption.
+our research to boost their usability and adoption. \amh{This sounds like a lot. I'd strongly advocate for just 1 and doing it really well, given that serious involvement in an open source project can be a full-time job, especially if it requires careful coordination with the project's team and evolution of its core code base. I think the claim that we're offering to maintain 3 open source projects and produce an extension of our own and support research will probably raise a red flag for those concerning themselves with engineering logistics.}
+\amh{If we really want to stick with 3 projects, I think we should commit to maintaining at most 1 open source project, and for the other 2 projects just integrate novel features.}
 
 We will start
 with Python's Hypothesis framework, since it is well-established and yet has
