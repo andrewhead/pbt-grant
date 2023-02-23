@@ -1,9 +1,9 @@
 \section*{Project Summary}
 
-% \newcommand{\summarysection}[1]{\subsubsection*{#1}}
+\newcommand{\summarysection}[1]{\vspace{-2mm}\subsubsection*{#1}\vspace{-1mm}}
 
 % \newcommand{\summarysection}[1]{\paragraph*{#1.}}
-\newcommand{\summarysection}[1]{\medskip \noindent {\bf #1.}}
+% \newcommand{\summarysection}[1]{\medskip \noindent {\bf #1.}}
 
 \summarysection{Overview}
 Property-based testing (PBT) is an advanced software engineering
@@ -105,27 +105,26 @@ theory of PBT.
 %
 Second, it will explore a new abstraction for random input \thread{
 generation}, ``reflective generators,'' that enables a range of use cases---generating inputs
-satisfying validity conditions, reducing test-cases to smaller ones for easier
+satisfying validity conditions, reducing test-cases for easier
 debugging,
 mutating inputs to explore program behavior,
-and manually or automatically tuning a random
-generator's distribution based on examples or code coverage. We will also
-explore further opportunities for automating the process of input test
-generation and develop benchmarks for evaluating those and other tools.
+and manually or automatically tuning a
+distribution based on examples or code coverage. We will also
+explore further opportunities to automate input generator construction
+and develop benchmarks for evaluating those and other tools.
 %
 Third, it will offer developers more usable \thread{specification} tools,
-including a language for stating temporal properties over internal
-program states, mixed-initiative interactions for defining properties,
+including a language for stating temporal properties program traces,
+mixed-initiative interactions for defining properties,
 automation for model-based testing of
-modular abstractions, and techniques for more easily explaining properties and
-their implications.
+modular abstractions, and techniques for more easily explaining properties.
 %
 And fourth, it will develop new tools for effective \thread{
 interaction} between developers and their tests, including tools for
-visualizing generated data
-distributions, tuning data distributions, simplifying test-cases, and saving
+visualizing and manipulating generated data
+distributions, simplifying test-cases, and saving
   failing test-cases as understandable unit tests, culminating in a
-  comprehensive development environment for PBT.
+  integrated development environment for PBT.
 
 \summarysection{Broader Impacts}
 A final thread of activity, coordinated with the rest and integral to the
@@ -135,13 +134,13 @@ be to drive the \thread{diffusion} of PBT tools and
 methodologies from academia into industry through targeted engineering effort
 and a broad range of educational activities.
 We will support and strengthen existing
-open-source PBT tools in popular programming languages and enrich their
-capabilities with well engineered research products from the four
+open-source PBT tools in popular programming languages and enrich them
+with well engineered research products from the four
 themes described above;
 %
 and we will
 develop materials for teaching industry programmers how to identify
-high-leverage situations for using PBT and curricula for teaching mature
+high-leverage PBT opportunities and curricula for teaching mature
 and powerful PBT practices to undergraduate and masters students.
 %
 % \iflater
@@ -153,8 +152,8 @@ and powerful PBT practices to undergraduate and masters students.
 Work on the project will include and elevate undergraduate
 researchers, including some from diverse backgrounds that will be
 identified and supported through cooperation with a recently funded NSF-REU effort
-at Penn. These undergraduates will work closely with the project's two
-PIs, four Ph.D.{} students, and staff engineer.
+at Penn. These undergraduates will work closely with the
+PIs, Ph.D.{} students, and staff engineer.
 
 % \amh{This is a place where our wording might be too ``engineering'' focused
 % rather than ``research'' focused. Can we instead state our ultimate goal as
@@ -162,9 +161,9 @@ PIs, four Ph.D.{} students, and staff engineer.
 % practice for property-based testing?}
 The ultimate goal, through novel research, education, publications, and open-source
 tools, is to advance the state of the art in property-based testing
-and give it a place on every
+and put it on every
 software developer's testing toolbelt.  Better testing, in turn, will
-lead to software systems of every description that are less expensive, more
+lead to software systems \proposecut{of every description} that are less expensive, more
 robust, and more reliable.
 
 
