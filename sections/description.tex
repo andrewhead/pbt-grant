@@ -1585,64 +1585,56 @@ transfer.
 
 \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
   Theory}{PhD 3}{REPL 7}{Pierce}
-Like code of any kind, executable properties can
+Like any code, properties can
 be hard to understand, particularly by programmers who did not write
-them and perhaps have never used PBT themselves. Can we design
+them and novices. Can we design
 tools to help programmers understand properties?
 
-We will explore how to design useful in-situ explanations of properties.  The 
-end goal is to produce explanations that could be viewed as just a few lines in 
-small tooltips and inline annotations in the editor and which make the meaning 
-of an opaque property clear upon quick inspection. However, this task involves 
-several research challenges. A first challenge is to simply address the right 
-aspects of complexity that can arise properties. At the minimum, properties can 
-be confusing because of their use of complex data (e.g., binary search trees, 
-even logs), structural complexity (as is the cases for properties involving many 
-predicates), and use of specialized syntax (as happens for advanced properties 
-incorporating specialized operators in frameworks like QuickSpec). We know all 
-of these manifest in some properties, though which ones will developers 
-frequently need help understanding? We will characterize complexity as it arises 
-in the properties developers write today by conducting a content 
+We will explore how to design useful in-situ explanations of properties, for example
+explanations that could be viewed as just a few lines in
+tooltips and inline annotations in the editor and which clarify the meaning
+of an opaque property. However, this task involves
+several research challenges.
+
+A first challenge is to simply address the right
+aspects of complexity; at the minimum, properties can
+be confusing because of their use of complex data (e.g., binary search trees,
+even logs), structural complexity (as is the cases for properties involving many
+predicates), or use of specialized syntax (as happens for advanced properties
+incorporating specialized operators in frameworks like QuickSpec). We know all
+of these manifest in some properties, but the frequencies are unclear.
+We will characterize complexity as it arises
+in the properties developers write by conducting a content
 analysis~\cite{ref:krippendorff2018content} of code bases using PBT.
 
-A second challenge is understanding how to generate explanations that will help 
-a programmer understand properties at-a-glance. Our main question will be which 
-of several approaches can serve developers best. A first approach is to generate 
-example input-output pairs demonstrating the behavior that a property tests.  
-This approach is motivated by other recent efforts to generate input-output 
+A second challenge is understanding how to generate explanations that will help
+a programmer understand properties at-a-glance. Several approaches may work well
+here.
+{\bf Input-Output Examples.} A first approach is to generate
+example input-output pairs demonstrating the behavior that a property tests.
+This approach is motivated by other recent efforts to generate input-output
 examples for instructional
-purposes (e.g.,~\cite{ref:gerdes2018understanding,ref:dantoni2015can}). Our task 
-has an interesting refinement relative to prior work: we are focused on 
-generating understandable inputs with potential complex structure. We will
-explore the use of our advanced generator and shrinker techniques to generate 
-both positive examples and negative (i.e., failing) examples of the property.  
-First we will generate minimal positive examples with our generators and 
-shrinkers. Then, we will attempt to generate very similar negative examples that 
-can be used for comparison by sampling from among inputs that do not pass the 
-input preconditions (by perturbing positive examples or altering parameters of 
-reflective generators), keeping those that violate the property. These positive 
-examples and (if available) negative examples would be shown, alongside 
-corresponding outputs, in compact stringified form as demonstrations of the 
-property.
+purposes (e.g.,~\cite{ref:gerdes2018understanding,ref:dantoni2015can}).
+We will leverage reflective generators and shrinkers to generate
+generating understandable inputs with potential complex structure, finding
+both positive examples and negative (i.e., failing) examples of program's behavior.
+{\bf Plain Language Explanations.} PI Head has prior work developing rule-based textual explainers of
+DSLs like CSS selectors and Unix commands~\cite{ref:head2015tutorons}; a similar
+approach might work in this context.
+The challenge in this research is understanding
+patterns of textual explanations that both ``speak the language'' of a reader,
+and which can be reliably generated from static analysis of the code.
+{\bf Large Language Models.} Large language models have recently
+seen strides in being able to explain arbitrary source code; PI Head is
+exploring such technologies for general-purpose programming languages, and this
+approach may work well for frameworks like Hypothesis where properties are
+written as Python functions.
 
-Another comparison approach to explanation is to generate plain language 
-explanations. PI Head has prior work developing rule-based textual explainers of 
-DSLs like CSS selectors and Unix commands~\cite{ref:head2015tutorons}. A similar 
-approach might work in this context for explaining particularly complex 
-properties involving PBT less-commonly-used property combinators of libraries 
-like QuickCheck, or for properties involving tangled chains of connectives like 
-implications and conjunctions. The challenge in this research is understanding 
-patterns of textual explanations that both ``speak the language'' of a reader, 
-and which can be reliably generated from static analysis of the code. A yet 
-third approach would be to incorporate large language models which have recently 
-seen strides in being able to explain arbitrary source code; PI Head is 
-exploring such technologies for general-purpose programming languages, and this 
-approach may work well for frameworks like Hypothesis where properties are 
-written as Python functions. The contributions of all the above efforts will be 
-a characterization of complexity as it manifests in property specifications, 
-techniques for generating readable examples and text descriptions for 
-properties, and a head-to-head comparison of the most promising ideas in 
-usability studies comparing their effects on comprehending properties.
+The above efforts will contribute
+a characterization of complexity in property specifications,
+techniques for generating readable examples and text descriptions for
+properties, and comparisons of these techniques in
+usability studies.
 
 % \publicationtarget{PLATEAU Workshop}
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
@@ -1660,8 +1652,8 @@ altering their generators to achieve better distributions
 and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-We also describe our plans to design mixed-initiative~\cite{ref:allen1999mixed} 
-interactions by which a developer could tailor a raw counterexample output by a 
+We also describe our plans to design mixed-initiative~\cite{ref:allen1999mixed}
+interactions by which a developer could tailor a raw counterexample output by a
 PBT tool into the source code for a unit test they would wish to maintain
 (\sectionref{sec:counter}).
 %
@@ -1673,7 +1665,7 @@ PBT tool into the source code for a unit test they would wish to maintain
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
 
-Each of these projects will be developed following an 
+Each of these projects will be developed following an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
 In this style of research, contributions come in the form of insights into task 
 structure arising from close observational interviews; the creation of novel 
@@ -2351,8 +2343,8 @@ will be increasing representation of
 other underrepresented groups, including Black and Latinx
 students. Pierce (along with Penn colleagues Zdancewic and Weirich)
 was recently informed that he will receive funding for an
-NSF REU program that will involve 24 undergraduates (8 per
-year for three years), selected specifically with an eye to diversity;
+NSF REU program that will involve 24 undergraduates (either per
+year for three+ years), selected specifically with an eye to diversity;
 for the present project, we are requesting funds to add two more per
 year specifically to work on PBT topics, many of which are well suited
 to undergraduate interns. See the Broadening Participation in Computing supplementary
@@ -2374,8 +2366,8 @@ This project also presents excellent opportunities for strengthening
 collaborations between university researchers and industrial advocates of PBT.  Our
 ongoing user study at Jane Street has been carried out with the
 enthusiastic support of their developers and management, and we hope
-to continue using Jane Street as a testbed for prototypes of the tools we
-will build.  Similarly, we are in active discussions with the
+to continue using Jane Street as a testbed for prototypes of our
+tools.  We are also in active discussions with the
 developers of Hypothesis, who are keenly
 interested in the results of this proposal.
 We plan to establish connections with the
@@ -2476,24 +2468,3 @@ Shi.
 % based on previously established and/or innovative methods and approaches, but in either case must be well
 % justified. These issues apply to both the technical aspects of the proposal and the way in which the project may
 % make broader contributions.
-
-\iflast
-\section*{Final checks}
-
-\todo{GPG: Each reference must include the names of all authors (in
-  the same sequence in which they appear in the publication), the
-  article and journal title, book title, volume number, page numbers,
-  and year of publication. (See also Chapter II.D.2.d(iii)(d)) If the
-  proposer has a website address readily available, that information
-  should be included in the citation. It is not NSF's intent, however,
-  to place an undue burden on proposers to search for the URL of every
-  referenced publication. Therefore, inclusion of a website address is
-  optional. A proposal that includes reference citation(s) that do not
-  specify a URL is not considered to be in violation of NSF proposal
-  preparation guidelines and the proposal will still be reviewed.}
-\bcp{We should just give it a once over and bring it up to usual
-  scholarly standards.  I don't think we will be dinged if we omit
-  some page numbers, etc.}
-
-
-\fi
