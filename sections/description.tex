@@ -1660,9 +1660,9 @@ altering their generators to achieve better distributions
 and (3) understanding testing-provoked failures involving complex inputs
 (\sectionref{sec:failures}).
 %
-We also describe a planned tool to help migrate
-counterexamples found by property-based tests into
-regression tests that communicate useful information to future maintainers
+We also describe our plans to design mixed-initiative~\cite{ref:allen1999mixed} 
+interactions by which a developer could tailor a raw counterexample output by a 
+PBT tool into the source code for a unit test they would wish to maintain
 (\sectionref{sec:counter}).
 %
 % \bcp{The last, especially,
@@ -1673,18 +1673,17 @@ regression tests that communicate useful information to future maintainers
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
 
-These projects will all be pursued using HCI
-methodology: their research products will be integrated into contemporary
-interactive development environments, and their success will be
-evaluated through usability studies
-comparing developers' effectiveness and efficiency in testing (and in debugging
-problems discovered by testing).  PI Head will guide the user observation,
-tool development, and
-empirical evaluation,
-leveraging his
-experience developing, evaluating, and deploying novel programming
-environments and
-tools~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
+Each of these projects will be developed following an 
+artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
+In this style of research, contributions come in the form of insights into task 
+structure arising from close observational interviews; the creation of novel 
+interaction primitives that map closely to these tasks; the refinement of 
+technical methods (like those from \sectionref{sec:gen} and 
+\sectionref{sec:spec}) to support proof-of-concept implementation; and the 
+lessons for interaction and algorithm design that arise from their evaluation 
+with human users.  PI Head has extensive experience with this style of work 
+(see, for 
+instance,~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}).
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
