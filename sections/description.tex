@@ -1463,34 +1463,25 @@ system \emph{containing} the component(s) of concern.
 %
 Even if a developer believes, in the abstract, that PBT should useful
 to them, they may still have trouble writing concrete properties
-for real cases that come up in their work. To help build these
-intuitions, we will develop
-interactive tools to help programmers compose their first
-properties in an educational setting.
+for real cases that come up in their work. We will explore how programmers can engage in an iterative loop with their tools to compose properties, focusing on programmers' first encounters with PBT in an educational setting.
 
-We envisage a mixed-initiative~\cite{ref:allen1999mixed}
-tool, where a student and their code editor work together to arrive at a
-meaningful property. Extending prior work on property extraction techniques
+We will design a novel mixed-initiative~\cite{ref:allen1999mixed} workflow for
+students and their code editor work together to arrive at
+meaningful properties. Prior work has contributed techniques that automatically
+extract properties from programs
 \cite[etc.]{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
-smith_discovering_2017}, the idea is to help students compose properties that
+smith_discovering_2017}. Our aim is to explore how tasks can be divided between a student and automation to arrive at properties that
 are not just {\em accurate} partial descriptions of correct system behavior, but
-that describe {\em important} aspects of behavior. We will build
-on a property
-extractor that helps students write their first properties by allowing them
-to (1) identify areas of code likely to lead to adverse behavior,
-(2) provide unit test cases that represent special cases of more general
-properties, and (3) select attributes of data types in the source code, or
-of input and output relevant data in a debugging REPL.\bcp{Having
-  trouble imagining what the previous sentence actually means.} This
-will allow a student to more rapidly map from behaviors they can
-observe or specify in familiar ways, and see how those behaviors are cast into
-the language of their property checker.\bcp{Ditto.}
-%
-The tool will be deployed in Penn's upper division Haskell
-course (CIS 5520) and will therefore be implemented on top of
-Haskell's property
-generator tool, QuickSpec~\cite{ref:claessen2010quickspec}. \bcp{What
-  will QuickSpec be used for, exactly?  I'm not following.}
+also {\em important} aspects of behavior. To achieve this aim, it will require
+designing interactions for developers to specify desired properties in direct
+ways, and extensions to property extractors that incorporate this information. We envisage
+interactions that help students steer a property extractor by (1) selecting areas of code likely to lead to adverse behavior,
+and then indicating the kinds of properties they might wish to test less formally by (2)
+writing unit test cases that represent special cases of more general
+properties, and (3) writing assertions in the REPL. This interaction would be mixed-initiative, permitting a user to refine generated properties by providing additional test cases that should be satisfied or rejected. Such interactions would be prototyped on top of an open source property generator tool like QuickSpec~\cite{ref:claessen2010quickspec}, using user inputs to steer generation, and evaluated in Penn's upper division Haskell
+course (CIS 5520).\bcp{What
+  will QuickSpec be used for, exactly?  I'm not following.} \amh{Is this any clearer? If not, maybe we can leave this out. Basically, we need a property generator to generate properties that match the program under test, and user hints. I made a (perhaps uneducated) guess that QuickSpec, a property generator tool for Haskell, could be used for this.}
+\amh{This is probably still too vague and it's a pity that our first interaction section is this vague, though I think this might need discussion to flesh out more and we're at our space limits.}
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
