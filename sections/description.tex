@@ -1901,14 +1901,14 @@ divergences between failed and successful tests? PI Head was on the team that
 designed views of trace divergences for student programmers debugging failed 
 submissions versus a reference program~\cite{ref:suzuki2017tracediff}. Such a 
 technique is not quite right for PBT, where is no correct program to compare to.  
-We plan to develop innovative trace divergence views that, specifically: (1) 
-point programmers to control decisions that vary between a failure-inducing 
+Instead, innovative approaches are needed that show divergences in a way that: 
+(1) point programmers to control decisions that vary between a failure-inducing 
 input and a set of very similar success-inducing ones (using the reflective 
 generator framework to assess similarity); (2) show what lines will be executed 
 next following the control decision by the gamut of comparison inputs; (3) 
 support rapid navigation between control decisions in the case of greatly 
-diverging traces. Such innovations in debugging, we believe, are necessary to 
-provide general-purpose support to using trace divergences to debug.
+diverging traces. We will iteratively design, implement, and evaluate such 
+interaction primitives for finding PBT faults.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
@@ -1923,63 +1923,42 @@ One pain
 point reported
 by informants in our Jane Street interviews was that it requires
 considerable work to
-transform a failure detected by their PBT tools into a
+transform a counterexample detected by their PBT tools into a
 regression test, even though much of this work
 feels mechanical.
 
-In reality, the work is \emph{mostly}, but not entirely, mechanical.
-Creating good regression tests will require judicious incorporation of
-the developer's input at key decision points, particularly for
-specifying acceptance criteria\bcp{what's that?}. For instance, consider a property that checks
-that a list insertion function never produces an empty list. In the event of a
-failure, a developer may want to produce a regression test checking the
-exactness of the result on the failed input (e.g., checking that the insertion
-produced a particular concrete list) rather than simply checking that the output
-list is non-empty.\bcp{I don't get this.  Is the regression test
-  supposed to test the {\em in}correct behavior, or the correct
-  behavior after the bug is fixed?  Why would we want the former?} \amh{The
-  correct behavior, though the property may underspecify the intended output
-  versus what the developer would like to have in the test.}
-Writing a regression test may involve multiple such
-choices, including whether to test for exact output, whether to test
-intermediate results, and how to initialize inputs.\bcp{Readers may
-  have trouble visualizing why we'd need each of these.}
+Much of this work could be automated away. After all, a counterexample just 
+consists the declaration of an input, and (as specified in the property) the 
+transformation of that input into an output followed by a check of that output.  
+In theory, a counterexample could be transformed into a 3-statement unit test.  
+In practice, there are numerous circumstances when this is not desirable.  
+Consider these cases: (1) an input may be so large it belongs in an external 
+file; (2) an input may be passed through so many operations that a tester wishes 
+they were split up into independent lines, and perhaps even tested individually; 
+(3) a developer may wish to remove a precondition check from a property 
+(consider the left side of \texttt{prop\_insert\_correct} in 
+\sectionref{sec:orientation}); (4) a developer may wish to compare to a more 
+specific output than the test calls for (e.g., for 
+\texttt{prop\_insert\_correct}, compare to the expected tree following 
+insertion, rather than checking if it binary). In all of these cases, automation 
+cannot know a developer would wish to make these choices beforehand; but it can 
+at least make them readily available to the developer.
 
-We will explore interactive tools to assist developers in creating
-regression tests from failed tests. The idea is to first develop
-technology for generating sufficiently readable code for regression
-tests\bcp{I don't have a clear picture of what this would involve.
-  Isn't a regression test just ``You poke the system like this and it
-responds like that''?  Where are the readability challenges?}\amh{I think it
-is more stylistic questions than any. An automated test case generator might
-produce a test that is technically correct, but ugly. For instance, multiple
-function calls are chained in the same line, rather than split onto multple
-lines. Or test success is evaluated by comparing to a really complex output,
-rather than comparing one particular attribute on that output that you really
-care about. These are types of stylistic choices that may be difficult to encode
-in an automated test case generator / styler, but something that would be pretty
-easy for a person to identify as improvements to the test case.} (using
-approaches such as Daka et al.'s~\cite{ref:daka2015modeling}), and then provide
-in-situ editing assistance along the lines of contemporary interactive
-refactoring tools from the HCI
-literature~\cite{ref:head2018interactive,ref:barik2016quick,murphy2008refactoring,ref:lee2013draganddrop}.
-For this specialized task of transforming properties into regression tests,
-our tool will provide a few key features:
-keeping track of the failed input,
-generating starter test code, substituting in correct expected values of the
-output by executing corrected code, and supporting developers in rapidly
-performing likely edits to regression tests.%
-\bcp{Again, I'm worried that (especially for non-HCI reviewers) this
-  will read like ``Oh, they want to build a little tool,'' rather
-  than, ``This is a research topic that one could write a whole paper
-  about.''}\amh{I need to think about this.}
-We also hope the results of this work
-can inform the
-design of other approaches to counterexample extraction, including one that is
-proposed for the Hypothesis in Python.\bcp{Going into more detail
-about this bit might help!}\amh{I'm not sure about this one; I think this is
-based on Harry's communication with Zac. One of us should either turn Zac's
-feedback into something concrete here, or otherwise we should leave it out.}
+We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow 
+that supports developers in creating unit tests efficiently that ``unpack'' a 
+counterexample into the kind of test they wish to maintain. In this flow, a 
+developer's editor creates a provisional unit test. The developer is guided 
+through a sequence of decisions centered around inputs, operators, and outputs 
+(see for instance~\cite{ref:head2018interactive,ref:barik2016quick}), 
+corresponding to different ways they may wish to ``write out'' the test case. 
+Each decision will result in a re-rendered test (e.g., where inputs are moved to 
+a file, operations are split up, etc.)  As with PI Head's prior work with 
+similar tools~\cite{ref:head2018interactive}, the innovation in this work comes 
+from identifying a powerful small number of decisions, and sequencing them in an 
+order that is easy for developers to follow.  Decision points will be chosen on 
+the basis of observations of developers creating test cases from 
+counterexamples; we will prioritize those decisions that are time-consuming and 
+are likely to vary by context so that they cannot be automated. 
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
