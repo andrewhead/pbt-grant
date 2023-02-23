@@ -813,28 +813,27 @@ these sessions will serve as metrics against which the
 likelihood of success of particular designs can be measured before
 implementation.
 
-\bcp{Need to finish re-reading this.}
-
 The second kind of study will be controlled comparisons of design alternatives.
-Language design, like the kind we plan to do relating to generators
+Language design, like what we plan relating to generators
 (\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
 difficult to inform empirically because there are many design choices
-and interactions between them. We plan to identify the most germane patterns of
-variation between modern PBT tools (e.g., the definition of properties as simple
-functions versus the use of a DSL, or the use of annotations to steer
-generation), and perform a select few comparative studies to gain
+that interact in complex ways. We plan to identify the most
+significant patterns of
+variation between modern PBT tools (e.g., defining properties as simple
+functions versus via DSLs, or the use of annotations to steer
+generation\bcp{Don't think I've seen annotations used to steer
+  generation...?}), and perform a small number of comparative studies to gain
 clarity on how various
 choices would impact our design. Following best practices in experiment design
-for programming tools~\cite{ref:ko2015practical}, we will enable meaningful
-comparisons by keeping task design simple, training
-participants to control for variance in prior skill, and triangulating findings
+for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
+participants to control for variance in prior skill, and triangulate findings
 from a mixture of
 quantitative metrics (e.g., success, task duration, error rate, subjective
 reports of difficulty) and qualitative analysis (e.g., thematic
 analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
 of problematic incidents). Most of these findings will be in service of research projects described elsewhere
-in this proposal. A select few findings may be disseminated in
-publication if of broad interest.
+in this proposal, but they may also be disseminated as
+publications if they turn out to be of broader interest.
 
 \publicationtarget{PLATEAU Workshop}
 
@@ -1970,8 +1969,8 @@ masters-level courseware for PBT
 (\sectionref{sec:1210}).\amh{``Courseware'' is an unfamiliar term to me, and it makes me think we're going to make a MOOC (or something that involves software). Can we use a more familiar term? How about curriculum?}
 
 In addition to code and educational materials, the projects in this section will
-also result in publicity of our findings among broad developer audiences, including talks at
-industry conference like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
+also result in a number of engineering-focused talks. We will bring these talks
+to industry conference like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
@@ -2021,8 +2020,10 @@ that is easily accessible to would-be users. This is the inspiration for
 % improve generators, and assist in the property-authoring
 % and debugging processes
 % ---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
-\tyche{} will be developed as a Visual Studio Code extension, taking advantage of its status as the most widely used editor according to a 2022 survey~\cite{noauthor_stack_nodate}, and its language support for every language that currently has mature PBT support.
-\amh{I rewrote this because I thought it's unrealistic to develop something that works well for all of PBT. I think we should try to do one framework really well, and introduce flexibility where we can.}
+\tyche{} will be developed as a Visual Studio Code extension, taking
+advantage of VSCode's status as the most widely used editor according
+to a 2022 survey~\cite{noauthor_stack_nodate} and its support for
+every language with mature PBT tooling.
 Efforts will be taken to make \tyche{} especially effective for one widely-used PBT framework---we anticipate Hypothesis as such a target. Feature implementation will be made as language-agnostic as possible to allow other language communities to ``plug in'' their PBT frameworks into the same powerful feature set.
 % While \tyche{} is intended to be language-agnostic where possible,
 % the Hypothesis
@@ -2044,7 +2045,7 @@ community.
 %
 % We will list the IDE on the Visual Studio Code extension marketplace,
 % with a goal of reaching 60,000 downloads by the end of the project.
-Our aspirational goal is for \tyche{} to reach 60,000 downloads by the end of the
+Our goal is for \tyche{} to reach 60,000 downloads by the end of the
 project. At
 the time of writing, this would put \tyche{} in the top 10 extensions
 tagged ``Testing'' in the Visual Studio Code extension marketplace
@@ -2081,11 +2082,10 @@ especially excited about integrating ideas like reflective generators
 visualization (\sectionref{fig:gen-vis}) into Python's VCSode environment.
 The success of this collaboration will be measured by the Hypothesis team's
 willingness to include our tools in future releases and promote them to the
-community.
+community.\bcp{And uptake in the community?}
 
-Besides Hypothesis, we will seek out two more projects to contribute to in small
-ways. These
-will be chosen based on potential impact: we will prioritize great
+Besides Hypothesis, we will choose two additional projects to contribute
+to in smaller ways, prioritizing great
 projects in popular programming languages that have significant room
 for growth. Candidates include
 Scala's ScalaCheck,
@@ -2095,7 +2095,8 @@ some attractive low-hanging fruit~\cite{noauthor_shrinking_nodate}, and projects
 embedded in massive language
 communities that could benefit from better tools for PBT.
 We will work closely with the
-developer of these to ensure that our input is well received by the community.
+developers and maintainers of these projects to ensure that our input
+is well received by the community.
 
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
