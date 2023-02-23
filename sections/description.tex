@@ -1664,17 +1664,17 @@ interaction primitives that map closely to these tasks; the refinement of
 technical methods (like those from \sectionref{sec:gen} and
 \sectionref{sec:spec}) to support proof-of-concept implementation; and the
 lessons for interaction and algorithm design that arise from their evaluation
-with human users. Success will be evaluated as the interactions' ability to 
+with human users. Success will be measure by the interactions' ability to
 reduce
 testing and debugging time and increase effectiveness.
-PI Head has extensive experience with this style of work 
+PI Head has extensive experience with this style of work
 (see~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}).
 
 \SUBSECTION{Evaluating data
   distributions}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 4}{REPL 8}{Head}
 %
-Unlike conventional approaches to unit testing, where developers
+Unlike conventional unit testing, where developers
 write concrete test cases,
 PBT automatically generates tests by drawing inputs from some
 automatically generated distribution. The success of
@@ -1682,14 +1682,14 @@ PBT thus depends on the quality of this distribution---whether
 most of its probability mass is on tests that are both sufficiently
 ''interesting'' and sufficiently diverse.
 
-The challenge is that it is by no means easy for a developer to determine if a 
-distribution is a ``good'' distribution. One common strategy is to inspect a 
-small number of inputs by hand; though this strategy obviously leaves developers 
+The challenge is that it is by no means easy for a developer to determine if a
+distribution is a ``good'' distribution. One common strategy is to inspect a
+small number of inputs by hand; though this strategy obviously leaves developers
 without an understanding of the breadth of what is tested by the tests.
 Despite advances in HCI in visualizing input data distributions generally,
 (e.g., for machine learning model training~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and visualizing program sequences of 
-program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting 
+~\cite{ref:hohman2020understanding}) and visualizing program sequences of
+program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting
 solution for the PBT case. We aim to remedy that.
 
 More concretely, PBT poses the unique challenge that test inputs are
@@ -1708,11 +1708,11 @@ Ideally, the developer would be able, by examining the generator's
 distribution, to answer
 questions like: Are the generated log inputs long enough? And are the
 event sequences
-realistic? 
+realistic?
 
-Our research efforts will focus on contributing the interaction primitives, and 
-the unifying environments, necessary to answer questions like these. We 
-anticipate making several innovations to bring this about. A mockup of these 
+Our research efforts will focus on contributing the interaction primitives and
+ unifying environments necessary to answer questions like these. We
+anticipate making several innovations to bring this about. A mockup of these
 innovations appears in Figure~\ref{fig:gen-vis}.
 
 \begin{wrapfigure}{r}{0.58\textwidth}
@@ -1726,21 +1726,21 @@ innovations appears in Figure~\ref{fig:gen-vis}.
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-The first research innovation will be the design of live displays of generated 
+The first research innovation will be the design of live displays of generated
 values. These displays
 will show aggregate data views, including aggregate
 statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
-of important summary features of the data (Figure~\ref{fig:gen-vis}.3). The 
-displays will be live~\cite{ref:tanimoto1990viva} and real-time. Noting the 
-success of other successful live functional programming environments in industry 
+of important summary features of the data (Figure~\ref{fig:gen-vis}.3). The
+displays will be live~\cite{ref:tanimoto1990viva} and real-time. Noting the
+success of other successful live functional programming environments in industry
 and academia
-(e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will 
+(e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will
 provide visibility and control (i.e., the ability to change or halt)
 long-running, opaque data generation processes.  Visualizations will be
-generated using recommendation rules as done in related work in exploratory data 
+generated using recommendation rules as done in related work in exploratory data
 analysis~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
 wongsuphasawat_voyager_2017}. Unique to our setting, the tool will leverage
-type-based automation and user-defined functions to extract features to 
+type-based automation and user-defined functions to extract features to
 visualize.
 For example, consider the
 \lstinline{log} type
@@ -1756,21 +1756,21 @@ generated automatically for common data types.
 % and even pairs of features like these (which could be viewed as a two
 % dimensional feature).
 
-A second innovation will be environmental support for rapid customization with 
+A second innovation will be environmental support for rapid customization with
 user-defined functions.  If
 there are features that the developer notices should be extracted but that the
-system cannot come up with itself (e.g., \lstinline{ids_unique}), the developer 
+system cannot come up with itself (e.g., \lstinline{ids_unique}), the developer
 can
 write them alongside their property specifications;
 the interface will automatically load those features into the
 display.
 
 A third innovation will be interaction primitives for drilling down into
-individual inputs from aggregate views by selecting marks in visualizations 
+individual inputs from aggregate views by selecting marks in visualizations
 (e.g., choosing a bar
-of length ``10'' to preview individual inputs with that length). Prior HCI tools 
+of length ``10'' to preview individual inputs with that length). Prior HCI tools
 (e.g.,~\cite{ref:hohman2019gamut})
-provide this feature generally. What is unique in our domain is to provide 
+provide this feature generally. What is unique in our domain is to provide
 suitable representations of complex inputs that
 will be easy to understand. Some general solutions might be to
 pretty-print inputs, provide interactive object browsers like those available
@@ -1779,19 +1779,19 @@ object using a built-in REPL, and to produce
 DOT~\cite{ellson_graphviz_2002} representations of common kinds of
 inputs (i.e., lists, trees) for at-a-glance comprehension of
 larger inputs (Figure~\ref{fig:gen-vis}.4). We will try each of these
-approaches, and compare their effectiveness in pilot studies.
+approaches and compare their effectiveness in pilot studies.
 
 A fourth innovation is the synchronization of above views with
-live feedback on what code is exercised by the tests. Building on the design 
+live feedback on what code is exercised by the tests. Building on the design
 pattern whereby a tool show which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
   ref:oney2009firecrystal, ref:burg2013record}, our tools will
 colorize code to show
-how frequently each line is executed while running tests, both in aggregate and 
-for individual tests. Altogether, the above activities will be a set of 
+how frequently each line is executed while running tests, both in aggregate and
+for individual tests. Altogether, the above activities will be a set of
 interrelated interaction primitives that serve as building blocks for
-understanding distributions of complex input data. Success of this (and the next 
-two projects) will be determined by the novel interactions' ability to reduce 
+understanding distributions of complex input data. Success of this (and the next
+two projects) will be determined by the novel interactions' ability to reduce
 testing time and achieve desirable input distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
@@ -1802,29 +1802,29 @@ testing time and achieve desirable input distributions.
 Tuning generators to produce ``interesting''
 values more often can be challenging, requiring
 significant trial and error. Purely automated approaches
-like those we describe in \sectionref{sec:reflective} provide part of the 
-solution, as do code coverage-based generation techniques 
+like those we describe in \sectionref{sec:reflective} provide part of the
+solution, as do code coverage-based generation techniques
 (e.g.~\cite{afl-readme}). That said,
-even these techniques fall short of the kinds of inputs a developer would wish 
+even these techniques fall short of the kinds of inputs a developer would wish
 to produce.
 
 Building on our work in \sectionref{sec:reflective}, we envision new
-ways of specifying desired distributions through interaction. One innovation we 
-will work on is to support tuning by manipulating the visualizations 
-from~\sectionref{sec:evaluating_distributions}. The goal is to enable a kind of 
-bidirectionality for PBT programming that has seen success in other areas of 
+ways of specifying desired distributions through interaction. One innovation we
+will work on is to support tuning by manipulating the visualizations
+from~\sectionref{sec:evaluating_distributions}. The goal is to enable a kind of
+bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
- A first approach to achieving this is via input filtering: a developer could 
-select a mark (e.g., a bar) in an aggregate visualization and request that 
-inputs from that mark are discarded before testing. This approach is flexible, 
-though limited: it does change the underlying generator, so it cannot lead to 
+ A first approach to achieving this is via input filtering: a developer could
+select a region (e.g., a bar) in an aggregate visualization and request that
+inputs from that region are discarded before testing. This approach is flexible,
+though limited: it does change the underlying generator, so it cannot lead to
 new kinds of values, or greater efficiency in generating desired values.
 % It may also lead to inefficiency, if too many values are
 % generated from the distribution only to be discarded by the
 % filter.
 
-Therefore, we will design additional interactions that leverage the unique 
+Therefore, we will design additional interactions that leverage the unique
 ability of reflective generators
 (\sectionref{sec:reflective}) to change the underlying
 generator parameters. As developers interact with a visualization,
@@ -1837,8 +1837,8 @@ Developers will be able to interact directly with the visualization to
 indicate, for example, that they would like to see more inputs like
 one that has already
 been generated, or that they would like an input similar to a generated input,
-but different in a way that they are demonstrating. This project and that in 
-\sectionref{sec:evaluating_distributions} will together yield new paradigms for 
+but different in a way that they are demonstrating. This project and that in
+\sectionref{sec:evaluating_distributions} will together yield new paradigms for
 understanding and changing input data distributions.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)
@@ -1848,51 +1848,51 @@ and/or User Interface Software and Technology (UIST)}
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
 %
 As with any kind of testing, one challenge with PBT is understanding why
-a given counterexample triggers a failure. We will explore new interactions that 
-take advantage of the machinery available from PBT tooling to help programmers 
+a given counterexample triggers a failure. We will explore new interactions that
+take advantage of the machinery available from PBT tooling to help programmers
 understand failures.
 
-Our first effort will be to design interactive input shrinkers. Typical 
-automated shrinking approaches 
-(e.g.,~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and our own techniques 
-in \sectionref{sec:reflective}) can get stuck at local minima far from the 
-global minimum, without realistic options for users to get them ``unstuck.'' But 
-developers can see shrinking options that a shrinker does not know about.  Could 
+Our first effort will be to design interactive input shrinkers. Typical
+automated shrinking approaches
+(e.g.,~\cite{hughes_quickcheck_2007,arts_shrinking_2014}, and our own techniques
+in \sectionref{sec:reflective}) can get stuck at local minima far from the
+global minimum, without realistic options for users to get them ``unstuck.'' But
+developers can see shrinking options that a shrinker does not know about.  Could
 interaction help a developer shrink a stubbornly large input?
 
 Inspiration can be taken from HCI research on incremental code simplification
-(e.g.,~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope}), 
-but it is not enough: new solutions are needed when the target of simplification 
-is a structure with recursion and many data fields. We therefore will study an 
-interactive shrinking paradigm suited for PBT. We propose a semi-automatic 
-interaction where a developer performing some simplifications manually in an 
+(e.g.,~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope}),
+but it is not enough: new solutions are needed when the target of simplification
+is a structure with recursion and many data fields. We therefore will study an
+interactive shrinking paradigm suited for PBT. We propose a semi-automatic
+interaction where a developer performing some simplifications manually in an
 interactive
-object viewer (like those in modern debuggers like JetBrains 
+object viewer (like those in modern debuggers like JetBrains
 IDE~\cite{tool:jetbrains}), and a shrinker attempts
-simplifications in the time between. Key innovations in an interactive shrinker 
+simplifications in the time between. Key innovations in an interactive shrinker
 would include: (1) displaying
 the valid ways an input can be pruned,
 relying on reflective generators to understand which parts of the
-structure can be changed while adhering to preconditions; and (2) automated 
-shrinking after each  action to suggest a small number of divergent shrinking 
+structure can be changed while adhering to preconditions; and (2) automated
+shrinking after each  action to suggest a small number of divergent shrinking
 decisions a developer may wish to try next.
 
-New opportunities also arise to help developers find the root cause of a 
-failures in a PBT setting. One current approach is implemented by Hypothesis' 
-\texttt{explain} module, which points users to lines that are always run by 
-failed tests, but never by successful tests. Better solutions are possible; we 
-found this technique does not identify the fault in Hypothesis' quick start 
-documentation. Could a tool highlight divergences in other more useful ways? PI 
-Head was on the team that designed views of trace divergences for student 
-programmers debugging failed submissions versus a reference 
-program~\cite{ref:suzuki2017tracediff}.  Such a technique is not quite right for 
-PBT, where is no correct program to compare to.  Instead, innovative approaches 
-are needed that show divergences in a way that: (1) point programmers to control 
-decisions that vary between a failure-inducing input and a set of very similar 
-success-inducing ones (using the reflective generator framework to assess 
-similarity); (2) show what lines will be executed next following the control 
-decision by the gamut of comparison inputs; (3) support rapid navigation between 
-control decisions in the case of greatly diverging traces. We will iteratively 
+New opportunities also arise to help developers find the root cause of
+failures in a PBT setting. One current approach is implemented by Hypothesis'
+\texttt{explain} module, which points users to lines that are always run by
+failed tests, but never by successful tests. Better solutions are possible; we
+found this technique does not identify the fault in Hypothesis' quick start
+documentation. Could a tool highlight divergences in other more useful ways? PI
+Head was on the team that designed views of trace divergences for student
+programmers debugging failed submissions versus a reference
+program~\cite{ref:suzuki2017tracediff}.  Such a technique is not quite right for
+PBT, where is no correct program to compare to.  Instead, innovative approaches
+are needed that show divergences in a way that: (1) point programmers to control
+decisions that vary between a failure-inducing input and a set of very similar
+success-inducing ones (using the reflective generator framework to assess
+similarity); (2) show what lines will be executed next following the control
+decision by the gamut of comparison inputs; (3) support rapid navigation between
+control decisions in the case of greatly diverging traces. We will iteratively
 design, implement, and evaluate such interaction primitives for finding
 faults.
 
@@ -1913,37 +1913,37 @@ transform a counterexample detected by their PBT tools into a
 regression test, even though much of this work
 feels mechanical.
 
-Much of this work could be automated away. After all, a counterexample just 
-consists the declaration of an input, and (as specified in the property) the 
-transformation of that input into an output followed by a check of that output.  
-In theory, a counterexample could be transformed into a 3-statement unit test.  
-In practice, there are numerous circumstances when this is not desirable.  
-Consider these cases: (1) an input may be so large it belongs in an external 
-file; (2) an input may be passed through so many operations that a tester wishes 
-they were split up into independent lines, and perhaps even tested individually; 
-(3) a developer may wish to remove a precondition check from a property 
-(consider the left side of \texttt{prop\_insert\_correct} in 
+Much of this work could be automated away. After all, a counterexample just
+consists the declaration of an input, and (as specified in the property) the
+transformation of that input into an output followed by a check of that output.
+In theory, a counterexample could be transformed into a 3-statement unit test.
+In practice, there are numerous circumstances when this is not desirable.
+Consider these cases: (1) an input may be so large it belongs in an external
+file; (2) an input may be passed through so many operations that a tester wishes
+they were split up into independent lines, and perhaps even tested individually;
+(3) a developer may wish to remove a precondition check from a property
+(consider the left side of \texttt{prop\_insert\_correct} in
 \sectionref{sec:orientation}).
-% ; (4) a developer may wish to compare to a more specific output than the test 
-% calls for (e.g., for \texttt{prop\_insert\_correct}, compare to the expected % 
+% ; (4) a developer may wish to compare to a more specific output than the test
+% calls for (e.g., for \texttt{prop\_insert\_correct}, compare to the expected %
 % tree following insertion, rather than checking if it binary).
-In all of these cases (and many others), automation cannot know a developer would wish to make 
-these choices beforehand, but it can at least make them readily available to the 
+In all of these cases (and many others), automation cannot know a developer would wish to make
+these choices beforehand, but it can at least make them readily available to the
 developer.
 
-We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow 
-that supports developers in creating unit tests. In this flow, a developer's 
-editor creates a provisional unit test from a counterexample. The developer is 
-guided through a sequence of decisions centered around inputs, operators, and 
-outputs, corresponding to different ways they may wish to ``write out'' the test 
-case.  Each decision will result in a re-rendered test (e.g., where inputs are 
-moved to a file, operations are split up, etc.)  As with PI Head's prior work 
-with similar tools~\cite{ref:head2018interactive}, innovations in this work come 
-from identifying a small number of powerful decisions, and sequencing them in an 
-order that is easy for developers to follow.  Decision points will be chosen 
-following observations of developers creating test cases from counterexamples; 
-we will prioritize those decisions that are time-consuming and that vary by 
-context so that they cannot be automated. 
+We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow
+that supports developers in creating unit tests. In this flow, a developer's
+editor creates a provisional unit test from a counterexample. The developer is
+guided through a sequence of decisions centered around inputs, operators, and
+outputs, corresponding to different ways they may wish to ``write out'' the test
+case.  Each decision will result in a re-rendered test (e.g., where inputs are
+moved to a file, operations are split up, etc.)  As with PI Head's prior work
+with similar tools~\cite{ref:head2018interactive}, innovations in this work come
+from identifying a small number of powerful decisions, and sequencing them in an
+order that is easy for developers to follow.  Decision points will be chosen
+following observations of developers creating test cases from counterexamples;
+we will prioritize those decisions that are time-consuming and that vary by
+context so that they cannot be automated.
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
