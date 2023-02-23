@@ -1878,25 +1878,22 @@ interaction paradigm where a developer performs some simplifications
 manually in an interactive
 object viewer (like those in modern debuggers like JetBrains
 IDE~\cite{tool:jetbrains}) while a shrinker attempts further
-simplifications in the background. Key mechanisms
-would include (1) displaying
-the valid ways an input can be pruned,
-using reflective generators to understand which parts of the
-structure can be changed while maintaining preconditions\bcp{are preconditions
-  really about ``parts'' of the structure?}, and (2) automated
-shrinking after each action to suggest a small number of divergent shrinking
-decisions a developer may wish to try next.\bcp{A PBT expert may
-  wonder what that means...}
+simplifications in the background. The system would
+display
+the valid ways an input can be altered,
+determined using reflective generators,
+and
+automatically
+shrink after each action.
 
 We also see opportunities to help developers find the root causes of
 failures in a PBT setting. A current approach is implemented by Hypothesis'
 \texttt{explain} module, which points users to lines that are always run by
 failed tests, but never by successful tests. But we
-found this technique does not actually identify the fault discussed in
-Hypothesis' Quick Start
-documentation!\bcp{Not sure I get the point of referring to H's QS
-  docs...?  I tried a bit of rewriting, but.} Could a tool highlight divergences in other more useful ways? PI
-Head was part of a team that designed views of trace divergences for student
+found this technique to be inconsistent, even on examples provided in the
+Hypothesis documentation.
+Could a tool highlight divergences in other more useful ways? PI
+Head was on the team that designed views of trace divergences for student
 programmers debugging failed submissions versus a reference
 program~\cite{ref:suzuki2017tracediff}, but this technique is not
 quite right for
@@ -2102,8 +2099,7 @@ especially excited about integrating ideas like reflective generators
 (\sectionref{sec:reflective}) and interaction modes like distribution
 visualization (\sectionref{fig:gen-vis}) into Python's VCSode environment.
 The success of this collaboration will be measured by the Hypothesis team's
-willingness to include our tools in future releases and promote them to the
-community.\bcp{And uptake in the community?}
+willingness to include our tools in future releases and by uptake in the community.
 
 Besides Hypothesis, we will choose two additional projects to contribute
 to in smaller ways, prioritizing great
