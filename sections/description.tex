@@ -1494,13 +1494,13 @@ course (CIS 5520).
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
-One finding that surprised us in the Jane Street study is that
-it seems to be {very} common for developers to build (or already have) a
+One surprising finding from the Jane Street study was that
+it is quite common for developers to build (or already have) a
 {\em model
 implementation} of the code they are testing and want to test that
 the two implementations behave the same.  This is a
 well-documented approach to
-  PBT~\cite{hughes_experiences_2016}, but it is not well understood in general,
+  PBT~\cite{hughes_experiences_2016}, but it is not well publicized,
   nor is it supported as well as it could
 be by existing tooling.
 %
@@ -1626,11 +1626,11 @@ and which can be reliably generated from static analysis of the code.
 made strides in being able to explain  source code; PI Head is
 exploring such technologies for general-purpose programming languages, and this
 approach may work well for frameworks like Hypothesis where properties are
-written as Python functions.
+Python functions.
 
 The above efforts will contribute
 a characterization of complexity in property specifications,
-techniques for generating readable examples and text descriptions for
+techniques for generating readable examples and descriptions for
 properties, and comparisons in
 usability studies.
 
@@ -1822,11 +1822,10 @@ from~\sectionref{sec:evaluating_distributions}. The goal is to enable a kind of
 bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
- A first approach to achieving this is via input filtering: a developer could
+ A first approach is via input filtering: a developer could
 select a region (e.g., a bar) in an aggregate visualization and request that
-inputs from that region are discarded before testing. This approach is flexible,
-though limited: it does change the underlying generator, so it cannot lead to
-new kinds of values, or greater efficiency in generating desired values.
+inputs from that region are discarded before testing. This approach is flexible
+but limited, as it does not change the underlying generator.
 % It may also lead to inefficiency, if too many values are
 % generated from the distribution only to be discarded by the
 % filter.
@@ -1848,8 +1847,7 @@ but different in a way that they are demonstrating. This project and that in
 \sectionref{sec:evaluating_distributions} will together yield new paradigms for
 understanding and changing input data distributions.
 
-\publicationtarget{International Conference on Functional Programming (ICFP)
-and/or User Interface Software and Technology (UIST)}
+\publicationtarget{User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{4}{4}{HCI Practice}{PhD 4}{PhD 2}{Head}
@@ -1870,8 +1868,8 @@ interaction help a developer shrink a stubbornly large input?
 
 We can take inspiration here from HCI research on incremental code simplification
 (e.g.,~\cite{ref:lim2018ply,ref:head2018interactive,ref:holmes2012systematizing,ref:hibschman2016telescope}),
-but it is not enough: new ideas are needed when the target of simplification
-is code with recursion and/or manipulating complex data. We propose a semi-automatic
+but new ideas are needed when the simplification target
+is code with recursion and/or complex data. We propose a semi-automatic
 interaction paradigm where a developer performs some simplifications
 manually in an interactive
 object viewer (like those in modern debuggers like JetBrains
@@ -1943,7 +1941,7 @@ these choices beforehand, but it can at least make them readily available to the
 developer.
 
 We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow
-that supports developers in creating unit tests from
+that supports creating unit tests from
 counterexamples. In this flow, a developer's
 editor creates a provisional unit test. The developer is
 guided through a sequence of decisions corresponding to different ways
@@ -1954,8 +1952,8 @@ with similar tools~\cite{ref:head2018interactive}, innovations in this work come
 from identifying a small number of powerful decisions and sequencing them in an
 order that is easy for developers to follow.  Decision points will be chosen
 following observations of developers creating test cases from counterexamples;
-we will prioritize decisions that are time-consuming and that vary by
-context so that they cannot be automated.
+we will prioritize  hard-to-automate decisions---ones that are time-consuming
+or vary by context.
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
@@ -1981,9 +1979,9 @@ use-cases (\sectionref{sec:whento}) and undergraduate- and
 masters-level course materials for PBT
 (\sectionref{sec:1210}).
 
-In addition to code and educational materials, the projects in this section will
-also result in a number of engineering-focused talks. We will bring these talks
-to industry conference like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
+These projects will
+also result in a number of developer-focused talks. We will bring them
+to industry conferences like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
@@ -2004,28 +2002,26 @@ in the open source community.
 
 Concretely, we expect the research engineer to be most involved in the following
 projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
-  1 to build and maintain a minimal PBT framework for use in comparison studies
-  and as a model for future PBT frameworks.
+  1 to build and maintain a minimal PBT framework.
   {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
   Implementing and maintaining versions of reflective generators in a number of
-  languages and PBT ecosystems, with the help of PhD 2.
+  languages and PBT ecosystems, with PhD 2.
   {\em Mixed-initiative property
   specification}~(\sectionref{sec:interactive}) and {\em Counterexamples as
   regression tests}~(\sectionref{sec:counter}):
   Assisting PhDs
-  3 and 4 with maintenance of tools for easier property specification.
+  3 and 4 with building tools for property specification.
 %
 Most importantly, the research engineer will help to build and maintain
-\tyche{}, the IDE for PBT designed as part of PhD 4's dissertation. We
-describe this effort in more detail in the next section.
+\tyche{}, the IDE for PBT designed by PhD 4.
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:ide}{2}{5}{Tech
   Transfer}{Engineer}{PhD 4}{Pierce}
 The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
-for PBT. Their potential impact will be significantly magnified if they are
-integrated into a system
-that is easily accessible to would-be users. This is the inspiration for
-\tyche{}, an integrated development environment (IDE) extension for PBT.
+for PBT. Their potential impact will be magnified by
+integrated them into a system
+that is attractive to would-be users. This is the inspiration for
+\tyche{}, an IDE extension for PBT.
 \tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
 % including tools that facilitate guided PBT
 % workflows, help developers tune and
@@ -2274,8 +2270,8 @@ REU program (more in the next paragraph) along with other
 undergraduate and masters
 students working for credit;
 they, too will benefit from the research experience. Each graduate
-student will have leadership responsibility for multiple facets of the
-project, including co-supervising interested undergraduate and masters
+student will lead multiple facets of the
+project, including co-supervising undergraduate and masters
 researchers.
 
 The PIs will recruit students for this project with a mind towards making
@@ -2389,8 +2385,8 @@ with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
 {\bf Broader Impacts.} Project results and open-source software
 products are being used to increase the
 performance and correctness of Python applications.
-Educational impact has included training both graduate and
-undergraduate students, including a female PhD student at Penn, Jessica
+Educational impact has included training graduate and
+undergraduate students, including a female PhD student, Jessica
 Shi.
 %
 {\bf Publications (involving Penn):} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
