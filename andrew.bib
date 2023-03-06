@@ -26,6 +26,9 @@
 \def\pubacm{ACM}
 \def\pubwiley{John Wiley \& Sons, Ltd.}
 \def\pubspringer{Springer}
+\def\pubelsevier{Elsevier}
+\def\pubmorgankaufmann{Morgan Kaufmann}
+\def\pubemerald{Emerald Group Publishing Limited}
 \def\journalspae{Software---Practice and Experience}
 \def\journalsoftware{IEEE Software}
 \def\journalcacm{Communications of the ACM}
@@ -62,7 +65,8 @@
 \def\confisese{Proceedings of the International Symposium on Empirical Software Engineering}
 \def\confsigcse{Proceedings of the Technical Symposium on Computer Science Education}
 \def\confwcre{Proceedings of the Working Conference on Reverse Engineering}
-\def\confhatra{Proceedings the Workshop on Human Aspects of Types and Rasoning Assistants}
+\def\confhatra{Proceedings the Workshop on Human Aspects of Types and Reasoning Assistants}
+\def\confonward{Proceedings the Symposium on New Ideas in Programming and Reflections on Software}
 "}
 %%% ARTICLES
 % Don't bother including publisher
@@ -259,7 +263,7 @@
 @article{ref:goldman2009codetrail,
   title = {Codetrail: Connecting source code and web resources},
   author = {Goldman, Max and Miller, Robert C.},
-  publisher = {Elsevier},
+  publisher = {\pubelsevier},
   volume = {20},
   pages = {223--235},
   year = {2009},
@@ -329,7 +333,7 @@
 @article{ref:johnson2010learning,
   title = {Learning to be a programmer in a complex organization},
   author = {Johnson, Maggie and Senges, Max},
-  publisher = {Emerald Group Publishing Limited},
+  publisher = {\pubemerald},
   year = {2010},
   volume = {22},
   number = {3},
@@ -403,7 +407,7 @@
 @article{ref:lin2007suggestions,
   title = {Suggestions for content selection and presentation in high school computer textbooks},
   author = {Lin, Janet Mei-Chuen and Wu, Cheng-Chih},
-  publisher = {Elsevier},
+  publisher = {\pubelsevier},
   volume = {48},
   number = {3},
   pages = {508--521},
@@ -424,7 +428,7 @@
 @article{ref:littman1987mental,
   title = {Mental Models and Software Maintenance},
   author = {Littman, David C. and Pinto, Jeannine and Letovsky, Stanley and Soloway, Elliot},
-  publisher = {Elsevier},
+  publisher = {\pubelsevier},
   volume = {7},
   number = {4},
   pages = {341--355},
@@ -2567,7 +2571,7 @@
   title={Contextual Design: Defining Customer-Centered Systems},
   author={Holtzblatt, Karen and Beyer, Hugh},
   year={1997},
-  publisher={Elsevier}
+  publisher={\pubelsevier}
 }
 
 @inproceedings{ref:suzuki2017tracediff,
@@ -2682,179 +2686,201 @@
   publisher={\pubacm}
 }
 
+% Continue cleaning from here.
 @inproceedings{ref:hohman2019gamut,
-  title={Gamut: A design probe to understand how data scientists understand machine learning models},
-  author={Hohman, Fred and Head, Andrew and Caruana, Rich and DeLine, Robert and Drucker, Steven M},
-  booktitle={Proceedings of the 2019 CHI conference on human factors in computing systems},
-  pages={1--13},
-  year={2019}
+  title={Gamut: A Design Probe to Understand How Data Scientists Understand Machine Learning Models},
+  author={Hohman, Fred and Head, Andrew and Caruana, Rich and DeLine, Robert and Drucker, Steven M.},
+  booktitle={\confchi},
+  publisher={\pubacm},
+  year={2019},
+  note={\paperno{579}}
 }
 
 @inproceedings{ref:hohman2020understanding,
-  title={Understanding and visualizing data iteration in machine learning},
+  title={Understanding and Visualizing Data Iteration in Machine Learning},
   author={Hohman, Fred and Wongsuphasawat, Kanit and Kery, Mary Beth and Patel, Kayur},
-  booktitle={Proceedings of the 2020 CHI conference on Human Factors in Computing Systems},
-  pages={1--13},
-  year={2020}
+  booktitle={\confchi},
+  publisher={\pubacm},
+  year={2020},
+  note={\paperno{50}}
 }
 
-@article{ref:lee2021lux,
-  title={Lux: Always-on visualization recommendations for exploratory data science},
-  author={Lee, Doris Jung-Lin and Tang, Dixin and Agarwal, Kunal and Boonmark, Thyne and Chen, Caitlyn and Kang, Jake and Mukhopadhyay, Ujjaini and Song, Jerry and Yong, Micah and Hearst, Marti A and others},
-  journal={arXiv:2105.00121},
-  year={2021}
+@inproceedings{ref:lee2021lux,
+  title={Lux: Always-on Visualization Recommendations for Exploratory Dataframe Workflows},
+  author={Lee, Doris Jung-Lin and Tang, Dixin and Agarwal, Kunal and Boonmark, Thyne and Chen, Caitlyn and Kang, Jake and Mukhopadhyay, Ujjaini and Song, Jerry and Yong, Micah and Hearst, Marti A. and Parameswaran, Aditya G.},
+  booktitle={\confvldb},
+  pages={727--738},
+  year={2022}
 }
 
 @inproceedings{ref:head2018when,
-  title={When not to comment: {Q}uestions and tradeoffs with {API} documentation for {c++} projects},
+  title={When Not to Comment: {Q}uestions and Tradeoffs with {API} Documentation for {C++} Projects},
   author={Head, Andrew and Sadowski, Caitlin and Murphy-Hill, Emerson and Knight, Andrea},
-  booktitle={Proceedings of the 40th International Conference on Software Engineering},
+  booktitle={\conficse},
   pages={643--653},
+  publisher={\pubacm},
   year={2018}
 }
 
 @article{ref:lawrance2010programmers,
-  title={How programmers debug, revisited: An information foraging theory perspective},
-  author={Lawrance, Joseph and Bogart, Christopher and Burnett, Margaret and Bellamy, Rachel and Rector, Kyle and Fleming, Scott D},
-  journal={IEEE Transactions on Software Engineering},
+  title={How Programmers Debug, Revisited: An Information Foraging Theory Perspective},
+  author={Lawrance, Joseph and Bogart, Christopher and Burnett, Margaret and Bellamy, Rachel and Rector, Kyle and Fleming, Scott D.},
+  journal={\journaltse},
   volume={39},
   number={2},
   pages={197--215},
   year={2010},
-  publisher={IEEE}
+  publisher={\pubieee}
 }
 
 @inproceedings{ref:blackwell2002first,
-  title={First steps in programming: A rationale for attention investment models},
-  author={Blackwell, Alan F},
-  booktitle={Proceedings IEEE 2002 Symposia on Human Centric Computing Languages and Environments},
+  title={First Steps in Programming: A Rationale for Attention Investment Models},
+  author={Blackwell, Alan F.},
+  booktitle={Proceedings of the Symposia on Human Centric Computing Languages and Environments},
   pages={2--10},
   year={2002},
-  organization={IEEE}
+  organization={\pubieee}
 }
 
 @article{ref:ko2005framework,
   title={A framework and methodology for studying the causes of software errors in programming systems},
-  author={Ko, Amy J and Myers, Brad A},
-  journal={Journal of Visual Languages \& Computing},
+  author={Ko, Amy J. and Myers, Brad A.},
+  journal={\journaljvlc},
   volume={16},
-  number={1-2},
   pages={41--84},
   year={2005},
-  publisher={Elsevier}
+  publisher={\pubelsevier}
 }
 
 @inproceedings{ref:henley2014patchworks,
-  title={The Patchworks code editor: Toward faster navigation with less code arranging and fewer navigation mistakes},
-  author={Henley, Austin Z and Fleming, Scott D},
-  booktitle={Proceedings of the sigchi conference on human factors in computing systems},
+  title={The Patchworks Code Editor: Toward Faster Navigation with Less Code Arranging and Fewer Navigation Mistakes},
+  author={Henley, Austin Z. and Fleming, Scott D.},
+  booktitle={\confchi},
   pages={2511--2520},
+  publisher={\pubacm},
   year={2014}
 }
 
 @inproceedings{ref:ko2004six,
-  title={Six learning barriers in end-user programming systems},
-  author={Ko, Amy J and Myers, Brad A and Aung, Htet Htet},
-  booktitle={2004 IEEE Symposium on Visual Languages-Human Centric Computing},
+  title={Six Learning Barriers in End-User Programming Systems},
+  author={Ko, Amy J. and Myers, Brad A. and Aung, Htet Htet},
+  booktitle={\confvlhcc},
   pages={199--206},
   year={2004},
-  organization={IEEE}
+  publisher={\pubieee}
 }
 
 @inproceedings{ref:potter2022contextualized,
   title={Contextualized Programming Language Documentation},
   author={Potter, Hannah and Madadi, Ardi and Just, Ren{\'e} and Omar, Cyrus},
-  booktitle={Proceedings of the 2022 ACM SIGPLAN International Symposium on New Ideas, New Paradigms, and Reflections on Programming and Software},
+  booktitle={\confonward},
   pages={1--15},
+  publisher={\pubacm},
   year={2022}
 }
 
 @article{ref:dantoni2015can,
-  title={How can automatic feedback help students construct automata?},
-  author={D'antoni, Loris and Kini, Dileep and Alur, Rajeev and Gulwani, Sumit and Viswanathan, Mahesh and Hartmann, Bj{\"o}rn},
-  journal={ACM Transactions on Computer-Human Interaction (TOCHI)},
+  title={How Can Automatic Feedback Help Students Construct Automata?},
+  author={D'Antoni, Loris and Kini, Dileep and Alur, Rajeev and Gulwani, Sumit and Viswanathan, Mahesh and Hartmann, Bj{\"o}rn},
+  journal={\journaltochi},
   volume={22},
   number={2},
-  pages={1--24},
+  pages={9:1--9:24},
   year={2015},
-  publisher={ACM New York, NY, USA}
+  publisher={\pubacm}
 }
 
 @article{ref:murphyhill2019predicts,
-  title={What predicts software developers' productivity?},
+  title={What Predicts Software Developers' Productivity?},
   author={Murphy-Hill, Emerson and Jaspan, Ciera and Sadowski, Caitlin and Shepherd, David and Phillips, Michael and Winter, Collin and Knight, Andrea and Smith, Edward and Jorde, Matthew},
-  journal={IEEE Transactions on Software Engineering},
+  journal={\journaltse},
   volume={47},
   number={3},
   pages={582--594},
   year={2019},
-  publisher={IEEE}
+  publisher={\pubieee}
 }
 
 @article{ref:myers2000past,
-  title={Past, present, and future of user interface software tools},
-  author={Myers, Brad and Hudson, Scott E and Pausch, Randy},
-  journal={ACM Transactions on Computer-Human Interaction (TOCHI)},
+  title={Past, Present, and Future of User Interface Software Tools},
+  author={Myers, Brad and Hudson, Scott E. and Pausch, Randy},
+  journal={\journaltochi},
   volume={7},
   number={1},
   pages={3--28},
   year={2000},
-  publisher={ACM New York, NY, USA}
+  publisher={\pubacm}
 }
 
-@article{ref:pirolli2003exploring,
-  title={Exploring and finding information},
+@incollection{ref:pirolli2003exploring,
+  title={Exploring and Finding Information},
   author={Pirolli, Peter},
-  journal={HCI models, theories and frameworks: Toward a multidisciplinary science},
+  booktitle={HCI Models, Theories, and Frameworks: Toward a Multidisciplinary Science},
   pages={157--191},
   year={2003},
-  publisher={Morgan Kauffmann San Francisco}
+  publisher={\pubmorgankaufmann}
 }
 
 @article{ref:brown2004consideration,
-  title={Consideration of the origin of {Herbert Simon's} theory of ``satisficing'' (1933-1947)},
+  title={Consideration of the origin of {Herbert Simon's} theory of ``satisficing'' (1933--1947)},
   author={Brown, Reva},
   journal={Management Decision},
   volume={42},
   number={10},
   pages={1240--1256},
   year={2004},
-  publisher={Emerald Group Publishing Limited}
+  publisher={\pubemerald}
 }
 
 @article{ref:ko2015practical,
   title={A practical guide to controlled experiments of software engineering tools with human participants},
-  author={Ko, Amy J and LaToza, Thomas D and Burnett, Margaret M},
+  author={Ko, Amy J. and LaToza, Thomas D. and Burnett, Margaret M.},
   journal={Empirical Software Engineering},
   volume={20},
   pages={110--141},
-  year={2015},
+  year={2013},
   publisher={\pubspringer}
 }
 
-@article{ref:blackwell2003notational,
-  title={Notational systems--the cognitive dimensions of notations framework},
+@incollection{ref:blackwell2003notational,
+  title={Notational Systems---The Cognitive Dimensions of Notations Framework},
   author={Blackwell, Alan and Green, Thomas},
-  journal={HCI models, theories, and frameworks: toward an interdisciplinary science. Morgan Kaufmann},
-  volume={234},
+  booktitle={HCI Models, Theories, and Frameworks: Toward a Multidisciplinary Science},
+  publisher = {\pubmorgankaufmann},
+  pages = {103--134}
   year={2003}
 }
 
-@article{ref:blandford2016qualitative,
-  title={Qualitative {HCI} research: {G}oing behind the scenes},
+@book{ref:blandford2016qualitative,
+  title={Qualitative {HCI} Research: {G}oing Behind the Scenes},
   author={Blandford, Ann and Furniss, Dominic and Makri, Stephann},
-  journal={Synthesis lectures on human-centered informatics},
-  volume={9},
-  number={1},
-  pages={1--115},
+  series={Synthesis Lectures on Human-Centered Informatics},
   year={2016},
   publisher={Morgan \& Claypool Publishers}
 }
 
 @inproceedings{ref:gerdes2018understanding,
-  title={Understanding formal specifications through good examples},
+  title={Understanding Formal Specifications through Good Examples},
   author={Gerdes, Alex and Hughes, John and Smallbone, Nicholas and Hanenberg, Stefan and Ivarsson, Sebastian and Wang, Meng},
-  booktitle={Proceedings of the 17th ACM SIGPLAN International Workshop on Erlang},
+  booktitle={Proceedings of the International Workshop on Erlang},
   pages={13--24},
-  year={2018}
+  year={2018},
+  publisher={\pubacm}
+}
+ 
+@inproceedings{ref:fok2023scim,
+  title={Scim: Intelligent Skimming Support for Scientific Papers},
+  author={Fok, Raymond and Kambhamettu, Hita and Soldaini, Luca and Bragg, Jonathan and Lo, Kyle and Hearst, Marti A. and Head, Andrew and Weld, Daniel S.},
+  year={2023},
+  booktitle={\confiui},
+  publisher={ACM},
+  note={\toappear}
+}
+
+@article{ref:august2022paper,
+  title={Paper {P}lain: Making Medical Research Papers Approachable to Healthcare Consumers with Natural Language Processing},
+  author={August, Tal and Wang, Lucy Lu and Bragg, Jonathan and Hearst, Marti A. and Head, Andrew and Lo, Kyle},
+  journal={\journaltochi},
+  year={2023},
+  note={\toappear}
 }
