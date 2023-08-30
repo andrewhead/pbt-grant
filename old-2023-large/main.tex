@@ -1,0 +1,453 @@
+% \newif\ifdraft\drafttrue
+\newif\ifdraft\draftfalse
+\newif\iflater\latertrue
+\newif\ifnext\nexttrue
+\newif\iflast\lasttrue
+
+\newif\ifthemecolors\themecolorsfalse % colorize section 2?
+
+% John's comments
+%  https://docs.google.com/document/d/1Yt-TFaC_TPu9KqcPEg3z1la-GphyhA3u9FZ7fcvG3TI/edit#
+
+%  GPG:
+% https://www.nsf.gov/pubs/2023/nsf23524/nsf23524.htm
+
+\documentclass{NSF}
+\pagestyle{empty}% Reset page style to 'empty'
+
+\graphicspath{{figures/}}
+
+\usepackage{url}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{datetime2}
+\usepackage[final]{pdfpages}
+
+\newcommand{\participant}[1]{{P#1}}
+
+\usepackage{xcolor}
+\definecolor{nord-night1}{HTML}{2e3440}
+\definecolor{nord-night2}{HTML}{3b4252}
+\definecolor{nord-night3}{HTML}{434c5e}
+\definecolor{nord-night4}{HTML}{4c566a}
+\definecolor{nord-snow1}{HTML}{d8dee9}
+\definecolor{nord-snow2}{HTML}{e5e9f0}
+\definecolor{nord-snow3}{HTML}{eceff4}
+\definecolor{nord-frost1}{HTML}{8fbcbb}
+\definecolor{nord-frost2}{HTML}{88c0d0}
+\definecolor{nord-frost3}{HTML}{81a1c1}
+\definecolor{nord-frost4}{HTML}{5579a5}
+\definecolor{nord-red}{HTML}{b14853}
+\definecolor{nord-orange}{HTML}{c76d52}
+\definecolor{nord-yellow}{HTML}{ebcb8b}
+\definecolor{nord-green}{HTML}{69894d}
+\definecolor{nord-purple}{HTML}{815679}
+\definecolor{nord-red1}{HTML}{cc7777}
+\definecolor{nord-red4}{HTML}{994444}
+
+\usepackage{listings}
+\lstset{
+  keepspaces=true,
+  mathescape=true,
+  frame=none,
+  xleftmargin=10pt,
+  stepnumber=1,
+  belowcaptionskip=\bigskipamount,
+  captionpos=b,
+  % language=haskell,
+  % breaklines=true,
+  tabsize=2,
+  emphstyle={\bf},
+  commentstyle=\it\color{cb-blue},
+  stringstyle=\mdseries\ttfamily,
+  showspaces=false,
+  keywordstyle=\bfseries\ttfamily,
+  deletekeywords={split},
+  columns=flexible,
+  basicstyle=\ttfamily,
+  showstringspaces=false,
+  morecomment=[l]--,
+  moredelim=**[is][\color{nord-green}]{@}{@},
+  moredelim=**[is][\color{nord-frost4}]{~}{~},
+  moredelim=**[is][\color{nord-orange}]{£}{£},
+  literate={cP}{{$\mathcal{P}$}}1
+  {cG}{{$\mathcal{G}$}}1
+  {cGhat}{{$\overline{\mathcal{G}}$}}1
+  {cC}{{$\mathcal{R}$}}1
+  {cL}{{$\mathcal{L}$}}1
+  {fmap}{{$\fmap$}}3
+  {[[}{{$\llbracket$}}1 % chktex 9
+  {]]}{{$\rrbracket$}}1 % chktex 9
+  % {->}{{$\rightarrow$}}2
+  % {return}{{$\return$}}6
+  % {pick}{{$\pick$}}4
+  % {void}{{$\void$}}4
+  % {do}{{$\textbf{do}$}}2
+  % {>>=}{{$\bind$}}2
+  % {<-}{{$\leftarrow$}}2
+  % {\\}{{$\lambda$}}1
+  % {==>}{{$\implies$}}3
+  % {=>}{{$\Rightarrow$}}2
+  % {<|>}{{$\langle | \rangle$}}2
+}
+
+\newcommand{\thread}[1]{\textbf{\emph{#1}}}
+\newcommand{\tyche}{{\sc Tyche}}
+\newcommand{\citet}[1]{\cite{#1}\todo{fixme}}
+\newcommand{\citeauthor}[1]{\cite{#1}\todo{fixme}}
+
+% Macros pilfered from HATRA submission
+\definecolor{dkred}{rgb}{0.7,0,0}
+\definecolor{dkpurple}{HTML}{4e02eb}
+\definecolor{dkgreen}{HTML}{006329}
+\definecolor{teal}{HTML}{007982}
+\definecolor{string}{HTML}{02782d}
+\definecolor{Fuchsia}{HTML}{8C368C}
+\definecolor{quoteblue}{HTML}{2264b4}
+\definecolor{gray}{HTML}{BBBBBB}
+\definecolor{darkgray}{HTML}{555555}
+
+\newcommand{\comm}[3]{\ifdraft\textcolor{#1}{[#2: #3]}\fi}
+\newcommand{\cn}{\ifdraft{\color{blue} [CITE]}\fi}
+\newcommand{\bcp}[1]{\comm{dkpurple}{BCP}{#1}}
+\newcommand{\rjmh}[1]{\comm{nord-green}{RJMH}{#1}}
+\newcommand{\rjmhlater}[1]{\iflater\comm{nord-green}{RJMH}{#1}\fi}
+\newcommand{\bcplater}[1]{\iflater\comm{dkpurple}{BCP}{#1}\fi}
+\newcommand{\bcplast}[1]{\iflast\comm{dkpurple}{BCP}{#1}\fi}
+\newcommand{\bcpread}[1]{\iflater\comm{red}{BCP}{Read #1}\fi}
+\newcommand{\hg}[1]{\comm{dkred}{HG}{#1}}
+\newcommand{\harry}[1]{\hg{#1}}
+\newcommand{\jwc}[1]{\comm{dkgreen}{JC}{#1}}
+\newcommand{\amh}[1]{\comm{teal}{AH}{#1}}
+\newcommand{\comment}[1]{{\em #1}}
+\newcommand{\todo}[1]{\ifdraft {\color{nord-red} TODO: #1} \fi}
+\newcommand{\todolater}[1]{\iflater\ifdraft {\color{nord-red} TODO: #1} \fi\fi}
+\newcommand{\todolast}[1]{\iflast\ifdraft {\color{nord-red} TODO: #1} \fi\fi}
+\newcommand{\writeme}[1]{{\color{blue} #1}}
+\newcommand{\rewrite}[1]{{\ifdraft\color{dkred}\fi #1}}
+% \newcommand{\pagebudget}[1]{(#1 pages)}
+\newcommand{\pagebudget}[1]{}
+\newcommand{\underconstruction}[1]{{\color{nord-red} Under construction: #1}}
+
+\newcommand{\forreaders}[1]{}
+\newcommand{\discuss}[1]{\ifdraft{\color{purple}\bf High priority: #1}\fi}
+
+\usepackage{ulem}\normalem
+\newcommand{\proposecut}[1]{\iflater\ifdraft{\color{gray} \sout{#1}}\fi\fi}
+\newcommand{\proposechange}[2]{\ifdraft{\color{gray} \sout{#1}
+    $\rightarrow$ #2}\else #2\fi}
+
+\newcommand{\jsquote}[2]{%
+  \begin{center}
+  {\color{darkgray}
+    \fbox{
+      \color{black}
+      \begin{minipage}{0.87\linewidth}
+        ``#2''  \hfill --Participant #1
+        \end{minipage}
+        }
+    }
+  \end{center}
+}
+
+\usepackage[inline]{enumitem}
+\usepackage{anyfontsize}
+\newcommand{\headerfont}{\fontsize{11}{13}\selectfont\bf}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{ifthen}
+\usepackage{pgfgantt}
+
+\newcommand{\publicationtarget}[1]{{\em Publication target:} #1.}
+\newcommand{\discussiontarget}[1]{{\em Presentation target:} #1.}
+% \newcommand{\publicationtarget}[1]{\smallbreak\noindent We plan to publish this
+% work at #1.}
+% \newcommand{\discussiontarget}[1]{\smallbreak\noindent We plan to present this
+% work at #1.}
+
+\newwrite\workplanfile
+\immediate\openout\workplanfile=\jobname.workplan
+
+\newcommand{\techtransfercolor}{nord-purple}
+\newcommand{\educationcolor}{nord-green}
+\newcommand{\pltheorycolor}{nord-frost1}
+\newcommand{\plpracticecolor}{nord-frost4}
+\newcommand{\hcitheorycolor}{nord-red1}
+\newcommand{\hcipracticecolor}{nord-red4}
+\newcommand{\piercecolor}{nord-red4}
+\newcommand{\headcolor}{nord-frost4}
+\newcommand{\bothcolor}{nord-purple}
+\newcommand{\phdonecolor}{nord-frost1}
+\newcommand{\phdtwocolor}{nord-frost4}
+\newcommand{\phdthreecolor}{nord-red1}
+\newcommand{\phdfourcolor}{nord-red4}
+\newcommand{\engineercolor}{nord-green}
+\newcommand{\facultycolor}{nord-yellow}
+
+\newcommand{\COLOROF}[1]{%
+  \ifthenelse{\equal{#1}{Tech Transfer}}
+  {\edef\FOO{\techtransfercolor}}
+  {\ifthenelse{\equal{#1}{Education}}
+  {\edef\FOO{\educationcolor}}
+  {\ifthenelse{\equal{#1}{PL Theory}}
+  {\edef\FOO{\pltheorycolor}}
+  {\ifthenelse{\equal{#1}{PL Practice}}
+  {\edef\FOO{\plpracticecolor}}
+  {\ifthenelse{\equal{#1}{HCI Theory}}
+  {\edef\FOO{\hcitheorycolor}}
+  {\ifthenelse{\equal{#1}{HCI Practice}}
+  {\edef\FOO{\hcipracticecolor}}
+  {\ifthenelse{\equal{#1}{Head}}
+  {\edef\FOO{\headcolor}}
+  {\ifthenelse{\equal{#1}{Pierce}}
+  {\edef\FOO{\piercecolor}}
+  {\ifthenelse{\equal{#1}{Both}}
+  {\edef\FOO{\bothcolor}}
+  {\ifthenelse{\equal{#1}{PhD 1}}
+  {\edef\FOO{\phdonecolor}}
+  {\ifthenelse{\equal{#1}{PhD 2}}
+  {\edef\FOO{\phdtwocolor}}
+  {\ifthenelse{\equal{#1}{PhD 3}}
+  {\edef\FOO{\phdthreecolor}}
+  {\ifthenelse{\equal{#1}{PhD 4}}
+  {\edef\FOO{\phdfourcolor}}
+  {\ifthenelse{\equal{#1}{Engineer}}
+  {\edef\FOO{\engineercolor}}
+  {\ifthenelse{\equal{#1}{Faculty}}
+  {\edef\FOO{\facultycolor}}
+  {\edef\FOO{white}}
+}}}}}}}}}}}}}}}
+\newcommand{\colorkey}[1]{%
+  %\COLOROF{#1}%
+  %\FOO = #1%
+}
+
+\newcommand{\SIMPLESECTION}[2]{\section{#1}\label{#2}}
+\newcommand{\SECTION}[3]{%
+  \SIMPLESECTION{#1: #2}{#3}%
+  \immediate\write\workplanfile{\string\ganttsection{#1}\string\relax}
+}
+\newcommand{\sectionstar}[1]{\subsection*{#1}}
+% \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
+\newcommand{\subsectionstar}[1]{
+  \medskip \noindent {\headerfont #1.}}
+% \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
+\newcommand{\SUBSECTION}[8]{%
+  \refstepcounter{subsection}%
+  \bigskip \noindent {\headerfont \thesubsection\ \ #1.}%
+  % \subsection{#1}
+  \label{#2}%
+  \COLOROF{#6}%
+  % \ifthenelse{\equal{#5}{Benjamin}}{%
+  %   \edef\FOO{\benjamincolor}%
+  % }{%
+  % \ifthenelse{\equal{#5}{Andrew}}{%
+  %   \edef\FOO{\andrewcolor}%
+  % }{%
+  % \ifthenelse{\equal{#5}{Both}}{%
+  %   \edef\FOO{\bothcolor}%
+  % }{%
+  %   \edef\FOO{\othercolor}}%
+  % }}%
+  \immediate\write\workplanfile{%
+    \string\tasksection{#1
+        (\string\sectionref{#2})}{#2}{#3}{#4}{\FOO}{#5}{#6}{#7}{#8}\string\relax}%
+}
+\newcommand{\tasksectiongantt}[9]{%
+%  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
+  \ganttnewline
+%    {\ganttnewline[grid]}
+  \ganttbar
+       [bar/.append
+          style={fill=#5}]
+%          style={fill=gray}]
+       {\hbox to 3in{{\footnotesize {\bf \currentganttsection}
+                     \hfill
+                     #1}}}
+       {#3}{#4}
+  \gdef\currentganttsection{}
+}
+\newcommand{\sectionref}[1]{\S\ref{#1}}
+\newcommand{\tasksection}{\tasksectiongantt}
+
+\newcommand{\TASK}[4]{}
+\newcommand{\TASKnotneeded}[4]{%
+  \ifthenelse{\equal{#2}{#3}}{%
+    \edef\FOO{year #2}%
+  }{%
+    \edef\FOO{years #2--#3}%
+  }
+  \smallskip {\it{Task: #1 (\FOO, #4).}}
+  % \ifthenelse{\equal{#4}{Harry}}{%
+  %   \edef\FOO{\harrycolor}%
+  % }{%
+  % \ifthenelse{\equal{#4}{Both}}{%
+  %   \edef\FOO{\bothcolor}%
+  % }{%
+  %   \edef\FOO{\othercolor}}%
+  % }%
+  \immediate\write\workplanfile{%
+    % \string\task{#1 (#4)}{#2}{#3}{\FOO}}%
+    \string\task{#1 (#4)}{#2}{#3}}%
+}
+\newcommand{\task}[3]{
+    {\ganttnewline}
+  \ganttbar
+       [bar/.append
+          style={fill=white}]
+       {\hbox to 3in{\hfill \footnotesize \it #1}}
+       {#2}{#3}
+}
+
+\ganttset{bar height=.6}
+%\ganttset{hgrid style/.style=black}
+\newcommand{\ganttsection}[1]{%
+  \gdef\currentganttsection{#1}%
+  %  \\ \ganttbar[bar/.append style={draw=white}] {\bf\small #1}{2}{3}
+  }
+\gdef\currentganttsection{}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tasksectionroles}[9]{%
+%  \ifthenelse{\equal{\currentganttsection}{Foundation}}%
+  \ifthenelse{\equal{\currentganttsection}{}}{}{{\bf \currentganttsection}\\}%
+  \gdef\currentganttsection{}%
+  \ \ \ #1 & #7 & #8 & #9 % & #6
+  \\
+}
+
+
+% \makeatletter
+% \newcommand{\SECTION}[1]{\section{#1}
+%   \g@addto@macro\workplanitems{\ganttsection{#1}}
+% }
+% \makeatother
+% \newcommand{\sectionstar}[1]{\subsection*{#1}}
+% \newcommand{\subsectionstar}[1]{\paragraph*{#1}}
+% % \newcommand{\subsectionstar}[1]{\subsubsection*{#1}}
+% \newcommand{\SUBSECTION}[4]{%
+%   \subsection{#1}
+%   \label{#2}
+%   \workplanitem{\task{#1}{#2}{#3}{#4} \\}
+% }
+% \newcommand{\sectionref}[1]{\S\ref{#1}}
+
+% \usepackage{pgfgantt}
+% \def\workplanitems{FOO}
+% \makeatletter
+% \def\workplanitem#1{%
+%   \g@addto@macro\workplanitems{#1 }}
+% \makeatother
+% \ganttset{bar height=.6}
+% \newcommand{\ganttsection}[1]{
+%   \ganttbar[bar/.append style={draw=white}] {#1}{2}{3} \\}
+% \newcommand{\task}[4]{
+%   \ganttbar [bar/.append style={fill=gray}]
+%     {\small #1 (\sectionref{#2})}{#3}{#4} \\ }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\fontsize{10.1pt}{12.1}\selectfont
+
+% BCP: This is correct:
+\vspace*{2in}
+\title{CISE: Large: Property-Based Testing for the People}
+
+% \vfil
+% \begin{center}
+% {\huge \color{red} Draft of \DTMnow}
+% \end{center}
+% \vfil
+% \bigskip\bigskip\bigskip\bigskip
+% \todo{More title ideas:
+%   \begin{itemize}
+%   \item Property-Based Testing for the People
+%   \item (what else?)
+%   \end{itemize}
+% }
+
+% \title{Property-Based Testing for the Working Programmer}
+% \tableofcontents % TODO Remove?
+%  BCP - was not working for me, so I followed the instruction to
+%  remove :-)
+\newpage
+
+% A. Cover Sheet
+% A number of the boxes contained on the Cover Sheet are
+% electronically pre-filled as part of the FastLane login process
+% Complete the rest of your info there
+
+% B. Project Summary
+\newsection{B}
+\input{sections/summary}
+
+% C. Table of Contents
+% A Table of Contents is automatically generated for the proposal by FastLane
+
+% D. Project Description
+\newpage\newsection{D}
+\input{sections/description}
+
+% E. References Cited
+\newpage\newsection{E}
+\renewcommand\refname{References Cited}
+\bibliography{andrew,harry,bcp}
+% I prefer to use the IEEE bibliography style.
+% That's  NOT required by the NSF guidelines.
+% Feel Free to use whatever style you prefer
+% \bibliographystyle{ACM-Reference-Format}
+% \bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtranS}
+
+\newpage\newsection{L}
+\input{sections/coord}
+
+% F. Biographical Sketch(es)
+\newpage\newsection{F}
+\input{sections/bio}
+
+% G. Budget Justification
+% \newpage\newsection{G}
+% \input{sections/budget}
+
+%  H. Current and Pending Support
+% \newpage\newsection{H}
+% \input{sections/support}
+
+% I. Facilities, Equipment and Other Resources
+\newpage\newsection{I}
+\input{sections/resources}
+
+% J. Special Information and Supplementary Documentation
+\newpage\newsection{J}
+\input{sections/bpc}
+
+\newpage
+\input{sections/data}		% Data Management Plan (Required)
+
+\newpage
+\input{sections/personnel}		% Personnel (Required)
+
+\newpage\newsection{K}
+\input{sections/reviewers}
+
+\newpage
+\section*{Letters of Support}
+
+(To be uploaded to the ``supplementary documentation'' section on
+research.gov.)
+
+\includepdf[pages=-]{assets/Hughes-letter.pdf}
+\includepdf[pages=-]{assets/Lampropoulos-letter.pdf}
+\includepdf[pages=-]{assets/Peleg-letter.pdf}
+ \includepdf[pages=-]{assets/Zac-letter.pdf}
+
+\end{document}

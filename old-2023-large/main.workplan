@@ -1,0 +1,26 @@
+\ganttsection{Foundation}\relax
+\tasksection{Generalizability of the Jane Street findings (\sectionref{sec:survey})}{sec:survey}{1}{2}{nord-frost1}{HCI Theory}{PhD 1}{REPL 1}{Head}\relax
+\tasksection{PBT interaction models (\sectionref{sec:observations})}{sec:observations}{4}{5}{nord-frost1}{HCI Theory}{PhD 1}{REPL 2}{Head}\relax
+\tasksection{A cognitive theory of PBT (\sectionref{sec:cogtheory})}{sec:cogtheory}{2}{3}{nord-frost1}{HCI Theory}{PhD 1}{Everyone}{Head}\relax
+\ganttsection{Generation}\relax
+\tasksection{Theory of reflective generators (\sectionref{sec:reflective})}{sec:reflective}{1}{1}{nord-frost4}{PL Theory}{PhD 2}{REPL 3}{Pierce}\relax
+\tasksection{Fuzzing with reflective generators (\sectionref{sec:reflectivefuzzing})}{sec:reflectivefuzzing}{2}{2}{nord-frost4}{PBT Theory}{PhD 2}{Engineer}{Pierce}\relax
+\tasksection{Usability of reflective generators (\sectionref{sec:reflectiveusable})}{sec:reflectiveusable}{3}{3}{nord-frost4}{HCI Practice}{PhD 2}{PhD 4}{Pierce}\relax
+\tasksection{Generator automation (\sectionref{sec:genauto})}{sec:genauto}{4}{5}{nord-frost4}{PL Theory}{PhD 2}{REPL 4}{Pierce}\relax
+\tasksection{Generator benchmark suite (\sectionref{sec:benchmarks})}{sec:benchmarks}{1}{2}{nord-frost4}{Tech Transfer}{PhD 2}{PhD 1}{Pierce}\relax
+\ganttsection{Specification}\relax
+\tasksection{Properties over program traces (\sectionref{sec:outpurprop})}{sec:outpurprop}{2}{3}{nord-red1}{PL Practice}{PhD 3}{REPL 5}{Pierce}\relax
+\tasksection{Mixed-initiative property specification (\sectionref{sec:interactive})}{sec:interactive}{4}{4}{nord-red1}{HCI Practice}{PhD 3}{PhD 4}{Pierce}\relax
+\tasksection{Model-based properties for modules (\sectionref{sec:automating})}{sec:automating}{3}{4}{nord-red1}{PL Practice}{PhD 3}{REPL 6}{Pierce}\relax
+\tasksection{Automatic explanations for properties (\sectionref{sec:understanding})}{sec:understanding}{4}{5}{nord-red1}{HCI Theory}{PhD 3}{REPL 7}{Pierce}\relax
+\ganttsection{Interaction}\relax
+\tasksection{Evaluating data distributions (\sectionref{sec:evaluating_distributions})}{sec:evaluating_distributions}{2}{3}{nord-red4}{HCI Practice}{PhD 4}{REPL 8}{Head}\relax
+\tasksection{Tuning data distributions (\sectionref{sec:tuning})}{sec:tuning}{3}{4}{nord-red4}{HCI Practice}{PhD 4}{REPL 9}{Head}\relax
+\tasksection{Interactive shrinking and debugging (\sectionref{sec:failures})}{sec:failures}{4}{4}{nord-red4}{HCI Practice}{PhD 4}{PhD 2}{Head}\relax
+\tasksection{Counterexamples as regression tests (\sectionref{sec:counter})}{sec:counter}{5}{5}{nord-red4}{HCI/PL Practice}{PhD 4}{REPL 10}{Head}\relax
+\ganttsection{Diffusion}\relax
+\tasksection{Beyond research software (\sectionref{sec:engineersupport})}{sec:engineersupport}{3}{5}{nord-green}{Tech Transfer}{Engineer}{}{Pierce}\relax
+\tasksection{Tyche: An IDE for PBT (\sectionref{sec:ide})}{sec:ide}{2}{5}{nord-green}{Tech Transfer}{Engineer}{PhD 4}{Pierce}\relax
+\tasksection{Nurturing the PBT ecosystem (\sectionref{sec:nurturing})}{sec:nurturing}{1}{5}{nord-green}{Tech Transfer}{Engineer}{PhD 1}{Pierce}\relax
+\tasksection{``When to Specify It!'' (\sectionref{sec:whento})}{sec:whento}{1}{1}{nord-yellow}{Education}{Faculty}{Everyone else}{}\relax
+\tasksection{Curricula for PBT (\sectionref{sec:1210})}{sec:1210}{1}{5}{nord-yellow}{Education}{Faculty}{Engineer}{}\relax
