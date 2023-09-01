@@ -227,7 +227,8 @@ over test inputs and pinpointing the cause of test failures.
 \item We will support the \thread{diffusion} of PBT tools and
 methodologies from academia into industry through targeted
 engineering---in particular, supporting and
-improving open-source PBT frameworks and building a comprehensive IDE
+improving open-source PBT frameworks and building a
+comprehensive\bcp{too grand?} IDE
 for PBT, dubbed \tyche.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
@@ -244,12 +245,11 @@ for introducing PBT into undergraduate and masters-level computer science course
 \begin{wrapfigure}{r}{.63\textwidth}
   \centering
   \includegraphics[width=.6\textwidth]{assets/overview.pdf}
-  \caption{Overview of the proposed research. Four PhD students
-  will advance the state of the art on four interconnected axes, supported by a
-  research engineer and the PIs for maximum impact.}
+  \caption{Overview of the proposed research.  \bcp{remove the icons!}}
   \label{overview}
 \end{wrapfigure}
 %
+\bcp{cut or compress:}
 The scale of this project---two PIs, four PhD students, and a staff
 engineer---is essential to the success of (1) its
 tightly integrated research agenda, which requires expertise across PL and
@@ -276,14 +276,6 @@ impact on software development practice.
 Publication targets and other success metrics are discussed in each
 section below.
 
-Two PIs is on the small side for a Large NSF proposal, but  we feel this
-is the right size, for two reasons. First, the PIs
-come from quite distinct areas, so we already span a
-broad swath of CS in terms of perspective and expertise.  Second,
-our success will depend on a high degree of
-interaction and cross-fertilization between PL and HCI; this is much
-easier with fewer PIs.
-
 Our plans for Broadening Participation in Computing, described in a
 supplemental document, are focused in two areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
@@ -309,6 +301,9 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
+
+\bcp{Lead with ``Specification is a perennial topic, newly urgent
+  bc. LLMs...}
 
 % We begin in this section with some background on PBT and preliminary
 % results from our ongoing study at Jane Street
@@ -447,9 +442,10 @@ as we shall see next.
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
 %
 Our research agenda is strongly informed by preliminary findings from
-an in-progress need-finding study at Jane Street Capital.  Our purpose
-in this
-study is to understand the usability challenges that must be addressed
+a need-finding study we carried out last year at Jane Street Capital.
+Our purpose in this
+study is\bcp{change tenses} to understand the usability challenges
+that must be addressed
 to boost adoption of PBT in
 industry. The study data consists of thirty semi-structured interviews
 with (1) developers who use PBT and (2) maintainers of PBT tools.
@@ -1138,9 +1134,11 @@ the remainder of the section.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
-\SUBSECTION{Fuzzing with reflective generators (compress!)}{sec:reflectivefuzzing}{2}{2}{PBT
+\SUBSECTION{Reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-%
+
+\bcp{Compress!}
+
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
 ones behind PBT: in particular, they use randomization to exercise a
@@ -1235,7 +1233,7 @@ using no bespoke BST-specific code.
 
 \publicationtarget{Programming Language Design and Implementation (PLDI)}
 
-\SUBSECTION{Usability of reflective generators}{sec:reflectiveusable}{3}{3}{HCI
+\SUBSECTION{Reflective generators for the people!}{sec:reflectiveusable}{3}{3}{HCI
   Practice}{PhD 2}{PhD 4}{Pierce}
 Reflective generators are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
@@ -1257,7 +1255,7 @@ practitioners.
 
 \publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
 
-\SUBSECTION{Generator automation}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{REPL 4}{Pierce}
+\SUBSECTION{Generator automation (cut?!)}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{REPL 4}{Pierce}
 %
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Both of our interview studies
@@ -1310,8 +1308,11 @@ are hard to satisfy.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
-\SUBSECTION{Generator benchmark suite (compress!)}{sec:benchmarks}{1}{2}{Tech
+\SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
+
+\bcp{(compress!)}
+
 Most papers in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
 are caught more quickly with their tool than existing ones. For
@@ -1462,8 +1463,9 @@ system \emph{containing} the component(s) of concern.
 
 \publicationtarget{Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
-\SUBSECTION{Ghostwriter++ (name?)}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
+\SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 
+\bcp{ (name?)}
 \bcp{To be written}
 
 % %
@@ -1504,6 +1506,9 @@ system \emph{containing} the component(s) of concern.
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
+
+\bcp{Cite Ernest's SRC poster.}
+
 One surprising finding from the Jane Street study was that
 it is quite common for developers to build (or already have) a
 {\em model
