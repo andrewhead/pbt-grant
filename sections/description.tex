@@ -439,6 +439,12 @@ With all these advantages, one might hope to find PBT on every
 software developer's toolbelt.  But PBT poses some challenges as well,
 as we shall see next.
 
+\todo{ Add a paragraph or two enumerating well-known / obvious
+  challenges of PBT.  Then the next section begins ``We validated
+  these challenges and added some color about additional ones that are
+  not so much discussed in the PBT literature through a user study at
+  Jane Street...''  }
+
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
 %
 Our research agenda is strongly informed by preliminary findings from
@@ -644,6 +650,8 @@ work and ideas permeate the PBT world.
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
+\todo{Remove ``Jame Street'' from most places (say ``industry study''
+  or don't say anything) in what follows}
 The ultimate findings from the Jane Street study should
 give us a clear
 picture of the benefits and challenges of PBT in the specific context
@@ -676,8 +684,10 @@ To ensure fairness, ethics, accountability, and transparency (FEAT),
 each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
-\SUBSECTION{Generalizing the Jane Street findings}%
+\SUBSECTION{Further User Studies}%
    {sec:survey}{1}{2}{HCI Theory}{PhD 1}{REPL 1}{Head}
+\bcp{Or something catchier!  Maybe reintroduce separate section
+  headers / management plan items for individual studies.}
 %
 Preliminary findings from the Jane Street study have already revealed
 a number of
@@ -1007,6 +1017,7 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
 \subsectionstar{Context: Reflective Generators}{}{}
+\todo{Harry will compress / reorganize this part. }
 Building on the free generator ideas described above, we are
 exploring a powerful
 generalization based on monadic generators called {\em reflective generators}.
@@ -1132,12 +1143,12 @@ Beyond theory, reflective generators offer a powerful foundation
 enabling a range of more practical innovations.  We discuss these in
 the remainder of the section.
 
-\publicationtarget{International Conference on Functional Programming (ICFP)}
+% \publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 
-\bcp{Compress!}
+\todo{Compress!  And remove the proposed PLDI submission.}
 
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
@@ -1235,6 +1246,9 @@ using no bespoke BST-specific code.
 
 \SUBSECTION{Reflective generators for the people!}{sec:reflectiveusable}{3}{3}{HCI
   Practice}{PhD 2}{PhD 4}{Pierce}
+\todo{Could we reorganize so that something more compelling appears as
+our first technical contribution?  Maybe talk about getting
+reflectives into Python?}
 Reflective generators are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1311,7 +1325,10 @@ are hard to satisfy.
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
 
-\bcp{(compress!)}
+\bcp{Core ETNA is done.  Talk about future expansion -- e.g., into
+  Python, OCaml, so that we can robustly evaluate tools that have not
+  been considered in this way so far...  Talk about the ``acceptable
+  latency of benchmarks'' by analogy with jane street findings...}
 
 Most papers in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
@@ -1466,7 +1483,12 @@ system \emph{containing} the component(s) of concern.
 \SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 
 \bcp{ (name?)}
-\bcp{To be written}
+\bcp{To be written...
+  \begin{itemize}
+  \item Port common / high-leverage scenarios
+  \item Expand Ghostwriter with specification inference?
+  \end{itemize}
+}
 
 % %
 % Even if a developer believes, in the abstract, that PBT should useful
@@ -1507,7 +1529,7 @@ system \emph{containing} the component(s) of concern.
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
 
-\bcp{Cite Ernest's SRC poster.}
+\bcp{Cite Ernest's SRC poster.  Compress if needed.}
 
 One surprising finding from the Jane Street study was that
 it is quite common for developers to build (or already have) a
@@ -1695,6 +1717,8 @@ PI Head has extensive experience with this style of work
 \SUBSECTION{Tyche: Exploring Data Distributions}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 4}{REPL 8}{Head}
 %
+\todo{Cite the UIST demo -- proof of concept for feedback.  We will do
+more!}
 Unlike conventional unit testing, where developers
 write concrete test cases,
 PBT automatically generates tests by drawing inputs from some
