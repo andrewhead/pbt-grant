@@ -301,9 +301,13 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
-
-\bcp{Lead with ``Specification is a perennial topic, newly urgent
-  bc. LLMs...}
+With the growing complexity of software, developers are often faced with code
+that they do not fully understand. Modern applications not cut from whole cloth;
+they are assembled from complex trees of dependencies that are too deep to hold
+in one's head all at once.
+And the rise of AI assistants like Copilot and ChatGPT mean that developers are
+increasingly faced with code that is easy to obtain but difficult to trust.
+\hg{How do we feel about this? Want to say more, or is this enough?}
 
 % We begin in this section with some background on PBT and preliminary
 % results from our ongoing study at Jane Street
@@ -314,7 +318,8 @@ NSF-supported work.
 PBT%
 % , famously popularized by Haskell's QuickCheck library
 ~\cite{hughes_quickcheck_2007}
-is software testing method where
+provides a straightforward way to reason about and evaluate these
+hard-to-understand programs via their specifications. In PBT
 executable functions are used as partial
 specifications of a component under test. For example, a developer might
 write the following property for an \lstinline{insert}
