@@ -1022,15 +1022,11 @@ in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
 \subsectionstar{Context: Reflective Generators}{}{}
-\todo{Harry will compress / reorganize this part. }
-Building on the free generator ideas described above, we are
-exploring a powerful
-generalization based on monadic generators called {\em reflective generators}.
-We began thinking about the basic concept during a past NSF
-project (see \sectionref{sec:prior}), and we will
-submit a first paper to ICFP 2023.
-% We briefly describe that work here, and then continue by describing the
-% work that remains to be done.
+Building the idea of free generators, we are exploring a powerful generalization
+based on monadic generators called {\em reflective generators}.  We began
+thinking about the basic concept during a past NSF project (see
+\sectionref{sec:prior}). The first paper on reflective generators won a
+distinguished paper award at ICFP 2023.
 
 What's special about reflective generators is that they can be run
 {\em backward}.
@@ -1107,24 +1103,19 @@ This means that as new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
 
-\bcp{Some of this turns into background material; much will be
-  commented out.}
+\SUBSECTION{Algorithmic advances for reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
+  Theory}{PhD 2}{Engineer}{Pierce}
 
-The work on reflective generators has begun to produce research results, but
-the theory around reflective generators is still far from settled.
-In particular,
-there are open questions
-about exactly which primitives are ideal for the generator language. The
-iteration in our current paper seems to give users too much power,
-potentially hurting usability (see
-\sectionref{sec:reflectiveusable}), but limiting that power may have unanticipated technical
-implications. We will explore a variety of language formulations in the context
-of examples to find an appropriate balance.
-Additionally, reflective generators
-are currently only ergonomic in purely functional languages; we will build on
-prior work~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to
-explore a form for reflective generators that is appropriate in languages like
-Python, Java, and Rust.
+The overwhelming positive reception of reflective generators has been
+encouraging, we have just scratched the surface of their potential uses.
+
+\hg{
+  \begin{itemize}
+    \item Improving algorithms for tuning
+    \item Improving algorithms for shrinking
+    \item Integrating fuzzing
+  \end{itemize}
+}
 
 Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
 but not obviously optimal. Hypothesis shrinkers reduce the input
@@ -1138,22 +1129,6 @@ inputs. Ideally, we'd like some
 reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
 will state and properties of a generator that imply this property.
-
-Finally, there we will explore the relationship between reflective
-generators, which are implemented in terms of monads, and {\em algebraic
-effects}. Algebraic effects may make it possible to simplify the representation
-of reflective generators, making them more modular and composable.
-
-Beyond theory, reflective generators offer a powerful foundation
-enabling a range of more practical innovations.  We discuss these in
-the remainder of the section.
-
-% \publicationtarget{International Conference on Functional Programming (ICFP)}
-
-\SUBSECTION{Reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
-  Theory}{PhD 2}{Engineer}{Pierce}
-
-\todo{Compress!  And remove the proposed PLDI submission.}
 
 {\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
 similar to the
@@ -1218,42 +1193,68 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to get the choices that lead to those seeds.
 
-\begin{wrapfigure}{l}{.67\textwidth}
-  \centering
-  \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
-  \caption{Validity-preserving mutation of a binary search tree, maintaining the
-  BST invariant. Mutating the root node from 6 to 3 invalidates the
-  4 in the left-hand subtree; the generator 4 with a new random label,
-1, then throws away its left subtree (because 1 is the
-minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
-\end{wrapfigure}
 
-Reflective generators can also support
-validity-preserving {\em mutation}.
-Fuzzing algorithms operate by
-mutating ``interesting'' values
-so as to explore
-the behavior of the program in a space ``around'' those
-values. But mutation can be
-tricky in scenarios where values are subject to complex validity
-constraints, since purely random mutation often produces invalid
-values. Reflective
-generators can help with this by (1) reflecting on
-a particular
-value to obtain a sequence of choices, (2) mutate those choices, and (3) run the generator forward with the new
-choices, {\em correcting any that
-would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
-illustrates how this
-algorithm can mutate a binary search tree while maintaining validity,
-using no bespoke BST-specific code.
+\SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing}{2}{2}{PBT
+  Theory}{PhD 2}{Engineer}{Pierce}
 
-\publicationtarget{Programming Language Design and Implementation (PLDI)}
+Ultimately, we would like reflective generators to become the de facto
+representation of generators in many real PBT frameworks. In this section we
+outline some important steps towards that goal.
 
-\SUBSECTION{Reflective generators for the people!}{sec:reflectiveusable}{3}{3}{HCI
-  Practice}{PhD 2}{PhD 4}{Pierce}
-\todo{Could we reorganize so that something more compelling appears as
-our first technical contribution?  Maybe talk about getting
-reflectives into Python?}
+\hg{
+  \begin{itemize}
+    \item Reflectives outside of Haskell
+    \item Automation of some workflows
+    \item Evaluating usability
+  \end{itemize}
+}
+
+\hg{Rewrite}
+In particular,
+there are open questions
+about exactly which primitives are ideal for the generator language. The
+iteration in our current paper seems to give users too much power,
+potentially hurting usability (see
+\sectionref{sec:reflectiveusable}), but limiting that power may have unanticipated technical
+implications. We will explore a variety of language formulations in the context
+of examples to find an appropriate balance.
+Additionally, reflective generators
+are currently only ergonomic in purely functional languages; we will build on
+prior work~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to
+explore a form for reflective generators that is appropriate in languages like
+Python, Java, and Rust.
+
+
+% \begin{wrapfigure}{l}{.67\textwidth}
+%   \centering
+%   \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
+%   \caption{Validity-preserving mutation of a binary search tree, maintaining the
+%   BST invariant. Mutating the root node from 6 to 3 invalidates the
+%   4 in the left-hand subtree; the generator 4 with a new random label,
+% 1, then throws away its left subtree (because 1 is the
+% minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
+% \end{wrapfigure}
+
+% \hg{Maybe cut here}
+% Reflective generators can also support
+% validity-preserving {\em mutation}.
+% Fuzzing algorithms operate by
+% mutating ``interesting'' values
+% so as to explore
+% the behavior of the program in a space ``around'' those
+% values. But mutation can be
+% tricky in scenarios where values are subject to complex validity
+% constraints, since purely random mutation often produces invalid
+% values. Reflective
+% generators can help with this by (1) reflecting on
+% a particular
+% value to obtain a sequence of choices, (2) mutate those choices, and (3) run the generator forward with the new
+% choices, {\em correcting any that
+% would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
+% illustrates how this
+% algorithm can mutate a binary search tree while maintaining validity,
+% using no bespoke BST-specific code.
+
 Reflective generators are unavoidably a bit
 more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
@@ -1272,10 +1273,6 @@ ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
-\publicationtarget{Human Aspects of Types and Reasoning Assistants (HATRA)}
-
-\SUBSECTION{Generator automation (cut?!)}{sec:genauto}{4}{5}{PL Theory}{PhD 2}{REPL 4}{Pierce}
-%
 Even with an ergonomic and learnable language for reflective generators, the
 less code the user has to write the better. Both of our interview studies
 revealed
@@ -1303,6 +1300,7 @@ We plan to collaborate with professor Hila
 Peleg at the Technion, who has experience with both PBT and program synthesis. A
 letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
 
+\hg{TODO Crunch}
 Going one step further, we will explore techniques that can synthesize an
 entire reflective generator from whole cloth. There are a variety of
 attempts to do this for standard generators: Lampropoulos et al. provides
@@ -1325,7 +1323,6 @@ contexts like proof assistants. More generally, generator automation could make
 PBT viable in any situation where properties already exist but preconditions
 are hard to satisfy.
 
-\publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
