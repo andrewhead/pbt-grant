@@ -1107,43 +1107,32 @@ generators.
   Theory}{PhD 2}{Engineer}{Pierce}
 
 The overwhelming positive reception of reflective generators has been
-encouraging, we have just scratched the surface of their potential uses.
+encouraging, our first paper only scratched the surface when it comes to
+building and evaluating potential use-cases.
 
-\hg{
-  \begin{itemize}
-    \item Improving algorithms for tuning
-    \item Improving algorithms for shrinking
-    \item Integrating fuzzing
-  \end{itemize}
-}
+The example-based tuning approach we describe in the first reflective generators
+paper faithfully follows the tuning procedure used by existing algorithms, which
+was important for demonstrating the flexibility of reflective generators, but we
+do not claim that that algorithm is the best way to tune a generator.
 
-Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
-but not obviously optimal. Hypothesis shrinkers reduce the input
-randomness to the
-{\em shortlex smallest} choice sequence---that is, they favor
-sequences that make the
-generator make as few choices as possible, and where each choice is
-``minimal.''  This is a useful heuristic, but it is not directly
-related to the user's understanding of the size of the shrunk
-inputs. Ideally, we'd like some
-reflective shrinkers to {\em always} produce inputs that are smaller by some
-natural metric on their type, not on the random choices that produced them; we
-will state and properties of a generator that imply this property.
+We think more powerful approaches to example-based tuning are within reach.  The
+algorithm ``Inputs from Hell'' algorithm assumes that subsequent choices are
+independent, tracking the weights of individual choices independent of the
+context in which those choices are made. If we really want to mimic an existing
+distribution of values, we should likely take that contextual information into
+account. We propose modelling choice weights with a more sophisticated machine
+learning model, for example \hg{TODO}. This would make the example-based tuning
+procedure far more accurate, allowing it to much more accurately replicate
+important features of complex input sets.
 
-{\em Fuzzers} like AFL~\cite{afl-readme} are based on principles
-similar to the
-ones behind PBT: in particular, they use randomization to exercise a
-range of
-program behaviors. Fuzzers are popular because they are both effective and
-inherently easy to use: the developer need only point the fuzzer at an
-executable binary and
-wait. But, without help, fuzzers are not very good at finding
-bugs when certain program paths are hard to reach (e.g., if they require the
-program's input to satisfy some complex precondition).
-Our ultimate goal is a unification of PBT and fuzzing that combines the
-powerful automation potential of reflective generators with the usability of
-fuzzers.
-
+\hg{These three paragraphs aren't perfect yet. In particular, I want to talk
+about interpretability of reflectives playing a role here.}
+Beyond example-based tuning, reflective generators are a compelling opportunity
+for integrations with 
+{\em fuzzers}~\cn \hg{See Shriram's comments on the ICSE paper for stuff on this
+citation}. Fuzzers manipulate their distributions over time, not based on
+user-provided examples, but instead based on live feedback about coverage of the
+code under test.
 Some existing projects have already worked to
 combine PBT and fuzzing.
 For example, the FuzzChick framework in Coq~\cite{DBLP:journals/pacmpl/Lampropoulos0P19}
@@ -1173,10 +1162,6 @@ monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
 reason but also {\em reflective}.
 
-% \amh{John thought this paragraph read like an outline rather than finished text.
-% He wasn't sure why this paragraph was here and that it was too vague.}
-% \hg{Joe helped me rewrite this last night, I think his comments were on an
-% earlier version}
 Why a reflective generator?
 To start,
 because its backward interpretation can be used to help seed the fuzzer.
@@ -1193,6 +1178,18 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to get the choices that lead to those seeds.
 
+Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
+but not obviously optimal. Hypothesis shrinkers reduce the input
+randomness to the
+{\em shortlex smallest} choice sequence---that is, they favor
+sequences that make the
+generator make as few choices as possible, and where each choice is
+``minimal.''  This is a useful heuristic, but it is not directly
+related to the user's understanding of the size of the shrunk
+inputs. Ideally, we'd like some
+reflective shrinkers to {\em always} produce inputs that are smaller by some
+natural metric on their type, not on the random choices that produced them; we
+will state and prove the properties of a generator that imply this property.
 
 \SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
@@ -1201,65 +1198,24 @@ Ultimately, we would like reflective generators to become the de facto
 representation of generators in many real PBT frameworks. In this section we
 outline some important steps towards that goal.
 
-\hg{
-  \begin{itemize}
-    \item Reflectives outside of Haskell
-    \item Automation of some workflows
-    \item Evaluating usability
-  \end{itemize}
-}
-
-\hg{Rewrite}
-In particular,
-there are open questions
-about exactly which primitives are ideal for the generator language. The
-iteration in our current paper seems to give users too much power,
-potentially hurting usability (see
-\sectionref{sec:reflectiveusable}), but limiting that power may have unanticipated technical
-implications. We will explore a variety of language formulations in the context
-of examples to find an appropriate balance.
-Additionally, reflective generators
-are currently only ergonomic in purely functional languages; we will build on
-prior work~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to
-explore a form for reflective generators that is appropriate in languages like
+Most saliently, it is not yet clear how reflective generators should be
+represented in languages with weaker type systems than the one they currently
+rely on in Haskell. In Haskell, the type checker can automatically catch many
+common user errors, but this checking relies heavily on type-classes that
+quantify over higher-kinded types (e.g., monads). If we hope to implement
+reflective generators in frameworks like Hypothesis, in Python, we need to
+design a programming discipline that makes the process equally safe and
+intuitive. We plan to build on prior work exploring implementing data structures
+like monads in imperative
+languages~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to arrive
+at a form for reflective generators that is appropriate in languages like
 Python, Java, and Rust.
 
-
-% \begin{wrapfigure}{l}{.67\textwidth}
-%   \centering
-%   \includegraphics[width=.65\textwidth]{assets/mutate-diagram.pdf}
-%   \caption{Validity-preserving mutation of a binary search tree, maintaining the
-%   BST invariant. Mutating the root node from 6 to 3 invalidates the
-%   4 in the left-hand subtree; the generator 4 with a new random label,
-% 1, then throws away its left subtree (because 1 is the
-% minimum element of the label range) and relabels 5 to 2.}\label{fig:mutation}
-% \end{wrapfigure}
-
-% \hg{Maybe cut here}
-% Reflective generators can also support
-% validity-preserving {\em mutation}.
-% Fuzzing algorithms operate by
-% mutating ``interesting'' values
-% so as to explore
-% the behavior of the program in a space ``around'' those
-% values. But mutation can be
-% tricky in scenarios where values are subject to complex validity
-% constraints, since purely random mutation often produces invalid
-% values. Reflective
-% generators can help with this by (1) reflecting on
-% a particular
-% value to obtain a sequence of choices, (2) mutate those choices, and (3) run the generator forward with the new
-% choices, {\em correcting any that
-% would lead to an invalid value on the fly.} Figure~\ref{fig:mutation}
-% illustrates how this
-% algorithm can mutate a binary search tree while maintaining validity,
-% using no bespoke BST-specific code.
-
-Reflective generators are unavoidably a bit
-more complex than standard QuickCheck generators. The current design of the
+Another barrier to adoption is the extra work involved in turning a standard
+generator into a reflective one, since reflective generators are unavoidably a
+bit more complex than standard QuickCheck generators. The current design of the
 reflective generator language is a best guess at what users will find most
 usable (based on our own experience), but we can do better than guessing!
-
 We will evaluate and redesign the surface syntax of reflective generators with
 the help of real users, in a style informed by prior work in the HCI
 literature~\cite{ref:ko2015practical}.  We will recruit a small group of users, teach
@@ -1287,7 +1243,6 @@ generators are only useful for testing properties with easily satisfiable
 preconditions, but this is a good starting point for many developers. Beyond
 that, we will consider techniques for {\em interactively}
 constructing reflective generators that maintain complex preconditions.
-
 Some users may already have a standard QuickCheck-style generator that
 they would like to use
 in situations that require a reflective generator. We will assist those
@@ -1300,29 +1255,27 @@ We plan to collaborate with professor Hila
 Peleg at the Technion, who has experience with both PBT and program synthesis. A
 letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
 
-\hg{TODO Crunch}
-Going one step further, we will explore techniques that can synthesize an
-entire reflective generator from whole cloth. There are a variety of
-attempts to do this for standard generators: Lampropoulos et al. provides
-two solutions, one based on on inductive relation specifications of
-preconditions~\cite{Lampropoulos&18} and the other based on an
-extended language for properties~\cite{beginners-luck}, while Steinh\"ofel et al.
-infer a generator from constraints using
-Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
-But none of these
-tools fully solves the problem of automated constrained generation in
-general, and none of them include the tools necessary to produce reflective
-generators.
+% Going one step further, we will explore techniques that can synthesize an
+% entire reflective generator from whole cloth. There are a variety of
+% attempts to do this for standard generators: Lampropoulos et al. provides
+% two solutions, one based on on inductive relation specifications of
+% preconditions~\cite{Lampropoulos&18} and the other based on an
+% extended language for properties~\cite{beginners-luck}, while Steinh\"ofel et al.
+% infer a generator from constraints using
+% Z3~\cite{steinhofel_input_2022,de_moura_z3_2008}.
+% But none of these
+% tools fully solves the problem of automated constrained generation in
+% general, and none of them include the tools necessary to produce reflective
+% generators.
 
-Pushing forward with generator automation could also extend the reach of PBT
-into new domains. Constrained generation is a major difficulty of the
-QuickChick ecosystem~\cite{paraskevopoulou_foundational_2015}, and automated
-generator solutions could be used to test program
-logics~\cite{jung_iris_2018,leino_dafny_2010} to improve usability of PBT in
-contexts like proof assistants. More generally, generator automation could make
-PBT viable in any situation where properties already exist but preconditions
-are hard to satisfy.
-
+% Pushing forward with generator automation could also extend the reach of PBT
+% into new domains. Constrained generation is a major difficulty of the
+% QuickChick ecosystem~\cite{paraskevopoulou_foundational_2015}, and automated
+% generator solutions could be used to test program
+% logics~\cite{jung_iris_2018,leino_dafny_2010} to improve usability of PBT in
+% contexts like proof assistants. More generally, generator automation could make
+% PBT viable in any situation where properties already exist but preconditions
+% are hard to satisfy.
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{2}{Tech
   Transfer}{PhD 2}{PhD 1}{Pierce}
