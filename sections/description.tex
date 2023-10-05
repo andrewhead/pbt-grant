@@ -3,7 +3,7 @@
 Testing plays a vital role in the robustness, security, and overall
 quality of modern software. It comes in many styles---unit testing,
 integration testing, performance testing, stress testing,
-accessibility testing, penetration testing, etc.---supported by
+accessibility testing, penetration testing, etc.---and is supported by
 diverse tools, with yet more advanced tools and methodologies always on
 the horizon.
 
@@ -26,20 +26,20 @@ stores~\cite{MysteriesOfDropbox2016,Bornholt2021}, automotive
 software~\cite{arts2015testing}, and other complex
 systems~\cite{hughes_experiences_2016}.
 It is used by companies including Amazon, Volvo, Stripe, Galois,
-and IOG, which
-runs the Cardano blockchain and the Ada cryptocurrency.
+and IOG (which
+runs the Cardano blockchain and the Ada cryptocurrency).
 
-PBT took the functional programming world by storm following its
+PBT took the functional programming world by storm after its
 debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}.  In
 2010 the
 QuickCheck authors received the ACM SIGPLAN ``Most Influential Paper of ICFP
-2000'' for their paper on it; this is currently the most cited
+2000'' for their paper, which is also now the most cited
 ICFP paper by
-a factor of 2, according to ACM's digital library.  In the intervening
-years, PBT has spread to many other software ecosystems:
+a factor of 2, according to ACM's digital library.  Since then,
+PBT has spread to many other software ecosystems:
 %
-Wikipedia lists QuickCheck variants in 40  languages, some
-with several competing frameworks~\cite{QuickCheckWikipedia} (Java alone has
+Wikipedia lists QuickCheck variants in 40 languages, some
+with multiple competing frameworks~\cite{QuickCheckWikipedia} (Java alone has
 7!).
 %
 And these frameworks are popular:
@@ -52,18 +52,21 @@ test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
 PBT tool has $\sim$70\% as many stars as Python's entire testing
-infrastructure.
+infrastructure. \bcp{My math brain finds it hard to imagine exact what
+that means.  Would it be accurate to say ``Python's
+PBT tool has $\sim$70\% of the stars of Python's entire testing
+infrastructure''?  Or can we in some other way simplify it?}
 
-And there is still plenty of room
+Moreover, there is still plenty of room
 for growth.
-The 500K estimate for
-Hypothesis users is only 4\% of all Python developers; the Hypothesis
+The estimated  500K
+Hypothesis users represent only 4\% of all Python developers; the Hypothesis
 authors estimate that the ``addressable market'' for PBT is around
 25\% of the Python
 community, and that there remains significant room for
 improving its usage by existing users~\cite{ZacPersonalCommunication,noauthor_python_nodate}.
 Similarly, the list of
-companies using PBT, while substantial, is very far from the whole of the software
+companies using PBT, while substantial, is far from the whole of the software
 industry.
 These gaps represent a gigantic opportunity to increase software quality
 and reduce software costs.
@@ -78,36 +81,35 @@ significant dent
 in the global cost of software bugs.  This is the grand challenge that
 we address.
 
-Our group has already begun working to identify
+Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
-In an ongoing need-finding study with PBT users at Jane Street
+In recent need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---developers called it
 ``obviously valuable'' (Participant \participant{1}), built their own
 frameworks for it when standard ones were not available
 (\participant{8}, \participant{21}), and suggested that ``everyone''
 at the company should use it (\participant{20}); however, developers
-also highlighted a key opportunity for improvement---{\em usability}.
+also highlighted a key opportunity for improvement: {\em usability}.
 %
 Like
-many powerful tools, PBT can be difficult to apply, and developers
-need support to do so effectively.
+many other powerful tools, PBT can be nontrivial to apply effectively, and developers
+need support to do so.
 
-The research advances required to improve the usability of PBT
-will require fundamental insights from
-both the
+The conceptual advances needed to improve the usability of PBT
+require fundamental insights from both the
 programming languages (PL) and human-computer interaction (HCI),
 communities.
-On one side, PL provides conceptual background,
+On one hand, PL provides conceptual background,
 mathematical underpinnings, and established tools for PBT.  On the
 other, HCI provides a deep foundation of theory and
 practice for evaluating usability of systems in a
 rigorous and objective way, including principled methods for
-identifying problems, rigorous metrics, and proven
+identifying problems, metrics for measuring impact, and proven
 approaches to tool design---where tools, here, naturally include
-``front end'' components like
+not only ``front end'' components like
 data visualizers and IDE plug-ins, but
 also ``back end'' technologies like domain-specific languages for
-properties and generators; for the latter, HCI techniques
+properties and generators.  For the latter, HCI techniques
 can help designers
 strike the right balance between expressiveness and
 accessibility~\cite{coblenz_pliers_2021,greenman_little_2022}.
@@ -115,40 +117,46 @@ Synergies like these led
 Chasins et al.~\cite{chasins_pl_2021} to argue that a research
 methodology combining PL and HCI hits a ``sweet spot'' where
 need-finding techniques identify
-pain points, motivating concrete tools that help programmers write
+pain points and motivate concrete tools that help programmers write
 safe, correct code.
 
-Our team
-is uniquely positioned to bring PBT into this vibrant area
-of ``PL+HCI'' research.  PI Head recently
+Our team is uniquely positioned to bring PBT into this vibrant area
+of PL+HCI research.  PI Head recently
 co-founded a new HCI group at
 the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
-topics including PBT.  Our past research collaboration has led to
+topics including PBT.  Our past collaboration has led to
 two workshop
-presentations~\cite{goldstein_problems_2022,shi_towards_2023} and to the ongoing
-study at Jane Street mentioned above, which informs the
-research and technology transfer agenda for this proposal.
+presentations~\cite{goldstein_problems_2022,shi_towards_2023} and a
+paper under submission on the
+Jane Street study mentioned above, which inform the
+agenda for this proposal.
 
-\smallskip
+\medskip
 
-We propose an interdisciplinary program of research and
-engineering in
+\begin{wrapfigure}{r}{.63\textwidth}
+  \centering
+  \includegraphics[width=.6\textwidth]{assets/overview.pdf}
+  \caption{Overview of the proposed research.}
+  \label{overview}
+\end{wrapfigure}
+%
+We propose an interdisciplinary program of research in
 {property-based testing}, bringing to
 bear the combined power of PL and HCI to accelerate PBT's transition
 into practice.
 %
 Planned research,
 engineering, and education activities can be grouped into five main
-themes (see Figure~\ref{overview}):
+themes (Figure~\ref{overview}): \iflater\bcp{Make sure this is an
+  accurate summary -- e.g., the connection with fuzzing}\fi
 %
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
-\item We will establish a solid \thread{foundation} for HCI-informed research on PBT,
-building on our ongoing need-finding study. We will confirm and generalize
-this study's findings through further studies, culminating in a novel
-cognitive theory of PBT (\sectionref{sec:foundation}).
+\item We will establish a firm \thread{foundation} for HCI-informed research on PBT,
+building on our past need-finding study and to confirm and generalize
+its findings (\sectionref{sec:foundation}).
 %
 \item We will explore and apply a novel ``reflective'' approach to
 \thread{generation}, enabling better generator tuning and counterexample
@@ -197,42 +205,8 @@ for introducing PBT into undergraduate and masters-level computer science course
 % \end{itemize}
 \end{enumerate}
 %
-\begin{wrapfigure}{r}{.63\textwidth}
-  \centering
-  \includegraphics[width=.6\textwidth]{assets/overview.pdf}
-  \caption{Overview of the proposed research.}
-  \label{overview}
-\end{wrapfigure}
-%
-\bcp{cut or compress:}
-The scale of this project---two PIs, four PhD students, and a staff
-engineer---is essential to the success of (1) its
-tightly integrated research agenda, which requires expertise across PL and
-HCI to make significant advances in the five interconnected themes above, and (2) its
-goal of broad impact on industrial
-practice, requiring the full-time attention of a software engineer.
-%
-A detailed sketch of responsibilities and timeline can be found in the
-Management and Coordination supplement, but, briefly,
-one PhD student will build on our existing user studies to
-develop a clear foundational understanding of
-PBT from the perspective of usability and human factors, two students
-will develop ``back end'' technologies to support usable
-PBT workflows, and a final student will leverage these technological
-advances to design and develop ``front end'' IDE support. The
-research engineer will focus on transferring the
-products of this research into an industrial context, supporting and enriching
-existing open-source PBT projects with theoretically informed ideas
-and tools. None of these
-projects stands on its own; rather, each supports and informs the
-others to achieve both conceptual advances and significant
-impact on software development practice.
-%
-Publication targets and other success metrics are discussed in each
-section below.
-
-Our plans for Broadening Participation in Computing, described in a
-supplemental document, are focused in two areas: (1) expanding an
+Our goals for Broadening Participation in Computing are focused in two
+areas: (1) expanding an
 existing NSF-REU program that brings undergraduates from
 underrepresented groups to Penn for summer research experiences in
 programming languages, and (2) increasing diversity in the TA roster
@@ -244,14 +218,14 @@ co-teaches.
 The rest of this Project Description describes this research and
 technology transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
-background on PBT and present preliminary findings from our
-ongoing study at Jane Street.
+background on PBT and present preliminary findings from the
+study at Jane Street.
 %
 Sections \sectionref{sec:foundation} through
 \sectionref{sec:diffusion} outline plans for each of the
 themes listed above.
 Section \sectionref{sec:broader-impacts}
-discusses the Broader Impacts of the project, and
+discusses Broader Impacts, and
 Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
@@ -1132,14 +1106,14 @@ reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
 will state and prove the properties of a generator that imply this property.
 
-\SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing}{2}{2}{PBT
+\SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing2}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 
-Ultimately, we would like reflective generators to become the de facto
-representation of generators in many real PBT frameworks. In this section we
+Ultimately, we would like reflective generators to become a
+standard representation of generators in real PBT frameworks. In this section we
 outline some important steps towards that goal.
 
-Most saliently, it is not yet clear how reflective generators should be
+Most importantly, it is unclear how reflective generators should be
 represented in languages with weaker type systems than the one they currently
 rely on in Haskell. In Haskell, the type checker can automatically catch many
 common user errors, but this checking relies heavily on type-classes that
