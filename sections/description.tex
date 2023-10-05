@@ -17,11 +17,6 @@ then validated against these properties by running it many times
 with a large number of automatically generated test
 inputs.
 %
-% PBT thus achieves a comprehensiveness that is often not
-% possible with alternative testing methods. \iflater\bcp{Why not with
-%   fuzzing??  Can we say it explicitly, to avoid leaving a question
-%   pending for some readers?}\fi
-%
 This combination of rich, high-level specifications and mostly
 automatic validation has proven effective at identifying
 subtle bugs in a wide variety of settings, including
@@ -97,28 +92,6 @@ Like
 many powerful tools, PBT can be difficult to apply, and developers
 need support to do so effectively.
 
-% \amh{This is a deficit-focused pitch---focusing on the problems that need to be
-% solved with PBT---rather than an asset-focused pitch---focusing on how we need
-% new paradigms for PBT. Can we shift the focus of this to stating one big way in
-% which innovation in PBT is necessary?}
-% Given all this momentum, one might wonder whether the research community
-% has already discovered and addressed all of the challenges that might limit PBT's adoption
-% in the broader software industry.  Sadly, it has not:
-% in an ongoing need-finding study with users of OCaml's QuickCheck testing tool
-% at Jane Street Capital, we have found
-% consistent enthusiasm for PBT---participants called it
-% ``obviously valuable'' (Participant \participant{1}),
-% built their own libraries for it when standard ones were not available
-% (\participant{8},
-% \participant{21}), and suggested that ``everyone'' at the company should use it
-% (\participant{20})---but participants also described {\em usability} issues that
-% limit PBT's impact on the broader software community.
-
-% Solving these issues
-% requires advances in both technical foundations and
-% tool design.\iflater\bcp{The last part of that sentence kind of
-%   duplicates the first part of the next...}\fi
-
 The research advances required to improve the usability of PBT
 will require fundamental insights from
 both the
@@ -144,23 +117,6 @@ methodology combining PL and HCI hits a ``sweet spot'' where
 need-finding techniques identify
 pain points, motivating concrete tools that help programmers write
 safe, correct code.
-
-% We intend to employ those particularly in the front-end aspect (the IDE for PBT);
-% \item But also in the back-end (to strike the right balance between expressiveness and accessibility in our languages and libraries).
-% \item For justification of the back-end language stuff, see the PLIERS paper
-% % https://dl-acm-org.proxy.library.upenn.edu/doi/abs/10.1145/3452379
-%  which provides a recipe for user-centered language design, and Little Tricky Logic
-% % https://users.cs.utah.edu/~blg/resources/talks/vardifest-2022.pdf
-% which argues that languages PL people like are often very confusing, and HCI methods can prevent us from designing languages that users won’t understand.
-% \end{itemize}
-% To provide tools for evaluating what we build that are faster and more direct than just putting things out into the world and waiting to see if users adopt them.
-
-% Success in all these efforts will require complementary tools from PL and
-% HCI research. HCI approaches will be used to concretely define
-% developers' needs, design the user interface to tools, and evaluate
-% their success, while PL techniques will be used to develop powerful
-% domain-specific languages and type-based automation to improve the PBT
-% process\proposecut{, as well as to formally validate these tools}.
 
 Our team
 is uniquely positioned to bring PBT into this vibrant area
@@ -228,8 +184,7 @@ over test inputs and pinpointing the cause of test failures.
 methodologies from academia into industry through targeted
 engineering---in particular, supporting and
 improving open-source PBT frameworks and building a
-comprehensive\bcp{too grand?} IDE
-for PBT, dubbed \tyche.
+comprehensive IDE for PBT, dubbed \tyche.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
 for introducing PBT into undergraduate and masters-level computer science courses
@@ -637,20 +592,6 @@ ways to improve
 PBT Frameworks} with the insights and tools we develop, to help our
 work and ideas permeate the PBT world.
 
-
-% \iflater
-% \bcp{Needs a rewrite for the new structure... Section 7 is missing!
-%   Or maybe we can just drop this paragraph?!}%
-% %
-% We discuss plans for work that addresses \proptheme{specification
-%   themes} in \sectionref{sec:spec}, \gentheme{generation themes} in
-% \sectionref{sec:gen},
-%   \evaltheme{validation themes} in \sectionref{sec:val}, and \edutheme{diffusion
-%   themes} in \sectionref{sec:ed}.  To support all of this work,
-% \sectionref{sec:foundation} describes plans for a further round of
-% studies to deepen our understanding of PBT needs and opportunities
-% across a wide range of industrial settings.
-% \fi
 
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
@@ -1128,7 +1069,7 @@ important features of complex input sets.
 \hg{These three paragraphs aren't perfect yet. In particular, I want to talk
 about interpretability of reflectives playing a role here.}
 Beyond example-based tuning, reflective generators are a compelling opportunity
-for integrations with 
+for integrations with
 {\em fuzzers}~\cn \hg{See Shriram's comments on the ICSE paper for stuff on this
 citation}. Fuzzers manipulate their distributions over time, not based on
 user-provided examples, but instead based on live feedback about coverage of the
