@@ -134,21 +134,22 @@ agenda for this proposal.
 
 \medskip
 
-\begin{wrapfigure}{r}{.63\textwidth}
+\begin{wrapfigure}{r}{.5\textwidth}
   \centering
-  \includegraphics[width=.6\textwidth]{assets/overview.pdf}
-  \caption{Overview of the proposed research.}
-  \label{overview}
+  \vspace*{-2ex}
+  \includegraphics[width=.5\textwidth]{assets/overview.pdf}
+  % \caption{Overview of the proposed research.}
+  % \label{overview}
 \end{wrapfigure}
 %
-We propose an interdisciplinary program of research in
+We propose an interdisciplinary program of work on
 {property-based testing}, bringing to
 bear the combined power of PL and HCI to accelerate PBT's transition
 into practice.
 %
-Planned research,
-engineering, and education activities can be grouped into five main
-themes (Figure~\ref{overview}): \iflater\bcp{Make sure this is an
+The planned research,
+technology transfer, and education activities can be grouped into five main
+themes: \iflater\bcp{Make sure this is an
   accurate summary -- e.g., the connection with fuzzing}\fi
 %
 \begin{enumerate}[noitemsep]
@@ -189,9 +190,9 @@ over test inputs and pinpointing the cause of test failures.
 (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
-methodologies from academia into industry through targeted
-engineering---in particular, supporting and
-improving open-source PBT frameworks and building a
+methodologies from academia into industry by supporting and
+improving open-source PBT frameworks\iflater\bcp{multiple ones?  or
+  should we focus better?}\fi{} and building a
 comprehensive IDE for PBT, dubbed \tyche.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
@@ -230,9 +231,10 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
-With the growing complexity of software, developers are often faced with code
-that they do not fully understand. Modern applications not cut from whole cloth;
-they are assembled from complex trees of dependencies that are too deep to hold
+Present-day software developers often face code
+that they do not fully understand. Modern applications are assembled
+from complex trees of dependencies \bcp{my metaphor checker breaks on
+  that} that are too deep to hold
 in one's head all at once.
 And the rise of AI assistants like Copilot and ChatGPT mean that developers are
 increasingly faced with code that is easy to obtain but difficult to trust.
@@ -1785,12 +1787,12 @@ But we will make the code of \tyche{} language-agnostic wherever
 possible, to allow other
 language communities to use it with their PBT frameworks.
 
-The research engineer will lead feature integration, ensuring features come together into a
-seamless whole. They will also develop \tyche{} to serve as a platform for
-further innovation as it will have been for our own: extension points will be added
-for others to create and evaluate techniques for understanding and creating properties and generators.
-In this way, \tyche{} will provide a pipeline for bringing research on
-PBT algorithms and interaction models to developers craving better tools.
+% The research engineer will lead feature integration, ensuring features come together into a
+% seamless whole. They will also develop \tyche{} to serve as a platform for
+% further innovation as it will have been for our own: extension points will be added
+% for others to create and evaluate techniques for understanding and creating properties and generators.
+% In this way, \tyche{} will provide a pipeline for bringing research on
+% PBT algorithms and interaction models to developers craving better tools.
 
 We will make \tyche{} known to the developer community through talks at developer
 conferences and by
@@ -1867,57 +1869,7 @@ design, implement, and evaluate a tool supporting such interactions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-% \SUBSECTION{Counterexamples as regression
-%   tests}{sec:counter}{5}{5}{HCI/PL Practice}{PhD 4}{REPL 10}{Head}
-% %
-% % After testing has revealed a counterexample to one of their properties
-% % with their tests, the developer may wish to turn that failure into a
-% % regression test, to ensure that later
-% % changes to the code will not reintroduce the same failure.
-% One pain
-% point reported
-% by informants in our Jane Street interviews is that it requires
-% considerable work to
-% transform a (repaired) counterexample detected by their PBT tools into a
-% regression test, even though much of this work
-% feels mechanical.
-
-% Much of this work could be automated away. After all, a repaired
-% counterexample
-% is just an input to some component plus (as specified in the property)
-% a way of checking that the produced output matches expectations.
-% In theory, this should easily be transformable into a unit test.
-% In practice, there are numerous issues to deal with.
-% Consider: (1) an input may be so large it belongs in an external
-% file; (2) an input may be passed through so many operations that a tester wishes
-% they were split up into independent lines, and perhaps even tested individually;
-% or
-% (3) a developer may wish to remove a precondition check from a property
-% (consider the left side of \texttt{prop\_insert\_correct} in
-% \sectionref{sec:orientation}).
-% % ; (4) a developer may wish to compare to a more specific output than the test
-% % calls for (e.g., for \texttt{prop\_insert\_correct}, compare to the expected %
-% % tree following insertion, rather than checking if it binary).
-% In all of these cases (and many others), automation cannot know a developer would wish to make
-% these choices beforehand, but it can at least make them readily available to the
-% developer.
-
-% We will design a mixed-initiative~\cite{ref:allen1999mixed} interaction flow
-% that supports creating unit tests from
-% counterexamples. In this flow, a developer's
-% editor creates a provisional unit test. The developer is
-% guided through a sequence of decisions corresponding to different ways
-% they may wish to ``write out'' the test
-% case.  Each decision results in a re-rendered test (e.g., where inputs are
-% moved to a file, operations are split up, etc.)  As with PI Head's prior work
-% with similar tools~\cite{ref:head2018interactive}, innovations in this work come
-% from identifying a small number of powerful decisions and sequencing them in an
-% order that is easy for developers to follow.  Decision points will be chosen
-% following observations of developers creating test cases from counterexamples;
-% we will prioritize  hard-to-automate decisions---ones that are time-consuming
-% or vary by context.
-
-\publicationtarget{Foundations of Software Engineering (FSE)}
+% \publicationtarget{Foundations of Software Engineering (FSE)}
 
 \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
 The activities described in the previous sections are focused on
@@ -1947,7 +1899,8 @@ to industry conferences like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
 \SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
-Transfer}{???}{}{Pierce}
+  Transfer}{???}{}{Pierce}
+\bcp{Cut to almost nothing (not even a separate subsection)}
 %
 The research projects described above have the potential to
 dramatically improve the power and usability of PBT, but only
