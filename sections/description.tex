@@ -570,17 +570,25 @@ work and ideas permeate the PBT world.
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
-\todo{Remove ``Jame Street'' from most places (say ``industry study''
-  or don't say anything) in what follows}
-The ultimate findings from the Jane Street study should
-give us a clear
-picture of the benefits and challenges of PBT in the specific context
-of Jane Street and other organizations with similar characteristics.  But to
-fully understand the potential impact of PBT across the whole software
-industry---as well as the factors that may limit its adoption---we need to
+\bcp{I tried to make the opening of this section give a better sense
+  of why we think the preliminary study is a useful motivation for our
+  research even if it's ``just about Jane Street'' and needs to be
+  fleshed out to learn about other settings.  Is it OK?}
+
+The findings of this industry study paint a clear
+picture of both the benefits and the challenges of PBT, in the specific context
+of Jane Street and other software development teams with similar
+characteristics---i.e., teams comprising a relatively homogeneous
+group of relatively skilled developers who are comfortable with
+advanced programming languages and tools and who care a lot about
+software correctness.  There are many such teams, and making PBT more
+usable just for them would already make a significant impact on the
+industry.  But understand potential impact of PBT
+across the {\em  whole} software
+industry---and the factors that may limit its adoption---we need to
 cast a wider net.
-%
-In this section, we describe four planned studies that aim
+
+In this section, we describe four\bcp{?} planned studies that aim
 to produce a comprehensive, actionable
 {\em foundation} for the latter stages of this project and beyond. Building a
 rigorous foundation, with methods motivated by the HCI literature, is hard work,
@@ -609,7 +617,7 @@ Review Board (IRB) review process.
 \bcp{Or something catchier!  Maybe reintroduce separate section
   headers / management plan items for individual studies.}
 %
-Preliminary findings from the Jane Street study have already revealed
+Preliminary findings from our industry study have already revealed
 a number of
 opportunities to improve property-based testing. To identify
 others and better understand which are most
@@ -624,7 +632,7 @@ software industry.
 % \TASK{Validation survey}{1}{1}{Who?}
 The main survey
 aims to confirm (or perhaps refute) that
-the things we are learning from Jane Street generalize to other settings.
+the things we have learned from Jane Street generalize to other settings.
 We will
 ask developers which of the issues we found at Jane Street are
 ones they have also encountered, which are most severe
@@ -648,15 +656,14 @@ we aim to recruit respondents with upwards of around 150 respondents per survey
 original study, requiring energy and care commensurate with that increase, but
 it will give us a critical opportunity to galvanize our findings.
 Respondents will
-be recruited broadly, from groups including:
+be recruited broadly, from groups including
 (1)
-users of the major PBT frameworks in Python, Java, Haskell, Rust, and Scala;
-(2) the students' and PIs' professional networks, including
+users of the major PBT frameworks in Python, Java, Haskell, Rust, and
+Scala; and
+(2) our own and our students' professional networks, including
 Twitter and Mastodon, various mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke last
-year~\cite{Pierce:Yow22};
-and (3) Jane Street, aiming for
-a broader set of developers than in the original study.
+year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
 A second written survey later in the project will investigate
@@ -825,7 +832,7 @@ publications if they turn out to be of broader interest.
 % Machinery (CACM) to communicate about PBT to a broader computer science audience.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
-Many of the usability improvements suggested by the Jane Street study center
+Many of the usability improvements suggested by our industry study center
 around test input
 \gentheme{generation}.
 Indeed, generators were regularly cited as one of the most challenging
@@ -1249,7 +1256,7 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 %
 To bring PBT to the people, we need to help developers with envisioning and writing
 specifications.
-Our the Jane Street study suggested that developers struggle to write
+Our industry study suggested that developers may struggle to write
 properties about their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
 might want to
@@ -1401,7 +1408,7 @@ system \emph{containing} the component(s) of concern.
 
 \bcp{Cite Ernest's SRC poster.  Compress if needed.}
 
-One surprising finding from the Jane Street study was that
+One surprising finding from our industry study was that
 it is quite common for developers to build (or already have) a
 {\em model
 implementation} of the code they are testing and want to test that
@@ -2029,8 +2036,7 @@ educational materials.
 % testing~\cite{goldstein_problems_2022},
 % but
 % our follow-up
-Our interviews at Jane Street suggest that the developers there
-% rarely have the same problem. It seems that the Jane Street developers had
+Our interviews with industry developers suggest that many
 have a tacit
 understanding of several ``no-brainer'' situations where PBT is an obvious
 choice, where properties are easy to find and PBT provides
@@ -2216,10 +2222,10 @@ open source license to serve as models for similar tools in other
 programming languages and environments.
 
 This project also presents excellent opportunities for strengthening
-collaborations between university researchers and industrial advocates of PBT.  Our
-ongoing user study at Jane Street has been carried out with the
-enthusiastic support of their developers and management, and we hope
-to continue using Jane Street as a testbed for prototypes of our
+collaborations between university researchers and industrial advocates
+of PBT.  Our preliminary industry study has been carried out with the
+enthusiastic support of Jane Street's developers and management, and we hope
+to continue using them as a testbed for prototypes of our
 tools.  We are also in active discussions with the
 developers of Hypothesis, who are keenly
 interested in the results of this proposal.
