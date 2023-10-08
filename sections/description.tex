@@ -380,6 +380,9 @@ as we shall see next.
   Jane Street...''  }
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
+\bcp{OK, I crunched this section down to a page.  I don't want to go
+  too much shorter because it is doing a lot of work introducing the
+  themes that we return to later...}
 %
 Our research agenda is informed by the findings from
 a need-finding study that we carried out last year at Jane Street Capital.
@@ -414,9 +417,6 @@ All this makes Jane Street an ideal place for understanding the
 impact and challenges of PBT when users who have incentive to use
 it to full potential are provided with state-of-the-art tools.
 
-\bcp{Continue compressing -- as much as possible -- from here.
-  Maybe we can make the whole rest into one not too large paragraph?}
-
 \ifthemecolors\bcp{Make the colors here (if we're using them) match
   the ones in the timeline.  Also, we've got five main sections but
   only four colors here... is that confusing?  I think so.  Maybe
@@ -426,139 +426,204 @@ it to full potential are provided with state-of-the-art tools.
 \newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
 \newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
 
-% \subsectionstar{Usability Challenges}\hg{Is this section header doing anything?}
-The final product from
-the ongoing study will be a fine-grained, qualitative description of how
-Jane Street developers use PBT, what they need from it, and how the
-research community can
-help improve it.  While the full analysis of the interview data remains
-to be completed, a number of themes are already clear; these
-% , together
-% with the findings of the preliminary study,
-form the backbone of the present proposal. We describe them below,
-italicizing themes and
-referring to evidence from participants in the Jane Street study
-(\participant{1--30})
-and the pilot study (Pilot-\participant{1--8}).
+% % \subsectionstar{Usability Challenges}\hg{Is this section header doing anything?}
+% The final product from
+% the ongoing study will be a fine-grained, qualitative description of how
+% Jane Street developers use PBT, what they need from it, and how the
+% research community can
+% help improve it.  While the full analysis of the interview data remains
+% to be completed, a number of themes are already clear; these
+% % , together
+% % with the findings of the preliminary study,
+% form the backbone of the present proposal. We describe them below,
+% italicizing themes and
+% referring to evidence from participants in the Jane Street study
+% (\participant{1--30})
+% and the pilot study (Pilot-\participant{1--8}).
 
-One set of themes concerned the \thread{generation} of
-random inputs for PBT. Developers spoke
-highly of the \gentheme{Derived Generators} that can be automatically
-inferred from
-the OCaml type system (\participant{5} called OCaml's implementation of this
-``[expletive] amazing'' and \participant{30} called them a ``game changer'').
-These generators are already quite good, but they could be better: participants
-identified deficiencies both small and large, the most significant being that
-derived generators
+Several sets of themes emerged from this study.  One concerned the
+\thread{generation} of random inputs for PBT. Developers spoke highly
+of the \gentheme{Derived Generators} that can be automatically
+inferred from the OCaml type system but identified deficiencies both
+small and large, the most significant being that derived generators
 cannot enforce semantic preconditions like \lstinline{is_bst}.
-
-When derived generators
-failed, participants fell back to \gentheme{Bespoke Generators}, which
-are far more flexible but proportionally more time-consuming to
-build. For example, \participant{20} successfully used a bespoke
-generator for XML documents to find significant bugs in their code,
-but reported spending ``at least a day'' writing it.
-Improving the abstractions available for authoring bespoke generators would
+%
+When derived generators failed, participants fell back to
+\gentheme{Bespoke Generators}, which are far more flexible but
+proportionally more time-consuming to build.  Improving the
+abstractions available for authoring such bespoke generators would
 greatly improve the usability of PBT.
 %
-When a generated input turns out to be a counterexample that triggers
-a property violation, the developer will need to inspect that
-counterexample to find
-and fix the root problem. Developers often implemented code for
-\gentheme{Shrinking} counterexamples to discover
-simpler inputs that trigger the same bug.  \participant{8}
-and \participant{21}, who each implemented their own PBT frameworks, both
-incorporated shrinkers as key components. But
-shrinkers need to be customized to particular kinds of data to be most
-effective, and they can be time-consuming to build; several
-developers
-(\participant{16}, \participant{20} \participant{21}, \participant{30})
-described constructing shrinkers as an opaque and difficult process.
+Furthermore, when a generated input turns out to be a counterexample
+that triggers a property violation, the developer will need to inspect
+that counterexample to find and fix the root problem. Developers often
+implemented code for \gentheme{Shrinking} counterexamples to discover
+simpler inputs that trigger the same bug.
+%
+But shrinkers need to be customized to particular kinds of data to be
+most effective, and they can be time-consuming to build.
 
-A different set of themes
-themes revolves around properties themselves, i.e.,
-\thread{specifications}.
-% and the kinds of programs in which they choose to test them.
-PBT is often described as a lightweight formal method, and one
-might therefore imagine that a common challenge would be coming up with the
-specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein_problems_2022}, some respondents indicated just that:
-developers with less experience with PBT
-sometimes struggled to \proptheme{Imagine
-Properties} or to understand what properties to test (Pilot-\participant{1},
-Pilot-\participant{3--5}).
-By contrast, Jane Street developers on the whole reported
-little difficulty finding
+A different set of themes themes revolved around properties
+themselves, i.e., around \thread{specifications}.  PBT is often described as
+a lightweight formal method, and one might therefore imagine that a
+common challenge would be coming up with the specifications of desired
+program behavior. Indeed, in our earlier pilot
+study~\cite{goldstein_problems_2022}, developers with less experience
+with PBT sometimes struggled to \proptheme{Imagine Properties} or to
+understand what properties to test.  By contrast, Jane Street
+developers on the whole reported little difficulty finding
 properties. Rather, most developers applied PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. In the words of
-\participant{9}, PBT is particularly easy to apply
-when
-one has ``a really good abstraction with a complicated implementation.''
-When asked to speculate, several participants (\participant{3}, \participant{15},
-\participant{20}, \participant{22}) guessed
-that 80--100\% of Jane Street
-developers write programs like this,
-% \bcplater{Did anyone really guess
-%   100\%??}\hg{Yep! Someone said ``everyone.''}
-where properties are easy to find and
-PBT is relatively easy to apply. This suggests that an effective way to
-boost PBT in industry would be to provide
-educational materials and documentation that highlight
-real-world applications where it is a natural
-fit.
-
-We also heard \proptheme{Opportunities for Better
-Leverage} of specifications, where PBT is not easy {\em yet} but
-could be with a bit more research effort. For example, developers in
-both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
-that PBT was difficult when code was poorly abstracted.  Further,
-more than three
-quarters of study participants had used a particular approach to PBT commonly
-called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
-at Jane Street, considered better automation and tooling around model-based
-testing to be one of the most significant ways to improve PBT usability.
-
-
-A further set of themes concerned the
-\thread{interaction} between developers and their
-testing environments---especially their strategies
-for \evaltheme{Evaluating the
-Effectiveness} of their tests. Many
-wished for
-better ways to evaluate their generators and properties, including
-feedback on code coverage (\participant{9} and \participant{25}),
-mutation
-testing~\cite{papadakis_mutation_2018}, and help understanding the
-distribution of randomly generated
-inputs (\participant{10}, \participant{16}, \participant{16}). Worryingly,
-while many developers admitted they would benefit from better ways to
-evaluate their tests, many seemed to
-\evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
-they did not realize their generator had missed important cases.
-Additionally, one participant (\participant{14}) saw significant benefit from
-\evaltheme{Visualizations} they had built themselves to
-understand their testing effectiveness.
-
-Finally, our experience with these studies (and with the products of
-our own prior research!) suggests
-that significant engineering and pedagogical effort is needed to amplify
-PBT's \thread{diffusion} into the broader community.  Developers in both studies
-(Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
-\participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
-learning about PBT.  PBT is also not
-taught in traditional computer science curricula at the undergraduate
-or masters level; making more developers
-aware of it will required expanded
-\edutheme{Classroom Education}.
+available or straightforward to invent.  This suggests that an
+effective way to boost PBT in industry would be to provide educational
+materials and documentation that highlight real-world applications
+where it is a natural fit.
 %
-Finally, existing tools for PBT need continual
-support to meet demands from growing (and increasingly sophisticated)
-user-bases; if PBT is to become mainstream, we should look for high-value
-ways to improve
-\edutheme{Open-Source
-PBT Frameworks} with the insights and tools we develop, to help our
-work and ideas permeate the PBT world.
+We also heard \proptheme{Opportunities for Better Leverage} of
+specifications, where PBT is not easy {\em yet} but could be with a
+bit more research effort.  In particular, better automation and
+tooling around {\em model-based testing} appears to be an excellent
+way to improve PBT usability.
+
+A further set of themes concerned the \thread{interaction} between
+developers and their testing environments---especially their
+strategies for \evaltheme{Evaluating the Effectiveness} of their
+tests. Many wished for better ways to evaluate their generators and
+properties, including feedback on code coverage, mutation
+testing~\cite{papadakis_mutation_2018}, and help understanding the
+distribution of randomly generated inputs.
+
+Significant engineering and pedagogical effort will be needed to
+amplify PBT's \thread{diffusion} into the broader community. PBT is
+not taught in traditional computer science curricula at the
+undergraduate or masters level; making more developers aware of it
+will required expanded \edutheme{Classroom Education}.
+%
+And finally, existing tools for PBT need continual support to meet
+demands from growing (and increasingly sophisticated) user-bases; to
+help PBT move into the mainstream, we should look for high-value ways
+to improve \edutheme{Open-Source PBT Frameworks} with the insights and
+tools we develop.
+
+% Several sets of themes emerged from this study.  One concerned the \thread{generation} of
+% random inputs for PBT. Developers spoke
+% highly of the \gentheme{Derived Generators} that can be automatically
+% inferred from
+% the OCaml type system (\participant{5} called OCaml's implementation of this
+% ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
+% These generators are already quite good, but they could be better: participants
+% identified deficiencies both small and large, the most significant being that
+% derived generators
+% cannot enforce semantic preconditions like \lstinline{is_bst}.
+
+% When derived generators
+% failed, participants fell back to \gentheme{Bespoke Generators}, which
+% are far more flexible but proportionally more time-consuming to
+% build. For example, \participant{20} successfully used a bespoke
+% generator for XML documents to find significant bugs in their code,
+% but reported spending ``at least a day'' writing it.
+% Improving the abstractions available for authoring bespoke generators would
+% greatly improve the usability of PBT.
+% %
+% When a generated input turns out to be a counterexample that triggers
+% a property violation, the developer will need to inspect that
+% counterexample to find
+% and fix the root problem. Developers often implemented code for
+% \gentheme{Shrinking} counterexamples to discover
+% simpler inputs that trigger the same bug.  \participant{8}
+% and \participant{21}, who each implemented their own PBT frameworks, both
+% incorporated shrinkers as key components. But
+% shrinkers need to be customized to particular kinds of data to be most
+% effective, and they can be time-consuming to build; several
+% developers
+% (\participant{16}, \participant{20} \participant{21}, \participant{30})
+% described constructing shrinkers as an opaque and difficult process.
+
+% A different set of themes
+% themes revolves around properties themselves, i.e.,
+% \thread{specifications}.
+% % and the kinds of programs in which they choose to test them.
+% PBT is often described as a lightweight formal method, and one
+% might therefore imagine that a common challenge would be coming up with the
+% specifications of desired program behavior. Indeed, in our earlier pilot
+% study~\cite{goldstein_problems_2022}, some respondents indicated just that:
+% developers with less experience with PBT
+% sometimes struggled to \proptheme{Imagine
+% Properties} or to understand what properties to test (Pilot-\participant{1},
+% Pilot-\participant{3--5}).
+% By contrast, Jane Street developers on the whole reported
+% little difficulty finding
+% properties. Rather, most developers applied PBT in
+% \proptheme{High-Leverage Scenarios} where properties were already
+% available or straightforward to invent. In the words of
+% \participant{9}, PBT is particularly easy to apply
+% when
+% one has ``a really good abstraction with a complicated implementation.''
+% When asked to speculate, several participants (\participant{3}, \participant{15},
+% \participant{20}, \participant{22}) guessed
+% that 80--100\% of Jane Street
+% developers write programs like this,
+% % \bcplater{Did anyone really guess
+% %   100\%??}\hg{Yep! Someone said ``everyone.''}
+% where properties are easy to find and
+% PBT is relatively easy to apply. This suggests that an effective way to
+% boost PBT in industry would be to provide
+% educational materials and documentation that highlight
+% real-world applications where it is a natural
+% fit.
+
+% We also heard \proptheme{Opportunities for Better
+% Leverage} of specifications, where PBT is not easy {\em yet} but
+% could be with a bit more research effort. For example, developers in
+% both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
+% that PBT was difficult when code was poorly abstracted.  Further,
+% more than three
+% quarters of study participants had used a particular approach to PBT commonly
+% called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
+% at Jane Street, considered better automation and tooling around model-based
+% testing to be one of the most significant ways to improve PBT usability.
+
+
+% A further set of themes concerned the
+% \thread{interaction} between developers and their
+% testing environments---especially their strategies
+% for \evaltheme{Evaluating the
+% Effectiveness} of their tests. Many
+% wished for
+% better ways to evaluate their generators and properties, including
+% feedback on code coverage (\participant{9} and \participant{25}),
+% mutation
+% testing~\cite{papadakis_mutation_2018}, and help understanding the
+% distribution of randomly generated
+% inputs (\participant{10}, \participant{16}, \participant{16}). Worryingly,
+% while many developers admitted they would benefit from better ways to
+% evaluate their tests, many seemed to
+% \evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
+% they did not realize their generator had missed important cases.
+% Additionally, one participant (\participant{14}) saw significant benefit from
+% \evaltheme{Visualizations} they had built themselves to
+% understand their testing effectiveness.
+
+% Finally, our experience with these studies (and with the products of
+% our own prior research!) suggests
+% that significant engineering and pedagogical effort is needed to amplify
+% PBT's \thread{diffusion} into the broader community.  Developers in both studies
+% (Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
+% \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
+% learning about PBT.  PBT is also not
+% taught in traditional computer science curricula at the undergraduate
+% or masters level; making more developers
+% aware of it will required expanded
+% \edutheme{Classroom Education}.
+% %
+% Finally, existing tools for PBT need continual
+% support to meet demands from growing (and increasingly sophisticated)
+% user-bases; if PBT is to become mainstream, we should look for high-value
+% ways to improve
+% \edutheme{Open-Source
+% PBT Frameworks} with the insights and tools we develop, to help our
+% work and ideas permeate the PBT world.
+
 
 
 \SECTION{Foundation}{Understanding Needs and Opportunities%
@@ -577,10 +642,10 @@ characteristics---i.e., teams consisting mostly
 of relatively skilled developers who are comfortable with
 advanced programming languages and tools and who care a lot about
 software correctness.  There are many such teams in the software
-world, and making PBT more 
+world, and making PBT more
 usable just for them would already be a significant step in the
 right direction.  But to
-understand potential impact of PBT 
+understand potential impact of PBT
 across the {\em  whole} software
 industry---and the factors that may limit its adoption---we need to
 cast a wider net.
