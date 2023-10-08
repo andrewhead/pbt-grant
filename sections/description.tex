@@ -864,19 +864,21 @@ publications if they turn out to be of broader interest.}
 % Machinery (CACM) to communicate about PBT to a broader computer science audience.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
-Many of the usability improvements suggested by our industry study center
+Many of the usability challenges revealed by our industry study concern
 around test input
 \gentheme{generation}.
 Indeed, generators were regularly cited as one of the most challenging
-aspects of PBT: the existing tools related to random generation are varied
-and powerful, but
-they are not especially usable.  We propose {\em reflective
-generators}, an abstraction for random generation that we have been
-experimenting with at Penn, as a way of unbundling generator
+aspects of PBT.
+
+\bcp{Fix this paragraph.}
+We propose {\em reflective
+generators}, a new abstraction for random generation, as a way of
+``unbundling'' generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}). We explore how reflective generators can
-help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}) and design
+tooling (\sectionref{sec:reflective}\bcp{broken}). We explore how reflective generators can
+help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
+and we design
 a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
@@ -886,47 +888,47 @@ the tools built on them in \sectionref{sec:val} and \sectionref{sec:diffusion}
 and by top-tier publications, including performance evaluations and/or
 user studies as appropriate.
 PI Pierce is a longtime collaborator of John Hughes, one of the
-QuickCheck creators; John plans to collaborate on the projects
+QuickCheck creators, who plans to collaborate on the projects
 in this section; a letter of collaboration appears in the supplemental
 documents.
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
-As discussed in the Orientation section
-(\sectionref{sec:orientation}), PBT relies heavily on {\em random data
+As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---provided the inputs actually trigger a wide
-variety of program behaviors.
+gives confidence that it holds---{\em provided} the inputs actually
+exercise a wide variety of program behaviors.
 Unfortunately,
-many properties that developers want to test have {\em preconditions}
-(a.k.a.\relax{} {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that can be used for testing. This comes up often
-when testing data structures with invariants that must hold in order to apply
-the operations being tested. Testing such properties can be problematic, since
-many preconditions are difficult to satisfy randomly; if the developer is not
-careful, they may waste most of their time budget generating and
-discarding precondition-failing inputs.
+many properties of interest have {\em preconditions}
+({a.k.a.} {validity conditions} or {input constraints})---for example,
+the \verb|prop_insert_correct| function above succeeds trivially unless
+\verb|is_bst| holds of the input tree.  Such precoditions come up in
+practice, and they are problematic because they can be
+difficult to satisfy randomly, so most of the testing budget
+can be wasted generating and discarding precondition-failing inputs.
 %
-(Of course, some fraction of the testing budget {\em should} be spent on
+\proposecut{(Of course, some fraction of the testing budget {\em should} be spent on
 ill-formed or nonsensical inputs, but not too much, since these will not
 exercise much of the system's functionality; most tests should be
 well-formed---though perhaps unusual---instances of the sorts of inputs the
-system is designed to process.)
+system is designed to process.)}
 %
-Worse, even with validity accounted for, there are
-more insidious ways for generators to under-perform---for example, by
-generating many similar inputs while ignoring large parts of
+Worse, even generators that are guaranteed to produce valid
+inputs can underperform in other ways---for example, by
+generating many very similar inputs while ignoring large parts of
 the input space.
 
-Existing approaches to these issues
+Approaches to these challenges
 fall on a spectrum from automatic to manual. The automatic approaches use
-various proxies for validity and general ``interestingness'' of
+various proxies for validity and ``interestingness'' of
 inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, try to maximize readily available metrics like code
-coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
-naturally some use machine learning to infer proxies for
+coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt} and
+some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
 are easy to apply and produce diverse sets of inputs, but they are rarely
-sufficient for testing properties with complex preconditions. Slightly more
+sufficient for testing properties with complex
+preconditions\bcp{because they don't generate enough valid
+  inputs?}. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
@@ -936,63 +938,62 @@ SMT-solvers~\cite{dewey2017automated, beginners-luck,
 steinhofel_input_2022} can be used to automatically seek out valid
 inputs. These tools are
 much better at satisfying easy to moderately complex properties but
-much worse at very complex or ``sparse'' properties. The semi-automatic
+much worse at very ``sparse'' properties. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
 examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
-satisfy.
+satisfy. \bcp{what are they good at and what are they bad at?}
 
-The most manual---and most flexible---solutions use hand-built
-generators, written in a custom-designed domain-specific language (DSL).
-In Haskell, where PBT was
-first popularized, such DSLs are commonly implemented using {\em
+The most flexible, most manual solutions use hand-built
+generators, often written in a special-purpose domain-specific language (DSL).
+Such DSLs are often implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
-expressing effectful (here, random and stateful) computations
+expressing effectful (here, random and stateful) computations\proposecut{
 in a pure, stateless underlying
-language. While monadic DSLs are not
+language}. \proposecut{While monadic DSLs are not
 needed to express generators in
 impure languages, some frameworks (e.g., in OCaml) still choose to use monadic
 abstractions for their generator DSLs.
 
 \smallskip
-Monadic generators can implement random data producers of arbitrary complexity
-(e.g., for random Haskell
+}Monadic generators can implement random data producers of arbitrary complexity
+(e.g., generators for for random Haskell
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around).
 
-To further improve monadic generators, it helps to re-frame generators as {\em
+We can further improve monadic generators by re-framing them as {\em
   parsers of random choices}. The usual intuition is that a generator
-operates by making a series of random choices; equivalently, we can think of
-it as being {\em given} some random sequence of choices and simply following
+operates by making a series of random choices, but we can think of
+it as being {\em given} a random sequence of choices and following
 those choices to produce a value. This shift of perspective has been
-used as the basis for implementations of PBT
-tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
+used as the basis for past implementations of PBT
+tools~\cite{maciver2019hypothesis, dolan2017testing}; we were the
 first to make it
 formal using {\em free generators}
 in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
-\subsectionstar{Context: Reflective Generators}{}{}
-Building the idea of free generators, we are exploring a powerful generalization
-based on monadic generators called {\em reflective generators}.  We began
-thinking about the basic concept during a past NSF project (see
-\sectionref{sec:prior}). The first paper on reflective generators won a
-distinguished paper award at ICFP 2023.
+\subsectionstar{Context: Reflective Generators}{}{} Building on the
+idea of free generators, we are now exploring a powerful
+generalization called {\em reflective
+  generators}.  The basic concept came out of a
+past NSF project (see \sectionref{sec:prior}). Our first paper on
+reflective generators won a distinguished paper award at ICFP 2023.
 
-What's special about reflective generators is that they can be run
+The special thing about reflective generators is that they can be run
 {\em backward}.
 If running a generator in the usual way can be seen as parsing a
 sequence of choices into a
-value, then running it backward should take that value and produce a
+value, then running it backward takes that value and produces a
 sequence of choices that
-would generate it---i.e., reflective generators can
+would generate it\proposecut{---i.e., reflective generators can
 ``reflect'' on a given test and analyze the choices that they
-could have made to generate it.
+could have made to generate it}.
 The mathematical machinery
-that makes reflective generators work is somewhat complex,%
+involved is somewhat complex,%
 \footnote{\normalsize Reflective generators are both monads and {\em
     partial profunctors},
 implementing bidirectional programming in the style of Xia et
@@ -1001,7 +1002,7 @@ related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
-but, like free generators, the syntax that users see remains close to
+but, as with free generators, the syntax that users see remains close to
 that of normal monadic generators.
 
 Running a reflective generator backward is not simply a matter of
@@ -1013,61 +1014,66 @@ produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) if increased
 structure reveals information that an analysis algorithm (like the ones
-discussed below) can use.
+discussed below) can use. \iflater\bcp{Don't understand that sentence.}\fi{}
 
-Reflective generators have myriad uses. Here are a few.
+Reflective generators have myriad uses. First,
 %
-{\bf Example-Based Tuning.} It is often helpful to start by testing with
+it is often helpful to start by testing with
 ``realistic'' inputs that trigger common-case behavior in the program;
 one way to ensure this is to tune the generator so
 it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
-powerful as monadic generators. We implement a similar algorithm using
-reflective generators; using it, we can (1) reflect on realistic values to
+powerful as monadic generators. We have implemented a
+similar algorithm using
+reflective generators; with it, we can (1) reflect on realistic values to
 obtain sets of choices, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
 generators approximate the performance of the algorithm
 from~\cite{soremekun2020inputs} but work with a larger class of generators.
 %
-{\bf Reflective shrinkers.}
-Reflective generators can also be used as a tool for analyzing and
+Second,
+reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
 reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
 validity-preserving {\em shrinking} of values to find smaller counterexamples
-and speed up debugging with no additional effort from the user.
+and speed up debugging with no additional effort from the user.%
 %
-Hypothesis shrinks test inputs by shrinking the random choices (conceptually, coin flips)
+\footnote{%
+Hypothesis shrinks test inputs by shrinking the random choices
 that produce those
-inputs. There are many benefits to this approach: shrinking can be implemented
+inputs. There are benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
-random choices requires that the choices is actually available, which
+random choices requires that these choices are actually available, which
 is not always the case. Reflective generators
 can be used to
-recover the random choices and thus enable the Hypothesis shrinking algorithm on any
+recover the random choices and thus enable the Hypothesis shrinking
+algorithm on any
 valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
-gleaned from bug reports.
+gleaned from bug reports.  \bcp{Wonder if that is getting too much
+  into the weeds...}}
 %
-{\bf Other data producers.} Reflective generators can be freely
+And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
-This means that as new strategies for guided random generation and
+As new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
 
 \SUBSECTION{Algorithmic advances for reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-
-The overwhelming positive reception of reflective generators has been
-encouraging, our first paper only scratched the surface when it comes to
+%
+The positive response to reflective generators has been
+encouraging, but our first paper only scratched the surface when it comes to
 building and evaluating potential use-cases.
 
-The example-based tuning approach we describe in the first reflective generators
-paper faithfully follows the tuning procedure used by existing algorithms, which
-was important for demonstrating the flexibility of reflective generators, but we
-do not claim that that algorithm is the best way to tune a generator.
+The example-based tuning approach we described in the first reflective
+generators paper faithfully follows the tuning procedure used by
+existing algorithms, which was important for demonstrating the
+flexibility of reflective generators, but we do not claim that that
+algorithm is the best way to tune a generator.
 
 We think more powerful approaches to example-based tuning are within reach.  The
 algorithm ``Inputs from Hell'' algorithm assumes that subsequent choices are

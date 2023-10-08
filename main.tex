@@ -11,7 +11,7 @@
 % https://www.nsf.gov/pubs/2023/nsf23524/nsf23524.htm
 
 \documentclass{NSF}
-\pagestyle{empty}% Reset page style to 'empty'
+\ifdraft\else\pagestyle{empty}\fi% Reset page style to 'empty'
 
 \graphicspath{{figures/}}
 
@@ -366,7 +366,7 @@ Property-Based Testing for the People}
   Next round of TODOs from October 6, 2023 meeting:
   \begin{enumerate}
     \item Take a tightening pass over Section 3 [assigned to Andrew]
-    \item Revisions to Section 2 [whoever does it first] 
+    \item Revisions to Section 2 [whoever does it first]
     \item Check to see if any of the details we remove from Section 2 should be forward-ported to other sections to strengthen them with supporting empirical evidence
     \item Clean up the “Diffusion” section: update the title, rewrite the part about research software
     \item Try to work in the idea of “usable PBT” at several points in the grant application.
