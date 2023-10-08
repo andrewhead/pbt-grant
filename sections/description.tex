@@ -1410,6 +1410,33 @@ system \emph{containing} the component(s) of concern.
   \end{itemize}
 }
 
+\hg{
+  Here's the outline I had in mind:
+  \begin{itemize}
+    \item The JS study highlighted high-leverage scenarios
+    \begin{itemize}
+      \item Invariants for modules
+      \item Model-based / differential testing (generalization of invariants)
+      \item Round trips
+      \item Classical math properties
+    \end{itemize}
+    \item Some of these scenarios are handled by ghostwriter, we'll add support
+    for more
+    \begin{itemize}
+      \item Invariants / model-based --- incorporate ideas and techniques from Mica
+      \item Others ???
+    \end{itemize}
+    \item What about bringing more powerful tools to bear?
+    \begin{itemize}
+      \item TOGA demonstrated that language models can be used to generate
+      correctness assertions---could we do this with properties?
+      \item We may also be able to do generators (HG: I don't have a strong
+      story here without bringing in the whole generator synthesis stuff, which
+      I don't want to do. But we can mention it)
+    \end{itemize}
+  \end{itemize}
+}
+
 % %
 % Even if a developer believes, in the abstract, that PBT should useful
 % to them, they may still have trouble writing concrete properties
