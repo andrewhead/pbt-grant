@@ -1324,6 +1324,7 @@ tools described in \sectionref{sec:val} and
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
 
+{\color{gray}
 \bcp{Change this to just a footnote in the Ghostwriter section.} Properties over program traces...
 
 A common pain point for developers in our interview studies was that
@@ -1399,6 +1400,7 @@ traces, which are validated by providing random inputs to an outer
 system \emph{containing} the component(s) of concern.
 
 \publicationtarget{Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
+}
 
 \SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 
@@ -1448,9 +1450,9 @@ system \emph{containing} the component(s) of concern.
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
-
+%
 \bcp{Cite Ernest's SRC poster.  Compress if needed.}
-
+%
 One surprising finding from our industry study was that
 it is quite common for developers to build (or already have) a
 {\em model
@@ -1970,6 +1972,8 @@ design, implement, and evaluate a tool supporting such interactions.
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
 \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
+\todo{update the title, rewrite
+    the part about research software}
 The activities described in the previous sections are focused on
 fundamental research to advance understanding of PBT and explore new
 approaches to both foundations and tool design.  But research alone is
@@ -2318,8 +2322,9 @@ sort that is more robust, more reliable, and less expensive.
 % they need only report on the one award most closely related to the proposal. Funding includes not just salary
 % support, but any funding awarded by NSF. The following information must be provided:\\
 
-\emph{\underline{PI Pierce}}: (NSF 1955565) ``Collaborative Research:
-SHF: Medium: Bringing Python Up to Speed'' (\$437,999,
+\emph{\underline{PI Pierce}}: ``Collaborative Research:
+SHF: Medium: Bringing Python Up to Speed'' (NSF 1955565, \$1,200,000
+[Pierce's share: \$437,999],
 7/2020--6/2023), with co-PIs Michael Hicks (Maryland) and Emery Berger
 (Amherst).
 The project aimed to dramatically increase the performance and
@@ -2335,15 +2340,17 @@ Python, but applicable in other, similar languages.
 performance measurement (mostly at Amherst and Maryland) and PBT (mostly at Penn
 and Maryland).  Specific threads of work involving Penn included
 building an early
-version~\cite{Frohlich2022} of the Reflective Generators described in
-\sectionref{sec:reflective}, carrying out the pilot study of PBT in Python
-mentioned in the motivation section
-above~\cite{goldstein_problems_2022}, and building on the idea of
+version~\cite{Frohlich2023} of the Reflective Generators described in
+\sectionref{sec:gen}, carrying out the pilot study of PBT in Python
+mentioned in
+\sectionref{sec:motivation}~\cite{goldstein_problems_2022},
+building on the idea of
 freer monads from functional programming to develop ``free
 generators,'' which unify parsing and
-generation~\cite{goldstein2022parsing}, presented a principled
+generation~\cite{goldstein2022parsing},
+presenting a principled
 automatic testing framework for application-layer
-protocols~\cite{Li2021:MBToNA}, and developed and released a freely
+protocols~\cite{Li2021:MBToNA}, and developing and releasing a freely
 available mutation testing framework for Python, called {\tt
   pytest-mutagen}~\cite{pytestmutagen}, and applied ideas from
 combinatorial testing, a widely studied testing methodology, to modify
@@ -2353,13 +2360,13 @@ with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
 {\bf Broader Impacts.} Project results and open-source software
 products are being used to increase the
 performance and correctness of Python applications.
-Educational impact has included training graduate and
+Educational impact focused on training graduate and
 undergraduate students, including a female PhD student, Jessica
 Shi.
 %
-{\bf Publications (involving Penn):} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
+{\bf Publications (involving Penn):} \cite{Frohlich2023,DBLP:conf/esop/GoldsteinHLP21,
   goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
-{\bf Research Products (involving Penn)} \cite{pytestmutagen}.
+{\bf Research Products (involving Penn):} \cite{pytestmutagen}.
 
 \smallskip
 
