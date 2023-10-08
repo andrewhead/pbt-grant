@@ -230,60 +230,41 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
-With the growing complexity of software, developers are often faced with code
-that they do not fully understand. Modern applications not cut from whole cloth;
-they are assembled from complex trees of dependencies that are too deep to hold
-in one's head all at once.
-And the rise of AI assistants like Copilot and ChatGPT mean that developers are
-increasingly faced with code that is easy to obtain but difficult to trust.
-\hg{How do we feel about this? Want to say more, or is this enough?}
+Developers in modern software ecosystems are often faced with code
+that they do not fully understand. Applications are not cut from whole cloth;
+they are built from large sets of components that are themselves often
+assembled from multiple sources.
+AI assistants like Copilot and ChatGPT make it even
+easier to {\em get} code to carry out a given task but even harder to
+{\em trust} that it is doing the right thing.
 
-% We begin in this section with some background on PBT and preliminary
-% results from our ongoing study at Jane Street
-
-% \subsectionstar{Property-Based Testing}
-% \subsectionstar{Orientation: Property-Based Testing}
-%
-PBT%
-% , famously popularized by Haskell's QuickCheck library
-~\cite{hughes_quickcheck_2007}
-provides a straightforward way to reason about and evaluate these
-hard-to-understand programs via their specifications. In PBT
-executable functions are used as partial
-specifications of a component under test. For example, a developer might
-write the following property for an \lstinline{insert}
-function on binary search trees, taking an arbitrary tree \texttt{t}
-and an integer
-\texttt{x} as parameters:
+Property-based testing~\cite{hughes_quickcheck_2007} proposes an
+effective approach to this problem---a straightforward way to evaluate
+hard-to-understand programs by validating them, semi-automatically,
+against executable specifications. As a very basic example, a
+developer might write the following function for checking that
+the \lstinline{insert} function on binary search trees:
 \begin{lstlisting}
-  prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
+prop_insert_correct (x:int) (t:tree)  =
+  if is_bst t then is_bst (insert x t)) else True
 \end{lstlisting}
-That is, if the original tree
-is a BST, then it should remain
-a BST after the insertion of \texttt{x},
-where \lstinline{is_bst} is a function that checks whether a binary
-tree is arranged so that each node's label is greater
+That is, if the tree passed to this function
+is a BST, then it must remain
+one after the insertion of \texttt{x} (where
+\lstinline{is_bst} checks that its argument is a BST---i.e., whether it
+is arranged so that each node's label is greater
 than any label in its left subtree and less than any in its right
-subtree.
-% \rjmhlater{The example property you give looks like a type check:
-% given a BST as
-% input, insert returns a BST as result. The reader may easily think
-% such a property is of interest only in dynamically typed
-% languages... and that it is a rather trivial property even there. Of
-% course, I understand that it really tests that the BST invariant is
-% preserved by insert, a deep semantic property, but you are just
-% assuming that the reader will remember that binary search trees need
-% to satisfy an invariant, and will guess that is_bst checks that
-% invariant. Be more explicit to avoid a risk of misunderstanding. }%
-In general, such a property is a function that
-accepts a generated
-test input
+subtree).
+%
+In general, an executable property is a function that
+accepts one or more generated
+test inputs
 and evaluates to \lstinline{True} if the test passes and
 \lstinline{False} otherwise.
 % This one, ``\verb|prop_insert_correct|'',
 % checks that an insert operation on a binary search tree preserves the
 % binary ordering of the tree.
-Given a property, the PBT tool generates a
+Given such a property, a PBT tool generates a
 large number of inputs and
 checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
@@ -294,7 +275,7 @@ the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
 automated testing where the user needs to define what it means for a program to
 be correct.
 
-Our research agenda focuses mostly on {\em random}
+The research agenda we propose focuses  on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would also be applicable to alternatives
 like enumerative
@@ -310,25 +291,23 @@ large random inputs often exposes issues much faster than exhaustively
 enumerating small inputs.  Techniques like swarm
 testing~\cite{groce2012swarm} can further amplify this effect.
 
-To apply PBT to a system or an individual software component, the
-developer first defines one
-or more properties that they expect should always be satisfied. Then
-they supply {\em random input generators} for the values that the
-properties take as input---these are sometimes written by hand, but
-often they can be automatically generated, e.g., from the type of the
-input. Next, they check their properties against many generated
-inputs, using a test harness provided by their PBT tool. And finally, if
-counterexamples are discovered, they inspect them to determine the
-source of the bug.  Each of these steps can be significantly improved for users,
-as we describe in the next section.
+To apply PBT to a software system or an individual component, the
+developer first defines one or more properties that they expect the
+system should satisfy.  They supply {\em random input generators} for
+the values that the properties take as input---these are sometimes
+written by hand, but often they can be automatically generated, e.g.,
+from the type of the input. Next, they invoke the PBT tool to check
+their properties against many generated inputs. And finally, if a
+counterexample is discovered, they inspect it to determine the source
+of the bug.  Each of these steps can be significantly improved for
+users, as we describe below.
 
 \smallskip
 
-Why go to the trouble of PBT, rather than the more straightforward
+Why go to the trouble of using PBT, rather than the more straightforward
 example-based testing that is standard across the software industry?
-First and foremost because a component can be tested much more
-thoroughly with a property plus many automatically generated examples
-than with a small number of examples written out by hand.
+One reason is that it can exercise a system much more
+comprehensively than a small number of hand-written examples.
 % \proposecut{As mentioned
 % previously, PBT has an impressive track-record uncovering bugs that other
 % approaches had failed to
@@ -336,25 +315,23 @@ than with a small number of examples written out by hand.
 % Bornholt2021,arts2015testing,hughes2016experiences}.}
 But
 PBT is more than just thorough---it is also more general than example-based
-testing. For example, Wrenn et al.~\cite{wrenn2021using} observe that example-based testing
-of programs whose correctness conditions are {\em relational} (e.g.,
-topologically sorting a graph, which might
-produce any of a number of correct results) is impossible to do
-faithfully; a property-based specification is a better choice in
-such cases.
+testing. For example, Wrenn et al.~\cite{wrenn2021using} observed that
+{\em relational} correctness conditions (e.g., the fact that a program
+topologically sorts a graph, which might
+produce any of a number of correct results) cannot be represented
+faithfully with example-based tests; a property-based specification is
+a better choice in such cases.
+%
 PBT is also
-an obvious choice if
-the developer already has some semi-formal
+a natural choice if
+the developer already has some formal or semi-formal
 specification in mind---for example if they are implementing behavior from an RFC or
-other design document---because it provides a clear connection between the
-specified behavior and the implementation.
+other design document.
 Finally, the
-properties required for PBT can also serve as documentation:
-participants in our need-finding study (\participant{5}, \participant{21})
-talked at length about properties being an ideal way to communicate what a
+properties used for PBT can also serve as documentation of what a
 program is supposed to do.
 
-PBT is also often compared to {\em fuzz testing}~\cite{afl-readme},
+PBT is often compared to {\em fuzz testing}~\cite{afl-readme},
 which randomly tests software to find
 vulnerabilities. We discuss ideas for bringing PBT and
 fuzzing closer together later in the proposal
@@ -370,14 +347,16 @@ they are applied in different ways, at different points in the
 development process, to achieve different goals.
 
 With all these advantages, one might hope to find PBT on every
-software developer's toolbelt.  But PBT poses some challenges as well,
-as we shall see next.
+software developer's toolbelt.  But using PBT effectively poses some
+challenges as well, as we shall see next.
 
-\todo{ Add a paragraph or two enumerating well-known / obvious
+\iflater
+\todo{Add a paragraph or two enumerating well-known / obvious
   challenges of PBT.  Then the next section begins ``We validated
   these challenges and added some color about additional ones that are
   not so much discussed in the PBT literature through a user study at
-  Jane Street...''  }
+  Jane Street...''  }  \bcp{Or maybe it reads OK as-is?}
+\fi
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
 \bcp{OK, I crunched this section down to a page.  I don't want to go
@@ -635,7 +614,7 @@ tools we develop.
   fleshed out to learn about other settings.  But maybe it repeats too
 much from the top of section 2...?}
 
-The findings of our industry study paint a clear
+The findings of the industry study described above paint a clear
 picture of both the benefits and the challenges of PBT for
 Jane Street and other software development organizations with similar
 characteristics---i.e., teams consisting mostly
@@ -653,7 +632,7 @@ cast a wider net.
 In this section, we describe four\bcp{?} planned studies that aim
 to produce a comprehensive, actionable
 {\em foundation} for the latter stages of this project and beyond. Building a
-rigorous foundation, with methods motivated by the HCI literature, is hard work,
+rigorous foundation, with methods motivated by the HCI literature, is substantial work,
 but it will significantly increase the chance that future projects achieve their goals.
 We plan two
 written surveys, one to assess the generality of these needs and obstacles
@@ -674,15 +653,13 @@ To ensure fairness, ethics, accountability, and transparency (FEAT),
 each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
-\SUBSECTION{Further User Studies}%
-   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{REPL 1}{Head}
-\bcp{Or something catchier!  Maybe reintroduce separate section
-  headers / management plan items for individual studies.}
+\SUBSECTION{Broader User Studies}%
+   {sec:survey}{1}{3}{HCI Theory}{PhD 1}{REPL 1}{Head}
 %
-Preliminary findings from our industry study have already revealed
+Our industry study has already revealed
 a number of
 opportunities to improve property-based testing. To identify
-others and better understand which are most
+others and to better understand which are most
 critical, we will conduct two
 surveys with broader samples of developers. These surveys aim to
 (1) determine which obstacles observed in the original
@@ -691,14 +668,13 @@ represent widely experienced pain points and
 (2) understand the potential benefits of better tools for the
 software industry.
 
-% \TASK{Validation survey}{1}{1}{Who?}
-The main survey
-aims to confirm (or perhaps refute) that
-the things we have learned from Jane Street generalize to other settings.
+The first and larger survey
+aims to understand the degree to which
+the findings of the Jane Street study generalize to other settings.
 We will
-ask developers which of the issues we found at Jane Street are
+ask developers which of the issues we identified there are
 ones they have also encountered, which are most severe
-in their experience, and which
+in their experience, and what
 other issues they have encountered.
 To provide
 clear usage scenarios, respondents will
@@ -706,38 +682,30 @@ be asked to write brief anecdotes elaborating on the
 most severe issues they remember.  Other questions will assess how
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
-ambient programming environment and language, e.g., whether their
+ambient programming environment and language, e.g., whether the
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
 PBT tools in those languages.
-In line with typical practice in
+\iflater\bcp{Is this sentence needed?}\fi{} In line with typical practice in
 human factors research surveys in software
 engineering~\cite{ref:robillard2009makes,ref:uddin2015api,ref:murphyhill2019predicts},
-we aim to recruit respondents with upwards of around 150 respondents per survey
-(and aspirationally many more). This is a significant increase in scale from the
-original study, requiring energy and care commensurate with that increase, but
-it will give us a critical opportunity to galvanize our findings.
+we will recruit at least 150 respondents per survey.
 Respondents will
 be recruited broadly, from groups including
 (1)
 users of the major PBT frameworks in Python, Java, Haskell, Rust, and
 Scala; and
 (2) our own and our students' professional networks, including
-Twitter and Mastodon, various mailing lists, and discussion boards for developer
+Twitter and Mastodon, mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke last
 year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
 A second written survey later in the project will investigate
-how broadly PBT may {\em eventually} be able to reach.  To get a sense
-of this, we will
-survey ``proximal'' users of PBT---developers who do not use PBT
-currently but who might find it particularly
-useful.
-We
-will again recruit a broad sample of participants from varied settings
-(professional, open source, educational) by working with our industry contacts
-and recruiting over social media.
+how broadly PBT may {\em eventually} be able to reach.  We will
+survey developers who do {\em not} use PBT
+currently but who might find it particularly useful.
+We will again recruit a broad sample of participants from varied settings.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
 
@@ -763,28 +731,30 @@ and recruiting over social media.
 %   one in another language is better in another, and it has nothing to do with
 %   the language}
 
-% \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-%    Theory}{PhD 1}{REPL 2}{Head}
-
- \bcp{Merge what's below with what's above!}
- PBT interaction models...
-
+\SUBSECTION{Observational studies}{sec:observations}{4}{5}{HCI
+    Theory}{PhD 1}{REPL 2}{Head}
+\bcp{Wonder whether there is still room for cutting / compressing
+  here...  If the project only has two students, we may not want to
+  propose {\em too} many studies...}
 %
-Interviews and surveys are adequate for exploring usability challenges
-at a high level, but in order
-to build usable tools we also need to study the low-level interactions
-between users and their PBT tooling.  We will
-conduct targeted observational studies to inform the many
+Interviews and surveys are good for exploring usability challenges
+at a high level, but we also need detailed insight into the interactions
+between users and their PBT tools.  We will
+conduct targeted observational studies to inform the
 fine-grained design decisions
-involved in language design (e.g., \sectionref{sec:reflectiveusable}) and
+involved in language design (e.g.,
+\sectionref{sec:reflectiveusable}\bcp{broken link---should it point
+  elsewhere, or should we consider cutting more here?}) and
 interface design (\sectionref{sec:val}) activities.
 
-Understanding user interactions
-is a core activity of HCI research and helps to inform robust interface design.
-Observation studies often require significant effort to plan and
-perform. That said, they
-are indispensable for answering questions about tool design may that receive only
-speculative answers in interviews and surveys, like:
+% Understanding user interactions
+% is a core activity of HCI research and helps to inform robust
+% interface design.
+Observation studies require significant effort to plan and
+carry out, but they
+are indispensable for answering questions about tool design may that
+receive only
+speculative answers in interviews and surveys, such as
 (1) How much time
 are participants willing to devote to
 creating a property or tuning a generator when in the
@@ -792,26 +762,25 @@ middle of a programming task?
 (2) How much space is available on a developer's
 screen (amidst other tools like code editors and terminals) for
 new live
-visualizations? or
+visualizations? and
 (3) What are developers' current strategies for solving the
 problems they describe, e.g., what representations
-seem most helpful
+seem helpful
 for a programmer trying to understand the distribution of data from a
 generator?
 
-We will conduct two kinds of studies. The first will be observational
-studies in the style of contextual inquiries~\cite[Chapter
-3]{ref:holtzblatt1997contextual}, where
+We will conduct two studies. The first will be a
+{\em contextual inquiry}~\cite[Chapter
+3]{ref:holtzblatt1997contextual}, watching
 developers perform PBT in realistic contexts, with their own tools and tasks.
-The output of these studies will be detailed understanding of the task
+The result will be a detailed understanding of the task
 structures involved with specific PBT tasks (e.g., writing a generator,
-assessing test results) and, most importantly, what steps in those tasks are
-particularly time-consuming and effortful.  Recordings and notes from
-these sessions will serve as metrics against which the
-likelihood of success of particular designs can be measured before
-implementation.
+assessing test results) and what steps are
+particularly time-consuming.  Recordings and notes from
+these sessions will serve as metrics against which designs
+can be evaluated before implementation.
 
-The second kind of study will be controlled comparisons of design alternatives.
+The second study will be a controlled comparison of design alternatives.
 Language design, like what we plan relating to generators
 (\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
 difficult to inform empirically because there are many design choices
@@ -819,8 +788,8 @@ that interact in complex ways. We plan to identify the most
 significant patterns of
 variation between modern PBT tools (e.g., defining properties as simple
 functions vs. via DSLs, or using types to steer
-generation vs.{} fully manual generators), and perform a small number of comparative studies to gain
-clarity on how various
+generation vs.{} fully manual generators), and perform a comparative
+study to gain clarity on how various
 choices would impact our design. Following best practices in experiment design
 for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
 participants to control for variance in prior skill, and triangulate findings
@@ -828,9 +797,10 @@ from a mixture of
 quantitative metrics (e.g., success, task duration, error rate, subjective
 reports of difficulty) and qualitative analysis (e.g., thematic
 analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
-of problematic incidents). Most of these findings will be in service of research projects described elsewhere
+of problematic incidents).
+\proposecut{Most of these findings will be in service of research projects described elsewhere
 in this proposal, but they may also be disseminated as
-publications if they turn out to be of broader interest.
+publications if they turn out to be of broader interest.}
 
 \publicationtarget{PLATEAU Workshop}
 
