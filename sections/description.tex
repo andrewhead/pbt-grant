@@ -1069,19 +1069,17 @@ The positive response to reflective generators has been
 encouraging, but our first paper only scratched the surface when it comes to
 building and evaluating potential use-cases.
 
-The example-based tuning approach we described in the first reflective
-generators paper faithfully follows the tuning procedure used by
-existing algorithms, which was important for demonstrating the
-flexibility of reflective generators, but we do not claim that that
-algorithm is the best way to tune a generator.
-
-We think more powerful approaches to example-based tuning are within reach.  The
-algorithm ``Inputs from Hell'' algorithm assumes that subsequent choices are
-independent, tracking the weights of individual choices independent of the
+First, we believe more powerful approaches to example-based tuning are
+within reach.  The
+``Inputs from Hell''\iflater\bcp{first mention!}\fi algorithm used in
+our initial evaluation assumes
+that subsequent choices are
+independent of earlier ones, tracking the weights of individual
+choices independent of the
 context in which those choices are made. If we really want to mimic an existing
 distribution of values, we should likely take that contextual information into
 account. We propose modelling choice weights with a more sophisticated machine
-learning model, for example \hg{TODO}. This would make the example-based tuning
+learning model, for example \hg{TODO}. This should make the example-based tuning
 procedure far more accurate, allowing it to much more accurately replicate
 important features of complex input sets.
 
@@ -1099,7 +1097,8 @@ For example, the FuzzChick framework in Coq~\cite{DBLP:journals/pacmpl/Lampropou
 uses code coverage as guidance for PBT, and HypoFuzz uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
-poured into industrial-strength fuzzers; Crowbar, on the other hand,
+poured into industrial-strength fuzzers; the Crowbar testing tool in
+OCaml, on the other hand,
 does~\cite{dolan2017testing}. Crowbar re-interprets the output of
 AFL~\cite{afl-readme}, one of the best-established
 fuzzers: instead of letting AFL generate the program input, it instead uses AFL
@@ -1110,7 +1109,7 @@ than is required for
 standard fuzzing techniques, but the result is a system that is much more likely
 to achieve thorough testing.
 
-We admire Crowbar, and think the idea can be pushed even further by building
+We believe this idea can be pushed even further by building
 a variant of Crowbar on top of reflective generators.
 The idea of crowbar is to start with a classic fuzzing setup, which tries to make the
 system under test
@@ -1120,7 +1119,7 @@ the fuzzer
 invalid inputs and the fuzzer's job is to get past it, Crowbar's generators are
 monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
-reason but also {\em reflective}.
+reason, but also {\em reflective}.
 
 Why a reflective generator?
 To start,
@@ -1149,37 +1148,39 @@ related to the user's understanding of the size of the shrunk
 inputs. Ideally, we'd like some
 reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
-will state and prove the properties of a generator that imply this property.
+will state and prove the properties of a generator that imply this
+property. \bcp{That ends a bit abruptly...}
 
 \SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing2}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-
-Ultimately, we would like reflective generators to become a
-standard representation of generators in real PBT frameworks. In this section we
-outline some important steps towards that goal.
-
-Most importantly, it is unclear how reflective generators should be
-represented in languages with weaker type systems than the one they currently
-rely on in Haskell. In Haskell, the type checker can automatically catch many
+%
+We would like reflective generators to be incorporated in
+real PBT frameworks.
+%
+However, it is unclear
+how reflective generators can be
+represented in languages with weaker type systems than Haskell's. In
+Haskell, the type checker can automatically catch many
 common user errors, but this checking relies heavily on type-classes that
-quantify over higher-kinded types (e.g., monads). If we hope to implement
-reflective generators in frameworks like Hypothesis, in Python, we need to
+quantify over ``higher-kinded types'' (e.g., the monad type class). If
+we hope to implement
+reflective generators in frameworks like Python's Hypothesis library, we need to
 design a programming discipline that makes the process equally safe and
-intuitive. We plan to build on prior work exploring implementing data structures
+intuitive. We plan to build on prior work exploring how to implement data structures
 like monads in imperative
-languages~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to arrive
-at a form for reflective generators that is appropriate in languages like
+languages~\cite{brachthauser_representing_2021, delaat_pymonad_nodate} to design
+a form for reflective generators that is appropriate in languages like
 Python, Java, and Rust.
 
 Another barrier to adoption is the extra work involved in turning a standard
-generator into a reflective one, since reflective generators are unavoidably a
-bit more complex than standard QuickCheck generators. The current design of the
+generator into a reflective one\proposecut{, since reflective generators are unavoidably a
+bit more complex than standard QuickCheck generators}. \proposecut{The current design of the
 reflective generator language is a best guess at what users will find most
-usable (based on our own experience), but we can do better than guessing!
+usable (based on our own experience), but we can do better than guessing!}
 We will evaluate and redesign the surface syntax of reflective generators with
 the help of real users, in a style informed by prior work in the HCI
 literature~\cite{ref:ko2015practical}.  We will recruit a small group of users, teach
-them to use reflective generators via a short introductory ``README,'' and ask
+them to use reflective generators via a short ``README,'' and ask
 them to implement a number of PBT generators inspired by the research
 literature and real-world examples. We will both observe and interview
 the users to identify points of friction and ensure a clear understanding of their
@@ -1189,29 +1190,32 @@ ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
+\proposecut{%
 Even with an ergonomic and learnable language for reflective generators, the
-less code the user has to write the better. Both of our interview studies
+less code the user has to write the better. Both of our past user studies
 revealed
 that thinking about generators slows users down and makes PBT more challenging.
-But we should not compromise: any automation should help users obtain {\em high
-quality}, {\em reflective} generators for use throughout the testing process.
+% But we should not compromise: any automation should help users obtain {\em high
+% quality}, {\em reflective} generators for use throughout the testing process.
+}
 
-As a first step, we will adapt existing tools for type-based generator
+We will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
-In general, type-based
+\proposecut{In general, type-based
 generators are only useful for testing properties with easily satisfiable
-preconditions, but this is a good starting point for many developers. Beyond
-that, we will consider techniques for {\em interactively}
+preconditions, but this is a good starting point for many developers.}
+We will also consider techniques for {\em interactively}
 constructing reflective generators that maintain complex preconditions.
-Some users may already have a standard QuickCheck-style generator that
-they would like to use
-in situations that require a reflective generator. We will assist those
-users with tools that automatically synthesize backward annotations
+% Some users may already have a standard QuickCheck-style generator that
+% they would like to use
+% in a situation that requires a reflective generator.
+We will assist
+users in generalizing existing generators to reflective ones, with tools that automatically synthesize backward annotations
 required to make the generator bidirectional. We will experiment with both
 conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
-annotations for realistic generators.
-We plan to collaborate with professor Hila
+the required annotations for realistic generators.
+We plan to collaborate in this effort with professor Hila
 Peleg at the Technion, who has experience with both PBT and program synthesis. A
 letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
 
@@ -1253,37 +1257,37 @@ to demonstrate the interest of an idea, but such evaluations
 are hard to interpret from the perspective of a would-be user.
 We can do better.
 
-We have begun work on a robust empirical evaluation framework for
-test input generation strategies
-including infrastructure
+We have built the first version of a robust empirical evaluation
+framework for
+test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
-effectiveness.  By ``easily,'' we mean that we will take on the burden of
-collecting data and analyzing the results.  When complete, this
-evaluation framework will be able to evaluate a given tool based on (1) the
+effectiveness.  By ``easily,'' we mean that we take on the burden of
+collecting data and analyzing the results.  The tool
+can help users and developers evaluate a given tool based on (1) the
 degree to which it is able to achieve high code coverage quickly, and (2) the
 speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-numerous workloads that we currently support, we will design the
+numerous workloads that we currently support, we have designed the
 infrastructure so that users can easily add new
 languages, frameworks, and workloads.
-Some initial comparisons using this framework will soon be submitted as an experience
-report to ICFP 2023, but many crucial features (e.g., coverage measurement) have not yet
-been implemented.
+Some initial comparisons using this framework appeared as an experience
+report to ICFP 2023, but many crucial features (e.g., coverage
+measurement) have not yet been implemented.
 
 Our second contribution will codify a substantial library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
 fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
 organized around the particular challenges that PBT users face. In particular,
 few of the benchmarks deal with the kinds of complex preconditions that PBT
-tools are built to handle. We want to establish a set of challenging tasks that
+tools are built to handle. We will establish a set of challenging tasks that
 can serve as a polestar for future improvements to PBT generators and
 bug-finding strategies (including our own!).
 
-Past and proposed work on this topic are joint with Leonidas
-Lampropoulos and his group at Maryland.
+Our past and proposed work on Etna form part of an ongoing
+collaboration with Leonidas Lampropoulos and his group at Maryland.
 A letter of collaboration
-from Prof.{} Lampropoulos appears in the supplemental documents, and
+from Prof.{} Lampropoulos appears in the supplemental documents.
 PI Pierce has a long history
 of successful projects with Prof.
 Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
@@ -1292,15 +1296,16 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-To bring PBT to the people, we need to help developers with envisioning and writing
+To bring PBT to the people, we need to help developers with two main
+things: writing generators (discussed above) and envisioning and writing
 specifications.
-Our industry study suggested that developers may struggle to write
-properties about their programs, sometimes due to poorly abstracted code and
+Developers struggle to write
+properties for their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
 might want to
 test. We propose to address the first of these issues with a
-property language that operates over program traces (\sectionref{sec:outpurprop}) and
-the second with mixed-initiative interactions where the user and the computer
+property language that operates over program traces (\sectionref{sec:outpurprop}\bcp{broken/gone}) and
+the second with mixed-initiative interactions in which the user and the computer
 collaborate to write a property
 (\sectionref{sec:interactive}).
 %
