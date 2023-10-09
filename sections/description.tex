@@ -52,10 +52,10 @@ test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
 PBT tool has $\sim$70\% as many stars as Python's entire testing
-infrastructure. \bcp{My math brain finds it hard to imagine exact what
+infrastructure. \iflater\bcp{My math brain finds it hard to imagine exact what
 that means.  Would it be accurate to say ``Python's
 PBT tool has $\sim$70\% of the stars of Python's entire testing
-infrastructure''?  Or can we in some other way simplify it?}
+infrastructure''?  Or can we in some other way simplify it?}\fi
 
 Moreover, there is still plenty of room
 for growth.
@@ -135,10 +135,11 @@ agenda for this proposal.
 \medskip
 
 \begin{wrapfigure}{r}{.63\textwidth}
+  \vspace*{-2ex}
   \centering
   \includegraphics[width=.6\textwidth]{assets/overview.pdf}
-  \caption{Overview of the proposed research.}
-  \label{overview}
+  %\caption{Overview of the proposed research.}
+  %\label{overview}
 \end{wrapfigure}
 %
 We propose an interdisciplinary program of research in
@@ -148,7 +149,7 @@ into practice.
 %
 Planned research,
 engineering, and education activities can be grouped into five main
-themes (Figure~\ref{overview}): \iflater\bcp{Make sure this is an
+themes: \iflater\bcp{Make sure this is an
   accurate summary -- e.g., the connection with fuzzing}\fi
 %
 \begin{enumerate}[noitemsep]
@@ -1297,8 +1298,9 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
 To bring PBT to the people, we need to help developers with two main
-things: writing generators (discussed above) and envisioning and writing
-specifications.
+things: writing generators (as discussed above) and envisioning and writing
+specifications, which we address next.
+
 Developers struggle to write
 properties for their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
@@ -1405,13 +1407,6 @@ system \emph{containing} the component(s) of concern.
 \SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 
 \bcp{ (name?)}
-\bcp{To be written...
-  \begin{itemize}
-  \item Port common / high-leverage scenarios
-  \item Expand Ghostwriter with specification inference?
-  \end{itemize}
-}
-
 \hg{
   Here's the outline I had in mind:
   \begin{itemize}
@@ -1480,32 +1475,36 @@ system \emph{containing} the component(s) of concern.
 %
 \bcp{Cite Ernest's SRC poster.  Compress if needed.}
 %
-One surprising finding from our industry study was that
-it is quite common for developers to build (or already have) a
+One surprising finding from our industry study was that, at least
+in this environment, it is quite common for developers to build (or
+already have) a
 {\em model
 implementation} of the code they are testing and want to test that
 the two implementations behave the same.  This is a
 well-documented approach to
-  PBT~\cite{hughes_experiences_2016}, but it is not well publicized,
+  PBT~\cite{hughes_experiences_2016}, but it is less well publicized,
   nor is it supported as well as it could
 be by existing tooling.
 %
 With this in mind, we plan to build a tool to automate
-model-based testing for systems written in languages with strong {\em
-  module systems}, like OCaml, Standard ML, etc.~\cite{macqueen_modules_1984}.
-We will start in OCaml because our relationship with Jane Street makes it easy
-to rapidly get feedback on our findings and tools.
+model-based testing for systems written in languages with strong
+{module systems}, like OCaml, Standard ML, and
+Scala~\cite{macqueen_modules_1984}.\bcp{Why restrict ourselves to
+  these?  Java, Rust, Haskell, etc. should also have enough features...}
+We will start in OCaml because our existing relationship with the OCaml
+community makes it easy to rapidly get feedback on findings and tools.
 
-Model-based testing is almost trivial in the case where
-the component under test and the model are both pure functions.  But
-when the code under test is a {\em
+Model-based testing is easiest in the case where
+the component under test and the model are both pure functions.
+When we are  testing a {\em
   collection} of functions
 organized into a module, things get much more interesting. Testing even a simple
 module requires orchestrating multiple calls to the different functions in
 its signature. For example, testing the signature \lstinline{StringFns} in
-Figure~\ref{fig:sigs} requires wiring together calls the functions in the
-signature in a well typed way---e.g., testing \lstinline{drop_n}
-requires an integer and a string, each of which must be either generated or
+Figure~\ref{fig:sigs} requires wiring together calls to its functions
+in a well typed way---e.g., testing \lstinline{drop_n}
+requires an integer and a string, each of which must be either
+generated randomly or
 obtained from a call to a different function in the signature (e.g., \lstinline{split}).
 We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
@@ -1534,16 +1533,21 @@ module Set : sig
     automatically.}\label{fig:sigs}
 \end{figure}
 
-Testing modules gets even hairier when they contain {\em abstract types}, as is
-the case with \lstinline{Set}. Now some of the types in the signature cannot be
-generated on their own, but must be obtained by
+Things get even more interesting when modules contain {\em abstract
+  types}, as is
+the case with \lstinline{Set} in Figure~\ref{fig:sigs}. Now some of
+the types mentioned in the signature cannot be
+generated on their own; their values must rather be obtained by
 calling other functions in the signature (e.g., \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
 also {\em polymorphic}, so a concrete instance must be chosen for
 the element type \lstinline{'a} before
-testing; there is one significant piece of work on this
-problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.
+testing.  There is one useful piece of prior work on testing modules with abstract
+types\iflater\bcp{describe the results and why they are not the whole
+story...}\fi~\cite{hou_favonia_logarithm_2022}, but the problem has
+not been thoroughly explored.
 
-To address these problems, we will take a foundational approach, breaking down
+To address these challenges, we will take a foundational
+approach, breaking down
 modules into their constituent features and developing automation
 heuristics from first
 principles. This will involve identifying a subset of modules, e.g., potentially
