@@ -1998,38 +1998,51 @@ design, implement, and evaluate a tool supporting such interactions.
 
 \publicationtarget{Foundations of Software Engineering (FSE)}
 
-\SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
-\todo{update the title, rewrite
-    the part about research software}
+\SECTION{Diffusion}{Bringing Innovations to PBT Practice}{sec:diffusion}
+% \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
+
 The activities described in the previous sections are focused on
 fundamental research to advance understanding of PBT and explore new
 approaches to both foundations and tool design.  But research alone is
 not enough to reach the broad impact we seek. Accordingly, our agenda
 includes plans for increasing the {\em diffusion} of PBT with both
-educational efforts and well-engineered tools
+educational efforts and the development of tools
 embodying our findings.
 
-We begin with activities for ensuring that our foundational
-advances have an impact on real users, with the help of a research
-engineer (\sectionref{sec:engineersupport}). A major part of this
-effort will be
-building and promoting \tyche, an integrated development environment for PBT
-(\sectionref{sec:ide}). Next, we discuss plans to
-support open-source frameworks for PBT (\sectionref{sec:nurturing}).
-Finally, our
-education-focused activities include developing a catalog of high-leverage PBT
-use-cases (\sectionref{sec:whento}) and undergraduate- and
-masters-level course materials for PBT
-(\sectionref{sec:1210}).
-
+Throughout the project, technical contributions will be brought together to
+form the the technical core of a new integrated evelopment environment (IDE) for PBT called \tyche{}
+(\sectionref{sec:ide}).  Then, we will conduct activities to educate
+programmers in effective application of PBT by developing a catalog of
+high-leverage PBT use cases (\sectionref{sec:whento}) and undergraduate- and
+master's-level course materials for PBT (\sectionref{sec:1210}).
 These projects will
 also result in a number of developer-focused talks. We will bring them
 to industry conferences like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
-\SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
+\SUBSECTION{An IDE for PBT}{sec:ide}{3}{5}{Tech
 Transfer}{???}{}{Pierce}
+The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+for PBT. Their potential impact will be magnified by
+integrating them into a system
+that is attractive to would-be users. This is the inspiration for
+\tyche{}, an IDE extension for PBT.
+\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
+\tyche{} will be developed as a Visual Studio Code extension, taking advantage
+of VSCode's status as the most widely used editor according to a 2022
+survey~\cite{noauthor_stack_nodate} and its support for every language
+with mature PBT tooling. The IDE will be developed in consultation with
+our consultants on the Hypothesis team (see our collaboration plan) to
+enable tight integration with existing features of modern PBT systems,
+facilitate future adoption, and develop opportunities for long-term maintenance
+by the open source community.
+We will make \tyche{} known to the developer community through talks at developer
+conferences and by
+disseminating information via our contacts in industry and the open source
+community.
+
 %
+\proposecut{%
 The research projects described above have the potential to
 dramatically improve the power and usability of PBT, but only
 if their products are attractive to real users. There is an unfortunate tendency for
@@ -2042,21 +2055,48 @@ research engineer. The code for those projects will be designed with learnabilit
 maintainability in mind, and upon
 completion it will be handed off to appropriate owners
 in the open source community.
+}
 
-Concretely, we expect the research engineer to be most involved in the following
-projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
-  1 to build and maintain a minimal PBT framework.
-  {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
-  Implementing and maintaining versions of reflective generators in a number of
-  languages and PBT ecosystems, with PhD 2.
-  {\em Mixed-initiative property
-  specification}~(\sectionref{sec:interactive}) and {\em Counterexamples as
-  regression tests}~(\sectionref{sec:counter}):
-  Assisting PhDs
-  3 and 4 with building tools for property specification.
-%
-Most importantly, the research engineer will help to build and maintain
-\tyche{}, the IDE for PBT designed by PhD 4.
+% Old Tyche text below
+% The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+% for PBT. Their potential impact will be magnified by
+% integrated them into a system
+% that is attractive to would-be users. This is the inspiration for
+% \tyche{}, an IDE extension for PBT.
+% \tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
+% \tyche{} will be developed as a Visual Studio Code extension, taking advantage
+% of VSCode's status as the most widely used editor according to a 2022
+% survey~\cite{noauthor_stack_nodate} and its support for every language
+% with mature PBT tooling.
+
+% To maintain focus, we will concentrate our Efforts on making \tyche{} especially effective for one
+% widely used
+% PBT framework---probably Hypothesis, since
+% its developers
+% have expressed interest in including
+% \tyche{} in the main Python language extension for VSCode.
+% But we will make the code of \tyche{} language-agnostic wherever
+% possible, to allow other
+% language communities to use it with their PBT frameworks.
+
+% The research engineer will lead feature integration, ensuring features come together into a
+% seamless whole. They will also develop \tyche{} to serve as a platform for
+% further innovation as it will have been for our own: extension points will be added
+% for others to create and evaluate techniques for understanding and creating properties and generators.
+% In this way, \tyche{} will provide a pipeline for bringing research on
+% PBT algorithms and interaction models to developers craving better tools.
+
+% We will make \tyche{} known to the developer community through talks at developer
+% conferences and by
+% disseminating information via our contacts in industry and the open source
+% community.
+% Our goal is for \tyche{} to reach 60,000 downloads by the end of the
+% project. At
+% the time of writing, this would put \tyche{} in the top 10 extensions
+% tagged ``Testing'' in the Visual Studio Code extension marketplace
+% that are not either full language servers or Large
+% Language Model interfaces~\cite{noauthor_testing_nodate}.
+
 
 % \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 % Transfer}{Engineer}{PhD 1}{Pierce}
