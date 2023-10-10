@@ -275,10 +275,11 @@ easier to {\em get} code to carry out a given task but even harder to
 
 Property-based testing~\cite{hughes_quickcheck_2007} proposes an
 effective approach to this problem---a straightforward way to evaluate
-hard-to-understand programs by validating them, semi-automatically,
+hard-to-understand programs is by validating them, semi-automatically,
 against executable specifications. As a very basic example, a
 developer might write the following function for checking that
-the \lstinline{insert} function on binary search trees:
+the \lstinline{insert} function on binary search trees itself yields a new
+binary tree:
 \begin{lstlisting}
 prop_insert_correct (x:int) (t:tree)  =
   if is_bst t then is_bst (insert x t)) else True
@@ -305,26 +306,29 @@ checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
 {counterexample}.
 %
-Designing these properties is an example of
+\amh{Not sure what the point of the next sentence is.} \proposecut{
+Designing properties is an example of
 the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
 automated testing where the user needs to define what it means for a program to
-be correct.
+be correct.}
 
-The research agenda we propose focuses  on {\em random}
-generation~\cite{hamlet1994random}, the dominant approach in PBT,
-though many of our tools would also be applicable to alternatives
-like enumerative
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}.  The
+The dominant approach to generating inputs (and the approach we focus on in this
+project) is {\em random}
+generation~\cite{hamlet1994random}. In contrast to enumerative
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}, which iteratively
+generates all possible inputs, random generation randomly samples inputs from a
+a potentially infinite distribution. The
 surprising effectiveness of random generation can be attributed to the
-``combinatorial nature'' of large test cases---the fact that bugs can
-often be exposed by any test input that embodies some specific combination
-of features, independent of whatever other features may also be
-present.  For example, a bug might be triggered by a particular
+``combinatorial nature'' of large test cases: bugs are
+can sometimes exposed by any test input with a specific combination
+of features, independent of the other features of the input. For example, a bug might be triggered by a particular
 sequence of API calls in a particular order, even when
-these are interleaved with other API calls. As a result, testing with
-large random inputs often exposes issues much faster than exhaustively
-enumerating small inputs.  Techniques like swarm
+interleaved with other API calls. Random testing can sometimes
+discover bug-triggering combintations of features more quickly than
+exhaustive approaches, particularly those that begin with small inputs. Techniques like swarm
 testing~\cite{groce2012swarm} can further amplify this effect.
+
+\smallskip
 
 To apply PBT to a software system or an individual component, the
 developer first defines one or more properties that they expect the
@@ -336,8 +340,6 @@ their properties against many generated inputs. And finally, if a
 counterexample is discovered, they inspect it to determine the source
 of the bug.  Each of these steps can be significantly improved for
 users, as we describe below.
-
-\smallskip
 
 Why go to the trouble of using PBT, rather than the more straightforward
 example-based testing that is standard across the software industry?
