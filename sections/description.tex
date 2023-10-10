@@ -1343,178 +1343,25 @@ To bring PBT to the people, we need to help developers with two main
 things: writing generators (as discussed above) and envisioning and writing
 specifications, which we address next.
 
-Developers struggle to write
-properties for their programs, sometimes due to poorly abstracted code and
-other times simply because they fail to imagine what properties they
-might want to
-test. We propose to address the first of these issues with a
-property language that operates over program traces (\sectionref{sec:outpurprop}\bcp{broken/gone}) and
-the second with mixed-initiative interactions in which the user and the computer
-collaborate to write a property
-(\sectionref{sec:interactive}).
-%
-Further, we will automate one specific high-leverage scenario,
-model-based testing (\sectionref{sec:automating}). Finally, we will explore how to
-generate automatic explanations of properties, for documentation and
-education (\sectionref{sec:understanding}).
+In the industry study, we found that a significant chunk of real-world PBT
+focuses on {\em high-leverage scenarios}---instances where properties are
+readily available and developers can jump right in to the process of finding
+bugs. Thus, in this section we propose work to help developers write
+specifications in the context of high leverage scenarios. First we propose tools
+for supporting an existing high-leverage scenario, in particular {\em
+model-based} or {\em differential} testing of classes and
+modules~(\sectionref{sec:model-based}). Next we propose a technique for
+inducting a new class of scenarios into the ``high-leverage'' category, with the
+help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we bring these
+techniques and others together into a unified toolkit, {\em Ghostwriter++}, for
+automatic property inference.
 %
 Success in these tasks will again be measured indirectly, through the
 tools described in \sectionref{sec:val} and
 \sectionref{sec:diffusion}, and directly in terms of publications.
 
-% \SUBSECTION{Properties over program traces}{sec:outpurprop}{2}{3}{PL
-%   Practice}{PhD 3}{REPL 5}{Pierce}
-% With current PBT tools, properties can only be expressed over single modules.
-% This causes problems when code is organized with functionality crossing module
-% boundaries.
-
-{\color{gray}
-\bcp{Change this to just a footnote in the Ghostwriter section.} Properties over program traces...
-
-A common pain point for developers in our interview studies was that
-their code is not necessarily organized in a way that is conducive to
-PBT.  PBT works best on components with clear boundaries and does not
-easily apply to programs with
-poorly encapsulated global state, or with leaky or complex abstraction
-boundaries.
-
-Rather than write properties that are tied to the structure of the program,
-we will explore
-how to define properties over user-defined
-event logs. Consider
-the case of P7, who was testing
-a system, let's call it ``\lstinline{Inner},'' that  was difficult to
-test because
-its most interesting behavior arose only when interacting with a particular calling
-component, ``\lstinline{Outer}''.
-\lstinline{Outer} took in simple inputs and used them to construct
-much more complex inputs to \lstinline{Inner}. Thus, \lstinline{Inner}
-could not be tested with
-realistic inputs without the complex apparatus of \lstinline{Outer} to
-produce those inputs.  The developer cited this as a circumstance where a
-PBT is difficult to apply, because the abstraction boundary between the
-components was too fuzzy.
-
-% \TASK{Tools for testing properties over logged values}{2}{2}{Who?}
-We will develop a tool that allows developers to express properties that reach
-into the state of multiple interacting software components. Take again the
-example of \lstinline{Inner}. A solution to P7's problem could be to drive the
-test through \lstinline{Outer} but write properties about
-\lstinline{Inner} by monitoring the internal values that appear while it
-runs. For example, suppose
-\lstinline{Inner} processes a stream of messages and its internal state
-includes a queue of processed items, \lstinline{processed}, and an
-\lstinline{overflow} flag. Useful properties might include:
-
-\begin{lstlisting}
-prefix_of (processed, next (processed))      (* 1. Processing is monotonic *)
-msg.length < 100 ==> never (overflow = true) (* 2. Can handle 100 bytes    *)
-eventually (processed.length = msg.length)   (* 3. whole message processed *)
-\end{lstlisting}
-
-Is it possible to check such behaviors with built-in assertion statements? We
-posit that an assertion-based approach is non-ideal. On the one hand, assertions
-would require nontrivial code to save previous values for properties like (1)
-above, and likely involves brittle macros or meta-programming to remove such
-auxiliary code at release time. Furthermore, it is difficult to imagine using
-the assertion approach to checking properties (2) or (3) at all, because it
-would require assertions cognizant of the ``end'' of a computation, information
-that may not be available to the assertion statement.
-
-Instead, we propose tooling where properties can be defined over logged values.
-The first key component of the tool is the invocation of
-logging for specific values using lightweight annotations within modules like
-\lstinline{Inner}. The second component is a language for writing
-properties over the annotations, capable of capturing concepts like \lstinline{next} and
-\lstinline{never} from the example properties above. This language will need to
-take inspiration from temporal logics, for example linear temporal logic (LTL).
-
-Temporal logics have been used for PBT in prior
-work~\cite{oconnor_quickstrom_2022}, but adapting that work to this situation
-will require some finesse. For one thing, the prior work assumes a fixed
-source of logical events, and thus does not have to support arbitrary predicates
-over the kinds of values that may appear in a program trace. For another, LTL is
-thought by some to be difficult to use~\cite{greenman_little_2022};
-we hope to choose a simplified set of temporal connectives that are
-intuitive for users.
-%
-The end goal of this task is a tool that compiles properties written
-in some friendly temporal logic into lower-level properties over log
-traces, which are validated by providing random inputs to an outer
-system \emph{containing} the component(s) of concern.
-
-\publicationtarget{Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
-}
-
-\SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
-
-\bcp{ (name?)}
-\hg{
-  Here's the outline I had in mind:
-  \begin{itemize}
-    \item The JS study highlighted high-leverage scenarios
-    \begin{itemize}
-      \item Invariants for modules
-      \item Model-based / differential testing (generalization of invariants)
-      \item Round trips
-      \item Classical math properties
-    \end{itemize}
-    \item Some of these scenarios are handled by ghostwriter, we'll add support
-    for more
-    \begin{itemize}
-      \item Invariants / model-based --- incorporate ideas and techniques from Mica
-      \item Others ???
-    \end{itemize}
-    \item What about bringing more powerful tools to bear?
-    \begin{itemize}
-      \item TOGA demonstrated that language models can be used to generate
-      correctness assertions---could we do this with properties?
-      \item We may also be able to do generators (HG: I don't have a strong
-      story here without bringing in the whole generator synthesis stuff, which
-      I don't want to do. But we can mention it)
-    \end{itemize}
-  \end{itemize}
-}
-
-% %
-% Even if a developer believes, in the abstract, that PBT should useful
-% to them, they may still have trouble writing concrete properties
-% in situations that actually come up in their work. We will explore how
-% programmers can engage in an iterative loop to
-% compose properties in collaboration with their tools, focusing on
-% first encounters with PBT in an educational setting.
-
-% We will design a novel mixed-initiative~\cite{ref:allen1999mixed} workflow where
-% students and their code editor work together to arrive at
-% meaningful properties. Prior work has contributed techniques that automatically
-% extract properties from programs
-% \cite[etc.]{ref:ammons2002mining, ref:le2018deep, ref:claessen2010quickspec,
-% smith_discovering_2017}. Our aim is to explore how student and tool
-% can collaborate to arrive at properties that
-% are not just {\em accurate} descriptions of correct system behavior, but
-% also capture {\em important} aspects of behavior. To achieve this aim,
-% it will require
-% designing interactions for developers to specify desired properties
-% directly, plus extensions to property extractors that incorporate this
-% information. We envisage
-% interactions that help students steer a property extractor by (1) selecting
-% specific functions or procedures that they want to check,
-% and then indicating the kinds of properties they wish to test by (2)
-% writing unit test cases or REPL assertions
-% that represent special cases of more general
-% properties. This interaction would be
-% mixed-initiative, permitting a user to refine generated properties by providing
-% additional test cases that should be satisfied or rejected. Such interactions
-% would be prototyped on top of an open source property generator tool like
-% QuickSpec~\cite{ref:claessen2010quickspec}, using user inputs to steer
-% generation, and evaluated in Penn's upper division Haskell
-% course (CIS 5520).
-
-% \publicationtarget{User Interface Software and Technology (UIST)}
-
-\SUBSECTION{Model-based properties for
-  modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
-%
+\SUBSECTION{Supporting High-Leverage Scenarios: Model-Based
+Testing}{sec:model-based}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 \bcp{Cite Ernest's SRC poster.  Compress if needed.}
 %
 One surprising finding from our industry study was that, at least
@@ -1612,6 +1459,106 @@ transfer.
 
 \publicationtarget{International Conference on Functional Programming
   (ICFP) and/or Principles of Programming Languages (POPL)}
+
+\SUBSECTION{Expanding High-Leverage Scenarios: Patterns over
+Logs}{sec:ltl-logs}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
+
+A common pain point for developers in our interview studies was that
+their code is not necessarily organized in a way that is conducive to
+PBT.  PBT works best on components with clear boundaries and does not
+easily apply to programs with
+poorly encapsulated global state, or with leaky or complex abstraction
+boundaries.
+
+Rather than write properties that are tied to the structure of the program,
+we will explore
+how to define properties over user-defined
+event logs. Consider
+the case of P7, who was testing
+a system, let's call it ``\lstinline{Inner},'' that  was difficult to
+test because
+its most interesting behavior arose only when interacting with a particular calling
+component, ``\lstinline{Outer}''.
+\lstinline{Outer} took in simple inputs and used them to construct
+much more complex inputs to \lstinline{Inner}. Thus, \lstinline{Inner}
+could not be tested with
+realistic inputs without the complex apparatus of \lstinline{Outer} to
+produce those inputs.  The developer cited this as a circumstance where a
+PBT is difficult to apply, because the abstraction boundary between the
+components was too fuzzy.
+
+% \TASK{Tools for testing properties over logged values}{2}{2}{Who?}
+We will develop a tool that allows developers to express properties that reach
+into the state of multiple interacting software components. Take again the
+example of \lstinline{Inner}. A solution to P7's problem could be to drive the
+test through \lstinline{Outer} but write properties about
+\lstinline{Inner} by monitoring the internal values that appear while it
+runs. For example, suppose
+\lstinline{Inner} processes a stream of messages and its internal state
+includes a queue of processed items, \lstinline{processed}, and an
+\lstinline{overflow} flag. Useful properties might include:
+
+\begin{lstlisting}
+prefix_of (processed, next (processed))      (* 1. Processing is monotonic *)
+msg.length < 100 ==> never (overflow = true) (* 2. Can handle 100 bytes    *)
+eventually (processed.length = msg.length)   (* 3. whole message processed *)
+\end{lstlisting}
+
+Is it possible to check such behaviors with built-in assertion statements? We
+posit that an assertion-based approach is non-ideal. On the one hand, assertions
+would require nontrivial code to save previous values for properties like (1)
+above, and likely involves brittle macros or meta-programming to remove such
+auxiliary code at release time. Furthermore, it is difficult to imagine using
+the assertion approach to checking properties (2) or (3) at all, because it
+would require assertions cognizant of the ``end'' of a computation, information
+that may not be available to the assertion statement.
+
+Instead, we propose tooling where properties can be defined over logged values.
+The first key component of the tool is the invocation of
+logging for specific values using lightweight annotations within modules like
+\lstinline{Inner}. The second component is a language for writing
+properties over the annotations, capable of capturing concepts like \lstinline{next} and
+\lstinline{never} from the example properties above. This language will need to
+take inspiration from temporal logics, for example linear temporal logic (LTL).
+
+Temporal logics have been used for PBT in prior
+work~\cite{oconnor_quickstrom_2022}, but adapting that work to this situation
+will require some finesse. For one thing, the prior work assumes a fixed
+source of logical events, and thus does not have to support arbitrary predicates
+over the kinds of values that may appear in a program trace. For another, LTL is
+thought by some to be difficult to use~\cite{greenman_little_2022};
+we hope to choose a simplified set of temporal connectives that are
+intuitive for users.
+%
+The end goal of this task is a tool that compiles properties written
+in some friendly temporal logic into lower-level properties over log
+traces, which are validated by providing random inputs to an outer
+system \emph{containing} the component(s) of concern.
+
+\SUBSECTION{Automating High-Leverage Scenarios: Ghostwriter++}{sec:ghostwriter}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Head}
+
+\bcp{ (name?)}
+\hg{
+  Here's the outline I had in mind:
+  \begin{itemize}
+    \item Stuff above will be in here
+    \item Some of these scenarios are handled by ghostwriter, we'll add support
+    for more
+    \begin{itemize}
+      \item Invariants / model-based --- incorporate ideas and techniques from Mica
+      \item Others ???
+    \end{itemize}
+    \item What about bringing more powerful tools to bear?
+    \begin{itemize}
+      \item TOGA demonstrated that language models can be used to generate
+      correctness assertions---could we do this with properties?
+      \item We may also be able to do generators (HG: I don't have a strong
+      story here without bringing in the whole generator synthesis stuff, which
+      I don't want to do. But we can mention it)
+    \end{itemize}
+  \end{itemize}
+}
+
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
