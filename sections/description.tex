@@ -1362,103 +1362,43 @@ tools described in \sectionref{sec:val} and
 
 \SUBSECTION{Supporting High-Leverage Scenarios: Model-Based
 Testing}{sec:model-based}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
-\bcp{Cite Ernest's SRC poster.  Compress if needed.}
+
+One surprising finding from our industry study was that, at least in this
+environment, it is quite common for developers to build (or already have) a {\em
+model implementation} of the code they are testing and want to test that the two
+implementations behave the same.  This is a well-documented approach to
+PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
+{\em differential testing}~\cn.
 %
-One surprising finding from our industry study was that, at least
-in this environment, it is quite common for developers to build (or
-already have) a
-{\em model
-implementation} of the code they are testing and want to test that
-the two implementations behave the same.  This is a
-well-documented approach to
-  PBT~\cite{hughes_experiences_2016}, but it is less well publicized,
-  nor is it supported as well as it could
-be by existing tooling.
-%
-With this in mind, we plan to build a tool to automate
-model-based testing for systems written in languages with strong
-{module systems}, like OCaml, Standard ML, and
-Scala~\cite{macqueen_modules_1984}.\bcp{Why restrict ourselves to
-  these?  Java, Rust, Haskell, etc. should also have enough features...}
-We will start in OCaml because our existing relationship with the OCaml
-community makes it easy to rapidly get feedback on findings and tools.
+Since this situation is so common we want to make it as easy as possible for
+developers.  We have already done early exploration on {\sc Mica}~\cn, a tool
+that automates the process of writing model-based properties for languages like
+OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984}; we propose
+continuing this work and broadening it to work in a wider range of languages.
 
-Model-based testing is easiest in the case where
-the component under test and the model are both pure functions.
-When we are  testing a {\em
-  collection} of functions
-organized into a module, things get much more interesting. Testing even a simple
-module requires orchestrating multiple calls to the different functions in
-its signature. For example, testing the signature \lstinline{StringFns} in
-Figure~\ref{fig:sigs} requires wiring together calls to its functions
-in a well typed way---e.g., testing \lstinline{drop_n}
-requires an integer and a string, each of which must be either
-generated randomly or
-obtained from a call to a different function in the signature (e.g., \lstinline{split}).
-We will build on prior
-work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
-calls that can be used to compare module implementations.
+{\sc Mica} can automatically build test suites that compare simple OCaml
+modules. Given a module signature (\lstinline{S}) and two modules
+(\lstinline{M1} and \lstinline{M2}) implementing that signature, {\sc Mica}
+automatically generates chains of \lstinline{S}-operations and ensures that
+\lstinline{M1} and \lstinline{M2} behave the same way when those operations are
+invoked. This automates a process developers already do manually. It can
+determine when a refactored module has subtly changed its behavior or when a
+complex module disagrees with a simpler reference implementation.
 
-\begin{figure}[t]
-  \begin{minipage}{.45\textwidth}
-\begin{lstlisting}
-module StringFns : sig
-  val reverse : string -> string
-  val drop_n  : int -> string -> string
-  val split   : string -> string * string
-\end{lstlisting}
-  \end{minipage}
-  \qquad\qquad
-  \begin{minipage}{.45\textwidth}
-\begin{lstlisting}
-module Set : sig
-  type 'a t     val empty : 'a t
-  val mem   : 'a t -> 'a -> bool
-  val add   : 'a t -> 'a -> 'a t
-\end{lstlisting}
-  \end{minipage}
-  \vspace{-2mm}
-  \caption{Some module interfaces we would like to test
-    automatically.}\label{fig:sigs}
-\end{figure}
-
-Things get even more interesting when modules contain {\em abstract
-  types}, as is
-the case with \lstinline{Set} in Figure~\ref{fig:sigs}. Now some of
-the types mentioned in the signature cannot be
-generated on their own; their values must rather be obtained by
-calling other functions in the signature (e.g., \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
-also {\em polymorphic}, so a concrete instance must be chosen for
-the element type \lstinline{'a} before
-testing.  There is one useful piece of prior work on testing modules with abstract
-types\iflater\bcp{describe the results and why they are not the whole
-story...}\fi~\cite{hou_favonia_logarithm_2022}, but the problem has
-not been thoroughly explored.
-
-To address these challenges, we will take a foundational
-approach, breaking down
-modules into their constituent features and developing automation
-heuristics from first
-principles. This will involve identifying a subset of modules, e.g., potentially
-those that use generation-unfriendly types like GADTs, where automation is {\em
-not} possible; highlighting this subset will provide useful context for future
-work that might aim to simplify these cases in other ways (e.g., by putting a
-human in the loop). For the modules where our automation does apply, we will
-provide a totally automatic solution.
+So far, {\sc Mica} has captured an useful set of OCaml module features, but there
+is still work to be done. The technique does not yet work well with stateful
+modules, which operate by modifying some internal state, rather than by passing
+module state between the functions in the signature. Furthermore, the tool
+currently relies on information from the module's type signature to assemble
+chains of operations, but we would like to extend this technique to work in more
+weakly-typed languages like Python. \hg{And we think these are possible
+because...}
 
 The work in this project will ultimately provide a recipe for automating a
-significant swath of module testing situations, massively lowering the
-barrier to entry
-for PBT in languages with OCaml-like module
-systems. It will also
-provide a basis that others can
-build on in other languages: abstract and polymorphic signatures are features of
-many other modularity mechanisms (e.g., Java interfaces, Rust traits, Haskell
-type classes, etc.), so solutions we develop for OCaml should
-transfer.
+significant swath of module testing situations, massively lowering the barrier
+to entry for PBT.
 
-\publicationtarget{International Conference on Functional Programming
-  (ICFP) and/or Principles of Programming Languages (POPL)}
+\publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Expanding High-Leverage Scenarios: Patterns over
 Logs}{sec:ltl-logs}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
@@ -1534,6 +1474,8 @@ The end goal of this task is a tool that compiles properties written
 in some friendly temporal logic into lower-level properties over log
 traces, which are validated by providing random inputs to an outer
 system \emph{containing} the component(s) of concern.
+
+\publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
 \SUBSECTION{Automating High-Leverage Scenarios: Ghostwriter++}{sec:ghostwriter}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Head}
 
