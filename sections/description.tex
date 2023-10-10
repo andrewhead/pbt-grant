@@ -246,7 +246,7 @@ co-teaches.
 
 \medskip
 
-The rest of this Project Description describes this research and
+The rest of the Project Description describes this research and
 technology transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
 background on PBT and present preliminary findings from the
@@ -390,9 +390,9 @@ challenges as well, as we shall see next.
 \fi
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
-\bcp{OK, I crunched this section down to a page.  I don't want to go
+\iflater\bcp{OK, I crunched this section down to a page.  I don't want to go
   too much shorter because it is doing a lot of work introducing the
-  themes that we return to later...}
+  themes that we return to later...}\fi
 %
 Our research agenda is informed by the findings from
 a need-finding study that we carried out last year at Jane Street Capital.
@@ -453,7 +453,8 @@ it to full potential are provided with state-of-the-art tools.
 
 Several sets of themes emerged from this study.  One concerned the
 \thread{generation} of random inputs for PBT. Developers spoke highly
-of the \gentheme{Derived Generators} that can be automatically
+of the \iflater\bcp{un-capitalize here and below}\fi\gentheme{Derived
+  Generators} that can be automatically
 inferred from the OCaml type system but identified deficiencies both
 small and large, the most significant being that derived generators
 cannot enforce semantic preconditions like \lstinline{is_bst}.
@@ -1071,6 +1072,7 @@ validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging with no additional effort from the user.%
 %
 \footnote{%
+\normalsize
 Hypothesis shrinks test inputs by shrinking the random choices
 that produce those
 inputs. There are benefits to this approach: shrinking can be implemented
@@ -2024,7 +2026,6 @@ We will make \tyche{} known to the developer community through talks at develope
 conferences and by
 disseminating information via our contacts in industry and the open source
 community.
-
 %
 \proposecut{%
 The research projects described above have the potential to
