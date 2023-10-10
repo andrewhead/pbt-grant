@@ -52,10 +52,10 @@ test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
 PBT tool has $\sim$70\% as many stars as Python's entire testing
-infrastructure. \bcp{My math brain finds it hard to imagine exact what
+infrastructure. \iflater\bcp{My math brain finds it hard to imagine exact what
 that means.  Would it be accurate to say ``Python's
 PBT tool has $\sim$70\% of the stars of Python's entire testing
-infrastructure''?  Or can we in some other way simplify it?}
+infrastructure''?  Or can we in some other way simplify it?}\fi
 
 Moreover, there is still plenty of room
 for growth.
@@ -85,15 +85,22 @@ Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
 In recent need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---developers called it
-``obviously valuable'' (Participant \participant{1}), built their own
-frameworks for it when standard ones were not available
-(\participant{8}, \participant{21}), and suggested that ``everyone''
-at the company should use it (\participant{20}); however, developers
+``obviously valuable,'' built their own
+frameworks for it when standard ones were not available, and suggested that ``everyone''
+at the company should use it; however, developers
 also highlighted a key opportunity for improvement: {\em usability}.
 %
 Like
 many other powerful tools, PBT can be nontrivial to apply effectively, and developers
 need support to do so.
+
+\amh{What follows is a first attempt to try to do a harder sell of the
+transformational nature of the project:} To make PBT not just useful by
+\emph{usable} requires transformative advances in the underlying technology.
+This proposal aims to do just that. Our formative research suggests that to achieve
+such a transformation, tools need to provide yet-unachieved levels of
+\emph{visibility} into the outcomes of property-based testing and \emph{control}
+over what software is tested and how.
 
 The conceptual advances needed to improve the usability of PBT
 require fundamental insights from both the
@@ -120,6 +127,28 @@ need-finding techniques identify
 pain points and motivate concrete tools that help programmers write
 safe, correct code.
 
+\amh{Another draft paragraph meant to emphasize the transformational nature of the
+work\ldots{}} This project puts forward a comprehensive program of innovative
+research to equip developers with unprecedented levels of visibility and
+control in the property-based testing process. To attain this desired
+visibility and control, we develop innovative approaches to support the
+definition of properties is new settings; the efficient and elegant expression
+of complex real-world input preconditions; the flexible and efficient
+inspection of distributions of generated test cases; and the direct tuning of
+test distributions by manipulating individual inputs and aggregate descriptive
+statistics. Current PBT practice is severely limited in the kinds of
+modules that can be tested, the artificiality of the inputs, and the opaqueness
+of its output. This project will evolve PBT into a practice that applies to
+complex modules as well as simple ones, where realistic data can be readily
+and naturally generated, and developers can readily develop a boad and deep
+perspective of the effectiveness of their test suites.
+\amh{I am not sure if this 100\% matches with what we are proposing,
+though if not, we should think about if it can be. These were the kinds of
+innovations that I thought might make the biggest impression on reviewers.}
+\amh{We should talk about what research we can do to support the generation of
+inputs with complex preconditions, as I think it is one of the most interesting
+technical directions pointed out by the ICSE paper.}
+
 Our team is uniquely positioned to bring PBT into this vibrant area
 of PL+HCI research.  PI Head recently
 co-founded a new HCI group at
@@ -127,19 +156,20 @@ the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
 topics including PBT.  Our past collaboration has led to
 two workshop
-presentations~\cite{goldstein_problems_2022,shi_towards_2023} and a
+presentations~\cite{goldstein_problems_2022,shi_towards_2023}, one
+refereed conference demo~\cite{ref:goldstein2023tyche}, and a
 paper under submission on the
-Jane Street study mentioned above, which inform the
+Jane Street study mentioned above; all of these inform the
 agenda for this proposal.
 
 \medskip
 
-\begin{wrapfigure}{r}{.5\textwidth}
-  \centering
+\begin{wrapfigure}{r}{.63\textwidth}
   \vspace*{-2ex}
-  \includegraphics[width=.5\textwidth]{assets/overview.pdf}
-  % \caption{Overview of the proposed research.}
-  % \label{overview}
+  \centering
+  \includegraphics[width=.6\textwidth]{assets/overview.pdf}
+  %\caption{Overview of the proposed research.}
+  %\label{overview}
 \end{wrapfigure}
 %
 We propose an interdisciplinary program of work on
@@ -147,7 +177,7 @@ We propose an interdisciplinary program of work on
 bear the combined power of PL and HCI to accelerate PBT's transition
 into practice.
 %
-The planned research,
+Planned research,
 technology transfer, and education activities can be grouped into five main
 themes: \iflater\bcp{Make sure this is an
   accurate summary -- e.g., the connection with fuzzing}\fi
@@ -231,61 +261,41 @@ Section \sectionref{sec:prior} summarizes our prior
 NSF-supported work.
 
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
-Present-day software developers often face code
-that they do not fully understand. Modern applications are assembled
-from complex trees of dependencies \bcp{my metaphor checker breaks on
-  that} that are too deep to hold
-in one's head all at once.
-And the rise of AI assistants like Copilot and ChatGPT mean that developers are
-increasingly faced with code that is easy to obtain but difficult to trust.
-\hg{How do we feel about this? Want to say more, or is this enough?}
+Developers in modern software ecosystems are often faced with code
+that they do not fully understand. Applications are not cut from whole cloth;
+they are built from large sets of components that are themselves often
+assembled from multiple sources.
+AI assistants like Copilot and ChatGPT make it even
+easier to {\em get} code to carry out a given task but even harder to
+{\em trust} that it is doing the right thing.
 
-% We begin in this section with some background on PBT and preliminary
-% results from our ongoing study at Jane Street
-
-% \subsectionstar{Property-Based Testing}
-% \subsectionstar{Orientation: Property-Based Testing}
-%
-PBT%
-% , famously popularized by Haskell's QuickCheck library
-~\cite{hughes_quickcheck_2007}
-provides a straightforward way to reason about and evaluate these
-hard-to-understand programs via their specifications. In PBT
-executable functions are used as partial
-specifications of a component under test. For example, a developer might
-write the following property for an \lstinline{insert}
-function on binary search trees, taking an arbitrary tree \texttt{t}
-and an integer
-\texttt{x} as parameters:
+Property-based testing~\cite{hughes_quickcheck_2007} proposes an
+effective approach to this problem---a straightforward way to evaluate
+hard-to-understand programs by validating them, semi-automatically,
+against executable specifications. As a very basic example, a
+developer might write the following function for checking that
+the \lstinline{insert} function on binary search trees:
 \begin{lstlisting}
-  prop_insert_correct x t  =  (is_bst t ==> is_bst (insert x t))
+prop_insert_correct (x:int) (t:tree)  =
+  if is_bst t then is_bst (insert x t)) else True
 \end{lstlisting}
-That is, if the original tree
-is a BST, then it should remain
-a BST after the insertion of \texttt{x},
-where \lstinline{is_bst} is a function that checks whether a binary
-tree is arranged so that each node's label is greater
+That is, if the tree passed to this function
+is a BST, then it must remain
+one after the insertion of \texttt{x} (where
+\lstinline{is_bst} checks that its argument is a BST---i.e., whether it
+is arranged so that each node's label is greater
 than any label in its left subtree and less than any in its right
-subtree.
-% \rjmhlater{The example property you give looks like a type check:
-% given a BST as
-% input, insert returns a BST as result. The reader may easily think
-% such a property is of interest only in dynamically typed
-% languages... and that it is a rather trivial property even there. Of
-% course, I understand that it really tests that the BST invariant is
-% preserved by insert, a deep semantic property, but you are just
-% assuming that the reader will remember that binary search trees need
-% to satisfy an invariant, and will guess that is_bst checks that
-% invariant. Be more explicit to avoid a risk of misunderstanding. }%
-In general, such a property is a function that
-accepts a generated
-test input
+subtree).
+%
+In general, an executable property is a function that
+accepts one or more generated
+test inputs
 and evaluates to \lstinline{True} if the test passes and
 \lstinline{False} otherwise.
 % This one, ``\verb|prop_insert_correct|'',
 % checks that an insert operation on a binary search tree preserves the
 % binary ordering of the tree.
-Given a property, the PBT tool generates a
+Given such a property, a PBT tool generates a
 large number of inputs and
 checks that the property yields \lstinline{True} for each one; any input
 that causes the property to fail is reported to the user as a
@@ -296,7 +306,7 @@ the {\em oracle problem}~\cite{barr_oracle_2015}, which arises in any kind of
 automated testing where the user needs to define what it means for a program to
 be correct.
 
-Our research agenda focuses mostly on {\em random}
+The research agenda we propose focuses  on {\em random}
 generation~\cite{hamlet1994random}, the dominant approach in PBT,
 though many of our tools would also be applicable to alternatives
 like enumerative
@@ -312,25 +322,23 @@ large random inputs often exposes issues much faster than exhaustively
 enumerating small inputs.  Techniques like swarm
 testing~\cite{groce2012swarm} can further amplify this effect.
 
-To apply PBT to a system or an individual software component, the
-developer first defines one
-or more properties that they expect should always be satisfied. Then
-they supply {\em random input generators} for the values that the
-properties take as input---these are sometimes written by hand, but
-often they can be automatically generated, e.g., from the type of the
-input. Next, they check their properties against many generated
-inputs, using a test harness provided by their PBT tool. And finally, if
-counterexamples are discovered, they inspect them to determine the
-source of the bug.  Each of these steps can be significantly improved for users,
-as we describe in the next section.
+To apply PBT to a software system or an individual component, the
+developer first defines one or more properties that they expect the
+system should satisfy.  They supply {\em random input generators} for
+the values that the properties take as input---these are sometimes
+written by hand, but often they can be automatically generated, e.g.,
+from the type of the input. Next, they invoke the PBT tool to check
+their properties against many generated inputs. And finally, if a
+counterexample is discovered, they inspect it to determine the source
+of the bug.  Each of these steps can be significantly improved for
+users, as we describe below.
 
 \smallskip
 
-Why go to the trouble of PBT, rather than the more straightforward
+Why go to the trouble of using PBT, rather than the more straightforward
 example-based testing that is standard across the software industry?
-First and foremost because a component can be tested much more
-thoroughly with a property plus many automatically generated examples
-than with a small number of examples written out by hand.
+One reason is that it can exercise a system much more
+comprehensively than a small number of hand-written examples.
 % \proposecut{As mentioned
 % previously, PBT has an impressive track-record uncovering bugs that other
 % approaches had failed to
@@ -338,25 +346,23 @@ than with a small number of examples written out by hand.
 % Bornholt2021,arts2015testing,hughes2016experiences}.}
 But
 PBT is more than just thorough---it is also more general than example-based
-testing. For example, Wrenn et al.~\cite{wrenn2021using} observe that example-based testing
-of programs whose correctness conditions are {\em relational} (e.g.,
-topologically sorting a graph, which might
-produce any of a number of correct results) is impossible to do
-faithfully; a property-based specification is a better choice in
-such cases.
+testing. For example, Wrenn et al.~\cite{wrenn2021using} observed that
+{\em relational} correctness conditions (e.g., the fact that a program
+topologically sorts a graph, which might
+produce any of a number of correct results) cannot be represented
+faithfully with example-based tests; a property-based specification is
+a better choice in such cases.
+%
 PBT is also
-an obvious choice if
-the developer already has some semi-formal
+a natural choice if
+the developer already has some formal or semi-formal
 specification in mind---for example if they are implementing behavior from an RFC or
-other design document---because it provides a clear connection between the
-specified behavior and the implementation.
+other design document.
 Finally, the
-properties required for PBT can also serve as documentation:
-participants in our need-finding study (\participant{5}, \participant{21})
-talked at length about properties being an ideal way to communicate what a
+properties used for PBT can also serve as documentation of what a
 program is supposed to do.
 
-PBT is also often compared to {\em fuzz testing}~\cite{afl-readme},
+PBT is often compared to {\em fuzz testing}~\cite{afl-readme},
 which randomly tests software to find
 vulnerabilities. We discuss ideas for bringing PBT and
 fuzzing closer together later in the proposal
@@ -372,28 +378,38 @@ they are applied in different ways, at different points in the
 development process, to achieve different goals.
 
 With all these advantages, one might hope to find PBT on every
-software developer's toolbelt.  But PBT poses some challenges as well,
-as we shall see next.
+software developer's toolbelt.  But using PBT effectively poses some
+challenges as well, as we shall see next.
 
-\todo{ Add a paragraph or two enumerating well-known / obvious
+\iflater
+\todo{Add a paragraph or two enumerating well-known / obvious
   challenges of PBT.  Then the next section begins ``We validated
   these challenges and added some color about additional ones that are
   not so much discussed in the PBT literature through a user study at
-  Jane Street...''  }
+  Jane Street...''  }  \bcp{Or maybe it reads OK as-is?}
+\fi
 
 \SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
+\bcp{OK, I crunched this section down to a page.  I don't want to go
+  too much shorter because it is doing a lot of work introducing the
+  themes that we return to later...}
 %
-Our research agenda is strongly informed by preliminary findings from
-a need-finding study we carried out last year at Jane Street Capital.
+Our research agenda is informed by the findings from
+a need-finding study that we carried out last year at Jane Street Capital.
 Our purpose in this
-study is\bcp{change tenses} to understand the usability challenges
+study was to understand the usability challenges
 that must be addressed
 to boost adoption of PBT in
-industry. The study data consists of thirty semi-structured interviews
-with (1) developers who use PBT and (2) maintainers of PBT tools.
+industry. The study data consisted of thirty semi-structured interviews
+with (1) developers who use PBT and (2) maintainers of PBT tools, and
+a paper describing our findings is under submission to ICSE.
+We also carried out a
+smaller pilot study among Hypothesis users to prepare for the
+full-scale study at Jane Street; its results were presented at the
+2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
 Our choice of Jane Street as a partner was motivated by our desire to
-understand PBT in a non-academic setting where it is broadly appreciated.
+understand PBT in a non-academic setting where it is already broadly appreciated.
 At Jane Street, PBT is an
 established methodology, so there is a large
 population of people with well-informed opinions on its benefits and
@@ -408,22 +424,8 @@ and awareness of language-level abstractions necessary
 for expert usage of the tools.
 %
 All this makes Jane Street an ideal place for understanding the
-impact---and challenges---of PBT when users who have incentive to use
+impact and challenges of PBT when users who have incentive to use
 it to full potential are provided with state-of-the-art tools.
-%
-(Of course, the findings of any need-finding study are necessarily
-limited to the setting in which it is carried out; the understanding
-gleaned from this one will be deepened by further
-research activities described in~\sectionref{sec:foundation}.)
-
-As of February 2023, the full complement of thirty interviews has been
-completed at Jane Street and a preliminary round of qualitative
-analysis is underway; full-scale analysis will begin later in the Spring.
-Findings from the study will be disseminated in a submission to a
-software engineering conference such as ICSE.  We also carried out a
-smaller pilot study among Hypothesis users to prepare for the
-full-scale study at Jane Street; its results were presented at the
-2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
 \ifthemecolors\bcp{Make the colors here (if we're using them) match
   the ones in the timeline.  Also, we've got five main sections but
@@ -434,158 +436,234 @@ full-scale study at Jane Street; its results were presented at the
 \newcommand{\evaltheme}[1]{{\ifthemecolors\color{nord-purple}\fi \em #1}}
 \newcommand{\edutheme}[1]{{\ifthemecolors\color{nord-frost4}\fi \em #1}}
 
-% \subsectionstar{Usability Challenges}\hg{Is this section header doing anything?}
-The final product from
-the ongoing study will be a fine-grained, qualitative description of how
-Jane Street developers use PBT, what they need from it, and how the
-research community can
-help improve it.  While the full analysis of the interview data remains
-to be completed, a number of themes are already clear; these
-% , together
-% with the findings of the preliminary study,
-form the backbone of the present proposal. We describe them below,
-italicizing themes and
-referring to evidence from participants in the Jane Street study
-(\participant{1--30})
-and the pilot study (Pilot-\participant{1--8}).
+% % \subsectionstar{Usability Challenges}\hg{Is this section header doing anything?}
+% The final product from
+% the ongoing study will be a fine-grained, qualitative description of how
+% Jane Street developers use PBT, what they need from it, and how the
+% research community can
+% help improve it.  While the full analysis of the interview data remains
+% to be completed, a number of themes are already clear; these
+% % , together
+% % with the findings of the preliminary study,
+% form the backbone of the present proposal. We describe them below,
+% italicizing themes and
+% referring to evidence from participants in the Jane Street study
+% (\participant{1--30})
+% and the pilot study (Pilot-\participant{1--8}).
 
-One set of themes concerned the \thread{generation} of
-random inputs for PBT. Developers spoke
-highly of the \gentheme{Derived Generators} that can be automatically
-inferred from
-the OCaml type system (\participant{5} called OCaml's implementation of this
-``[expletive] amazing'' and \participant{30} called them a ``game changer'').
-These generators are already quite good, but they could be better: participants
-identified deficiencies both small and large, the most significant being that
-derived generators
+Several sets of themes emerged from this study.  One concerned the
+\thread{generation} of random inputs for PBT. Developers spoke highly
+of the \gentheme{Derived Generators} that can be automatically
+inferred from the OCaml type system but identified deficiencies both
+small and large, the most significant being that derived generators
 cannot enforce semantic preconditions like \lstinline{is_bst}.
-
-When derived generators
-failed, participants fell back to \gentheme{Bespoke Generators}, which
-are far more flexible but proportionally more time-consuming to
-build. For example, \participant{20} successfully used a bespoke
-generator for XML documents to find significant bugs in their code,
-but reported spending ``at least a day'' writing it.
-Improving the abstractions available for authoring bespoke generators would
+%
+When derived generators failed, participants fell back to
+\gentheme{Bespoke Generators}, which are far more flexible but
+proportionally more time-consuming to build.  Improving the
+abstractions available for authoring such bespoke generators would
 greatly improve the usability of PBT.
 %
-When a generated input turns out to be a counterexample that triggers
-a property violation, the developer will need to inspect that
-counterexample to find
-and fix the root problem. Developers often implemented code for
-\gentheme{Shrinking} counterexamples to discover
-simpler inputs that trigger the same bug.  \participant{8}
-and \participant{21}, who each implemented their own PBT frameworks, both
-incorporated shrinkers as key components. But
-shrinkers need to be customized to particular kinds of data to be most
-effective, and they can be time-consuming to build; several
-developers
-(\participant{16}, \participant{20} \participant{21}, \participant{30})
-described constructing shrinkers as an opaque and difficult process.
+Furthermore, when a generated input turns out to be a counterexample
+that triggers a property violation, the developer will need to inspect
+that counterexample to find and fix the root problem. Developers often
+implemented code for \gentheme{Shrinking} counterexamples to discover
+simpler inputs that trigger the same bug.
+%
+But shrinkers need to be customized to particular kinds of data to be
+most effective, and they can be time-consuming to build.
 
-A different set of themes
-themes revolves around properties themselves, i.e.,
-\thread{specifications}.
-% and the kinds of programs in which they choose to test them.
-PBT is often described as a lightweight formal method, and one
-might therefore imagine that a common challenge would be coming up with the
-specifications of desired program behavior. Indeed, in our earlier pilot
-study~\cite{goldstein_problems_2022}, some respondents indicated just that:
-developers with less experience with PBT
-sometimes struggled to \proptheme{Imagine
-Properties} or to understand what properties to test (Pilot-\participant{1},
-Pilot-\participant{3--5}).
-By contrast, Jane Street developers on the whole reported
-little difficulty finding
+A different set of themes themes revolved around properties
+themselves, i.e., around \thread{specifications}.  PBT is often described as
+a lightweight formal method, and one might therefore imagine that a
+common challenge would be coming up with the specifications of desired
+program behavior. Indeed, in our earlier pilot
+study~\cite{goldstein_problems_2022}, developers with less experience
+with PBT sometimes struggled to \proptheme{Imagine Properties} or to
+understand what properties to test.  By contrast, Jane Street
+developers on the whole reported little difficulty finding
 properties. Rather, most developers applied PBT in
 \proptheme{High-Leverage Scenarios} where properties were already
-available or straightforward to invent. In the words of
-\participant{9}, PBT is particularly easy to apply
-when
-one has ``a really good abstraction with a complicated implementation.''
-When asked to speculate, several participants (\participant{3}, \participant{15},
-\participant{20}, \participant{22}) guessed
-that 80--100\% of Jane Street
-developers write programs like this,
-% \bcplater{Did anyone really guess
-%   100\%??}\hg{Yep! Someone said ``everyone.''}
-where properties are easy to find and
-PBT is relatively easy to apply. This suggests that an effective way to
-boost PBT in industry would be to provide
-educational materials and documentation that highlight
-real-world applications where it is a natural
-fit.
-
-We also heard \proptheme{Opportunities for Better
-Leverage} of specifications, where PBT is not easy {\em yet} but
-could be with a bit more research effort. For example, developers in
-both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
-that PBT was difficult when code was poorly abstracted.  Further,
-more than three
-quarters of study participants had used a particular approach to PBT commonly
-called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
-at Jane Street, considered better automation and tooling around model-based
-testing to be one of the most significant ways to improve PBT usability.
-
-
-A further set of themes concerned the
-\thread{interaction} between developers and their
-testing environments---especially their strategies
-for \evaltheme{Evaluating the
-Effectiveness} of their tests. Many
-wished for
-better ways to evaluate their generators and properties, including
-feedback on code coverage (\participant{9} and \participant{25}),
-mutation
-testing~\cite{papadakis_mutation_2018}, and help understanding the
-distribution of randomly generated
-inputs (\participant{10}, \participant{16}, \participant{16}). Worryingly,
-while many developers admitted they would benefit from better ways to
-evaluate their tests, many seemed to
-\evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
-they did not realize their generator had missed important cases.
-Additionally, one participant (\participant{14}) saw significant benefit from
-\evaltheme{Visualizations} they had built themselves to
-understand their testing effectiveness.
-
-Finally, our experience with these studies (and with the products of
-our own prior research!) suggests
-that significant engineering and pedagogical effort is needed to amplify
-PBT's \thread{diffusion} into the broader community.  Developers in both studies
-(Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
-\participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
-learning about PBT.  PBT is also not
-taught in traditional computer science curricula at the undergraduate
-or masters level; making more developers
-aware of it will required expanded
-\edutheme{Classroom Education}.
+available or straightforward to invent.  This suggests that an
+effective way to boost PBT in industry would be to provide educational
+materials and documentation that highlight real-world applications
+where it is a natural fit.
 %
-Finally, existing tools for PBT need continual
-support to meet demands from growing (and increasingly sophisticated)
-user-bases; if PBT is to become mainstream, we should look for high-value
-ways to improve
-\edutheme{Open-Source
-PBT Frameworks} with the insights and tools we develop, to help our
-work and ideas permeate the PBT world.
+We also heard \proptheme{Opportunities for Better Leverage} of
+specifications, where PBT is not easy {\em yet} but could be with a
+bit more research effort.  In particular, better automation and
+tooling around {\em model-based testing} appears to be an excellent
+way to improve PBT usability.
+
+A further set of themes concerned the \thread{interaction} between
+developers and their testing environments---especially their
+strategies for \evaltheme{Evaluating the Effectiveness} of their
+tests. Many wished for better ways to evaluate their generators and
+properties, including feedback on code coverage, mutation
+testing~\cite{papadakis_mutation_2018}, and help understanding the
+distribution of randomly generated inputs.
+
+Significant engineering and pedagogical effort will be needed to
+amplify PBT's \thread{diffusion} into the broader community. PBT is
+not taught in traditional computer science curricula at the
+undergraduate or masters level; making more developers aware of it
+will required expanded \edutheme{Classroom Education}.
+%
+And finally, existing tools for PBT need continual support to meet
+demands from growing (and increasingly sophisticated) user-bases; to
+help PBT move into the mainstream, we should look for high-value ways
+to improve \edutheme{Open-Source PBT Frameworks} with the insights and
+tools we develop.
+
+% Several sets of themes emerged from this study.  One concerned the \thread{generation} of
+% random inputs for PBT. Developers spoke
+% highly of the \gentheme{Derived Generators} that can be automatically
+% inferred from
+% the OCaml type system (\participant{5} called OCaml's implementation of this
+% ``[expletive] amazing'' and \participant{30} called them a ``game changer'').
+% These generators are already quite good, but they could be better: participants
+% identified deficiencies both small and large, the most significant being that
+% derived generators
+% cannot enforce semantic preconditions like \lstinline{is_bst}.
+
+% When derived generators
+% failed, participants fell back to \gentheme{Bespoke Generators}, which
+% are far more flexible but proportionally more time-consuming to
+% build. For example, \participant{20} successfully used a bespoke
+% generator for XML documents to find significant bugs in their code,
+% but reported spending ``at least a day'' writing it.
+% Improving the abstractions available for authoring bespoke generators would
+% greatly improve the usability of PBT.
+% %
+% When a generated input turns out to be a counterexample that triggers
+% a property violation, the developer will need to inspect that
+% counterexample to find
+% and fix the root problem. Developers often implemented code for
+% \gentheme{Shrinking} counterexamples to discover
+% simpler inputs that trigger the same bug.  \participant{8}
+% and \participant{21}, who each implemented their own PBT frameworks, both
+% incorporated shrinkers as key components. But
+% shrinkers need to be customized to particular kinds of data to be most
+% effective, and they can be time-consuming to build; several
+% developers
+% (\participant{16}, \participant{20} \participant{21}, \participant{30})
+% described constructing shrinkers as an opaque and difficult process.
+
+% A different set of themes
+% themes revolves around properties themselves, i.e.,
+% \thread{specifications}.
+% % and the kinds of programs in which they choose to test them.
+% PBT is often described as a lightweight formal method, and one
+% might therefore imagine that a common challenge would be coming up with the
+% specifications of desired program behavior. Indeed, in our earlier pilot
+% study~\cite{goldstein_problems_2022}, some respondents indicated just that:
+% developers with less experience with PBT
+% sometimes struggled to \proptheme{Imagine
+% Properties} or to understand what properties to test (Pilot-\participant{1},
+% Pilot-\participant{3--5}).
+% By contrast, Jane Street developers on the whole reported
+% little difficulty finding
+% properties. Rather, most developers applied PBT in
+% \proptheme{High-Leverage Scenarios} where properties were already
+% available or straightforward to invent. In the words of
+% \participant{9}, PBT is particularly easy to apply
+% when
+% one has ``a really good abstraction with a complicated implementation.''
+% When asked to speculate, several participants (\participant{3}, \participant{15},
+% \participant{20}, \participant{22}) guessed
+% that 80--100\% of Jane Street
+% developers write programs like this,
+% % \bcplater{Did anyone really guess
+% %   100\%??}\hg{Yep! Someone said ``everyone.''}
+% where properties are easy to find and
+% PBT is relatively easy to apply. This suggests that an effective way to
+% boost PBT in industry would be to provide
+% educational materials and documentation that highlight
+% real-world applications where it is a natural
+% fit.
+
+% We also heard \proptheme{Opportunities for Better
+% Leverage} of specifications, where PBT is not easy {\em yet} but
+% could be with a bit more research effort. For example, developers in
+% both studies (Pilot-\participant{4--6} and Jane Street \participant{7}) complained
+% that PBT was difficult when code was poorly abstracted.  Further,
+% more than three
+% quarters of study participants had used a particular approach to PBT commonly
+% called \proptheme{Model-Based Testing}.  \participant{3}, an author of PBT tools
+% at Jane Street, considered better automation and tooling around model-based
+% testing to be one of the most significant ways to improve PBT usability.
+
+
+% A further set of themes concerned the
+% \thread{interaction} between developers and their
+% testing environments---especially their strategies
+% for \evaltheme{Evaluating the
+% Effectiveness} of their tests. Many
+% wished for
+% better ways to evaluate their generators and properties, including
+% feedback on code coverage (\participant{9} and \participant{25}),
+% mutation
+% testing~\cite{papadakis_mutation_2018}, and help understanding the
+% distribution of randomly generated
+% inputs (\participant{10}, \participant{16}, \participant{16}). Worryingly,
+% while many developers admitted they would benefit from better ways to
+% evaluate their tests, many seemed to
+% \evaltheme{Implicitly Trust the Infrastructure} that they did use. \participant{14} actually shipped broken code because
+% they did not realize their generator had missed important cases.
+% Additionally, one participant (\participant{14}) saw significant benefit from
+% \evaltheme{Visualizations} they had built themselves to
+% understand their testing effectiveness.
+
+% Finally, our experience with these studies (and with the products of
+% our own prior research!) suggests
+% that significant engineering and pedagogical effort is needed to amplify
+% PBT's \thread{diffusion} into the broader community.  Developers in both studies
+% (Pilot-\participant{1}, Pilot-\participant{4}, JS \participant{3} and
+% \participant{11}) reported a dearth of \edutheme{Documentation and Examples} for
+% learning about PBT.  PBT is also not
+% taught in traditional computer science curricula at the undergraduate
+% or masters level; making more developers
+% aware of it will required expanded
+% \edutheme{Classroom Education}.
+% %
+% Finally, existing tools for PBT need continual
+% support to meet demands from growing (and increasingly sophisticated)
+% user-bases; if PBT is to become mainstream, we should look for high-value
+% ways to improve
+% \edutheme{Open-Source
+% PBT Frameworks} with the insights and tools we develop, to help our
+% work and ideas permeate the PBT world.
+
 
 
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
-\todo{Remove ``Jame Street'' from most places (say ``industry study''
-  or don't say anything) in what follows}
-The ultimate findings from the Jane Street study should
-give us a clear
-picture of the benefits and challenges of PBT in the specific context
-of Jane Street and other organizations with similar characteristics.  But to
-fully understand the potential impact of PBT across the whole software
-industry---as well as the factors that may limit its adoption---we need to
+\bcp{I tried to make the opening of this section give a better sense
+  of why we think the preliminary study is a useful motivation for our
+  research even if it's ``just about Jane Street'' and needs to be
+  fleshed out to learn about other settings.  But maybe it repeats too
+much from the top of section 2...?}
+
+The findings of the industry study described above paint a clear
+picture of both the benefits and the challenges of PBT for
+Jane Street and other software development organizations with similar
+characteristics---i.e., teams consisting mostly
+of relatively skilled developers who are comfortable with
+advanced programming languages and tools and who care a lot about
+software correctness.  There are many such teams in the software
+world, and making PBT more
+usable just for them would already be a significant step in the
+right direction.  But to
+understand potential impact of PBT
+across the {\em  whole} software
+industry---and the factors that may limit its adoption---we need to
 cast a wider net.
-%
-In this section, we describe four planned studies that aim
+
+In this section, we describe four\bcp{?} planned studies that aim
 to produce a comprehensive, actionable
 {\em foundation} for the latter stages of this project and beyond. Building a
-rigorous foundation, with methods motivated by the HCI literature, is hard work,
+rigorous foundation, with methods motivated by the HCI literature, is substantial work,
 but it will significantly increase the chance that future projects achieve their goals.
 We plan two
 written surveys, one to assess the generality of these needs and obstacles
@@ -606,15 +684,13 @@ To ensure fairness, ethics, accountability, and transparency (FEAT),
 each of our user studies will be vetted through Penn's Institutional
 Review Board (IRB) review process.
 
-\SUBSECTION{Further User Studies}%
-   {sec:survey}{1}{2}{HCI Theory}{PhD 1}{REPL 1}{Head}
-\bcp{Or something catchier!  Maybe reintroduce separate section
-  headers / management plan items for individual studies.}
+\SUBSECTION{Broader User Studies}%
+   {sec:survey}{1}{3}{HCI Theory}{PhD 1}{REPL 1}{Head}
 %
-Preliminary findings from the Jane Street study have already revealed
+Our industry study has already revealed
 a number of
 opportunities to improve property-based testing. To identify
-others and better understand which are most
+others and to better understand which are most
 critical, we will conduct two
 surveys with broader samples of developers. These surveys aim to
 (1) determine which obstacles observed in the original
@@ -623,14 +699,13 @@ represent widely experienced pain points and
 (2) understand the potential benefits of better tools for the
 software industry.
 
-% \TASK{Validation survey}{1}{1}{Who?}
-The main survey
-aims to confirm (or perhaps refute) that
-the things we are learning from Jane Street generalize to other settings.
+The first and larger survey
+aims to understand the degree to which
+the findings of the Jane Street study generalize to other settings.
 We will
-ask developers which of the issues we found at Jane Street are
+ask developers which of the issues we identified there are
 ones they have also encountered, which are most severe
-in their experience, and which
+in their experience, and what
 other issues they have encountered.
 To provide
 clear usage scenarios, respondents will
@@ -638,39 +713,30 @@ be asked to write brief anecdotes elaborating on the
 most severe issues they remember.  Other questions will assess how
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
-ambient programming environment and language, e.g., whether their
+ambient programming environment and language, e.g., whether the
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
 PBT tools in those languages.
-In line with typical practice in
+\iflater\bcp{Is this sentence needed?}\fi{} In line with typical practice in
 human factors research surveys in software
 engineering~\cite{ref:robillard2009makes,ref:uddin2015api,ref:murphyhill2019predicts},
-we aim to recruit respondents with upwards of around 150 respondents per survey
-(and aspirationally many more). This is a significant increase in scale from the
-original study, requiring energy and care commensurate with that increase, but
-it will give us a critical opportunity to galvanize our findings.
+we will recruit at least 150 respondents per survey.
 Respondents will
-be recruited broadly, from groups including:
+be recruited broadly, from groups including
 (1)
-users of the major PBT frameworks in Python, Java, Haskell, Rust, and Scala;
-(2) the students' and PIs' professional networks, including
-Twitter and Mastodon, various mailing lists, and discussion boards for developer
+users of the major PBT frameworks in Python, Java, Haskell, Rust, and
+Scala; and
+(2) our own and our students' professional networks, including
+Twitter and Mastodon, mailing lists, and discussion boards for developer
 conferences---e.g., ``Yow!'', where PI Pierce spoke last
-year~\cite{Pierce:Yow22};
-and (3) Jane Street, aiming for
-a broader set of developers than in the original study.
+year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
 A second written survey later in the project will investigate
-how broadly PBT may {\em eventually} be able to reach.  To get a sense
-of this, we will
-survey ``proximal'' users of PBT---developers who do not use PBT
-currently but who might find it particularly
-useful.
-We
-will again recruit a broad sample of participants from varied settings
-(professional, open source, educational) by working with our industry contacts
-and recruiting over social media.
+how broadly PBT may {\em eventually} be able to reach.  We will
+survey developers who do {\em not} use PBT
+currently but who might find it particularly useful.
+We will again recruit a broad sample of participants from varied settings.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
 
@@ -696,28 +762,30 @@ and recruiting over social media.
 %   one in another language is better in another, and it has nothing to do with
 %   the language}
 
-% \SUBSECTION{PBT interaction models}{sec:observations}{4}{5}{HCI
-%    Theory}{PhD 1}{REPL 2}{Head}
-
- \bcp{Merge what's below with what's above!}
- PBT interaction models...
-
+\SUBSECTION{Observational studies}{sec:observations}{4}{5}{HCI
+    Theory}{PhD 1}{REPL 2}{Head}
+\bcp{Wonder whether there is still room for cutting / compressing
+  here...  If the project only has two students, we may not want to
+  propose {\em too} many studies...}
 %
-Interviews and surveys are adequate for exploring usability challenges
-at a high level, but in order
-to build usable tools we also need to study the low-level interactions
-between users and their PBT tooling.  We will
-conduct targeted observational studies to inform the many
+Interviews and surveys are good for exploring usability challenges
+at a high level, but we also need detailed insight into the interactions
+between users and their PBT tools.  We will
+conduct targeted observational studies to inform the
 fine-grained design decisions
-involved in language design (e.g., \sectionref{sec:reflectiveusable}) and
+involved in language design (e.g.,
+\sectionref{sec:reflectiveusable}\bcp{broken link---should it point
+  elsewhere, or should we consider cutting more here?}) and
 interface design (\sectionref{sec:val}) activities.
 
-Understanding user interactions
-is a core activity of HCI research and helps to inform robust interface design.
-Observation studies often require significant effort to plan and
-perform. That said, they
-are indispensable for answering questions about tool design may that receive only
-speculative answers in interviews and surveys, like:
+% Understanding user interactions
+% is a core activity of HCI research and helps to inform robust
+% interface design.
+Observation studies require significant effort to plan and
+carry out, but they
+are indispensable for answering questions about tool design may that
+receive only
+speculative answers in interviews and surveys, such as
 (1) How much time
 are participants willing to devote to
 creating a property or tuning a generator when in the
@@ -725,26 +793,25 @@ middle of a programming task?
 (2) How much space is available on a developer's
 screen (amidst other tools like code editors and terminals) for
 new live
-visualizations? or
+visualizations? and
 (3) What are developers' current strategies for solving the
 problems they describe, e.g., what representations
-seem most helpful
+seem helpful
 for a programmer trying to understand the distribution of data from a
 generator?
 
-We will conduct two kinds of studies. The first will be observational
-studies in the style of contextual inquiries~\cite[Chapter
-3]{ref:holtzblatt1997contextual}, where
+We will conduct two studies. The first will be a
+{\em contextual inquiry}~\cite[Chapter
+3]{ref:holtzblatt1997contextual}, watching
 developers perform PBT in realistic contexts, with their own tools and tasks.
-The output of these studies will be detailed understanding of the task
+The result will be a detailed understanding of the task
 structures involved with specific PBT tasks (e.g., writing a generator,
-assessing test results) and, most importantly, what steps in those tasks are
-particularly time-consuming and effortful.  Recordings and notes from
-these sessions will serve as metrics against which the
-likelihood of success of particular designs can be measured before
-implementation.
+assessing test results) and what steps are
+particularly time-consuming.  Recordings and notes from
+these sessions will serve as metrics against which designs
+can be evaluated before implementation.
 
-The second kind of study will be controlled comparisons of design alternatives.
+The second study will be a controlled comparison of design alternatives.
 Language design, like what we plan relating to generators
 (\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
 difficult to inform empirically because there are many design choices
@@ -752,8 +819,8 @@ that interact in complex ways. We plan to identify the most
 significant patterns of
 variation between modern PBT tools (e.g., defining properties as simple
 functions vs. via DSLs, or using types to steer
-generation vs.{} fully manual generators), and perform a small number of comparative studies to gain
-clarity on how various
+generation vs.{} fully manual generators), and perform a comparative
+study to gain clarity on how various
 choices would impact our design. Following best practices in experiment design
 for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
 participants to control for variance in prior skill, and triangulate findings
@@ -761,9 +828,10 @@ from a mixture of
 quantitative metrics (e.g., success, task duration, error rate, subjective
 reports of difficulty) and qualitative analysis (e.g., thematic
 analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
-of problematic incidents). Most of these findings will be in service of research projects described elsewhere
+of problematic incidents).
+\proposecut{Most of these findings will be in service of research projects described elsewhere
 in this proposal, but they may also be disseminated as
-publications if they turn out to be of broader interest.
+publications if they turn out to be of broader interest.}
 
 \publicationtarget{PLATEAU Workshop}
 
@@ -827,19 +895,21 @@ publications if they turn out to be of broader interest.
 % Machinery (CACM) to communicate about PBT to a broader computer science audience.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
-Many of the usability improvements suggested by the Jane Street study center
+Many of the usability challenges revealed by our industry study concern
 around test input
 \gentheme{generation}.
 Indeed, generators were regularly cited as one of the most challenging
-aspects of PBT: the existing tools related to random generation are varied
-and powerful, but
-they are not especially usable.  We propose {\em reflective
-generators}, an abstraction for random generation that we have been
-experimenting with at Penn, as a way of unbundling generator
+aspects of PBT.
+
+\bcp{Fix this paragraph.}
+We propose {\em reflective
+generators}, a new abstraction for random generation, as a way of
+``unbundling'' generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}). We explore how reflective generators can
-help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}) and design
+tooling (\sectionref{sec:reflective}\bcp{broken}). We explore how reflective generators can
+help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
+and we design
 a user study for evaluating and improving the usability of the reflective
 generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
@@ -849,47 +919,47 @@ the tools built on them in \sectionref{sec:val} and \sectionref{sec:diffusion}
 and by top-tier publications, including performance evaluations and/or
 user studies as appropriate.
 PI Pierce is a longtime collaborator of John Hughes, one of the
-QuickCheck creators; John plans to collaborate on the projects
+QuickCheck creators, who plans to collaborate on the projects
 in this section; a letter of collaboration appears in the supplemental
 documents.
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
-As discussed in the Orientation section
-(\sectionref{sec:orientation}), PBT relies heavily on {\em random data
+As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---provided the inputs actually trigger a wide
-variety of program behaviors.
+gives confidence that it holds---{\em provided} the inputs actually
+exercise a wide variety of program behaviors.
 Unfortunately,
-many properties that developers want to test have {\em preconditions}
-(a.k.a.\relax{} {\em validity conditions} or {\em input constraints}) that
-restrict the set of inputs that can be used for testing. This comes up often
-when testing data structures with invariants that must hold in order to apply
-the operations being tested. Testing such properties can be problematic, since
-many preconditions are difficult to satisfy randomly; if the developer is not
-careful, they may waste most of their time budget generating and
-discarding precondition-failing inputs.
+many properties of interest have {\em preconditions}
+({a.k.a.} {validity conditions} or {input constraints})---for example,
+the \verb|prop_insert_correct| function above succeeds trivially unless
+\verb|is_bst| holds of the input tree.  Such precoditions come up in
+practice, and they are problematic because they can be
+difficult to satisfy randomly, so most of the testing budget
+can be wasted generating and discarding precondition-failing inputs.
 %
-(Of course, some fraction of the testing budget {\em should} be spent on
+\proposecut{(Of course, some fraction of the testing budget {\em should} be spent on
 ill-formed or nonsensical inputs, but not too much, since these will not
 exercise much of the system's functionality; most tests should be
 well-formed---though perhaps unusual---instances of the sorts of inputs the
-system is designed to process.)
+system is designed to process.)}
 %
-Worse, even with validity accounted for, there are
-more insidious ways for generators to under-perform---for example, by
-generating many similar inputs while ignoring large parts of
+Worse, even generators that are guaranteed to produce valid
+inputs can underperform in other ways---for example, by
+generating many very similar inputs while ignoring large parts of
 the input space.
 
-Existing approaches to these issues
+Approaches to these challenges
 fall on a spectrum from automatic to manual. The automatic approaches use
-various proxies for validity and general ``interestingness'' of
+various proxies for validity and ``interestingness'' of
 inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, try to maximize readily available metrics like code
-coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt}, and
-naturally some use machine learning to infer proxies for
+coverage, while others ask users to provide their own metrics~\cite{loscher2017targetedpbt} and
+some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
 are easy to apply and produce diverse sets of inputs, but they are rarely
-sufficient for testing properties with complex preconditions. Slightly more
+sufficient for testing properties with complex
+preconditions\bcp{because they don't generate enough valid
+  inputs?}. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
@@ -899,63 +969,62 @@ SMT-solvers~\cite{dewey2017automated, beginners-luck,
 steinhofel_input_2022} can be used to automatically seek out valid
 inputs. These tools are
 much better at satisfying easy to moderately complex properties but
-much worse at very complex or ``sparse'' properties. The semi-automatic
+much worse at very ``sparse'' properties. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
 examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited in the preconditions they can
-satisfy.
+satisfy. \bcp{what are they good at and what are they bad at?}
 
-The most manual---and most flexible---solutions use hand-built
-generators, written in a custom-designed domain-specific language (DSL).
-In Haskell, where PBT was
-first popularized, such DSLs are commonly implemented using {\em
+The most flexible, most manual solutions use hand-built
+generators, often written in a special-purpose domain-specific language (DSL).
+Such DSLs are often implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
-expressing effectful (here, random and stateful) computations
+expressing effectful (here, random and stateful) computations\proposecut{
 in a pure, stateless underlying
-language. While monadic DSLs are not
+language}. \proposecut{While monadic DSLs are not
 needed to express generators in
 impure languages, some frameworks (e.g., in OCaml) still choose to use monadic
 abstractions for their generator DSLs.
 
 \smallskip
-Monadic generators can implement random data producers of arbitrary complexity
-(e.g., for random Haskell
+}Monadic generators can implement random data producers of arbitrary complexity
+(e.g., generators for for random Haskell
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around).
 
-To further improve monadic generators, it helps to re-frame generators as {\em
+We can further improve monadic generators by re-framing them as {\em
   parsers of random choices}. The usual intuition is that a generator
-operates by making a series of random choices; equivalently, we can think of
-it as being {\em given} some random sequence of choices and simply following
+operates by making a series of random choices, but we can think of
+it as being {\em given} a random sequence of choices and following
 those choices to produce a value. This shift of perspective has been
-used as the basis for implementations of PBT
-tools~\cite{maciver2019hypothesis, dolan2017testing}, but we were the
+used as the basis for past implementations of PBT
+tools~\cite{maciver2019hypothesis, dolan2017testing}; we were the
 first to make it
 formal using {\em free generators}
 in our paper, {\em Parsing Randomness}~\cite{goldstein2022parsing}.
 
 
-\subsectionstar{Context: Reflective Generators}{}{}
-Building the idea of free generators, we are exploring a powerful generalization
-based on monadic generators called {\em reflective generators}.  We began
-thinking about the basic concept during a past NSF project (see
-\sectionref{sec:prior}). The first paper on reflective generators won a
-distinguished paper award at ICFP 2023.
+\subsectionstar{Context: Reflective Generators}{}{} Building on the
+idea of free generators, we are now exploring a powerful
+generalization called {\em reflective
+  generators}.  The basic concept came out of a
+past NSF project (see \sectionref{sec:prior}). Our first paper on
+reflective generators won a distinguished paper award at ICFP 2023.
 
-What's special about reflective generators is that they can be run
+The special thing about reflective generators is that they can be run
 {\em backward}.
 If running a generator in the usual way can be seen as parsing a
 sequence of choices into a
-value, then running it backward should take that value and produce a
+value, then running it backward takes that value and produces a
 sequence of choices that
-would generate it---i.e., reflective generators can
+would generate it\proposecut{---i.e., reflective generators can
 ``reflect'' on a given test and analyze the choices that they
-could have made to generate it.
+could have made to generate it}.
 The mathematical machinery
-that makes reflective generators work is somewhat complex,%
+involved is somewhat complex,%
 \footnote{\normalsize Reflective generators are both monads and {\em
     partial profunctors},
 implementing bidirectional programming in the style of Xia et
@@ -964,7 +1033,7 @@ related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
 monad. The result is an elegant programming experience where both directions of
 the computation can be written at once, in a type-safe way.}
-but, like free generators, the syntax that users see remains close to
+but, as with free generators, the syntax that users see remains close to
 that of normal monadic generators.
 
 Running a reflective generator backward is not simply a matter of
@@ -976,69 +1045,72 @@ produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in different ways (as bit
 strings, higher-level choice sequences, choice trees, etc.) if increased
 structure reveals information that an analysis algorithm (like the ones
-discussed below) can use.
+discussed below) can use. \iflater\bcp{Don't understand that sentence.}\fi{}
 
-Reflective generators have myriad uses. Here are a few.
+Reflective generators have myriad uses. First,
 %
-{\bf Example-Based Tuning.} It is often helpful to start by testing with
+it is often helpful to start by testing with
 ``realistic'' inputs that trigger common-case behavior in the program;
 one way to ensure this is to tune the generator so
 it produces values that are similar to some user-supplied values deemed
 realistic. Existing tools make good use of this example-based approach to
 tuning~\cite{soremekun2020inputs}, but they do not work with generators as
-powerful as monadic generators. We implement a similar algorithm using
-reflective generators; using it, we can (1) reflect on realistic values to
+powerful as monadic generators. We have implemented a
+similar algorithm using
+reflective generators; with it, we can (1) reflect on realistic values to
 obtain sets of choices, and (2) run the generator with {\em new choice weights}
 informed by the choices that we saw. Our evaluation shows that reflective
 generators approximate the performance of the algorithm
 from~\cite{soremekun2020inputs} but work with a larger class of generators.
 %
-{\bf Reflective shrinkers.}
-Reflective generators can also be used as a tool for analyzing and
+Second,
+reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
 reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
 validity-preserving {\em shrinking} of values to find smaller counterexamples
-and speed up debugging with no additional effort from the user.
+and speed up debugging with no additional effort from the user.%
 %
-Hypothesis shrinks test inputs by shrinking the random choices (conceptually, coin flips)
+\footnote{%
+Hypothesis shrinks test inputs by shrinking the random choices
 that produce those
-inputs. There are many benefits to this approach: shrinking can be implemented
+inputs. There are benefits to this approach: shrinking can be implemented
 once-and-for-all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
-random choices requires that the choices is actually available, which
+random choices requires that these choices are actually available, which
 is not always the case. Reflective generators
 can be used to
-recover the random choices and thus enable the Hypothesis shrinking algorithm on any
+recover the random choices and thus enable the Hypothesis shrinking
+algorithm on any
 valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
-gleaned from bug reports.
+gleaned from bug reports.  \bcp{Wonder if that is getting too much
+  into the weeds...}}
 %
-{\bf Other data producers.} Reflective generators can be freely
+And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
-This means that as new strategies for guided random generation and
+As new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
 generators.
 
 \SUBSECTION{Algorithmic advances for reflective generators}{sec:reflectivefuzzing}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-
-The overwhelming positive reception of reflective generators has been
-encouraging, our first paper only scratched the surface when it comes to
+%
+The positive response to reflective generators has been
+encouraging, but our first paper only scratched the surface when it comes to
 building and evaluating potential use-cases.
 
-The example-based tuning approach we describe in the first reflective generators
-paper faithfully follows the tuning procedure used by existing algorithms, which
-was important for demonstrating the flexibility of reflective generators, but we
-do not claim that that algorithm is the best way to tune a generator.
-
-We think more powerful approaches to example-based tuning are within reach.  The
-algorithm ``Inputs from Hell'' algorithm assumes that subsequent choices are
-independent, tracking the weights of individual choices independent of the
+First, we believe more powerful approaches to example-based tuning are
+within reach.  The
+``Inputs from Hell''\iflater\bcp{first mention!}\fi algorithm used in
+our initial evaluation assumes
+that subsequent choices are
+independent of earlier ones, tracking the weights of individual
+choices independent of the
 context in which those choices are made. If we really want to mimic an existing
 distribution of values, we should likely take that contextual information into
 account. We propose modelling choice weights with a more sophisticated machine
-learning model, for example \hg{TODO}. This would make the example-based tuning
+learning model, for example \hg{TODO}. This should make the example-based tuning
 procedure far more accurate, allowing it to much more accurately replicate
 important features of complex input sets.
 
@@ -1056,7 +1128,8 @@ For example, the FuzzChick framework in Coq~\cite{DBLP:journals/pacmpl/Lampropou
 uses code coverage as guidance for PBT, and HypoFuzz uses a
 similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
-poured into industrial-strength fuzzers; Crowbar, on the other hand,
+poured into industrial-strength fuzzers; the Crowbar testing tool in
+OCaml, on the other hand,
 does~\cite{dolan2017testing}. Crowbar re-interprets the output of
 AFL~\cite{afl-readme}, one of the best-established
 fuzzers: instead of letting AFL generate the program input, it instead uses AFL
@@ -1067,7 +1140,7 @@ than is required for
 standard fuzzing techniques, but the result is a system that is much more likely
 to achieve thorough testing.
 
-We admire Crowbar, and think the idea can be pushed even further by building
+We believe this idea can be pushed even further by building
 a variant of Crowbar on top of reflective generators.
 The idea of crowbar is to start with a classic fuzzing setup, which tries to make the
 system under test
@@ -1077,7 +1150,7 @@ the fuzzer
 invalid inputs and the fuzzer's job is to get past it, Crowbar's generators are
 monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
-reason but also {\em reflective}.
+reason, but also {\em reflective}.
 
 Why a reflective generator?
 To start,
@@ -1106,37 +1179,39 @@ related to the user's understanding of the size of the shrunk
 inputs. Ideally, we'd like some
 reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
-will state and prove the properties of a generator that imply this property.
+will state and prove the properties of a generator that imply this
+property. \bcp{That ends a bit abruptly...}
 
 \SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing2}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
-
-Ultimately, we would like reflective generators to become a
-standard representation of generators in real PBT frameworks. In this section we
-outline some important steps towards that goal.
-
-Most importantly, it is unclear how reflective generators should be
-represented in languages with weaker type systems than the one they currently
-rely on in Haskell. In Haskell, the type checker can automatically catch many
+%
+We would like reflective generators to be incorporated in
+real PBT frameworks.
+%
+However, it is unclear
+how reflective generators can be
+represented in languages with weaker type systems than Haskell's. In
+Haskell, the type checker can automatically catch many
 common user errors, but this checking relies heavily on type-classes that
-quantify over higher-kinded types (e.g., monads). If we hope to implement
-reflective generators in frameworks like Hypothesis, in Python, we need to
+quantify over ``higher-kinded types'' (e.g., the monad type class). If
+we hope to implement
+reflective generators in frameworks like Python's Hypothesis library, we need to
 design a programming discipline that makes the process equally safe and
-intuitive. We plan to build on prior work exploring implementing data structures
+intuitive. We plan to build on prior work exploring how to implement data structures
 like monads in imperative
-languages~\cite{brachthauser_representing_2021,delaat_pymonad_nodate} to arrive
-at a form for reflective generators that is appropriate in languages like
+languages~\cite{brachthauser_representing_2021, delaat_pymonad_nodate} to design
+a form for reflective generators that is appropriate in languages like
 Python, Java, and Rust.
 
 Another barrier to adoption is the extra work involved in turning a standard
-generator into a reflective one, since reflective generators are unavoidably a
-bit more complex than standard QuickCheck generators. The current design of the
+generator into a reflective one\proposecut{, since reflective generators are unavoidably a
+bit more complex than standard QuickCheck generators}. \proposecut{The current design of the
 reflective generator language is a best guess at what users will find most
-usable (based on our own experience), but we can do better than guessing!
+usable (based on our own experience), but we can do better than guessing!}
 We will evaluate and redesign the surface syntax of reflective generators with
 the help of real users, in a style informed by prior work in the HCI
 literature~\cite{ref:ko2015practical}.  We will recruit a small group of users, teach
-them to use reflective generators via a short introductory ``README,'' and ask
+them to use reflective generators via a short ``README,'' and ask
 them to implement a number of PBT generators inspired by the research
 literature and real-world examples. We will both observe and interview
 the users to identify points of friction and ensure a clear understanding of their
@@ -1146,29 +1221,32 @@ ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
+\proposecut{%
 Even with an ergonomic and learnable language for reflective generators, the
-less code the user has to write the better. Both of our interview studies
+less code the user has to write the better. Both of our past user studies
 revealed
 that thinking about generators slows users down and makes PBT more challenging.
-But we should not compromise: any automation should help users obtain {\em high
-quality}, {\em reflective} generators for use throughout the testing process.
+% But we should not compromise: any automation should help users obtain {\em high
+% quality}, {\em reflective} generators for use throughout the testing process.
+}
 
-As a first step, we will adapt existing tools for type-based generator
+We will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
-In general, type-based
+\proposecut{In general, type-based
 generators are only useful for testing properties with easily satisfiable
-preconditions, but this is a good starting point for many developers. Beyond
-that, we will consider techniques for {\em interactively}
+preconditions, but this is a good starting point for many developers.}
+We will also consider techniques for {\em interactively}
 constructing reflective generators that maintain complex preconditions.
-Some users may already have a standard QuickCheck-style generator that
-they would like to use
-in situations that require a reflective generator. We will assist those
-users with tools that automatically synthesize backward annotations
+% Some users may already have a standard QuickCheck-style generator that
+% they would like to use
+% in a situation that requires a reflective generator.
+We will assist
+users in generalizing existing generators to reflective ones, with tools that automatically synthesize backward annotations
 required to make the generator bidirectional. We will experiment with both
 conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
-annotations for realistic generators.
-We plan to collaborate with professor Hila
+the required annotations for realistic generators.
+We plan to collaborate in this effort with professor Hila
 Peleg at the Technion, who has experience with both PBT and program synthesis. A
 letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
 
@@ -1210,37 +1288,37 @@ to demonstrate the interest of an idea, but such evaluations
 are hard to interpret from the perspective of a would-be user.
 We can do better.
 
-We have begun work on a robust empirical evaluation framework for
-test input generation strategies
-including infrastructure
+We have built the first version of a robust empirical evaluation
+framework for
+test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
-effectiveness.  By ``easily,'' we mean that we will take on the burden of
-collecting data and analyzing the results.  When complete, this
-evaluation framework will be able to evaluate a given tool based on (1) the
+effectiveness.  By ``easily,'' we mean that we take on the burden of
+collecting data and analyzing the results.  The tool
+can help users and developers evaluate a given tool based on (1) the
 degree to which it is able to achieve high code coverage quickly, and (2) the
 speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
-numerous workloads that we currently support, we will design the
+numerous workloads that we currently support, we have designed the
 infrastructure so that users can easily add new
 languages, frameworks, and workloads.
-Some initial comparisons using this framework will soon be submitted as an experience
-report to ICFP 2023, but many crucial features (e.g., coverage measurement) have not yet
-been implemented.
+Some initial comparisons using this framework appeared as an experience
+report to ICFP 2023, but many crucial features (e.g., coverage
+measurement) have not yet been implemented.
 
 Our second contribution will codify a substantial library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
 fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
 organized around the particular challenges that PBT users face. In particular,
 few of the benchmarks deal with the kinds of complex preconditions that PBT
-tools are built to handle. We want to establish a set of challenging tasks that
+tools are built to handle. We will establish a set of challenging tasks that
 can serve as a polestar for future improvements to PBT generators and
 bug-finding strategies (including our own!).
 
-Past and proposed work on this topic are joint with Leonidas
-Lampropoulos and his group at Maryland.
+Our past and proposed work on Etna form part of an ongoing
+collaboration with Leonidas Lampropoulos and his group at Maryland.
 A letter of collaboration
-from Prof.{} Lampropoulos appears in the supplemental documents, and
+from Prof.{} Lampropoulos appears in the supplemental documents.
 PI Pierce has a long history
 of successful projects with Prof.
 Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
@@ -1249,15 +1327,17 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
-To bring PBT to the people, we need to help developers with envisioning and writing
-specifications.
-Our the Jane Street study suggested that developers struggle to write
-properties about their programs, sometimes due to poorly abstracted code and
+To bring PBT to the people, we need to help developers with two main
+things: writing generators (as discussed above) and envisioning and writing
+specifications, which we address next.
+
+Developers struggle to write
+properties for their programs, sometimes due to poorly abstracted code and
 other times simply because they fail to imagine what properties they
 might want to
 test. We propose to address the first of these issues with a
-property language that operates over program traces (\sectionref{sec:outpurprop}) and
-the second with mixed-initiative interactions where the user and the computer
+property language that operates over program traces (\sectionref{sec:outpurprop}\bcp{broken/gone}) and
+the second with mixed-initiative interactions in which the user and the computer
 collaborate to write a property
 (\sectionref{sec:interactive}).
 %
@@ -1276,6 +1356,7 @@ tools described in \sectionref{sec:val} and
 % This causes problems when code is organized with functionality crossing module
 % boundaries.
 
+{\color{gray}
 \bcp{Change this to just a footnote in the Ghostwriter section.} Properties over program traces...
 
 A common pain point for developers in our interview studies was that
@@ -1351,14 +1432,35 @@ traces, which are validated by providing random inputs to an outer
 system \emph{containing} the component(s) of concern.
 
 \publicationtarget{Object Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
+}
 
 \SUBSECTION{Ghostwriter++}{sec:interactive}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
 
 \bcp{ (name?)}
-\bcp{To be written...
+\hg{
+  Here's the outline I had in mind:
   \begin{itemize}
-  \item Port common / high-leverage scenarios
-  \item Expand Ghostwriter with specification inference?
+    \item The JS study highlighted high-leverage scenarios
+    \begin{itemize}
+      \item Invariants for modules
+      \item Model-based / differential testing (generalization of invariants)
+      \item Round trips
+      \item Classical math properties
+    \end{itemize}
+    \item Some of these scenarios are handled by ghostwriter, we'll add support
+    for more
+    \begin{itemize}
+      \item Invariants / model-based --- incorporate ideas and techniques from Mica
+      \item Others ???
+    \end{itemize}
+    \item What about bringing more powerful tools to bear?
+    \begin{itemize}
+      \item TOGA demonstrated that language models can be used to generate
+      correctness assertions---could we do this with properties?
+      \item We may also be able to do generators (HG: I don't have a strong
+      story here without bringing in the whole generator synthesis stuff, which
+      I don't want to do. But we can mention it)
+    \end{itemize}
   \end{itemize}
 }
 
@@ -1400,35 +1502,39 @@ system \emph{containing} the component(s) of concern.
 
 \SUBSECTION{Model-based properties for
   modules}{sec:automating}{3}{4}{PL Practice}{PhD 3}{REPL 6}{Pierce}
-
+%
 \bcp{Cite Ernest's SRC poster.  Compress if needed.}
-
-One surprising finding from the Jane Street study was that
-it is quite common for developers to build (or already have) a
+%
+One surprising finding from our industry study was that, at least
+in this environment, it is quite common for developers to build (or
+already have) a
 {\em model
 implementation} of the code they are testing and want to test that
 the two implementations behave the same.  This is a
 well-documented approach to
-  PBT~\cite{hughes_experiences_2016}, but it is not well publicized,
+  PBT~\cite{hughes_experiences_2016}, but it is less well publicized,
   nor is it supported as well as it could
 be by existing tooling.
 %
 With this in mind, we plan to build a tool to automate
-model-based testing for systems written in languages with strong {\em
-  module systems}, like OCaml, Standard ML, etc.~\cite{macqueen_modules_1984}.
-We will start in OCaml because our relationship with Jane Street makes it easy
-to rapidly get feedback on our findings and tools.
+model-based testing for systems written in languages with strong
+{module systems}, like OCaml, Standard ML, and
+Scala~\cite{macqueen_modules_1984}.\bcp{Why restrict ourselves to
+  these?  Java, Rust, Haskell, etc. should also have enough features...}
+We will start in OCaml because our existing relationship with the OCaml
+community makes it easy to rapidly get feedback on findings and tools.
 
-Model-based testing is almost trivial in the case where
-the component under test and the model are both pure functions.  But
-when the code under test is a {\em
+Model-based testing is easiest in the case where
+the component under test and the model are both pure functions.
+When we are  testing a {\em
   collection} of functions
 organized into a module, things get much more interesting. Testing even a simple
 module requires orchestrating multiple calls to the different functions in
 its signature. For example, testing the signature \lstinline{StringFns} in
-Figure~\ref{fig:sigs} requires wiring together calls the functions in the
-signature in a well typed way---e.g., testing \lstinline{drop_n}
-requires an integer and a string, each of which must be either generated or
+Figure~\ref{fig:sigs} requires wiring together calls to its functions
+in a well typed way---e.g., testing \lstinline{drop_n}
+requires an integer and a string, each of which must be either
+generated randomly or
 obtained from a call to a different function in the signature (e.g., \lstinline{split}).
 We will build on prior
 work~\cite{hughes_experiences_2016} to generate well-typed sequences of function
@@ -1457,16 +1563,21 @@ module Set : sig
     automatically.}\label{fig:sigs}
 \end{figure}
 
-Testing modules gets even hairier when they contain {\em abstract types}, as is
-the case with \lstinline{Set}. Now some of the types in the signature cannot be
-generated on their own, but must be obtained by
+Things get even more interesting when modules contain {\em abstract
+  types}, as is
+the case with \lstinline{Set} in Figure~\ref{fig:sigs}. Now some of
+the types mentioned in the signature cannot be
+generated on their own; their values must rather be obtained by
 calling other functions in the signature (e.g., \lstinline{create} and \lstinline{add}). The \lstinline{Set} signature is
 also {\em polymorphic}, so a concrete instance must be chosen for
 the element type \lstinline{'a} before
-testing; there is one significant piece of work on this
-problem~\cite{hou_favonia_logarithm_2022}, but it is not solved in general.
+testing.  There is one useful piece of prior work on testing modules with abstract
+types\iflater\bcp{describe the results and why they are not the whole
+story...}\fi~\cite{hou_favonia_logarithm_2022}, but the problem has
+not been thoroughly explored.
 
-To address these problems, we will take a foundational approach, breaking down
+To address these challenges, we will take a foundational
+approach, breaking down
 modules into their constituent features and developing automation
 heuristics from first
 principles. This will involve identifying a subset of modules, e.g., potentially
@@ -1871,37 +1982,51 @@ design, implement, and evaluate a tool supporting such interactions.
 
 % \publicationtarget{Foundations of Software Engineering (FSE)}
 
-\SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
+\SECTION{Diffusion}{Bringing Innovations to PBT Practice}{sec:diffusion}
+% \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
+
 The activities described in the previous sections are focused on
 fundamental research to advance understanding of PBT and explore new
 approaches to both foundations and tool design.  But research alone is
 not enough to reach the broad impact we seek. Accordingly, our agenda
 includes plans for increasing the {\em diffusion} of PBT with both
-educational efforts and well-engineered tools
+educational efforts and the development of tools
 embodying our findings.
 
-We begin with activities for ensuring that our foundational
-advances have an impact on real users, with the help of a research
-engineer (\sectionref{sec:engineersupport}). A major part of this
-effort will be
-building and promoting \tyche, an integrated development environment for PBT
-(\sectionref{sec:ide}). Next, we discuss plans to
-support open-source frameworks for PBT (\sectionref{sec:nurturing}).
-Finally, our
-education-focused activities include developing a catalog of high-leverage PBT
-use-cases (\sectionref{sec:whento}) and undergraduate- and
-masters-level course materials for PBT
-(\sectionref{sec:1210}).
-
+Throughout the project, technical contributions will be brought together to
+form the the technical core of a new integrated evelopment environment (IDE) for PBT called \tyche{}
+(\sectionref{sec:ide}).  Then, we will conduct activities to educate
+programmers in effective application of PBT by developing a catalog of
+high-leverage PBT use cases (\sectionref{sec:whento}) and undergraduate- and
+master's-level course materials for PBT (\sectionref{sec:1210}).
 These projects will
 also result in a number of developer-focused talks. We will bring them
 to industry conferences like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
 ``Lambda World.''
 
-\SUBSECTION{Beyond research software}{sec:engineersupport}{3}{5}{Tech
-  Transfer}{???}{}{Pierce}
-\bcp{Cut to almost nothing (not even a separate subsection)}
+\SUBSECTION{An IDE for PBT}{sec:ide}{3}{5}{Tech
+Transfer}{???}{}{Pierce}
+The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+for PBT. Their potential impact will be magnified by
+integrating them into a system
+that is attractive to would-be users. This is the inspiration for
+\tyche{}, an IDE extension for PBT.
+\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
+\tyche{} will be developed as a Visual Studio Code extension, taking advantage
+of VSCode's status as the most widely used editor according to a 2022
+survey~\cite{noauthor_stack_nodate} and its support for every language
+with mature PBT tooling. The IDE will be developed in consultation with
+our consultants on the Hypothesis team (see our collaboration plan) to
+enable tight integration with existing features of modern PBT systems,
+facilitate future adoption, and develop opportunities for long-term maintenance
+by the open source community.
+We will make \tyche{} known to the developer community through talks at developer
+conferences and by
+disseminating information via our contacts in industry and the open source
+community.
+
 %
+\proposecut{%
 The research projects described above have the potential to
 dramatically improve the power and usability of PBT, but only
 if their products are attractive to real users. There is an unfortunate tendency for
@@ -1914,21 +2039,48 @@ research engineer. The code for those projects will be designed with learnabilit
 maintainability in mind, and upon
 completion it will be handed off to appropriate owners
 in the open source community.
+}
 
-Concretely, we expect the research engineer to be most involved in the following
-projects. {\em PBT interaction models}~(\sectionref{sec:understanding}): Helping PhD
-  1 to build and maintain a minimal PBT framework.
-  {\em Theory of reflective generators}~(\sectionref{sec:reflective}):
-  Implementing and maintaining versions of reflective generators in a number of
-  languages and PBT ecosystems, with PhD 2.
-  {\em Mixed-initiative property
-  specification}~(\sectionref{sec:interactive}) and {\em Counterexamples as
-  regression tests}~(\sectionref{sec:counter}):
-  Assisting PhDs
-  3 and 4 with building tools for property specification.
-%
-Most importantly, the research engineer will help to build and maintain
-\tyche{}, the IDE for PBT designed by PhD 4.
+% Old Tyche text below
+% The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
+% for PBT. Their potential impact will be magnified by
+% integrated them into a system
+% that is attractive to would-be users. This is the inspiration for
+% \tyche{}, an IDE extension for PBT.
+% \tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
+% \tyche{} will be developed as a Visual Studio Code extension, taking advantage
+% of VSCode's status as the most widely used editor according to a 2022
+% survey~\cite{noauthor_stack_nodate} and its support for every language
+% with mature PBT tooling.
+
+% To maintain focus, we will concentrate our Efforts on making \tyche{} especially effective for one
+% widely used
+% PBT framework---probably Hypothesis, since
+% its developers
+% have expressed interest in including
+% \tyche{} in the main Python language extension for VSCode.
+% But we will make the code of \tyche{} language-agnostic wherever
+% possible, to allow other
+% language communities to use it with their PBT frameworks.
+
+% The research engineer will lead feature integration, ensuring features come together into a
+% seamless whole. They will also develop \tyche{} to serve as a platform for
+% further innovation as it will have been for our own: extension points will be added
+% for others to create and evaluate techniques for understanding and creating properties and generators.
+% In this way, \tyche{} will provide a pipeline for bringing research on
+% PBT algorithms and interaction models to developers craving better tools.
+
+% We will make \tyche{} known to the developer community through talks at developer
+% conferences and by
+% disseminating information via our contacts in industry and the open source
+% community.
+% Our goal is for \tyche{} to reach 60,000 downloads by the end of the
+% project. At
+% the time of writing, this would put \tyche{} in the top 10 extensions
+% tagged ``Testing'' in the Visual Studio Code extension marketplace
+% that are not either full language servers or Large
+% Language Model interfaces~\cite{noauthor_testing_nodate}.
+
 
 % \SUBSECTION{Nurturing the PBT ecosystem}{sec:nurturing}{1}{5}{Tech
 % Transfer}{Engineer}{PhD 1}{Pierce}
@@ -1982,8 +2134,7 @@ educational materials.
 % testing~\cite{goldstein_problems_2022},
 % but
 % our follow-up
-Our interviews at Jane Street suggest that the developers there
-% rarely have the same problem. It seems that the Jane Street developers had
+Our interviews with industry developers suggest that many
 have a tacit
 understanding of several ``no-brainer'' situations where PBT is an obvious
 choice, where properties are easy to find and PBT provides
@@ -2169,10 +2320,10 @@ open source license to serve as models for similar tools in other
 programming languages and environments.
 
 This project also presents excellent opportunities for strengthening
-collaborations between university researchers and industrial advocates of PBT.  Our
-ongoing user study at Jane Street has been carried out with the
-enthusiastic support of their developers and management, and we hope
-to continue using Jane Street as a testbed for prototypes of our
+collaborations between university researchers and industrial advocates
+of PBT.  Our preliminary industry study has been carried out with the
+enthusiastic support of Jane Street's developers and management, and we hope
+to continue using them as a testbed for prototypes of our
 tools.  We are also in active discussions with the
 developers of Hypothesis, who are keenly
 interested in the results of this proposal.
@@ -2207,6 +2358,14 @@ sort that is more robust, more reliable, and less expensive.
 
 \SIMPLESECTION{Results from Prior NSF Support\pagebudget{.5}}{sec:prior}
 
+\todo{Double check conformance with GPG rules: The following
+  information must be provided:
+(a) the NSF award number, amount and period of support;
+(b) the title of the project;
+(c) a summary of the results of the completed work, including accomplishments, supported by the award. The results must be separately described under two distinct headings: Intellectual Merit and Broader Impacts;
+(d) a listing of the publications resulting from the NSF award (a complete bibliographic citation for each publication must be provided either in this section or in the References Cited section of the proposal); if none, state “No publications were produced under this award.”
+(e) evidence of research products and their availability, including, but not limited to: data, publications, samples, physical collections, software, and models, as described in any Data Management Plan.}
+
 % If any PI or co-PI identified on the project has received NSF funding (including any current
 % funding) in the past five years, in formation on the award(s) is required,
 % irrespective of whether the support was directly related to the proposal or not.
@@ -2214,8 +2373,9 @@ sort that is more robust, more reliable, and less expensive.
 % they need only report on the one award most closely related to the proposal. Funding includes not just salary
 % support, but any funding awarded by NSF. The following information must be provided:\\
 
-\emph{\underline{PI Pierce}}: (NSF 1955565) ``Collaborative Research:
-SHF: Medium: Bringing Python Up to Speed'' (\$437,999,
+\emph{\underline{PI Pierce}}: ``Collaborative Research:
+SHF: Medium: Bringing Python Up to Speed'' (NSF 1955565, \$1,200,000
+[Pierce's share: \$437,999],
 7/2020--6/2023), with co-PIs Michael Hicks (Maryland) and Emery Berger
 (Amherst).
 The project aimed to dramatically increase the performance and
@@ -2231,15 +2391,17 @@ Python, but applicable in other, similar languages.
 performance measurement (mostly at Amherst and Maryland) and PBT (mostly at Penn
 and Maryland).  Specific threads of work involving Penn included
 building an early
-version~\cite{Frohlich2022} of the Reflective Generators described in
-\sectionref{sec:reflective}, carrying out the pilot study of PBT in Python
-mentioned in the motivation section
-above~\cite{goldstein_problems_2022}, and building on the idea of
+version~\cite{Frohlich2023} of the Reflective Generators described in
+\sectionref{sec:gen}, carrying out the pilot study of PBT in Python
+mentioned in
+\sectionref{sec:motivation}~\cite{goldstein_problems_2022},
+building on the idea of
 freer monads from functional programming to develop ``free
 generators,'' which unify parsing and
-generation~\cite{goldstein2022parsing}, presented a principled
+generation~\cite{goldstein2022parsing},
+presenting a principled
 automatic testing framework for application-layer
-protocols~\cite{Li2021:MBToNA}, and developed and released a freely
+protocols~\cite{Li2021:MBToNA}, and developing and releasing a freely
 available mutation testing framework for Python, called {\tt
   pytest-mutagen}~\cite{pytestmutagen}, and applied ideas from
 combinatorial testing, a widely studied testing methodology, to modify
@@ -2249,13 +2411,13 @@ with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
 {\bf Broader Impacts.} Project results and open-source software
 products are being used to increase the
 performance and correctness of Python applications.
-Educational impact has included training graduate and
+Educational impact focused on training graduate and
 undergraduate students, including a female PhD student, Jessica
 Shi.
 %
-{\bf Publications (involving Penn):} \cite{Frohlich2022,DBLP:conf/esop/GoldsteinHLP21,
+{\bf Publications (involving Penn):} \cite{Frohlich2023,DBLP:conf/esop/GoldsteinHLP21,
   goldstein2022parsing, goldstein_problems_2022, Li2021:MBToNA}.
-{\bf Research Products (involving Penn)} \cite{pytestmutagen}.
+{\bf Research Products (involving Penn):} \cite{pytestmutagen}.
 
 \smallskip
 
