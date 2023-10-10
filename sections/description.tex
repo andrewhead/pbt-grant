@@ -1479,30 +1479,47 @@ system \emph{containing} the component(s) of concern.
 
 \publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
-\SUBSECTION{Automating High-Leverage Scenarios: Ghostwriter++}{sec:ghostwriter}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Head}
+\SUBSECTION{Automating High-Leverage Scenarios:
+Ghostwriter++}{sec:ghostwriter}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Head}
 
-\hg{TODO: I still need to write this, but I think S5 is way better now}
-\hg{
-  Here's the outline I had in mind:
-  \begin{itemize}
-    \item Stuff above will be in here
-    \item Some of these scenarios are handled by ghostwriter, we'll add support
-    for more
-    \begin{itemize}
-      \item Invariants / model-based --- incorporate ideas and techniques from Mica
-      \item Others ???
-    \end{itemize}
-    \item What about bringing more powerful tools to bear?
-    \begin{itemize}
-      \item TOGA demonstrated that language models can be used to generate
-      correctness assertions---could we do this with properties?
-      \item We may also be able to do generators (HG: I don't have a strong
-      story here without bringing in the whole generator synthesis stuff, which
-      I don't want to do. But we can mention it)
-    \end{itemize}
-  \end{itemize}
-}
+Perhaps the most compelling observation about high-leverage PBT scenarios is
+that they provide a sort of recipe that developers can use to decide when and
+and how to apply PBT, ensuring that they can get the most out of it.  But it is
+a shame that this recipe is only available to developers who have already
+internalized and understood it---ideally, a new developer with code that is
+easily PBT-able could jump into the process quickly and easily.  We propose
+embedding these high-leverage testing scenarios as automated tools and workflows
+in a programmer's editor.
+%
+Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
+automating the process of writing properties. It currently implements automatic
+property generation for \hg{...}.  We would like to expand Ghostwriter to
+automatically infer properties in a much wider set of scenarios.
 
+Our re-imagining of Ghostwriter, {\em Ghostwriter++} will be a platform for all
+kinds of property automations. It will include all of the tools in the current
+version of the tool, {\sc Mica} and \hg{Name?} from earlier in this section, and
+other tools for property inference from the literature like QuickSpec~\cn
+\hg{and/or the version from Python?}. Additionally, we will consider more
+experimental tools for property inference. Tools like TOGA~\cn{} demonstrate
+that large language models may be able to help with unit test synthesis, and we
+are eager to see if the same applies to PBT.
+
+\hg{This might be bad}
+We will unify these tools through two interfaces. First, a straightforward menu
+will allow users to click through and interact with the various tools manually.
+This will already be immensely helpful, because it will help developers know
+what kinds of properties are available and how they might be able to produce
+those properties with the help of specialized tools. Second, we will explore
+providing a freeform chat interface, with the help of a large language model
+like \hg{IDK}, that will be fine-tuned with information about the available
+automations and can help developers think through those automations in the
+context of their application.
+
+\hg{Sentence or two to wrap up}
+
+\publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
+\publicationtarget{UIST?}
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
@@ -1558,7 +1575,6 @@ system \emph{containing} the component(s) of concern.
 % usability studies.
 
 % % \publicationtarget{PLATEAU Workshop}
-% \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
