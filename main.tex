@@ -1,5 +1,5 @@
-% \newif\ifdraft\draftfalse
 \newif\ifdraft\drafttrue
+% \newif\ifdraft\draftfalse
 \newif\iflater\laterfalse
 
 \newif\ifthemecolors\themecolorsfalse % colorize section 2?
@@ -11,7 +11,7 @@
 % https://www.nsf.gov/pubs/2023/nsf23524/nsf23524.htm
 
 \documentclass{NSF}
-\ifdraft\else\pagestyle{empty}\fi% Reset page style to 'empty'
+\ifdraft\else\iflater\pagestyle{empty}\fi\fi% Reset page style to 'empty'
 
 \graphicspath{{figures/}}
 

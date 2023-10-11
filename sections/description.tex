@@ -1303,12 +1303,12 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
-
+%
 \bcp{Core ETNA is done.  Talk about future expansion -- e.g., into
   Python, OCaml, so that we can robustly evaluate tools that have not
   been considered in this way so far...  Talk about the ``acceptable
-  latency of benchmarks'' by analogy with jane street findings...}
-
+  latency of benchmarks'' by analogy with jane street findings...}%
+%
 Most papers in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
 are caught more quickly with their tool than existing ones. For
@@ -1534,7 +1534,8 @@ automating the process of writing properties. It currently implements automatic
 property generation for \hg{...}.  We would like to expand Ghostwriter to
 automatically infer properties in a much wider set of scenarios.
 
-Our re-imagining of Ghostwriter, {\em Ghostwriter++} will be a platform for all
+Our re-imagining of Ghostwriter, dubbed {\em Ghostwriter++} will be a
+platform for all
 kinds of property automations. It will include all of the tools in the current
 version of the tool, {\sc Mica} and \hg{Name?} from earlier in this section, and
 other tools for property inference from the literature like QuickSpec~\cn
@@ -1560,8 +1561,8 @@ context of their application.
 proposal to just bundle together a few existing methods---it's not
 clear what is being added.} \amh{Agreed that this isn't quite there yet. It feels like we want to say something either about (1) new kinds of algorithms for synthesizing specs that go beyond Hypothesis', QuickSpec's, and Mica's (maybe focusing on some of new classes of properties found from our study) or (2) something that goes a bit deeper from an interaction design perspective. We might need to answer the question ``why not just ask ChatGPT to write properties? why does there need to be any more interface than that?''}
 
-\publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
-\publicationtarget{UIST?}
+\publicationtarget{IEEE Visual Languages and Human-Centric Computing
+  (VL/HCC) \bcp{and maybe UIST?}}
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
@@ -1894,7 +1895,7 @@ Language Model interfaces~\cite{noauthor_testing_nodate}.
 % project, driven, in part, by our connections in the developer tool community.
 
 
-
+\proposecut{
 \SUBSECTION{Interactive shrinking and
   debugging}{sec:failures}{3}{3}{HCI Practice}{PhD 1}{PhD 2}{Head}
 \bcp{I wonder whether this whole subsection could be eliminated or
@@ -1958,19 +1959,19 @@ design, implement, and evaluate a tool supporting such interactions.
 \bcp{All that could use an example.}
 
 \publicationtarget{User Interface Software and Technology (UIST)}
+}
 
 % \publicationtarget{Foundations of Software Engineering (FSE)}
 
 \SECTION{Diffusion}{Impact on PBT in Practice}{sec:diffusion}
 % \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
 
-The activities described so far focus on
-fundamental research to advance understanding of PBT and explore new
-approaches to both foundations and tool design.  But research alone is
-not enough to reach the broad impact we seek. Our agenda
-also includes plans for increasing the {\em diffusion} of PBT with both
-educational efforts and the development of tools
-embodying our findings.
+The foundational research and tool building projects described above
+are needed, we believe, to bring PBT to a broader audience, but
+but they not enough by themselves. Our agenda also
+includes plans for increasing the {\em diffusion} of PBT through both
+educational efforts and the development of tools embodying our
+findings.
 
 Throughout the project, technical contributions will be brought together to
 form the the technical core of a new integrated evelopment environment (IDE) for PBT called \tyche{}
@@ -1980,11 +1981,19 @@ high-leverage PBT use cases (\sectionref{sec:whento}) and undergraduate- and
 master's-level course materials for PBT (\sectionref{sec:1210}).
 These projects will
 also result in a number of developer-focused talks. We will bring them
-to industry conferences like ``Yow! Lambda Jam,'' ``Strangeloop,'' and
-``Lambda World.''
+to industry conferences like Yow! Lambda Jam, Strangeloop, and
+Lambda World.
 
 \SUBSECTION{An IDE for PBT}{sec:ide}{2}{3}{Tech
 Transfer}{???}{}{Pierce}
+\bcp{This subsection feels out of place---we describe Tyche in a lot
+  of detail in section 5, and we don't make a clean distinction here
+  between ``Tyche the research prototype'' and ``Tyche the open-source
+project.''  Maybe we should?  Or maybe fold this into section 5?  (On
+reflection, I think we should rename this subsection ``Collaborating
+with the Open-Source Community,'' and it should talk about both
+Hypothesis and (potential) AWS collaborations on turning Tyche into a
+serious open-source effort.}
 The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
 for PBT. Their potential impact will be magnified by
 integrating them into a system
@@ -1995,7 +2004,7 @@ that is attractive to would-be users. This is the inspiration for
 of VSCode's status as the most widely used editor according to a 2022
 survey~\cite{noauthor_stack_nodate} and its support for every language
 with mature PBT tooling. The IDE will be developed in consultation with
-our consultants on the Hypothesis team (see our collaboration plan) to
+our collaborators on the Hypothesis team (see our collaboration plan) to
 enable tight integration with existing features of modern PBT systems,
 facilitate future adoption, and develop opportunities for long-term maintenance
 by the open source community.
@@ -2018,6 +2027,10 @@ maintainability in mind, and upon
 completion it will be handed off to appropriate owners
 in the open source community.
 }
+
+\bcp{What about the AWS collaboration?  We should mention, at least,
+  that we are in the early stages of setting up a collaboration around
+making Tyche work for Rust.}
 
 % Old Tyche text below
 % The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
@@ -2105,7 +2118,7 @@ in the open source community.
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
-Besides engineering efforts, we plan to disseminate PBT via
+Another way in which we plan to disseminate PBT is through creating new
 educational materials.
 % Our first pilot study with users of PBT suggested that developers struggle to
 % come up with specifications that are worth
@@ -2114,22 +2127,23 @@ educational materials.
 % our follow-up
 Our interviews with industry developers suggest that many
 have a tacit
-understanding of several ``no-brainer'' situations where PBT is an obvious
-choice, where properties are easy to find and PBT provides
-more thorough testing than other techniques---many developers
-seemed to limit their use of PBT to such situations.
-While experienced PBT users do also apply it in
+understanding of several ``no-brainer'' situations where PBT is a natural
+choice---where properties are easy to find and PBT provides
+more thorough testing than other techniques---and
+seem happy to limit their use of PBT to such situations.
+While more experienced PBT users do also apply it in less obvious,
 high-cost / high-benefit situations, it appears that
 focusing educational efforts on easy cases may be the best way to
 drive adoption.
 
-We will produce resources to help developers understand
+We plan to produce educational resources to help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
 aspirational title ``When to Specify It!'' in homage to John Hughes's
-widely-viewed tutorial ``How to Specify It!''. This survey will
-document a  range of high-leverage scenarios identified in our formative
-research, including cases like
+widely read (and viewed) tutorial, ``How to Specify It!''. Initially,
+the survey will
+document a  range of high-leverage scenarios identified by our formative
+industry study, including cases like
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
 \item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
@@ -2139,27 +2153,27 @@ is an optimized version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
-This list will be expanded based on follow-up surveys with broader
+As the project progresses, this list will be expanded based on
+further surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
-review of case studies that appear in
-the academic literature, and an examination of open source projects across a
-variety of different software ecosystems using PBT (e.g.,
-QuickCheck/Haskell, Hypothesis/Python, Quickcheck/OCaml).
+review of case studies in
+the academic literature, and an examination of open source projects
+using PBT in a
+variety of different software ecosystems.
 
-We will distill these findings
+We will also distill our findings
 into media directly tailored for developers. First, we will write
-approachable developer documentation in partnership with our industry
-collaborators, to be read among the first resources of any developer
-documentation on PBT tools. We will work with our industry collaborators to
-disseminate this documentation and incorporate it into blogs and tool
-manuals. Finally we will package the findings as a talk for one or more
+approachable developer documentation for our tools in partnership with
+our industry
+collaborators. Finally we will package the findings as a talk for one or more
 professional conferences.
 
 \SUBSECTION{Curricula for PBT}{sec:1210}{1}{3}{Education}{Faculty}{Engineer}{}
 %
-Education can act as a force multiplier to drive adoption of new
+University-level education can act as a force
+multiplier to drive adoption of new
 technologies in industry.
-We will develop materials for
+With this in mind, we will develop materials for
 integrating PBT into early undergraduate courses---initially targeting
 introductory data structures
 courses---as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
@@ -2168,28 +2182,29 @@ structures a powerful anchor for demonstrating the power of PBT.
 %
 Building on
 recent PBT teaching in data structures
-courses~\cite{wrenn2021using,nelson2021automated}, we will integrate PBT into
-Penn's CIS 1210 course on data structures (which PI Pierce regularly teaches).
+courses~\cite{wrenn2021using, nelson2021automated}, we will integrate PBT into
+Penn's second-semester CIS 1200 course (which PI Pierce regularly teaches).
 %
 We
 will evolve the CIS 1200 curriculum to emphasize themes in PBT from our
 formative research---good circumstances for
 using PBT, methods for writing useful generators, properties as
-documentation, and scenarios where PBT is suitable
+documentation, and scenarios where PBT is especially suitable
 (see~\sectionref{sec:whento}).
 %
-We will also include PBT in Penn's CIS 5730, a masters-level software engineering
-course.
+We will also include PBT in Penn's CIS 5730, a masters-level software
+engineering course.
 %
 We will evaluate the impact of these new
 instructional approaches on students' ability to leverage PBT in final projects,
-disseminating our findings in publications at computer science
-education venues.
+disseminating our findings in a publication at a computer science
+education venue.
 %
-The instructional materials we develop will be made available for instructors at
-other institutions to use in their own courses.
+The instructional materials we develop will also be made available for
+instructors at other institutions.
 
-\publicationtarget{Koli Calling International Conference on Computing Education Research}
+\publicationtarget{SIGCSE or Koli Calling International Conference on
+  Computing Education Research}
 
 \immediate\closeout\workplanfile
 % \SIMPLESECTION{Plan of Work\pagebudget{.7}}{sec:plan-of-work}
@@ -2213,11 +2228,11 @@ other institutions to use in their own courses.
 \SIMPLESECTION{Broader Impacts%
  \pagebudget{.5}}{sec:broader-impacts}
 
-Broad impact is central to our research agenda, and many of the specific
+Broad impact is key to our research agenda, and many of the concrete
 tasks we have described---particularly those grouped under Diffusion
-(\sectionref{sec:diffusion})---aim for broad impacts.  Here we
-recapitulate those aims and sketch our plans for mentoring, diversity,
-and broadening participation in computing.
+(\sectionref{sec:diffusion})---are specifically aimed at broad
+impacts.  Here, we summarize those aims and sketch our plans for
+mentoring, diversity, and broadening participation in computing.
 
 \smallskip
 \noindent{\bf Impact on industry.} The main broad impact from the
@@ -2229,14 +2244,15 @@ coming from the four PhD students and the needs and priorities of
 industrial developers.
 Specific activities led or amplified by the research engineer are discussed in
 \sectionref{sec:engineersupport} and \sectionref{sec:nurturing}.
+\bcp{How will we measure it?}
 
 \smallskip
-\noindent{\bf Educational Impact.}
+\noindent{\bf Impact on Education.}
 %
 A second, supporting arena for broad impact will be the
 development of educational materials for both students and
 professional developers. Educational activities will be
-coordinated with the rest of the work, and are integral to the
+coordinated with the rest of the work and are integral to the
 project's overall goal of making PBT a standard testing methodology.
 Specific pedagogical
 threads within the project are described in \sectionref{sec:whento} and \sectionref{sec:1210}, but the
@@ -2245,7 +2261,7 @@ tasks in \sectionref{sec:foundation}, \sectionref{sec:reflectiveusable},
 \sectionref{sec:evaluating_distributions} will also influence education. The
 work in \sectionref{sec:1210} will generate course materials that we will
 share publicly; we will also report our experiences in a paper for a
-CS-ed-focused conference.
+CS-Ed-focused conference.
 
 An ancillary educational goal is to
 publicize and communicate the benefits of PBT to the broader computer science
@@ -2258,13 +2274,11 @@ for the Communications of the Association for Computing Machinery
 %
 The majority of the requested funding will support formative research
 experiences and mentoring for graduate students. We
-also plan to work with 10 undergraduate students via an
-REU program (more in the next paragraph) along with other
-undergraduate and masters
-students working for credit;
-they, too will benefit from the research experience. Each graduate
+also plan to work with 6\bcplater{right?} undergraduate students via an
+REU program (see below) along with other
+undergraduate students working for credit. Each graduate
 student will lead multiple facets of the
-project, including co-supervising undergraduate and masters
+project, including co-supervising undergraduate
 researchers.
 
 The PIs will recruit students for this project with a mind towards making
@@ -2275,13 +2289,12 @@ Head's are women). That said, a particular area of focus going forward
 will be increasing representation of
 other underrepresented groups, including Black and Latinx
 students. Pierce (along with Penn colleagues Zdancewic and Weirich)
-was recently informed that he will receive funding for an
+recently received funding for an
 NSF REU program that will involve 24 undergraduates (either per
 year for three+ years), selected specifically with an eye to diversity;
 for the present project, we are requesting funds to add two more per
 year specifically to work on PBT topics, many of which are well suited
 to undergraduate interns. See the BPC
-%Broadening Participation in Computing
 supplementary
 document for more details.
 
@@ -2289,33 +2302,33 @@ document for more details.
 \noindent{\bf Benefits to Society.}
 %
 The project's goals will also be advanced by open-source distribution of tools
-built during the project. Key systems will be engineered and documented to a standard
-that makes them immediately useful to engineers and students; the projects around
-improved generation and shrinking, PBT over logs, and evaluating data
-distributions will be particular targets for widespread
-dissemination. The remaining projects will be published under a permissive
+built during the project, in particular Tyche
+(\sectionref{sec:evaluating_distributions} and
+\sectionref{sec:ide}); these will be published under a permissive
 open source license to serve as models for similar tools in other
 programming languages and environments.
 
 This project also presents excellent opportunities for strengthening
 collaborations between university researchers and industrial advocates
-of PBT.  Our preliminary industry study has been carried out with the
+of PBT.  Our preliminary industry study was carried out with the
 enthusiastic support of Jane Street's developers and management, and we hope
 to continue using them as a testbed for prototypes of our
-tools.  We are also in active discussions with the
+tools.  We are also collaborating with the
 developers of Hypothesis, who are keenly
-interested in the results of this proposal.
-We plan to establish connections with the
+interested in the results of this proposal.\bcp{mention AWS}
+We hope to establish connections with the
 developers and user communities of popular PBT tools in languages like
 Java, Rust, and Scala.
 
 Longer term, better testing means better software.  As software
-systems have grown to the gigantic scale seen today, good testing
-methodologies and tools (unit testing tools, test-first design
-methods, etc.) have come to play an ever more crucial role.  Adding a
+systems have grown to the gigantic scales seen today, good testing
+methodologies and tools---unit testing tools, test-first design
+methods, etc.---have come to play an ever more crucial role.  Adding a
 powerful new testing tool to programmers' toolbelts will further streamline
 this aspect of the development process, leading to software of every
-sort that is more robust, more reliable, and less expensive.
+sort that is more robust, more reliable, and less expensive. \bcp{If
+  we've talked about the need to vet LLM-generated code earlier in the
+  proposal, we need to reiterate it here.}
 
 
 % \proposecut{See the Collaboration Plan for
