@@ -180,8 +180,9 @@
 \newcommand{\bothcolor}{nord-purple}
 \newcommand{\phdonecolor}{nord-frost1}
 \newcommand{\phdtwocolor}{nord-frost4}
-\newcommand{\phdthreecolor}{nord-red1}
-\newcommand{\phdfourcolor}{nord-red4}
+% \newcommand{\phdthreecolor}{nord-red1}
+\newcommand{\replcolor}{nord-red1}
+% \newcommand{\phdfourcolor}{nord-red4}
 \newcommand{\engineercolor}{nord-green}
 \newcommand{\facultycolor}{nord-yellow}
 
@@ -212,12 +213,14 @@
   {\edef\FOO{\phdthreecolor}}
   {\ifthenelse{\equal{#1}{PhD 4}}
   {\edef\FOO{\phdfourcolor}}
+  {\ifthenelse{\equal{#1}{REPL}}
+  {\edef\FOO{\replcolor}}
   {\ifthenelse{\equal{#1}{Engineer}}
   {\edef\FOO{\engineercolor}}
   {\ifthenelse{\equal{#1}{Faculty}}
   {\edef\FOO{\facultycolor}}
   {\edef\FOO{white}}
-}}}}}}}}}}}}}}}
+}}}}}}}}}}}}}}}}
 \newcommand{\colorkey}[1]{%
   %\COLOROF{#1}%
   %\FOO = #1%
