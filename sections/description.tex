@@ -471,7 +471,7 @@ of how to include it, though we may need to add it back in.}
 % (\participant{1--30})
 % and the pilot study (Pilot-\participant{1--8}).
 
-A first opportunity to advance the practice of is with new approaches for 
+A first opportunity to advance the practice of is with new approaches for
 \thread{generation} of random inputs. Developers spoke highly
 of their tools' ability to \gentheme{derive
   generators} from data type specifications (e.g., by using ``\texttt{ppx\_quickcheck}''). At the same time,
@@ -1621,19 +1621,21 @@ clear what is being added.}
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 In this section, we
-describe a sequence of research efforts to design and evaluate novel modes of
-{\em interaction} for PBT. These projects will contribute new
+describe a thread of research that aims to design and evaluate novel
+{\em modes of interaction} for PBT. The projects in this thread will
+contribute new
 techniques for (1) assessing whether their generators are generating
 sufficient and
 appropriate inputs (\sectionref{sec:evaluating_distributions}), (2)
 altering their generators to achieve better distributions
 (\sectionref{sec:tuning}),
 and (3) understanding testing-provoked failures involving complex inputs
-(\sectionref{sec:failures}).
+(\sectionref{sec:failures})\bcp{same subsection!}.
 %
-We also describe our plans to design mixed-initiative~\cite{ref:allen1999mixed}
-interactions by which a developer could tailor a raw counterexample output by a
-PBT tool into the source code for a unit test they would wish to maintain
+We also\bcp{where?} describe our plans to explore mixed-initiative
+interactions~\cite{ref:allen1999mixed}
+through which a developer can tailor a raw counterexample discovered by a
+PBT tool into source code for a maintaintable unit test
 (\sectionref{sec:counter}).
 %
 % \bcp{The last, especially,
@@ -1644,19 +1646,20 @@ PBT tool into the source code for a unit test they would wish to maintain
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
 
-Each of these projects will be developed following an
+In each of these projects, we will follow an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
-In this style of research, contributions come in the form of insights into task
-structure arising from close observational interviews; the creation of novel
-interaction primitives that map closely to these tasks; the refinement of
+In this style of research, contributions come in several forms: insights into task
+structure arising from close observational interviews, creation of novel
+interaction primitives that map closely to these tasks, refinement of
 technical methods (like those from \sectionref{sec:gen} and
-\sectionref{sec:spec}) to support proof-of-concept implementation; and the
-lessons for interaction and algorithm design that arise from their evaluation
-with human users. Success will be measure by the interactions' ability to
-reduce
-testing and debugging time and increase effectiveness.
-PI Head has extensive experience with this style of work
-(see~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}).
+\sectionref{sec:spec}) to support proof-of-concept implementations,
+and distilling
+lessons for interaction and algorithm design by evaluating these
+implementations
+with human users. Success will be measure by measured
+reduction in
+testing and debugging time and increased effectiveness.
+PI Head has extensive experience with this style of work~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Tyche: Exploring Data Distributions}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 4}{REPL 8}{Head}
@@ -1664,40 +1667,43 @@ PI Head has extensive experience with this style of work
 \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
 more!}
 Unlike conventional unit testing, where developers
-write concrete test cases,
-PBT automatically generates tests by drawing inputs from some
-automatically generated distribution. The success of
+write concrete test cases by hand,
+PBT tools draw test inputs automatically from some
+random distribution. The effectiveness of
 PBT thus depends on the quality of this distribution---whether
-most of its probability mass is on tests that are both sufficiently
+it leads to tests that are both sufficiently
 ''interesting'' and sufficiently diverse.
 
 The challenge is that it is by no means easy for a developer to determine if a
-distribution is a ``good'' distribution. One common strategy is to inspect a
-small number of inputs by hand; though this strategy obviously leaves developers
-without an understanding of the breadth of what is tested by the tests.
+distribution is a ``good'' one\bcp{this can be refined: there are
+  really two connected problems---understanding what the distribution
+  {\em is} (calculating probababilities of particular tests from some
+  opaque or gnarly description of the generator) and understanding
+  whether it is good.  Both are hard}. One common strategy is to inspect a
+small number of inputs by hand, but this strategy obviously leaves developers
+without an understanding of the breadth of what is tested by the
+tests\bcp{Not sure I agree with that.}.
 Despite advances in HCI in visualizing input data distributions generally,
 (e.g., for machine learning model training~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and visualizing program sequences of
+~\cite{ref:hohman2020understanding}) and visualizing sequences of
 program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting
-solution for the PBT case. We aim to remedy that.
+solution for the PBT case\bcp{what is different about the PBT
+  case?}. We aim to remedy that.  \bcp{not certain what this paragraph
+is trying to add}
 
 More concretely, PBT poses the unique challenge that test inputs are
 programmatically generated and
 can be of unbounded structural
 complexity (e.g., lists, trees, other algebraic data types,
 sequences of API calls).
-Consider an
-example from a participant in our formative study, who wanted to generate
-realistic logs of input data, where each log entry included at least a timestamp
+For example, a developer might want to generate
+realistic logs of input data, where each log entry includes at least a timestamp
 and an event type.
-% \proposecut{Such values are not trivially plotted in conventional
-% visualizations, and it would be prohibitive to review individual examples if the
-% logs are sufficiently long.}
+%
 Ideally, the developer would be able, by examining the generator's
 distribution, to answer
-questions like: Are the generated log inputs long enough? And are the
-event sequences
-realistic?
+questions like: Are the generated log inputs long enough? And are most
+of the event sequences realistic?
 
 Our research efforts will focus on contributing the interaction primitives and
  unifying environments necessary to answer questions like these. We
@@ -1714,6 +1720,9 @@ innovations appears in Figure~\ref{fig:gen-vis}.
   generator code and refinement of filters used in the
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
+
+\bcp{Need to introduce the overall idea of Tyche before getting to its
+specific parts.}
 
 The first research innovation will be the design of live displays of generated
 values. These displays
@@ -1832,7 +1841,8 @@ understanding and changing input data distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-\bcp{Merge the following with the above}
+\bcp{Merge the following with the above --- indeed, this material
+  probably belongs first!}
 
 The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
 for PBT. Their potential impact will be magnified by
@@ -1920,12 +1930,16 @@ shrink after each action.
 
 We also see opportunities to help developers find the root causes of
 failures in a PBT setting. A current approach is implemented by Hypothesis'
-\texttt{explain} module, which points users to lines that are always run by
-failed tests, but never by successful tests. But we
-found this technique to be inconsistent, even on examples provided in the
+\texttt{explain} module, which points users to lines that are always run during
+failed tests but never during successful tests. But we
+found this technique to be inconsistent\bcp{meaning it didn't work
+  consistently? or we couldn't consistently understand what it was
+  telling us? or...?}, even on examples provided in the
 Hypothesis documentation.
-Could a tool highlight divergences in other more useful ways? PI
-Head was on the team that designed views of trace divergences for student
+Could a tool highlight divergences in more useful ways?
+
+A prioor project involving PI
+Head designed views of trace divergences for student
 programmers debugging failed submissions versus a reference
 program~\cite{ref:suzuki2017tracediff}, but this technique is not
 quite right for
@@ -1938,19 +1952,20 @@ decision by the gamut of comparison inputs\bcp{??}; and (3) supports rapid
 navigation between
 control decisions in the case of greatly diverging traces. We will iteratively
 design, implement, and evaluate a tool supporting such interactions.
+\bcp{All that could use an example.}
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
 % \publicationtarget{Foundations of Software Engineering (FSE)}
 
-\SECTION{Diffusion}{Bringing Innovations to PBT Practice}{sec:diffusion}
+\SECTION{Diffusion}{Impact on PBT in Practice}{sec:diffusion}
 % \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
 
-The activities described in the previous sections are focused on
+The activities described in the previous sections focus on
 fundamental research to advance understanding of PBT and explore new
 approaches to both foundations and tool design.  But research alone is
-not enough to reach the broad impact we seek. Accordingly, our agenda
-includes plans for increasing the {\em diffusion} of PBT with both
+not enough to reach the broad impact we seek. Our agenda
+also includes plans for increasing the {\em diffusion} of PBT with both
 educational efforts and the development of tools
 embodying our findings.
 

@@ -5,11 +5,9 @@ ifeq (${USER},bcpierce)
 	chmod a-w bcp.bib
 endif
 	latexmk -pdf -synctex=1 main
-#	latexmk -pdf main
 	cp main.pdf temp.pdf
-	$(MAKE) docs
 
-docs:
+split: all
 	-mkdir parts
 	cp main.pdf parts/AllPIProvidedDocuments.pdf
 	pdfjam main.pdf 2-2 --outfile parts/Parts-ProjectSummary.pdf
