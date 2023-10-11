@@ -37,7 +37,7 @@ PhD students.
 The proposed project will be a main focus for both PIs during the
 whole three years.  Two summer months are allocated to each PI for this
 reason. Formally, PI Head will supervise the HCI-focused PhD
-student, while PI Pierce will supervise the PL-related PhD studens.
+student, while PI Pierce will supervise the PL-related PhD students.
 The PIs will jointly lead educational efforts at
 the undergraduate and master's levels.
 
@@ -51,74 +51,79 @@ the undergraduate and master's levels.
   \smallskip \noindent {\bf #1, #2.  Project: {\em #3}} \\
   #4}
 
-\ROLE{PhD 1}{Advisor  Head}{Foundations + Interaction}{%
-The first PhD student
-  will develop foundational knowledge to support the human-centered
-  design and development of PBT tools. This work will begin with
-  defining a preliminary theory of PBT on the basis of our studies to
-  date, with a set of falsifiable hypotheses about how tooling
-  supports PBT. Then, the student will conduct a survey to expand and
-  generalize our understanding of barriers, conduct critical
-  comparative studies of existing PBT solutions, and assist in the
-  conduct of formative observational studies related to tool-building
-  efforts.
-
-The fourth PhD student
-will design, implement, and evaluate interactive views that provide programmers
-with powerful controls for influencing testing effectiveness. They will first
-develop tools that support the live viewing and analysis of complex
-distributions of generated data. Then, drawing on the reflective
-generators developed by PhD 2, they will introduce controls
-for
-programmers to influence the behavior of generators through direct
-manipulation. The PhD  student will also design tools that support
-the
-understanding of individual inputs with novel features for interactive shrinking
-and debugging. Select views will be brought together and refined to make testing
-dashboards suitable for monitoring the outcomes of random PBT tests in
-professional software development
-settings.
-
-Many of the aforementioned projects---particularly those listed under
-the Diffusion theme~(\sectionref{sec:diffusion})---include technology
-transfer activities that bring research ideas into practice. Our staff
-engineer will lead these tech transfer activities, including
-re-implementing reflective generators in existing PBT frameworks,
-improving library designs as per recommendations from PhD 2,
-maintaining the tools produced by PhD 3, etc.  They will also assist
-with implementation-oriented research activities, in particular
-\tyche. We consulted with an industry hiring manager to budget for a
-competitive salary for this engineer; they have agreed to assist us with
-best-practices for interviewing. We will look for a developer 2-3 years
-out of college with experience with open source and multiple
-programming languages.
+% Was: Foundations + Interaction
+\ROLE{PhD 1}{Advisor  Head}{HCI (Foundations + Interaction)}{%
+The first PhD student will develop foundational knowledge about the practice of PBT and incorporate it into the development of novel interactive systems for PBT. The work will begin with surveys expanding and generalizing our understanding of barriers. Then, it will proceed through the iterative design of new interfaces that provide programmers with powerful views of input distributions and controls for tuning them. These interfaces will draw on powerful theory in reflective generators that have already been developed. The student will also assist in language design efforts undertaken by PhD 2. This student's work will lead to the development of the \tyche{} IDE.
 }{Qualitative HCI + HCI Systems}
 
-\ROLE{PhD 2}{Advisor  Pierce}{Generation and Specification}{%
-The second PhD
-student
-will develop the PL theory necessary to enable new classes of powerful PBT
-generation tools. Central to this PhD will be the advancement of work on
-reflective generators, a powerful abstraction for producing random data, with
-potential to support tunability of distributions and sophisticated shrinking
-techniques. This student will also develop the PBT benchmark
-suite. Further efforts
-will involve the assessment of the usability of reflective output with the
-assistance of HCI PhD student 1, and the improvement of language design for
-generator automation.
-
-The third PhD student
-will advance programming languages for specification. Their goal will be to
-enhance the expressiveness and understandability of specifications. Their work
-will begin by making specification languages more powerful by supporting
-formulation of properties across module boundaries, and the more efficient
-specification of model-based properties. They will then explore how to improve
-the walk-up-and-use experience of specification languages by building tools for
-mixed-initiative property specification and understanding the meaning of
-properties. Their work will conclude with developing technology for
-converting between property-based specifications into singular test-case
-specifications to serve as regression tests.
+\ROLE{PhD 2}{Advisor  Pierce}{PL (Generation + Specification)}{%
+The second PhD student advance PL technologies for generation and specification. Their initial work will focus on refining benchmark suites and advancing techniques for reflective generation. Then, they will focus on developing more usable abstractions for reflective generators, followed by extending specification languages to support the formulation of properties across module boundaries, and the more efficient specification of model-based properties. \amh{Something about GhostWriter here.} \amh{This needs some work from BCP or HG to make it sound feasible. Maybe some of these projects will be worked on by REPL students.}
 }{PL Theory + PL Language Design}
+
+\amh{I think we should call out which of the projects are REPL projects. The PL work sounds like a lot of work for PhD 2}
+
+% The first PhD student
+%   will develop foundational knowledge to support the human-centered
+%   design and development of PBT tools. This work will begin with
+%   defining a preliminary theory of PBT on the basis of our studies to
+%   date, with a set of falsifiable hypotheses about how tooling
+%   supports PBT. Then, the student will conduct a survey to expand and
+%   generalize our understanding of barriers, conduct critical
+%   comparative studies of existing PBT solutions, and assist in the
+%   conduct of formative observational studies related to tool-building
+%   efforts.
+ 
+% The fourth PhD student
+% will design, implement, and evaluate interactive views that provide programmers
+% with powerful controls for influencing testing effectiveness. They will first
+% develop tools that support the live viewing and analysis of complex
+% distributions of generated data. Then, drawing on the reflective
+% generators developed by PhD 2, they will introduce controls
+% for
+% programmers to influence the behavior of generators through direct
+% manipulation. The PhD  student will also design tools that support
+% the
+% understanding of individual inputs with novel features for interactive shrinking
+% and debugging. Select views will be brought together and refined to make testing
+% dashboards suitable for monitoring the outcomes of random PBT tests in
+% professional software development
+% settings.
+ 
+% Many of the aforementioned projects---particularly those listed under
+% the Diffusion theme~(\sectionref{sec:diffusion})---include technology
+% transfer activities that bring research ideas into practice. Our staff
+% engineer will lead these tech transfer activities, including
+% re-implementing reflective generators in existing PBT frameworks,
+% improving library designs as per recommendations from PhD 2,
+% maintaining the tools produced by PhD 3, etc.  They will also assist
+% with implementation-oriented research activities, in particular
+% \tyche. We consulted with an industry hiring manager to budget for a
+% competitive salary for this engineer; they have agreed to assist us with
+% best-practices for interviewing. We will look for a developer 2-3 years
+% out of college with experience with open source and multiple
+% programming languages.
+
+% The second PhD student will develop the PL theory necessary to enable new classes of powerful PBT
+% generation tools. Central to this PhD will be the advancement of work on
+% reflective generators, a powerful abstraction for producing random data, with
+% potential to support tunability of distributions and sophisticated shrinking
+% techniques. This student will also develop the PBT benchmark
+% suite. Further efforts
+% will involve the assessment of the usability of reflective output with the
+% assistance of HCI PhD student 1, and the improvement of language design for
+% generator automation.
+ 
+% The third PhD student
+% will advance programming languages for specification. Their goal will be to
+% enhance the expressiveness and understandability of specifications. Their work
+% will begin by making specification languages more powerful by supporting
+% formulation of properties across module boundaries, and the more efficient
+% specification of model-based properties. They will then explore how to improve
+% the walk-up-and-use experience of specification languages by building tools for
+% mixed-initiative property specification and understanding the meaning of
+% properties. Their work will conclude with developing technology for
+% converting between property-based specifications into singular test-case
+% specifications to serve as regression tests.
 
 % \ROLE{PhD 1}{Advisor  Pierce}{Reflecting on Random Generation}{This PhD student will focus on reflective generators, a powerful abstraction for producing random data. They will finish developing the theoretical abstraction and then continue by working closely with our staff engineer to implement and evaluate testing tools that rely on reflective generators as a foundation. This student will also work with undergraduate students to implement orthogonal testing tools.}{PL, Some HCI}
 
