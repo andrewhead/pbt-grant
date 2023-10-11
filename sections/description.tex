@@ -395,19 +395,30 @@ challenges as well, as we shall see next.
   Jane Street...''  }  \bcp{Or maybe it reads OK as-is?}
 \fi
 
-\SIMPLESECTION{Motivation: A Formative Study of PBT in Industry}{sec:motivation}
+\SIMPLESECTION{Motivation: A Study of Contemporary Mature PBT Practice}{sec:motivation}
 \iflater\bcp{OK, I crunched this section down to a page.  I don't want to go
   too much shorter because it is doing a lot of work introducing the
   themes that we return to later...}\fi
 %
 
-Our research agenda is motivated by a deep formative study of the usability
-challenges in PBT tools that must be addressed to boost adoption
-The study data consisted of thirty semi-structured interviews
-with (1) developers who use PBT and (2) maintainers of PBT tools.
-exploring the use of PBT in software practice.
-The study has recently been accepted to ICSE's main technical track for
-appearance in 2024~\cite{ref:goldstein2024property}.
+Our research agenda is motivated by a deep formative study we conducted to
+understand the state of the practice of PBT. This study will appear in 2024 on
+the ICSE technical paper track~\cite{ref:goldstein2024property}.  In this
+study, we partnered with Jane Street Capital to observe practice of PBT as it
+manifested in a firm that sees substantive use across a wide variety of
+software development settings.  The purpose was to identify the realities of
+contemporary PBT practice and to critically examine what it might take to boost
+adoption.
+
+The study consisted of thirty semi-structured interviews with (1)
+developers who use PBT and (2) maintainers of PBT tools. The study led to a
+rich characterization of PBT benefits and pitfalls. While this characterization
+is not complete---in that it represents experiences at just one firm---it does
+represent the limits of what is possible among experienced programmers with
+modern tools: Jane Street uses state-of-the art PBT tools, with integration of
+the tools into much of the company's culture and tooling.  Here we report major opportunities the study revealed for transformative improvements to PBT tooling.  Our
+upcoming need-finding work (\sectionref{sec:foundation}) will help complete the
+picture of the potential impact of these improvements.
 
 \amh{I removed the mention of the HATRA workshop paper because I could not think
 of how to include it, though we may need to add it back in.}
@@ -417,25 +428,24 @@ of how to include it, though we may need to add it back in.}
 % full-scale study at Jane Street; its results were presented at the
 % 2022 HATRA workshop~\cite{goldstein_problems_2022}.
 
-Our industrial partner in this study was Jane Street Capital.
-Our choice of Jane Street as a partner was motivated by our desire to
-understand PBT in a non-academic setting where it is already broadly appreciated.
-At Jane Street, PBT is an
-established methodology, so there is a large
-population of people with well-informed opinions on its benefits and
-challenges. Additionally, Jane Street builds much of its
-software in OCaml, a functional language with
-a well-engineered PBT framework.
-%
-This unified
-ecosystem means that developers have access to mature PBT tools,
-experience using them in collaborative settings,
-and awareness of language-level abstractions necessary
-for expert usage of the tools.
-%
-All this makes Jane Street an ideal place for understanding the
-impact and challenges of PBT when users who have incentive to use
-it to full potential are provided with state-of-the-art tools.
+% Our choice of Jane Street as a partner was motivated by our desire to
+% understand PBT in a non-academic setting where it is already broadly appreciated.
+% At Jane Street, PBT is an
+% established methodology, so there is a large
+% population of people with well-informed opinions on its benefits and
+% challenges. Additionally, Jane Street builds much of its
+% software in OCaml, a functional language with
+% a well-engineered PBT framework.
+% %
+% This unified
+% ecosystem means that developers have access to mature PBT tools,
+% experience using them in collaborative settings,
+% and awareness of language-level abstractions necessary
+% for expert usage of the tools.
+% %
+% All this makes Jane Street an ideal place for understanding the
+% impact and challenges of PBT when users who have incentive to use
+% it to full potential are provided with state-of-the-art tools.
 
 \ifthemecolors\bcp{Make the colors here (if we're using them) match
   the ones in the timeline.  Also, we've got five main sections but
@@ -461,69 +471,76 @@ it to full potential are provided with state-of-the-art tools.
 % (\participant{1--30})
 % and the pilot study (Pilot-\participant{1--8}).
 
-Several sets of themes emerged from this study.  One concerned the
-\thread{generation} of random inputs for PBT. Developers spoke highly
-of the \iflater\bcp{un-capitalize here and below}\fi\gentheme{Derived
-  Generators} that can be automatically
-inferred from the OCaml type system but identified deficiencies both
+A first opportunity to advance the practice of is with new approaches for 
+\thread{generation} of random inputs. Developers spoke highly
+of their tools' ability to \gentheme{derive
+  generators} from data type specifications (e.g., by using ``\texttt{ppx\_quickcheck}''). At the same time,
+they identified deficiencies both
 small and large, the most significant being that derived generators
 cannot enforce semantic preconditions like \lstinline{is_bst}.
 %
-When derived generators failed, participants fell back to
-\gentheme{Bespoke Generators}, which are far more flexible but
+When derived generators failed, participants fell back to creating
+\gentheme{bespoke generators}, which are far more flexible but
 proportionally more time-consuming to build.  Improving the
 abstractions available for authoring such bespoke generators would
 greatly improve the usability of PBT.
 %
-Furthermore, when a generated input turns out to be a counterexample
-that triggers a property violation, the developer will need to inspect
-that counterexample to find and fix the root problem. Developers often
-implemented code for \gentheme{Shrinking} counterexamples to discover
-simpler inputs that trigger the same bug.
+When generated inputs violate a property, developers often need to
+inspect the input to understand it and how it triggered a violation.
+Developers often
+implemented their own \gentheme{shrinkers} for counterexamples to discover
+simpler (and hence easier-to-understand) inputs that trigger the same bug.
 %
 But shrinkers need to be customized to particular kinds of data to be
 most effective, and they can be time-consuming to build.
 
-A different set of themes themes revolved around properties
-themselves, i.e., around \thread{specifications}.  PBT is often described as
+A second opportunity is to equip developers
+with more powerful means to define properties, or \thread{specifications}.  PBT is often described as
 a lightweight formal method, and one might therefore imagine that a
 common challenge would be coming up with the specifications of desired
 program behavior. Indeed, in our earlier pilot
 study~\cite{goldstein_problems_2022}, developers with less experience
-with PBT sometimes struggled to \proptheme{Imagine Properties} or to
+with PBT sometimes struggled to \proptheme{imagine properties} or to
 understand what properties to test.  By contrast, Jane Street
 developers on the whole reported little difficulty finding
 properties. Rather, most developers applied PBT in
-\proptheme{High-Leverage Scenarios} where properties were already
+\proptheme{high-leverage scenarios} where properties were already
 available or straightforward to invent.  This suggests that an
 effective way to boost PBT in industry would be to provide educational
 materials and documentation that highlight real-world applications
 where it is a natural fit.
 %
-We also heard \proptheme{Opportunities for Better Leverage} of
+We also heard \proptheme{opportunities for better leverage} of
 specifications, where PBT is not easy {\em yet} but could be with a
 bit more research effort.  In particular, better automation and
 tooling around {\em model-based testing} appears to be an excellent
 way to improve PBT usability.
 
-A further set of themes concerned the \thread{interaction} between
-developers and their testing environments---especially their
-strategies for \evaltheme{Evaluating the Effectiveness} of their
+A third opportunity is to give developers more powerful
+\thread{interaction} mechanisms to inquire about their tests'
+effectiveness
+and influence their behavior. Developers often relied on ad hoc,
+piecemeal approaches to \evaltheme{evaluating the effectiveness} of their
 tests. Many wished for better ways to evaluate their generators and
 properties, including feedback on code coverage, mutation
 testing~\cite{papadakis_mutation_2018}, and help understanding the
-distribution of randomly generated inputs.
+distribution of randomly generated inputs. Novel ways of visualizing
+test effectiveness could in turn provide new ways of enabling the
+manipulation of distributions of generated inputs.
 
-Significant engineering and pedagogical effort will be needed to
-amplify PBT's \thread{diffusion} into the broader community. PBT is
+Finally, our study conveyed that \thread{diffusion} of PBT tended
+to take place with the advocacy of tool builders and users. We reflect
+on the fact that for PBT to reach into new organizations and new teams
+within organizations, it will likely investment in developing more mature cultures that
+teach its power and usage. PBT is
 not taught in traditional computer science curricula at the
 undergraduate or masters level; making more developers aware of it
-will required expanded \edutheme{Classroom Education}.
+will required expanded \edutheme{classroom education}.
 %
 And finally, existing tools for PBT need continual support to meet
 demands from growing (and increasingly sophisticated) user-bases; to
 help PBT move into the mainstream, we should look for high-value ways
-to improve \edutheme{Open-Source PBT Frameworks} with the insights and
+to improve \edutheme{open-source PBT frameworks} with the insights and
 tools we develop.
 
 % Several sets of themes emerged from this study.  One concerned the \thread{generation} of
