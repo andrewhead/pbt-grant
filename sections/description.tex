@@ -1343,81 +1343,100 @@ To bring PBT to the people, we need to help developers with two main
 things: writing generators (as discussed above) and envisioning and writing
 specifications, which we address next.
 
-In the industry study, we found that a significant chunk of real-world PBT
-focuses on {\em high-leverage scenarios}---instances where properties are
+In our industry study, we found that a significant fraction of real-world PBT
+involves {\em high-leverage scenarios}---instances where properties are
 readily available and developers can jump right in to the process of finding
-bugs. Thus, in this section we propose work to help developers write
-specifications in the context of high leverage scenarios. First we propose tools
-for supporting an existing high-leverage scenario, in particular {\em
+bugs. Accordingly, we propose to develop tools to help developers write
+specifications in the context of high leverage scenarios. To begin, we
+propose tools
+for supporting existing high-leverage scenarios, in particular {\em
 model-based} or {\em differential} testing of classes and
 modules~(\sectionref{sec:model-based}). Next we propose a technique for
-inducting a new class of scenarios into the ``high-leverage'' category, with the
-help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we bring these
+adding a new class of scenarios to the ``high-leverage'' category, with the
+help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we propose
+to assemble these
 techniques and others together into a unified toolkit, {\em Ghostwriter++}, for
 automatic property inference.
 %
-Success in these tasks will again be measured indirectly, through the
-tools described in \sectionref{sec:val} and
-\sectionref{sec:diffusion}, and directly in terms of publications.
+Success in these tasks will again be measured both indirectly, through
+uptake of
+tools based on these fundamental advances (\sectionref{sec:val} and
+\sectionref{sec:diffusion}), and directly in terms of publications.
 
 \SUBSECTION{Supporting High-Leverage Scenarios: Model-Based
 Testing}{sec:model-based}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
-
-One surprising finding from our industry study was that, at least in this
+%
+One surprising finding from our industry study was that, at least at
+Jane Street,
 environment, it is quite common for developers to build (or already have) a {\em
-model implementation} of the code they are testing and want to test that the two
+model implementation} of a piece of code they are writing and to be
+interested in testing that the two
 implementations behave the same.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
 {\em differential testing}~\cn.
 %
-Since this situation is so common we want to make it as easy as possible for
-developers.  We have already done early exploration on {\sc Mica}~\cn, a tool
+Since this situation is common, we want to make it as easy as possible for
+developers.  We have already carried out some early experiments in
+{\sc Mica}~\cite{Ng2023MicaPoster}, a tool
 that automates the process of writing model-based properties for languages like
 OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984}; we propose
-continuing this work and broadening it to work in a wider range of languages.
+to continue this work and broaden it to work in a wider range of languages.
 
-{\sc Mica} can automatically build test suites that compare simple OCaml
-modules. Given a module signature (\lstinline{S}) and two modules
+{\sc Mica} automatically builds test suites to compare multiple OCaml
+modules implemnenting the same interface. Given a module signature
+(\lstinline{S}) and two modules
 (\lstinline{M1} and \lstinline{M2}) implementing that signature, {\sc Mica}
-automatically generates chains of \lstinline{S}-operations and ensures that
+generates chains of \lstinline{S}-operations and ensures that
 \lstinline{M1} and \lstinline{M2} behave the same way when those operations are
-invoked. This automates a process developers already do manually. It can
-determine when a refactored module has subtly changed its behavior or when a
+invoked. This automates a process many developers already do manually,
+and it can
+determine when a new module implementation has subtly different
+behavior from an older one, or when a
 complex module disagrees with a simpler reference implementation.
 
-So far, {\sc Mica} has captured an useful set of OCaml module features, but there
-is still work to be done. The technique does not yet work well with stateful
-modules, which operate by modifying some internal state, rather than by passing
-module state between the functions in the signature. Furthermore, the tool
-currently relies on information from the module's type signature to assemble
-chains of operations, but we would like to extend this technique to work in more
+The current version of {\sc Mica} works with a very limited subset of
+the features in the OCaml
+module system; many more remain to be addressed. In particular, it
+works with purely functional modules with at most one opaque type
+member, such as a {\tt Set} module whose type member hides the
+representation of sets.  It does
+not yet handle modules with muitable internal state,
+Moreover, it relies critically on
+the module's type signature to assemble
+chains of operations\bcp{??}; but we would like to extend this technique to work in more
 weakly-typed languages like Python. \hg{And we think these are possible
-because...}
+because...} \bcp{Yeah, why do we think this??}
 
-The work in this project will ultimately provide a recipe for automating a
-significant swath of module testing situations, massively lowering the barrier
-to entry for PBT.
+\bcp{Needs more detail about why what Mica does now is nontrivial and
+  (most importantly) about what module system features we want to
+  address---not just state (though we need a better explanation of
+  that too), but also functors.}
+
+The work in this project will ultimately provide a recipe for
+automating a significant swath of module testing situations,
+significantly lowering the barrier to entry for PBT.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Expanding High-Leverage Scenarios: Patterns over
 Logs}{sec:ltl-logs}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Pierce}
-
+%
 \hg{Could crunch, but I actually still like this section}
-A common reason developers described scenarios as {\em not} being high-leverage
-for PBT was
-that
-their code is not necessarily organized in a way that is conducive to
+A common reason developers in our industry study described certain
+testing scenarios as {\em not} being high-leverage situations for PBT was that
+their code was not organized in a way that was conducive to
 PBT.  PBT works best on components with clear boundaries and does not
 easily apply to programs with
-poorly encapsulated global state, or with leaky or complex abstraction
+poorly encapsulated global state or with leaky or overly complex abstraction
 boundaries.
 
-Rather than write properties that are tied to the structure of the program,
-we will explore
-how to define properties over user-defined
-event logs. Consider
-the case of P7, who was testing
+We will explore
+how ameliorate such situations by writing properties over user-defined
+{\em event logs}. Consider
+the case of P7\iflater\bcp{This might be the first place where we
+  mention a particular participant now.  In fact, it might be the ONLY
+place that does.  If so, probably best to rewrite.}\fi{} from our user
+study, who was testing
 a system, let's call it ``\lstinline{Inner},'' that  was difficult to
 test because
 its most interesting behavior arose only when interacting with a particular calling
@@ -1428,10 +1447,12 @@ could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} to
 produce those inputs.  The developer cited this as a circumstance where a
 PBT is difficult to apply, because the abstraction boundary between the
-components was too fuzzy.
+components was too fuzzy.\bcp{``because the abstraction boundary between the
+components was too fuzzy'' doesn't make obvious sense to me---why is
+this an issue of poor abstraction?}
 
 We will develop a tool that allows developers to express properties that reach
-into the state of multiple interacting software components. Take again the
+into\bcp{``reach into'' is not very intuitive for me} the state of multiple interacting software components. Take again the
 example of \lstinline{Inner}. A solution to P7's problem could be to drive the
 test through \lstinline{Outer} but write properties about
 \lstinline{Inner} by monitoring the internal values that appear while it
@@ -1460,30 +1481,30 @@ The first key component of the tool is the invocation of
 logging for specific values using lightweight annotations within modules like
 \lstinline{Inner}. The second component is a language for writing
 properties over the annotations, capable of capturing concepts like \lstinline{next} and
-\lstinline{never} from the example properties above. This language will need to
-take inspiration from temporal logics, for example linear temporal logic (LTL).
+\lstinline{never} from the example properties above. This language will
+take inspiration from temporal logics such as linear temporal logic (LTL).
 
-Temporal logics have been used for PBT in prior
-work~\cite{oconnor_quickstrom_2022}, but adapting that work to this situation
-will require some finesse. For one thing, the prior work assumes a fixed
-source of logical events, and thus does not have to support arbitrary predicates
-over the kinds of values that may appear in a program trace. For another, LTL is
-thought by some to be difficult to use~\cite{greenman_little_2022};
-we hope to choose a simplified set of temporal connectives that are
-intuitive for users.
+Temporal logics have been used for PBT in the
+past~\cite{oconnor_quickstrom_2022}, but adapting that work to this
+situation will require some finesse. For one thing, the prior work
+assumes a fixed source of logical events, and thus does not have to
+support arbitrary predicates over the kinds of values that may appear
+in a program trace. For another, LTL is thought by some to be
+difficult to use~\cite{greenman_little_2022}; we hope to choose a
+simplified set of temporal connectives that are intuitive for users.
 %
 The end goal of this task is a tool that compiles properties written
 in some friendly temporal logic into lower-level properties over log
 traces, which are validated by providing random inputs to an outer
-system \emph{containing} the component(s) of concern.
+system {containing} the component(s) of concern.
 
 \publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
 \SUBSECTION{Automating High-Leverage Scenarios:
 Ghostwriter++}{sec:ghostwriter}{4}{4}{HCI Practice}{PhD 3}{PhD 4}{Head}
-
-Perhaps the most compelling observation about high-leverage PBT scenarios is
-that they provide a sort of recipe that developers can use to decide when and
+%
+High-leverage PBT scenarios provide a sort of recipe that developers
+can use to decide when and
 and how to apply PBT, ensuring that they can get the most out of it.  But it is
 a shame that this recipe is only available to developers who have already
 internalized and understood it---ideally, a new developer with code that is
@@ -1505,7 +1526,7 @@ experimental tools for property inference. Tools like TOGA~\cn{} demonstrate
 that large language models may be able to help with unit test synthesis, and we
 are eager to see if the same applies to PBT.
 
-\hg{This might be bad}
+\hg{This might be bad}\bcp{Not getting it yet, anyway.}
 We will unify these tools through two interfaces. First, a straightforward menu
 will allow users to click through and interact with the various tools manually.
 This will already be immensely helpful, because it will help developers know
@@ -1517,6 +1538,10 @@ automations and can help developers think through those automations in the
 context of their application.
 
 \hg{Sentence or two to wrap up}
+
+\bcp{I'm not feeling this section yet.  At the moment, it reads like a
+proposal to just bundle together a few existing methods---it's not
+clear what is being added.}
 
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)}
 \publicationtarget{UIST?}
