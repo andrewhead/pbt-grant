@@ -8,7 +8,7 @@ Key personnel for this work will include the two co-PIs, two PhD
 students with varying backgrounds and interests,
 and 3 funded undergraduate interns hosted through the summer REPL
 program (see the BPC supplement). We will include other undergraduate and
-masters students in research for course credit as opportunities
+master's students in research for course credit as opportunities
 present themselves.
 Figure~\ref{fig:workplan} sketches our envisaged mapping of tasks onto
 PhD dissertations, with a rough timeline.  Figure~\ref{fig:roles}
@@ -35,11 +35,11 @@ PhD students.
 % user interfaces for proof assistants)
 
 The proposed project will be a main focus for both PIs during the
-whole five years.  Two summer months are allocated to each PI for this
-reason.  Formally, PI Head will supervise the two HCI-focused PhD
-students, while PI Pierce will supervise the two PL-related students
-and the engineer.  The PIs will jointly lead educational efforts at
-the undergraduate and masters level.
+whole three years.  Two summer months are allocated to each PI for this
+reason. Formally, PI Head will supervise the HCI-focused PhD
+student, while PI Pierce will supervise the PL-related PhD studens.
+The PIs will jointly lead educational efforts at
+the undergraduate and master's levels.
 
 \newcommand{\ROLE}[5]{
   \smallskip \noindent {\bf #1, #2.  Project: {\em #3}.}
@@ -51,7 +51,8 @@ the undergraduate and masters level.
   \smallskip \noindent {\bf #1, #2.  Project: {\em #3}} \\
   #4}
 
-\ROLE{PhD 1}{Advisor  Head}{Foundations}{The first PhD student
+\ROLE{PhD 1}{Advisor  Head}{Foundations + Interaction}{%
+The first PhD student
   will develop foundational knowledge to support the human-centered
   design and development of PBT tools. This work will begin with
   defining a preliminary theory of PBT on the basis of our studies to
@@ -60,33 +61,9 @@ the undergraduate and masters level.
   generalize our understanding of barriers, conduct critical
   comparative studies of existing PBT solutions, and assist in the
   conduct of formative observational studies related to tool-building
-  efforts.}{Qualitative HCI}
+  efforts.
 
-\ROLE{PhD 2}{Advisor  Pierce}{Generation}{The second PhD
-student
-will develop the PL theory necessary to enable new classes of powerful PBT
-generation tools. Central to this PhD will be the advancement of work on
-reflective generators, a powerful abstraction for producing random data, with
-potential to support tunability of distributions and sophisticated shrinking
-techniques. This student will also develop the PBT benchmark
-suite. Further efforts
-will involve the assessment of the usability of reflective output with the
-assistance of HCI PhD student 1, and the improvement of language design for
-generator automation.}{PL Theory}
-
-\ROLE{PhD 3}{Advisor  Pierce}{Specification}{The third PhD student
-will advance programming languages for specification. Their goal will be to
-enhance the expressiveness and understandability of specifications. Their work
-will begin by making specification languages more powerful by supporting
-formulation of properties across module boundaries, and the more efficient
-specification of model-based properties. They will then explore how to improve
-the walk-up-and-use experience of specification languages by building tools for
-mixed-initiative property specification and understanding the meaning of
-properties. Their work will conclude with developing technology for
-converting between property-based specifications into singular test-case
-specifications to serve as regression tests.}{PL Language Design}
-
-\ROLE{PhD 4}{Advisor  Head}{Interaction}{The fourth PhD student
+The fourth PhD student
 will design, implement, and evaluate interactive views that provide programmers
 with powerful controls for influencing testing effectiveness. They will first
 develop tools that support the live viewing and analysis of complex
@@ -100,18 +77,8 @@ understanding of individual inputs with novel features for interactive shrinking
 and debugging. Select views will be brought together and refined to make testing
 dashboards suitable for monitoring the outcomes of random PBT tests in
 professional software development
-settings.}{HCI Systems}
+settings.
 
-% \ROLE{PhD 1}{Advisor  Pierce}{Reflecting on Random Generation}{This PhD student will focus on reflective generators, a powerful abstraction for producing random data. They will finish developing the theoretical abstraction and then continue by working closely with our staff engineer to implement and evaluate testing tools that rely on reflective generators as a foundation. This student will also work with undergraduate students to implement orthogonal testing tools.}{PL, Some HCI}
-
-% \ROLE{PhD 2}{Advisor  Head}{Human-Centered Foundations of Property-Based Testing}{This PhD student will develop a robust theory of property-based testing from a user-centered perspective. They will start by finishing ongoing work with Jane Street. Then they will do further foundational studies to understand finer-grained aspects of PBT usability and make recommendations for the design of future PBT tools and curricula.}{HCI, Some PL}
-
-% \ROLE{PhD 3}{Advisors  Head and  Pierce}{"In Your Face" Property-Based Testing}{This PhD student will build tools for PBT that integrate the testing process into a programmer's editing environment. They will use human-centered methods to design and implement tools that users will actually see value in, and they will significantly increase the potential adoption of PBT by putting it easily within reach.}{HCI, PL}
-
-% \ROLE{PhD 4}{Advisors  Head and  Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
-
-\smallskip\noindent{\bf Research Engineer, Supervisor  Pierce.}
-%
 Many of the aforementioned projects---particularly those listed under
 the Diffusion theme~(\sectionref{sec:diffusion})---include technology
 transfer activities that bring research ideas into practice. Our staff
@@ -125,6 +92,43 @@ competitive salary for this engineer; they have agreed to assist us with
 best-practices for interviewing. We will look for a developer 2-3 years
 out of college with experience with open source and multiple
 programming languages.
+}{Qualitative HCI + HCI Systems}
+
+\ROLE{PhD 2}{Advisor  Pierce}{Generation and Specification}{%
+The second PhD
+student
+will develop the PL theory necessary to enable new classes of powerful PBT
+generation tools. Central to this PhD will be the advancement of work on
+reflective generators, a powerful abstraction for producing random data, with
+potential to support tunability of distributions and sophisticated shrinking
+techniques. This student will also develop the PBT benchmark
+suite. Further efforts
+will involve the assessment of the usability of reflective output with the
+assistance of HCI PhD student 1, and the improvement of language design for
+generator automation.
+
+The third PhD student
+will advance programming languages for specification. Their goal will be to
+enhance the expressiveness and understandability of specifications. Their work
+will begin by making specification languages more powerful by supporting
+formulation of properties across module boundaries, and the more efficient
+specification of model-based properties. They will then explore how to improve
+the walk-up-and-use experience of specification languages by building tools for
+mixed-initiative property specification and understanding the meaning of
+properties. Their work will conclude with developing technology for
+converting between property-based specifications into singular test-case
+specifications to serve as regression tests.
+}{PL Theory + PL Language Design}
+
+% \ROLE{PhD 1}{Advisor  Pierce}{Reflecting on Random Generation}{This PhD student will focus on reflective generators, a powerful abstraction for producing random data. They will finish developing the theoretical abstraction and then continue by working closely with our staff engineer to implement and evaluate testing tools that rely on reflective generators as a foundation. This student will also work with undergraduate students to implement orthogonal testing tools.}{PL, Some HCI}
+
+% \ROLE{PhD 2}{Advisor  Head}{Human-Centered Foundations of Property-Based Testing}{This PhD student will develop a robust theory of property-based testing from a user-centered perspective. They will start by finishing ongoing work with Jane Street. Then they will do further foundational studies to understand finer-grained aspects of PBT usability and make recommendations for the design of future PBT tools and curricula.}{HCI, Some PL}
+
+% \ROLE{PhD 3}{Advisors  Head and  Pierce}{"In Your Face" Property-Based Testing}{This PhD student will build tools for PBT that integrate the testing process into a programmer's editing environment. They will use human-centered methods to design and implement tools that users will actually see value in, and they will significantly increase the potential adoption of PBT by putting it easily within reach.}{HCI, PL}
+
+% \ROLE{PhD 4}{Advisors  Head and  Pierce}{Teaching Lightweight Formal Methods}{This PhD student will approach PBT from the perspective of an educator, asking how students and industry professionals can better succeed at learning to use the tools involved. They will develop curricula for teaching PBT, and they will also ask more fundamental questions about how users understand executable properties. This work will dove-tail with ongoing work at Penn about human-centered aspects of other kinds of properties (e.g., theorems in proof assistants).}{Education, Some PL, Some HCI}
+
+%
 
 
 % \begin{figure}[tbp]
@@ -157,14 +161,14 @@ programming languages.
 
 \subsection*{Timeline}
 
-The work of the project will take place over the course of five years.
+The work of the project will take place over the course of three years.
 Figure~\ref{fig:workplan} offers best guesses for natural starting and
 completion time for the various project tasks, colored according to
 which PhD student (or, in a few cases, the engineer or faculty) should
 lead each task.
 %
-Two PhD students and the engineer will be recruited during the first
-year, and two more students in the second year.  Work at the beginning
+Two PhD students will be recruited during the first
+year.  Work at the beginning
 of the project will focus on understanding
 opportunities and challenges for PBT through further user studies,
 on extending
@@ -281,10 +285,9 @@ Undergraduate education is a continuous thread.
 \subsection*{Coordination Mechanisms}
 
 The main coordination mechanism for the project will be weekly group
-meetings for the entire project team---PIs, PhD students, staff
-engineer, undergraduates and masters students.
+meetings for the entire project team---PIs, PhD students, undergraduates and master's students.
 %
-Each PI will also meet weekly with the two PhD students working under
+Each PI will also meet weekly with the PhD students working under
 their primary supervision (Figure~\ref{fig:roles}).
 %
 Slack and email will be used for daily team communications.  Git will
