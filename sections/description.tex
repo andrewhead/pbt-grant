@@ -1507,15 +1507,15 @@ the assertion approach to checking properties (2) or (3) at all, because it
 would require assertions cognizant of the ``end'' of a computation, information
 that may not be available to the assertion statement.
 
-Instead, we propose tooling where properties can be defined over logged values.
-The first key component of the tool is the invocation of
-logging for specific values using lightweight annotations within modules like
-\lstinline{Inner}. The second component is a language for writing
-properties over the annotations, capable of capturing concepts like \lstinline{next} and
-\lstinline{never} from the example properties above. This language will
-take inspiration from temporal logics such as linear temporal logic (LTL).
+Instead, we propose Linear Temporal Log Testing Logic---LTLTL---that allows
+properties to be defined over logged values, taking inspiration from temporal
+logics such as linear temporal logic (LTL).  The first key component of the tool
+is the invocation of logging for specific values using lightweight annotations
+within modules like \lstinline{Inner}. The second component is a language for
+writing properties over the annotations, capable of capturing concepts like
+\lstinline{next} and \lstinline{never} from the example properties above.
 
-Temporal logics have been used for PBT in the
+Temporal logics like LTLTL have been used for PBT in the
 past~\cite{oconnor_quickstrom_2022}, but adapting that work to this
 situation will require some finesse. For one thing, the prior work
 assumes a fixed source of logical events, and thus does not have to
@@ -1532,7 +1532,13 @@ system {containing} the component(s) of concern.
 \publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
 \SUBSECTION{Automating High-Leverage Scenarios:
-Ghostwriter++}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+ChatGhostwriter}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+
+\begin{wrapfigure}{r}{.4\textwidth}
+  \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
+  \caption{A mock-up of an interaction with ChatGhostwriter.}
+\end{wrapfigure}
+
 %
 High-leverage PBT scenarios provide a sort of recipe that developers
 can use to decide when and
@@ -1547,46 +1553,31 @@ Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
 automating the process of writing properties. It currently implements automatic
 property generation for round trip, equivalence, and other simple mathematical
 properties.  We would like to expand Ghostwriter to automatically infer
-properties in a much wider set of scenarios.
+properties in a much wider set of scenarios, via rich interactions with the
+user.
 
-Our re-imagining of Ghostwriter, dubbed {\em Ghostwriter++} will be a
-platform for all
-kinds of property automations. It will include all of the tools in the current
-version of the tool, Mica and \hg{Name?} from earlier in this section, and
-other tools for property inference from the literature like QuickSpec~\cn
-\hg{and/or the version from Python?}. Additionally, we will consider more
-experimental tools for property inference. Tools like TOGA~\cn{} demonstrate
-that large language models may be able to help with unit test synthesis, and we
-are eager to see if the same applies to PBT.
+Our re-imagining of Ghostwriter, dubbed {\em ChatGhostwriter}, will be a chat
+interface that helps users to pick from a wide range of properties that might
+hold in their applications. The chat bot, inspired by successful large language
+model tools like ChatGPT~\cn{}, will be fine-tuned to analyze snippets of code
+and suggest property styles from a set menu that we provide. Once the user
+selects a property style, the extension will then run the appropriate
+classically-defined automation. This separation of concerns---a language model
+for the user interface, plus classical tools for actual property
+generation---maximizes both convenience for the user and correctness (since
+using a language model to produce properties directly may lead to subtle
+errors).
 
-\hg{This might be bad}\bcp{Not getting it yet, anyway.}
-We will unify these tools through two interfaces. First, a straightforward menu
-will allow users to click through and interact with the various tools manually.
-This will already be immensely helpful, because it will help developers know
-what kinds of properties are available and how they might be able to produce
-those properties with the help of specialized tools. Second, we will explore
-providing a freeform chat interface, with the help of a large language model
-like \hg{IDK}, that will be fine-tuned with information about the available
-automations and can help developers think through those automations in the
-context of their application.
+ChatGhostwriter will be able to pull from all of the current Ghostwriter
+property types, as well as properties from Mica, LTLTL, and other tools from the
+literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
+together with an interface that knows how to select between them and suggest
+configurations, will give users, especially beginners, a much simpler on-ramp to
+PBT. We will evaluate this tool with new users of PBT, evaluating their ability
+to get started from scratch.
 
-\hg{Sentence or two to wrap up}
-
-\bcp{I'm not feeling this section yet.  At the moment, it reads like a
-proposal to just bundle together a few existing methods---it's not
-clear what is being added.} \amh{Agreed that this isn't quite there
-yet. It feels like we want to say something either about (1) new kinds
-of algorithms for synthesizing specs that go beyond Hypothesis',
-QuickSpec's, and Mica's (maybe focusing on some of new classes of
-properties found from our study) or (2) something that goes a bit
-deeper from an interaction design perspective. We might need to answer
-the question ``why not just ask ChatGPT to write properties? why does
-there need to be any more interface than that?''}\bcp{I think we might
-do well to really address the LLM question head on, both early and
-late.}
-
-\publicationtarget{IEEE Visual Languages and Human-Centric Computing
-  (VL/HCC) \bcp{and maybe UIST?}}
+\publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)
+\bcp{and maybe UIST?}}
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
