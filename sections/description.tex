@@ -986,7 +986,8 @@ some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
 are easy to apply and produce diverse sets of inputs, but they are rarely
 sufficient for testing properties with complex
-preconditions because not too few of the inputs they generate are valid. Slightly more
+preconditions because too few of the inputs they generate are
+valid. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
@@ -1325,9 +1326,9 @@ test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
 effectiveness~\cite{shi2023etna}.  By ``easily,'' we mean that we take on the burden of
 collecting data and analyzing the results.  The tool
-can help users and developers evaluate a given tool based on 
+can help users and developers evaluate a given tool based on
 % (1) the
-% degree to which it is able to achieve high code coverage quickly, 
+% degree to which it is able to achieve high code coverage quickly,
 % and
 % (2) the
 the
@@ -1339,7 +1340,7 @@ infrastructure so that users can easily add new
 languages, frameworks, and workloads.
 
 Some initial comparisons using Etna appeared as an experience report to ICFP
-2023, but there is still more to do. First, finding pre-placed bugs is not the
+2023, but there is much more to do. First, finding pre-placed bugs is not the
 only way to evaluate a testing tool. We would also like to extend Etna with
 tools for measuring and analyzing metrics like line coverage and branch
 coverage, which could serve as additional evidence of an approach's
