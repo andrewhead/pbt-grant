@@ -986,8 +986,7 @@ some use machine learning to infer proxies for
 validity~\cite{godefroid2017learn, DBLP:conf/icse/ReddyLPS20}. These approaches
 are easy to apply and produce diverse sets of inputs, but they are rarely
 sufficient for testing properties with complex
-preconditions\bcp{because they don't generate enough valid
-  inputs?}. Slightly more
+preconditions because not too few of the inputs they generate are valid. Slightly more
 manual approaches are based on declarative representations of validity
 conditions: for preconditions that are primarily structural, {\em grammar-based
 fuzzing} provides a compelling solution~\cite{godefroid2008grammar,
@@ -1001,8 +1000,7 @@ much worse at very ``sparse'' properties. The semi-automatic
 category also includes tools for {\em example-based tuning}, a process that
 improves realism of inputs by mimicking user-provided
 examples~\cite{soremekun2020inputs}; these tools can generate
-realistic inputs, but they are again limited in the preconditions they can
-satisfy. \bcp{what are they good at and what are they bad at?}
+realistic inputs, but they are again limited to structural preconditions.
 
 The most flexible, most manual solutions use hand-built
 generators, often written in a special-purpose domain-specific language (DSL).
@@ -1113,7 +1111,8 @@ algorithm on any
 valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
 gleaned from bug reports.  \bcp{Wonder if that is getting too much
-  into the weeds...  Maybe cut this footnote?}}
+  into the weeds...  Maybe cut this footnote?}
+\hg{Don't we need to say this somewhere?}}
 %
 And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
@@ -1137,14 +1136,14 @@ that subsequent choices are
 independent of earlier ones, tracking the weights of individual
 choices independent of the
 context in which those choices are made. If we really want to mimic an existing
-distribution of values, we should likely take that contextual information into
-account. We propose modelling choice weights with a more sophisticated machine
-learning model, for example \hg{TODO}. This should make the example-based tuning
-procedure far more accurate, allowing it to much more accurately replicate
+distribution of values, we should take that contextual information into
+account. We propose modelling choices and their contexts via a neural network,
+rather than a simple distribution map, compressing the data into a compact
+representation that is easy to query.
+This should make the example-based tuning
+procedure far more accurate, allowing it to much more faithfully replicate
 important features of complex input sets.
 
-\hg{These three paragraphs aren't perfect yet. In particular, I want to talk
-about interpretability of reflectives playing a role here.}
 Beyond example-based tuning, reflective generators are a compelling opportunity
 for integrations with
 {\em fuzzers}~\cn \hg{See Shriram's comments on the ICSE paper for stuff on this
@@ -1209,7 +1208,10 @@ inputs. Ideally, we'd like some
 reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
 will state and prove the properties of a generator that imply this
-property. \bcp{That ends a bit abruptly...}
+property. \bcp{That ends a bit abruptly...}\hg{I didn't have much to say here.
+We can chop this paragraph if it doesn't feel useful}
+
+\hg{We're also missing publication targets, which might make it less abrupt}
 
 \SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing2}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
