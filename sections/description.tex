@@ -1410,15 +1410,15 @@ PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
 %
 Since this situation is common, we want to make it as easy as possible for
 developers.  We have already carried out some early experiments in
-{\sc Mica}~\cite{Ng2023MicaPoster}, a tool
+Mica~\cite{Ng2023MicaPoster}, a tool
 that automates the process of writing model-based properties for languages like
 OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984}; we propose
 to continue this work and broaden it to work in a wider range of languages.
 
-{\sc Mica} automatically builds test suites to compare multiple OCaml
-modules implemnenting the same interface. Given a module signature
+Mica automatically builds test suites to compare multiple OCaml
+modules implementing the same interface. Given a module signature
 (\lstinline{S}) and two modules
-(\lstinline{M1} and \lstinline{M2}) implementing that signature, {\sc Mica}
+(\lstinline{M1} and \lstinline{M2}) implementing that signature, Mica
 generates chains of \lstinline{S}-operations and ensures that
 \lstinline{M1} and \lstinline{M2} behave the same way when those operations are
 invoked. This automates a process many developers already do manually,
@@ -1427,13 +1427,13 @@ determine when a new module implementation has subtly different
 behavior from an older one, or when a
 complex module disagrees with a simpler reference implementation.
 
-The current version of {\sc Mica} works with a very limited subset of
+The current version of Mica works with a very limited subset of
 the features in the OCaml
 module system; many more remain to be addressed. In particular, it
 works with purely functional modules with at most one opaque type
 member, such as a {\tt Set} module whose type member hides the
 representation of sets.  It does
-not yet handle modules with muitable internal state,
+not yet handle modules with mutable internal state,
 Moreover, it relies critically on
 the module's type signature to assemble
 chains of operations\bcp{??}; but we would like to extend this technique to work in more
@@ -1545,13 +1545,14 @@ in a programmer's editor.
 %
 Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
 automating the process of writing properties. It currently implements automatic
-property generation for \hg{...}.  We would like to expand Ghostwriter to
-automatically infer properties in a much wider set of scenarios.
+property generation for round trip, equivalence, and other simple mathematical
+properties.  We would like to expand Ghostwriter to automatically infer
+properties in a much wider set of scenarios.
 
 Our re-imagining of Ghostwriter, dubbed {\em Ghostwriter++} will be a
 platform for all
 kinds of property automations. It will include all of the tools in the current
-version of the tool, {\sc Mica} and \hg{Name?} from earlier in this section, and
+version of the tool, Mica and \hg{Name?} from earlier in this section, and
 other tools for property inference from the literature like QuickSpec~\cn
 \hg{and/or the version from Python?}. Additionally, we will consider more
 experimental tools for property inference. Tools like TOGA~\cn{} demonstrate
