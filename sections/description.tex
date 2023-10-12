@@ -1551,16 +1551,14 @@ system {containing} the component(s) of concern.
 %       we make the text bigger and the whole thing smaller?  Or maybe
 %       delete the whole thing in favor of Andrew's rewrite?}}
 % \end{wrapfigure}
-
 The above work will help us expand the settings in which PBT can be used with
 great leverage.  That said, they do not yet address the problem that
 testers---beginner and experienced alike---may face in writer's block
-in figuring what properties to test in the first place~\cite{hatra}. A complement of
+in figuring what properties to test in the first place (as our own prior work suggests~\cite{goldstein_problems_2022}). A complement of
 programming assistant tools have recently come into wide use for situations just
 like this. Perhaps most familiar are
-Copilot~\cite{}, an in-editor AI that suggests one-liner completions and
-function implementations which, in some cases, becomes responsible for a large
-amount of code written by programmers~\cite{}; or ChatGPT~\cite{}, which in
+Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner completions and
+function implementations which has seen widespread adoption among programmers~\cite{ref:dohmke2022github}; or ChatGPT~\cite{tool:chatgpt}, which in
 myriad Twitter demos has shown its potential to take specifications in the
 forms of text and sketches and through a chat-based dialogue generate nearly
 fully-working implementations.
@@ -1568,12 +1566,12 @@ fully-working implementations.
 It is already possible for this technology to provide ideation
 support for writing properties. Consider for instance one of the co-PIs'
 conversations with ChatGPT about a module he had implemented in the
-past~\cite{}.  In this conversation, the AI detects the data structures used,
+past~\cite{ref:chatgptpbtexample}.  In this conversation, the AI detects the data structures used,
 and suggests a set of properties---e.g., data consistency, error handling, and
 behavior in response to processing event sequences---and on further prompting suggests relevant
 invariants to check following specific event sequences. The question is not
 then whether modern programming assistants \emph{can} help with ideation of
-properties, but how they might do it in a responsible way.
+properties, but how they might do it in a responsible way. \amh{I know I'm demonstrating the potential of ChatGPT in really unscientific ways---Twitter, prior experience---any better ideas?}
 
 We propose the development of integrated programming assistant features in the
 editor that threads the needle of providing in-editor property ideation and
@@ -1581,8 +1579,7 @@ implementation support while relying on developer's cognition and trusted
 property generation patterns wherever possible to ultimately lead to tests
 that are both meaningfully and correct in all senses of the word. The envisioned
 programming assistant would wrap existing property generation techniques---e.g., Mica
-and LTLTL (proposed in the prior two sections), QuickSpec~\cite{}, and GhostWriter~\cite{}
-under a language model interface (LMI)~\cite{} that allowed them to be invoked
+and LTLTL (proposed in the prior two sections), QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked
 by an LLM programming assistant AI.
 
 The envisioned interaction for a developer would be as follows. As a
@@ -1610,6 +1607,8 @@ In this project, our work would be to prototype such programming assistant
 functionality that integrates numerous components for property suggest,
 and evaluate its support for overcoming the writer's block problem through
 usability evaluations with developers.
+
+\amh{If we keep this section we probably still need more references, and an indication that we would be supported in this project by NLP collaborators.}
 
 % \amh{Proposed workflow:
 % The developer is working on testing a module.
