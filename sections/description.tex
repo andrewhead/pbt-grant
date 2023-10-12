@@ -1636,15 +1636,9 @@ to get started from scratch.
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
-In this section, we
-describe a thread of research that aims to design and evaluate novel
-{\em modes of interaction} for PBT. The projects in this thread will
-contribute new
-techniques for assessing whether their generators are generating
-sufficient and
-appropriate inputs,and
-altering their generators to achieve better distributions
-(\sectionref{sec:evaluating_distributions}).
+
+Our next thread of research focuses on developing powerful \emph{interactions} that afford developers new levels of visibility and control in PBT. The contribution will be novel techniques for evaluating testing effectiveness, and more direct mechanisms for developers to shape the distributions of generated inputs.
+
 % and (3) understanding testing-provoked failures involving complex inputs
 % (\sectionref{sec:failures})\bcp{same subsection!}.
 %
@@ -1661,8 +1655,9 @@ altering their generators to achieve better distributions
 % point explicitly will help reassure (esp. non-HCI) reviewers.}
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
-In these
-projects, we will follow an
+
+The projects in this thread 
+ will follow an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
 In this style of research, contributions come in several forms: insights into task
 structure arising from close observational interviews, creation of novel
@@ -1677,37 +1672,22 @@ reduction in
 testing and debugging time and increased effectiveness.
 PI Head has extensive experience with this style of work~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
-\SUBSECTION{Tyche: Exploring Data Distributions}{sec:evaluating_distributions}{2}{3}{HCI
+\SUBSECTION{Tyche: Visualizing and Tuning Data Distributions}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 1}{REPL 8}{Head}
 %
-\todo{Cite the UIST demo -- proof of concept for feedback.  We will do
-more!}
-Unlike conventional unit testing, where developers
-write concrete test cases by hand,
-PBT tools draw test inputs automatically from some
-random distribution. The effectiveness of
-PBT thus depends on the quality of this distribution---whether
-it leads to tests that are both sufficiently
-''interesting'' and sufficiently diverse.
+Our primary aim in this thread is the development of an integrated interactive toolkit to expedite the creation of good property-based tests. We focus our efforts on a particular aspect in PBT where interaction is the only way to improve current process: understanding and shaping input data distributions.
 
-The challenge is that it is by no means easy for a developer to determine if a
-distribution is a ``good'' one\bcp{this can be refined: there are
-  really two connected problems---understanding what the distribution
-  {\em is} (calculating probababilities of particular tests from some
-  opaque or gnarly description of the generator) and understanding
-  whether it is good.  Both are hard}. One common strategy is to inspect a
-small number of inputs by hand, but this strategy obviously leaves developers
-without an understanding of the breadth of what is tested by the
-tests\bcp{Not sure I agree with that.}.
-Despite advances in HCI in visualizing input data distributions generally,
-(e.g., for machine learning model training~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and visualizing sequences of
-program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting
-solution for the PBT case\bcp{what is different about the PBT
-  case?}. We aim to remedy that.  \bcp{not certain what this paragraph
-is trying to add}
+The effectiveness of PBT depends on the quality of input distributions, i.e., whether generated test cases are sufficiently ``interesting'' and sufficiently diverse.
+% \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
+It is by no means easy for a developer to assess the quality of
+an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good,'' e.g., sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
+A comon strategy for developers is to assess input distributions by inspecting a
+small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
+While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g., 
+~\cite{ref:hohman2019gamut,ref:hohman2020understanding,ref:kang2017omnicode}), new solutions are needed for PBT.
 
-More concretely, PBT poses the unique challenge that test inputs are
+What about the PBT setting requires novel solutions?
+In PBT, test inputs are
 programmatically generated and
 can be of unbounded structural
 complexity (e.g., lists, trees, other algebraic data types,
@@ -1720,11 +1700,11 @@ Ideally, the developer would be able, by examining the generator's
 distribution, to answer
 questions like: Are the generated log inputs long enough? And are most
 of the event sequences realistic?
+Our research will contribute the interaction primitives and
+ unifying environments necessary to answer questions like these.
 
-Our research efforts will focus on contributing the interaction primitives and
- unifying environments necessary to answer questions like these. We
-anticipate making several innovations to bring this about. A mockup of these
-innovations appears in Figure~\ref{fig:gen-vis}.
+\subsectionstar{An interactive toolkit for PBT}{}{}
+We will develop an interactive toolkit that provides integrated support for understanding and tuning data distributions. We call this toolkit \tyche{}, after the Greek goddess of chance. Below, we describe the major affordances we envision developing through the program of research. We will develop \tyche{} as an extension to Visual Code, a modern editor that sees widespread adoption~\cite{noauthor_stack_nodate} and support for every language with mature PBT tooling. We plan for \tyche{} to serve as a platform for developing not just those interactive features describe here, but by other groups. A prototype of \tyche{} has been built and has been accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we will develop in our research follow:
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -1737,9 +1717,7 @@ innovations appears in Figure~\ref{fig:gen-vis}.
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-\bcp{Need to introduce the overall idea of Tyche before getting to its
-specific parts.}
-
+\subsectionstar{Accelerating understanding of input distributions}{}{}
 The first research innovation will be the design of live displays of generated
 values. These displays
 will show aggregate data views, including aggregate
@@ -1810,23 +1788,19 @@ testing time and achieve desirable input distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-\bcp{Merge the following with the above}
-Tuning data distributions
-
+\subsectionstar{Interactive tuning of input distributions}{}{}
 %
 Tuning generators to produce ``interesting''
-values more often can be challenging, requiring
-significant trial and error. Purely automated approaches
-like those we describe in \sectionref{sec:reflective} provide part of the
-solution, as do code coverage-based generation techniques
-(e.g.~\cite{afl-readme}). That said,
-even these techniques fall short of the kinds of inputs a developer would wish
-to produce.
-
-Building on our work in \sectionref{sec:reflective}, we envision new
-ways of specifying desired distributions through interaction. One innovation we
-will work on is to support tuning by manipulating the visualizations
-from~\sectionref{sec:evaluating_distributions}. The goal is to enable a kind of
+values can be challenging, requiring
+significant trial and error with a generator description.
+% Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
+% such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
+% solution, as do code coverage-based generation techniques
+% (e.g.~\cite{afl-readme}). That said,
+% even these techniques fall short of the kinds of inputs a developer would wish
+% to produce.
+We will develop new methods for specifying desired distributions through interaction. One innovation we
+will work on is to support tuning by manipulating the visualizations described in the previous section. The goal is to enable a kind of
 bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
@@ -1839,76 +1813,46 @@ but limited, as it does not change the underlying generator.
 % filter.
 
 Therefore, we will design additional interactions that leverage the unique
-ability of reflective generators
-(\sectionref{sec:reflective}) to change the underlying
+ability of reflective generators developed in this project
+(see \sectionref{sec:gen}) to change the underlying
 generator parameters. As developers interact with a visualization,
-the reflective generator will map interactions
+the reflective generator will map interactions (e.g., altering the height of a bar)
 to choices
-in the generator.  The generator code will be displayed
+in the generator (e.g., indicate a preference for the kinds of inputs represented by that bar).  The generator code will be displayed
 side-by-side with visualizations of the distribution, and the user
 will be able to manipulate both sides.
 Developers will be able to interact directly with the visualization to
 indicate, for example, that they would like to see more inputs like
 one that has already
 been generated, or that they would like an input similar to a generated input,
-but different in a way that they are demonstrating. This project and that in
-\sectionref{sec:evaluating_distributions} will together yield new paradigms for
-understanding and changing input data distributions.
+but different in a way that they are demonstrating.
+
+% This project and that in
+% \sectionref{sec:evaluating_distributions} will together yield new paradigms for
+% understanding and changing input data distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-\bcp{Merge the following with the above --- indeed, this material
-  probably belongs first!}
-
-The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
-for PBT. Their potential impact will be magnified by
-integrated them into a system
-that is attractive to would-be users. This is the inspiration for
-\tyche{}, an IDE extension for PBT.
-\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
-% including tools that facilitate guided PBT
-% workflows, help developers tune and
-% improve generators, and assist in the property-authoring
-% and debugging processes
-% ---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
-\tyche{} will be developed as a Visual Studio Code extension, taking advantage
-of VSCode's status as the most widely used editor according to a 2022
-survey~\cite{noauthor_stack_nodate} and its support for every language
-with mature PBT tooling.
-To maintain focus, we will concentrate our Efforts on making \tyche{} especially effective for one
-widely used
-PBT framework---probably Hypothesis, since
-its developers
-have expressed interest in including
-\tyche{} in the main Python language extension for VSCode.
-But we will make the code of \tyche{} language-agnostic wherever
-possible, to allow other
-language communities to use it with their PBT frameworks.
-
-% The research engineer will lead feature integration, ensuring features come together into a
-% seamless whole. They will also develop \tyche{} to serve as a platform for
-% further innovation as it will have been for our own: extension points will be added
-% for others to create and evaluate techniques for understanding and creating properties and generators.
-% In this way, \tyche{} will provide a pipeline for bringing research on
-% PBT algorithms and interaction models to developers craving better tools.
-
-We will make \tyche{} known to the developer community through talks at developer
-conferences and by
-disseminating information via our contacts in industry and the open source
-community.
-%
-% We will list the IDE on the Visual Studio Code extension marketplace,
-% with a goal of reaching 60,000 downloads by the end of the project.
-Our goal is for \tyche{} to reach 60,000 downloads by the end of the
-project. At
-the time of writing, this would put \tyche{} in the top 10 extensions
-tagged ``Testing'' in the Visual Studio Code extension marketplace
-that are not either full language servers or Large
-Language Model interfaces~\cite{noauthor_testing_nodate}.
+\amh{I removed the goal of 60k downloads (it's now in the comments). It felt a bit over-ambitious without a staff engineer and 5 years of work.}
+% We will make \tyche{} known to the developer community through talks at developer
+% conferences and by
+% disseminating information via our contacts in industry and the open source
+% community.
+% %
+% % We will list the IDE on the Visual Studio Code extension marketplace,
+% % with a goal of reaching 60,000 downloads by the end of the project.
+% Our goal is for \tyche{} to reach 60,000 downloads by the end of the
+% project. At
+% the time of writing, this would put \tyche{} in the top 10 extensions
+% tagged ``Testing'' in the Visual Studio Code extension marketplace
+% that are not either full language servers or Large
+% Language Model interfaces~\cite{noauthor_testing_nodate}.
 
 % We aim for \tyche{} to reach 60,000 downloads by the end of the
 % project, driven, in part, by our connections in the developer tool community.
 
+\amh{If we don't have enough content for this proposal, it might be worth adding back in 1--2 paragraphs of our strongest material about interactive shrinkers.}
+\amh{Or, maybe better yet, the work on creating regression tests from counterexamples, which could be a good project for a REPL student.}
 
 \proposecut{
 \SUBSECTION{Interactive shrinking and
@@ -2008,17 +1952,8 @@ project.''  Maybe we should?  Or maybe fold this into section 5?  (On
 reflection, I think we should rename this subsection ``Collaborating
 with the Open-Source Community,'' and it should talk about both
 Hypothesis and (potential) AWS collaborations on turning Tyche into a
-serious open-source effort.}
-The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
-for PBT. Their potential impact will be magnified by
-integrating them into a system
-that is attractive to would-be users. This is the inspiration for
-\tyche{}, an IDE extension for PBT.
-\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
-\tyche{} will be developed as a Visual Studio Code extension, taking advantage
-of VSCode's status as the most widely used editor according to a 2022
-survey~\cite{noauthor_stack_nodate} and its support for every language
-with mature PBT tooling. The IDE will be developed in consultation with
+serious open-source effort.} \amh{Good thinking. I moved the stuff about \tyche{} up into Section 6. We can remove this and replace it with the mentioned plans of collaboration. Love the idea of mentioning the AWS collaboration!}
+ The IDE will be developed in consultation with
 our collaborators on the Hypothesis team (see our collaboration plan) to
 enable tight integration with existing features of modern PBT systems,
 facilitate future adoption, and develop opportunities for long-term maintenance
