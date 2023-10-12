@@ -1543,8 +1543,7 @@ system {containing} the component(s) of concern.
 \bcplater{This subsection is OK, but it could be stronger on details
   like what LTLTL actually looks like.}
 
-\SUBSECTION{Automating High-Leverage Scenarios:
-\GhostChat}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+\SUBSECTION{Writing Specifications with Programming Assistants}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 %
 % \begin{wrapfigure}{r}{.4\textwidth}
 %   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
@@ -1553,6 +1552,7 @@ system {containing} the component(s) of concern.
 %       delete the whole thing in favor of Andrew's rewrite?}}
 % \end{wrapfigure}
 %
+<<<<<<< HEAD
 % \amh{Proposed workflow:
 % The developer is working on testing a module.
 % Their editor in the background checks for properties.
@@ -1566,51 +1566,124 @@ system {containing} the component(s) of concern.
 % This workflow is meant to balance prioritizing developers' agency in formulating their own properties, and leveraging existing tools for creating ``correct'' properties where LLMs might fall short, while still allowing developers to ``bottom out'' to asking an LLM for code generation in the event they still need help.
 % }
 %
-High-leverage PBT scenarios provide clear recipes that developers
-can use to decide when and
-how to apply PBT.  But these recipies currently require some work for
-developers to understand and internalize.  Ideally, a naive developer with code that is
-easily ``PBT-able'' could jump into the process with automated help.
-We will experiment with providing such help through a combination of automated tools and workflows
-in the IDE.
 
-The Hypothesis PBT framework in Python currently offers {\em
-  Ghostwriter}, a limited set of tools for automating the process of
-writing properties. It implements automatic property generation for
-round trip, equivalence, and other simple mathematical properties.  We
-would like to expand the capabilities of such tools to automatically
-infer properties in a much wider set of scenarios, via rich
-interactions with the user.
+The above work will help us expand the settings in which PBT can be used with
+great leverage.  That said, they do not yet address the problem that
+testers---beginner and experienced alike---may face in writer's block
+in figuring what properties to test in the first place~\cite{hatra}. A complement of
+programming assistant tools have recently come into wide use for situations just
+like this. Perhaps most familiar are
+Copilot~\cite{}, an in-editor AI that suggests one-liner completions and
+function implementations which, in some cases, becomes responsible for a large
+amount of code written by programmers~\cite{}; or ChatGPT~\cite{}, which in
+myriad Twitter demos has shown its potential to take specifications in the
+forms of text and sketches and through a chat-based dialogue generate nearly
+fully-working implementations.
 
-\bcp{Needs rewriting from here...}
-Our re-imagining of Ghostwriter, dubbed {\em \GhostChat}, will be a chat
-interface that helps users to pick from a wide range of properties that might
-hold in their applications. The chat bot, inspired by successful large language
-model tools like ChatGPT~\cn{}, will be fine-tuned to analyze snippets of code
-and suggest property styles from a set menu that we provide. Once the user
-selects a property style, the extension will then run the appropriate
-classically-defined automation. This separation of concerns---a language model
-for the user interface, plus classical tools for actual property
-generation---maximizes both convenience for the user and correctness (since
-using a language model to produce properties directly may lead to subtle
-errors). \amh{If we propose the development of a new language model (or even a good language model) we probably need a letter of support from CCB / Dan Roth / Mark Yatskar, as neither I nor Benjamin have published prior work that will convince reviewers we are ready to do this. (I think we could do it, hahah, but I think we'll be seen as driving outside our lane.)}
+It is already possible for this technology to provide ideation
+support for writing properties. Consider for instance one of the co-PIs'
+conversations with ChatGPT about a module he had implemented in the
+past~\cite{}.  In this conversation, the AI detects the data structures used,
+and suggests a set of properties---e.g., data consistency, error handling, and
+behavior in response to processing event sequences---and on further prompting suggests relevant
+invariants to check following specific event sequences. The question is not
+then whether modern programming assistants \emph{can} help with ideation of
+properties, but how they might do it in a responsible way.
 
-\GhostChat{} will be able to pull from all of the current Ghostwriter
-property types, as well as properties from Mica, LTLTL, and other tools from the
-literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
-together with an interface that knows how to select between them and suggest
-configurations, will give users, especially beginners, a much simpler on-ramp to
-PBT. \amh{Why bother showing choices of property generators at all, if you can just generate them for the user without troubling them with choices? Maybe it's useful to tell someone about the kinds of properties that are getting generated and what they are meant to catch.} \amh{A more modern language model interface approach would be to have the LLM call each of the tools on the behalf of the user.} We will evaluate this tool with new users of PBT, evaluating their ability
-to get started from scratch.
+We propose the development of integrated programming assistant features in the
+editor that threads the needle of providing in-editor property ideation and
+implementation support while relying on developer's cognition and trusted
+property generation patterns wherever possible to ultimately lead to tests
+that are both meaningfully and correct in all senses of the word. The envisioned
+programming assistant would wrap existing property generation techniques---e.g., Mica
+and LTLTL (proposed in the prior two sections), QuickSpec~\cite{}, and GhostWriter~\cite{}
+under a language model interface (LMI)~\cite{} that allowed them to be invoked
+by an LLM programming assistant AI.
 
-\amh{I think this is a lot closer. Though what this section is missing is a crisp definition of a key research insight that could merit a publication. (What takes this from cool demo to research paper?) Like, a specific way that the chatbot would teach people about the properties that are getting generated (if a more HCI contribution). Or, key insights about novel ways in which tools like QuickSpec, Mica, etc., would need to be tailored to interface with the LLM to support natural user queries or sensible LLM chat output.}
+The envisioned interaction for a developer would be as follows. As a
+developer writes code in their editor, analysis runs in the background to
+identify those modules that are currently being tested by a large number of
+input-output tests (and hence are likely worthwhile targets to ``battle test''
+with PBT). Inline actions appear above the signature of those methods and the
+functions that test them asking the developer if they would like to ``Test with
+property?'' Upon clicking the action, the first step is for the AI to suggest
+kinds of properties that may apply for this module (as was done in the example
+cited above) and to recommend them as part of a simple list adjacent to the
+code, e.g., ``You may wish to test this module's (1) round-trip consistency by
+calling it and its reverse in sequence and its (2) resilience to null values in
+arbitrary positions in the input sequence.'' This may be enough for developers
+to overcome their writer's block. If it is not, the developer can further click
+an action button to ``Generate tests.'' The programming assistant will
+prioritize tests found by PL techniques (Mica, LTLTL, QuickSpec, GhostWriter)
+due to their focus on existing high-leverage use cases and the guarantees they
+provide about the correctness of generated code. Should they come up
+empty-handed, the assistant will offer LLM-generated tests (as Copilot might
+provide with suitable prompting) with the visible messaging conveying the
+possibility of mistakes in the code or misinterpretations of user intent.
 
-\bcp{Also needs plenty of citations...}
+In this project, our work would be to prototype such programming assistant
+functionality that integrates numerous components for property suggest,
+and evaluate its support for overcoming the writer's block problem through
+usability evaluations with developers.
 
-\bcp{Maybe this is a good application of Kani?}
+% \amh{Proposed workflow:
+% The developer is working on testing a module.
+% Their editor in the background checks for properties.
+% It annotates the module (perhaps where it is invoked in a unit test) with an above-line marker reading ``Test with property?''
+% The LLM generates suggestions of kinds of properties that could be tested---round-trip properties, invariants of the data structures, etc.
+% It shows a small number of these suggestions in an overlay, and offers to create signatures with TODOs for those functions.
+% Generated test signatures are then annotated with markers if their bodies can be generated for you.
+% Generation is first performed by PL tools like Mica, QuickSpec, etc.
+% If they cannot do it, the developer can request that the body of the test is generated by ChatGPT in a chat window, with a disclaimer about the uncertainty involved in the prediction.
+% %
+% This workflow is meant to balance prioritizing developers' agency in formulating their own properties, and leveraging existing tools for creating ``correct'' properties where LLMs might fall short, while still allowing developers to ``bottom out'' to asking an LLM for code generation in the event they still need help.
+% }
+% %
+% High-leverage PBT scenarios provide a sort of recipe that developers
+% can use to decide when and
+% how to apply PBT, ensuring that they can get the most out of it.  But it is
+% a shame that this recipe is only available to developers who have already
+% internalized and understood it---ideally, a new developer with code that is
+% easily PBT-able could jump into the process quickly and easily.  We propose
+% embedding these high-leverage testing scenarios as automated tools and workflows
+% in a programmer's editor.
+% %
+% Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
+% automating the process of writing properties. It currently implements automatic
+% property generation for round trip, equivalence, and other simple mathematical
+% properties.  We would like to expand Ghostwriter to automatically infer
+% properties in a much wider set of scenarios, via rich interactions with the
+% user.
+% 
+% Our re-imagining of Ghostwriter, dubbed {\em \GhostChat}, will be a chat
+% interface that helps users to pick from a wide range of properties that might
+% hold in their applications. The chat bot, inspired by successful large language
+% model tools like ChatGPT~\cn{}, will be fine-tuned to analyze snippets of code
+% and suggest property styles from a set menu that we provide. Once the user
+% selects a property style, the extension will then run the appropriate
+% classically-defined automation. This separation of concerns---a language model
+% for the user interface, plus classical tools for actual property
+% generation---maximizes both convenience for the user and correctness (since
+% using a language model to produce properties directly may lead to subtle
+% errors). \amh{If we propose the development of a new language model (or even a good language model) we probably need a letter of support from CCB / Dan Roth / Mark Yatskar, as neither I nor Benjamin have published prior work that will convince reviewers we are ready to do this. (I think we could do it, hahah, but I think we'll be seen as driving outside our lane.)}
+% 
+% \GhostChat{} will be able to pull from all of the current Ghostwriter
+% property types, as well as properties from Mica, LTLTL, and other tools from the
+% literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
+% together with an interface that knows how to select between them and suggest
+% configurations, will give users, especially beginners, a much simpler on-ramp to
+% PBT. \amh{Why bother showing choices of property generators at all, if you can just generate them for the user without troubling them with choices? Maybe it's useful to tell someone about the kinds of properties that are getting generated and what they are meant to catch.} \amh{A more modern language model interface approach would be to have the LLM call each of the tools on the behalf of the user.} We will evaluate this tool with new users of PBT, evaluating their ability
+% to get started from scratch.
+% 
+% \amh{I think this is a lot closer. Though what this section is missing is a crisp definition of a key research insight that could merit a publication. (What takes this from cool demo to research paper?) Like, a specific way that the chatbot would teach people about the properties that are getting generated (if a more HCI contribution). Or, key insights about novel ways in which tools like QuickSpec, Mica, etc., would need to be tailored to interface with the LLM to support natural user queries or sensible LLM chat output.}
+% 
+% \bcp{Also needs plenty of citations...}
+% 
+% \bcp{Maybe this is a good application of Kani?}
 
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)
 \bcp{and maybe UIST?}}
+\amh{I think we'd need a stronger stated interaction innovation for UIST, though this does feel like a good target for VL/HCC (or maybe CHI) with the current stated contribution of using pretty known interaction patterns and evaluating their impact in novel settings}
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
