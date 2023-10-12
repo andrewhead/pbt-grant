@@ -968,7 +968,7 @@ can be wasted generating and discarding precondition-failing inputs.
 \proposecut{(Of course, some fraction of the testing budget {\em should} be spent on
 ill-formed or nonsensical inputs, but not too much, since these will not
 exercise much of the system's functionality; most tests should be
-well-formed---though perhaps unusual---instances of the sorts of inputs the
+well formed---though perhaps unusual---instances of the sorts of inputs the
 system is designed to process.)}
 %
 Worse, even generators that are guaranteed to produce valid
@@ -1341,16 +1341,17 @@ languages, frameworks, and workloads.
 
 Some initial comparisons using Etna appeared as an experience report to ICFP
 2023, but there is much more to do. First, finding pre-placed bugs is not the
-only way to evaluate a testing tool. We would also like to extend Etna with
+only way to evaluate a testing tool. We will extend Etna with
 tools for measuring and analyzing metrics like line coverage and branch
 coverage, which could serve as additional evidence of an approach's
-completeness. Second, we plan to implement adaptors that allow Etna to evaluate
-tools in other languages, namely Python and OCaml. Bringing Etna to Python will
-allow the developers of Hypothesis, including Zac Hatfield-Dodds,\hg{is this the
-first time we mention him?} to evaluate their testing tools in a controlled
-environment. Likewise, we have confirmation that Stephen Dolan, maintainer of
-the Crowbar library in OCaml, will run (and potentially publish) Etna
-experiments if we include support for OCaml.
+completeness. Second, we will extend Etna for evaluating PBT
+tools in Python and OCaml. Bringing Etna to Python will
+allow the developers of Hypothesis, including Zac Hatfield-Dodds,\iflater\hg{is this the
+first time we mention him?}\bcp{if so we should point to the
+collaboration letter}\fi{} to evaluate their testing tools in a controlled
+environment. Likewise, Stephen Dolan, author and maintainer of
+the Crowbar library in OCaml~\cn, plans to run experiments using Etna once
+we include support for OCaml.
 
 Furthermore, we will codify a substantial library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
@@ -1374,47 +1375,57 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
 To bring PBT to the people, we need to help developers with two main
-things: writing generators (as discussed above) and envisioning and writing
-specifications, which we address next.
-
+things: building generators (\sectionref{sec:gen}) and conceptualizing and constructing
+specifications.
+%
 In our industry study, we found that a significant fraction of real-world PBT
 involves {\em high-leverage scenarios}---instances where properties are
 readily available and developers can jump right in to the process of finding
-bugs. Accordingly, we propose to develop tools to help developers write
-specifications in the context of high leverage scenarios. To begin, we
-propose tools
-for supporting existing high-leverage scenarios, in particular {\em
-model-based} or {\em differential} testing of classes and
-modules~(\sectionref{sec:model-based}). Next we propose a technique for
+bugs.
+%
+Our work in this project will focus on tools to help developers write
+specifications in high leverage scenarios.
+
+First, we
+propose to develop tools
+supporting existing high-leverage scenarios, in particular {\em
+model-based} and {\em differential} testing of classes and
+modules~(\sectionref{sec:model-based}). Next we propose
 adding a new class of scenarios to the ``high-leverage'' category, with the
 help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we propose
 to assemble these
-techniques and others together into a unified toolkit, {\em Ghostwriter++}, for
-automatic property inference.
+techniques and others together into a unified tool, {\em \GhostChat}, for
+semi-automatic property selection.
 %
-Success in these tasks will again be measured both indirectly, through
+Success in these tasks will again be measured both through
 uptake of
 tools based on these fundamental advances (\sectionref{sec:val} and
-\sectionref{sec:diffusion}), and directly in terms of publications.
+\sectionref{sec:diffusion}) and directly in terms of publications.
 
-\SUBSECTION{Supporting High-Leverage Scenarios: Model-Based
+\SUBSECTION{Automatic Model-Based
 Testing}{sec:model-based}{2}{2}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
 One surprising finding from our industry study was that, at least at
 Jane Street,
-environment, it is quite common for developers to build (or already have) a {\em
+it is quite common for developers to build (or already have) a {\em
 model implementation} of a piece of code they are writing and to be
 interested in testing that the two
 implementations behave the same.  This is a well-documented approach to
 PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
-{\em differential testing}~\cn.
+{\em differential testing}~\cite{mckeeman1998differential}.
 %
-Since this situation is common, we want to make it as easy as possible for
-developers.  We have already carried out some early experiments in
-Mica~\cite{Ng2023MicaPoster}, a tool
-that automates the process of writing model-based properties for languages like
-OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984}; we propose
-to continue this work and broaden it to work in a wider range of languages.
+Since this situation is common, we want it to be as easy as possible
+for developers; at the moment, though, developers end up writing
+significant amounts of boilerplate code.\bcplater{Maybe describe what
+  that code looks like?}
+
+We have already carried out some early experiments in
+Mica~\cite{Ng2023MicaPoster}, an experimental tool that automatically
+writes properties based on simple interfaces for stateless modules.
+We propose to extend and generalized this work to address more
+realistic modules and module-like language features.
+
+% for languages like OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984};
 
 Mica automatically builds test suites to compare multiple OCaml
 modules implementing the same interface. Given a module signature
@@ -1429,33 +1440,33 @@ behavior from an older one, or when a
 complex module disagrees with a simpler reference implementation.
 
 The current version of Mica works with a very limited subset of
-the features in the OCaml
+the features of the OCaml language and
 module system; many more remain to be addressed. In particular, it
-works with purely functional modules with at most one opaque type
+works only for stateless modules with at most one opaque type
 member, such as a {\tt Set} module whose type member hides the
-representation of sets.  It does
-not yet handle modules with mutable internal state,
-Moreover, it relies critically on
-the module's type signature to assemble
-chains of operations\bcp{??}; but we would like to extend this technique to work in more
-weakly-typed languages like Python. \hg{And we think these are possible
-because...} \bcp{Yeah, why do we think this??}
+representation of sets.
 
-\bcp{Needs more detail about why what Mica does now is nontrivial and
-  (most importantly) about what module system features we want to
-  address---not just state (though we need a better explanation of
-  that too), but also functors.}
-
-The work in this project will ultimately provide a recipe for
-automating a significant swath of module testing situations,
-significantly lowering the barrier to entry for PBT.
+We plan to extend Mica in three dimensions: (1) to make it generate automatic
+test sequences for modules with mutable internal state\bcp{@Harry:
+  What do we know about prior work fitting this description?}, (2) to
+make it work with parameterized modules (OCaml ``functors'') by
+automatically applying them to appropriate module arguments, and (3)
+to apply the same techniques to other languages with rich module-like
+features, such as Java, Scala, and Rust.  More speculately, we will
+investigate whether a similar automatic generation strategy could be
+applied in languages like Python, with weak or nonexistent static type
+systems.
+%
+A version of Mica incorporating these advances will automate a
+significant number of common testing situations, lowering the barrier
+to entry for PBT.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
-\SUBSECTION{Expanding High-Leverage Scenarios: Patterns over
+\SUBSECTION{A Pattern Language for
 Logs}{sec:ltl-logs}{3}{3}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
-\hg{Could crunch, but I actually still like this section}
+\iflater\hg{Could crunch, but I actually still like this section}\fi
 A common reason developers in our industry study described certain
 testing scenarios as {\em not} being high-leverage situations for PBT was that
 their code was not organized in a way that was conducive to
@@ -1467,10 +1478,8 @@ boundaries.
 We will explore
 how ameliorate such situations by writing properties over user-defined
 {\em event logs}. Consider
-the case of P7\iflater\bcp{This might be the first place where we
-  mention a particular participant now.  In fact, it might be the ONLY
-place that does.  If so, probably best to rewrite.}\fi{} from our user
-study, who was testing
+the case of a participant in our user
+study who was testing
 a system, let's call it ``\lstinline{Inner},'' that  was difficult to
 test because
 its most interesting behavior arose only when interacting with a particular calling
@@ -1494,100 +1503,176 @@ includes a queue of processed items, \lstinline{processed}, and an
 \lstinline{overflow} flag. Useful properties might include:
 
 \begin{lstlisting}
-prefix_of (processed, next (processed))      (* 1. Processing is monotonic *)
-msg.length < 100 ==> never (overflow = true) (* 2. Can handle 100 bytes    *)
-eventually (processed.length = msg.length)   (* 3. whole message processed *)
+prefix_of (processed, next (processed))     (* 1. Processing is monotonic *)
+msg.len < 100 ==> never (overflow = true)   (* 2. Can handle 100 bytes    *)
+eventually (processed.length = msg.length)  (* 3. whole message processed *)
 \end{lstlisting}
 
-Is it possible to check such behaviors with built-in assertion statements? We
-posit that an assertion-based approach is non-ideal. On the one hand, assertions
-would require nontrivial code to save previous values for properties like (1)
-above, and likely involves brittle macros or meta-programming to remove such
-auxiliary code at release time. Furthermore, it is difficult to imagine using
-the assertion approach to checking properties (2) or (3) at all, because it
-would require assertions cognizant of the ``end'' of a computation, information
-that may not be available to the assertion statement.
+Checking such properties using inline ``assert'' statements
+does not work well. On the one hand, assertions
+require nontrivial code to save previous values for properties like (1)
+above, and would then likely involve brittle macros or meta-programming to remove such
+auxiliary code at release time. Worse, it is difficult to use
+assertions to check properties (2) or (3) at all, because this
+requires that assertions be cognizant of the ``end'' of a
+computation---information that may not be easily available.
 
-Instead, we propose tooling where properties can be defined over logged values.
-The first key component of the tool is the invocation of
-logging for specific values using lightweight annotations within modules like
-\lstinline{Inner}. The second component is a language for writing
-properties over the annotations, capable of capturing concepts like \lstinline{next} and
-\lstinline{never} from the example properties above. This language will
-take inspiration from temporal logics such as linear temporal logic (LTL).
+Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL), which allows
+properties to be defined over logged values, taking inspiration from temporal
+logics such as Linear Temporal Logic (LTL).  The first step
+is logging specific values of interest using lightweight annotations
+within modules like \lstinline{Inner}. The next is a language for
+writing properties over the annotations, capable of capturing concepts like
+\lstinline{next} and \lstinline{never}.
 
-Temporal logics have been used for PBT in the
+Temporal logics like LTLTL have been used for PBT in the
 past~\cite{oconnor_quickstrom_2022}, but adapting that work to this
 situation will require some finesse. For one thing, the prior work
-assumes a fixed source of logical events, and thus does not have to
+assumes a fixed source of logical events and does not
 support arbitrary predicates over the kinds of values that may appear
-in a program trace. For another, LTL is thought by some to be
-difficult to use~\cite{greenman_little_2022}; we hope to choose a
-simplified set of temporal connectives that are intuitive for users.
+in a program trace. For another, ordinary LTL has been found by some to be
+difficult to use~\cite{greenman_little_2022}; we aim to choose a
+simplified set of temporal connectives that are more intuitive for users.
 %
-The end goal of this task is a tool that compiles properties written
-in some friendly temporal logic into lower-level properties over log
+The result of this task will be a tool that compiles properties written
+in a friendly temporal logic into lower-level properties over log
 traces, which are validated by providing random inputs to an outer
 system {containing} the component(s) of concern.
 
-\publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
+\publicationtarget{Object-Oriented Programming, Systems, Languages,
+  and Applications (OOPSLA)}
 
-\SUBSECTION{Automating High-Leverage Scenarios:
-Ghostwriter++}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+\bcplater{This subsection is OK, but it could be stronger on details
+  like what LTLTL actually looks like.}
+
+\SUBSECTION{Writing Specifications with Programming Assistants}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 %
-High-leverage PBT scenarios provide a sort of recipe that developers
-can use to decide when and
-how to apply PBT, ensuring that they can get the most out of it.  But it is
-a shame that this recipe is only available to developers who have already
-internalized and understood it---ideally, a new developer with code that is
-easily PBT-able could jump into the process quickly and easily.  We propose
-embedding these high-leverage testing scenarios as automated tools and workflows
-in a programmer's editor.
-%
-Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
-automating the process of writing properties. It currently implements automatic
-property generation for round trip, equivalence, and other simple mathematical
-properties.  We would like to expand Ghostwriter to automatically infer
-properties in a much wider set of scenarios.
+% \begin{wrapfigure}{r}{.4\textwidth}
+%   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
+%   \caption{A mock-up of an interaction with \GhostChat. \bcp{Can
+%       we make the text bigger and the whole thing smaller?  Or maybe
+%       delete the whole thing in favor of Andrew's rewrite?}}
+% \end{wrapfigure}
+The above work will help us expand the settings in which PBT can be used with
+great leverage.  That said, they do not yet address the problem that
+testers---beginner and experienced alike---may face in writer's block
+in figuring what properties to test in the first place (as our own prior work suggests~\cite{goldstein_problems_2022}). A complement of
+programming assistant tools have recently come into wide use for situations just
+like this. Perhaps most familiar are
+Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner completions and
+function implementations which has seen widespread adoption among programmers~\cite{ref:dohmke2022github}; or ChatGPT~\cite{tool:chatgpt}, which in
+myriad Twitter demos has shown its potential to take specifications in the
+forms of text and sketches and through a chat-based dialogue generate nearly
+fully-working implementations.
 
-Our re-imagining of Ghostwriter, dubbed {\em Ghostwriter++} will be a
-platform for all
-kinds of property automations. It will include all of the tools in the current
-version of the tool, Mica and \hg{Name?} from earlier in this section, and
-other tools for property inference from the literature like QuickSpec~\cn
-\hg{and/or the version from Python?}. Additionally, we will consider more
-experimental tools for property inference. Tools like TOGA~\cn{} demonstrate
-that large language models may be able to help with unit test synthesis, and we
-are eager to see if the same applies to PBT.
+It is already possible for this technology to provide ideation
+support for writing properties. Consider for instance one of the co-PIs'
+conversations with ChatGPT about a module he had implemented in the
+past~\cite{ref:chatgptpbtexample}.  In this conversation, the AI detects the data structures used,
+and suggests a set of properties---e.g., data consistency, error handling, and
+behavior in response to processing event sequences---and on further prompting suggests relevant
+invariants to check following specific event sequences. The question is not
+then whether modern programming assistants \emph{can} help with ideation of
+properties, but how they might do it in a responsible way. \amh{I know
+  I'm demonstrating the potential of ChatGPT in really unscientific
+  ways---Twitter, prior experience---any better ideas?}  \bcp{How did
+  we get to ``responsible''?}
 
-\hg{This might be bad}\bcp{Not getting it yet, anyway.}
-We will unify these tools through two interfaces. First, a straightforward menu
-will allow users to click through and interact with the various tools manually.
-This will already be immensely helpful, because it will help developers know
-what kinds of properties are available and how they might be able to produce
-those properties with the help of specialized tools. Second, we will explore
-providing a freeform chat interface, with the help of a large language model
-like \hg{IDK}, that will be fine-tuned with information about the available
-automations and can help developers think through those automations in the
-context of their application.
+We propose the development of integrated programming assistant features in the
+editor that threads the needle of providing in-editor property ideation and
+implementation support while relying on developer's cognition and trusted
+property generation patterns wherever possible to ultimately lead to tests
+that are both meaningfully and correct in all senses of the word. The envisioned
+programming assistant would wrap existing property generation techniques---e.g., Mica
+and LTLTL (proposed in the prior two sections), QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked
+by an LLM programming assistant AI.
 
-\hg{Sentence or two to wrap up}
+The envisioned interaction for a developer would be as follows. As a
+developer writes code in their editor, analysis runs in the background to
+identify those modules that are currently being tested by a large number of
+input-output tests (and hence are likely worthwhile targets to ``battle test''
+with PBT). Inline actions appear above the signature of those methods and the
+functions that test them asking the developer if they would like to ``Test with
+property?'' Upon clicking the action, the first step is for the AI to suggest
+kinds of properties that may apply for this module (as was done in the example
+cited above) and to recommend them as part of a simple list adjacent to the
+code, e.g., ``You may wish to test this module's (1) round-trip consistency by
+calling it and its reverse in sequence and its (2) resilience to null values in
+arbitrary positions in the input sequence.'' This may be enough for developers
+to overcome their writer's block. If it is not, the developer can further click
+an action button to ``Generate tests.'' The programming assistant will
+prioritize tests found by PL techniques (Mica, LTLTL, QuickSpec, GhostWriter)
+due to their focus on existing high-leverage use cases and the guarantees they
+provide about the correctness of generated code. Should they come up
+empty-handed, the assistant will offer LLM-generated tests (as Copilot might
+provide with suitable prompting) with the visible messaging conveying the
+possibility of mistakes in the code or misinterpretations of user intent.
 
-\bcp{I'm not feeling this section yet.  At the moment, it reads like a
-proposal to just bundle together a few existing methods---it's not
-clear what is being added.} \amh{Agreed that this isn't quite there
-yet. It feels like we want to say something either about (1) new kinds
-of algorithms for synthesizing specs that go beyond Hypothesis',
-QuickSpec's, and Mica's (maybe focusing on some of new classes of
-properties found from our study) or (2) something that goes a bit
-deeper from an interaction design perspective. We might need to answer
-the question ``why not just ask ChatGPT to write properties? why does
-there need to be any more interface than that?''}\bcp{I think we might
-do well to really address the LLM question head on, both early and
-late.}
+In this project, our work would be to prototype such programming assistant
+functionality that integrates numerous components for property suggest,
+and evaluate its support for overcoming the writer's block problem through
+usability evaluations with developers.
 
-\publicationtarget{IEEE Visual Languages and Human-Centric Computing
-  (VL/HCC) \bcp{and maybe UIST?}}
+\amh{If we keep this section we probably still need more references, and an indication that we would be supported in this project by NLP collaborators.}
+
+% \amh{Proposed workflow:
+% The developer is working on testing a module.
+% Their editor in the background checks for properties.
+% It annotates the module (perhaps where it is invoked in a unit test) with an above-line marker reading ``Test with property?''
+% The LLM generates suggestions of kinds of properties that could be tested---round-trip properties, invariants of the data structures, etc.
+% It shows a small number of these suggestions in an overlay, and offers to create signatures with TODOs for those functions.
+% Generated test signatures are then annotated with markers if their bodies can be generated for you.
+% Generation is first performed by PL tools like Mica, QuickSpec, etc.
+% If they cannot do it, the developer can request that the body of the test is generated by ChatGPT in a chat window, with a disclaimer about the uncertainty involved in the prediction.
+% %
+% This workflow is meant to balance prioritizing developers' agency in formulating their own properties, and leveraging existing tools for creating ``correct'' properties where LLMs might fall short, while still allowing developers to ``bottom out'' to asking an LLM for code generation in the event they still need help.
+% }
+% %
+% High-leverage PBT scenarios provide a sort of recipe that developers
+% can use to decide when and
+% how to apply PBT, ensuring that they can get the most out of it.  But it is
+% a shame that this recipe is only available to developers who have already
+% internalized and understood it---ideally, a new developer with code that is
+% easily PBT-able could jump into the process quickly and easily.  We propose
+% embedding these high-leverage testing scenarios as automated tools and workflows
+% in a programmer's editor.
+% %
+% Hypothesis currently provides {\em Ghostwriter}, a limited set of tools for
+% automating the process of writing properties. It currently implements automatic
+% property generation for round trip, equivalence, and other simple mathematical
+% properties.  We would like to expand Ghostwriter to automatically infer
+% properties in a much wider set of scenarios, via rich interactions with the
+% user.
+% 
+% Our re-imagining of Ghostwriter, dubbed {\em \GhostChat}, will be a chat
+% interface that helps users to pick from a wide range of properties that might
+% hold in their applications. The chat bot, inspired by successful large language
+% model tools like ChatGPT~\cn{}, will be fine-tuned to analyze snippets of code
+% and suggest property styles from a set menu that we provide. Once the user
+% selects a property style, the extension will then run the appropriate
+% classically-defined automation. This separation of concerns---a language model
+% for the user interface, plus classical tools for actual property
+% generation---maximizes both convenience for the user and correctness (since
+% using a language model to produce properties directly may lead to subtle
+% errors). \amh{If we propose the development of a new language model (or even a good language model) we probably need a letter of support from CCB / Dan Roth / Mark Yatskar, as neither I nor Benjamin have published prior work that will convince reviewers we are ready to do this. (I think we could do it, hahah, but I think we'll be seen as driving outside our lane.)}
+% 
+% \GhostChat{} will be able to pull from all of the current Ghostwriter
+% property types, as well as properties from Mica, LTLTL, and other tools from the
+% literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
+% together with an interface that knows how to select between them and suggest
+% configurations, will give users, especially beginners, a much simpler on-ramp to
+% PBT. \amh{Why bother showing choices of property generators at all, if you can just generate them for the user without troubling them with choices? Maybe it's useful to tell someone about the kinds of properties that are getting generated and what they are meant to catch.} \amh{A more modern language model interface approach would be to have the LLM call each of the tools on the behalf of the user.} We will evaluate this tool with new users of PBT, evaluating their ability
+% to get started from scratch.
+% 
+% \amh{I think this is a lot closer. Though what this section is missing is a crisp definition of a key research insight that could merit a publication. (What takes this from cool demo to research paper?) Like, a specific way that the chatbot would teach people about the properties that are getting generated (if a more HCI contribution). Or, key insights about novel ways in which tools like QuickSpec, Mica, etc., would need to be tailored to interface with the LLM to support natural user queries or sensible LLM chat output.}
+% 
+% \bcp{Also needs plenty of citations...}
+% 
+% \bcp{Maybe this is a good application of Kani?}
+
+\publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)
+\bcp{and maybe UIST?}}
+\amh{I think we'd need a stronger stated interaction innovation for UIST, though this does feel like a good target for VL/HCC (or maybe CHI) with the current stated contribution of using pretty known interaction patterns and evaluating their impact in novel settings}
 
 % \SUBSECTION{Automatic explanations for properties}{sec:understanding}{4}{5}{HCI
 %   Theory}{PhD 3}{REPL 7}{Pierce}
@@ -1646,15 +1731,9 @@ late.}
 
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
-In this section, we
-describe a thread of research that aims to design and evaluate novel
-{\em modes of interaction} for PBT. The projects in this thread will
-contribute new
-techniques for assessing whether their generators are generating
-sufficient and
-appropriate inputs,and
-altering their generators to achieve better distributions
-(\sectionref{sec:evaluating_distributions}).
+
+Our next thread of research focuses on developing powerful \emph{interactions} that afford developers new levels of visibility and control in PBT. The contribution will be novel techniques for evaluating testing effectiveness, and more direct mechanisms for developers to shape the distributions of generated inputs.
+
 % and (3) understanding testing-provoked failures involving complex inputs
 % (\sectionref{sec:failures})\bcp{same subsection!}.
 %
@@ -1671,8 +1750,9 @@ altering their generators to achieve better distributions
 % point explicitly will help reassure (esp. non-HCI) reviewers.}
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
-In these
-projects, we will follow an
+
+The projects in this thread
+ will follow an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
 In this style of research, contributions come in several forms: insights into task
 structure arising from close observational interviews, creation of novel
@@ -1687,37 +1767,22 @@ reduction in
 testing and debugging time and increased effectiveness.
 PI Head has extensive experience with this style of work~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
-\SUBSECTION{Tyche: Exploring Data Distributions}{sec:evaluating_distributions}{2}{3}{HCI
+\SUBSECTION{Tyche: An IDE for PBT}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 1}{REPL 8}{Head}
 %
-\todo{Cite the UIST demo -- proof of concept for feedback.  We will do
-more!}
-Unlike conventional unit testing, where developers
-write concrete test cases by hand,
-PBT tools draw test inputs automatically from some
-random distribution. The effectiveness of
-PBT thus depends on the quality of this distribution---whether
-it leads to tests that are both sufficiently
-''interesting'' and sufficiently diverse.
+Our primary aim in this thread is the development of an integrated interactive toolkit to expedite the creation of good property-based tests. We focus our efforts on a particular aspect in PBT where interaction is the only way to improve current process: understanding and shaping input data distributions.
 
-The challenge is that it is by no means easy for a developer to determine if a
-distribution is a ``good'' one\bcp{this can be refined: there are
-  really two connected problems---understanding what the distribution
-  {\em is} (calculating probababilities of particular tests from some
-  opaque or gnarly description of the generator) and understanding
-  whether it is good.  Both are hard}. One common strategy is to inspect a
-small number of inputs by hand, but this strategy obviously leaves developers
-without an understanding of the breadth of what is tested by the
-tests\bcp{Not sure I agree with that.}.
-Despite advances in HCI in visualizing input data distributions generally,
-(e.g., for machine learning model training~\cite{ref:hohman2019gamut} and
-~\cite{ref:hohman2020understanding}) and visualizing sequences of
-program values (e.g.,~\cite{ref:kang2017omnicode}), there remains no fitting
-solution for the PBT case\bcp{what is different about the PBT
-  case?}. We aim to remedy that.  \bcp{not certain what this paragraph
-is trying to add}
+The effectiveness of PBT depends on the quality of input distributions, i.e., whether generated test cases are sufficiently ``interesting'' and sufficiently diverse.
+% \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
+It is by no means easy for a developer to assess the quality of
+an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good,'' e.g., sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
+A comon strategy for developers is to assess input distributions by inspecting a
+small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
+While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g.,
+~\cite{ref:hohman2019gamut,ref:hohman2020understanding,ref:kang2017omnicode}), new solutions are needed for PBT.
 
-More concretely, PBT poses the unique challenge that test inputs are
+What about the PBT setting requires novel solutions?
+In PBT, test inputs are
 programmatically generated and
 can be of unbounded structural
 complexity (e.g., lists, trees, other algebraic data types,
@@ -1730,11 +1795,11 @@ Ideally, the developer would be able, by examining the generator's
 distribution, to answer
 questions like: Are the generated log inputs long enough? And are most
 of the event sequences realistic?
+Our research will contribute the interaction primitives and
+ unifying environments necessary to answer questions like these.
 
-Our research efforts will focus on contributing the interaction primitives and
- unifying environments necessary to answer questions like these. We
-anticipate making several innovations to bring this about. A mockup of these
-innovations appears in Figure~\ref{fig:gen-vis}.
+{\subsectionstar{An interactive toolkit for PBT}{}{}
+We will develop an interactive toolkit that provides integrated support for understanding and tuning data distributions. We call this toolkit \tyche{}, after the Greek goddess of chance. Below, we describe the major affordances we envision developing through the program of research. We will develop \tyche{} as an extension to Visual Code, a modern editor that sees widespread adoption~\cite{noauthor_stack_nodate} and support for every language with mature PBT tooling. We plan for \tyche{} to serve as a platform for developing not just those interactive features describe here, but by other groups. A prototype of \tyche{} has been built and has been accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we will develop in our research follow:
 
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
@@ -1747,9 +1812,7 @@ innovations appears in Figure~\ref{fig:gen-vis}.
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
 
-\bcp{Need to introduce the overall idea of Tyche before getting to its
-specific parts.}
-
+\subsectionstar{Understanding Input Distributions}{}{}
 The first research innovation will be the design of live displays of generated
 values. These displays
 will show aggregate data views, including aggregate
@@ -1820,23 +1883,19 @@ testing time and achieve desirable input distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-\bcp{Merge the following with the above}
-Tuning data distributions
-
+\subsectionstar{Interactive Tuning of Input Distributions}{}{}
 %
 Tuning generators to produce ``interesting''
-values more often can be challenging, requiring
-significant trial and error. Purely automated approaches
-like those we describe in \sectionref{sec:reflective} provide part of the
-solution, as do code coverage-based generation techniques
-(e.g.~\cite{afl-readme}). That said,
-even these techniques fall short of the kinds of inputs a developer would wish
-to produce.
-
-Building on our work in \sectionref{sec:reflective}, we envision new
-ways of specifying desired distributions through interaction. One innovation we
-will work on is to support tuning by manipulating the visualizations
-from~\sectionref{sec:evaluating_distributions}. The goal is to enable a kind of
+values can be challenging, requiring
+significant trial and error with a generator description.
+% Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
+% such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
+% solution, as do code coverage-based generation techniques
+% (e.g.~\cite{afl-readme}). That said,
+% even these techniques fall short of the kinds of inputs a developer would wish
+% to produce.
+We will develop new methods for specifying desired distributions through interaction. One innovation we
+will work on is to support tuning by manipulating the visualizations described in the previous section. The goal is to enable a kind of
 bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
@@ -1849,76 +1908,48 @@ but limited, as it does not change the underlying generator.
 % filter.
 
 Therefore, we will design additional interactions that leverage the unique
-ability of reflective generators
-(\sectionref{sec:reflective}) to change the underlying
+ability of reflective generators developed in this project
+(see \sectionref{sec:gen}) to change the underlying
 generator parameters. As developers interact with a visualization,
-the reflective generator will map interactions
+the reflective generator will map interactions (e.g., altering the height of a bar)
 to choices
-in the generator.  The generator code will be displayed
+in the generator (e.g., indicate a preference for the kinds of inputs represented by that bar).  The generator code will be displayed
 side-by-side with visualizations of the distribution, and the user
 will be able to manipulate both sides.
 Developers will be able to interact directly with the visualization to
 indicate, for example, that they would like to see more inputs like
 one that has already
 been generated, or that they would like an input similar to a generated input,
-but different in a way that they are demonstrating. This project and that in
-\sectionref{sec:evaluating_distributions} will together yield new paradigms for
-understanding and changing input data distributions.
+but different in a way that they are demonstrating.
+
+% This project and that in
+% \sectionref{sec:evaluating_distributions} will together yield new paradigms for
+% understanding and changing input data distributions.
 
 \publicationtarget{User Interface Software and Technology (UIST)}
 
-\bcp{Merge the following with the above --- indeed, this material
-  probably belongs first!}
-
-The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
-for PBT. Their potential impact will be magnified by
-integrated them into a system
-that is attractive to would-be users. This is the inspiration for
-\tyche{}, an IDE extension for PBT.
-\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
-% including tools that facilitate guided PBT
-% workflows, help developers tune and
-% improve generators, and assist in the property-authoring
-% and debugging processes
-% ---all integrated into Visual Studio Code. A 2022 survey~\cite{noauthor_stack_nodate}
-\tyche{} will be developed as a Visual Studio Code extension, taking advantage
-of VSCode's status as the most widely used editor according to a 2022
-survey~\cite{noauthor_stack_nodate} and its support for every language
-with mature PBT tooling.
-To maintain focus, we will concentrate our Efforts on making \tyche{} especially effective for one
-widely used
-PBT framework---probably Hypothesis, since
-its developers
-have expressed interest in including
-\tyche{} in the main Python language extension for VSCode.
-But we will make the code of \tyche{} language-agnostic wherever
-possible, to allow other
-language communities to use it with their PBT frameworks.
-
-% The research engineer will lead feature integration, ensuring features come together into a
-% seamless whole. They will also develop \tyche{} to serve as a platform for
-% further innovation as it will have been for our own: extension points will be added
-% for others to create and evaluate techniques for understanding and creating properties and generators.
-% In this way, \tyche{} will provide a pipeline for bringing research on
-% PBT algorithms and interaction models to developers craving better tools.
-
-We will make \tyche{} known to the developer community through talks at developer
-conferences and by
-disseminating information via our contacts in industry and the open source
-community.
-%
-% We will list the IDE on the Visual Studio Code extension marketplace,
-% with a goal of reaching 60,000 downloads by the end of the project.
-Our goal is for \tyche{} to reach 60,000 downloads by the end of the
-project. At
-the time of writing, this would put \tyche{} in the top 10 extensions
-tagged ``Testing'' in the Visual Studio Code extension marketplace
-that are not either full language servers or Large
-Language Model interfaces~\cite{noauthor_testing_nodate}.
+\iflater
+\amh{I removed the goal of 60k downloads (it's now in the comments). It felt a bit over-ambitious without a staff engineer and 5 years of work.}
+% We will make \tyche{} known to the developer community through talks at developer
+% conferences and by
+% disseminating information via our contacts in industry and the open source
+% community.
+% %
+% % We will list the IDE on the Visual Studio Code extension marketplace,
+% % with a goal of reaching 60,000 downloads by the end of the project.
+% Our goal is for \tyche{} to reach 60,000 downloads by the end of the
+% project. At
+% the time of writing, this would put \tyche{} in the top 10 extensions
+% tagged ``Testing'' in the Visual Studio Code extension marketplace
+% that are not either full language servers or Large
+% Language Model interfaces~\cite{noauthor_testing_nodate}.
 
 % We aim for \tyche{} to reach 60,000 downloads by the end of the
 % project, driven, in part, by our connections in the developer tool community.
 
+\amh{If we don't have enough content for this proposal, it might be worth adding back in 1--2 paragraphs of our strongest material about interactive shrinkers.}
+\amh{Or, maybe better yet, the work on creating regression tests from counterexamples, which could be a good project for a REPL student.}
+\fi
 
 \proposecut{
 \SUBSECTION{Interactive shrinking and
@@ -1992,70 +2023,51 @@ design, implement, and evaluate a tool supporting such interactions.
 % \SECTION{Diffusion}{Advancing Open-Source Tools}{sec:diffusion}
 
 The foundational research and tool building projects described above
-are needed, we believe, to bring PBT to a broader audience, but
+are needed, we believe, to bring PBT to a broader audience,
 but they not enough by themselves. Our agenda also
-includes plans for increasing the {\em diffusion} of PBT through both
-educational efforts and the development of tools embodying our
-findings.
-
-Throughout the project, technical contributions will be brought together to
-form the the technical core of a new integrated evelopment environment (IDE) for PBT called \tyche{}
-(\sectionref{sec:ide}).  Then, we will conduct activities to educate
+includes plans for increasing the {\em diffusion} of PBT by developing the Tyche IDE as a
+cross-platform, language-agnostic, open-source project (\sectionref{sec:ide}), educating
 programmers in effective application of PBT by developing a catalog of
-high-leverage PBT use cases (\sectionref{sec:whento}) and undergraduate- and
+high-leverage PBT use cases (\sectionref{sec:whento}), and
+creating undergraduate- and
 master's-level course materials for PBT (\sectionref{sec:1210}).
-These projects will
-also result in a number of developer-focused talks. We will bring them
-to industry conferences like Yow! Lambda Jam, Strangeloop, and
+We will also advertise our findings, tools, and materials to potential user communities
+through talks at industry conferences like Yow! Lambda Jam, Strangeloop, and
 Lambda World.
 
-\SUBSECTION{An IDE for PBT}{sec:ide}{2}{3}{Tech
+\SUBSECTION{An Open-Source Community around Tyche}{sec:ide}{2}{3}{Tech
 Transfer}{???}{}{Pierce}
-\bcp{This subsection feels out of place---we describe Tyche in a lot
-  of detail in section 5, and we don't make a clean distinction here
-  between ``Tyche the research prototype'' and ``Tyche the open-source
-project.''  Maybe we should?  Or maybe fold this into section 5?  (On
-reflection, I think we should rename this subsection ``Collaborating
-with the Open-Source Community,'' and it should talk about both
-Hypothesis and (potential) AWS collaborations on turning Tyche into a
-serious open-source effort.}
-The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
-for PBT. Their potential impact will be magnified by
-integrating them into a system
-that is attractive to would-be users. This is the inspiration for
-\tyche{}, an IDE extension for PBT.
-\tyche{} will first serve as a platform for building and testing all the functionality designed in \sectionref{sec:val}. Promising features from research will constitute its core.
-\tyche{} will be developed as a Visual Studio Code extension, taking advantage
-of VSCode's status as the most widely used editor according to a 2022
-survey~\cite{noauthor_stack_nodate} and its support for every language
-with mature PBT tooling. The IDE will be developed in consultation with
-our collaborators on the Hypothesis team (see our collaboration plan) to
+The Tyche IDE will be developed in consultation with
+our collaborators on the Hypothesis team (see Collaboration Plan) to
 enable tight integration with existing features of modern PBT systems,
 facilitate future adoption, and develop opportunities for long-term maintenance
-by the open source community.
-We will make \tyche{} known to the developer community through talks at developer
-conferences and by
-disseminating information via our contacts in industry and the open source
-community.
+by the open source community.  We are also in discussions with
+leadership at Amazon AWS, who are interested in devoting engineering
+resources to developing a version of Tyche for Rust programmers.
+We will foster external contributions by developing Tyche as a
+public,
+open-source project and creating appropriate technical and
+social mechanisms for external collaboration.
 %
-\proposecut{%
-The research projects described above have the potential to
-dramatically improve the power and usability of PBT, but only
-if their products are attractive to real users. There is an unfortunate tendency for
-research software to remain just that---missing critical
-documentation that new users need to get started and lacking a clear
-maintenance schedule that would give software companies the confidence
-to adopt.
-To avoid this fate for our projects, the PhD students will work closely with our
-research engineer. The code for those projects will be designed with learnability and
-maintainability in mind, and upon
-completion it will be handed off to appropriate owners
-in the open source community.
-}
-
-\bcp{What about the AWS collaboration?  We should mention, at least,
-  that we are in the early stages of setting up a collaboration around
-making Tyche work for Rust.}
+% \proposecut{We will also advertise \tyche{} to potential user communities through talks at developer
+% conferences and by
+% disseminating information via our contacts in industry and the open source
+% community}.
+% %
+% \proposecut{%
+% The research projects described above have the potential to
+% dramatically improve the power and usability of PBT, but only
+% if their products are attractive to real users. There is an unfortunate tendency for
+% research software to remain just that---missing critical
+% documentation that new users need to get started and lacking a clear
+% maintenance schedule that would give software companies the confidence
+% to adopt.
+% To avoid this fate for our projects, the PhD students will work closely with our
+% research engineer. The code for those projects will be designed with learnability and
+% maintainability in mind, and upon
+% completion it will be handed off to appropriate owners
+% in the open source community.
+% }
 
 % Old Tyche text below
 % The projects in \sectionref{sec:val} will explore a wealth of new modes of interaction
@@ -2143,13 +2155,8 @@ making Tyche work for Rust.}
 \SUBSECTION{``When to Specify
   It!''}{sec:whento}{1}{1}{Education}{Faculty}{Everyone else}{}
 %
-Another way in which we plan to disseminate PBT is through creating new
-educational materials.
-% Our first pilot study with users of PBT suggested that developers struggle to
-% come up with specifications that are worth
-% testing~\cite{goldstein_problems_2022},
-% but
-% our follow-up
+% Another way in which we plan to disseminate PBT is through creating new
+% educational materials.
 Our interviews with industry developers suggest that many
 have a tacit
 understanding of several ``no-brainer'' situations where PBT is a natural
@@ -2165,10 +2172,12 @@ We plan to produce educational resources to help developers understand
 high-leverage situations for PBT. We will begin with an effort
 tailored to the academic community: a survey paper with the
 aspirational title ``When to Specify It!'' in homage to John Hughes's
-widely read (and viewed) tutorial, ``How to Specify It!''. Initially,
+popular tutorial, ``How to Specify It!''. Initially,
 the survey will
 document a  range of high-leverage scenarios identified by our formative
-industry study, including cases like
+industry study%
+.%
+\proposecut{, including cases like
 \begin{enumerate*}[label=(\arabic{enumi})]
 \item ``these two functions (e.g., a parser and a printer) should round-trip,''
 \item ``this data structure (e.g. a set, map, etc.) should obey algebraic laws,''
@@ -2178,6 +2187,7 @@ is an optimized version of the other),
 and
 \item ``this program should not crash.''
 \end{enumerate*}
+}
 As the project progresses, this list will be expanded based on
 further surveys with broader
 communities of developers~(\sectionref{sec:survey}), a comprehensive
@@ -2186,29 +2196,20 @@ the academic literature, and an examination of open source projects
 using PBT in a
 variety of different software ecosystems.
 
-We will also distill our findings
-into media directly tailored for developers. First, we will write
-approachable developer documentation for our tools in partnership with
-our industry
-collaborators. Finally we will package the findings as a talk for one or more
-professional conferences.
-
 \SUBSECTION{Curricula for PBT}{sec:1210}{1}{3}{Education}{Faculty}{Engineer}{}
 %
-University-level education can act as a force
+University education can act as a force
 multiplier to drive adoption of new
 technologies in industry.
-With this in mind, we will develop materials for
-integrating PBT into early undergraduate courses---initially targeting
-introductory data structures
-courses---as well as higher-level courses for masters students. As noted in \sectionref{sec:whento}, testing well-defined data
-abstractions is one of the high-leverage scenarios for using PBT, making data
-structures a powerful anchor for demonstrating the power of PBT.
+We will develop materials for
+integrating PBT into early undergraduate and masters-level courses. As
+noted in \sectionref{sec:whento}, testing well-defined data
+abstractions is one of the high-leverage scenarios for using PBT.
 %
-Building on
-recent PBT teaching in data structures
+Concretely, building on
+recent explorations of PBT teaching in data structures
 courses~\cite{wrenn2021using, nelson2021automated}, we will integrate PBT into
-Penn's second-semester CIS 1200 course (which PI Pierce regularly teaches).
+Penn's second-semester CIS 1200 course, which PI Pierce regularly teaches.
 %
 We
 will evolve the CIS 1200 curriculum to emphasize themes in PBT from our
@@ -2221,11 +2222,10 @@ We will also include PBT in Penn's CIS 5730, a masters-level software
 engineering course.
 %
 We will evaluate the impact of these new
-instructional approaches on students' ability to leverage PBT in final projects,
-disseminating our findings in a publication at a computer science
-education venue.
+instructional approaches on students' ability to leverage PBT in final
+projects.
 %
-The instructional materials we develop will also be made available for
+Our instructional materials will also be made available for
 instructors at other institutions.
 
 \publicationtarget{SIGCSE or Koli Calling International Conference on
@@ -2263,13 +2263,9 @@ mentoring, diversity, and broadening participation in computing.
 \noindent{\bf Impact on industry.} The main broad impact from the
 proposed work will be a significant increase in the use of PBT across
 the software industry within the time frame of the grant, driven
-by more powerful and usable tools. Specifically, the research engineer will work to
-bridge the gap between the foundational insights and prototype tools
-coming from the four PhD students and the needs and priorities of
-industrial developers.
-Specific activities led or amplified by the research engineer are discussed in
-\sectionref{sec:engineersupport} and \sectionref{sec:nurturing}.
-\bcp{How will we measure it?}
+by more powerful and usable tools, driven principally by open-source
+tools (\sectionref{sec:ide}).
+\bcp{How will we measure success?}
 
 \smallskip
 \noindent{\bf Impact on Education.}
@@ -2283,9 +2279,9 @@ Specific pedagogical
 threads within the project are described in \sectionref{sec:whento} and \sectionref{sec:1210}, but the
 tasks in \sectionref{sec:foundation}, \sectionref{sec:reflectiveusable},
 \sectionref{sec:interactive}, \sectionref{sec:understanding}, and
-\sectionref{sec:evaluating_distributions} will also influence education. The
+\sectionref{sec:evaluating_distributions}\bcp{fix} will also influence education. The
 work in \sectionref{sec:1210} will generate course materials that we will
-share publicly; we will also report our experiences in a paper for a
+share publicly, and we will share our experiences in a paper at a
 CS-Ed-focused conference.
 
 An ancillary educational goal is to
@@ -2298,26 +2294,25 @@ for the Communications of the Association for Computing Machinery
 \noindent{\bf Mentoring and Diversity.}
 %
 The majority of the requested funding will support formative research
-experiences and mentoring for graduate students. We
-also plan to work with 6\bcplater{right?} undergraduate students via an
-REU program (see below) along with other
-undergraduate students working for credit. Each graduate
+experiences and mentoring for graduate students. Each graduate
 student will lead multiple facets of the
 project, including co-supervising undergraduate
 researchers.
-
-The PIs will recruit students for this project with a mind towards making
+%
+The PIs will recruit graduate students for this project with a mind towards making
 the research area reflective of diversity in the US and Pennsylvania.
 The PIs have already made inroads broadening participation of women in their
-groups (1/3 of Pierce's direct PhD mentees and 2/4 of PI
-Head's are women). That said, a particular area of focus going forward
+groups (1/3 of Pierce's current PhD students and 2/4 of PI
+Head's are women).
+
+A particular focus
 will be increasing representation of
 other underrepresented groups, including Black and Latinx
 students. Pierce (along with Penn colleagues Zdancewic and Weirich)
 recently received funding for an
 NSF REU program that will involve 24 undergraduates (either per
 year for three+ years), selected specifically with an eye to diversity;
-for the present project, we are requesting funds to add two more per
+for the present project, we are requesting funds to add one more per
 year specifically to work on PBT topics, many of which are well suited
 to undergraduate interns. See the BPC
 supplementary
@@ -2329,23 +2324,24 @@ document for more details.
 The project's goals will also be advanced by open-source distribution of tools
 built during the project, in particular Tyche
 (\sectionref{sec:evaluating_distributions} and
-\sectionref{sec:ide}); these will be published under a permissive
+\sectionref{sec:ide}). These will be distributed under a permissive
 open source license to serve as models for similar tools in other
 programming languages and environments.
 
 This project also presents excellent opportunities for strengthening
 collaborations between university researchers and industrial advocates
 of PBT.  Our preliminary industry study was carried out with the
-enthusiastic support of Jane Street's developers and management, and we hope
-to continue using them as a testbed for prototypes of our
+enthusiastic support of Jane Street's developers and management, and we plan
+to use Jane Street as a testbed for prototypes of our
 tools.  We are also collaborating with the
 developers of Hypothesis, who are keenly
-interested in the results of this proposal.\bcp{mention AWS}
-We hope to establish connections with the
+interested in the results of this proposal, and we are in early
+discussions with technical leadership at AWS about potential
+collaboration on Tyche.  \proposecut{We hope to establish connections with the
 developers and user communities of popular PBT tools in languages like
-Java, Rust, and Scala.
+Java, Rust, and Scala.}
 
-Longer term, better testing means better software.  As software
+In the long term, better testing means better software.  As software
 systems have grown to the gigantic scales seen today, good testing
 methodologies and tools---unit testing tools, test-first design
 methods, etc.---have come to play an ever more crucial role.  Adding a
