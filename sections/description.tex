@@ -1478,14 +1478,12 @@ much more complex inputs to \lstinline{Inner}. Thus, \lstinline{Inner}
 could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} to
 produce those inputs.  The developer cited this as a circumstance where a
-PBT is difficult to apply, because the abstraction boundary between the
-components was too fuzzy.\bcp{``because the abstraction boundary between the
-components was too fuzzy'' doesn't make obvious sense to me---why is
-this an issue of poor abstraction?}
+PBT is difficult to apply, because the behaviors of the components were too
+closely entangled to test them separately.
 
-We will develop a tool that allows developers to express properties that reach
-into\bcp{``reach into'' is not very intuitive for me} the state of multiple interacting software components. Take again the
-example of \lstinline{Inner}. A solution to P7's problem could be to drive the
+We will develop a tool that allows developers to express properties that inspect
+the state of multiple interacting software components. Take again the example of
+\lstinline{Inner}. A solution to P7's problem could be to drive the
 test through \lstinline{Outer} but write properties about
 \lstinline{Inner} by monitoring the internal values that appear while it
 runs. For example, suppose
