@@ -1103,7 +1103,7 @@ and speed up debugging with no additional effort from the user.%
 Hypothesis shrinks test inputs by shrinking the random choices
 that produce those
 inputs. There are benefits to this approach: shrinking can be implemented
-once-and-for-all, and it can leverage the generator code to ensure that shrunk
+once and for all, and it can leverage the generator code to ensure that shrunk
 inputs remain valid with respect to property preconditions.  But shrinking the
 random choices requires that these choices are actually available, which
 is not always the case. Reflective generators
@@ -1113,14 +1113,14 @@ algorithm on any
 valid input (not just those that we know the choices for). We can, for
 example, automatically shrink inputs provided by the developer or
 gleaned from bug reports.  \bcp{Wonder if that is getting too much
-  into the weeds...}}
+  into the weeds...  Maybe cut this footnote?}}
 %
 And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
 also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
-As new strategies for guided random generation and
+\proposecut{As new strategies for guided random generation and
 enumeration become available, they can be used to improve reflective
-generators.
+generators.}
 
 \SUBSECTION{Algorithmic advances for reflective generators}{sec:reflectivefuzzing}{1}{1}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
@@ -1559,7 +1559,16 @@ context of their application.
 
 \bcp{I'm not feeling this section yet.  At the moment, it reads like a
 proposal to just bundle together a few existing methods---it's not
-clear what is being added.} \amh{Agreed that this isn't quite there yet. It feels like we want to say something either about (1) new kinds of algorithms for synthesizing specs that go beyond Hypothesis', QuickSpec's, and Mica's (maybe focusing on some of new classes of properties found from our study) or (2) something that goes a bit deeper from an interaction design perspective. We might need to answer the question ``why not just ask ChatGPT to write properties? why does there need to be any more interface than that?''}
+clear what is being added.} \amh{Agreed that this isn't quite there
+yet. It feels like we want to say something either about (1) new kinds
+of algorithms for synthesizing specs that go beyond Hypothesis',
+QuickSpec's, and Mica's (maybe focusing on some of new classes of
+properties found from our study) or (2) something that goes a bit
+deeper from an interaction design perspective. We might need to answer
+the question ``why not just ask ChatGPT to write properties? why does
+there need to be any more interface than that?''}\bcp{I think we might
+do well to really address the LLM question head on, both early and
+late.}
 
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing
   (VL/HCC) \bcp{and maybe UIST?}}
