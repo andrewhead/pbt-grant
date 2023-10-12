@@ -1566,15 +1566,17 @@ classically-defined automation. This separation of concerns---a language model
 for the user interface, plus classical tools for actual property
 generation---maximizes both convenience for the user and correctness (since
 using a language model to produce properties directly may lead to subtle
-errors).
+errors). \amh{If we propose the development of a new language model (or even a good language model) we probably need a letter of support from CCB / Dan Roth / Mark Yatskar, as neither I nor Benjamin have published prior work that will convince reviewers we are ready to do this. (I think we could do it, hahah, but I think we'll be seen as driving outside our lane.)}
 
 ChatGhostwriter will be able to pull from all of the current Ghostwriter
 property types, as well as properties from Mica, LTLTL, and other tools from the
 literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
 together with an interface that knows how to select between them and suggest
 configurations, will give users, especially beginners, a much simpler on-ramp to
-PBT. We will evaluate this tool with new users of PBT, evaluating their ability
+PBT. \amh{Why bother showing choices of property generators at all, if you can just generate them for the user without troubling them with choices? Maybe it's useful to tell someone about the kinds of properties that are getting generated and what they are meant to catch.} \amh{A more modern language model interface approach would be to have the LLM call each of the tools on the behalf of the user.} We will evaluate this tool with new users of PBT, evaluating their ability
 to get started from scratch.
+
+\amh{I think this is a lot closer. Though what this section is missing is a crisp definition of a key research insight that could merit a publication. (What takes this from cool demo to research paper?) Like, a specific way that the chatbot would teach people about the properties that are getting generated (if a more HCI contribution). Or, key insights about novel ways in which tools like QuickSpec, Mica, etc., would need to be tailored to interface with the LLM to support natural user queries or sensible LLM chat output.}
 
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)
 \bcp{and maybe UIST?}}
