@@ -1325,9 +1325,9 @@ test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
 effectiveness~\cite{shi2023etna}.  By ``easily,'' we mean that we take on the burden of
 collecting data and analyzing the results.  The tool
-can help users and developers evaluate a given tool based on 
+can help users and developers evaluate a given tool based on
 % (1) the
-% degree to which it is able to achieve high code coverage quickly, 
+% degree to which it is able to achieve high code coverage quickly,
 % and
 % (2) the
 the
@@ -1373,30 +1373,34 @@ Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoul
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
 To bring PBT to the people, we need to help developers with two main
-things: writing generators (as discussed above) and envisioning and writing
-specifications, which we address next.
-
+things: building generators (\sectionref{sec:gen}) and conceptualizing and constructing
+specifications.
+%
 In our industry study, we found that a significant fraction of real-world PBT
 involves {\em high-leverage scenarios}---instances where properties are
 readily available and developers can jump right in to the process of finding
-bugs. Accordingly, we propose to develop tools to help developers write
-specifications in the context of high leverage scenarios. To begin, we
-propose tools
-for supporting existing high-leverage scenarios, in particular {\em
-model-based} or {\em differential} testing of classes and
-modules~(\sectionref{sec:model-based}). Next we propose a technique for
+bugs.
+%
+Our work in this project will focus on tools to help developers write
+specifications in high leverage scenarios.
+
+First, we
+propose to develop tools
+supporting existing high-leverage scenarios, in particular {\em
+model-based} and {\em differential} testing of classes and
+modules~(\sectionref{sec:model-based}). Next we propose
 adding a new class of scenarios to the ``high-leverage'' category, with the
 help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we propose
 to assemble these
-techniques and others together into a unified toolkit, {\em Ghostwriter++}, for
-automatic property inference.
+techniques and others together into a unified tool, {\em \GhostChat}, for
+semi-automatic property selection.
 %
 Success in these tasks will again be measured both indirectly, through
 uptake of
 tools based on these fundamental advances (\sectionref{sec:val} and
 \sectionref{sec:diffusion}), and directly in terms of publications.
 
-\SUBSECTION{Supporting High-Leverage Scenarios: Model-Based
+\SUBSECTION{Automatic Model-Based
 Testing}{sec:model-based}{2}{2}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
 One surprising finding from our industry study was that, at least at
@@ -1451,10 +1455,10 @@ significantly lowering the barrier to entry for PBT.
 
 \publicationtarget{International Conference on Functional Programming (ICFP)}
 
-\SUBSECTION{Expanding High-Leverage Scenarios: Patterns over
+\SUBSECTION{A Language for Patterns over
 Logs}{sec:ltl-logs}{3}{3}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
-\hg{Could crunch, but I actually still like this section}
+\iflater\hg{Could crunch, but I actually still like this section}\fi
 A common reason developers in our industry study described certain
 testing scenarios as {\em not} being high-leverage situations for PBT was that
 their code was not organized in a way that was conducive to
@@ -1532,13 +1536,14 @@ system {containing} the component(s) of concern.
 \publicationtarget{Object-Oriented Programming, Systems, Languages, and Applications (OOPSLA)}
 
 \SUBSECTION{Automating High-Leverage Scenarios:
-ChatGhostwriter}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
-
+\GhostChat}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+%
 \begin{wrapfigure}{r}{.4\textwidth}
   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
-  \caption{A mock-up of an interaction with ChatGhostwriter.}
+  \caption{A mock-up of an interaction with \GhostChat. \bcp{Can
+      we make the text bigger and the whole thing smaller?  Or maybe
+      delete the whole thing in favor of Andrew's rewrite?}}
 \end{wrapfigure}
-
 %
 High-leverage PBT scenarios provide a sort of recipe that developers
 can use to decide when and
@@ -1556,7 +1561,7 @@ properties.  We would like to expand Ghostwriter to automatically infer
 properties in a much wider set of scenarios, via rich interactions with the
 user.
 
-Our re-imagining of Ghostwriter, dubbed {\em ChatGhostwriter}, will be a chat
+Our re-imagining of Ghostwriter, dubbed {\em \GhostChat}, will be a chat
 interface that helps users to pick from a wide range of properties that might
 hold in their applications. The chat bot, inspired by successful large language
 model tools like ChatGPT~\cn{}, will be fine-tuned to analyze snippets of code
@@ -1568,7 +1573,7 @@ generation---maximizes both convenience for the user and correctness (since
 using a language model to produce properties directly may lead to subtle
 errors). \amh{If we propose the development of a new language model (or even a good language model) we probably need a letter of support from CCB / Dan Roth / Mark Yatskar, as neither I nor Benjamin have published prior work that will convince reviewers we are ready to do this. (I think we could do it, hahah, but I think we'll be seen as driving outside our lane.)}
 
-ChatGhostwriter will be able to pull from all of the current Ghostwriter
+\GhostChat{} will be able to pull from all of the current Ghostwriter
 property types, as well as properties from Mica, LTLTL, and other tools from the
 literature like QuickSpec~\cite{ref:claessen2010quickspec}. Bringing these tools
 together with an interface that knows how to select between them and suggest
@@ -1577,6 +1582,10 @@ PBT. \amh{Why bother showing choices of property generators at all, if you can j
 to get started from scratch.
 
 \amh{I think this is a lot closer. Though what this section is missing is a crisp definition of a key research insight that could merit a publication. (What takes this from cool demo to research paper?) Like, a specific way that the chatbot would teach people about the properties that are getting generated (if a more HCI contribution). Or, key insights about novel ways in which tools like QuickSpec, Mica, etc., would need to be tailored to interface with the LLM to support natural user queries or sensible LLM chat output.}
+
+\bcp{Also needs plenty of citations...}
+
+\bcp{Maybe this is a good application of Kani?}
 
 \publicationtarget{IEEE Visual Languages and Human-Centric Computing (VL/HCC)
 \bcp{and maybe UIST?}}
@@ -1658,7 +1667,7 @@ Our next thread of research focuses on developing powerful \emph{interactions} t
 % \hg{Is the next paragraph not doing a good enough job here? We could move it
 % up maybe?} \amh{Agreed, let me see what I can do.}
 
-The projects in this thread 
+The projects in this thread
  will follow an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
 In this style of research, contributions come in several forms: insights into task
@@ -1685,7 +1694,7 @@ It is by no means easy for a developer to assess the quality of
 an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good,'' e.g., sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
 A comon strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
-While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g., 
+While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g.,
 ~\cite{ref:hohman2019gamut,ref:hohman2020understanding,ref:kang2017omnicode}), new solutions are needed for PBT.
 
 What about the PBT setting requires novel solutions?
