@@ -1306,10 +1306,10 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 \SUBSECTION{Generator benchmark suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
 %
-\bcp{Core ETNA is done.  Talk about future expansion -- e.g., into
-  Python, OCaml, so that we can robustly evaluate tools that have not
-  been considered in this way so far...  Talk about the ``acceptable
-  latency of benchmarks'' by analogy with jane street findings...}%
+% \bcp{Core ETNA is done.  Talk about future expansion -- e.g., into
+%   Python, OCaml, so that we can robustly evaluate tools that have not
+%   been considered in this way so far...  Talk about the ``acceptable
+%   latency of benchmarks'' by analogy with jane street findings...}%
 %
 Most papers in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
@@ -1319,25 +1319,39 @@ to demonstrate the interest of an idea, but such evaluations
 are hard to interpret from the perspective of a would-be user.
 We can do better.
 
-We have built the first version of a robust empirical evaluation
+We have built and published the first version of a robust empirical evaluation
 framework for
 test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
-effectiveness.  By ``easily,'' we mean that we take on the burden of
+effectiveness~\cite{shi2023etna}.  By ``easily,'' we mean that we take on the burden of
 collecting data and analyzing the results.  The tool
-can help users and developers evaluate a given tool based on (1) the
-degree to which it is able to achieve high code coverage quickly, and (2) the
+can help users and developers evaluate a given tool based on 
+% (1) the
+% degree to which it is able to achieve high code coverage quickly, 
+% and
+% (2) the
+the
 speed with which it finds bugs that have been pre-seeded in example programs. By
 ``extensibly,'' we mean that in addition to the two languages (Haskell and
 OCaml/Coq), multiple frameworks (QuickCheck, SmallCheck, QuickChick, etc.), and
 numerous workloads that we currently support, we have designed the
 infrastructure so that users can easily add new
 languages, frameworks, and workloads.
-Some initial comparisons using this framework appeared as an experience
-report to ICFP 2023, but many crucial features (e.g., coverage
-measurement) have not yet been implemented.
 
-Our second contribution will codify a substantial library of case-studies and examples as
+Some initial comparisons using Etna appeared as an experience report to ICFP
+2023, but there is still more to do. First, finding pre-placed bugs is not the
+only way to evaluate a testing tool. We would also like to extend Etna with
+tools for measuring and analyzing metrics like line coverage and branch
+coverage, which could serve as additional evidence of an approach's
+completeness. Second, we plan to implement adaptors that allow Etna to evaluate
+tools in other languages, namely Python and OCaml. Bringing Etna to Python will
+allow the developers of Hypothesis, including Zac Hatfield-Dodds,\hg{is this the
+first time we mention him?} to evaluate their testing tools in a controlled
+environment. Likewise, we have confirmation that Stephen Dolan, maintainer of
+the Crowbar library in OCaml, will run (and potentially publish) Etna
+experiments if we include support for OCaml.
+
+Furthermore, we will codify a substantial library of case-studies and examples as
 {\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
 fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
 organized around the particular challenges that PBT users face. In particular,
