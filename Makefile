@@ -26,5 +26,5 @@ clean:
 	-rm *.bbl temp.*
 
 export:
-	cp main.pdf ~/pub/draft/pbtgrant.pdf
+	cp main.pdf ~/pub/draft/pbtproposal.pdf
 	unison eniac -path pub/draft -batch

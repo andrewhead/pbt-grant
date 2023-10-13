@@ -94,19 +94,18 @@ Like
 many other powerful tools, PBT can be nontrivial to apply effectively, and developers
 need support to do so.
 
-\amh{What follows is a first attempt to try to do a harder sell of the
-transformational nature of the project:} To make PBT not just useful by
+To make PBT not just useful by
 \emph{usable} requires transformative advances in the underlying technology.
-This proposal aims to do just that. Our formative research suggests that to achieve
-such a transformation, tools need to provide yet-unachieved levels of
-\emph{visibility} into the outcomes of property-based testing and \emph{control}
-over what software is tested and how.
-
-The conceptual advances needed to improve the usability of PBT
-require fundamental insights from both the
-programming languages (PL) and human-computer interaction (HCI),
+Our formative research suggests that, to achieve
+such a transformation, tools will need to provide yet-unachieved levels of
+\emph{visibility} into effectiveness of property-based tests and \emph{control}
+over the testing process.
+%
+The conceptual advances required to build these tools
+will demand fundamental insights from both the
+programming languages (PL) and human-computer interaction (HCI)
 communities.
-On one hand, PL provides conceptual background,
+On one side, PL provides conceptual background,
 mathematical underpinnings, and established tools for PBT.  On the
 other, HCI provides a deep foundation of theory and
 practice for evaluating usability of systems in a
@@ -127,8 +126,12 @@ need-finding techniques identify
 pain points and motivate concrete tools that help programmers write
 safe, correct code.
 
+\proposecut{%
 \amh{Another draft paragraph meant to emphasize the transformational nature of the
-work\ldots{}} This project puts forward a comprehensive program of innovative
+work\ldots{}}\bcp{I think the new transformational paragraph a bit
+above is great, but this one feels like it mostly just repeats when we
+say below in the list of contributions.  Maybe we can just try to make sure
+the contributions themselves are stated as strongly as possible?} This project puts forward a comprehensive program of innovative
 research to equip developers with unprecedented levels of visibility and
 control in the property-based testing process. To attain this desired
 visibility and control, we develop innovative approaches to support the
@@ -153,6 +156,7 @@ innovations that I thought might make the biggest impression on reviewers.}
 \amh{We should talk about what research we can do to support the generation of
 inputs with complex preconditions, as I think it is one of the most interesting
 technical directions pointed out by the ICSE paper.}
+}
 
 Our team is uniquely positioned to bring PBT into this vibrant area
 of PL+HCI research.  PI Head recently
@@ -162,8 +166,8 @@ programming environments, while PI Pierce has published widely on PL
 topics including PBT.  Our past collaboration has led to
 one conference paper on the Jane Street study mentioned above~\cite{ref:goldstein2024property},
 two workshop
-presentations~\cite{goldstein_problems_2022,shi_towards_2023}, one
-refereed conference demo~\cite{ref:goldstein2023tyche}; all of these inform the
+presentations~\cite{goldstein_problems_2022,shi_towards_2023}, and one
+refereed demo~\cite{ref:goldstein2023tyche}; all of these inform the
 agenda for this proposal.
 
 \medskip
@@ -384,8 +388,8 @@ they are applied in different ways, at different points in the
 development process, to achieve different goals.
 
 With all these advantages, one might hope to find PBT on every
-software developer's toolbelt.  But using PBT effectively poses some
-challenges as well, as we shall see next.
+software developer's toolbelt.  But using PBT effectively
+can be challenging, as we shall see next.
 
 \iflater
 \todo{Add a paragraph or two enumerating well-known / obvious
@@ -420,8 +424,8 @@ the tools into much of the company's culture and tooling.  Here we report major 
 upcoming need-finding work (\sectionref{sec:foundation}) will help complete the
 picture of the potential impact of these improvements.
 
-\amh{I removed the mention of the HATRA workshop paper because I could not think
-of how to include it, though we may need to add it back in.}
+\iflater\amh{I removed the mention of the HATRA workshop paper because I could not think
+of how to include it, though we may need to add it back in.}\fi
 
 % We also carried out a
 % smaller pilot study among Hypothesis users to prepare for the
@@ -667,7 +671,7 @@ tools we develop.
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
-\bcp{I tried to make the opening of this section give a better sense
+\bcplater{I tried to make the opening of this section give a better sense
   of why we think the preliminary study is a useful motivation for our
   research even if it's ``just about Jane Street'' and needs to be
   fleshed out to learn about other settings.  But maybe it repeats too
@@ -688,7 +692,7 @@ across the {\em  whole} software
 industry---and the factors that may limit its adoption---we need to
 cast a wider net.
 
-In this section, we describe four\bcp{?} planned studies that aim
+In this section, we describe further planned studies that aim
 to produce a comprehensive, actionable
 {\em foundation} for the latter stages of this project and beyond. Building a
 rigorous foundation, with methods motivated by the HCI literature, is substantial work,
@@ -701,10 +705,11 @@ PBT framework
 and an observation study
 to guide the design of
 interactive tools
-(\sectionref{sec:observations}). Finally, we plan to distill these
-study findings into a cognitive
-theory of property-based testing, a conceptual foundation for the
-design activities elsewhere in the project (\sectionref{sec:cogtheory}).
+(\sectionref{sec:observations}).
+% Finally, we plan to distill these
+% study findings into a cognitive
+% theory of property-based testing, a conceptual foundation for the
+% design activities elsewhere in the project (\sectionref{sec:cogtheory}).
 The projects in this section will culminate in an article for the Communications
 of the Association for Computing Machinery (CACM).
 %
@@ -792,19 +797,15 @@ We will again recruit a broad sample of participants from varied settings.
 
 \SUBSECTION{Observational studies}{sec:observations}{2}{2}{HCI
     Theory}{PhD 1}{REPL 2}{Head}
-\bcp{Wonder whether there is still room for cutting / compressing
+\bcplater{Wonder whether there is still room for cutting / compressing
   here...  If the project only has two students, we may not want to
-  propose {\em too} many studies...}
+  propose {\em too} many studies...}%
 %
 Interviews and surveys are good for exploring usability challenges
 at a high level, but we also need detailed insight into the interactions
 between users and their PBT tools.  We will
-conduct targeted observational studies to inform the
-fine-grained design decisions
-involved in language design (e.g.,
-\sectionref{sec:reflectiveusable}\bcp{broken link---should it point
-  elsewhere, or should we consider cutting more here?}) and
-interface design (\sectionref{sec:val}) activities.
+conduct targeted observational studies, in particular to inform our
+user interface designs (\sectionref{sec:val}).
 
 % Understanding user interactions
 % is a core activity of HCI research and helps to inform robust
@@ -929,21 +930,20 @@ around test input
 Indeed, generators were regularly cited as one of the most challenging
 aspects of PBT.
 
-\bcp{Fix this paragraph.}
-We propose {\em reflective
-generators}, a new abstraction for random generation, as a way of
-``unbundling'' generator
+We propose a number of extensions and applications of {\em reflective
+generators}, a new abstraction for random generation that
+``unbundles'' generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
-tooling (\sectionref{sec:reflective}\bcp{broken}). We explore how reflective generators can
+tooling. We explore how reflective generators can
 help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
 and we design
-a user study for evaluating and improving the usability of the reflective
-generator language (\sectionref{sec:reflectiveusable}). Finally, we discuss
+a user study for evaluating and improving the usability of reflective
+generators (\sectionref{sec:reflectivepeople}). Finally, we discuss
 plans to boost generator automation (\sectionref{sec:genauto}) and metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 Success for these enabling technologies will be measured both by the success of
-the tools built on them in \sectionref{sec:val} and \sectionref{sec:diffusion}
+the tools built on them (\sectionref{sec:val} and \sectionref{sec:diffusion})
 and by top-tier publications, including performance evaluations and/or
 user studies as appropriate.
 PI Pierce is a longtime collaborator of John Hughes, one of the
@@ -1058,7 +1058,7 @@ implementing bidirectional programming in the style of Xia et
 al.~\cite{xia2019composing}. This approach to bidirectional programming is
 related to lenses~\cite{foster2009bidirectional}, but it hides much of the
 complexity of bidirectional program composition in the bind operation of the
-monad. The result is an elegant programming experience where both directions of
+monad, allowing both directions of
 the computation can be written at once, in a type-safe way.}
 but, as with free generators, the syntax that users see remains close to
 that of normal monadic generators.
@@ -1101,19 +1101,20 @@ and speed up debugging with no additional effort from the user.%
 \normalsize
 Hypothesis shrinks test inputs by shrinking the random choices
 that produce those
-inputs. There are benefits to this approach: shrinking can be implemented
-once and for all, and it can leverage the generator code to ensure that shrunk
-inputs remain valid with respect to property preconditions.  But shrinking the
+inputs. This means shrinking can be implemented
+generically, and it can leverage the generator code to ensure that shrunk
+inputs are valid with respect to property preconditions.  But shrinking
 random choices requires that these choices are actually available, which
 is not always the case. Reflective generators
-can be used to
-recover the random choices and thus enable the Hypothesis shrinking
-algorithm on any
-valid input (not just those that we know the choices for). We can, for
-example, automatically shrink inputs provided by the developer or
-gleaned from bug reports.  \bcp{Wonder if that is getting too much
+can
+recover the random choices and thus enable shrinking
+on any
+valid input, not just those that we know the choices for.  We can, for
+example, shrink inputs provided by the developer or
+gleaned from bug reports.  \iflater\bcp{Wonder if that is getting too much
   into the weeds...  Maybe cut this footnote?}
-\hg{Don't we need to say this somewhere?}}
+\hg{Don't we need to say this somewhere?} \bcp{I reckon so.  Maybe we
+  can find enough things to cut elsewhere...}\fi}
 %
 And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
@@ -1125,9 +1126,10 @@ generators.}
 \SUBSECTION{Algorithmic advances for reflective generators}{sec:reflectivefuzzing}{1}{1}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 %
-The positive response to reflective generators has been
-encouraging, but our first paper only scratched the surface when it comes to
-building and evaluating potential use-cases.
+The response to reflective generators has been encouraging (the paper
+introducing them was named a Distinguished Paper at ICFP 2023), but
+this paper only scratches the surface when it comes to building and
+evaluating potential use-cases.
 
 First, we believe more powerful approaches to example-based tuning are
 within reach.  The
@@ -1159,15 +1161,15 @@ similar approach in Python~\cite{hatfield-dodds_hypofuzz_nodate}. These projects
 are demonstrably powerful, but neither benefits from the years of expertise
 poured into industrial-strength fuzzers; the Crowbar testing tool in
 OCaml, on the other hand,
-does~\cite{dolan2017testing}. Crowbar re-interprets the output of
+does~\cite{dolan2017testing}. Crowbar re-purposes
 AFL~\cite{afl-readme}, one of the best-established
-fuzzers: instead of letting AFL generate the program input, it instead uses AFL
+fuzzers: instead of letting AFL directly generate program inputs, it
+uses AFL
 to generate a sequence of choices that a generator then parses to get a program input.
-Reinterpreting the AFL output in this way
+This scheme
 does require the user to write a generator, which is more effort
-than is required for
-standard fuzzing techniques, but the result is a system that is much more likely
-to achieve thorough testing.
+than standard fuzzing, but the result is a system that is much more likely
+to achieve thorough testing\bcp{@Harry: do we have evidence for this}.
 
 We believe this idea can be pushed even further by building
 a variant of Crowbar on top of reflective generators.
@@ -1183,13 +1185,15 @@ reason, but also {\em reflective}.
 
 Why a reflective generator?
 To start,
-because its backward interpretation can be used to help seed the fuzzer.
+because its backward interpretation can be used to seed the fuzzer.
 Modern fuzzers often
-ask the user for a number of {\em seeds}, input examples that the fuzzer can start from,
-to ensure that the fuzzer does not spend ages exploring
+ask the user for a number of {\em seeds}---examples that the fuzzer
+can start from,
+to ensure that it does not spend ages exploring
 inputs that have no hope of getting beyond the parser in the system
-under test and exercising other parts of the system. Normally these seeds are easy
-for the user to write down---they are simply example program inputs---but
+under test and exercising other parts of the system. Normally these
+seeds are easy
+for the user to write down---they are just program inputs---but
 it is infeasible to ask the user to write down the sequences of choices that
 result in their seed values.
 This is one excellent use for a
@@ -1197,6 +1201,7 @@ backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to get the choices that lead to those seeds.
 
+\proposecut{
 Regarding shrinking, the shrinking algorithm used in Hypothesis is powerful,
 but not obviously optimal. Hypothesis shrinkers reduce the input
 randomness to the
@@ -1210,11 +1215,13 @@ reflective shrinkers to {\em always} produce inputs that are smaller by some
 natural metric on their type, not on the random choices that produced them; we
 will state and prove the properties of a generator that imply this
 property. \bcp{That ends a bit abruptly...}\hg{I didn't have much to say here.
-We can chop this paragraph if it doesn't feel useful}
+  We can chop this paragraph if it doesn't feel useful}
+\bcp{Chopped---we need the space.}
+}
 
 \hg{We're also missing publication targets, which might make it less abrupt}
 
-\SUBSECTION{Reflective generators for the people}{sec:reflectivefuzzing2}{2}{2}{PBT
+\SUBSECTION{Reflective generators for the people}{sec:reflectivepeople}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 %
 We would like reflective generators to be incorporated in
@@ -1278,6 +1285,7 @@ required to make the generator bidirectional. We will experiment with both
 conflict-driven program synthesis~\cite{feng_program_2018} and solver-aided
 synthesis~\cite{torlak_growing_2013} to see which more successfully generates
 the required annotations for realistic generators.
+
 We plan to collaborate in this effort with professor Hila
 Peleg at the Technion, who has experience with both PBT and program synthesis. A
 letter of collaboration from Prof.{} Peleg appears in the supplemental documents.
@@ -1469,9 +1477,9 @@ to entry for PBT.
 Logs}{sec:ltl-logs}{3}{3}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
 \iflater\hg{Could crunch, but I actually still like this section}\fi
-A common reason developers in our industry study described certain
-testing scenarios as {\em not} being high-leverage situations for PBT was that
-their code was not organized in a way that was conducive to
+Developers in our industry study often described particular
+testing scenarios as {\em not} being high-leverage for PBT was that
+their code was not organized to be conducive to
 PBT.  PBT works best on components with clear boundaries and does not
 easily apply to programs with
 poorly encapsulated global state or with leaky or overly complex abstraction
@@ -1501,7 +1509,7 @@ test through \lstinline{Outer} but write properties about
 \lstinline{Inner} by monitoring the internal values that appear while it
 runs. For example, suppose
 \lstinline{Inner} processes a stream of messages and its internal state
-includes a queue of processed items, \lstinline{processed}, and an
+includes a queue of \lstinline{processed} items and an
 \lstinline{overflow} flag. Useful properties might include:
 
 \begin{lstlisting}
@@ -1520,10 +1528,10 @@ requires that assertions be cognizant of the ``end'' of a
 computation---information that may not be easily available.
 
 Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL), which allows
-properties to be defined over logged values, taking inspiration from temporal
-logics such as Linear Temporal Logic (LTL).  The first step
-is logging specific values of interest using lightweight annotations
-within modules like \lstinline{Inner}. The next is a language for
+properties to be defined over logged values, inspired by temporal
+logics such as Linear Temporal Logic (LTL).  We
+log specific values of interest using lightweight annotations
+within modules like \lstinline{Inner}, then provide a language for
 writing properties over the annotations, capable of capturing concepts like
 \lstinline{next} and \lstinline{never}.
 
@@ -1548,6 +1556,7 @@ system {containing} the component(s) of concern.
   like what LTLTL actually looks like.}
 
 \SUBSECTION{Writing Specifications with Programming Assistants}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+\bcp{@Harry: Please feel free to help improve this section... :-)}
 %
 % \begin{wrapfigure}{r}{.4\textwidth}
 %   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
@@ -1805,11 +1814,10 @@ of the event sequences realistic?
 Our research will contribute the interaction primitives and
  unifying environments necessary to answer questions like these.
 
-{\subsectionstar{An interactive toolkit for PBT}{}{}
-We will develop an interactive toolkit that provides integrated support for understanding and tuning data distributions. We call this toolkit \tyche{}, after the Greek goddess of chance. Below, we describe the major affordances we envision developing through the program of research. We will develop \tyche{} as an extension to Visual Code, a modern editor that sees widespread adoption~\cite{noauthor_stack_nodate} and support for every language with mature PBT tooling. We plan for \tyche{} to serve as a platform for developing not just those interactive features describe here, but by other groups. A prototype of \tyche{} has been built and has been accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we will develop in our research follow:
-
+%
 \begin{wrapfigure}{r}{0.58\textwidth}
   \centering
+  \vspace*{-2ex}
   \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
   \caption{A tool for evaluating data distributions, showing
   generator source code (1), summary statistics (2),
@@ -1818,6 +1826,21 @@ We will develop an interactive toolkit that provides integrated support for unde
   generator code and refinement of filters used in the
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
+%
+ {\subsectionstar{An interactive toolkit for PBT}{}{} %
+ We will develop an interactive toolkit that provides integrated
+ support for understanding and tuning data distributions.
+We call this toolkit \tyche{}, after the Greek goddess of
+chance. Below, we describe the major affordances we envision
+developing through the program of research. We will develop \tyche{}
+as an extension to Visual Code, a modern editor that sees widespread
+adoption~\cite{noauthor_stack_nodate} and support for every language
+with mature PBT tooling. We plan for \tyche{} to serve as a platform
+for developing not just those interactive features describe here, but
+by other groups. A prototype of \tyche{} has been built and has been
+accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a
+mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
+will develop in our research follow:
 
 \subsectionstar{Understanding Input Distributions}{}{}
 The first research innovation will be the design of live displays of generated
@@ -2395,8 +2418,8 @@ sort that is more robust, more reliable, and less expensive. \bcp{If
 \emph{\underline{PI Pierce}}: ``Collaborative Research:
 SHF: Medium: Bringing Python Up to Speed'' (NSF 1955565, \$1,200,000
 [Pierce's share: \$437,999],
-7/2020--6/2023), with co-PIs Michael Hicks (Maryland) and Emery Berger
-(Amherst).
+7/2020--6/2023), with co-PIs Michael Hicks (U. Maryland) and Emery Berger
+(U. Mass Amherst).
 The project aimed to dramatically increase the performance and
 correctness of applications written in Python by developing novel
 techniques for performance analysis, optimization, run-time systems,
