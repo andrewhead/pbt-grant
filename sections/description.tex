@@ -1561,30 +1561,37 @@ system {containing} the component(s) of concern.
 %       we make the text bigger and the whole thing smaller?  Or maybe
 %       delete the whole thing in favor of Andrew's rewrite?}}
 % \end{wrapfigure}
-The above work will help us expand the settings in which PBT can be used with
-great leverage.  That said, they do not yet address the problem that
-testers---beginner and experienced alike---may face in writer's block
-in figuring what properties to test in the first place (as our own prior work suggests~\cite{goldstein_problems_2022}). A complement of
-programming assistant tools have recently come into wide use for situations just
-like this. Perhaps most familiar are
-Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner completions and
-function implementations which has seen widespread adoption among programmers~\cite{ref:dohmke2022github}; or ChatGPT~\cite{tool:chatgpt}, which in
-myriad Twitter demos has shown its potential to take specifications in the
-forms of text and sketches and through a chat-based dialogue generate nearly
-fully-working implementations.
+The advances described above will help expand the situations in which
+PBT {\em can} be used smoothly and effectively.  A different challenge is
+how to help people know when they are actually in such a situation.
+A preliminary study that we ran before the one reported in \sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that testers---beginner and experienced alike---may face a kind of writer's block
+in deciding what properties to test.
 
-It is already possible for this technology to provide ideation
-support for writing properties. Consider for instance one of the co-PIs'
-conversations with ChatGPT about a module he had implemented in the
-past~\cite{ref:chatgptpbtexample}.  In this conversation, the AI detects the data structures used,
-and suggests a set of properties---e.g., data consistency, error handling, and
-behavior in response to processing event sequences---and on further prompting suggests relevant
-invariants to check following specific event sequences. The question is not
-then whether modern programming assistants \emph{can} help with ideation of
-properties, but how they might do it in a responsible way. \amh{I know
-  I'm demonstrating the potential of ChatGPT in really unscientific
-  ways---Twitter, prior experience---any better ideas?}  \bcp{How did
-  we get to ``responsible''?}
+A variety of 
+programming-assistant tools have recently come into wide use for situations 
+like this. Perhaps most familiar are
+Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
+completions and can often help with longer code
+sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
+myriad recent  blog posts and papers~\cn{} has shown its potential to turn
+informal textual specifications of surprising complexity into working code.
+
+These technologies can already
+support writing properties. Consider for instance one of the co-PIs'
+conversations with ChatGPT about testing a fairly complex Typescript module he
+had implemented previously~\cite{ref:chatgptpbtexample}.  In this
+conversation, the AI is 
+able to detect the data structures used
+and suggest a set of properties that should hold---e.g., data
+consistency, error handling, and 
+behavior in response to processing event sequences---and on further
+prompting suggests relevant 
+invariants to check by testing specific event sequences. The question,
+then, is not
+whether modern programming assistants \emph{can} help with imagining
+properties, but how best to offer this functionality to
+developers so that the resulting properties are actually the ones they
+want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
 
 We propose the development of integrated programming assistant features in the
 editor that threads the needle of providing in-editor property ideation and
