@@ -1449,8 +1449,9 @@ PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
 %
 Since this situation is common, we want it to be as easy as possible
 for developers; at the moment, though, developers end up writing
-significant amounts of boilerplate code.\bcplater{Maybe describe what
-  that code looks like?}
+significant amounts of boilerplate code that defines intermediate data
+structures and ad-hoc test harnesses for comparing module outputs across a
+series of function calls.
 
 We have already carried out some early experiments in
 {\Mica}~\cite{Ng2023MicaPoster}, an experimental tool that automatically
@@ -1481,7 +1482,9 @@ representation of sets.
 
 We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
 test sequences for modules with mutable internal state\bcp{@Harry:
-  What do we know about prior work fitting this description?}, (2) to
+What do we know about prior work fitting this description?}\hg{Certainly
+Hypothesis---it doesn't automate anything, but it does make writing stateful
+tests like this pretty easy. I'll ask Ernest}, (2) to
 make it work with parameterized modules (OCaml ``functors'') by
 automatically applying them to appropriate module arguments, and (3)
 to apply the same techniques to other languages with rich module-like
@@ -1575,7 +1578,8 @@ system {containing} the component(s) of concern.
   and Applications (OOPSLA)}
 
 \bcplater{This subsection is OK, but it could be stronger on details
-  like what LTLTL actually looks like.}
+  like what LTLTL actually looks like.}\hg{Ideally it would look like exactly
+  the kinds of properties above. Or were you looking for a formal definition?}
 
 \SUBSECTION{A Programming Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 \bcp{@Harry: Please feel free to help improve this section... :-)}
