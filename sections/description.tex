@@ -1773,7 +1773,8 @@ supplemental documents.
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 
-Our next thread of research focuses on developing powerful \emph{interactions} that afford developers new levels of visibility and control in PBT. The contribution will be novel techniques for evaluating testing effectiveness, and more direct mechanisms for developers to shape the distributions of generated inputs.
+Our final thread of pure research focuses on developing powerful
+\emph{modes of interactions} that afford developers new levels of visibility and control in PBT. The contributions will be novel techniques for evaluating testing effectiveness and improved mechanisms for shaping the distributions of generated inputs.
 
 % and (3) understanding testing-provoked failures involving complex inputs
 % (\sectionref{sec:failures})\bcp{same subsection!}.
@@ -1803,7 +1804,7 @@ technical methods (like those from \sectionref{sec:gen} and
 and distilling
 lessons for interaction and algorithm design by evaluating these
 implementations
-with human users. Success will be measure by measured
+with human users. Success will be measured by
 reduction in
 testing and debugging time and increased effectiveness.
 PI Head has extensive experience with this style of work~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
@@ -1816,7 +1817,7 @@ Our primary aim in this thread is the development of an integrated interactive t
 The effectiveness of PBT depends on the quality of input distributions, i.e., whether generated test cases are sufficiently ``interesting'' and sufficiently diverse.
 % \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
 It is by no means easy for a developer to assess the quality of
-an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good,'' e.g., sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
+an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
 A comon strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
 While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g.,
@@ -1857,12 +1858,15 @@ Our research will contribute the interaction primitives and
  support for understanding and tuning data distributions.
 We call this toolkit \tyche{}, after the Greek goddess of
 chance. Below, we describe the major affordances we envision
-developing through the program of research. We will develop \tyche{}
-as an extension to Visual Code, a modern editor that sees widespread
-adoption~\cite{noauthor_stack_nodate} and support for every language
+for \tyche{}.
+
+We will develop \tyche{}
+as an extension to Visual Studio Code, a modern editor that is widely
+adopted~\cite{noauthor_stack_nodate} and supports every language
 with mature PBT tooling. We plan for \tyche{} to serve as a platform
-for developing not just those interactive features describe here, but
-by other groups. A prototype of \tyche{} has been built and has been
+for developing not just the interactive features describe here, but
+also contributions
+by other groups. A prototype of \tyche{} has been
 accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a
 mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
 will develop in our research follow:
@@ -1873,11 +1877,11 @@ values. These displays
 will show aggregate data views, including aggregate
 statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
 of important summary features of the data (Figure~\ref{fig:gen-vis}.3). The
-displays will be live~\cite{ref:tanimoto1990viva} and real-time. Noting the
-success of other successful live functional programming environments in industry
-and academia
+displays will be live~\cite{ref:tanimoto1990viva} and
+real-time. Observing other successful live functional programming
+environments in industry and academia
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will
-provide visibility and control (i.e., the ability to change or halt)
+provide visibility and control (i.e., the ability to change or halt\bcp{really?})
 long-running, opaque data generation processes.  Visualizations will be
 generated using recommendation rules as done in related work in exploratory data
 analysis~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
@@ -1889,7 +1893,8 @@ For example, consider the
 from above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
 and \lstinline{timestamp}, filters like \lstinline{is_empty}, and
-aggregators like \lstinline{max_by}. Such features can be
+aggregators like \lstinline{max_by}\bcp{what would this do to a
+  log??}. Such features can be
 generated automatically for common data types.
 % Then the tool will then use
 % lightweight type-based program synthesis to compose and combine these functions
@@ -1936,24 +1941,24 @@ understanding distributions of complex input data. Success of this (and the next
 two projects) will be determined by the novel interactions' ability to reduce
 testing time and achieve desirable input distributions.
 
-\publicationtarget{User Interface Software and Technology (UIST)}
-
 \subsectionstar{Interactive Tuning of Input Distributions}{}{}
 %
 Tuning generators to produce ``interesting''
 values can be challenging, requiring
-significant trial and error with a generator description.
+significant trial and error with a textual generator description.
 % Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
 % such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
 % solution, as do code coverage-based generation techniques
 % (e.g.~\cite{afl-readme}). That said,
 % even these techniques fall short of the kinds of inputs a developer would wish
 % to produce.
-We will develop new methods for specifying desired distributions through interaction. One innovation we
-will work on is to support tuning by manipulating the visualizations described in the previous section. The goal is to enable a kind of
+We will develop new methods for specifying desired distributions
+through interaction---directly manipulating the visualizations
+described in the previous section. The goal is to enable a kind of
 bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
+
  A first approach is via input filtering: a developer could
 select a region (e.g., a bar) in an aggregate visualization and request that
 inputs from that region are discarded before testing. This approach is flexible
@@ -1961,10 +1966,10 @@ but limited, as it does not change the underlying generator.
 % It may also lead to inefficiency, if too many values are
 % generated from the distribution only to be discarded by the
 % filter.
-
+%
 Therefore, we will design additional interactions that leverage the unique
-ability of reflective generators developed in this project
-(see \sectionref{sec:gen}) to change the underlying
+ability of reflective generators
+(\sectionref{sec:gen}) to change the underlying
 generator parameters. As developers interact with a visualization,
 the reflective generator will map interactions (e.g., altering the height of a bar)
 to choices
@@ -2397,7 +2402,7 @@ powerful new testing tool to programmers' toolbelts will further streamline
 this aspect of the development process, leading to software of every
 sort that is more robust, more reliable, and less expensive. \bcp{If
   we've talked about the need to vet LLM-generated code earlier in the
-  proposal, we need to reiterate it here.}
+  proposal, we need to reiterate it here.}\bcp{We have, and we do!}
 
 
 % \proposecut{See the Collaboration Plan for
