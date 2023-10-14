@@ -1012,9 +1012,8 @@ The most flexible, most manual solutions use hand-built
 generators, often written in a special-purpose domain-specific language (DSL).
 Such DSLs are often implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
-expressing effectful (here, random and stateful) computations\proposecut{
-in a pure, stateless underlying
-language}. Monadic generators can implement random data producers of arbitrary complexity
+expressing effectful (here, random and stateful) computations. Monadic
+generators can implement random data producers of arbitrary complexity
 (e.g., generators for for random Haskell
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
 representations like grammar-based generators.  Yet monadic generators are
@@ -1046,9 +1045,7 @@ If running a generator in the usual way can be seen as parsing a
 sequence of choices into a
 value, then running it backward takes that value and produces a
 sequence of choices that
-would generate it\proposecut{---i.e., reflective generators can
-``reflect'' on a given test and analyze the choices that they
-could have made to generate it}.
+would generate it.
 The mathematical machinery
 involved is somewhat complex,%
 \footnote{\normalsize Reflective generators are both monads and {\em
@@ -1258,20 +1255,11 @@ ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
-\proposecut{%
-Even with an ergonomic and learnable language for reflective generators, the
-less code the user has to write the better. Both of our past user studies
-revealed
-that thinking about generators slows users down and makes PBT more challenging.
-% But we should not compromise: any automation should help users obtain {\em high
-% quality}, {\em reflective} generators for use throughout the testing process.
-}
-
 We will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
-\proposecut{In general, type-based
-generators are only useful for testing properties with easily satisfiable
-preconditions, but this is a good starting point for many developers.}
+% \proposecut{In general, type-based
+% generators are only useful for testing properties with easily satisfiable
+% preconditions, but this is a good starting point for many developers.}
 We will also consider techniques for {\em interactively}
 constructing reflective generators that maintain complex preconditions.
 % Some users may already have a standard QuickCheck-style generator that
@@ -1309,6 +1297,8 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 % contexts like proof assistants. More generally, generator automation could make
 % PBT viable in any situation where properties already exist but preconditions
 % are hard to satisfy.
+
+\bcp{publication targets also missing here}
 
 \SUBSECTION{Generator Benchmark Suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
@@ -1354,11 +1344,9 @@ tools for measuring and analyzing metrics like line coverage and branch
 coverage, which could serve as additional evidence of an approach's
 completeness. Second, we will extend Etna for evaluating PBT
 tools in Python and OCaml. Bringing Etna to Python will
-allow the developers of Hypothesis, including Zac Hatfield-Dodds,\iflater\hg{is this the
-first time we mention him?}\bcp{if so we should point to the
-collaboration letter @Benjamin}\fi{} to evaluate their testing tools in a controlled
+allow the developers of Hypothesis, including Zac Hatfield-Dodds, to evaluate their testing tools in a controlled
 environment. Likewise, Stephen Dolan, author and maintainer of
-the Crowbar library in OCaml~\cn, plans to run experiments using Etna once
+the Crowbar library in OCaml~\cite{dolan2017testing}, plans to run experiments using Etna once
 we include support for OCaml.
 
 Furthermore, we will codify a substantial library of case-studies and examples as
@@ -2332,9 +2320,12 @@ coordinated with the rest of the work and are integral to the
 project's overall goal of making PBT a standard testing methodology.
 Specific pedagogical
 threads within the project are described in \sectionref{sec:whento} and \sectionref{sec:1210}, but the
-tasks in \sectionref{sec:foundation}, \sectionref{sec:reflectiveusable},
-\sectionref{sec:interactive}, \sectionref{sec:understanding}, and
-\sectionref{sec:evaluating_distributions}\bcp{fix} will also influence education. The
+tasks in
+% sec:reflectivepeople
+% sec:ghostwriter
+\sectionref{sec:reflectivepeople},
+\sectionref{sec:ghostwriter}, and
+\sectionref{sec:evaluating_distributions} are also relevant to education. The
 work in \sectionref{sec:1210} will generate course materials that we will
 share publicly, and we will share our experiences in a paper at a
 CS-Ed-focused conference.
