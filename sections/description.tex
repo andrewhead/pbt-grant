@@ -389,14 +389,6 @@ With all these advantages, one might hope to find PBT on every
 software developer's toolbelt.  But using PBT effectively
 can be challenging, as we shall see next.
 
-\iflater
-\todo{Add a paragraph or two enumerating well-known / obvious
-  challenges of PBT.  Then the next section begins ``We validated
-  these challenges and added some color about additional ones that are
-  not so much discussed in the PBT literature through a user study at
-  Jane Street...''  }  \bcp{Or maybe it reads OK as-is?}
-\fi
-
 \SIMPLESECTION{Motivation: A Study of PBT in Practice}{sec:motivation}
 %
 Our research agenda is motivated by a deep formative study we conducted to
@@ -1111,10 +1103,9 @@ reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
 generator can reflect on inputs it did not actually
 produce---all that's required is that it {\em could} have produced
-them.  For another, the choices can be structured in different ways (as bit
-strings, higher-level choice sequences, choice trees, etc.) if increased
-structure reveals information that an analysis algorithm (like the ones
-discussed below) can use. \iflater\bcp{@Harry: Don't understand that sentence.}\fi{}
+them.  For another, the choices can be structured in whatever way is needed to
+when implementing an analysis algorithm; they could be represented as bit
+strings, sequences of labels, trees of choices, etc.
 
 Reflective generators have myriad uses. First,
 %
