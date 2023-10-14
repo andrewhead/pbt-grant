@@ -1416,17 +1416,17 @@ significant amounts of boilerplate code.\bcplater{Maybe describe what
   that code looks like?}
 
 We have already carried out some early experiments in
-Mica~\cite{Ng2023MicaPoster}, an experimental tool that automatically
+{\Mica}~\cite{Ng2023MicaPoster}, an experimental tool that automatically
 writes properties based on simple interfaces for stateless modules.
 We propose to extend and generalized this work to address more
 realistic modules and module-like language features.
 
 % for languages like OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984};
 
-Mica automatically builds test suites to compare multiple OCaml
+{\Mica} automatically builds test suites to compare multiple OCaml
 modules implementing the same interface. Given a module signature
 (\lstinline{S}) and two modules
-(\lstinline{M1} and \lstinline{M2}) implementing that signature, Mica
+(\lstinline{M1} and \lstinline{M2}) implementing that signature, {\Mica}
 generates chains of \lstinline{S}-operations and ensures that
 \lstinline{M1} and \lstinline{M2} behave the same way when those operations are
 invoked. This automates a process many developers already do manually,
@@ -1435,14 +1435,14 @@ determine when a new module implementation has subtly different
 behavior from an older one, or when a
 complex module disagrees with a simpler reference implementation.
 
-The current version of Mica works with a very limited subset of
+The current version of {\Mica} works with a very limited subset of
 the features of the OCaml language and
 module system; many more remain to be addressed. In particular, it
 works only for stateless modules with at most one opaque type
 member, such as a {\tt Set} module whose type member hides the
 representation of sets.
 
-We plan to extend Mica in three dimensions: (1) to make it generate automatic
+We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
 test sequences for modules with mutable internal state\bcp{@Harry:
   What do we know about prior work fitting this description?}, (2) to
 make it work with parameterized modules (OCaml ``functors'') by
@@ -1453,7 +1453,7 @@ investigate whether a similar automatic generation strategy could be
 applied in languages like Python, with weak or nonexistent static type
 systems.
 %
-A version of Mica incorporating these advances will automate a
+A version of \Mica{} incorporating these advances will automate a
 significant number of common testing situations, lowering the barrier
 to entry for PBT.
 
@@ -1549,46 +1549,63 @@ system {containing} the component(s) of concern.
 %       we make the text bigger and the whole thing smaller?  Or maybe
 %       delete the whole thing in favor of Andrew's rewrite?}}
 % \end{wrapfigure}
-The above work will help us expand the settings in which PBT can be used with
-great leverage.  That said, they do not yet address the problem that
-testers---beginner and experienced alike---may face in writer's block
-in figuring what properties to test in the first place (as our own prior work suggests~\cite{goldstein_problems_2022}). A complement of
-programming assistant tools have recently come into wide use for situations just
+The advances described above will help expand the situations in which
+PBT {\em can} be used smoothly and effectively.  A different challenge is
+how to help people know when they are actually in such a situation.
+A preliminary study that we ran before the one reported in \sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that testers---beginner and experienced alike---may face a kind of writer's block
+in deciding what properties to test.
+
+A variety of
+programming-assistant tools have recently come into wide use for situations
 like this. Perhaps most familiar are
-Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner completions and
-function implementations which has seen widespread adoption among programmers~\cite{ref:dohmke2022github}; or ChatGPT~\cite{tool:chatgpt}, which in
-myriad Twitter demos has shown its potential to take specifications in the
-forms of text and sketches and through a chat-based dialogue generate nearly
-fully-working implementations.
+Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
+completions and can often help with longer code
+sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
+myriad recent  blog posts and papers~\cn{} has shown its potential to turn
+informal textual specifications of surprising complexity into working code.
 
-It is already possible for this technology to provide ideation
-support for writing properties. Consider for instance one of the co-PIs'
-conversations with ChatGPT about a module he had implemented in the
-past~\cite{ref:chatgptpbtexample}.  In this conversation, the AI detects the data structures used,
-and suggests a set of properties---e.g., data consistency, error handling, and
-behavior in response to processing event sequences---and on further prompting suggests relevant
-invariants to check following specific event sequences. The question is not
-then whether modern programming assistants \emph{can} help with ideation of
-properties, but how they might do it in a responsible way. \amh{I know
-  I'm demonstrating the potential of ChatGPT in really unscientific
-  ways---Twitter, prior experience---any better ideas?}  \bcp{How did
-  we get to ``responsible''?}
+These technologies can already
+support writing properties. Consider for instance, a conversation
+between one of the co-PIs and ChatGPT about testing a fairly complex
+Typescript module he
+had previously implemented~\cite{ref:chatgptpbtexample}.  In this
+conversation, the AI is
+able to detect the data structures used
+and suggest a set of properties that should hold---e.g., data
+consistency, error handling, and
+behavior in response to processing event sequences---and on further
+prompting suggests relevant
+invariants to check by testing specific event sequences. The question,
+then, is not
+whether modern programming assistants \emph{can} help with imagining
+properties, but how best to offer this functionality to
+developers so that the resulting properties are actually the ones they
+want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
 
-We propose the development of integrated programming assistant features in the
-editor that threads the needle of providing in-editor property ideation and
-implementation support while relying on developer's cognition and trusted
+We propose to develop features for our integrated programmers' assistant
+that support in-editor property ideation and
+implementation while relying on developer's cognition and trusted
 property generation patterns wherever possible to ultimately lead to tests
 that are both meaningfully and correct in all senses of the word. The envisioned
-programming assistant would wrap existing property generation techniques---e.g., Mica
+programming assistant would wrap existing property generation  techniques---including \Mica{}
 and LTLTL (proposed in the prior two sections), QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked
 by an LLM programming assistant AI.
 
-The envisioned interaction for a developer would be as follows. As a
+The interaction between this assistant and a developer might go
+something like this. As the
 developer writes code in their editor, analysis runs in the background to
-identify those modules that are currently being tested by a large number of
+identify modules that are currently being tested by a large number of
 input-output tests (and hence are likely worthwhile targets to ``battle test''
-with PBT). Inline actions appear above the signature of those methods and the
-functions that test them asking the developer if they would like to ``Test with
+with PBT)\bcp{Why is this the right criterion?  Seems like
+  modules that are {\em not} currently heavily tested would be equally
+good or better candidates for deeper testing.  Can we just skip this
+step and say that the developer starts by marking some code that they would like
+to test?  (By the way, why didn't we include the properties over logs
+stuff as an option here?  Developers might very well want help doing
+that!  Though I guess it's yet another quite different
+challenge...)}. Inline actions appear
+above the signatures of those methods and the
+functions that test them, asking the developer if they would like to ``Test with
 property?'' Upon clicking the action, the first step is for the AI to suggest
 kinds of properties that may apply for this module (as was done in the example
 cited above) and to recommend them as part of a simple list adjacent to the
@@ -1597,22 +1614,34 @@ calling it and its reverse in sequence and its (2) resilience to null values in
 arbitrary positions in the input sequence.'' This may be enough for developers
 to overcome their writer's block. If it is not, the developer can further click
 an action button to ``Generate tests.'' The programming assistant will
-prioritize tests found by PL techniques (Mica, LTLTL, QuickSpec, GhostWriter)
+prioritize tests found by PL techniques ({\Mica}, LTLTL, QuickSpec, GhostWriter)
 due to their focus on existing high-leverage use cases and the guarantees they
 provide about the correctness of generated code. Should they come up
-empty-handed, the assistant will offer LLM-generated tests (as Copilot might
+empty-handed, the assistant will offer LLM-generated tests (such as
+Copilot might
 provide with suitable prompting) with the visible messaging conveying the
 possibility of mistakes in the code or misinterpretations of user intent.
 
 In this project, our work would be to prototype such programming assistant
-functionality that integrates numerous components for property suggest,
-and evaluate its support for overcoming the writer's block problem through
+functionality that integrates numerous components for property suggestions,
+and to evaluate its support for overcoming the writer's block problem through
 usability evaluations with developers.
 
-PI Pierce recently began a collaboration with Professor Chris
-Callison-Burch, an expert on computational linguistics and large
-language models, who will work with us on this part of the project; a
-letter of collaboration appears in the supplemental documents.
+\bcp{@Harry and @Andrew: I really like the idea of doing something
+  with LLMs, but I don't think the vision in this section nails it, in
+  part because it isn't clear about where the focus is.  The property
+  generation techniques listed are {\em very} different---I don't see
+  much reason to believe that interacting with them through a common
+  generic UI is going to work well.  Furthermore, the ``use LMMs to
+  generate specs'' idea actually feels like the main proposal here,
+  but there's hardly any detail about how that might work, what the
+  challenges would be, etc.}
+
+PI Pierce recently began a collaboration on programming using LLMs
+with Professor Chris Callison-Burch, an expert on computational
+linguistics and large language models who will work with us on this
+part of the project; a letter of collaboration appears in the
+supplemental documents.
 
 \amh{Needs more references}
 \bcp{Sad that we lost the citation to TOGA.}
