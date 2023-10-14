@@ -1204,7 +1204,7 @@ to generate a sequence of choices that a generator then parses to get a program 
 This scheme
 does require the user to write a generator, which is more effort
 than standard fuzzing, but the result is a system that is much more likely
-to achieve thorough testing\bcp{@Harry: do we have evidence for this}.
+to produce inputs that satisfy the program's preconditions.
 
 We believe this idea can be pushed even further by building
 a variant of Crowbar on top of reflective generators.
@@ -1485,7 +1485,7 @@ test sequences for modules with mutable internal state\bcp{@Harry:
 make it work with parameterized modules (OCaml ``functors'') by
 automatically applying them to appropriate module arguments, and (3)
 to apply the same techniques to other languages with rich module-like
-features, such as Java, Scala, and Rust.  More speculately, we will
+features, such as Java, Scala, and Rust.  More speculatively, we will
 investigate whether a similar automatic generation strategy could be
 applied in languages like Python, with weak or nonexistent static type
 systems.
