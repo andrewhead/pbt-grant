@@ -754,10 +754,6 @@ ambient programming environment and language, e.g., whether the
 language supports Haskell-like typeclasses or OCaml-style
 metaprogramming, both of which are used to good effect by
 PBT tools in those languages.
-\iflater\bcp{Is the next sentence needed?} In line with typical practice in
-human factors research surveys in software
-engineering~\cite{ref:robillard2009makes,ref:uddin2015api,ref:murphyhill2019predicts},
-we will recruit at least 150 respondents per survey.\fi{}
 Respondents will
 be recruited broadly, from groups including
 (1)
@@ -800,74 +796,128 @@ We will again recruit a broad sample of participants from varied settings.
 %   one in another language is better in another, and it has nothing to do with
 %   the language}
 
-\SUBSECTION{Observational Studies}{sec:observations}{2}{2}{HCI
-    Theory}{PhD 1}{REPL 2}{Head}
+\SUBSECTION{Observational Studies}{sec:observations}{2}{2}{HCI Theory}{PhD
+1}{REPL 2}{Head}
 % \bcplater{Wonder whether there is still room for cutting / compressing
-%   here...  If the project only has two students, we may not want to
-%   propose {\em too} many studies...}%
+% here...  If the project only has two students, we may not want to propose
+% {\em too} many studies...}%
 %
-Interviews and surveys are good for exploring usability challenges
-at a high level, but we also need detailed insight into the interactions
-between users and their PBT tools.  We will
-conduct targeted observational studies, in particular to inform our
-user interface designs (\sectionref{sec:val}).
+Our interviews and surveys aim will lead to a broad understanding of
+the modern experience of PBT. Complementing these studies, we will conduct
+observation studies to develop a \emph{deep} understanding of particular tasks
+in PBT. Observation studies will be conducted any time we have a need to
+understand developers' fine-grained problem-solving strategy on a PBT task.
+This includes, in particular, language features that for implementing
+generators (\sectionref{sec:gen}) and interfaces for evaluating and tuning data
+distributions (\sectionref{sec:val}). In these settings it is critical
+for us to understand \emph{what developers might try to do} and \emph{what
+programming abstractions they are already familiar with for these tasks}.
+
+For instance, consider what it would take to arrive at a successful design of
+an interface for evaluating input data distributions (as we do in
+\sectionref{sec:val}). To know what good design will look like, we need to know
+answers to several questions: (1) How much time will a developer set aside to
+evaluate the distribution? (2) What types of inputs will be generated? (3) How
+many inputs will developers generate? (4) Do they seem more interested in
+the structure of individual data, or the shape of the
+distribution as a whole? (5) Are developers willing to write any code to
+help visualize their data? Different questions to these answers to lead to
+greatly different designs. An observational study observing PBT users
+inspecting data distributions with a few users can provide a great amount of
+clarity in answering them.
+
+So, prior to building any tool that has a sufficiently broad design space (i.e., an
+untenable set of design decisions that must be made), we will conduct
+observational studies to constrain that space. We will recruit participants
+from PBT communities (among our industry collaborators at Jane Street and AWS,
+and at our institution and others) to complete real PBT work with their
+existing tools, focusing specifically on one PBT task (e.g., writing generator
+code, evaluating input data distributions). This process broadly aligns with
+\emph{contextual studies} in HCI~\cite[Chapter
+3]{ref:holtzblatt1997contextual}, wherein researchers aim to develop deep
+contexts about the contexts of users' real work to develop well-grounded design
+ideas.  Each of these observation studies will be relatively small in
+size---focusing on a dozen or less developers, with a simple qualitative study
+design that requires about a month to complete from inception to data analysis.
+PI Head has considerable experience employing brief yet informative
+observational studies like these as part of the ordinary cadence of
+human-centered tooling research
+(see~\cite{ref:fok2023scim,ref:august2022paper,ref:head2021augmenting,ref:head2018interactive}).
+
+% Prior to tool-building efforts, we will conduct observational studies
+% (on the order of one month (Scim, Paper Plain, ScholarPhi, CodeScoop)
+ 
+% place 
+% Interviews and surveys are good for exploring usability challenges
+% at a high level, but we also need detailed insight into the interactions
+% between users and their PBT tools.  We will
+% conduct targeted observational studies, in particular to inform our
+% user interface designs (\sectionref{sec:val}).
 
 % Understanding user interactions
 % is a core activity of HCI research and helps to inform robust
 % interface design.
-Observation studies require significant effort to plan and
-carry out, but they
-are indispensable for answering questions about tool design may that
-receive only
-speculative answers in interviews and surveys, such as
-(1) How much time
-are participants willing to devote to
-creating a property or tuning a generator when in the
-middle of a programming task?
-(2) How much space is available on a developer's
-screen (amidst other tools like code editors and terminals) for
-new live
-visualizations? and
-(3) What are developers' current strategies for solving the
-problems they describe, e.g., what representations
-seem helpful
-for a programmer trying to understand the distribution of data from a
-generator?
+% Observation studies require significant effort to plan and
+% carry out, but they
+% are indispensable for answering questions about tool design may that
+% receive only
+% speculative answers in interviews and surveys, such as
+% (1) How much time
+% are participants willing to devote to
+% creating a property or tuning a generator when in the
+% middle of a programming task?
+% (2) How much space is available on a developer's
+% screen (amidst other tools like code editors and terminals) for
+% new live
+% visualizations? and
+% (3) What are developers' current strategies for solving the
+% problems they describe, e.g., what representations
+% seem helpful
+% for a programmer trying to understand the distribution of data from a
+% generator?
+ 
+% We will conduct two studies. The first will be a
+% {\em contextual inquiry}~\cite[Chapter
+% 3]{ref:holtzblatt1997contextual}, watching
+% developers perform PBT in realistic contexts, with their own tools and tasks.
+% The result will be a detailed understanding of the task
+% structures involved with specific PBT tasks (e.g., writing a generator,
+% assessing test results) and what steps are
+% particularly time-consuming.  Recordings and notes from
+% these sessions will serve as metrics against which designs
+% can be evaluated before implementation.
 
-We will conduct two studies. The first will be a
-{\em contextual inquiry}~\cite[Chapter
-3]{ref:holtzblatt1997contextual}, watching
-developers perform PBT in realistic contexts, with their own tools and tasks.
-The result will be a detailed understanding of the task
-structures involved with specific PBT tasks (e.g., writing a generator,
-assessing test results) and what steps are
-particularly time-consuming.  Recordings and notes from
-these sessions will serve as metrics against which designs
-can be evaluated before implementation.
-
-The second study will be a controlled comparison of design alternatives.
-Language design, like what we plan relating to generators
-(\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
-difficult to inform empirically because there are many design choices
-that interact in complex ways. We plan to identify the most
-significant patterns of
-variation between modern PBT tools (e.g., defining properties as simple
-functions vs. via DSLs, or using types to steer
-generation vs.{} fully manual generators), and perform a comparative
-study to gain clarity on how various
-choices would impact our design. Following best practices in experiment design
-for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
-participants to control for variance in prior skill, and triangulate findings
-from a mixture of
-quantitative metrics (e.g., success, task duration, error rate, subjective
-reports of difficulty) and qualitative analysis (e.g., thematic
-analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
-of problematic incidents).
+% The second study will be a controlled comparison of design alternatives.
+% Language design, like what we plan relating to generators
+% (\sectionref{sec:reflectiveusable}, \sectionref{sec:genauto}), is famously
+% difficult to inform empirically because there are many design choices
+% that interact in complex ways. We plan to identify the most
+% significant patterns of
+% variation between modern PBT tools (e.g., defining properties as simple
+% functions vs. via DSLs, or using types to steer
+% generation vs.{} fully manual generators), and perform a comparative
+% study to gain clarity on how various
+% choices would impact our design. Following best practices in experiment design
+% for programming tools~\cite{ref:ko2015practical}, we will keep the experimental tasks simple, train
+% participants to control for variance in prior skill, and triangulate findings
+% from a mixture of
+% quantitative metrics (e.g., success, task duration, error rate, subjective
+% reports of difficulty) and qualitative analysis (e.g., thematic
+% analysis~\cite{ref:blandford2016qualitative} to reveal the kinds and frequency
+% of problematic incidents).
 % \proposecut{Most of these findings will be in service of research projects described elsewhere
 % in this proposal, but they may also be disseminated as
 % publications if they turn out to be of broader interest.}
 
-\publicationtarget{PLATEAU Workshop}
+An additional kind of ``observation'' will be conducted for specification tools
+(\sectionref{sec:spec}). We will conduct lightweight content
+analyses~\cite{ref:krippendorff2018content} of existing test suites (to be
+sourced from public GitHub projects and private projects from our industrial
+partners for which we have received clearance) to mine case studies of
+properties that our tools should help developers write better.
+
+\publicationtarget{See later sections. Findings from these studies will serve as
+``formative study'' sections of respective technical publications that they inform}
 
 % \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
 %   Theory}{PhD 1}{Everyone}{Head}
