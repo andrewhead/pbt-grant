@@ -1427,7 +1427,10 @@ modules~(\sectionref{sec:model-based}). Next we propose
 adding a new class of scenarios to the ``high-leverage'' category, with the
 help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we propose
 to assemble these
-techniques and others together into a unified tool, {\em \GhostChat}, for
+techniques and others together into a unified tool, {\em \GhostChat}\hg{FWIW I'm
+not the biggest fan of this name... If it's not a chat interface, I propose we
+go back to Ghostwriter++.  But either way we should mention a name down below
+too}, for
 semi-automatic property selection.
 %
 Success in these tasks will again be measured both through
@@ -1449,8 +1452,9 @@ PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
 %
 Since this situation is common, we want it to be as easy as possible
 for developers; at the moment, though, developers end up writing
-significant amounts of boilerplate code.\bcplater{Maybe describe what
-  that code looks like?}
+significant amounts of boilerplate code that defines intermediate data
+structures and ad-hoc test harnesses for comparing module outputs across a
+series of function calls.
 
 We have already carried out some early experiments in
 {\Mica}~\cite{Ng2023MicaPoster}, an experimental tool that automatically
@@ -1480,8 +1484,7 @@ member, such as a {\tt Set} module whose type member hides the
 representation of sets.
 
 We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
-test sequences for modules with mutable internal state\bcp{@Harry:
-  What do we know about prior work fitting this description?}, (2) to
+test sequences for modules with mutable internal state (following prior work~\cite{midtgaard_2020,monolith}), (2) to
 make it work with parameterized modules (OCaml ``functors'') by
 automatically applying them to appropriate module arguments, and (3)
 to apply the same techniques to other languages with rich module-like
@@ -1575,10 +1578,10 @@ system {containing} the component(s) of concern.
   and Applications (OOPSLA)}
 
 \bcplater{This subsection is OK, but it could be stronger on details
-  like what LTLTL actually looks like.}
+  like what LTLTL actually looks like.}\hg{Ideally it would look like exactly
+  the kinds of properties above. Or were you looking for a formal definition?}
 
 \SUBSECTION{A Programming Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
-\bcp{@Harry: Please feel free to help improve this section... :-)}
 %
 % \begin{wrapfigure}{r}{.4\textwidth}
 %   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
@@ -1601,78 +1604,100 @@ sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
 myriad recent  blog posts and papers~\cn{} has shown its potential to turn
 informal textual specifications of surprising complexity into working code.
 
-These technologies can already
-support writing properties. Consider for instance, a conversation
-between one of the co-PIs and ChatGPT about testing a fairly complex
-Typescript module he
-had previously implemented~\cite{ref:chatgptpbtexample}.  In this
-conversation, the AI is
-able to detect the data structures used
-and suggest a set of properties that should hold---e.g., data
-consistency, error handling, and
-behavior in response to processing event sequences---and on further
-prompting suggests relevant
-invariants to check by testing specific event sequences. The question,
-then, is not
-whether modern programming assistants \emph{can} help with imagining
-properties, but how best to offer this functionality to
-developers so that the resulting properties are actually the ones they
-want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
+One might be tempted use these tools to produce properties directly, but that
+would be quite risky. Test suites are part of an application's {\em trusted
+computing base}~\cn, and, as such, should be carefully considered and obviously
+bug-free. Large language models are known to hallucinate~\cn, so we would not
+recommend giving them direct access to an application's test infrastructure.
 
-We propose to develop features for our integrated programmers' assistant
-that support in-editor property ideation and
-implementation while relying on developer's cognition and trusted
-property generation patterns wherever possible to ultimately lead to tests
-that are both meaningfully and correct in all senses of the word. The envisioned
-programming assistant would wrap existing property generation  techniques---including \Mica{}
-and LTLTL (proposed in the prior two sections), QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked
-by an LLM programming assistant AI.
+% These technologies can already
+% support writing properties. Consider for instance, a conversation
+% between one of the co-PIs and ChatGPT about testing a fairly complex
+% Typescript module he
+% had previously implemented~\cite{ref:chatgptpbtexample}.  In this
+% conversation, the AI is
+% able to detect the data structures used
+% and suggest a set of properties that should hold---e.g., data
+% consistency, error handling, and
+% behavior in response to processing event sequences---and on further
+% prompting suggests relevant
+% invariants to check by testing specific event sequences. The question,
+% then, is not
+% whether modern programming assistants \emph{can} help with imagining
+% properties, but how best to offer this functionality to
+% developers so that the resulting properties are actually the ones they
+% want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
+
+However, we do think LLMs have a role to play!
+We propose AI-powered tools that help developers with property ideation
+while still ultimately using trusted
+property generation patterns.
+The envisioned programming assistant would wrap existing property generation
+techniques---including \Mica{} and LTLTL (proposed in the prior two sections),
+QuickSpec~\cite{ref:claessen2010quickspec}, and
+GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked by
+an LLM programming assistant AI.
 
 The interaction between this assistant and a developer might go
 something like this. As the
-developer writes code in their editor, analysis runs in the background to
-identify modules that are currently being tested by a large number of
-input-output tests (and hence are likely worthwhile targets to ``battle test''
-with PBT)\bcp{Why is this the right criterion?  Seems like
-  modules that are {\em not} currently heavily tested would be equally
-good or better candidates for deeper testing.  Can we just skip this
-step and say that the developer starts by marking some code that they would like
-to test?  (By the way, why didn't we include the properties over logs
-stuff as an option here?  Developers might very well want help doing
-that!  Though I guess it's yet another quite different
-challenge...)}. Inline actions appear
+developer writes code in their editor, they are free to mark functions or
+modules as needing better testing.
+% analysis runs in the background to
+% identify modules that are currently being tested by a large number of
+% input-output tests (and hence are likely worthwhile targets to ``battle test''
+% with PBT)\bcp{Why is this the right criterion?  Seems like
+%   modules that are {\em not} currently heavily tested would be equally
+% good or better candidates for deeper testing.  Can we just skip this
+% step and say that the developer starts by marking some code that they would like
+% to test?  (By the way, why didn't we include the properties over logs
+% stuff as an option here?  Developers might very well want help doing
+% that!  Though I guess it's yet another quite different
+% challenge...)}.
+Inline actions appear
 above the signatures of those methods and the
-functions that test them, asking the developer if they would like to ``Test with
-property?'' Upon clicking the action, the first step is for the AI to suggest
-kinds of properties that may apply for this module (as was done in the example
-cited above) and to recommend them as part of a simple list adjacent to the
+functions that test them, offering to help them ``Explore Properties.''
+Upon clicking the action, the AI tries to determine
+kinds of properties that may apply for this module 
+% (as was done in the example
+% cited above)
+and to recommend them as part of a simple list adjacent to the
 code, e.g., ``You may wish to test this module's (1) round-trip consistency by
 calling it and its reverse in sequence and its (2) resilience to null values in
 arbitrary positions in the input sequence.'' This may be enough for developers
 to overcome their writer's block. If it is not, the developer can further click
-an action button to ``Generate tests.'' The programming assistant will
-prioritize tests found by PL techniques ({\Mica}, LTLTL, QuickSpec, GhostWriter)
-due to their focus on existing high-leverage use cases and the guarantees they
-provide about the correctness of generated code. Should they come up
-empty-handed, the assistant will offer LLM-generated tests (such as
-Copilot might
-provide with suitable prompting) with the visible messaging conveying the
-possibility of mistakes in the code or misinterpretations of user intent.
+an action button to ``Look for Automations.'' The programming assistant will
+then try to find appropriate use-cases for tools like {\Mica}, LTLTL,
+QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter, and, if a use-case
+exists, allow the programmer how to run the appropriate tool automatically.
+% due to their focus on existing high-leverage use cases and the guarantees they
+% provide about the correctness of generated code. Should they come up
+% empty-handed, the assistant will offer LLM-generated tests (such as
+% Copilot might
+% provide with suitable prompting) with the visible messaging conveying the
+% possibility of mistakes in the code or misinterpretations of user intent.
 
-In this project, our work would be to prototype such programming assistant
-functionality that integrates numerous components for property suggestions,
-and to evaluate its support for overcoming the writer's block problem through
-usability evaluations with developers.
+Under the hood, the suggestions will be generated by a large language model
+such as GPT-4, trained via few-shot prompting. The prompts provided to the model
+will encode example properties as well as example use-cases for the various
+automation tools that are available for the programmer to run. If new automation
+tools are added, use-case examples can either be added manually or scraped from
+documentation.\hg{What was that thing Andrew Zhu is working on? We can cite that
+here}
 
-\bcp{@Harry and @Andrew: I really like the idea of doing something
-  with LLMs, but I don't think the vision in this section nails it, in
-  part because it isn't clear about where the focus is.  The property
-  generation techniques listed are {\em very} different---I don't see
-  much reason to believe that interacting with them through a common
-  generic UI is going to work well.  Furthermore, the ``use LMMs to
-  generate specs'' idea actually feels like the main proposal here,
-  but there's hardly any detail about how that might work, what the
-  challenges would be, etc.}
+% In this project, our work would be to prototype such programming assistant
+% functionality that integrates numerous components for property suggestions,
+% and to evaluate its support for overcoming the writer's block problem through
+% usability evaluations with developers.
+
+% \bcp{@Harry and @Andrew: I really like the idea of doing something
+%   with LLMs, but I don't think the vision in this section nails it, in
+%   part because it isn't clear about where the focus is.  The property
+%   generation techniques listed are {\em very} different---I don't see
+%   much reason to believe that interacting with them through a common
+%   generic UI is going to work well.  Furthermore, the ``use LMMs to
+%   generate specs'' idea actually feels like the main proposal here,
+%   but there's hardly any detail about how that might work, what the
+%   challenges would be, etc.}
 
 PI Pierce recently began a collaboration on programming using LLMs
 with Professor Chris Callison-Burch, an expert on computational
@@ -1681,7 +1706,6 @@ part of the project; a letter of collaboration appears in the
 supplemental documents.
 
 \amh{Needs more references}
-\bcp{Sad that we lost the citation to TOGA.}
 
 % \amh{Proposed workflow:
 % The developer is working on testing a module.
@@ -1906,7 +1930,7 @@ displays will be live~\cite{ref:tanimoto1990viva} and
 real-time. Observing other successful live functional programming
 environments in industry and academia
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will
-provide visibility and control (i.e., the ability to change or halt\bcp{really?})
+provide visibility and control over the
 long-running, opaque data generation processes.  Visualizations will be
 generated using recommendation rules as done in related work in exploratory data
 analysis~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
@@ -1917,9 +1941,7 @@ For example, consider the
 \lstinline{log} type
 from above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
-and \lstinline{timestamp}, filters like \lstinline{is_empty}, and
-aggregators like \lstinline{max_by}\bcp{what would this do to a
-  log??}. Such features can be
+and \lstinline{timestamp} and filters like \lstinline{is_empty}. Such features can be
 generated automatically for common data types.
 % Then the tool will then use
 % lightweight type-based program synthesis to compose and combine these functions
