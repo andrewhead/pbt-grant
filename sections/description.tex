@@ -1484,10 +1484,7 @@ member, such as a {\tt Set} module whose type member hides the
 representation of sets.
 
 We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
-test sequences for modules with mutable internal state\bcp{@Harry:
-What do we know about prior work fitting this description?}\hg{Certainly
-Hypothesis---it doesn't automate anything, but it does make writing stateful
-tests like this pretty easy. I'll ask Ernest}, (2) to
+test sequences for modules with mutable internal state (following prior work~\cite{midtgaard_2020,monolith}), (2) to
 make it work with parameterized modules (OCaml ``functors'') by
 automatically applying them to appropriate module arguments, and (3)
 to apply the same techniques to other languages with rich module-like
