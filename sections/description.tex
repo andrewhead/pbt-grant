@@ -1930,7 +1930,7 @@ displays will be live~\cite{ref:tanimoto1990viva} and
 real-time. Observing other successful live functional programming
 environments in industry and academia
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will
-provide visibility and control (i.e., the ability to change or halt\bcp{really?})
+provide visibility and control over the
 long-running, opaque data generation processes.  Visualizations will be
 generated using recommendation rules as done in related work in exploratory data
 analysis~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
@@ -1941,9 +1941,7 @@ For example, consider the
 \lstinline{log} type
 from above. A developer might be interested in the log's
 \lstinline{length}, field accessors like \lstinline{event_type}, \lstinline{id},
-and \lstinline{timestamp}, filters like \lstinline{is_empty}, and
-aggregators like \lstinline{max_by}\bcp{what would this do to a
-  log??}. Such features can be
+and \lstinline{timestamp} and filters like \lstinline{is_empty}. Such features can be
 generated automatically for common data types.
 % Then the tool will then use
 % lightweight type-based program synthesis to compose and combine these functions
