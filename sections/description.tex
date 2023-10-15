@@ -835,8 +835,8 @@ human-centered tooling research
 
 % Prior to tool-building efforts, we will conduct observational studies
 % (on the order of one month (Scim, Paper Plain, ScholarPhi, CodeScoop)
- 
-% place 
+
+% place
 % Interviews and surveys are good for exploring usability challenges
 % at a high level, but we also need detailed insight into the interactions
 % between users and their PBT tools.  We will
@@ -864,7 +864,7 @@ human-centered tooling research
 % seem helpful
 % for a programmer trying to understand the distribution of data from a
 % generator?
- 
+
 % We will conduct two studies. The first will be a
 % {\em contextual inquiry}~\cite[Chapter
 % 3]{ref:holtzblatt1997contextual}, watching
@@ -1103,7 +1103,7 @@ reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
   hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
 generator can reflect on inputs it did not actually
 produce---all that's required is that it {\em could} have produced
-them.  For another, the choices can be structured in whatever way is needed 
+them.  For another, the choices can be structured in whatever way is needed
 when implementing an analysis algorithm---as bit
 strings, sequences of labels, trees of choices, etc.
 
@@ -1427,10 +1427,7 @@ modules~(\sectionref{sec:model-based}). Next we propose
 adding a new class of scenarios to the ``high-leverage'' category, with the
 help of linear logic~(\sectionref{sec:ltl-logs}). Finally, we propose
 to assemble these
-techniques and others together into a unified tool, {\em \GhostChat}\hg{FWIW I'm
-not the biggest fan of this name... If it's not a chat interface, I propose we
-go back to Ghostwriter++.  But either way we should mention a name down below
-too}, for
+techniques and others together into a unified tool, {\em \GhostChat}, for
 semi-automatic property selection.
 %
 Success in these tasks will again be measured both through
@@ -1579,7 +1576,9 @@ system {containing} the component(s) of concern.
 
 \bcplater{This subsection is OK, but it could be stronger on details
   like what LTLTL actually looks like.}\hg{Ideally it would look like exactly
-  the kinds of properties above. Or were you looking for a formal definition?}
+  the kinds of properties above. Or were you looking for a formal
+  definition?}\bcp{No, not formal.  Just a couple sentences with a bit
+more detail.}
 
 \SUBSECTION{A Programming Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 %
@@ -1604,11 +1603,13 @@ sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
 myriad recent  blog posts and papers~\cn{} has shown its potential to turn
 informal textual specifications of surprising complexity into working code.
 
-One might be tempted use these tools to produce properties directly, but that
-would be quite risky. Test suites are part of an application's {\em trusted
-computing base}~\cn, and, as such, should be carefully considered and obviously
-bug-free. Large language models are known to hallucinate~\cn, so we would not
-recommend giving them direct access to an application's test infrastructure.
+One might be tempted use these tools to produce properties directly,
+but that would be quite risky. Test suites for critical code are part
+of an application's {trusted computing base} and, as such, should
+be carefully and thoughtfully chosen. Large language models encourage developers to cut and
+paste rather without thinking and are known to be prone
+to hallucination~\cite{ji2023survey}; it is {\em not} a good idea
+to use them to directly write an application's tests.
 
 % These technologies can already
 % support writing properties. Consider for instance, a conversation
@@ -1628,11 +1629,11 @@ recommend giving them direct access to an application's test infrastructure.
 % developers so that the resulting properties are actually the ones they
 % want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
 
-However, we do think LLMs have a role to play!
-We propose AI-powered tools that help developers with property ideation
-while still ultimately using trusted
+However, we do believe that LLMs may have a significant role to play
+in {\em helping} developers build effective tests---assisting with
+property ideation while still ultimately relying on trusted
 property generation patterns.
-The envisioned programming assistant would wrap existing property generation
+The envisioned programming assistant, {\em dubbed \GhostChat}, would wrap existing property generation
 techniques---including \Mica{} and LTLTL (proposed in the prior two sections),
 QuickSpec~\cite{ref:claessen2010quickspec}, and
 GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked by
@@ -1657,7 +1658,7 @@ Inline actions appear
 above the signatures of those methods and the
 functions that test them, offering to help them ``Explore Properties.''
 Upon clicking the action, the AI tries to determine
-kinds of properties that may apply for this module 
+kinds of properties that may apply for this module
 % (as was done in the example
 % cited above)
 and to recommend them as part of a simple list adjacent to the
@@ -1681,8 +1682,7 @@ such as GPT-4, trained via few-shot prompting. The prompts provided to the model
 will encode example properties as well as example use-cases for the various
 automation tools that are available for the programmer to run. If new automation
 tools are added, use-case examples can either be added manually or scraped from
-documentation.\hg{What was that thing Andrew Zhu is working on? We can cite that
-here}
+documentation~\cite{zhu2023kani}.
 
 % In this project, our work would be to prototype such programming assistant
 % functionality that integrates numerous components for property suggestions,
