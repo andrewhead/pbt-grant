@@ -26,8 +26,11 @@ stores~\cite{MysteriesOfDropbox2016,Bornholt2021}, automotive
 software~\cite{arts2015testing}, and other complex
 systems~\cite{hughes_experiences_2016}.
 It is used by companies including Amazon, Volvo, Stripe, Galois,
-and IOG (which
-runs the Cardano blockchain and the Ada cryptocurrency).
+and IOG
+\proposecut{(which
+runs the Cardano blockchain and the Ada cryptocurrency)}\hg{Blockchain and
+cryptocurrency aren't nearly as impressive as they were the first time we wrote
+this}.
 
 PBT took the functional programming world by storm after its
 debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}.  In
@@ -50,12 +53,9 @@ quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
-tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
-PBT tool has $\sim$70\% of the stars of Python's entire testing
-infrastructure \amh{instead of ``entire,'' maybe ``de facto''? ``Entire''
-suggests to me a sum over all Python testing frameworks}\bcp{``de
-facto'' doesn't seem quite right either... @Harry, any more ideas for
-how to phrase it clearly and accurately?}!
+tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's PBT tool has
+$\sim$70\% of the stars of the de-facto standard testing infrastructure in
+Python!
 
 Moreover, there is still plenty of room
 for growth.
@@ -88,7 +88,9 @@ good for, obstacles to its use, with a stronger base of pertinent PL
 knowledge, and with recent overhauls of the editing tooling (i.e., with
 the VSCode editor, programming assistants, etc.)---in a way that allows it to
 meet its potential.''}\bcp{Reads OK for me as-is, but perhaps we can
-inject some excitement...}
+inject some excitement...}\hg{I think I like it... I wish we didn't have to
+imply that the current state of PBT was outdated, but it does a nice job of
+articulating why now is the right time for this work}
 Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
 In an initial need-finding study with industrial PBT users, we found consistent enthusiasm:
@@ -102,7 +104,7 @@ Like
 many other powerful tools, PBT can be nontrivial to apply effectively, and developers
 need support to do so.
 
-To make PBT not just useful by
+To make PBT not just useful but
 \emph{usable} requires transformative advances in the underlying technology.
 Our formative research suggests that, to achieve
 such a transformation, tools will need to provide yet-unachieved levels of
@@ -219,8 +221,8 @@ benchmarking these and other advances in tools for generation (\sectionref{sec:g
 %
 \item We will empower developers to \thread{specify} properties with new
 languages for expressing properties, tools that simplify authoring
-    properties, and assistants that help explain properties to others
-    \amh{Update (to whatever wording we choose for the project summary)}
+properties, and assistants that help developers get started writing
+specifications for their programs.
 (\sectionref{sec:spec}).
 % tools for checking temporal properties over internal program states
 % and for model-based testing of modularized code\proposecut{ and for authoring
@@ -240,7 +242,7 @@ enable new ways of visualizing and understanding random distributions
 methodologies from academia into industry by
 leading the construction of
     an open-source IDE for PBT,
-    dubbed \tyche and promoting its adoption via
+    dubbed \tyche, and promoting its adoption via
     collaboration with industry partners.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
