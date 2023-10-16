@@ -87,7 +87,8 @@ for 2023---when we now have a much greater sense of what PBT is
 good for, obstacles to its use, with a stronger base of pertinent PL
 knowledge, and with recent overhauls of the editing tooling (i.e., with
 the VSCode editor, programming assistants, etc.)---in a way that allows it to
-meet its potential.''}
+meet its potential.''}\bcp{Reads OK for me as-is, but perhaps we can
+inject some excitement...}
 Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
 In an initial need-finding study with industrial PBT users, we found consistent enthusiasm:
@@ -177,10 +178,6 @@ presentations~\cite{goldstein_problems_2022,shi_towards_2023}, and one
 refereed demo~\cite{ref:goldstein2023tyche}; all of these inform the
 agenda for this proposal.
 
-\amh{I think we need \emph{some} reference to the figure. I am not
-sure it will be clear from context alone that the purpose of this figure is to
-summarize the main research threads and how they relate to each other.}
-
 \medskip
 
 \begin{wrapfigure}{r}{.63\textwidth}
@@ -198,18 +195,15 @@ into practice.
 %
 Planned research,
 technology transfer, and education activities can be grouped into five main
-themes: \iflater\bcp{Make sure this is an
+themes (summarized in the figure on the right): \iflater\bcp{Make sure this is an
   accurate summary -- e.g., the connection with fuzzing}\fi
 %
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
-  \item We will establish a firm \amh{Maybe ``firm'' is too strong a word given
-    that we only have 1.5 years of very targeted studies we will be running} \thread{foundation} for HCI-informed research on PBT,
-    building on our past need-finding study and to confirm \amh{Can we ditch
-    ``confirm,'' as another way to avoid suggesting overreliance on Jane Street
-    study?} and generalize
-its findings (\sectionref{sec:foundation}).
+\item We will establish a new \thread{foundation} for HCI-informed
+research on PBT, building on our past need-finding study and
+generalizing its findings (\sectionref{sec:foundation}).
 %
 \item We will explore and apply a novel ``reflective'' approach to
 \thread{generation}, enabling better generator tuning and counterexample
@@ -239,18 +233,15 @@ languages for expressing properties, tools that simplify authoring
 \thread{interacting} with properties
 and generators, leveraging our advances in specification and generation to
 enable new ways of visualizing and understanding random distributions
-    over test inputs and pinpointing the cause of test failures \amh{cut,
-    replace with ``tuning those distributions''}.
+    over test inputs and tuning those distributions
 (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
-methodologies from academia into industry by\iflater\bcp{This used to
-  also say ``helping
-improve open-source PBT frameworks'' but I think that's too ambitious}\fi{}
-leading the construction of a
-    comprehensive \amh{We should cut ``comprehensive''} open-source IDE for PBT,
-    dubbed \tyche. \amh{We should mention efforts to promote adoption via
-    close collaboration with industry partners.}
+methodologies from academia into industry by
+leading the construction of
+    an open-source IDE for PBT,
+    dubbed \tyche and promoting its adoption via
+    collaboration with industry partners.
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
 for introducing PBT into undergraduate and master's-level computer science courses
@@ -1273,7 +1264,7 @@ ask the reflective generator to get the choices that lead to those seeds.
 % \bcp{Chopped---we need the space.}
 % }
 
-\hg{We're also missing publication targets, which might make it less abrupt}
+\publicationtarget{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Reflective Generators for the People}{sec:reflectivepeople}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
@@ -1429,7 +1420,7 @@ PI Pierce has a long history
 of successful projects with Prof.
 Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
-\publicationtarget{International Conference on Functional Programming (ICFP)}
+\publicationtarget{OCaml Workshop and/or PyCon US}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
@@ -2386,12 +2377,12 @@ proposed work will be a significant increase in the use of PBT across
 the software industry within the time frame of the grant, driven
 by more powerful and usable tools, driven principally by open-source
 tools (\sectionref{sec:ide}).
-\bcp{How will we measure success?}
-\amh{We aim to have a significant user community and significant
-copntributions to \tyche{} outside of Penn. Our goal is to
-transition \tyche{} into shared ownership open source project
-with significant contributions coming from outside Penn by the
-end of the 3 years.}
+Our goal is to
+transition \tyche{} into a shared-ownership, open-source project
+by the end of the project.
+Success will be measured by the existance of a
+significant user community outside of Penn using \tyche{} and
+contributing to its codebase.
 
 \smallskip
 \noindent{\bf Impact on Education.}
