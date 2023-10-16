@@ -1602,7 +1602,7 @@ like this. Perhaps most familiar are
 Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
 completions and can often help with longer code
 sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
-myriad recent  blog posts and papers~\cn{} has shown its potential to turn
+myriad recent blog posts and papers~\cn{} has shown its potential to turn
 informal textual specifications of surprising complexity into working code.
 
 One might be tempted use these tools to produce properties directly,
@@ -1636,10 +1636,11 @@ in {\em helping} developers build effective tests---assisting with
 property ideation while still ultimately relying on trusted
 property generation patterns.
 The envisioned programming assistant, {\em dubbed \GhostChat}, would wrap existing property generation
-techniques---including \Mica{} and LTLTL (proposed in the prior two sections),
-QuickSpec~\cite{ref:claessen2010quickspec}, and
-GhostWriter~\cite{ref:ghostwriter}---under APIs that allow them to be invoked by
-an LLM programming assistant AI.
+techniques---including GhostWriter~\cite{ref:ghostwriter} (of the Hypothesis
+project, with which we will be collaborating), QuickSpec~\cite{ref:claessen2010quickspec},
+and \Mica{} and LTLTL (proposed in the prior two sections)---under APIs that allow them to be invoked by
+an LLM programming assistant AI, similarly to other recent programming library
+integrations for ChatGPT like the Wolfram API.
 
 The interaction between this assistant and a developer might go
 something like this. As the
@@ -1671,7 +1672,7 @@ to overcome their writer's block. If it is not, the developer can further click
 an action button to ``Look for Automations.'' The programming assistant will
 then try to find appropriate use-cases for tools like {\Mica}, LTLTL,
 QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter, and, if a use-case
-exists, allow the programmer how to run the appropriate tool automatically.
+exists, allow the programmer to run the appropriate tool automatically.
 % due to their focus on existing high-leverage use cases and the guarantees they
 % provide about the correctness of generated code. Should they come up
 % empty-handed, the assistant will offer LLM-generated tests (such as
