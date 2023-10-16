@@ -1548,17 +1548,20 @@ the state of multiple interacting software components. Take again the example of
 test through \lstinline{Outer} but write properties about
 \lstinline{Inner} by monitoring the internal values that appear while it
 runs. For example, suppose
-\lstinline{Inner} processes a stream of messages and its internal state
-includes a queue of \lstinline{processed} items and an
+\lstinline{Inner} processes a stream of messages and its internal state includes
+a count of the number of bytes currently \lstinline{processed} and an
 \lstinline{overflow} flag. Useful properties might include:
-
 \begin{lstlisting}
-prefix_of (processed, next (processed))     (* 1. Processing is monotonic *)
-msg.len < 100 ==> never (overflow = true)   (* 2. Can handle 100 bytes    *)
-eventually (processed.length = msg.length)  (* 3. whole message processed *)
+p = processed ==> @next@ (p < processed)     (* 1. Processed always inc.   *)
+msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
+@eventually@ (processed = msg.length)        (* 3. Whole message processed *)
 \end{lstlisting}
+These properties use {\em temporal operators} like \lstinline|next|,
+\lstinline|never|, and \lstinline|eventually| to express statements about the
+way the internal state should evolve over time.
 
-Checking such properties using inline ``assert'' statements
+One might hope to simply check properties like this with
+inline ``assert'' statements, but that
 does not work well. On the one hand, assertions
 require nontrivial code to save previous values for properties like (1)
 above, and would then likely involve brittle macros or meta-programming to remove such
@@ -1567,13 +1570,15 @@ assertions to check properties (2) or (3) at all, because this
 requires that assertions be cognizant of the ``end'' of a
 computation---information that may not be easily available.
 
-Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL), which allows
-properties to be defined over logged values, inspired by temporal
-logics such as Linear Temporal Logic (LTL).  We
-log specific values of interest using lightweight annotations
-within modules like \lstinline{Inner}, then provide a language for
-writing properties over the annotations, capable of capturing concepts like
-\lstinline{next} and \lstinline{never}.
+Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL), which
+allows properties like the ones above to be defined directly. The temporal
+operators in LTLTL are inspired by temporal logics such as Linear Temporal Logic
+(LTL). To use this logic, programmers annotate their programs with lightweight
+log statements that output messages like
+\lstinline|processed = 10| and \lstinline|overflow = true|, and then write
+properties like the ones above that check temporal relationships between the
+logged messages. The result is a simple scheme for checking very complex
+properties, with no specific requirement on the architecture of the code under test.
 
 Temporal logics like LTLTL have been used for PBT in the
 past~\cite{oconnor_quickstrom_2022}, but adapting that work to this
@@ -1591,12 +1596,6 @@ system {containing} the component(s) of concern.
 
 \publicationtarget{Object-Oriented Programming, Systems, Languages,
   and Applications (OOPSLA)}
-
-\bcplater{This subsection is OK, but it could be stronger on details
-  like what LTLTL actually looks like.}\hg{Ideally it would look like exactly
-  the kinds of properties above. Or were you looking for a formal
-  definition?}\bcp{No, not formal.  Just a couple sentences with a bit
-more detail.}
 
 \SUBSECTION{A Programming Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 %
