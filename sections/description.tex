@@ -340,7 +340,7 @@ can sometimes exposed by any test input with a specific combination
 of features, independent of the other features of the input. For example, a bug might be triggered by a particular
 sequence of API calls in a particular order, even when
 interleaved with other API calls. Random testing can sometimes
-discover bug-triggering combintations of features more quickly than
+discover bug-triggering combinations of features more quickly than
 exhaustive approaches, particularly those that begin with small inputs. Techniques like swarm
 testing~\cite{groce2012swarm} can further amplify this effect.
 
@@ -350,7 +350,7 @@ To apply PBT to a software system or an individual component, the
 developer first defines one or more properties that they expect the
 system should satisfy.  They supply {\em random input generators} for
 the values that the properties take as input---these are sometimes
-written by hand, but often they can be automatically generated, e.g.,
+written by hand, but often they can be automatically derived, e.g.,
 from the type of the input. Next, they invoke the PBT tool to check
 their properties against many generated inputs. And finally, if a
 counterexample is discovered, they inspect it to determine the source
