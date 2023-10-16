@@ -1,5 +1,9 @@
 \section*{Project Description}
 
+\amh{Simply replacing the phrase ``Jane Street study'' with ``our
+preliminary study at Jane Street'' will probably go a long way to
+making us look less like we are overfitting to that study.}
+
 Testing plays a vital role in the robustness, security, and overall
 quality of modern software. It comes in many styles---unit testing,
 integration testing, performance testing, stress testing,
@@ -31,7 +35,7 @@ runs the Cardano blockchain and the Ada cryptocurrency).
 
 PBT took the functional programming world by storm after its
 debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}.  In
-2010 the
+2010, the
 QuickCheck authors received the ACM SIGPLAN ``Most Influential Paper of ICFP
 2000'' for their paper, which is also now the most cited
 ICFP paper by
@@ -52,7 +56,8 @@ test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's
 PBT tool has $\sim$70\% of the stars of Python's entire testing
-infrastructure!
+infrastructure \amh{instead of ``entire,'' maybe ``de facto''? ``Entire''
+suggests to me a sum over all Python testing frameworks}!
 
 Moreover, there is still plenty of room
 for growth.
@@ -78,9 +83,18 @@ significant dent
 in the global cost of software bugs.  This is the grand challenge that
 we address.
 
+\amh{It feels like there should be a reiterated, exciting statement of purpose
+right here. Like ``The goal of this project is to envision the practice of PBT
+for 2023---when we now have a much greater sense of what PBT is
+good for, obstacles to its use, with a stronger base of pertinent PL
+knowledge, and with recent overhauls of the editing tooling (i.e., with
+the VSCode editor, programming assistants, etc.)---in a way that allows it to
+meet its potential.''}
 Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
-In recent need-finding study with PBT users at Jane Street
+\amh{Another chance to avoid the perception of overfitting to Jane
+Street---can we phrase this in a way that suggests this is a first study?}
+In a recent need-finding study with PBT users at Jane Street
 Capital, we found consistent enthusiasm---developers called it
 ``obviously valuable,'' built their own
 frameworks for it when standard ones were not available, and suggested that ``everyone''
@@ -173,6 +187,9 @@ agenda for this proposal.
   \vspace*{-2ex}
   \centering
   \includegraphics[width=.6\textwidth]{assets/overview.pdf}
+  \caption{\amh{I think we need \emph{some} reference to this figure. I am not
+  sure it will be clear from context alone that the purpose of this figure is to
+  summarize the main research threads and how they relate to each other.}}
   %\caption{Overview of the proposed research.}
   %\label{overview}
 \end{wrapfigure}
@@ -190,8 +207,11 @@ themes: \iflater\bcp{Make sure this is an
 \begin{enumerate}[noitemsep]
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
-\item We will establish a firm \thread{foundation} for HCI-informed research on PBT,
-building on our past need-finding study and to confirm and generalize
+  \item We will establish a firm \amh{Maybe ``firm'' is too strong a word given
+    that we only have 1.5 years of very targeted studies we will be running} \thread{foundation} for HCI-informed research on PBT,
+    building on our past need-finding study and to confirm \amh{Can we ditch
+    ``confirm,'' as another way to avoid suggesting overreliance on Jane Street
+    study?} and generalize
 its findings (\sectionref{sec:foundation}).
 %
 \item We will explore and apply a novel ``reflective'' approach to
@@ -208,7 +228,8 @@ benchmarking these and other advances in tools for generation (\sectionref{sec:g
 %
 \item We will empower developers to \thread{specify} properties with new
 languages for expressing properties, tools that simplify authoring
-properties, and assistants that help explain properties to others
+    properties, and assistants that help explain properties to others
+    \amh{Update (to whatever wording we choose for the project summary)}
 (\sectionref{sec:spec}).
 % tools for checking temporal properties over internal program states
 % and for model-based testing of modularized code\proposecut{ and for authoring
@@ -221,7 +242,8 @@ properties, and assistants that help explain properties to others
 \thread{interacting} with properties
 and generators, leveraging our advances in specification and generation to
 enable new ways of visualizing and understanding random distributions
-over test inputs and pinpointing the cause of test failures.
+    over test inputs and pinpointing the cause of test failures \amh{cut,
+    replace with ``tuning those distributions''}.
 (\sectionref{sec:val}).
 %
 \item We will support the \thread{diffusion} of PBT tools and
@@ -229,10 +251,12 @@ methodologies from academia into industry by\iflater\bcp{This used to
   also say ``helping
 improve open-source PBT frameworks'' but I think that's too ambitious}\fi{}
 leading the construction of a
-comprehensive open-source IDE for PBT, dubbed \tyche.
+    comprehensive \amh{We should cut ``comprehensive''} open-source IDE for PBT,
+    dubbed \tyche. \amh{We should mention efforts to promote adoption via
+    close collaboration with industry partners.}
 We will also drive diffusion via education, developing materials for teaching
 software developers about high-value applications of PBT and
-for introducing PBT into undergraduate and masters-level computer science courses
+for introducing PBT into undergraduate and master's-level computer science courses
 (\sectionref{sec:diffusion}).
 % \amh{Our diffusion efforts will also amplify
 % future research efforts through the creation and dissemination of reference
