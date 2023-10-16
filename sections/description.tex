@@ -984,7 +984,7 @@ properties that our tools should help developers write better.
 Many of the usability challenges revealed by our prior research concern test input
 \gentheme{generation}.
 Indeed, generators were regularly cited as one of the most challenging
-aspects of PBT.
+aspects of PBT in our study, and this perspective agrees with the PBT literature.
 
 We propose a number of extensions and applications of {\em reflective
 generators}, a new abstraction for random generation that
@@ -995,8 +995,7 @@ tooling. We explore how reflective generators can
 help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
 and we design
 a user study for evaluating and improving the usability of reflective
-generators (\sectionref{sec:reflectivepeople}). Finally, we discuss
-plans to boost generator automation (\sectionref{sec:genauto}) and metrics
+generators (\sectionref{sec:reflectivepeople}). Finally, we discuss metrics
 by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
 Success for these enabling technologies will be measured both by the success of
 the tools built on them (\sectionref{sec:val} and \sectionref{sec:diffusion})
@@ -1010,13 +1009,13 @@ in the supplemental documents.
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
 As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---{\em provided} the inputs actually
+gives confidence that it holds---provided the inputs actually
 exercise a wide variety of program behaviors.
 Unfortunately,
 many properties of interest have {\em preconditions}
 ({a.k.a.} {validity conditions} or {input constraints})---for example,
-the \verb|prop_insert_correct| function above succeeds trivially unless
-\verb|is_bst| holds of the input tree.  Such precoditions come up in
+the \verb|prop_insert_correct| function in \sectionref{sec:orientation} succeeds trivially unless
+\verb|is_bst| holds of the input tree.  Such preconditions come up in
 practice, and they are problematic because they can be
 difficult to satisfy randomly, so most of the testing budget
 can be wasted generating and discarding precondition-failing inputs.
@@ -1028,7 +1027,7 @@ can be wasted generating and discarding precondition-failing inputs.
 % system is designed to process.)}
 %
 Worse, even generators that are guaranteed to produce valid
-inputs can underperform in other ways---for example, by
+inputs can under-perform in other ways---for example, by
 generating many very similar inputs while ignoring large parts of
 the input space.
 
@@ -1110,10 +1109,10 @@ the computation can be written at once, in a type-safe way.}
 but, as with free generators, the syntax that users see remains close to
 that of normal monadic generators.
 
-Running a reflective generator backward is not simply a matter of
-remembering the choices it made going forwards and replaying them in
-reverse order (as some PBT frameworks already do~\cite{maciver2019hypothesis,
-  hatfield-dodds_hypofuzz_nodate}). For one thing, a reflective
+Running a reflective generator backward is not simply a matter of remembering
+the choices it made going forwards (as some PBT frameworks already
+do~\cite{maciver2019hypothesis, hatfield-dodds_hypofuzz_nodate}). For one thing,
+a reflective
 generator can reflect on inputs it did not actually
 produce---all that's required is that it {\em could} have produced
 them.  For another, the choices can be structured in whatever way is needed
@@ -1174,8 +1173,7 @@ also be used to {\em enumerate choices} or make {\em dynamically guided choices}
 \SUBSECTION{Advancing Reflective Generators}{sec:reflectivefuzzing}{1}{1}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 %
-The response to reflective generators has been encouraging (the paper
-introducing them was named a Distinguished Paper at ICFP 2023), but
+The response to reflective generators has been encouraging, but
 this paper only scratches the surface when it comes to building and
 evaluating potential use-cases.
 
@@ -1196,10 +1194,10 @@ procedure far more accurate, allowing it to much more faithfully replicate
 important features of complex input sets.
 
 Beyond example-based tuning, reflective generators are a compelling opportunity
-for integrations with
-{\em fuzzers}~\cn \hg{@Harry: See Shriram's comments on the ICSE paper for stuff on this
-citation}. Fuzzers manipulate their distributions over time, not based on
-user-provided examples, but instead based on live feedback about coverage of the
+for integrations with {\em
+fuzzers}~\cite{miller_1990,Barrett-Wilt_2021,zalewski_american_2022}. Fuzzers
+manipulate their distributions over time, not based on user-provided examples,
+but instead based on live feedback about coverage of the
 code under test.
 Some existing projects have already worked to
 combine PBT and fuzzing.
@@ -1231,9 +1229,9 @@ monadic and can generate
 inputs that always pass the parser. Our generators will be monadic for the same
 reason, but also {\em reflective}.
 
-Why a reflective generator?
-To start,
-because its backward interpretation can be used to seed the fuzzer.
+Why a reflective generator? Besides their general flexibility and broad
+use-cases, reflectives are useful for fuzzing because their backward
+interpretation can be used to seed the fuzzer.
 Modern fuzzers often
 ask the user for a number of {\em seeds}---examples that the fuzzer
 can start from,
@@ -1244,7 +1242,7 @@ seeds are easy
 for the user to write down---they are just program inputs---but
 it is infeasible to ask the user to write down the sequences of choices that
 result in their seed values.
-This is one excellent use for a
+This is an excellent use for a
 backward interpretation. The user can write down their seeds---either as values
 in the program, or as text that can be parsed by the program's parser---and
 ask the reflective generator to get the choices that lead to those seeds.
@@ -1305,13 +1303,15 @@ ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
-We will adapt existing tools for type-based generator
+Beyond these measures, we will also look into more automated approaches to
+building reflective generators.
+First, we will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
 % \proposecut{In general, type-based
 % generators are only useful for testing properties with easily satisfiable
 % preconditions, but this is a good starting point for many developers.}
-We will also consider techniques for {\em interactively}
-constructing reflective generators that maintain complex preconditions.
+Additionally, we will consider techniques for {\em interactively} constructing
+reflective generators that maintain complex preconditions.
 % Some users may already have a standard QuickCheck-style generator that
 % they would like to use
 % in a situation that requires a reflective generator.
@@ -1348,7 +1348,8 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 % PBT viable in any situation where properties already exist but preconditions
 % are hard to satisfy.
 
-\bcp{publication targets also missing here}
+\publicationtarget{International Conference on Functional Programming (ICFP) and
+User Interface Software and Technology (UIST)}
 
 \SUBSECTION{Generator Benchmark Suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
@@ -1358,22 +1359,15 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 %   been considered in this way so far...  Talk about the ``acceptable
 %   latency of benchmarks'' by analogy with jane street findings...}%
 %
-\amh{Update this section: remove publication target; this work
-now has two purposes (1) we will make the benchmark available to the
-community, further developing it so it can be used to evaluate
-existing PBT tools and (2) we will use the tool ourselves to
-evaluate the tools we develop elsewhere in this proposal---specifically
-for Sections 4.1 and 4.2.}
 
-\todo{There may be additional
-    interesting things to do in the benchmarking space  [@Benjamin]}%
 Most papers in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
 are caught more quickly with their tool than existing ones. For
 theoretically-oriented work, this may be sufficient
 to demonstrate the interest of an idea, but such evaluations
 are hard to interpret from the perspective of a would-be user.
-We can do better.
+We can do better, and we plan to when doing the work laid out in the previous
+two subsections.
 
 We have built and published the first version of a robust empirical evaluation
 framework for
@@ -1423,7 +1417,9 @@ PI Pierce has a long history
 of successful projects with Prof.
 Lampropoulos~\cite[etc.]{beginners-luck,DBLP:conf/esop/GoldsteinHLP21,lampropoulos_coverage_2019,Lampropoulos&18,OLDlampropoulos19fuzzchick}.
 
-\publicationtarget{OCaml Workshop and/or PyCon US}
+\publicationtarget{This work will support evaluation for the work in
+\sectionref{sec:reflectivefuzzing} and \sectionref{sec:reflectivepeople}, as
+well as other experiments carried out by PBT library maintainers.}
 
 \SECTION{Specification}{Widening the On-Ramp\pagebudget{2}}{sec:spec}
 %
