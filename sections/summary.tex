@@ -5,9 +5,6 @@
 % \newcommand{\summarysection}[1]{\paragraph*{#1.}}
 % \newcommand{\summarysection}[1]{\medskip \noindent {\bf #1.}}
 
-\amh{We might be at >6 lines of text per inch. I measured 6 and then part of
-one. Let's double check with another ruler (one that wasn't printed).}
-
 \summarysection{Overview}
 Property-based testing (PBT) is an advanced software engineering
 methodology in which users write executable formal specifications of system
@@ -27,11 +24,9 @@ The goal of this proposal is to accelerate this transition
 by addressing key challenges.
 
 What are these challenges?
-\amh{There may be a chance here to soften the wording to avoid looking
-like we are ``overfitting'' on Jane Street}
-In a recent need-finding study at Jane
-Street, a Wall Street trading firm which uses software
-technology as a competitive advantage, we found developers enthusiastic
+In a recent need-finding study of professional software developers who
+use PBT in their work, we
+found people enthusiastic
 about the {\em usefulness} of PBT but frustrated with its {\em usability}.
 %
 Indeed, this study identified usability as an issue in both major components
@@ -91,9 +86,8 @@ Languages and included in the SHF
 program under CISE-CCF.  Usability, on the other hand, is the domain
 of Human-Computer Interaction; its center of mass in CISE is IIS's
 HCC program.  This collaborative proposal brings together
-experts in
-both areas\iflater \bcp{to... (do something impressive :-)} \amh{Maybe imbue PBT
-tools with an unprecedented level of controllability and visibility?}\fi.
+experts in both areas, aiming to create new PBT tools
+offering users unprecedented levels of visibility and control.
 
 \smallskip
 
@@ -111,46 +105,36 @@ observations of developers interacting with PBT.
 %
 Second, it will explore a new abstraction for random input
 \thread{generation} that enables a range of novel use
-cases---generating inputs satisfying validity conditions, reducing
-test-cases for easier debugging \amh{cut this}, mutating inputs to explore program
-behavior \amh{cut this, I think}, and tuning distributions based on examples or coverage. It
+cases---generating inputs satisfying validity conditions and tuning
+distributions based on examples or coverage. It
 will also explore automatic generator construction and develop
 benchmarks for PBT tools.
 %
 Third, it will offer developers more usable \thread{specification} tools,
 including a language for temporal properties over program traces,
 automatic model-based testing of
-modular abstractions, and techniques for explaining properties \amh{cut this}
-\amh{Instead, develop programming assistant interactions that bring together
+modular abstractions, and a programmer's assistant that brings together
 specification generation techniques and contemporary AI to help programmers
-ideate about and implement properties. Except we should say that in half the
-space :-)}.
+imagine and implement properties.
 %
 And fourth, it will develop new tools for effective
-\thread{interaction} between developers and their tests, including
+\thread{interaction} between developers and their tests, focusing on
 tools for visualizing and manipulating generated data
-distributions, simplifying test-cases \amh{cut this}, and saving
-  failing test-cases as understandable unit tests \amh{cut this}, culminating in a VSCode
-  extension for PBT \amh{maybe this can be stated a little more
-  excitingly---like ``a first-of-its-kind interactive IDE for PBT''}.  \iflater\bcp{make sure all that is accurate}\fi
+distributions and culminating in a first-of-its-kind interactive IDE for PBT.
 
 \summarysection{Broader Impacts}
 A final thread of activity, coordinated with the rest and integral to the
 project's aims,
 is supporting the \thread{diffusion} of PBT tools and
 methodologies from academia into industry through collaboration with
-industry leaders and through a broad \amh{maybe cut ``broad'', maybe not broad in the new
-3-year framing} range of educational activities.
-We will support and strengthen existing
-open-source PBT tools in popular programming languages and enrich them
-with research products from the four
-themes described above. \amh{Cut this} \amh{Instead, develop a base IDE for PBT
-and promote its adoption and evolution in partnership with our industry
-collaborators.}
-We will also
+industry leaders and through a range of educational activities.
+We will
 develop materials for teaching industry programmers how to identify
 high-leverage PBT opportunities and curricula for teaching mature
 and powerful PBT practices to undergraduate and master's students.
+And we will transition our interactive IDE for PBT from a research
+prototype into an open-source project with active users and
+contributors in multiple organizations.
 
 Work on the project will include and elevate a group of undergraduate
 researchers from
@@ -162,12 +146,18 @@ undergraduates will work closely with the PIs and Ph.D.{} students.
 % rather than ``research'' focused. Can we instead state our ultimate goal as
 % research insight that clarifies and diminishes the gap between theory and
 % practice for property-based testing?}
-The ultimate goal, through novel research, education, publications, and open-source
-tools, is to advance the state of the art in property-based testing
-and put it on every
-software developer's testing toolbelt. \amh{Here is an opportunity to restate
-the ``something impressive'' from the overview.} Better testing, in turn, will
-lead to software systems that are more robust and less expensive.
 
+\smallskip
+
+The ultimate goal, through novel research, education, publications, and open-source
+tooling, is to advance the state of the art in property-based testing
+and put it on every
+software developer's testing toolbelt.
+Better testing, in turn, will
+lead to software systems that are more robust and less expensive.
+\amh{Here is an opportunity to restate
+the ``something impressive'' from the overview.}
+\bcp{Yes.  Or something, at any rate, that lands with less of a thud.
+E.g., simply deleting that last sentence might be OK.  :-)}
 
 % The statement on broader impacts should describe the potential of the proposed activity to benefit society and contribute to the achievement of specific, desired societal outcomes.
