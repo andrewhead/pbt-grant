@@ -3,8 +3,8 @@
 Testing plays a vital role in the robustness, security, and overall
 quality of modern software. It comes in many styles---unit testing,
 integration testing, performance testing, stress testing,
-accessibility testing, penetration testing, etc.---and is supported by
-diverse tools, with yet more advanced tools and methodologies always on
+accessibility testing, penetration testing, etc.---each supported by
+diverse tools, with even more advanced tools and methodologies always on
 the horizon.
 
 One such methodology is {\em property-based testing} (PBT),
@@ -28,44 +28,45 @@ systems~\cite{hughes_experiences_2016}.
 It is used by companies including Amazon, Volvo, Stripe, Galois,
 and IOG.
 
-PBT took the functional programming world by storm after its
-debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}.  In
-2010, the
-QuickCheck authors received the ACM SIGPLAN ``Most Influential Paper of ICFP
-2000'' for their paper, which is also now the most cited
+Following its
+debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}, PBT
+took the functional programming world by storm.  In
+2010, Klaessen and Hughes received the ACM SIGPLAN ``Most Influential Paper of ICFP
+2000'' for their paper introducing QuickCheck (it is now the most cited
 ICFP paper by
-a factor of 2, according to ACM's digital library.  Since then,
+a factor of 2, according to ACM's digital library).  Since then,
 PBT has spread to many other software ecosystems:
 %
 Wikipedia lists QuickCheck variants in 40 languages, some
-with multiple competing frameworks~\cite{QuickCheckWikipedia} (Java alone has
-7!).
+with multiple competing frameworks~\cite{QuickCheckWikipedia}---Java alone has
+7!
 %
-And these frameworks are popular:
+And some of these frameworks are very popular:
 the developers of the Python Hypothesis framework~\cite{maciver2019hypothesis,HypothesisGithub} estimate its user community
 at half a million~\cite{ZacPersonalCommunication,noauthor_python_nodate}.  On GitHub,
-Hypothesis has 6.5K ``stars'' from developers (indicating enthusiasm)~\cite{borges_whats_2018}, Rust's
+Hypothesis has 6.5K ``stars'' indicating enthusiasm from developers~\cite{borges_whats_2018}, Rust's
 quickcheck~\cite{RustQuickcheckGithub} has 2K,
 ScalaCheck~\cite{ScalaCheckGithub} has 1.8K, and Clojure's
 test.check~\cite{ClojureTest.checkGithub} has 1.1K.
 By comparison, pytest, the main Python framework for running
 tests, has 9.6K stars~\cite{PytestGitHub}---i.e., Python's PBT tool has
-$\sim$70\% of the stars of the de-facto standard testing infrastructure in
-Python!
+$\sim$70\% as many stars as the de-facto standard testing infrastructure in
+Python.
 
-Moreover, there is still plenty of room
+But there is still plenty of room
 for growth.
 The estimated  500K
-Hypothesis users represent only 4\% of all Python developers; the Hypothesis
+Hypothesis users represent only 4\% of all Python developers, whereas
+the Hypothesis
 authors estimate that the ``addressable market'' for PBT is around
 25\% of the Python
-community, and that there remains significant room for
-improving its usage by existing users~\cite{ZacPersonalCommunication,noauthor_python_nodate}.
+community and that there remains significant room for
+improving its usage by current users~\cite{ZacPersonalCommunication,noauthor_python_nodate}.
 Similarly, the list of
-companies using PBT, while substantial, is far from the whole of the software
+companies using PBT, while substantial, is very far from the whole of the software
 industry.
-These gaps represent a gigantic opportunity to increase software quality
-and reduce software costs.
+These gaps represent a massive opportunity to increase software quality
+and reduce costs.
 A 2002 study~\cite{2002economic} estimated that the total cost of software errors is almost
 \$60 billion per year and suggested that \$22 billion of that could be
 saved through
@@ -78,7 +79,7 @@ in the global cost of software bugs.  This is the grand challenge that
 we address.
 
 \amh{It feels like there should be a reiterated, exciting statement of purpose
-right here. Like ``The goal of this project is to envision the practice of PBT
+right here. Like ``The goal of this project is to re-envision the practice of PBT
 for 2023---when we now have a much greater sense of what PBT is
 good for, obstacles to its use, with a stronger base of pertinent PL
 knowledge, and with recent overhauls of the editing tooling (i.e., with
@@ -90,7 +91,11 @@ articulating why now is the right time for this work} \amh{@BCP fair enough.
 My suggestion wasn't to increase excitement but rather
 to reset the focus by restating our goals in this transition from
 background (above) to the work we're doing (right below). Not totally necessary
-though.}
+though.}\bcp{I don't object to some kind of exciting statement of
+goals here, but I'm having trouble coming up with wording that works
+well (``Envision the practice of PBT for 2023'' only makes any sense to me
+after thinking about it for a while.)  So I'm going to leave it for later.}
+
 Our groups have already begun working together to identify
 high-leverage ways to extend PBT's reach.
 In an initial need-finding study with industrial PBT users, we found consistent enthusiasm:
@@ -105,13 +110,13 @@ many other powerful tools, PBT can be nontrivial to apply effectively, and devel
 need support to do so.
 
 To make PBT not just useful but
-\emph{usable} requires transformative advances in the underlying technology.
-Our formative research suggests that, to achieve
-such a transformation, tools will need to provide yet-unachieved levels of
+{usable} requires transformative advances in the underlying technology.
+Our formative research suggests that tools will need to provide
+yet-unachieved levels of
 \emph{visibility} into effectiveness of property-based tests and \emph{control}
 over the testing process.
 %
-The conceptual advances required to build these tools
+The advances required to build these tools
 will demand fundamental insights from both the
 programming languages (PL) and human-computer interaction (HCI)
 communities.
@@ -121,7 +126,7 @@ other, HCI provides a deep foundation of theory and
 practice for evaluating usability of systems in a
 rigorous and objective way, including principled methods for
 identifying problems, metrics for measuring impact, and proven
-approaches to tool design---where tools, here, naturally include
+approaches to tool design---where tools, here, include
 not only ``front end'' components like
 data visualizers and IDE plug-ins, but
 also ``back end'' technologies like domain-specific languages for
@@ -173,11 +178,11 @@ of PL+HCI research.  PI Head recently
 co-founded a new HCI group at
 the University of Pennsylvania and specializes in interactive
 programming environments, while PI Pierce has published widely on PL
-topics including PBT.  Our past collaboration has led to
+topics including PBT.  Our collaboration has so far led to
 one accepted conference paper on the industry study mentioned above~\cite{ref:goldstein2024property},
 two workshop
 presentations~\cite{goldstein_problems_2022,shi_towards_2023}, and one
-refereed demo~\cite{ref:goldstein2023tyche}; all of these inform the
+refereed demo~\cite{ref:goldstein2023tyche}, all of which inform the
 agenda for this proposal.
 
 \medskip
@@ -204,13 +209,13 @@ themes (summarized in the figure on the right): \iflater\bcp{Make sure this is a
 % \begin{itemize}[noitemsep]
 % \begin{enumerate*}
 \item We will establish a new \thread{foundation} for HCI-informed
-research on PBT, building on our past need-finding study and
+research on PBT, building on our existing need-finding study and
 generalizing its findings (\sectionref{sec:foundation}).
 %
 \item We will explore and apply a novel ``reflective'' approach to
 \thread{generation}, enabling better generator tuning and counterexample
 shrinking and linking PBT with fuzzing.  We will automate construction
-of reflective generators, and we will construct a platform for
+of reflective generators and construct a platform for
 benchmarking these and other advances in tools for generation (\sectionref{sec:gen}).
 
 % \item We will help developers efficiently define and tune random input
@@ -269,7 +274,7 @@ co-teaches.
 The rest of the Project Description describes this research and
 technology transfer agenda in detail.  Sections
 \sectionref{sec:orientation} and \sectionref{sec:motivation} supply
-background on PBT and present preliminary findings from our
+background on PBT and summarize findings from our
 preliminary study.
 %
 Sections \sectionref{sec:foundation} through
@@ -283,10 +288,10 @@ NSF-supported work.
 \SIMPLESECTION{Orientation: Property-Based Testing}{sec:orientation}
 Developers in modern software ecosystems are often faced with code
 that they do not fully understand. Applications are not cut from whole cloth;
-they are built from large sets of components that are themselves often
+they are built from large sets of components that are often themselves
 assembled from multiple sources.
 AI assistants like Copilot and ChatGPT make it even
-easier to {\em get} code to carry out a given task but even harder to
+easier to {\em assemblke} code to carry out a given task, but even harder to
 {\em trust} that it is doing the right thing.
 
 Property-based testing~\cite{hughes_quickcheck_2007} proposes an
@@ -717,7 +722,7 @@ Institutional Review Board (IRB).
 Our prior interview study revealed a rich
 set of opportunities to improve property-based testing. As noted above, the interview
 study sampled developers at one firm with a mature testing culture and PBT toolset.
-While this is enough to indicate the upside of myriad kinds of improvements
+While this is enough to indicate the upside of many kinds of improvements
 to PBT, there is considerable value to be had in completing the story with
 the broader population of developers.
 We will therefore conduct two surveys with the goals of (1) validating and
@@ -1624,7 +1629,7 @@ like this. Perhaps most familiar are
 Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
 completions and can often help with longer code
 sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
-myriad recent blog posts and papers~\cite{ref:bubeck2023sparks,ref:savelka2023thrilled}\amh{Citations are actually for GPT-4---update. And they are also just papers and not blog posts} has shown its potential to turn
+numerous recent papers~\cite{ref:bubeck2023sparks,ref:savelka2023thrilled}\amh{Citations are actually for GPT-4---update. And they are also just papers and not blog posts} has shown its potential to turn
 informal textual specifications of surprising complexity into working code.
 
 One might be tempted use these tools to produce properties directly,
@@ -1884,7 +1889,8 @@ It is by no means easy for a developer to assess the quality of
 an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
 A comon strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
-While HCI research has seen a renaissance of research in methods for visualizing input data distributions across myriad domains (e.g.,
+While HCI research has seen a renaissance of research in methods for
+visualizing input data distributions across many different domains (e.g.,
 ~\cite{ref:hohman2019gamut,ref:hohman2020understanding,ref:kang2017omnicode}), new solutions are needed for PBT.
 
 What about the PBT setting requires novel solutions?
@@ -2386,7 +2392,12 @@ transition \tyche{} into a shared-ownership, open-source project
 by the end of the project.
 Success will be measured by the existance of a
 significant user community outside of Penn using \tyche{} and
-contributing to its codebase.
+contributing to its codebase.  Besides Zac Hatfield-Dodds, the
+current Hypothesis maintainer, we are in early discussions with
+project leaders at Amazon AWS; both they and Hatfield-Dodds are
+interested in putting engineering effort into developing \tyche{} and
+enhancing it for their local
+situations---Rust- and Python-focused, respectively.
 
 \smallskip
 \noindent{\bf Impact on Education.}
