@@ -1921,7 +1921,7 @@ The effectiveness of PBT depends on the quality of input distributions, i.e., wh
 % \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
 It is by no means easy for a developer to assess the quality of
 an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
-A comon strategy for developers is to assess input distributions by inspecting a
+A common strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
 While HCI research has seen a renaissance of research in methods for
 visualizing input data distributions across many different domains (e.g.,
@@ -1971,7 +1971,7 @@ with mature PBT tooling. We plan for \tyche{} to serve as a platform
 for developing not just the interactive features describe here, but
 also contributions
 by other groups. A prototype of \tyche{} has been
-accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a
+accepted for the UIST demo session~\cite{ref:goldstein2023tyche}; a
 mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
 will develop in our research follow:
 
@@ -2032,22 +2032,23 @@ approaches and compare their effectiveness in pilot studies.
 
 A fourth innovation is the synchronization of above views with
 live feedback on what code is exercised by the tests. Building on the design
-pattern whereby a tool show which lines of code are currently
+pattern whereby a tool shows which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
   ref:oney2009firecrystal, ref:burg2013record}, our tools will
 colorize code to show
 how frequently each line is executed while running tests, both in aggregate and
 for individual tests. Altogether, the above activities will be a set of
 interrelated interaction primitives that serve as building blocks for
-understanding distributions of complex input data. Success of this (and the next
-two projects) will be determined by the novel interactions' ability to reduce
+understanding distributions of complex input data. Success of this (and the
+next) project will be determined by the novel interactions' ability to reduce
 testing time and achieve desirable input distributions.
 
 \subsectionstar{Interactive Tuning of Input Distributions}{}{}
 %
 Tuning generators to produce ``interesting''
 values can be challenging, requiring
-significant trial and error with a textual generator description.
+significant trial and error with the source code definition of a
+generator\amh{someone check this}.
 % Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
 % such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
 % solution, as do code coverage-based generation techniques
@@ -2183,13 +2184,15 @@ The foundational research and tool building projects described above
 are needed, we believe, to bring PBT to a broader audience,
 but they not enough by themselves. Our agenda also
 includes plans for increasing the {\em diffusion} of PBT by developing the Tyche IDE as a
-cross-platform, language-agnostic, open-source project (\sectionref{sec:ide}), educating
+cross-platform, language-agnostic\amh{maybe cut cross-platform and
+language-agnostic---we don't talk about that anywhere and it sounds like a lot
+of work}, open-source project (\sectionref{sec:ide}), educating
 programmers in effective application of PBT by developing a catalog of
 high-leverage PBT use cases (\sectionref{sec:whento}), and
 creating undergraduate- and
 master's-level course materials for PBT (\sectionref{sec:1210}).
 We will also advertise our findings, tools, and materials to potential user communities
-through talks at industry conferences like Yow! Lambda Jam, Strangeloop, and
+through talks at industry conferences like \emph{Yow!}, Lambda Jam, Strangeloop, and
 Lambda World.
 
 \SUBSECTION{Open-Source Community for Tyche}{sec:ide}{1}{2}{Tech
@@ -2323,7 +2326,7 @@ seem happy to limit their use of PBT to such situations.
 While more experienced PBT users do also apply it in less obvious,
 high-cost / high-benefit situations, it appears that
 focusing educational efforts on easy cases may be the best way to
-drive adoption.
+drive adoption among those less experienced with PBT.
 
 We plan to produce educational resources to help developers understand
 high-leverage situations for PBT. We will begin with an effort
@@ -2332,8 +2335,7 @@ aspirational title ``When to Specify It!'' in homage to John Hughes's
 popular tutorial, ``How to Specify It!''. Initially,
 the survey will
 document a  range of high-leverage scenarios identified by our formative
-industry study%
-.%
+industry study.
 % \proposecut{, including cases like
 % \begin{enumerate*}[label=(\arabic{enumi})]
 % \item ``these two functions (e.g., a parser and a printer) should round-trip,''
@@ -2457,7 +2459,9 @@ An ancillary educational goal is to
 publicize and communicate the benefits of PBT to the broader computer science
 {\em research} community. As part of these efforts, we will write an article on PBT
 for the Communications of the Association for Computing Machinery
-(CACM).
+(CACM).\amh{This is a great idea, though it feels like one extra thing on top of
+an already full proposal. I think maybe we should cut this goal, or propose it
+might be done following the conclusion of the project.}
 
 \smallskip
 \noindent{\bf Mentoring and Diversity.}
@@ -2481,7 +2485,7 @@ students. Pierce (along with Penn colleagues Zdancewic and Weirich)
 recently received funding for an
 NSF REU program that will involve 24 undergraduates (either per
 year for three+ years), selected specifically with an eye to diversity;
-for the present project, we are requesting funds to add one more per
+for the present project, we are requesting funds to add one more\amh{one more what?} per
 year specifically to work on PBT topics, many of which are well suited
 to undergraduate interns. See the BPC
 supplementary
@@ -2562,7 +2566,7 @@ Python, but applicable in other, similar languages.
 performance measurement (mostly at Amherst and Maryland) and PBT (mostly at Penn
 and Maryland).  Specific threads of work involving Penn included
 building an early
-version~\cite{goldstein2023reflecting} of the Reflective Generators described in
+version~\cite{goldstein2023reflecting} of the reflective generators described in
 \sectionref{sec:gen}, carrying out the pilot study of PBT in Python
 mentioned in
 \sectionref{sec:motivation}~\cite{goldstein_problems_2022},
@@ -2574,7 +2578,7 @@ presenting a principled
 automatic testing framework for application-layer
 protocols~\cite{Li2021:MBToNA}, developing and releasing a freely
 available mutation testing framework for Python, called {\tt
-  pytest-mutagen}~\cite{pytestmutagen}, and applied ideas from
+  pytest-mutagen}~\cite{pytestmutagen}, and applying ideas from
 combinatorial testing, a widely studied testing methodology, to modify
 the distributions of random test-case generators so as to find bugs
 with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
@@ -2583,7 +2587,9 @@ with fewer tests~\cite{DBLP:conf/esop/GoldsteinHLP21}.
 products are being used to increase the
 performance and correctness of Python applications.
 Educational impact focused on training graduate and
-undergraduate students, including a female PhD student, Jessica
+undergraduate students, including a female\amh{for some reason this phrasing
+feels a little weird to me. Do we need to identify gender and the specific
+Ph.D. student?} PhD student, Jessica
 Shi.
 %
 {\bf Publications (involving Penn):} \cite{goldstein2023reflecting,DBLP:conf/esop/GoldsteinHLP21,
