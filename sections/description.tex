@@ -971,47 +971,52 @@ properties that our tools should help developers write better.
 % Machinery (CACM) to communicate about PBT to a broader computer science audience.
 
 \SECTION{Generation}{Better Tools for Random Inputs\pagebudget{3}}{sec:gen}
-Many of the usability challenges revealed by our prior research concern test input
+Many of the usability challenges highlighted by our prior interview study
+are related to test input
 \gentheme{generation}.
 Indeed, generators were regularly cited as one of the most challenging
-aspects of PBT in our study, and this perspective agrees with the PBT literature.
+aspects of PBT.  The wealth of papers on generation in the PBT
+literature tells a similar story.
 
+Our overarching goal in the tasks described in this section is to
+improve both the {\em visibility} and the {\em controllability} of
+generators.
 \amh{Can we lead in with what we want to change about working with generators
 before getting to specifics? This would help us avoid looking like we're
-prematurely converging on reflective generators.}
+prematurely converging on reflective generators.}\bcp{@Andrew: How's that?}
 We propose a number of extensions and applications of {\em reflective
 generators}, a new abstraction for random generation that
 ``unbundles'' generator
 functionality, exposing levers for
 automation that enable a number of new approaches to generator
 tooling. We explore how reflective generators can
-help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
-and we design
-a user study for evaluating and improving the usability of reflective
-generators (\sectionref{sec:reflectivepeople}) \amh{I think this is out of date}. Finally, we discuss metrics
+help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}) and
+design methods for making reflective generators easier to
+build~\sectionref{sec:reflectivepeople}. Finally, we discuss metrics
 by which to evaluate improvements in generation \amh{we can probably describe
 this in a more exciting way} (\sectionref{sec:benchmarks}).
 Success for these enabling technologies will be measured both by the success of
-the tools built on them (\sectionref{sec:val} and \sectionref{sec:diffusion})
-and by top-tier publications \amh{ours or others'?}, including performance evaluations and/or
-user studies as appropriate.
-PI Pierce is a longtime collaborator of John Hughes \amh{I'm not sure there's
-enough context here to make this name-dropping make sense}, one of the
-QuickCheck creators, who plans to collaborate on the projects
-in this section; a letter of collaboration from Prof.{} Hughes appears
-in the supplemental documents.
+tools built on them (see \sectionref{sec:val} and \sectionref{sec:diffusion})
+and in terms of publications at top-tier venues.
+
+John Hughes, one of the QuickCheck creators and a longtime
+collaborator of PI Pierce, plans to work with us on the projects in
+this section; a letter of collaboration from Prof.{} Hughes appears in
+the supplemental documents.
 
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
-As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random data
+As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds \amh{complex sentence}---provided the inputs actually
+increases confidence that it holds, but this confidence is well
+placed only if the inputs actually
 exercise a wide variety of program behaviors.
 Unfortunately,
 many properties of interest have {\em preconditions}
-({a.k.a.} {validity conditions} or {input constraints})---for example,
-the \verb|prop_insert_correct| function in \sectionref{sec:orientation} succeeds trivially unless
-\verb|is_bst| holds of the input tree.  Such preconditions come up in
-practice, and they are problematic because they can be
+(a.k.a.\relax{} {validity conditions} or {input constraints}).  For example,
+the \verb|prop_insert_correct| function in \sectionref{sec:orientation} succeeds trivially if
+the input tree does not satisfy \verb|is_bst|.  Such preconditions
+come up frequently in
+practice; they are problematic because they can be
 difficult to satisfy randomly, so most of the testing budget
 can be wasted generating and discarding precondition-failing inputs.
 %
@@ -1021,17 +1026,19 @@ can be wasted generating and discarding precondition-failing inputs.
 % well formed---though perhaps unusual---instances of the sorts of inputs the
 % system is designed to process.)}
 %
-Worse, even generators that are guaranteed to produce valid
+And even generators that are guaranteed to produce valid
 inputs can under-perform in other ways---for example, by
 generating many very similar inputs while ignoring large parts of
 the input space.
-\amh{Is the preconditions problem the \emph{main} reason that random generation
-is hard? Or even one of the main reasons? The current writing doesn't sell how
-central this is, and so might run the risk of feeling like it is fixating on an
-unimportant detail.}
+% \amh{Is the preconditions problem the \emph{main} reason that random generation
+% is hard? Or even one of the main reasons? The current writing doesn't sell how
+% central this is, and so might run the risk of feeling like it is fixating on an
+% unimportant detail.}
+% \bcp{Is it certainly one of the main reasons.  I tweaked the wording a
+% little.}
 
-Approaches\amh{Solutions?} to these challenges
-fall on a spectrum from automatic to manual. The automatic approaches use
+Approaches to these challenges
+fall on a spectrum from automatic to manual. More automatic approaches use
 various proxies for validity and ``interestingness'' of
 inputs: some, like {\em
 fuzzers}~\cite{afl-readme}, try to maximize readily available metrics like code
@@ -1058,20 +1065,19 @@ examples~\cite{soremekun2020inputs}; these tools can generate
 realistic inputs, but they are again limited to structural preconditions.
 
 The most flexible, most manual solutions use hand-built
-generators, often written in a special-purpose domain-specific language (DSL).
+generators, often written in a special-purpose Domain-Specific Language.
 Such DSLs are often implemented using {\em
 monads\/}~\cite{moggi1991notions}, an elegant design pattern for
 expressing effectful (here, random and stateful) computations. Monadic
 generators can implement random data producers of arbitrary complexity
 (e.g., generators for for random Haskell
 programs~\cite{palka_testing_2011}); in this sense, they are strictly more expressive than
-representations like grammar-based generators.  Yet monadic generators are
+representations like grammar-based generators.  Moreover, monadic generators are
 syntactically constrained in a way that isolates the probabilistic code and
-prevents usage errors (like passing the wrong random seed around).
+prevents usage errors like propagating random seeds incorrectly.
 
 We can further improve monadic generators by re-framing them as {\em
-  parsers of random choices}. \amh{What is the degree of potential improvement?
-  Is this small potatoes or big potatoes?} The usual intuition is that a generator
+  parsers of random choices}. The usual intuition is that a generator
 operates by making a series of random choices, but we can think of
 it as being {\em given} a random sequence of choices and following
 those choices to produce a value. This shift of perspective has been
@@ -1087,13 +1093,14 @@ idea of free generators, we are now exploring a powerful
 generalization called {\em reflective
   generators}.  The basic concept came out of a
 past NSF project (see \sectionref{sec:prior}). Our first paper on
-reflective generators won a distinguished paper award at ICFP 2023. \amh{Ref?}
+reflective generators~\cite{goldstein2023reflecting} won a
+distinguished paper award at ICFP 2023.
 
-The definint attribute of\amh{I rewrote the last phrase, check} reflective generators is that they can be run
+The defining feature of reflective generators is that they can be run
 {\em backward}.
-If running a generator in the usual way can be seen as parsing a
+Whereas running a generator in the usual way can be seen as parsing a
 sequence of choices into a
-value, then running it backward takes that value and produces a
+value, running it backward takes that value and produces a
 sequence of choices that
 would generate it.
 The mathematical machinery
@@ -1107,7 +1114,9 @@ complexity of bidirectional program composition in the bind operation of the
 monad, allowing both directions of
 the computation can be written at once, in a type-safe way.}
 but, as with free generators, the syntax that users see remains close to
-that of normal monadic generators\amh{which is good, usable syntax?}.
+that of familiar monadic generators.
+
+%%%%%%%%%%%% BCP STOPPPED HERE
 
 Running a reflective generator backward is not simply a matter of remembering
 the choices it made going forward (as some PBT frameworks already
