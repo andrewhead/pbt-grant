@@ -293,11 +293,13 @@ assembled from multiple sources.
 AI assistants like Copilot and ChatGPT make it even
 easier to {\em assemblke} code to carry out a given task, but even harder to
 {\em trust} that it is doing the right thing.
-
+%
 Property-based testing~\cite{hughes_quickcheck_2007} proposes an
-effective approach to this problem---a straightforward way to evaluate
-hard-to-understand programs is by validating them, semi-automatically,
-against executable specifications. As a very basic example, a
+approach to this problem---a straightforward way to validate
+hard-to-understand programs, semi-automatically,
+against executable specifications.
+
+As a very simple example, a
 developer might write the following function for checking that
 the \lstinline{insert} function on binary search trees itself yields a new
 binary tree:
@@ -306,7 +308,7 @@ prop_insert_correct (x:int) (t:tree)  =
   if is_bst t then is_bst (insert x t)) else True
 \end{lstlisting}
 That is, if the tree passed to this function
-is a BST, then it must remain
+is a BST, then it should remain
 one after the insertion of \texttt{x} (where
 \lstinline{is_bst} checks that its argument is a BST---i.e., whether it
 is arranged so that each node's label is greater
@@ -333,19 +335,22 @@ that causes the property to fail is reported to the user as a
 % automated testing where the user needs to define what it means for a program to
 % be correct.}
 
-The dominant approach to generating inputs (and the approach we focus on in this
-project) is {\em random}
+The dominant approach to generating inputs and the one we take in this
+project is {\em random}
 generation~\cite{hamlet1994random}. In contrast to enumerative
-generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}, which iteratively
+generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}, which
+systematically 
 generates all possible inputs, random generation randomly samples inputs from a
 potentially infinite distribution. The
 surprising effectiveness of random generation can be attributed to the
-``combinatorial nature'' of large test cases: bugs are
-can sometimes exposed by any test input with a specific combination
-of features, independent of the other features of the input. For example, a bug might be triggered by a particular
-sequence of API calls in a particular order, even when
-interleaved with other API calls. Random testing can sometimes
-discover bug-triggering combinations of features more quickly than
+``combinatorial nature'' of large test cases: many bugs 
+can be exposed by {\em any} test input with a specific combination
+of features, independent of the other features of the input. For
+example, a bug in the {\tt insert} function might be triggered
+whenever the new value {\tt x} already appears in the tree,
+independent of what else is in the tree.
+Random testing can sometimes
+discover bug-triggering combinations of features much more quickly than
 exhaustive approaches, particularly those that begin with small inputs. Techniques like swarm
 testing~\cite{groce2012swarm} can further amplify this effect.
 
