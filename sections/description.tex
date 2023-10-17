@@ -339,11 +339,11 @@ The dominant approach to generating inputs and the one we take in this
 project is {\em random}
 generation~\cite{hamlet1994random}. In contrast to enumerative
 generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}, which
-systematically 
+systematically
 generates all possible inputs, random generation randomly samples inputs from a
 potentially infinite distribution. The
 surprising effectiveness of random generation can be attributed to the
-``combinatorial nature'' of large test cases: many bugs 
+``combinatorial nature'' of large test cases: many bugs
 can be exposed by {\em any} test input with a specific combination
 of features, independent of the other features of the input. For
 example, a bug in the {\tt insert} function might be triggered
@@ -356,7 +356,7 @@ testing~\cite{groce2012swarm} can further amplify this effect.
 
 \smallskip
 
-To apply PBT to a software system or an individual component, the
+To apply PBT to a whole software system or an individual component, the
 developer first defines one or more properties that they expect the
 system should satisfy.  They supply {\em random input generators} for
 the values that the properties take as input---these are sometimes
@@ -365,11 +365,11 @@ from the type of the input. Next, they invoke the PBT tool to check
 their properties against many generated inputs. And finally, if a
 counterexample is discovered, they inspect it to determine the source
 of the bug.  Each of these steps can be significantly improved for
-users, as we describe below.
+users, as we describe in the following sections.
 
-Why go to the trouble of using PBT, rather than the more straightforward
+Why go to the trouble of using PBT instead of the straightforward
 example-based testing that is standard across the software industry?
-One reason is that it can exercise a system much more
+One reason is that PBT can exercise a system much more
 comprehensively than a small number of hand-written examples.
 % \proposecut{As mentioned
 % previously, PBT has an impressive track-record uncovering bugs that other
@@ -391,49 +391,55 @@ the developer already has some formal or semi-formal
 specification in mind---for example if they are implementing behavior from an RFC or
 other design document.
 Finally, the
-properties used for PBT can also serve as documentation of what a
-program is supposed to do.
+properties used for PBT can do double duty as documentation of what a
+program is intended to do.
 
 PBT is often compared to {\em fuzz testing}~\cite{afl-readme},
 which randomly tests software to find
-vulnerabilities. We discuss ideas for bringing PBT and
-fuzzing closer together later in the proposal
-(\sectionref{sec:reflectivefuzzing}), but current fuzzers have fundamentally
-different goals from PBT.  In general, fuzzers need to run for a long time (hours or
-days), they are commonly used to test whole systems ``from the
+vulnerabilities. Current fuzzers have fundamentally
+different goals from PBT (though
+we discuss ideas for bringing them closer together in
+\sectionref{sec:reflectivefuzzing}).  In general, fuzzers need to run
+for a  long time (hours or
+days), and they are commonly used to test whole systems ``from the
 outside'' by provoking
 crashes. Properties in PBT, on the other hand, can typically be
 checked more quickly (on the order of seconds), they express richer
-constraints on behavior than ``does not crash,'' and they can be used
-to test both whole systems and smaller components.  Both techniques are useful, but
+constraints than ``does not crash,'' and they can be used
+to test both whole systems and smaller subcomponents.  Both techniques are useful, but
 they are applied in different ways, at different points in the
 development process, to achieve different goals.
 
-With all these advantages, one might hope to find PBT on every
+With all the advantages of PBT, one might hope to find it on every
 software developer's toolbelt.  But using PBT effectively
 can be challenging, as we shall see next.
 
 \SIMPLESECTION{Motivation: A Study of PBT in Practice}{sec:motivation}
 %
-Our research agenda is informed by a deep formative study we conducted to
-understand the state of the practice of PBT. This study will appear in 2024 on
+Our research agenda is informed by a formative study we conducted to
+understand the state of the practice of PBT. This study will appear in 2024 in
 the ICSE technical paper track~\cite{ref:goldstein2024property}.  In this
-study, we partnered with Jane Street, a Wall Street trading firm that uses software
-technology as a competitive advantage, to observe practice of PBT as it
-manifested in a firm that sees substantive use across a wide variety of
-software development settings.  The purpose was to identify the realities of
-contemporary PBT practice and to critically examine what it might take to boost
+study, we partnered with Jane Street, a Wall Street trading firm that
+uses software
+technology as a competitive advantage, to observe the practice of PBT
+in a firm that uses it actively across a wide variety of
+software development settings.  The purpose was to assess the realities of
+contemporary PBT practice and to critically examine what can be done to boost
 adoption.
 
-The study consisted of thirty semi-structured interviews with (1)
-developers who use PBT and (2) maintainers of PBT tools. The study led to a
+The study consisted of thirty semi-structured interviews with
+developers who use PBT and/or maintain PBT tools, leading to a
 rich characterization of PBT benefits and pitfalls. While this characterization
-is not complete---in that it represents experiences at just one firm---it does
-represent the limits of what is possible among experienced programmers with
-modern tools: Jane Street uses state-of-the art PBT tools, with integration of
-the tools into much of the company's culture and tooling.  Here we report major opportunities the study revealed for transformative improvements to PBT tooling.  Our
-upcoming need-finding work (\sectionref{sec:foundation}) will help complete the
-picture of the potential impact of these improvements.
+is not fully general---it reflects experiences at just one firm---it
+characterizes what can be viewed as a ``best case'' of what is
+possible among experienced programmers with
+modern tools that are well
+integrated with the company's culture and other development
+infrastructure.
+The additional studies that we propose below
+(\sectionref{sec:foundation}) are intended to help complete the
+picture of the current state of PBT in industry and the potential
+impact of improvements to the tools.
 
 % We also carried out a
 % smaller pilot study among Hypothesis users to prepare for the
@@ -483,31 +489,33 @@ picture of the potential impact of these improvements.
 % (\participant{1--30})
 % and the pilot study (Pilot-\participant{1--8}).
 
-A first opportunity to advance the practice of is with new approaches for
+One research opportunity that emerges from this
+study is the need for new approaches for
 \thread{generation} of random inputs. Developers spoke highly
 of their tools' ability to \gentheme{derive
-  generators} from data type specifications (e.g., by using ``\texttt{ppx\_quickcheck}''). At the same time,
+  generators} from data type specifications. At the same time,
 they identified deficiencies both
 small and large, the most significant being that derived generators
 cannot enforce semantic preconditions like \lstinline{is_bst}.
 %
 When derived generators failed, participants fell back to creating
 \gentheme{bespoke generators}, which are far more flexible but
-proportionally more time-consuming to build.  Improving the
+more time-consuming to build.  Improving the
 abstractions available for authoring such bespoke generators would
-greatly improve the usability of PBT.
+significantly improve the usability of PBT.
 %
-When generated inputs violate a property, developers often need to
+Also, when a generated input violates a property, developers need to
 inspect the input to understand it and how it triggered a violation.
-Developers often
+Developers in the study often
 implemented their own \gentheme{shrinkers} for counterexamples to discover
 simpler (and hence easier-to-understand) inputs that trigger the same bug.
 %
 But shrinkers need to be customized to particular kinds of data to be
 most effective, and they can be time-consuming to build.
 
+\bcp{The first and fourth sentences here seem contradictory.}%
 A second opportunity is to equip developers
-with more powerful means to define properties, or \thread{specifications}.  PBT is often described as
+with more powerful means to define properties, i.e., \thread{specifications}.  PBT is often described as
 a lightweight formal method, and one might therefore imagine that a
 common challenge would be coming up with the specifications of desired
 program behavior. Indeed, in our earlier pilot
