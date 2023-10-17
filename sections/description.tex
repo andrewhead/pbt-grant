@@ -685,96 +685,57 @@ to improve \edutheme{open-source PBT frameworks}.
 \SECTION{Foundation}{Understanding Needs and Opportunities%
 \pagebudget{1}}{sec:foundation}
 
-The findings of the industry study described in \sectionref{sec:motivation} paint a clear
+The industry study described in \sectionref{sec:motivation} paints a clear
 picture of the benefits and challenges of PBT for
-Jane Street and other software development organizations with similar
+Jane Street and other organizations with similar
 characteristics---i.e., for teams consisting mostly
 of relatively skilled developers who are comfortable with
-advanced programming languages and tools and who care a lot about
+advanced tools and who care a lot about
 software correctness.  There are many such teams in the software
 world, and making PBT more
-usable for them would already be a significant step in the
-right direction.  But to
+usable for them would already be a significant step in a good
+direction.  But to
 understand potential impact of PBT
 across the {\em  whole} software
 industry---and the factors that may limit its adoption---we need to
 cast a wider net.
 %
 Our program of research thus begins with tasks to broaden and deepen
-our view of PBT through further user studies.
-
-% We plan two
-% written surveys, one to assess the generality of these needs and obstacles
-% and one to identify potential for adoption of PBT tools
-% (\sectionref{sec:survey}) and two user studies, a design probe using a minimal
-% PBT framework
-% and an observation study
-% to guide the design of
-% interactive tools
-% (\sectionref{sec:observations}). Finally, we plan to distill these
-% study findings into a cognitive
-% theory of property-based testing, a conceptual foundation for the
-% design activities elsewhere in the project (\sectionref{sec:cogtheory}).
-% The projects in this section will culminate in an article for the Communications
-% of the Association for Computing Machinery (CACM).
-%
-% To ensure fairness, ethics, accountability, and transparency (FEAT),
-% each of our user studies will be vetted through Penn's Institutional
-% Review Board (IRB) review process.
-
+our view of PBT through further user studies, which we now describe.
 We will ensure
 fairness, ethics, accountability, and transparency (FEAT) in all these
-studies by developing our study plans in consultation with Penn's
-Institutional Review Board (IRB).
+studies by developing our plans in consultation with Penn's
+Institutional Review Board.
 
 \SUBSECTION{Understanding Needs and Opportunities}%
    {sec:survey}{1}{1}{HCI Theory}{PhD 1}{REPL 1}{Head}
 %
-Our prior interview study revealed a rich
-set of opportunities to improve property-based testing. As noted above, the interview
-study sampled developers at one firm with a mature testing culture and PBT toolset.
-While this is enough to indicate the upside of many kinds of improvements
-to PBT, there is considerable value to be had in completing the story with
-the broader population of developers.
-We will therefore conduct two surveys with the goal of validating and
-extending our inventory of opportunities found in our first study.
-
-% Our industry study has already revealed
-% a number of
-% opportunities to improve property-based testing. To identify
-% others and to better understand which are most
-% critical, we will conduct two
-% surveys with broader samples of developers. These surveys aim to
-% (1) determine which obstacles observed in the original
-% study
-% represent widely experienced pain points and
-% (2) understand the potential benefits of better tools for the
-% software industry.
-
-The first survey
-aims to expand the findings of our prior interview study so that
-they generalize broadly across software development settings.
-We will
-ask developers which of the issues we identified there are
+   We will conduct two larger-scale surveys to validate and extend the
+   findings of the interview study at Jane Street.
+%
+In the first, we will
+ask developers who use PBT which of the issues identified in the prior study are
 ones they have also encountered, which are most severe
-in their experience, and what
+in their experience, and which
 other issues they have encountered.
 To provide
 clear usage scenarios, respondents will
-be asked to give brief anecdotes elaborating on the
-most severe issues they remember.  Other questions will assess how
+be asked for brief anecdotes elaborating on the
+most challenging or bothersome issues they remember.  Other questions
+will assess how 
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
 ambient programming environment and language, e.g., whether the
 language supports Haskell-like typeclasses or OCaml-style
-metaprogramming, both of which are used to good effect by
-PBT tools in those languages.
+metaprogramming (both of which are used to good effect by
+PBT tools in those languages).
 Respondents will
 be recruited broadly, from groups including
 (1)
 users of the major PBT frameworks in Python, Java, Haskell, Rust, and
 Scala, capitalizing on our personal connections to maintainers of
-these projects (and in particular Zac Hatfield-Dodds of Python's Hypothesis; see
+these projects (in particular Zac Hatfield-Dodds, the current
+maintainer of the Hypothesis library for Python; see
 attached letter of collaboration); and
 (2) our own and our students' professional networks, including
 social media, mailing lists, and discussion boards for developer
