@@ -1912,7 +1912,7 @@ The effectiveness of PBT depends on the quality of input distributions, i.e., wh
 % \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
 It is by no means easy for a developer to assess the quality of
 an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
-A comon strategy for developers is to assess input distributions by inspecting a
+A common strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
 While HCI research has seen a renaissance of research in methods for
 visualizing input data distributions across many different domains (e.g.,
@@ -1962,7 +1962,7 @@ with mature PBT tooling. We plan for \tyche{} to serve as a platform
 for developing not just the interactive features describe here, but
 also contributions
 by other groups. A prototype of \tyche{} has been
-accepted for the UIST demos session~\cite{ref:goldstein2023tyche}; a
+accepted for the UIST demo session~\cite{ref:goldstein2023tyche}; a
 mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
 will develop in our research follow:
 
@@ -2023,22 +2023,23 @@ approaches and compare their effectiveness in pilot studies.
 
 A fourth innovation is the synchronization of above views with
 live feedback on what code is exercised by the tests. Building on the design
-pattern whereby a tool show which lines of code are currently
+pattern whereby a tool shows which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
   ref:oney2009firecrystal, ref:burg2013record}, our tools will
 colorize code to show
 how frequently each line is executed while running tests, both in aggregate and
 for individual tests. Altogether, the above activities will be a set of
 interrelated interaction primitives that serve as building blocks for
-understanding distributions of complex input data. Success of this (and the next
-two projects) will be determined by the novel interactions' ability to reduce
+understanding distributions of complex input data. Success of this (and the
+next) project will be determined by the novel interactions' ability to reduce
 testing time and achieve desirable input distributions.
 
 \subsectionstar{Interactive Tuning of Input Distributions}{}{}
 %
 Tuning generators to produce ``interesting''
 values can be challenging, requiring
-significant trial and error with a textual generator description.
+significant trial and error with the source code definition of a
+generator\amh{someone check this}.
 % Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
 % such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
 % solution, as do code coverage-based generation techniques
