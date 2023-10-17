@@ -26,11 +26,7 @@ stores~\cite{MysteriesOfDropbox2016,Bornholt2021}, automotive
 software~\cite{arts2015testing}, and other complex
 systems~\cite{hughes_experiences_2016}.
 It is used by companies including Amazon, Volvo, Stripe, Galois,
-and IOG
-\proposecut{(which
-runs the Cardano blockchain and the Ada cryptocurrency)}\hg{Blockchain and
-cryptocurrency aren't nearly as impressive as they were the first time we wrote
-this}.
+and IOG.
 
 PBT took the functional programming world by storm after its
 debut in the Haskell QuickCheck framework~\cite{ClaessenHughes00}.  In
@@ -828,7 +824,9 @@ greatly different designs. An observational study observing PBT users
 inspecting data distributions with a few users can provide a great amount of
 clarity in answering them.
 
-So, prior to building any\hg{Again, any? I feel like we need to soften this} tool that has a sufficiently broad design space (i.e., an
+So, prior to building any\hg{Again, any? I feel like we need to soften
+  this}\bcp{Also, I find I don't actually understand what the
+  sentence literally means...} tool that has a sufficiently broad design space (i.e., an
 untenable set of design decisions that must be made), we will conduct
 observational studies to constrain that space. We will recruit participants
 from PBT communities (among our industry collaborators at Jane Street and AWS,
@@ -918,8 +916,9 @@ sourced from public GitHub projects and private projects from our industrial
 partners for which we have received clearance) to mine case studies of
 properties that our tools should help developers write better.
 
-\publicationtarget{See later sections. Findings from these studies will serve as
-``formative study'' sections of respective technical publications that they inform}
+\publicationtarget{Findings from these studies will serve as
+  ``formative study'' sections of the technical publications
+  (described below) that they inform. \bcp{``targetS...''}}
 
 % \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
 %   Theory}{PhD 1}{Everyone}{Head}
@@ -1552,7 +1551,7 @@ runs. For example, suppose
 a count of the number of bytes currently \lstinline{processed} and an
 \lstinline{overflow} flag. Useful properties might include:
 \begin{lstlisting}
-p = processed ==> @next@ (p < processed)     (* 1. Processed always inc.   *)
+p = processed ==> @next@ (p < processed)     (* 1. 'processed' only grows  *)
 msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
 @eventually@ (processed = msg.length)        (* 3. Whole message processed *)
 \end{lstlisting}
@@ -2374,8 +2373,7 @@ mentoring, diversity, and broadening participation in computing.
 proposed work will be a significant increase in the use of PBT across
 the software industry within the time frame of the grant, driven
 by more powerful and usable tools, driven principally by open-source
-tools (\sectionref{sec:ide}).
-Our goal is to
+tools (\sectionref{sec:ide}). Our goal is to
 transition \tyche{} into a shared-ownership, open-source project
 by the end of the project.
 Success will be measured by the existance of a
