@@ -1453,7 +1453,7 @@ specifications.
 %
 In our formative research to date, we have
 see that a significant fraction of real-world PBT
-involves {\em high-leverage scenarios}---instances where properties are
+involves applying PBT in {\em high-leverage scenarios}---instances where properties are
 readily available and developers can jump right in to the process of finding
 bugs.
 %
@@ -1496,10 +1496,12 @@ structures and ad-hoc test harnesses for comparing module outputs across a
 series of function calls.
 
 We have already carried out some early experiments in
-{\Mica}~\cite{Ng2023MicaPoster}, an experimental tool that automatically
+{\Mica}~\cite{Ng2023MicaPoster}\amh{Did we develop this tool? If so, we should
+say so explicitly}, an experimental tool that automatically
 writes properties based on simple interfaces for stateless modules.
-We propose to extend and generalized this work to address more
-realistic modules and module-like language features.
+We propose to extend and generalize this work to address more
+realistic modules and module-like language features.\amh{This paragraph probably
+begins before the paragraph just before.}
 
 % for languages like OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984};
 
@@ -1520,8 +1522,12 @@ the features of the OCaml language and
 module system; many more remain to be addressed. In particular, it
 works only for stateless modules with at most one opaque type
 member, such as a {\tt Set} module whose type member hides the
-representation of sets.
+representation of sets.\amh{Do we have any evidence that achieving
+sufficient further improvement will be possible?}
 
+\amh{Strange to have this paragraph split when both of these paragraphs
+describe future changes. It makes the paragraphs feel like they are two
+attempts at providing the same information.}
 We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
 test sequences for modules with mutable internal state (following prior work~\cite{midtgaard_2020,monolith}), (2) to
 make it work with parameterized modules (OCaml ``functors'') by
@@ -1541,10 +1547,10 @@ to entry for PBT.
 \SUBSECTION{A Pattern Language for
 Logs}{sec:ltl-logs}{3}{3}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
-Developers in our industry study often described particular
+Developers in our formative study often described particular
 testing scenarios as {\em not} being high-leverage for PBT was that
 their code was not organized to be conducive to
-PBT.  PBT works best on components with clear boundaries and does not
+PBT\amh{simplify this sentence}.  PBT works best on components with clear boundaries and does not
 easily apply to programs with
 poorly encapsulated global state or with leaky or overly complex abstraction
 boundaries.
@@ -1569,7 +1575,7 @@ closely entangled to test them separately.
 We will develop a tool that allows developers to express properties that inspect
 the state of multiple interacting software components. Take again the example of
 \lstinline{Inner}. A solution to this developer's problem could be to drive the
-test through \lstinline{Outer} but write properties about
+test through \lstinline{Outer} but\amh{?} write properties about
 \lstinline{Inner} by monitoring the internal values that appear while it
 runs. For example, suppose
 \lstinline{Inner} processes a stream of messages and its internal state includes
@@ -1582,7 +1588,9 @@ msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
 \end{lstlisting}
 These properties use {\em temporal operators} like \lstinline|next|,
 \lstinline|never|, and \lstinline|eventually| to express statements about the
-way the internal state should evolve over time.
+way the internal state should evolve over time.\amh{I think the crucial thing to
+mention here is that these kinds of operators are not available in typical PBT
+frameworks.}
 
 One might hope to simply check properties like this with
 inline ``assert'' statements, but that
@@ -1594,7 +1602,8 @@ assertions to check properties (2) or (3) at all, because this
 requires that assertions be cognizant of the ``end'' of a
 computation---information that may not be easily available.
 
-Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL), which
+Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL) \amh{which
+we will develop?}, which
 allows properties like the ones above to be defined directly. The temporal
 operators in LTLTL are inspired by temporal logics such as Linear Temporal Logic
 (LTL). To use this logic, programmers annotate their programs with lightweight
@@ -1605,7 +1614,8 @@ logged messages. The result is a simple scheme for checking very complex
 properties, with no specific requirement on the architecture of the code under test.
 
 Temporal logics like LTLTL have been used for PBT in the
-past~\cite{oconnor_quickstrom_2022}, but adapting that work to this
+past~\cite{oconnor_quickstrom_2022}, but adapting\amh{why adapting? the way this
+is described, it sounds like exactly what we are proposing.} that work to this
 situation will require some finesse. For one thing, the prior work
 assumes a fixed source of logical events and does not
 support arbitrary predicates over the kinds of values that may appear
@@ -1632,7 +1642,10 @@ system {containing} the component(s) of concern.
 The advances described above will help expand the situations in which
 PBT {\em can} be used smoothly and effectively.  A different challenge is
 how to help people know when they are actually in such a situation.
-A preliminary study that we ran before the one reported in \sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that testers---beginner and experienced alike---may face a kind of writer's block
+A preliminary study that we ran before the one reported in
+\sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that
+testers---beginner and experienced alike---may\amh{sometimes? may sounds like
+they might not} face a kind of writer's block
 in deciding what properties to test.
 
 A variety of
@@ -1640,8 +1653,9 @@ programming-assistant tools have recently come into wide use for situations
 like this. Perhaps most familiar are
 Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
 completions and can often help with longer code
-sections~\cite{ref:dohmke2022github}, and ChatGPT~\cite{tool:chatgpt}, which in
-numerous recent papers~\cite{ref:bubeck2023sparks,ref:savelka2023thrilled}\amh{Citations are actually for GPT-4---update. And they are also just papers and not blog posts} has shown its potential to turn
+sections~\cite{ref:dohmke2022github}, and the GPT line of tools
+(e.g.,~\cite{tool:chatgpt,ref:openai2023gpt4}), which in
+numerous recent papers~\cite{ref:bubeck2023sparks,ref:savelka2023thrilled} has shown its potential to turn
 informal textual specifications of surprising complexity into working code.
 
 One might be tempted use these tools to produce properties directly,
@@ -1649,7 +1663,7 @@ but that would be quite risky. Test suites for critical code are part
 of an application's {trusted computing base} and, as such, should
 be carefully and thoughtfully chosen. Large language models encourage developers to cut and
 paste rather without thinking and are known to be prone
-to hallucination~\cite{ji2023survey}; it is {\em not} a good idea
+to hallucination~\cite{ji2023survey}; it is not a good idea
 to use them to directly write an application's tests.
 
 % These technologies can already
@@ -1674,7 +1688,8 @@ However, we do believe that LLMs may have a significant role to play
 in {\em helping} developers build effective tests---assisting with
 property ideation while still ultimately relying on trusted
 property generation patterns.
-The envisioned programming assistant, dubbed {\em \GhostChat}, would wrap existing property generation
+The envisioned programming assistant\amh{feels a bit clunky of a transition,
+return her if time.}, dubbed {\em \GhostChat}, would wrap existing property generation
 techniques---including GhostWriter~\cite{ref:ghostwriter} (of the Hypothesis
 project, with which we will be collaborating), QuickSpec~\cite{ref:claessen2010quickspec},
 and \Mica{} and LTLTL (proposed in the prior two sections)---under APIs that allow them to be invoked by
@@ -1708,7 +1723,7 @@ code, e.g., ``You may wish to test this module's (1) round-trip consistency by
 calling it and its reverse in sequence and its (2) resilience to null values in
 arbitrary positions in the input sequence.'' This may be enough for developers
 to overcome their writer's block. If it is not, the developer can further click
-an action button to ``Look for Automations.'' The programming assistant will
+an action button to ``Look for Automations\amh{is this the right phrase?}.'' The programming assistant will
 then try to find appropriate use-cases for tools like {\Mica},
 QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter, and, if a use-case
 exists, allow the programmer to run the appropriate tool automatically.
@@ -1736,8 +1751,6 @@ with Professor Chris Callison-Burch, an expert on computational
 linguistics and large language models who will work with us on this
 part of the project; a letter of collaboration appears in the
 supplemental documents.
-
-\amh{Needs more references}
 
 % \amh{Proposed workflow:
 % The developer is working on testing a module.
