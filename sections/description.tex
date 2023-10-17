@@ -1504,37 +1504,35 @@ Testing}{sec:model-based}{2}{2}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
 One surprising finding from our industry study was that, at least at
 Jane Street,
-it is quite common for developers to build (or already have) a {\em
+it is quite common for developers to build (or already have at hand) a {\em
 model implementation} of a piece of code they are writing and to be
 interested in testing that the two
 implementations behave the same.  This is a well-documented approach to
-PBT~\cite{hughes_experiences_2016}, and is also closely related to ideas like
+PBT~\cite{hughes_experiences_2016} and is closely related to ideas like
 {\em differential testing}~\cite{mckeeman1998differential}.
 %
 Since this situation is common, we want it to be as easy as possible
-for developers; at the moment, though, developers end up writing
-significant amounts of boilerplate code that defines intermediate data
+for developers.  At the moment, though, developers end up writing
+significant amounts of boilerplate code to define intermediate data
 structures and ad-hoc test harnesses for comparing module outputs across a
 series of function calls.
 
-We have already carried out some early experiments in
-{\Mica}~\cite{Ng2023MicaPoster}\amh{Did we develop this tool? If so, we should
-say so explicitly}, an experimental tool that automatically
-writes properties based on simple interfaces for stateless modules.
+We have carried out some early experiments in automating this process in
+{\Mica}, an experimental tool that automatically
+writes properties based on simple interfaces for stateless modules
+developed in a Penn student project advised by PI
+Pierce~\cite{Ng2023MicaPoster}.
 We propose to extend and generalize this work to address more
-realistic modules and module-like language features.\amh{This paragraph probably
-begins before the paragraph just before.}
-
-% for languages like OCaml, Standard ML, and Scala~\cite{macqueen_modules_1984};
+realistic modules and module-like language features.
 
 {\Mica} automatically builds test suites to compare multiple OCaml
 modules implementing the same interface. Given a module signature
 (\lstinline{S}) and two modules
 (\lstinline{M1} and \lstinline{M2}) implementing that signature, {\Mica}
-generates chains of \lstinline{S}-operations and ensures that
+generates chains of \lstinline{S}-operations and checks that
 \lstinline{M1} and \lstinline{M2} behave the same way when those operations are
 invoked. This automates a process many developers already do manually,
-and it can
+and it can effectively
 determine when a new module implementation has subtly different
 behavior from an older one, or when a
 complex module disagrees with a simpler reference implementation.
@@ -1544,19 +1542,17 @@ the features of the OCaml language and
 module system; many more remain to be addressed. In particular, it
 works only for stateless modules with at most one opaque type
 member, such as a {\tt Set} module whose type member hides the
-representation of sets.\amh{Do we have any evidence that achieving
-sufficient further improvement will be possible?}
-
-\amh{Strange to have this paragraph split when both of these paragraphs
-describe future changes. It makes the paragraphs feel like they are two
-attempts at providing the same information.}
-We plan to extend {\Mica} in three dimensions: (1) to make it generate automatic
+representation of sets.
+% \amh{Do we have any evidence that achieving
+% sufficient further improvement will be possible?}
+%
+We therefore plan to extend \Mica{} three dimensions: (1) to make it generate automatic
 test sequences for modules with mutable internal state (following prior work~\cite{midtgaard_2020,monolith}), (2) to
 make it work with parameterized modules (OCaml ``functors'') by
 automatically applying them to appropriate module arguments, and (3)
 to apply the same techniques to other languages with rich module-like
-features, such as Java, Scala, and Rust.  More speculatively, we will
-investigate whether a similar automatic generation strategy could be
+features, such as Java, Scala, and Rust.  Fourth and more speculatively, we will
+investigate whether a similar automatic generation strategy can be
 applied in languages like Python, with weak or nonexistent static type
 systems.
 %
@@ -1570,15 +1566,15 @@ to entry for PBT.
 Logs}{sec:ltl-logs}{3}{3}{HCI Practice}{REPL}{PhD 4}{Pierce}
 %
 Developers in our formative study often described particular
-testing scenarios as {\em not} being high-leverage for PBT was that
-their code was not organized to be conducive to
-PBT\amh{simplify this sentence}.  PBT works best on components with clear boundaries and does not
+testing scenarios as {\em not} being high-leverage for PBT because
+their code was not well organized for applying
+PBT.  PBT works best on components with clear boundaries; it does not
 easily apply to programs with
 poorly encapsulated global state or with leaky or overly complex abstraction
 boundaries.
 
-We will explore
-how ameliorate such situations by writing properties over user-defined
+In this project we will explore
+how to ameliorate such situations by writing properties over user-defined
 {\em event logs}. Consider
 the case of a participant in our user
 study who was testing
@@ -1586,66 +1582,73 @@ a system, let's call it ``\lstinline{Inner},'' that  was difficult to
 test because
 its most interesting behavior arose only when interacting with a particular calling
 component, ``\lstinline{Outer}''.
-\lstinline{Outer} took in simple inputs and used them to construct
+\lstinline{Outer} took accepted simple inputs from the outside world
+and used them to construct
 much more complex inputs to \lstinline{Inner}. Thus, \lstinline{Inner}
 could not be tested with
 realistic inputs without the complex apparatus of \lstinline{Outer} to
 produce those inputs.  The developer cited this as a circumstance where a
-PBT is difficult to apply, because the behaviors of the components were too
+PBT is difficult to apply, because the behaviors of the two components were too
 closely entangled to test them separately.
 
-We will develop a tool that allows developers to express properties that inspect
-the state of multiple interacting software components. Take again the example of
-\lstinline{Inner}. A solution to this developer's problem could be to drive the
-test through \lstinline{Outer} but\amh{?} write properties about
-\lstinline{Inner} by monitoring the internal values that appear while it
+We plan to develop a tool that allows developers to express properties that inspect
+the state of multiple interacting software components. Going back to
+the example of
+\lstinline{Inner}, a solution to the developer's problem could be to drive the
+test through \lstinline{Outer} but to phrase properties in terms
+of the behavior of \lstinline{Inner} by allowing them to inspect a log
+of the internal values that appear while it
 runs. For example, suppose
 \lstinline{Inner} processes a stream of messages and its internal state includes
 a count of the number of bytes currently \lstinline{processed} and an
-\lstinline{overflow} flag. Useful properties might  include:
+\lstinline{overflow} flag. Useful properties might include:
 \begin{lstlisting}
 p = processed ==> @next@ (p < processed)     (* 1. 'processed' only grows  *)
 msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
 @eventually@ (processed = msg.length)        (* 3. Whole message processed *)
 \end{lstlisting}
-These properties use {\em temporal operators} like \lstinline|next|,
-\lstinline|never|, and \lstinline|eventually| to express statements about the
-way the internal state should evolve over time.\amh{I think the crucial thing to
-mention here is that these kinds of operators are not available in typical PBT
-frameworks.}
+These properties use {\em temporal operators} like \lstinline|@next@|,
+\lstinline|@never@|, and \lstinline|@eventually@| to express
+statements about the way the internal state should evolve over
+time, but these operators are not available in conventional PBT
+frameworks. 
 
-One might hope to simply check properties like this with
-inline ``assert'' statements, but that
-does not work well. On the one hand, assertions
-require nontrivial code to save previous values for properties like (1)
-above, and would then likely involve brittle macros or meta-programming to remove such
-auxiliary code at release time. Worse, it is difficult to use
-assertions to check properties (2) or (3) at all, because this
-requires that assertions be cognizant of the ``end'' of a
-computation---information that may not be easily available.
+One might hope to simply check properties like this with inline
+``assert'' statements, but this does not give enough expressive
+power. On the one hand, assertions require writing nontrivial code to
+save previous values for properties like (1) above, and would then
+likely involve brittle macros or meta-programming to remove such
+auxiliary code at release time. On the other hand, it is difficult to
+see how to use assertions to check properties (2) or (3) at all,
+because this requires that the assertions be cognizant of the ``end''
+of a computation---information that may not be easily available.
 
-Instead, we propose {\em Linear Temporal Log Testing Logic} (LTLTL) \amh{which
-we will develop?}, which
-allows properties like the ones above to be defined directly. The temporal
-operators in LTLTL are inspired by temporal logics such as Linear Temporal Logic
-(LTL). To use this logic, programmers annotate their programs with lightweight
+Instead, we propose to develop a {\em Linear Temporal Log Testing
+  Logic} (LTLTL) that
+directly supports properties like the ones above. The temporal
+operators in LTLTL are inspired by temporal logics such as standard
+Linear Temporal Logic 
+(LTL). To use LTLTL, programmers will annotate their programs with lightweight
 log statements that output messages like
-\lstinline|processed = 10| and \lstinline|overflow = true|, and then write
-properties like the ones above that check temporal relationships between the
-logged messages. The result is a simple scheme for checking very complex
-properties, with no specific requirement on the architecture of the code under test.
+\lstinline|processed = 10| and \lstinline|overflow = true|, then write
+compact properties like the ones above to check temporal relationships
+between the 
+logged messages. The result will be a simple scheme for checking quite complex
+properties, placing no specific requirements on the architecture of
+the code under test. 
 
-Temporal logics like LTLTL have been used for PBT in the
-past~\cite{oconnor_quickstrom_2022}, but adapting\amh{why adapting? the way this
-is described, it sounds like exactly what we are proposing.} that work to this
+Temporal logics similar to LTLTL have been used for PBT in the
+past~\cite{oconnor_quickstrom_2022}, but applying the ideas from that
+work to our
 situation will require some finesse. For one thing, the prior work
 assumes a fixed source of logical events and does not
 support arbitrary predicates over the kinds of values that may appear
-in a program trace. For another, ordinary LTL has been found by some to be
-difficult to use~\cite{greenman_little_2022}; we aim to choose a
+in a program trace. For another, ordinary LTL expressions have been
+found by some to be
+difficult to use~\cite{greenman_little_2022}; we plan to design a
 simplified set of temporal connectives that are more intuitive for users.
 %
-The result of this task will be a tool that compiles properties written
+The outcome of this task will be a tool that compiles properties written
 in a friendly temporal logic into lower-level properties over log
 traces, which are validated by providing random inputs to an outer
 system {containing} the component(s) of concern.
@@ -1663,7 +1666,7 @@ system {containing} the component(s) of concern.
 % \end{wrapfigure}
 The advances described above will help expand the situations in which
 PBT {\em can} be used smoothly and effectively.  A different challenge is
-how to help people know when they are actually in such a situation.
+how to help people know {\em when} they are actually in such a situation.
 A preliminary study that we ran before the one reported in
 \sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that
 testers---beginner and experienced alike---may\amh{sometimes? may sounds like
