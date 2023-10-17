@@ -1004,6 +1004,9 @@ Many of the usability challenges revealed by our prior research concern test inp
 Indeed, generators were regularly cited as one of the most challenging
 aspects of PBT in our study, and this perspective agrees with the PBT literature.
 
+\amh{Can we lead in with what we want to change about working with generators
+before getting to specifics? This would help us avoid looking like we're
+prematurely converging on reflective generators.}
 We propose a number of extensions and applications of {\em reflective
 generators}, a new abstraction for random generation that
 ``unbundles'' generator
@@ -1013,13 +1016,15 @@ tooling. We explore how reflective generators can
 help to connect PBT and fuzzing (\sectionref{sec:reflectivefuzzing}),
 and we design
 a user study for evaluating and improving the usability of reflective
-generators (\sectionref{sec:reflectivepeople}). Finally, we discuss metrics
-by which to evaluate improvements in generation (\sectionref{sec:benchmarks}).
+generators (\sectionref{sec:reflectivepeople}) \amh{I think this is out of date}. Finally, we discuss metrics
+by which to evaluate improvements in generation \amh{we can probably describe
+this in a more exciting way} (\sectionref{sec:benchmarks}).
 Success for these enabling technologies will be measured both by the success of
 the tools built on them (\sectionref{sec:val} and \sectionref{sec:diffusion})
-and by top-tier publications, including performance evaluations and/or
+and by top-tier publications \amh{ours or others'?}, including performance evaluations and/or
 user studies as appropriate.
-PI Pierce is a longtime collaborator of John Hughes, one of the
+PI Pierce is a longtime collaborator of John Hughes \amh{I'm not sure there's
+enough context here to make this name-dropping make sense}, one of the
 QuickCheck creators, who plans to collaborate on the projects
 in this section; a letter of collaboration from Prof.{} Hughes appears
 in the supplemental documents.
@@ -1027,7 +1032,7 @@ in the supplemental documents.
 \subsectionstar{Context: Why Random Generation is Hard}{}{}
 As discussed in \sectionref{sec:orientation}, PBT relies heavily on {random data
 generators}.  Checking a property for many randomly generated inputs
-gives confidence that it holds---provided the inputs actually
+gives confidence that it holds \amh{complex sentence}---provided the inputs actually
 exercise a wide variety of program behaviors.
 Unfortunately,
 many properties of interest have {\em preconditions}
@@ -1048,8 +1053,12 @@ Worse, even generators that are guaranteed to produce valid
 inputs can under-perform in other ways---for example, by
 generating many very similar inputs while ignoring large parts of
 the input space.
+\amh{Is the preconditions problem the \emph{main} reason that random generation
+is hard? Or even one of the main reasons? The current writing doesn't sell how
+central this is, and so might run the risk of feeling like it is fixating on an
+unimportant detail.}
 
-Approaches to these challenges
+Approaches\amh{Solutions?} to these challenges
 fall on a spectrum from automatic to manual. The automatic approaches use
 various proxies for validity and ``interestingness'' of
 inputs: some, like {\em
