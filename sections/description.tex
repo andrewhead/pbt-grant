@@ -1549,7 +1549,7 @@ test through \lstinline{Outer} but write properties about
 runs. For example, suppose
 \lstinline{Inner} processes a stream of messages and its internal state includes
 a count of the number of bytes currently \lstinline{processed} and an
-\lstinline{overflow} flag. Useful properties might include:
+\lstinline{overflow} flag. Useful properties might  include:
 \begin{lstlisting}
 p = processed ==> @next@ (p < processed)     (* 1. 'processed' only grows  *)
 msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
