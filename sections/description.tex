@@ -1611,7 +1611,7 @@ These properties use {\em temporal operators} like \lstinline|@next@|,
 \lstinline|@never@|, and \lstinline|@eventually@| to express
 statements about the way the internal state should evolve over
 time, but these operators are not available in conventional PBT
-frameworks. 
+frameworks.
 
 One might hope to simply check properties like this with inline
 ``assert'' statements, but this does not give enough expressive
@@ -1627,15 +1627,15 @@ Instead, we propose to develop a {\em Linear Temporal Log Testing
   Logic} (LTLTL) that
 directly supports properties like the ones above. The temporal
 operators in LTLTL are inspired by temporal logics such as standard
-Linear Temporal Logic 
+Linear Temporal Logic
 (LTL). To use LTLTL, programmers will annotate their programs with lightweight
 log statements that output messages like
 \lstinline|processed = 10| and \lstinline|overflow = true|, then write
 compact properties like the ones above to check temporal relationships
-between the 
+between the
 logged messages. The result will be a simple scheme for checking quite complex
 properties, placing no specific requirements on the architecture of
-the code under test. 
+the code under test.
 
 Temporal logics similar to LTLTL have been used for PBT in the
 past~\cite{oconnor_quickstrom_2022}, but applying the ideas from that
@@ -1656,7 +1656,7 @@ system {containing} the component(s) of concern.
 \publicationtarget{Object-Oriented Programming, Systems, Languages,
   and Applications (OOPSLA)}
 
-\SUBSECTION{A Programming Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
+\SUBSECTION{A Programmer's Assistant for Specifications}{sec:ghostwriter}{3}{3}{HCI Practice}{PhD 2}{PhD 4}{Head}
 %
 % \begin{wrapfigure}{r}{.4\textwidth}
 %   \includegraphics[width=.4\textwidth]{assets/chatghostwriter.pdf}
@@ -1666,31 +1666,30 @@ system {containing} the component(s) of concern.
 % \end{wrapfigure}
 The advances described above will help expand the situations in which
 PBT {\em can} be used smoothly and effectively.  A different challenge is
-how to help people know {\em when} they are actually in such a situation.
-A preliminary study that we ran before the one reported in
+how to help people know {\em when} they are in such a situation.
+A preliminary study that we ran to prepare for the larger one described in
 \sectionref{sec:motivation}~\cite{goldstein_problems_2022} suggests that
-testers---beginner and experienced alike---may\amh{sometimes? may sounds like
-they might not} face a kind of writer's block
-in deciding what properties to test.
+testers---beginner and experienced alike---sometimes face a kind of
+writer's block in deciding what properties to test.
 
-A variety of
-programming-assistant tools have recently come into wide use for situations
-like this. Perhaps most familiar are
-Copilot~\cite{tool:copilot}, an in-editor AI that suggests one-liner code
-completions and can often help with longer code
-sections~\cite{ref:dohmke2022github}, and the GPT line of tools
-(e.g.,~\cite{tool:chatgpt,ref:openai2023gpt4}), which in
-numerous recent papers~\cite{ref:bubeck2023sparks,ref:savelka2023thrilled} has shown its potential to turn
-informal textual specifications of surprising complexity into working code.
+A variety of programming-assistant tools have recently come into wide
+use for situations like this. Perhaps most familiar are
+Copilot~\cite{tool:copilot}, an in-editor AI that suggests code
+completions~\cite{ref:dohmke2022github}, and the GPT line of tools
+(e.g.,~\cite{tool:chatgpt,ref:openai2023gpt4}), which in numerous
+recent papers~\cite[etc.]{ref:bubeck2023sparks,
+  ref:savelka2023thrilled} have shown their potential to turn informal
+textual specifications of surprising complexity into working code.
 
-One might be tempted use these tools to produce properties directly,
-but that would be quite risky. Test suites for critical code are part
-of an application's {trusted computing base} and, as such, should
-be carefully and thoughtfully chosen. Large language models encourage developers to cut and
-paste rather without thinking and are known to be prone
-to hallucination~\cite{ji2023survey}; it is not a good idea
-to use them to directly write an application's tests.
-
+One might be tempted to try using these tools to produce properties
+directly, but we feel this is precisely the wrong approach. Test
+suites for critical code are part of an application's {trusted
+  computing base} and, as such, should be carefully and thoughtfully
+chosen. Large language models encourage developers to cut and paste
+rather without thinking, and they are known to be prone to
+hallucination~\cite{ji2023survey}; it is a bad idea to use them to
+directly write an application's tests.
+%
 % These technologies can already
 % support writing properties. Consider for instance, a conversation
 % between one of the co-PIs and ChatGPT about testing a fairly complex
@@ -1708,20 +1707,22 @@ to use them to directly write an application's tests.
 % properties, but how best to offer this functionality to
 % developers so that the resulting properties are actually the ones they
 % want. \bcp{I rewrote the end of that, but maybe it can be improved more.}
-
-However, we do believe that LLMs may have a significant role to play
+%
+We do, however, believe that LLMs have a significant role to play
 in {\em helping} developers build effective tests---assisting with
 property ideation while still ultimately relying on trusted
 property generation patterns.
-The envisioned programming assistant\amh{feels a bit clunky of a transition,
-return her if time.}, dubbed {\em \GhostChat}, would wrap existing property generation
-techniques---including GhostWriter~\cite{ref:ghostwriter} (of the Hypothesis
-project, with which we will be collaborating), QuickSpec~\cite{ref:claessen2010quickspec},
-and \Mica{} and LTLTL (proposed in the prior two sections)---under APIs that allow them to be invoked by
-an LLM programming assistant AI, similarly to other recent programming library
-integrations for ChatGPT like the Wolfram API.
 
-The interaction between this assistant and a developer might go
+Our envisioned programmer's assistant, dubbed {\em \GhostChat}, will
+wrap existing property generation techniques---including ``classic
+GhostWriter''~\cite{ref:ghostwriter} from the Hypothesis project,
+QuickSpec~\cite{ref:claessen2010quickspec}, and \Mica{} and LTLTL
+(proposed in the prior two sections)---under APIs that allow them to
+be invoked by an LLM programming assistant AI, similarly to other
+recent programming library integrations for ChatGPT like the Wolfram
+API.
+
+The interaction between this hybrid assistant and a developer might go
 something like this. As the
 developer writes code in their editor, they are free to mark functions or
 modules as needing better testing.
@@ -1739,19 +1740,19 @@ modules as needing better testing.
 Inline actions appear
 above the signatures of those methods and the
 functions that test them, offering to help them ``Explore Properties.''
-Upon clicking the action, the AI tries to determine
+When the user clicks on an action, the AI tries to determine the
 kinds of properties that may apply for this module
-% (as was done in the example
-% cited above)
-and to recommend them as part of a simple list adjacent to the
+and to recommend them in a list adjacent to the
 code, e.g., ``You may wish to test this module's (1) round-trip consistency by
 calling it and its reverse in sequence and its (2) resilience to null values in
-arbitrary positions in the input sequence.'' This may be enough for developers
-to overcome their writer's block. If it is not, the developer can further click
-an action button to ``Look for Automations\amh{is this the right phrase?}.'' The programming assistant will
+arbitrary positions in the input sequence.'' This list may be enough
+for developers
+to overcome their writer's block. If it is not, they can further click
+an action button to ``Look for Potential Automations.'' The
+programming assistant will
 then try to find appropriate use-cases for tools like {\Mica},
-QuickSpec~\cite{ref:claessen2010quickspec}, and GhostWriter, and, if a use-case
-exists, allow the programmer to run the appropriate tool automatically.
+QuickSpec, and GhostWriter, and, if a use-case
+exists, allow the programmer to run the corresponding tool automatically.
 % due to their focus on existing high-leverage use cases and the guarantees they
 % provide about the correctness of generated code. Should they come up
 % empty-handed, the assistant will offer LLM-generated tests (such as
@@ -1759,7 +1760,7 @@ exists, allow the programmer to run the appropriate tool automatically.
 % provide with suitable prompting) with the visible messaging conveying the
 % possibility of mistakes in the code or misinterpretations of user intent.
 
-Under the hood, the suggestions will be generated by a large language model
+Under the hood, these suggestions will be generated by a large language model
 such as GPT-4, trained via few-shot prompting. The prompts provided to the model
 will encode example properties as well as example use-cases for the various
 automation tools that are available for the programmer to run. If new automation
@@ -1771,9 +1772,9 @@ documentation~\cite{zhu2023kani}.
 % and to evaluate its support for overcoming the writer's block problem through
 % usability evaluations with developers.
 
-PI Pierce recently began a collaboration on programming using LLMs
-with Professor Chris Callison-Burch, an expert on computational
-linguistics and large language models who will work with us on this
+PI Pierce recently initiated a collaboration on programming using
+large language models with Professor Chris Callison-Burch, an expert
+on computational linguistics and LLMs who will work with us on this
 part of the project; a letter of collaboration appears in the
 supplemental documents.
 
