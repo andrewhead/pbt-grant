@@ -1893,8 +1893,9 @@ supplemental documents.
 \SECTION{Interaction}{PBT at Users' Fingertips
  \pagebudget{3}}{sec:val}
 
-Our final thread of pure research focuses on developing powerful
-\emph{modes of interactions} that afford developers new levels of visibility and control in PBT. The contributions will be novel techniques for evaluating testing effectiveness and improved mechanisms for shaping the distributions of generated inputs.
+Our final research thread focuses on developing powerful
+\emph{modes of interactions} that afford developers new levels of
+visibility and control in PBT. The main contributions will be novel techniques for evaluating testing effectiveness and improved mechanisms for shaping the distributions of generated inputs.
 
 % and (3) understanding testing-provoked failures involving complex inputs
 % (\sectionref{sec:failures})\bcp{same subsection!}.
@@ -1916,28 +1917,37 @@ Our final thread of pure research focuses on developing powerful
 The projects in this thread
  will follow an
 artifact-driven~\cite{ref:wobbrock2016research} HCI research methodology.
-In this style of research, contributions come in several forms: insights into task
+In this style of research, advances come in several forms: insights into task
 structure arising from close observational interviews, creation of novel
 interaction primitives that map closely to these tasks, refinement of
 technical methods (like those from \sectionref{sec:gen} and
 \sectionref{sec:spec}) to support proof-of-concept implementations,
-and distilling
+and distilled
 lessons for interaction and algorithm design by evaluating these
 implementations
 with human users. Success will be measured by
 reduction in
-testing and debugging time and increased effectiveness.
+testing and debugging time and increased effectiveness\bcp{quantified
+  or probed how?}.
 PI Head has extensive experience with this style of work~\cite{ref:head2015tutorons,ref:suzuki2017tracediff,ref:head2017writing,ref:head2018when,ref:head2018interactive,ref:head2019managing,ref:head2020composing}.
 
 \SUBSECTION{Tyche: An IDE for PBT}{sec:evaluating_distributions}{2}{3}{HCI
   Practice}{PhD 1}{REPL 8}{Head}
 %
-Our primary aim in this thread is the development of an integrated interactive toolkit to expedite the creation of good property-based tests. We focus our efforts on a particular aspect in PBT where interaction is the only way to improve current process: understanding and shaping input data distributions.
+Our primary aim in this thread is to develop an integrated interactive
+toolkit to expedite the creation of good property-based tests. We will
+focus our efforts on a particular aspect in PBT where interaction
+seems particularly suited to improving current processes: understanding and
+shaping input data distributions.
 
-The effectiveness of PBT depends on the quality of input distributions, i.e., whether generated test cases are sufficiently ``interesting'' and sufficiently diverse.
+The effectiveness of PBT depends on the quality of input
+distributions, i.e., whether generated test cases are both sufficiently ``interesting'' and sufficiently diverse.
 % \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
-It is by no means easy for a developer to assess the quality of
-an input distribution. A first challenge is simply understanding the shape of the distribution in the first place. Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
+But it is by no means easy for a developer to assess the quality of
+an input distribution. A first challenge is simply understanding the
+shape of the distribution.\bcp{I'm not sure if readers will understand
+what we mean by ``shape of a distribution.''  (I'm not even certain I
+do!)}  Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
 A common strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
 While HCI research has seen a renaissance of research in methods for
