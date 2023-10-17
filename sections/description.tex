@@ -1104,7 +1104,8 @@ syntactically constrained in a way that isolates the probabilistic code and
 prevents usage errors (like passing the wrong random seed around).
 
 We can further improve monadic generators by re-framing them as {\em
-  parsers of random choices}. The usual intuition is that a generator
+  parsers of random choices}. \amh{What is the degree of potential improvement?
+  Is this small potatoes or big potatoes?} The usual intuition is that a generator
 operates by making a series of random choices, but we can think of
 it as being {\em given} a random sequence of choices and following
 those choices to produce a value. This shift of perspective has been
@@ -1120,9 +1121,9 @@ idea of free generators, we are now exploring a powerful
 generalization called {\em reflective
   generators}.  The basic concept came out of a
 past NSF project (see \sectionref{sec:prior}). Our first paper on
-reflective generators won a distinguished paper award at ICFP 2023.
+reflective generators won a distinguished paper award at ICFP 2023. \amh{Ref?}
 
-The special thing about reflective generators is that they can be run
+The definint attribute of\amh{I rewrote the last phrase, check} reflective generators is that they can be run
 {\em backward}.
 If running a generator in the usual way can be seen as parsing a
 sequence of choices into a
@@ -1140,10 +1141,10 @@ complexity of bidirectional program composition in the bind operation of the
 monad, allowing both directions of
 the computation can be written at once, in a type-safe way.}
 but, as with free generators, the syntax that users see remains close to
-that of normal monadic generators.
+that of normal monadic generators\amh{which is good, usable syntax?}.
 
 Running a reflective generator backward is not simply a matter of remembering
-the choices it made going forwards (as some PBT frameworks already
+the choices it made going forward (as some PBT frameworks already
 do~\cite{maciver2019hypothesis, hatfield-dodds_hypofuzz_nodate}). For one thing,
 a reflective
 generator can reflect on inputs it did not actually
@@ -1152,7 +1153,8 @@ them.  For another, the choices can be structured in whatever way is needed
 when implementing an analysis algorithm---as bit
 strings, sequences of labels, trees of choices, etc.
 
-Reflective generators have myriad uses. First,
+Reflective generators have myriad uses. \amh{Can we rephrase this to say there
+are reasons to think that reflectives would be \emph{useful} in PBT?} First,
 %
 it is often helpful to start by testing with
 ``realistic'' inputs that trigger common-case behaviors in the program;
@@ -1164,14 +1166,16 @@ powerful as monadic generators. We have implemented a
 similar algorithm using
 reflective generators; with it, we can (1) reflect on realistic values to
 obtain sets of choices, and (2) run the generator with {\em new choice weights}
-informed by the choices that we saw. Our evaluation shows that reflective
+informed by the choices that we saw. Our evaluation\amh{what evaluation? Maybe
+needs ref.} shows that reflective
 generators approximate the performance of the algorithm
-from~\cite{soremekun2020inputs} but work with a larger class of generators.
+from~\cite{soremekun2020inputs}\amh{not clear why this is important} but work with a larger class of generators.
 %
 Second,
 reflective generators can also be used as a tool for analyzing and
 manipulating the structure of generated inputs. Inspired by the test-case
-reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we implemented
+reduction algorithms in Hypothesis~\cite{maciver_test-case_2020}, we
+implemented\amh{in the prior work?}
 validity-preserving {\em shrinking} of values to find smaller counterexamples
 and speed up debugging with no additional effort from the user.%
 %
@@ -1198,7 +1202,8 @@ gleaned from bug reports.
 %
 And third, reflective generators can be freely
 ``reinterpreted'': the same code that specifies random choices can
-also be used to {\em enumerate choices} or make {\em dynamically guided choices}.
+also be used to {\em enumerate choices} or make {\em dynamically guided
+choices}.\amh{It's not clear to me why this is important.}
 % \proposecut{As new strategies for guided random generation and
 % enumeration become available, they can be used to improve reflective
 % generators.}
@@ -1206,8 +1211,9 @@ also be used to {\em enumerate choices} or make {\em dynamically guided choices}
 \SUBSECTION{Advancing Reflective Generators}{sec:reflectivefuzzing}{1}{1}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 %
-The response to reflective generators has been encouraging, but
-this paper only scratches the surface when it comes to building and
+The response to reflective generators has been encouraging\amh{whose response?
+why does response matter for indicating promise of the research idea?}, but
+this paper\amh{what paper? the prior paper?} only scratches the surface when it comes to building and
 evaluating potential use-cases.
 
 First, we believe more powerful approaches to example-based tuning are
@@ -1219,12 +1225,17 @@ independent of earlier ones, tracking the weights of individual
 choices independent of the
 context in which those choices are made. If we really want to mimic an existing
 distribution of values, we should take that contextual information into
-account. We propose modelling choices and their contexts via a neural network,
+account. We propose modelling choices and their contexts via a neural
+network\amh{do we have any examples of successfully using neural networks in
+Pierce group projects in the past? If we do, citing them here can make it feel
+like we have a good shot at doing it here.},
 rather than a simple distribution map, compressing the data into a compact
 representation that is easy to query.
 This should make the example-based tuning
 procedure far more accurate, allowing it to much more faithfully replicate
 important features of complex input sets.
+\amh{If we stick with neural networks as our method for modeling, I think we
+should move this idea second (after fuzzers), as it feels less fully developed.}
 
 Beyond example-based tuning, reflective generators are a compelling opportunity
 for integrations with {\em
@@ -1303,8 +1314,11 @@ ask the reflective generator to get the choices that lead to those seeds.
 \SUBSECTION{Reflective Generators for the People}{sec:reflectivepeople}{2}{2}{PBT
   Theory}{PhD 2}{Engineer}{Pierce}
 %
+\amh{This section should state more prominently: we will build reflective
+generators into widely-used PBT frameworks.}
 We would like reflective generators to be incorporated in
-real PBT frameworks.
+real PBT frameworks.\amh{Would be more powerful if we can say that developers
+would benefit from having reflective generators in their PBT frameworks.}
 %
 However, it is unclear
 how reflective generators can be
@@ -1314,29 +1328,34 @@ common user errors, but this checking relies heavily on type-classes that
 quantify over ``higher-kinded types'' (e.g., the monad type class). If
 we hope to implement
 reflective generators in frameworks like Python's Hypothesis library, we need to
-design a programming discipline that makes the process equally safe and
+design a programming discipline that makes the process\amh{what process?} equally safe and
 intuitive. We plan to build on prior work exploring how to implement data structures
 like monads in imperative
 languages~\cite{brachthauser_representing_2021, delaat_pymonad_nodate} to design
 a form for reflective generators that is appropriate in languages like
-Python, Java, and Rust.
+Python, Java, and Rust.\amh{If this prior work seems really strong, we should
+mention this. My gut instinct would be to believe that implementations of monads
+in imperative languages is hacky and reliable and therefore shaky grounds for
+a one-year project that depends on it, but I might be wrong, though maybe
+reviewers would have the same bias.}
 
 Another barrier to adoption is the extra work involved in turning a standard
 generator into a reflective one.
 We will evaluate and redesign the surface syntax of reflective generators with
 the help of real users, in a style informed by prior work in the HCI
 literature~\cite{ref:ko2015practical}.  We will recruit a small group of users, teach
-them to use reflective generators via a short ``README,'' and ask
+them to use reflective generators via a short tutorial, and ask
 them to implement a number of PBT generators inspired by the research
 literature and real-world examples. We will both observe and interview
 the users to identify points of friction and ensure a clear understanding of their
 impressions. With this information in hand, we will identify potential changes
-to the API and test those changes with a new group of users.  The
+to the API\amh{what API? Language?} and test those changes with a new group of users.  The
 ultimate measure of success (again, evaluated through user interviews)
 is whether our language for reflective generators is usable by non-expert PBT
 practitioners.
 
-Beyond these measures, we will also look into more automated approaches to
+Beyond these measures, we will also look into more automated\amh{what does this
+mean?}approaches to
 building reflective generators.
 First, we will adapt existing tools for type-based generator
 automation~\cite{mista2019deriving} to work with reflective generators.
@@ -1381,8 +1400,11 @@ letter of collaboration from Prof.{} Peleg appears in the supplemental documents
 % PBT viable in any situation where properties already exist but preconditions
 % are hard to satisfy.
 
-\publicationtarget{International Conference on Functional Programming (ICFP) and
-User Interface Software and Technology (UIST)}
+\publicationtargets{International Conference on Functional Programming (ICFP) and
+User Interface Software and Technology (UIST) \amh{Can we change to just ICFP?
+There might be a UIST project in the language design, though I'm not sure it is
+emphasized enough here, and I think that would make this project 2 years of work
+instead of 1.}}
 
 \SUBSECTION{Generator Benchmark Suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
@@ -1393,21 +1415,23 @@ User Interface Software and Technology (UIST)}
 %   latency of benchmarks'' by analogy with jane street findings...}%
 %
 
-Most papers in the existing PBT literature use small case studies,
+Most papers\amh{citations may be expected with this phrasing} in the existing PBT literature use small case studies,
 showing that certain bugs in certain systems
 are caught more quickly with their tool than existing ones. For
 theoretically-oriented work, this may be sufficient
-to demonstrate the interest of an idea, but such evaluations
+to demonstrate the interest\amh{promise?} of an idea, but such evaluations
 are hard to interpret from the perspective of a would-be user.
-We can do better, and we plan to when doing the work laid out in the previous
-two subsections.
+We can do better \amh{at what?}, and we plan to when doing the work laid out in the previous
+two subsections.\amh{Kind of weird to have backward reference before we state
+the goal.}
 
 We have built and published the first version of a robust empirical evaluation
 framework for
 test input generation strategies, called Etna, providing infrastructure
 for easily and extensibly running experiments to understand testing
-effectiveness~\cite{shi2023etna}.  By ``easily,'' we mean that we take on the burden of
-collecting data and analyzing the results.  The tool
+effectiveness \amh{for PBT?}~\cite{shi2023etna}.  By ``easily,'' we mean that we take on the burden of
+collecting data and analyzing the results.  The tool\amh{confusing subject when
+``tool'' refers to something else later in the sentence}
 can help users and developers evaluate a given tool based on
 % (1) the
 % degree to which it is able to achieve high code coverage quickly,
@@ -1428,13 +1452,14 @@ tools for measuring and analyzing metrics like line coverage and branch
 coverage, which could serve as additional evidence of an approach's
 completeness. Second, we will extend Etna for evaluating PBT
 tools in Python and OCaml. Bringing Etna to Python will
-allow the developers of Hypothesis, including Zac Hatfield-Dodds, to evaluate their testing tools in a controlled
+allow the developers of Hypothesis, including Zac Hatfield-Dodds \amh{feels like
+random name-drop}, to evaluate their testing tools in a controlled
 environment. Likewise, Stephen Dolan, author and maintainer of
 the Crowbar library in OCaml~\cite{dolan2017testing}, plans to run experiments using Etna once
 we include support for OCaml.
 
 Furthermore, we will codify a substantial library of case-studies and examples as
-{\em benchmarks for PBT}. Similar suites of benchmarks already exist in the
+{\em benchmarks for PBT}\amh{Isn't this what Etna already did?}. Similar suites of benchmarks already exist in the
 fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
 organized around the particular challenges that PBT users face. In particular,
 few of the benchmarks deal with the kinds of complex preconditions that PBT
