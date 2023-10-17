@@ -722,7 +722,7 @@ To provide
 clear usage scenarios, respondents will
 be asked for brief anecdotes elaborating on the
 most challenging or bothersome issues they remember.  Other questions
-will assess how 
+will assess how
 heavily respondents depend on specific features of their PBT tools
 that may be enabled by their
 ambient programming environment and language, e.g., whether the
@@ -743,18 +743,19 @@ conferences---e.g., ``Yow!'', where PI Pierce spoke last
 year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
-A second survey will focus specifically on characterizing barriers to adoption among current
-non-users of PBT. For this survey, we will sample from the
-channels as above (software organizations we have a relationship, social media),
-but more broadly, including developers who do not use PBT as part of their
-practice. We will ask respondents about their current testing practices, in
-order to identify whether they have contexts where they could use PBT but
-currently do not. We will also ask them whether they have tried to use automated
-testing tools in the past, whether they think they would use a tool like
-Hypothesis for their tests, and ask for their opinions about perceived value of
-the tools and barriers. Taken together with this prior survey, these two surveys
-will produce an account of barriers to PBT use among active users, and for those
-who, whether by choice or happenstance, do not currently use them.
+The second survey will focus specifically on characterizing barriers to adoption among current
+{\em non}-users of PBT. For this survey, we will sample both from the
+same channels as above and more broadly, aiming to identify developers
+who know something about PBT but do
+not use it as part of their everyday
+practice. We will ask respondents about their current testing
+practices, to identify whether they encounter situations where they could use
+PBT but
+currently do not. We will also ask them about experiences with automated
+testing tools in the past and whether they think they would use a tool like
+Hypothesis. We hope these two surveys will
+produce a revealing account of barriers to PBT among both active users
+and non-users.
 
 \publicationtarget{International Conference on Software Engineering (ICSE)}
 
@@ -786,47 +787,51 @@ who, whether by choice or happenstance, do not currently use them.
 % here...  If the project only has two students, we may not want to propose
 % {\em too} many studies...}%
 %
-Our surveys will provide a {\em broad} understanding of
-the modern experience of PBT. Complementing these studies, we will conduct
+The surveys described in \sectionref{sec:survey} will provide a {\em broad}
+understanding of
+the modern experience of PBT. Complementing these, we will conduct
 observation studies to develop a \emph{deep} understanding of particular tasks
-in PBT. Observation studies will be conducted when we have a need to
-understand developers' fine-grained problem-solving strategy on a PBT task.
-This includes, in particular, language features that for implementing
-generators (\sectionref{sec:gen}) and interfaces for evaluating and tuning data
-distributions (\sectionref{sec:val}). In these settings it is critical
+related to PBT---e.g.,
+language features for implementing
+generators (\sectionref{sec:gen}) or interfaces for evaluating and tuning data
+distributions (\sectionref{sec:val}). In such settings it is critical
 for us to understand \emph{what developers might try to do} and \emph{what
 programming abstractions they are already familiar with for these tasks}.
 
-For instance, consider what it would take to arrive at a successful design of
-an interface for evaluating input data distributions (as we do in
-\sectionref{sec:val}). To know what good design will look like, we need to know
-answers to several questions: (1) How much time will a developer set aside to
-evaluate the distribution? (2) What types of inputs will be generated? (3) How
-many inputs will developers generate? (4) Do they seem more interested in
-the structure of individual data, or the shape of the
-distribution as a whole? (5) Are developers willing to write any code to
-help visualize their data? Different questions to these answers to lead to
-greatly different designs. An observational study observing PBT users
-inspecting data distributions with a few users can provide a great amount of
-clarity in answering them.
+For instance, consider what it would take to
+design an interface for evaluating distributions of random input data (as we
+do in \sectionref{sec:val}).
+We need to resolve several questions: (1) How much time will a
+developer set aside to evaluate a distribution? (2) What types of
+inputs are they interested in generating? (3) How many inputs will they want to
+look at? (4) Are they more interested in drilling down into the structure of
+individual inputs, or in visualizing the shape of the distribution as
+a whole? (5) Are
+they willing to hand-write any code to help visualize their data, or
+must it be fully automatic?
+Different questions to these answers will to lead to very different
+designs. An observational study of a few PBT users as they inspect data
+distributions can provide a good deal of clarity.
 
-To arrive at designs better suited to real-world PBT, we will conduct
-observational studies. We will recruit participants
+For these
+observational studies, we will recruit participants
 from PBT communities (among our industry collaborators at Jane Street and AWS,
 and at our institution and others) to complete real PBT work with their
-existing tools, focusing specifically on one PBT task (e.g., writing generator
-code, evaluating input data distributions). This process broadly aligns with
+existing tools, focusing specifically on a single PBT-related task
+(e.g., writing a generator, evaluating an input data
+distributions). This process broadly aligns with
 \emph{contextual studies} in HCI~\cite[Chapter
 3]{ref:holtzblatt1997contextual}, wherein researchers develop deep
-knowledge about the context and flow of users' real work to develop well-grounded design
+knowledge about the context and flow of users' real work to inform
+well-grounded design
 ideas.
 
-Each observation study will be relatively small in
-size---designed to answer design questions for just one of the proposed tools,
+Each study will be relatively small---designed to answer
+design questions for just one of the proposed tools,
 involving only a dozen or fewer developers, with a simple qualitative study
-design that requires about a month to complete from inception to data analysis.
-PI Head has considerable experience employing brief yet informative
-observational studies like these as part of the ordinary cadence of
+design that requires about a month from inception to data analysis.
+PI Head has considerable experience employing brief-yet-informative
+studies as part of the ordinary cadence of
 human-centered tooling research
 (see~\cite{ref:fok2023scim,ref:august2022paper,ref:head2021augmenting,ref:head2018interactive}).
 
@@ -898,12 +903,12 @@ human-centered tooling research
 An additional kind of ``observation'' will be conducted for specification tools
 (\sectionref{sec:spec}). We will conduct lightweight content
 analyses~\cite{ref:krippendorff2018content} of existing test suites (to be
-sourced from public GitHub projects and private projects from our industrial
+sourced from public GitHub projects and private projects from industrial
 partners for which we have received clearance) to mine case studies of
 properties that our tools should help developers write better.
 
-\publicationtargets{Findings from these studies will serve as
-  ``formative study'' sections of the technical publications
+\publicationtargets{Findings from these studies will provide material
+  for the ``formative study'' sections of the technical publications
   (described below) that they inform}
 
 % \SUBSECTION{A cognitive theory of PBT}{sec:cogtheory}{2}{3}{HCI
