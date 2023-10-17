@@ -1306,15 +1306,17 @@ quantify over ``higher-kinded types'' (e.g., the {\tt Monad} type class). If
 we hope to implement
 reflective generators in frameworks like Python's Hypothesis library, we need to
 design a programming discipline that makes building them equally safe and
-intuitive. We plan to extend prior work exploring how to implement
-data structures like monads in imperative
-languages~\cite{brachthauser_representing_2021, delaat_pymonad_nodate} to design
+intuitive. We plan to 
+to design
 a form for reflective generators that is appropriate in languages like
-Python, Java, and Rust.\amh{If this prior work seems really strong, we should
+Python, Java, and Rust, potentially informed by prior work on representing
+monadic languages in imperative languages~\cite{brachthauser_representing_2021, delaat_pymonad_nodate}.
+\amh{If this prior work seems really strong, we should
 mention this. My gut instinct would be to believe that implementations of monads
 in imperative languages is hacky and reliable and therefore shaky grounds for
 a one-year project that depends on it, but I might be wrong, though maybe
 reviewers would have the same bias.}\bcp{@Harry, thoughts?}
+\hg{How's this? I just de-emphed the prior work}
 
 Another barrier to adoption is that a modicum of extra work is
 involved in turning a standard
@@ -1381,11 +1383,7 @@ documents.
 % PBT viable in any situation where properties already exist but preconditions
 % are hard to satisfy.
 
-\publicationtargets{International Conference on Functional Programming (ICFP) and
-User Interface Software and Technology (UIST) \amh{Can we change to just ICFP?
-There might be a UIST project in the language design, though I'm not sure it is
-emphasized enough here, and I think that would make this project 2 years of work
-instead of 1.}}
+\publicationtargets{International Conference on Functional Programming (ICFP)}
 
 \SUBSECTION{Generator Benchmark Suite}{sec:benchmarks}{1}{1}{Tech
   Transfer}{REPL}{PhD 1}{Pierce}
