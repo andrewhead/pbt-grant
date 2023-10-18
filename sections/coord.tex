@@ -1,15 +1,16 @@
 \section*{Collaboration Plan \pagebudget{2}}\label{appendix:coord}
 
-\todo{GPG: The length of and degree of detail provided in the Collaboration Plan should be commensurate with the complexity of the proposed project. Where appropriate, the Collaboration Plan might include: 1) the specific roles of the project participants in all organizations involved; 2) information on how the project will be managed across all the investigators, organizations, and/or disciplines; 3) identification of the specific coordination mechanisms that will enable cross-investigator, cross-organization, and/or cross-discipline scientific integration (e.g., yearly conferences, graduate student exchange, project meetings at conferences, videoconferences, software repositories, etc.); and 4) specific references to the budget line items that support collaboration and coordination mechanisms.}
+% \todo{GPG: The length of and degree of detail provided in the Collaboration Plan should be commensurate with the complexity of the proposed project. Where appropriate, the Collaboration Plan might include: 1) the specific roles of the project participants in all organizations involved; 2) information on how the project will be managed across all the investigators, organizations, and/or disciplines; 3) identification of the specific coordination mechanisms that will enable cross-investigator, cross-organization, and/or cross-discipline scientific integration (e.g., yearly conferences, graduate student exchange, project meetings at conferences, videoconferences, software repositories, etc.); and 4) specific references to the budget line items that support collaboration and coordination mechanisms.}
 
-Key personnel for this work will include the two co-PIs, two PhD
-students with varying backgrounds and interests,
+The core personnel for this project include the two co-PIs, two PhD
+students (one in PL, one in HCI),
 and three funded undergraduate interns hosted through the summer REPL
-program (see the BPC supplement). We will include other undergraduate and
-master's students in research for course credit as opportunities
-present.
-Figure~\ref{fig:workplan} sketches our envisaged mapping of tasks onto
-PhD dissertations, with a rough timeline.
+program (see the BPC supplement). As opportunities present, additional
+undergraduate and master's students will be involved in research for
+course credit.
+Figure~\ref{fig:workplan} shows our planned timeline. Tasks are colored
+to highlight sub-programs of work that will constitute the
+dissertations for the PL and HCI PhD students.
 
 Since all team members will have offices in the same building on
 Penn's campus, we do not envisage any significant costs specifically
@@ -17,9 +18,9 @@ associated with management and coordination.
 
 \subsection*{Project Roles}
 
-\paragraph*{Principal Investigators}
+\paragraph*{Principal Investigators.}
 %
-The PIs are well positioned to co-lead an effort whose success
+The PIs are well-positioned to co-lead an effort whose success
 requires deep contributions from both PL and HCI.  Andrew Head
 recently co-founded a new HCI group at the University of Pennsylvania
 and specializes in interactive programming environments, while
@@ -34,7 +35,8 @@ PhD students.
 The proposed project will be a main focus for both PIs during the
 whole three years.  Two summer months are allocated to each PI for this
 reason. Formally, PI Head will supervise the HCI-focused PhD
-student, while PI Pierce will supervise the PL-related PhD students.
+student, while PI Pierce will supervise the PL-related PhD students. Informally,
+both PhD students will receive frequent and significant mentorship from both co-PIs.
 The PIs will jointly lead educational efforts at
 the undergraduate and master's levels.
 
@@ -49,13 +51,18 @@ the undergraduate and master's levels.
   #4}
 
 % Was: Foundations + Interaction
-\ROLE{PhD 1}{Advisor  Head}{HCI (Foundations + Interaction)}{%
-The first PhD student will develop foundational knowledge about the practice of PBT and incorporate it into the development of novel interactive systems for PBT. The work will begin with surveys expanding and generalizing our understanding of barriers. Then, it will proceed through the iterative design of new interfaces that provide programmers with powerful views of input distributions and controls for tuning them. These interfaces will draw on powerful theory in reflective generators that have already been developed. The student will also assist in language design efforts undertaken by PhD 2. This student's work will lead to the development of the \tyche{} IDE.
+\ROLE{PhD 1}{advised by PI Head}{HCI (Foundations + Interaction)}{%
+The first PhD student will develop foundational knowledge about the practice of PBT and leverage this knowledge to develop novel interactive systems for PBT. Their work will begin with surveys that develop an exansive set of opportunities for improving PBT. Then, PhD 1 will design novel interactions for evaluating and tuning input distributions. These interfaces will build on technology for reflective generators that have been developed by the team broadly. The work of PhD 1 will culminate in the development of the \tyche{} IDE. PhD 1 will also play a supporting role in language design efforts led by PhD 2.
 }{Qualitative HCI + HCI Systems}
 
-\ROLE{PhD 2}{Advisor  Pierce}{PL (Generation + Specification)}{%
-The second PhD student advance PL technologies for generation and specification. Their initial work will focus on refining benchmark suites and advancing techniques for reflective generation. Then, they will focus on developing more usable abstractions for reflective generators, followed by extending specification languages to support the formulation of properties across module boundaries, and the more efficient specification of model-based properties. \amh{Harry or Benjamin add something about GhostWriter here.} \amh{Update to indicate what the REPL will do. My proposed plan has the PhD student working on the projects that are meatier and likely require a lot of attention to detail.}
+\ROLE{PhD 2}{advised by PI  Pierce}{PL (Generation + Specification)}{%
+The second PhD student will develop novel PL approaches for generation and specification. They will lead three projects: refinement of techniques for reflective generation, the design of language features for reflective generation, and developing a programming assistant for writing specifications. In parallel, PhD 2 will oversee 3 PL-related REPL projects (see below).
 }{PL Theory + PL Language Design}
+
+\vspace{-1em}
+\paragraph*{REPL undergraduate student interns.}
+
+3 undergraduate students will be recruited through the Penn PL REPL program and funded through this project. They will be assigned to projects with clear definition and tighter scopes, and which therefore are likely to afford a productive and rewarding REU experience. One undergraduate student will be recruited each summer. The bulk of their work will be done during the summer, and cleanup and paper submission will take place during the remainder of the following year. Each of these projects will be closely supervised by the PIs and by PhD 2 (who specializes in PL). These projects include the refinement and application of the benchmark suite, development of the \Mica{} system for model-based testing, LTLTL for authoring specifications over temporal log data.
 
 % The first PhD student
 %   will develop foundational knowledge to support the human-centered
@@ -162,24 +169,24 @@ The second PhD student advance PL technologies for generation and specification.
 \subsection*{Timeline}
 
 The work of the project will take place over the course of three years.
-Figure~\ref{fig:workplan} offers best guesses for natural starting and
-completion time for the various project tasks, colored according to
-which PhD student (or, in a few cases, the engineer or faculty) should
+Figure~\ref{fig:workplan} shows our anticipated cadence for starting and
+completing the project tasks, colored according to
+which PhD student (or, in a few cases, to-be-determined undergraduate
+interns and PIs) will
 lead each task.
 %
-Two PhD students will be recruited during the first
-year.  Work at the beginning
+Two PhD students will be recruited prior to the first year of the project.  Work at the beginning
 of the project will focus on understanding
-opportunities and challenges for PBT through further user studies,
-on extending
-our past research work on generators, and on building and starting to
-disseminate tools based on this work.  In the second year,
-we will spin up efforts in specification tools and user-interface
-experiments and begin constructing the \tyche{} IDE.  The latter years
-of the project will introduce further foundational studies and
-infrastructure-building projects; they will emphasize more and more the
-knowledge- and technology-transfer elements of the project.
+opportunities and challenges for PBT via user research,
+as well as extending our recent work on generator technology
+and benchmark tools.
+In the second year,
+we will launch efforts in specification tools, deep observational
+studies, and the development of novel user interfaces, beginning
+to develop the \tyche{} IDE. The final year
+will complete these threads of work.
 Undergraduate education is a continuous thread.
+Each year will host one undergraduate REPL project.
 
 % \iflater
 % \bcp{Here's some old test, but I think it needs to be
@@ -253,11 +260,11 @@ Undergraduate education is a continuous thread.
   % \explaincolor{Education}{\educationcolor}.
   \explaincolor{PhD 1 (HCI focus)}{\phdonecolor},
   \explaincolor{PhD 2 (PL focus)}{\phdtwocolor},
-  \explaincolor{REPL undergraduate students (supported by PhD 2)}{\replcolor},
+  \explaincolor{REPL undergraduate students}{\replcolor},
   % \explaincolor{PhD 3}{\phdthreecolor},
   % \explaincolor{PhD 4}{\phdfourcolor},
   % \explaincolor{Research Engineer}{\engineercolor},
-  \explaincolor{Faculty}{\facultycolor}.
+  \explaincolor{PIs}{\facultycolor}.
   % \explaincolor{Supervised by Pierce}{\piercecolor},
   % \explaincolor{Supervised by Head}{\headcolor},
   % \explaincolor{Co-supervised}{\bothcolor}.
@@ -284,10 +291,10 @@ Undergraduate education is a continuous thread.
 \subsection*{Coordination Mechanisms}
 
 The main coordination mechanism for the project will be weekly group
-meetings for the entire project team---PIs, PhD students, undergraduates and master's students.
+meetings for the entire project team---PIs, PhD students, undergraduates, and master's students.
 %
 Each PI will also meet weekly with the PhD students working under
-their primary supervision (Figure~\ref{fig:roles}).
+their primary supervision.
 %
 Slack and email will be used for daily team communications.  Git will
 be used for software development and writing.
@@ -307,8 +314,8 @@ found in the Supplemental Documents.
 
 One measure of success in team coordination will be co-ownership of
 project tasks and co-authorship on publications---concretely, the
-majority of papers should include a ``PL author'' and
-an ``HCI author.''
+majority of papers should include both a ``PL author'' and
+``HCI author.''
 
 \subsection*{Success Metrics}
 
