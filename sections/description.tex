@@ -310,8 +310,7 @@ prop_insert_correct (x:int) (t:tree)  =
 That is, if the tree passed to this function
 is a BST, then it should remain
 one after the insertion of \texttt{x} (where
-\lstinline{is_bst} checks that its argument is a BST---i.e., whether it
-is arranged so that each node's label is greater
+\lstinline{is_bst} checks that its argument is a BST---i.e., whether each node's label is greater
 than any label in its left subtree and less than any in its right
 subtree).
 %
@@ -335,8 +334,7 @@ that causes the property to fail is reported to the user as a
 % automated testing where the user needs to define what it means for a program to
 % be correct.}
 
-The dominant approach to generating inputs and the one we take in this
-project is {\em random}
+The dominant approach to generating inputs and the one we use is {\em random}
 generation~\cite{hamlet1994random}. In contrast to enumerative
 generation~\cite{DBLP:conf/haskell/RuncimanNL08, leancheck}, which
 systematically
@@ -406,13 +404,13 @@ outside'' by provoking
 crashes. Properties in PBT, on the other hand, can typically be
 checked more quickly (on the order of seconds), they express richer
 constraints than ``does not crash,'' and they can be used
-to test both whole systems and smaller subcomponents.  Both techniques are useful, but
-they are applied in different ways, at different points in the
-development process, to achieve different goals.
+to test both whole systems and smaller subcomponents.  Both are useful, but
+they are applied in different ways, at different points, to achieve
+different goals.
 
 With all the advantages of PBT, one might hope to find it on every
 software developer's toolbelt.  But using PBT effectively
-can be challenging, as we shall see next.
+can be also challenging, as we shall see next.
 
 \SIMPLESECTION{Motivation: A Study of PBT in Practice}{sec:motivation}
 %
@@ -744,8 +742,8 @@ year~\cite{Pierce:Yow22}.
 
 % \TASK{Impact survey}{2}{2}{Who?}
 The second survey will focus specifically on characterizing barriers to adoption among current
-{\em non}-users of PBT. For this survey, we will sample both from the
-same channels as above and more broadly, aiming to identify developers
+{\em non}-users of PBT. For this survey, we will sample more broadly,
+aiming to identify developers
 who know something about PBT but do
 not use it as part of their everyday
 practice. We will ask respondents about their current testing
@@ -789,7 +787,7 @@ and non-users.
 %
 The surveys described in \sectionref{sec:survey} will provide a {\em broad}
 understanding of
-the modern experience of PBT. Complementing these, we will conduct
+the modern experience of PBT. We will also conduct
 observation studies to develop a \emph{deep} understanding of particular tasks
 related to PBT---e.g.,
 language features for implementing
@@ -1026,7 +1024,7 @@ can be wasted generating and discarding precondition-failing inputs.
 % well formed---though perhaps unusual---instances of the sorts of inputs the
 % system is designed to process.)}
 %
-And even generators that are guaranteed to produce valid
+And even generators that produce valid
 inputs can under-perform in other ways---for example, by
 generating many very similar inputs while ignoring large parts of
 the input space.
@@ -1316,7 +1314,7 @@ Another barrier to adoption is that a modicum of extra work is
 involved in turning a standard
 generator into a reflective one.
 We will evaluate and redesign the surface syntax of reflective generators with
-the help of real users, in a style informed the HCI
+the help of real users, informed the HCI
 literature~\cite{ref:ko2015practical}.  Concretely, we will recruit a small group of users, teach
 them to use reflective generators via a short tutorial, and ask
 them to implement a number of PBT generators inspired by the research
@@ -1352,7 +1350,7 @@ the required annotations for realistic generators.
 
 We plan to collaborate in this effort with professor Hila Peleg at the
 Technion, who has experience with both PBT and program synthesis. A
-letter of collaboration from Prof.{} Peleg appears in the supplemental
+letter of collaboration appears in the supplemental
 documents.
 
 % Going one step further, we will explore techniques that can synthesize an
@@ -1440,7 +1438,7 @@ Furthermore, we will codify a substantial library of case-studies and examples a
 % \amh{Isn't this what Etna already did?}
 % Depends what you mean by "substantial" :-)
 Similar suites of benchmarks already exist in the
-fuzzing literature~\cite{hazimeh_magma_2021}, but those benchmarks are not
+fuzzing literature~\cite{hazimeh_magma_2021}, but these are not
 organized around the particular challenges faced by PBT users. In particular,
 few deal with the kinds of complex preconditions that PBT
 tools are built to handle. We will establish a set of challenging tasks that
@@ -1600,9 +1598,9 @@ msg.len < 100 ==> @never@ (overflow = true)  (* 2. Can handle 100 bytes    *)
 @eventually@ (processed = msg.length)        (* 3. Whole message processed *)
 \end{lstlisting}
 These properties use {\em temporal operators} like \lstinline|@next@|,
-\lstinline|@never@|, and \lstinline|@eventually@| to express
-statements about the way the internal state should evolve over
-time, but these operators are not available in conventional PBT
+\lstinline|@never@|, and \lstinline|@eventually@| to describe
+how the internal state should evolve over
+time; these are not available in conventional PBT
 frameworks.
 
 One might hope to simply check properties like this with inline
@@ -1705,9 +1703,9 @@ in {\em helping} developers build effective tests---assisting with
 property ideation while still ultimately relying on trusted
 property generation patterns.
 
-Our envisioned programmer's assistant, dubbed {\em \GhostChat}, will
-wrap existing property generation techniques---including ``classic
-GhostWriter''~\cite{ref:ghostwriter} from the Hypothesis project,
+Our envisioned assistant, dubbed {\em \GhostChat}, will
+wrap existing property synthesis techniques---including Hypothesis's ``classic
+GhostWriter''~\cite{ref:ghostwriter},
 QuickSpec~\cite{ref:claessen2010quickspec}, and \Mica{} and LTLTL
 (proposed in the prior two sections)---under APIs that allow them to
 be invoked by an LLM programming assistant AI, similarly to other
@@ -1752,11 +1750,11 @@ exists, allow the programmer to run the corresponding tool automatically.
 % provide with suitable prompting) with the visible messaging conveying the
 % possibility of mistakes in the code or misinterpretations of user intent.
 
-Under the hood, these suggestions will be generated by a large language model
+Under the hood, suggestions will be generated by a large language model
 such as GPT-4, trained via few-shot prompting. The prompts provided to the model
 will encode example properties as well as example use-cases for the various
 automation tools that are available for the programmer to run. If new automation
-tools are added, use-case examples can either be added manually or scraped from
+tools are added, use cases can either be added manually or scraped from
 documentation~\cite{zhu2023kani}.
 
 % In this project, our work would be to prototype such programming assistant
@@ -1951,6 +1949,19 @@ While HCI research has seen a renaissance of research in methods for
 visualizing input data distributions across many different domains (e.g.,
 ~\cite{ref:hohman2019gamut,ref:hohman2020understanding,ref:kang2017omnicode}), new solutions are needed for PBT.
 
+%
+\begin{wrapfigure}{r}{0.58\textwidth}
+  \centering
+  \vspace*{-1ex}
+  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
+  \caption{A tool for evaluating data distributions, showing
+  generator source code (1), summary statistics (2),
+  aggregate visualizations (3), and views of input instances
+  (4). Iteration is supported with live adjustment of
+  generator code and refinement of filters used in the
+  visualizations.}\label{fig:gen-vis} \vspace*{-1ex}
+\end{wrapfigure}
+%
 In PBT, test inputs are
 programmatically generated and
 can be of unbounded structural
@@ -1975,8 +1986,8 @@ chance. Below, we describe the major affordances we envision
 for \tyche{}.
 
 We will develop \tyche{}
-as an extension to Visual Studio Code, a modern editor that is widely
-adopted~\cite{noauthor_stack_nodate} and supports every language
+as an extension to Visual Studio Code, a modern editor, widely
+adopted~\cite{noauthor_stack_nodate}, that supports every language
 with mature PBT tooling. We plan for \tyche{} to serve as a platform
 for developing not just the interactive features described here, but
 also contributions
@@ -1985,19 +1996,6 @@ accepted for the UIST demo session~\cite{ref:goldstein2023tyche}; a
 mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
 will develop in the proposed project are described below.
 
-%
-\begin{wrapfigure}{r}{0.58\textwidth}
-  \centering
-  % \vspace*{-2ex}
-  \includegraphics[width=0.58\textwidth]{assets/gen-vis.pdf}
-  \caption{A tool for evaluating data distributions, showing
-  generator source code (1), summary statistics (2),
-  aggregate visualizations (3), and views of input instances
-  (4). Iteration is supported with live adjustment of
-  generator code and refinement of filters used in the
-  visualizations.}\label{fig:gen-vis}
-\end{wrapfigure}
-%
 \subsectionstar{Understanding Input Distributions}{}{}
 The first innovation will be the design of live displays of generated
 values. These displays
@@ -2058,8 +2056,8 @@ pattern whereby a tool shows which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
   ref:oney2009firecrystal, ref:burg2013record}, our tools will
 colorize code to show
-how {\em frequently} each line is executed while running tests, both in aggregate and
-for individual tests. Altogether, the above activities will be a set of
+how {\em frequently} each line is executed while running tests\proposecut{, both in aggregate and
+for individual tests}. Altogether, the above activities will be a set of
 interrelated interaction primitives that serve as building blocks for
 understanding distributions of complex input data. \proposecut{Success of this (and the
 next) project will be determined by the novel interactions' ability to reduce
@@ -2523,10 +2521,10 @@ This project also presents excellent opportunities for strengthening
 collaborations between university researchers and industrial advocates
 of PBT.  Our preliminary industry study was carried out with the
 enthusiastic support of Jane Street's developers and management, and we plan
-to use Jane Street as a testbed for prototypes of our
-tools.  We are also collaborating with the
-developers of Hypothesis, who are keenly
-interested in the results of this proposal, and we are in early
+to use Jane Street as a testbed for prototypes.  We are also
+collaborating with the
+Hypothesis developers, who are keenly
+interested in our results, and we are in early
 discussions with AWS about potential
 collaboration on Tyche.
 
