@@ -1936,10 +1936,15 @@ The effectiveness of PBT depends on the quality of input
 distributions, i.e., whether generated test cases are both sufficiently ``interesting'' and sufficiently diverse.
 % \todo{Cite the UIST demo -- proof of concept for feedback.  We will do
 But it is by no means easy for a developer to assess the quality of
-an input distribution. A first challenge is simply understanding the
-shape of the distribution.\bcp{I'm not sure if readers will understand
-what we mean by ``shape of a distribution.''  (I'm not even certain I
-do!)}  Today, developers are limited to reasoning about the shapes of distributions on the basis of the description of the generator, or by creating custom visualizations. A second challenge is assessing whether the distribution is ``good''---sufficiently representative of real-world inputs, likely to exercise bug-inducing paths in the software, etc.
+an input distribution. 
+A first challenge is simply understanding the distribution along testing-critical
+axes (e.g., heights of trees, fraction valid, etc.). Today, developers
+are forced to infer the distribution along these axes by
+drawing conclusions from the description of the generator or by creating custom
+visualizations.
+A second challenge is assessing whether the distribution is
+``good''---sufficiently representative of real-world inputs, likely to exercise
+bug-inducing paths in the software, etc.
 A common strategy for developers is to assess input distributions by inspecting a
 small number of inputs. This process is slow, and necessarily leads to an incomplete picture of the distribution.
 While HCI research has seen a renaissance of research in methods for
