@@ -510,6 +510,25 @@ simpler (and hence easier-to-understand) inputs that trigger the same bug.
 But shrinkers need to be customized to particular kinds of data to be
 most effective, and they can be time-consuming to build.
 
+\amh{How is this rewrite?}
+A second opportunity is to help developers to define properties, or
+\emph{specifications}, describing intended program behavior. In another
+preliminary interview study we conducted~\cite{goldstein_problems_2022},
+some developers reported difficulty \emph{imagining
+properites} to test. Tools for PBT could alleviate this challenge by
+helping developers ideate properties. Beyond this, tools could help developers
+implement those properties. Developers at Jane Street told us about
+myriad \emph{high-leverage scenarios} in which they regularly turned to PBT---such
+as testing round-tripping behavior, differential testing, mathematical
+properties, and data structure invariants. In some of these scenarios (e.g.,
+round-tripping, data structure invariants), properties can be written concisely and naturally with
+existing tooling. Others (e.g., differential testing) required
+substantial amounts of boilerplate. PBT tools should allow developers
+to define all of these kinds of properties quickly and crisply.
+Furthermore, developers who are beginners to PBT should be
+made aware of these high-leverage scenarios in which they should use PBT.
+
+\if 0
 \bcp{The first and fourth sentences here seem contradictory.  Maybe
   the whole paragraph needs a rethink.}%
 A second opportunity is to equip developers
@@ -533,6 +552,7 @@ specifications, where PBT is not easy {\em yet} but could be with a
 bit more research effort.  In particular, better automation and
 tooling around {\em model-based testing} appears to be an excellent
 way to improve PBT usability.
+\fi
 
 A third opportunity is to give developers more powerful
 \thread{interaction} mechanisms to visualize their tests'
