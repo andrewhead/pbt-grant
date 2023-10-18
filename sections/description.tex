@@ -1952,13 +1952,13 @@ can be of unbounded structural
 complexity (e.g., lists, trees, other algebraic data types,
 sequences of API calls).
 For example, a developer might want to generate
-realistic logs of input data, where each log entry includes a timestamp
-and an event type.
+realistic logs of records with timestamps
+and event types.
 %
 Ideally, the developer would be able, by examining the generator's
 distribution, to answer
 questions like: Are the generated log inputs long enough? And are most
-of the event sequences realistic?
+of the log entries realistic?
 Our research will contribute the interaction primitives and
  unifying environments necessary to answer questions like these.
 
@@ -1970,7 +1970,7 @@ Our research will contribute the interaction primitives and
   \caption{A tool for evaluating data distributions, showing
   generator source code (1), summary statistics (2),
   aggregate visualizations (3), and views of input instances
-  (4). Iteration would be supported with live adjustment of
+  (4). Iteration is supported with live adjustment of
   generator code and refinement of filters used in the
   visualizations.}\label{fig:gen-vis}
 \end{wrapfigure}
@@ -1986,15 +1986,15 @@ We will develop \tyche{}
 as an extension to Visual Studio Code, a modern editor that is widely
 adopted~\cite{noauthor_stack_nodate} and supports every language
 with mature PBT tooling. We plan for \tyche{} to serve as a platform
-for developing not just the interactive features describe here, but
+for developing not just the interactive features described here, but
 also contributions
 by other groups. A prototype of \tyche{} has been
 accepted for the UIST demo session~\cite{ref:goldstein2023tyche}; a
 mockup appears in Figure~\ref{fig:gen-vis}. The novel features that we
-will develop in our research follow:
+will develop in the proposed project are described below.
 
 \subsectionstar{Understanding Input Distributions}{}{}
-The first research innovation will be the design of live displays of generated
+The first innovation will be the design of live displays of generated
 values. These displays
 will show aggregate data views, including aggregate
 statistics (Figure~\ref{fig:gen-vis}.2) and visualizations of the distribution
@@ -2003,7 +2003,7 @@ displays will be live~\cite{ref:tanimoto1990viva} and
 real-time. Observing other successful live functional programming
 environments in industry and academia
 (e.g.,~\cite{tool:lighttable,ref:omar2019live}), we anticipate liveness will
-provide visibility and control over the
+provide visibility and control over
 long-running, opaque data generation processes.  Visualizations will be
 generated using recommendation rules as done in related work in exploratory data
 analysis~\cite{ref:lee2021lux,wongsuphasawat_voyager_2016,
@@ -2037,16 +2037,15 @@ individual inputs from aggregate views by selecting marks in visualizations
 (e.g., choosing a bar
 of length ``10'' to preview individual inputs with that length). Prior HCI tools
 (e.g.,~\cite{ref:hohman2019gamut})
-provide this feature generally. What is unique in our domain is to provide
+provide this feature generically. What is unique in our domain is to provide
 suitable representations of complex inputs that
-will be easy to understand. Some general solutions might be to
+will be easy to understand. \proposecut{Some general solutions might be to
 pretty-print inputs, provide interactive object browsers like those available
 in JetBrains~\cite{tool:jetbrains}, to allow a developer to explore an
 object using a built-in REPL, and to produce
 DOT~\cite{ellson_graphviz_2002} representations of common kinds of
 inputs (i.e., lists, trees) for at-a-glance comprehension of
-larger inputs (Figure~\ref{fig:gen-vis}.4). We will try each of these
-approaches and compare their effectiveness in pilot studies.
+larger inputs (Figure~\ref{fig:gen-vis}.4).}
 
 A fourth innovation is the synchronization of above views with
 live feedback on what code is exercised by the tests. Building on the design
@@ -2054,19 +2053,19 @@ pattern whereby a tool shows which lines of code are currently
 executing~\cite{ref:brandt2010rehearse,
   ref:oney2009firecrystal, ref:burg2013record}, our tools will
 colorize code to show
-how frequently each line is executed while running tests, both in aggregate and
+how {\em frequently} each line is executed while running tests, both in aggregate and
 for individual tests. Altogether, the above activities will be a set of
 interrelated interaction primitives that serve as building blocks for
-understanding distributions of complex input data. Success of this (and the
+understanding distributions of complex input data. \proposecut{Success of this (and the
 next) project will be determined by the novel interactions' ability to reduce
-testing time and achieve desirable input distributions.
+testing time and achieve desirable input distributions.}
 
 \subsectionstar{Interactive Tuning of Input Distributions}{}{}
 %
 Tuning generators to produce ``interesting''
-values can be challenging, requiring
+values can be challenging\proposecut{, requiring
 significant trial and error with the source code definition of a
-generator\amh{someone check this}.
+generator\amh{someone check this}}.
 % Automated approaches like reflective generators (see \sectionref{sec:generation}) Purely automated approaches
 % such as those involving reflective generators (\sectionref{sec:reflective}) provide part of the
 % solution, as do code coverage-based generation techniques
@@ -2075,7 +2074,7 @@ generator\amh{someone check this}.
 % to produce.
 We will develop new methods for specifying desired distributions
 through interaction---directly manipulating the visualizations
-described in the previous section. The goal is to enable a kind of
+described in the previous section. The goal is to enable the kind of
 bidirectionality for PBT programming that has seen success in other areas of
 programming research (e.g.,~\cite{ref:hempel2019sketch, ref:kery2020mage,
   ref:omar2012active, ref:omar2021filling}).
@@ -2100,7 +2099,7 @@ will be able to manipulate both sides.
 Developers will be able to interact directly with the visualization to
 indicate, for example, that they would like to see more inputs like
 one that has already
-been generated, or that they would like an input similar to a generated input,
+been generated, or that they would like an input similar to a generated input
 but different in a way that they are demonstrating.
 
 % This project and that in
